@@ -15,10 +15,31 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "lint": "eslint src/**/*.js --fix",
+    "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\"",
     "eject": "react-scripts eject"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.+(js|jsx)": [
+      "npm run lint",
+      "npm run format",
+      "git add ."
+    ],
+    "*.+(json|css|md)": [
+      "npm run format",
+      "git add ."
+    ]
+  },
   "eslintConfig": {
-    "extends": "react-app",
+    "extends": [
+      "react-app",
+      "plugin:prettier/recommended"
+    ],
     "plugins": [
       "react-hooks"
     ],
@@ -26,6 +47,14 @@
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn"
     }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": true,
+    "jsxSingleQuote": true,
+    "jsxBracketSameLine": true,
+    "trailingComma": "all",
+    "arrowParens": "always"
   },
   "browserslist": {
     "production": [
@@ -40,6 +69,11 @@
     ]
   },
   "devDependencies": {
-    "eslint-plugin-react-hooks": "^2.2.0"
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react-hooks": "^2.2.0",
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.2",
+    "prettier": "^1.18.2"
   }
 }
