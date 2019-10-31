@@ -1,24 +1,26 @@
-import React from "react";
-import logo from "../assets/logo.svg";
+import React from 'react';
+import ClientsList from './client/ClientsList';
 
+const clients = [
+  {
+    name: 'Ahmed Ali',
+    address: 'address 1',
+  },
+  {
+    name: 'Mohamed Mohsen',
+    address: 'address 2',
+  },
+  {
+    name: 'Ahmed Samir',
+    address: 'address 3',
+  },
+  {
+    name: 'Mesho Essam',
+    address: 'address 4',
+  },
+];
 function App() {
-  return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'>
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <ClientsList clients={clients} />;
 }
 
 export default App;
