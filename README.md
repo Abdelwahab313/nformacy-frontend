@@ -10,6 +10,14 @@ run command
 
 `$ docker run -it -p 80:80 --rm dashboard:prod`
 
+### `Build and run docker image in development mode`
+
+run command
+
+`$docker build -f Dockerfile-dev --tag dashboard:dev .`
+
+`$docker run -v ${PWD}:/app -v /app/node_modules -p 80:3000 --rm dashboard:dev`
+
 ## Available Scripts
 
 In the project directory, you can run:

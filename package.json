@@ -7,7 +7,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "e2e": "cypress run",
-    "lint": "eslint src/**/*.js cypress/integration/examples/*.js --fix",
+    "lint": "eslint . --fix",
     "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\"",
     "eject": "react-scripts eject"
   },
