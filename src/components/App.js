@@ -1,6 +1,25 @@
 import React from 'react';
 import ClientsList from './client/ClientsList';
+import Client from './client/Client';
+import { StylesProvider } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
+import { create } from 'jss';
+import preset from 'jss-preset-default';
+import rtl from 'jss-rtl';
+
+const presets = preset().plugins;
+
+const jss = create({ plugins: [...presets, rtl()] });
+
+const client = {
+  name: 'كشك العروبة',
+  ownerName: 'محمد أحمد السوهاجي',
+  location: { long: '234.234', lat: '1432.234' },
+  image: 'url',
+  phones: ['٠١١١٢٣٨٤٧٤٧٣', '٠٢٢٨٤٨٣٩٢٠'],
+  address: '١٨ شارع النصر, المعادي, القاهرة',
+};
 const clients = [
   {
     name: 'Ahmed Ali',
@@ -19,8 +38,19 @@ const clients = [
     address: 'address 4',
   },
 ];
+
+const theme = createMuiTheme({
+  direction: 'rtl', // Both here and <body dir="rtl">
+});
+
 function App() {
-  return <ClientsList clients={clients} />;
+  return (
+    <ThemeProvider theme={theme}>
+      <StylesProvider jss={jss}>
+        <Client client={client} />
+      </StylesProvider>
+    </ThemeProvider>
+  );
 }
 
 export default App;
