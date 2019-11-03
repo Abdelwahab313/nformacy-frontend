@@ -15,7 +15,7 @@ const jss = create({ plugins: [...presets, rtl()] });
 const client = {
   name: 'كشك العروبة',
   ownerName: 'محمد أحمد السوهاجي',
-  location: { long: '234.234', lat: '1432.234' },
+  location: { lng: 31.2832075, lat: 29.9723999 },
   image: 'url',
   phones: ['٠١١١٢٣٨٤٧٤٧٣', '٠٢٢٨٤٨٣٩٢٠'],
   address: '١٨ شارع النصر, المعادي, القاهرة',
