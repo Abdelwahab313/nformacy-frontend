@@ -14,12 +14,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ClientDetails = (props) => {
+  debugger;
   const classes = useStyles();
   return (
     <Paper className={classes.paper}>
       <p id={"title"}>تفاصيل العميل</p>
       <Table>
-        <TableRow id={"placeName"}>
+        <TableRow id={"clientName"}>
           <TableCell>أسم المكان</TableCell>
           <TableCell>{props.client.name}</TableCell>
         </TableRow>
@@ -43,7 +44,7 @@ const ClientDetails = (props) => {
         <TableRow id={"phones"}>
           <TableCell>التليفون</TableCell>
           <TableCell>
-            {props.client.phones.map((phone, index) => (
+            {props.client.mobile.map((phone, index) => (
               <div key={index}>
                 {phone}
               </div>
