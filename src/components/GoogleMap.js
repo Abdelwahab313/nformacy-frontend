@@ -4,10 +4,10 @@ import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
-  Marker,
+  Marker
 } from "react-google-maps";
 
-const GoogleMapComp = withScriptjs(
+const GoogleMapComponent = withScriptjs(
   withGoogleMap((props) => (
     <GoogleMap
       defaultZoom={15}
@@ -18,9 +18,9 @@ const GoogleMapComp = withScriptjs(
         />
       )}
     </GoogleMap>
-  )),
+  ))
 );
-export default GoogleMapComp;
+export default GoogleMapComponent;
 // <MapWithAMarker
 //   containerElement={<div style={{ height: `400px` }} />}
 //   mapElement={<div style={{ height: `100%` }} />}

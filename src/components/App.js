@@ -7,13 +7,11 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { create } from "jss";
 import preset from "jss-preset-default";
 import rtl from "jss-rtl";
-import {client, visits, clients} from "../data";
-
+import { client, visits } from "../data";
 
 const presets = preset().plugins;
 
 const jss = create({ plugins: [...presets, rtl()] });
-
 
 const theme = createMuiTheme({
   direction: "rtl" // Both here and <body dir="rtl">

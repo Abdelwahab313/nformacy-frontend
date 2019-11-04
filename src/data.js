@@ -17,15 +17,6 @@ const images = [
       "https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60"
   }
 ];
-export const client = {
-  name: "كشك العروبة",
-  ownerName: "محمد أحمد السوهاجي",
-  location: { lng: 31.2832075, lat: 29.9723999 },
-  image: "url",
-  phones: ["٠١١١٢٣٨٤٧٤٧٣", "٠٢٢٨٤٨٣٩٢٠"],
-  images: images,
-  address: "١٨ شارع النصر, المعادي, القاهرة"
-};
 export const visits = [
   {
     salesName: "أحمد محمد",
@@ -41,12 +32,24 @@ export const visits = [
     salesName: "محمود علي محمد",
     date: "10.10.2018",
     target: "أضافة مكان جديد"
-  }, {
+  },
+  {
     salesName: "أحمد علي عبدالسلام",
     date: "10.10.2018",
     target: "أشراف"
   }
 ];
+export const client = {
+  name: "كشك العروبة",
+  ownerName: "محمد أحمد السوهاجي",
+  location: { lng: 31.2832075, lat: 29.9723999 },
+  image: "url",
+  phones: ["٠١١١٢٣٨٤٧٤٧٣", "٠٢٢٨٤٨٣٩٢٠"],
+  images: images,
+  address: "١٨ شارع النصر, المعادي, القاهرة",
+  visits: visits
+};
+
 export const clients = [
   {
     name: "Ahmed Ali",
@@ -65,5 +68,3 @@ export const clients = [
     address: "address 4"
   }
 ];
-
-

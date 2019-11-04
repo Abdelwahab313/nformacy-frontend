@@ -1,11 +1,23 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import Client from "../../../components/client/Client";
-import {client} from "../../../data";
+import { client } from "../../../data";
 
-describe("show all clients", () => {
-  it("make sure clients table exist", () => {
-    const wrapper = shallow(<Client client={client} />);
-    expect(wrapper.find("div").length).toEqual(2);
+describe("Client", () => {
+  it("should show client details", () => {
+    const wrapper = mount(<Client client={client}/>);
+    expect(wrapper.find("#clientDetails").length).toEqual(1);
+  });
+  it("should show clients images", () => {
+    const wrapper = mount(<Client client={client}/>);
+    expect(wrapper.find("#clientImages").length).toEqual(1);
+  });
+  it("should show client visits", () => {
+    const wrapper = mount(<Client client={client}/>);
+    expect(wrapper.find("#clientVisits").length).toEqual(1);
+  });
+  it("should show client map", () => {
+    const wrapper = mount(<Client client={client}/>);
+    expect(wrapper.find("#clientMap").length).toEqual(1);
   });
 });

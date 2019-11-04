@@ -9,7 +9,6 @@ import { autoPlay } from "react-swipeable-views-utils";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "100%",
@@ -24,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ImagesSlider = props => {
+const ImagesSlider = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -50,7 +49,7 @@ const ImagesSlider = props => {
         onChangeIndex={handleStepChange}
         enableMouseEvents>
         {props.images.map((step, index) => (
-          <div key={step.label}>
+          <div key={index}>
             {Math.abs(activeStep - index) <= 2 ? (
               <img className={classes.img} src={step.imgPath}/>
             ) : null}
