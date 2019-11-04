@@ -1,18 +1,11 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import Client from '../../../components/client/Client';
+import React from "react";
+import { shallow } from "enzyme";
+import Client from "../../../components/client/Client";
+import {client} from "../../../data";
 
-const client = {
-  name: 'كشك العروبة',
-  ownerName: 'محمد أحمد السوهاجي',
-  location: { long: '234.234', lat: '1432.234' },
-  image: 'url',
-  phones: ['٠١١١٢٣٨٤٧٤٧٣', '٠٢٢٨٤٨٣٩٢٠'],
-  address: '١٨ شارع النصر, المعادي, القاهرة',
-};
-describe('show all clients', () => {
-  it('make sure clients table exist', () => {
+describe("show all clients", () => {
+  it("make sure clients table exist", () => {
     const wrapper = shallow(<Client client={client} />);
-    expect(wrapper.find('div').length).toEqual(1);
+    expect(wrapper.find("div").length).toEqual(2);
   });
 });

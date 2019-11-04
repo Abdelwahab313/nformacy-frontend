@@ -1,5 +1,5 @@
-import React from 'react';
-import { Table } from 'react-bootstrap';
+import React from "react";
+import { Table } from "react-bootstrap";
 
 const ClientsList = (props) => (
   <Table responsive>
@@ -12,7 +12,7 @@ const ClientsList = (props) => (
     </thead>
     <tbody>
       {props.clients.map((client, index) => (
-        <tr id={'row-' + index}>
+        <tr id={"row-" + index}>
           <td>{index + 1}</td>
           <td>{client.name}</td>
           <td>{client.address}</td>

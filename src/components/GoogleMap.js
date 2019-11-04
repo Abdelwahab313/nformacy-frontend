@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
 import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
   Marker,
-} from 'react-google-maps';
+} from "react-google-maps";
 
 const GoogleMapComp = withScriptjs(
   withGoogleMap((props) => (
