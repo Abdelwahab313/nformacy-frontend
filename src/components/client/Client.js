@@ -1,15 +1,15 @@
-import React from "react";
-import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
-import Grid from "@material-ui/core/Grid";
+import React from 'react';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import Grid from '@material-ui/core/Grid';
 
-import { makeStyles } from "@material-ui/core/styles";
-import MapWithAMarker from "../GoogleMap";
-import ImagesSlides from "../ImagesSlides";
-import { useParams } from "react-router-dom";
-import { clients } from "../../data";
+import { makeStyles } from '@material-ui/core/styles';
+import MapWithAMarker from '../GoogleMap';
+import ImagesSlides from '../ImagesSlides';
+import { useParams } from 'react-router-dom';
+import { clients } from '../../data';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: "center",
+    textAlign: 'center',
     color: theme.palette.text.secondary,
   },
   details: {
@@ -63,7 +63,7 @@ const Client = (props) => {
                 <TableCell>
                   {client.mobile.map((phone) => (
                     <>
-                      {" "}
+                      {' '}
                       {phone} <br />
                     </>
                   ))}
@@ -81,9 +81,9 @@ const Client = (props) => {
           location={client.location}
           isMarkerShown
           googleMapURL='https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places'
-          loadingElement={<div style={{ height: "100%" }} />}
-          containerElement={<div style={{ height: "400px" }} />}
-          mapElement={<div style={{ height: "100%" }} />}
+          loadingElement={<div style={{ height: '100%' }} />}
+          containerElement={<div style={{ height: '400px' }} />}
+          mapElement={<div style={{ height: '100%' }} />}
         />
       </div>
     </div>

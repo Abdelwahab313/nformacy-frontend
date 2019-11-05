@@ -50,7 +50,7 @@ export let clients = [
     images: images,
     address: '١٨ شارع النصر, المعادي, القاهرة',
     visits: visits,
-    verified: 'مفعل',
+    verified: true,
   },
   {
     id: 1,
@@ -62,7 +62,7 @@ export let clients = [
     images: images,
     address: '١٨ شارع النصر, العباسيه, القاهرة',
     visits: visits,
-    verified: ' مفعل',
+    verified: false,
   },
   {
     id: 2,
@@ -74,6 +74,6 @@ export let clients = [
     images: images,
     address: '١٨ شارع البررم, المعادي, القاهرة',
     visits: visits,
-    verified: ' مفعل',
+    verified: true,
   },
 ];

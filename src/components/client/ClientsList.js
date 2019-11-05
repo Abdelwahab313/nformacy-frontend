@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { Link, Route, Switch } from 'react-router-dom';
+import ClientStatus from './clientStatus';
 
 const ClientsList = (props) => {
   const useStyles = makeStyles((theme) => ({
@@ -50,7 +51,12 @@ const ClientsList = (props) => {
                 <TableCell>{client.ownerName}</TableCell>
                 <TableCell>{client.mobile[0]}</TableCell>
                 <TableCell>{client.address}</TableCell>
-                <TableCell>{client.verified}</TableCell>
+                <TableCell>
+                  <ClientStatus
+                    status={client.verified}
+                    clientName={client.clientName}
+                  />
+                </TableCell>
                 <TableCell>
                   <Switch>
                     <Route>
