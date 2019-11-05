@@ -1,18 +1,18 @@
-import React from "react";
-import { Table } from "react-bootstrap";
-import "../../styles/client.css";
-import { makeStyles } from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
-import { Link, Route, BrowserRouter as Router } from "react-router-dom";
+import React from 'react';
+import { Table } from 'react-bootstrap';
+import '../../styles/client.css';
+import { makeStyles } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import { Link, Route, Switch } from 'react-router-dom';
 
 const ClientsList = (props) => {
   const useStyles = makeStyles((theme) => ({
     root: {
-      background: "#b4b4b4",
+      background: '#b4b4b4',
       padding: theme.spacing(3),
     },
     card: {
@@ -22,11 +22,10 @@ const ClientsList = (props) => {
       margin: theme.spacing(1),
     },
     input: {
-      display: "none",
+      display: 'none',
     },
   }));
   const classes = useStyles();
-  debugger;
   return (
     <div dir='rtl' className={classes.root}>
       <Paper className={classes.card} dir='rtl'>
@@ -53,11 +52,11 @@ const ClientsList = (props) => {
                 <TableCell>{client.address}</TableCell>
                 <TableCell>{client.verified}</TableCell>
                 <TableCell>
-                  <Router>
+                  <Switch>
                     <Route>
-                      <Link to='/Clients/1'>التفاصيل</Link>
+                      <Link to={'/clients/' + client.id}>التفاصيل</Link>
                     </Route>
-                  </Router>
+                  </Switch>
                 </TableCell>
               </TableRow>
             ))}
