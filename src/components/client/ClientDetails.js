@@ -9,8 +9,8 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.secondary
-  }
+    color: theme.palette.text.secondary,
+  },
 }));
 
 const ClientDetails = (props) => {
@@ -45,9 +45,7 @@ const ClientDetails = (props) => {
           <TableCell>التليفون</TableCell>
           <TableCell>
             {props.client.mobile.map((phone, index) => (
-              <div key={index}>
-                {phone}
-              </div>
+              <div key={index}>{phone}</div>
             ))}
           </TableCell>
         </TableRow>

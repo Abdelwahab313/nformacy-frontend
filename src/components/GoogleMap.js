@@ -4,7 +4,7 @@ import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
-  Marker
+  Marker,
 } from "react-google-maps";
 
 const GoogleMapComponent = withScriptjs(
@@ -18,7 +18,7 @@ const GoogleMapComponent = withScriptjs(
         />
       )}
     </GoogleMap>
-  ))
+  )),
 );
 export default GoogleMapComponent;
 // <MapWithAMarker

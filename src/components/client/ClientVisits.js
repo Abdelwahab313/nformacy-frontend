@@ -10,8 +10,8 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.secondary
-  }
+    color: theme.palette.text.secondary,
+  },
 }));
 
 const ClientVisits = (props) => {
@@ -29,7 +29,7 @@ const ClientVisits = (props) => {
         </TableHead>
         <TableBody>
           {props.visits.map((visit, index) => (
-            <TableRow key={index} id={"visitsDetails-"+ index}>
+            <TableRow key={index} id={"visitsDetails-" + index}>
               <TableCell>{visit.salesName}</TableCell>
               <TableCell>{visit.date}</TableCell>
               <TableCell>{visit.target}</TableCell>

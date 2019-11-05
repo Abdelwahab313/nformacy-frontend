@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import MapWithAMarker from "../GoogleMap";
 import ImagesSlides from "../ImagesSlides";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { clients } from "../../data";
 
 const useStyles = makeStyles((theme) => ({
@@ -86,7 +86,8 @@ const Client = (props) => {
           mapElement={<div style={{ height: "100%" }} />}
         />
       </div>
-    </div>);
+    </div>
+  );
 };
 
 export default Client;

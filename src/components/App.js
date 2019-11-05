@@ -22,13 +22,12 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <StylesProvider jss={jss}>
-    <Switch>
-      <Route exact path="/">
-        <ClientsList clients={clients}/>
-      </Route>
-      <Route path="/clients/:id" children={<Client />} />
-    </Switch>
-
+        <Switch>
+          <Route exact path='/'>
+            <ClientsList clients={clients} />
+          </Route>
+          <Route path='/clients/:id' children={<Client />} />
+        </Switch>
       </StylesProvider>
     </ThemeProvider>
   );

@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
-import { Link, Route,Router } from "react-router-dom";
+import { Link, Route, BrowserRouter as Router } from "react-router-dom";
 
 const ClientsList = (props) => {
   const useStyles = makeStyles((theme) => ({
@@ -25,8 +25,8 @@ const ClientsList = (props) => {
       display: "none",
     },
   }));
-  debugger;
   const classes = useStyles();
+  debugger;
   return (
     <div dir='rtl' className={classes.root}>
       <Paper className={classes.card} dir='rtl'>
@@ -54,8 +54,10 @@ const ClientsList = (props) => {
                 <TableCell>{client.verified}</TableCell>
                 <TableCell>
                   <Router>
-                  <Route>
-                    <Link to="/clients/1">التفاصيل</Link></Route></Router>
+                    <Route>
+                      <Link to='/Clients/1'>التفاصيل</Link>
+                    </Route>
+                  </Router>
                 </TableCell>
               </TableRow>
             ))}
