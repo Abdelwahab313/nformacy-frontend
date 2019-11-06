@@ -57,7 +57,7 @@ function ClientsList(props) {
               <TableCell> عرض المزيد</TableCell>
             </TableRow>
             {clients.map((client, index) => (
-              <TableRow>
+              <TableRow id={'client-' + (index + 1)}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>{client.name}</TableCell>
                 <TableCell>{client.ownerName}</TableCell>
@@ -70,7 +70,7 @@ function ClientsList(props) {
                     id={client.id}
                   />
                 </TableCell>
-                <TableCell>
+                <TableCell id={'details'}>
                   <Switch>
                     <Route>
                       <Link to={'/clients/' + client.id}>التفاصيل</Link>

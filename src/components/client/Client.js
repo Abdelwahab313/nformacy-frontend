@@ -73,10 +73,14 @@ function Client(props) {
           <ClientDetails client={client} />
         </Grid>
         <Grid item lg={4} md={4} xs={12}>
-          <img className={classes.img} src={client.image_link} />
+          <img
+            className={classes.img}
+            src={client.image_link}
+            id={'client-image'}
+          />
         </Grid>
       </Grid>
-      <div className={classes.root}>
+      <div className={classes.root} id={'client-location'}>
         <MapWithAMarker
           location={clientLocation}
           isMarkerShown

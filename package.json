@@ -36,6 +36,7 @@
     "react-test-renderer": "^16.11.0"
   },
   "devDependencies": {
+    "cypress": "^3.6.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "eslint-config-prettier": "^6.5.0",
@@ -49,7 +50,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && CI=true npm run test"
+      "pre-commit": "lint-staged && CI=true npm run test &&npm run e2e"
     }
   },
   "lint-staged": {

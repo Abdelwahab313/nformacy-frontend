@@ -18,7 +18,7 @@ const ClientDetails = (props) => {
   return (
     <Paper className={classes.paper}>
       <p id={'title'}>تفاصيل العميل</p>
-      <Table>
+      <Table id={'client-info'}>
         <TableRow id={'clientName'}>
           <TableCell>أسم المكان</TableCell>
           <TableCell>{props.client.name}</TableCell>
