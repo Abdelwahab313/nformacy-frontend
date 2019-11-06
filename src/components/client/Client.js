@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 
 import { makeStyles } from '@material-ui/core/styles';
-import MapWithAMarker from '../GoogleMap';
+import { MapWithAMarker } from '../GoogleMap';
 import { useParams } from 'react-router-dom';
 import ClientDetails from './clientDetail';
-import { fetchClient } from './clientsApi';
+import { fetchClient } from '../../apis/clientsApi';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,7 +65,7 @@ function Client(props) {
       extractPhoneNumbers(fetchedClient);
       setClient(fetchedClient);
     });
-  });
+  }, []);
   return (
     <div className={classes.root} dir='rtl'>
       <Grid container spacing={3} className={classes.details}>
@@ -84,7 +84,7 @@ function Client(props) {
         <MapWithAMarker
           location={clientLocation}
           isMarkerShown
-          googleMapURL='https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places'
+          googleMapURL='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAkTN0O0xKX8L9-NHvR7YSNungyim6nkgk'
           loadingElement={<div style={{ height: '100%' }} />}
           containerElement={<div style={{ height: '400px' }} />}
           mapElement={<div style={{ height: '100%' }} />}
