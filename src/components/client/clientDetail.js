@@ -29,23 +29,19 @@ const ClientDetails = (props) => {
         </TableRow>
         <TableRow id={'address'}>
           <TableCell>العنوان</TableCell>
-          <TableRow>
-            <TableCell>الموقع</TableCell>
-            <TableCell>
-              {props.client.location.lat}, {props.client.location.lng}
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>العنوان</TableCell>
-            <TableCell>{props.client.address}</TableCell>
-          </TableRow>
+          <TableCell>{props.client.address}</TableCell>
         </TableRow>
         <TableRow id={'phones'}>
           <TableCell>التليفون</TableCell>
           <TableCell>
-            {props.client.mobile.map((phone, index) => (
-              <div key={index}>{phone}</div>
-            ))}
+            {props.client.contacts
+              ? props.client.contacts.map((phone) => (
+                  <>
+                    {' '}
+                    {phone} <br />
+                  </>
+                ))
+              : ''}
           </TableCell>
         </TableRow>
       </Table>

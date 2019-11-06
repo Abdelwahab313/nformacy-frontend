@@ -3,7 +3,6 @@ import React from 'react';
 import VerifyClient from './verifyClient';
 
 const UnVerifiedClient = (props) => {
-  debugger;
   const useStyles = makeStyles(() => ({
     unVerifiedContainer: {
       color: '#FF0000',
@@ -19,7 +18,7 @@ const UnVerifiedClient = (props) => {
     <p className={classes.unVerifiedContainer}>
       غير مُوثق
       <br />
-      <VerifyClient clientName={props.clientName} />
+      <VerifyClient clientName={props.clientName} id={props.id} />
     </p>
   );
 };

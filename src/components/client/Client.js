@@ -1,15 +1,11 @@
-import React from 'react';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
+import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 
 import { makeStyles } from '@material-ui/core/styles';
 import MapWithAMarker from '../GoogleMap';
-import ImagesSlides from '../ImagesSlides';
 import { useParams } from 'react-router-dom';
-import { clients } from '../../data';
+import ClientDetails from './clientDetail';
+import { fetchClient } from './clientsApi';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,61 +20,65 @@ const useStyles = makeStyles((theme) => ({
   details: {
     padding: theme.spacing(2),
   },
+  img: {
+    height: 255,
+    maxWidth: 400,
+    overflow: 'hidden',
+    display: 'block',
+    width: '100%',
+  },
 }));
 
-const Client = (props) => {
+function Client(props) {
   let { id } = useParams();
+  const [client, setClient] = useState({});
+  const [clientLocation, setClientLocation] = useState({
+    lat: 322,
+    lng: 133,
+  });
+  const [clientPhoneNumbers, setPhoneNumbers] = useState([]);
   const classes = useStyles();
-  const client = clients[parseInt(id)];
+
+  const adaptMapsLocation = (lat, long) => {
+    setClientLocation({
+      lat: parseFloat(lat),
+      lng: parseFloat(long),
+    });
+  };
+
+  const extractPhoneNumbers = (fetchedClient) => {
+    const phone_numbers = [];
+    fetchedClient.contacts.forEach((contact) => {
+      phone_numbers.push(contact.phone_number);
+    });
+    setPhoneNumbers(phone_numbers);
+    fetchedClient.contacts = clientPhoneNumbers;
+  };
+
+  useEffect(() => {
+    fetchClient(id).then((res) => {
+      const fetchedClient = res.data;
+      adaptMapsLocation(
+        fetchedClient.location.coordinates[0],
+        fetchedClient.location.coordinates[1],
+      );
+      extractPhoneNumbers(fetchedClient);
+      setClient(fetchedClient);
+    });
+  });
   return (
     <div className={classes.root} dir='rtl'>
       <Grid container spacing={3} className={classes.details}>
         <Grid item lg={8} md={8} xs={12}>
-          <Paper className={classes.paper}>
-            <p>تفاصيل العميل</p>
-            <Table>
-              <TableRow>
-                <TableCell>أسم المكان</TableCell>
-                <TableCell>{client.clientName}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>أسم المدير</TableCell>
-                <TableCell>{client.ownerName}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>العنوان</TableCell>
-                <TableRow>
-                  <TableCell>الموقع</TableCell>
-                  <TableCell>
-                    {client.location.lat}, {client.location.lng}
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>العنوان</TableCell>
-                  <TableCell>{client.address}</TableCell>
-                </TableRow>
-              </TableRow>
-              <TableRow>
-                <TableCell>التليفون</TableCell>
-                <TableCell>
-                  {client.mobile.map((phone) => (
-                    <>
-                      {' '}
-                      {phone} <br />
-                    </>
-                  ))}
-                </TableCell>
-              </TableRow>
-            </Table>
-          </Paper>
+          <ClientDetails client={client} />
         </Grid>
         <Grid item lg={4} md={4} xs={12}>
-          <ImagesSlides />
+          <img className={classes.img} src={client.image_link} />
         </Grid>
       </Grid>
       <div className={classes.root}>
         <MapWithAMarker
-          location={client.location}
+          location={clientLocation}
           isMarkerShown
           googleMapURL='https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places'
           loadingElement={<div style={{ height: '100%' }} />}
@@ -88,6 +88,6 @@ const Client = (props) => {
       </div>
     </div>
   );
-};
+}
 
 export default Client;

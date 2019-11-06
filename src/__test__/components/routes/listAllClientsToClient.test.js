@@ -1,9 +1,7 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import ClientsList from '../../../components/client/ClientsList';
-import { BrowserRouter as Router, Route, MemoryRouter } from 'react-router-dom';
-import App from '../../../components/App';
-import Client from '../../../components/client/Client';
+import { mount } from 'enzyme';
+import { MemoryRouter, Route } from 'react-router-dom';
+import Client from '../../../components/client/client';
 
 describe('test app routes', () => {
   it.skip('should redirect to client details page', () => {

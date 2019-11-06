@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { visits } from '../../../data';
-import ClientVisits from '../../../components/client/ClientVisits';
+import ClientVisits from '../../../components/client/clientVisits';
 
 describe('Client Visits', () => {
   it('should show table title', () => {

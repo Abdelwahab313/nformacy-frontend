@@ -1,13 +1,16 @@
 import React from 'react';
-import ClientsList from './client/ClientsList';
-import Client from './client/Client';
-import { StylesProvider } from '@material-ui/core/styles';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import ClientsList from './client/clientsList';
+import Client from './client/client';
+import {
+  createMuiTheme,
+  StylesProvider,
+  ThemeProvider,
+} from '@material-ui/core/styles';
 
 import { create } from 'jss';
 import preset from 'jss-preset-default';
 import rtl from 'jss-rtl';
-import { Switch, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { clients } from '../data';
 
 const presets = preset().plugins;
@@ -19,7 +22,6 @@ const theme = createMuiTheme({
 });
 
 function App() {
-  debugger;
   return (
     <ThemeProvider theme={theme}>
       <StylesProvider jss={jss}>

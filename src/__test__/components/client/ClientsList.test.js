@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import ClientsList from '../../../components/client/ClientsList';
+import { mount, shallow } from 'enzyme';
+import ClientsList from '../../../components/client/clientsList';
 import { clients } from '../../../data';
 
 describe('show all clients', () => {

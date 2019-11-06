@@ -4,11 +4,10 @@ import UnVerifiedClient from './unverifiedClient';
 
 const ClientStatus = (props) => {
   const isVerified = props.status;
-  debugger;
   if (isVerified) {
     return <VerifiedClient />;
   }
-  return <UnVerifiedClient clientName={props.clientName} />;
+  return <UnVerifiedClient clientName={props.clientName} id={props.id} />;
 };
 
 export default ClientStatus;
