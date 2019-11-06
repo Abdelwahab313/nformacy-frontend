@@ -1,6 +1,6 @@
 import React from 'react';
 import ClientsList from './client/clientsList';
-import Client from './client/client';
+import Client from './client/Client';
 import {
   createMuiTheme,
   StylesProvider,

@@ -45,7 +45,7 @@ function ClientsList(props) {
         <Typography variant='h5' component='h3'>
           العملاء
         </Typography>
-        <Table>
+        <Table id={'all-clients'}>
           <TableHead>
             <TableRow>
               <TableCell>رقم العميل</TableCell>
