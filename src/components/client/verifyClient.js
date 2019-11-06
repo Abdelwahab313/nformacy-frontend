@@ -50,7 +50,9 @@ const VerifyClient = (props) => {
           <span className={classes.unVerifiedLink}>{props.clientName}</span>
         </DialogTitle>
         <DialogActions className={classes.dialogAction}>
-          <Button onClick={handleVerification} color='primary'>
+          <Button
+            onClick={handleVerification}
+            style={{ backgroundColor: '#1975D2', color: 'white' }}>
             هل انت متأكد من ثوثيق هـذا العميل
           </Button>
         </DialogActions>

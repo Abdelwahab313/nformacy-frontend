@@ -42,7 +42,7 @@ export const visits = [
 export let clients = [
   {
     id: 0,
-    clientName: 'كشك العروبة',
+    name: 'كشك العروبة',
     ownerName: 'محمد أحمد السوهاجي',
     location: { lng: '31.2832075', lat: '29.9723999' },
     image: 'url',
@@ -54,7 +54,7 @@ export let clients = [
   },
   {
     id: 1,
-    clientName: 'كشك الحمد',
+    name: 'كشك الحمد',
     ownerName: 'احمد محسن',
     location: { long: '234.234', lat: '1432.234' },
     image: 'url',
@@ -66,7 +66,7 @@ export let clients = [
   },
   {
     id: 2,
-    clientName: 'كشك عكها و ربك يفكها',
+    name: 'كشك عكها و ربك يفكها',
     ownerName: 'ابو سمره',
     location: { long: '234.234', lat: '1432.234' },
     image: 'url',

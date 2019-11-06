@@ -12,6 +12,7 @@ import { fetchClients } from '../../apis/clientsApi';
 import ClientStatus from './clientStatus';
 import Grid from '@material-ui/core/Grid';
 import { MapWithMultipleMarkers } from '../GoogleMap';
+import { default_location } from '../../settings';
 
 function ClientsList(props) {
   const [clients, setClients] = useState(props.clients);
@@ -41,6 +42,9 @@ function ClientsList(props) {
           fetchedClients[i].name,
         ),
       );
+    }
+    if (fetchedClients.length === 0) {
+      extractedLocations.push(default_location);
     }
     setLocations(extractedLocations);
   }
@@ -118,7 +122,7 @@ function ClientsList(props) {
             </Table>
           </Paper>
         </Grid>
-        <Grid item lg={5}>
+        <Grid item lg={4}>
           <MapWithMultipleMarkers
             className={classes.map}
             markers={locations}

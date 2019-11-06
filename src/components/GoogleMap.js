@@ -7,6 +7,7 @@ import {
   withGoogleMap,
   withScriptjs,
 } from 'react-google-maps';
+import { default_location } from '../settings';
 
 const defaultMapOptions = {
   styles: mapStyles,
@@ -27,20 +28,32 @@ const MapWithAMarker = withScriptjs(
 );
 
 const MapWithMultipleMarkers = withScriptjs(
-  withGoogleMap((props) => (
-    <GoogleMap
-      defaultZoom={13}
-      defaultCenter={{ lat: props.markers[0].lat, lng: props.markers[0].lng }}
-      defaultOptions={defaultMapOptions}>
-      {props.markers.map((marker) => {
-        return (
-          <Marker
-            position={{ lat: marker.lat, lng: marker.lng }}
-            label={marker.label}
-          />
-        );
-      })}
-    </GoogleMap>
-  )),
+  withGoogleMap(({ markers }) => {
+    if (markers.length > 0) {
+      return (
+        <GoogleMap
+          defaultZoom={13}
+          defaultCenter={{ lat: markers[0].lat, lng: markers[0].lng }}
+          defaultOptions={defaultMapOptions}>
+          {markers.map((marker) => {
+            return (
+              <Marker
+                position={{ lat: marker.lat, lng: marker.lng }}
+                label={marker.label}
+              />
+            );
+          })}
+        </GoogleMap>
+      );
+    } else {
+      return (
+        <GoogleMap
+          defaultZoom={13}
+          defaultCenter={default_location}
+          defaultOptions={defaultMapOptions}
+        />
+      );
+    }
+  }),
 );
 export { MapWithAMarker, MapWithMultipleMarkers };
