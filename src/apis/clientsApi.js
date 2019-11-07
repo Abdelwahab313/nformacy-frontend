@@ -9,4 +9,8 @@ const fetchClients = () => {
   return axios.get(`${API_BASE_URL}/clients/`);
 };
 
-export { fetchClients, fetchClient };
+const verifyClient = (client_id) => {
+  return axios.patch(`${API_BASE_URL}/clients/${client_id}/verify_client`);
+};
+
+export { fetchClients, fetchClient, verifyClient };

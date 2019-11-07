@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { MapWithAMarker } from '../GoogleMap';
+import { MapWithAMarker } from '../../GoogleMap';
 import { useParams } from 'react-router-dom';
-import ClientDetails from './clientDetail';
-import { fetchClient } from '../../apis/clientsApi';
+import ClientDetails from './ClientDetail';
+import { fetchClient } from '../../../apis/clientsApi';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
+import WarningIcon from '@material-ui/icons/Warning';
+import { cloneDeep } from 'lodash';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +31,20 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
     width: '100%',
   },
+  emptyContainer: {
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
+  largeIcon: {
+    width: 40,
+    height: 40,
+    color: 'red',
+  },
+  notFound: {
+    color: 'red',
+  },
 }));
 
 function Client(props) {
@@ -36,7 +54,10 @@ function Client(props) {
     lat: 322,
     lng: 133,
   });
-  const [clientPhoneNumbers, setPhoneNumbers] = useState([]);
+  const [_, setPhoneNumbers] = useState([]);
+  const [clientLoading, setClientLoading] = useState(false);
+  const [clientNotFound, setClientNotFound] = useState(false);
+
   const classes = useStyles();
 
   const adaptMapsLocation = (lat, long) => {
@@ -46,31 +67,65 @@ function Client(props) {
     });
   };
 
+  function handleOnStateChanged() {
+    const tempClientState = cloneDeep(client);
+    tempClientState.verified = true;
+    setClient(tempClientState);
+  }
+
   const extractPhoneNumbers = (fetchedClient) => {
     const phone_numbers = [];
     fetchedClient.contacts.forEach((contact) => {
       phone_numbers.push(contact.phone_number);
     });
     setPhoneNumbers(phone_numbers);
-    fetchedClient.contacts = clientPhoneNumbers;
+    fetchedClient.contacts = phone_numbers;
   };
 
   useEffect(() => {
-    fetchClient(id).then((res) => {
-      const fetchedClient = res.data;
-      adaptMapsLocation(
-        fetchedClient.location.coordinates[0],
-        fetchedClient.location.coordinates[1],
-      );
-      extractPhoneNumbers(fetchedClient);
-      setClient(fetchedClient);
-    });
+    setClientLoading(true);
+    fetchClient(id)
+      .then((res) => {
+        const fetchedClient = res.data;
+        adaptMapsLocation(
+          fetchedClient.location.coordinates[0],
+          fetchedClient.location.coordinates[1],
+        );
+        extractPhoneNumbers(fetchedClient);
+        setClient(fetchedClient);
+      })
+      .catch((reason) => {
+        if (reason.response.status === 404) {
+          setClientNotFound(true);
+        }
+      })
+      .finally(() => {
+        setClientLoading(false);
+      });
   }, []);
+  if (clientLoading) {
+    return (
+      <div className={classes.emptyContainer}>
+        <CircularProgress />
+      </div>
+    );
+  } else if (clientNotFound) {
+    return (
+      <div className={classes.emptyContainer}>
+        <Typography variant='h3' className={classes.notFound} gutterBottom>
+          العميل المطلوب غير موجود <WarningIcon className={classes.largeIcon} />
+        </Typography>
+      </div>
+    );
+  }
   return (
     <div className={classes.root} dir='rtl'>
       <Grid container spacing={3} className={classes.details}>
         <Grid item lg={8} md={8} xs={12}>
-          <ClientDetails client={client} />
+          <ClientDetails
+            passedClient={client}
+            onStateChanged={handleOnStateChanged}
+          />
         </Grid>
         <Grid item lg={4} md={4} xs={12}>
           <img

@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/core';
 import React from 'react';
-import VerifyClient from './verifyClient';
+import VerifyClient from './VerifyClient';
 
-const UnVerifiedClient = (props) => {
+const UnVerifiedClient = ({ clientName, id, onStateChanged }) => {
   const useStyles = makeStyles(() => ({
     unVerifiedContainer: {
       color: '#FF0000',
@@ -15,11 +15,15 @@ const UnVerifiedClient = (props) => {
   }));
   const classes = useStyles();
   return (
-    <p className={classes.unVerifiedContainer}>
+    <div className={classes.unVerifiedContainer}>
       غير مُوثق
       <br />
-      <VerifyClient clientName={props.clientName} id={props.id} />
-    </p>
+      <VerifyClient
+        clientName={clientName}
+        id={id}
+        onStateChanged={onStateChanged}
+      />
+    </div>
   );
 };
 

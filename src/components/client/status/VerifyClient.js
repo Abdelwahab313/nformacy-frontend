@@ -5,10 +5,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import { Link } from 'react-router-dom';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
-import { API_BASE_URL } from '../../settings';
+import { verifyClient } from '../../../apis/clientsApi';
 
-const VerifyClient = (props) => {
+const VerifyClient = ({ id, clientName, onStateChanged }) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -18,9 +17,10 @@ const VerifyClient = (props) => {
     setOpen(false);
   };
   const handleVerification = () => {
-    axios
-      .patch(`${API_BASE_URL}/clients/${props.id}/verify_client`)
-      .then((res) => {});
+    debugger;
+    verifyClient(id).then((res) => {
+      onStateChanged(id);
+    });
     setOpen(false);
   };
   const useStyles = makeStyles(() => ({
@@ -37,7 +37,10 @@ const VerifyClient = (props) => {
   const classes = useStyles();
   return (
     <div>
-      <Link className={classes.unVerifiedLink} onClick={handleClickOpen}>
+      <Link
+        className={classes.unVerifiedLink}
+        onClick={handleClickOpen}
+        to={''}>
         {' '}
         وثق العميل
       </Link>
@@ -47,7 +50,7 @@ const VerifyClient = (props) => {
         open={open}>
         <DialogTitle id='customized-dialog-title' onClose={handleClose}>
           سيتم توثيق العميل:{' '}
-          <span className={classes.unVerifiedLink}>{props.clientName}</span>
+          <span className={classes.unVerifiedLink}>{clientName}</span>
         </DialogTitle>
         <DialogActions className={classes.dialogAction}>
           <Button

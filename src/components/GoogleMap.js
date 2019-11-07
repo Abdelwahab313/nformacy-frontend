@@ -35,9 +35,10 @@ const MapWithMultipleMarkers = withScriptjs(
           defaultZoom={13}
           defaultCenter={{ lat: markers[0].lat, lng: markers[0].lng }}
           defaultOptions={defaultMapOptions}>
-          {markers.map((marker) => {
+          {markers.map((marker, index) => {
             return (
               <Marker
+                key={index}
                 position={{ lat: marker.lat, lng: marker.lng }}
                 label={marker.label}
               />

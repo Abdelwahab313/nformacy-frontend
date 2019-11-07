@@ -1,6 +1,6 @@
 import React from 'react';
-import ClientsList from './client/clientsList';
-import Client from './client/Client';
+import ClientsList from './client/ClientsList';
+import Client from './client/detail/Client';
 import {
   createMuiTheme,
   StylesProvider,
@@ -11,7 +11,6 @@ import { create } from 'jss';
 import preset from 'jss-preset-default';
 import rtl from 'jss-rtl';
 import { Route, Switch } from 'react-router-dom';
-import { clients } from '../data';
 
 const presets = preset().plugins;
 
@@ -27,7 +26,7 @@ function App() {
       <StylesProvider jss={jss}>
         <Switch>
           <Route exact path='/'>
-            <ClientsList clients={clients} />
+            <ClientsList />
           </Route>
           <Route path='/clients/:id' component={Client} />
         </Switch>

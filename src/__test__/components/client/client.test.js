@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Client from '../../../components/client/client';
+import Client from '../../../components/client/detail/Client';
 
 describe.skip('Client', () => {
   it('should show client details', () => {
