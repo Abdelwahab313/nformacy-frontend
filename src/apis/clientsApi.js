@@ -13,4 +13,8 @@ const verifyClient = (client_id) => {
   return axios.patch(`${API_BASE_URL}/clients/${client_id}/verify_client`);
 };
 
-export { fetchClients, fetchClient, verifyClient };
+const deleteClient = (client_id) => {
+  return axios.delete(`${API_BASE_URL}/clients/${client_id}`);
+};
+
+export { fetchClients, fetchClient, verifyClient, deleteClient };

@@ -17,7 +17,6 @@ const VerifyClient = ({ id, clientName, onStateChanged }) => {
     setOpen(false);
   };
   const handleVerification = () => {
-    debugger;
     verifyClient(id).then((res) => {
       onStateChanged(id);
     });

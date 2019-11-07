@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
 const ClientDetails = ({ passedClient }) => {
   const classes = useStyles();
   const [client, setClient] = useState(passedClient);
+  let date = new Date();
   useEffect(() => {
     setClient(passedClient);
   }, [passedClient]);
@@ -52,7 +53,11 @@ const ClientDetails = ({ passedClient }) => {
           </TableRow>
           <TableRow id={'created'}>
             <TableCell>تاريخ الاضافه</TableCell>
-            <TableCell>{client.created}</TableCell>
+            <TableCell>
+              {`${new Date(client.created).toLocaleTimeString()} ${new Date(
+                client.created,
+              ).toLocaleDateString()}`}
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>

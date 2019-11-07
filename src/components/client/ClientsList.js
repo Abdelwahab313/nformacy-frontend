@@ -10,6 +10,7 @@ import MaterialTable from 'material-table';
 import ClientStatus from './status/ClientStatus';
 import { Redirect } from 'react-router';
 import { cloneDeep } from 'lodash';
+import DeleteClient from './DeleteClient';
 
 function ClientsList(props) {
   const [clients, setClients] = useState([]);
@@ -17,6 +18,8 @@ function ClientsList(props) {
   const [redirectTo, setRedirectTo] = useState();
   const [clientsLoading, setClientsLoading] = useState(false);
   const [locations, setLocations] = useState([]);
+  const [showDelete, setShowDelete] = useState(false);
+  const [toBeDeleted, setToBeDeleted] = useState({});
 
   function getFirstPhoneNumbers(fetchedClients) {
     for (let i = 0; i < fetchedClients.length; i++) {
@@ -65,10 +68,15 @@ function ClientsList(props) {
   }, []);
 
   function handleOnStateChanged(id) {
-    debugger;
     const updatedClientIndex = clients.findIndex((client) => client.id === id);
     const tempClientState = cloneDeep(clients);
     tempClientState[updatedClientIndex].verified = true;
+    setClients(tempClientState);
+  }
+  function handleOnDelete(id) {
+    const toBeDeletedIndex = clients.findIndex((client) => client.id === id);
+    const tempClientState = cloneDeep(clients);
+    tempClientState.splice(toBeDeletedIndex, 1);
     setClients(tempClientState);
   }
 
@@ -108,7 +116,6 @@ function ClientsList(props) {
   if (redirect) {
     return <Redirect push to={redirectTo} />;
   }
-
   if (clientsLoading) {
     return (
       <div className={classes.progressContainer}>
@@ -159,15 +166,17 @@ function ClientsList(props) {
                   setRedirect(true);
                 },
               },
-              // {
-              //   icon: 'delete',
-              //   tooltip: 'حذف العميل',
-              //   iconProps: {
-              //     color: 'secondary',
-              //   },
-              //   onClick: (event, rowData) => {
-              //   },
-              // },
+              {
+                icon: 'delete',
+                tooltip: 'حذف العميل',
+                iconProps: {
+                  color: 'secondary',
+                },
+                onClick: (event, rowData) => {
+                  setToBeDeleted(rowData);
+                  setShowDelete(true);
+                },
+              },
               // {
               //   icon: 'edit',
               //   tooltip: 'تعديل العميل',
@@ -210,6 +219,14 @@ function ClientsList(props) {
             data={clients}
             title={'العملاء'}
           />
+          {showDelete && (
+            <DeleteClient
+              clientName={toBeDeleted.name}
+              onDeleteDone={handleOnDelete}
+              identifier={Date.now()}
+              id={toBeDeleted.id}
+            />
+          )}
         </Grid>
         {clients.length !== 0 && (
           <Grid item lg={4} className={classes.mapContainer}>
