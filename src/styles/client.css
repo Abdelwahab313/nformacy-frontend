@@ -1,6 +1,17 @@
 .ClientsTable {
   margin: 50px;
 }
+
+.tableContainer {
+  width: 63%;
+}
+
+@media (max-width: 1279px) {
+  .tableContainer {
+    width: 100%;
+  }
+}
+
 .AllClients {
   text-align: center;
   vertical-align: middle;

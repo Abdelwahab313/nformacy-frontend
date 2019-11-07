@@ -75,6 +75,7 @@ function ClientsList(props) {
   const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
+      flexFlow: 'row wrap',
       background: '#F5F5F5',
       padding: theme.spacing(3),
     },
@@ -94,11 +95,11 @@ function ClientsList(props) {
       transform: 'translate(-50%, -50%)',
     },
     tableContainer: {
-      width: clients.length === 0 ? '100%' : '70%',
       margin: theme.spacing(1),
     },
     mapContainer: {
-      width: '30%',
+      width: '100%',
+      margin: theme.spacing(1),
     },
   }));
 
@@ -117,7 +118,7 @@ function ClientsList(props) {
   } else {
     return (
       <div dir='rtl' className={classes.root}>
-        <Grid className={classes.tableContainer}>
+        <Grid className={`tableContainer ${classes.tableContainer}`}>
           <MaterialTable
             localization={{
               pagination: {
@@ -211,14 +212,14 @@ function ClientsList(props) {
           />
         </Grid>
         {clients.length !== 0 && (
-          <Grid item lg={4}>
+          <Grid item lg={4} className={classes.mapContainer}>
             <MapWithMultipleMarkers
               className={classes.map}
               markers={locations}
               isMarkerShown
               googleMapURL='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAkTN0O0xKX8L9-NHvR7YSNungyim6nkgk'
               loadingElement={<div style={{ height: '100%' }} />}
-              containerElement={<div style={{ height: '550px' }} />}
+              containerElement={<div style={{ height: '580px' }} />}
               mapElement={<div style={{ height: '100%' }} />}
             />
           </Grid>
