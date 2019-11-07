@@ -10,7 +10,10 @@ const DeleteClient = ({ id, clientName, onDeleteDone, identifier }) => {
   const [open, setOpen] = React.useState(true);
 
   useEffect(() => {
-    setOpen(true);
+    if (identifier) {
+      debugger;
+      setOpen(true);
+    }
   }, [identifier]);
   const handleClose = () => {
     setOpen(false);

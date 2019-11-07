@@ -73,11 +73,13 @@ function ClientsList(props) {
     tempClientState[updatedClientIndex].verified = true;
     setClients(tempClientState);
   }
+
   function handleOnDelete(id) {
     const toBeDeletedIndex = clients.findIndex((client) => client.id === id);
     const tempClientState = cloneDeep(clients);
     tempClientState.splice(toBeDeletedIndex, 1);
     setClients(tempClientState);
+    setShowDelete(false);
   }
 
   const useStyles = makeStyles((theme) => ({
