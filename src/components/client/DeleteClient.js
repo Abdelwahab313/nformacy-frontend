@@ -6,7 +6,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import { deleteClient } from '../../apis/clientsApi';
 
-const DeleteClient = ({ id, clientName, onDeleteDone, identifier }) => {
+const DeleteClient = ({
+  id,
+  clientName,
+  onDeleteDone,
+  onDeleteFail,
+  identifier,
+}) => {
   const [open, setOpen] = React.useState(true);
 
   useEffect(() => {
@@ -16,6 +22,7 @@ const DeleteClient = ({ id, clientName, onDeleteDone, identifier }) => {
   }, [identifier]);
   const handleClose = () => {
     setOpen(false);
+    onDeleteFail();
   };
   const handleDeletion = () => {
     deleteClient(id).then((res) => {

@@ -7,6 +7,9 @@ import { makeStyles } from '@material-ui/core';
 import TableBody from '@material-ui/core/TableBody';
 import ClientStatus from '../status/ClientStatus';
 import { cloneDeep } from 'lodash';
+import Button from '@material-ui/core/Button';
+import DeleteClient from '../DeleteClient';
+import { Redirect } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -14,12 +17,17 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
+  button: {
+    margin: theme.spacing(1),
+  },
 }));
 
 const ClientDetails = ({ passedClient }) => {
   const classes = useStyles();
   const [client, setClient] = useState(passedClient);
-  let date = new Date();
+  const [showDelete, setShowDelete] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+  const [redirectTo, setRedirectTo] = useState();
   useEffect(() => {
     setClient(passedClient);
   }, [passedClient]);
@@ -29,8 +37,33 @@ const ClientDetails = ({ passedClient }) => {
     tempClientState.verified = true;
     setClient(tempClientState);
   }
+  function handleOnDeleteSuccess(id) {
+    setShowDelete(false);
+    setRedirectTo('');
+    setRedirect(true);
+  }
+  function handleOnDeleteFail() {
+    setShowDelete(false);
+  }
+  function handleOpenDelete() {
+    setShowDelete(true);
+  }
+
+  if (redirect) {
+    return <Redirect push to={redirectTo} />;
+  }
+
   return (
     <Paper className={classes.paper}>
+      {showDelete && (
+        <DeleteClient
+          clientName={client.name}
+          onDeleteDone={handleOnDeleteSuccess}
+          onDeleteFail={handleOnDeleteFail}
+          identifier={Date.now()}
+          id={client.id}
+        />
+      )}
       <p id={'title'}>تفاصيل العميل</p>
       <Table id={'client-info'}>
         <TableBody>
@@ -76,6 +109,18 @@ const ClientDetails = ({ passedClient }) => {
               {`${new Date(client.created).toLocaleTimeString()} ${new Date(
                 client.created,
               ).toLocaleDateString()}`}
+            </TableCell>
+          </TableRow>
+          <TableRow id={'operations'}>
+            <TableCell>عمليات</TableCell>
+            <TableCell>
+              <Button
+                variant='contained'
+                color='secondary'
+                className={classes.button}
+                onClick={handleOpenDelete}>
+                حذف العميل
+              </Button>
             </TableCell>
           </TableRow>
         </TableBody>

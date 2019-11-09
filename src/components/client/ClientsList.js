@@ -246,6 +246,7 @@ function ClientsList(props) {
             <DeleteClient
               clientName={toBeDeleted.name}
               onDeleteDone={handleOnDelete}
+              onDeleteFail={() => {}}
               identifier={Date.now()}
               id={toBeDeleted.id}
             />
