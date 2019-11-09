@@ -39,7 +39,7 @@ const VerifyClient = ({ id, clientName, onStateChanged }) => {
       <Link
         className={classes.unVerifiedLink}
         onClick={handleClickOpen}
-        to={''}>
+        to={'#'}>
         {' '}
         وثق العميل
       </Link>

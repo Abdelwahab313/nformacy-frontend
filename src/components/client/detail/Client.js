@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   img: {
-    height: 255,
+    height: '100%',
+    maxHeight: 425,
     maxWidth: 400,
     overflow: 'hidden',
     display: 'block',

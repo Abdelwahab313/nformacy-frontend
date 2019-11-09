@@ -5,6 +5,8 @@ import TableCell from '@material-ui/core/TableCell';
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import TableBody from '@material-ui/core/TableBody';
+import ClientStatus from '../status/ClientStatus';
+import { cloneDeep } from 'lodash';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -21,6 +23,12 @@ const ClientDetails = ({ passedClient }) => {
   useEffect(() => {
     setClient(passedClient);
   }, [passedClient]);
+
+  function handleOnStateChanged(id) {
+    const tempClientState = cloneDeep(client);
+    tempClientState.verified = true;
+    setClient(tempClientState);
+  }
   return (
     <Paper className={classes.paper}>
       <p id={'title'}>تفاصيل العميل</p>
@@ -49,6 +57,17 @@ const ClientDetails = ({ passedClient }) => {
                     </div>
                   ))
                 : ''}
+            </TableCell>
+          </TableRow>
+          <TableRow id={'status'}>
+            <TableCell>الحاله</TableCell>
+            <TableCell>
+              <ClientStatus
+                status={client.verified}
+                clientName={client.name}
+                onStateChanged={handleOnStateChanged}
+                id={client.id}
+              />
             </TableCell>
           </TableRow>
           <TableRow id={'created'}>

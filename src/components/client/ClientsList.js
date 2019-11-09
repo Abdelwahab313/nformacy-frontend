@@ -122,6 +122,7 @@ function ClientsList(props) {
     },
     mapContainer: {
       width: '100%',
+      maxHeight: 600,
       margin: theme.spacing(1),
     },
   }));
