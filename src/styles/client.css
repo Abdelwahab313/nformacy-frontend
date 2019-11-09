@@ -5,8 +5,14 @@
 .tableContainer {
   width: 63%;
 }
+.mapElement {
+  height: 100%;
+}
 
 @media (max-width: 1279px) {
+  .mapElement {
+    height: 500px;
+  }
   .tableContainer {
     width: 100%;
   }

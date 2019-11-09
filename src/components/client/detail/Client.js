@@ -10,6 +10,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import { cloneDeep } from 'lodash';
+import { GOOGLE_MAPS_API_KEY } from '../../../settings';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -123,6 +124,7 @@ function Client(props) {
       <Grid container spacing={3} className={classes.details}>
         <Grid item lg={8} md={8} xs={12}>
           <ClientDetails
+            id={'clientDetails'}
             passedClient={client}
             onStateChanged={handleOnStateChanged}
           />
@@ -139,7 +141,7 @@ function Client(props) {
         <MapWithAMarker
           location={clientLocation}
           isMarkerShown
-          googleMapURL='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAkTN0O0xKX8L9-NHvR7YSNungyim6nkgk'
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&key=${GOOGLE_MAPS_API_KEY}`}
           loadingElement={<div style={{ height: '100%' }} />}
           containerElement={<div style={{ height: '400px' }} />}
           mapElement={<div style={{ height: '100%' }} />}

@@ -4,13 +4,14 @@ import { makeStyles } from '@material-ui/core';
 import { fetchClients } from '../../apis/clientsApi';
 import Grid from '@material-ui/core/Grid';
 import { MapWithMultipleMarkers } from '../GoogleMap';
-import { default_location } from '../../settings';
+import { default_location, GOOGLE_MAPS_API_KEY } from '../../settings';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import MaterialTable from 'material-table';
 import ClientStatus from './status/ClientStatus';
 import { Redirect } from 'react-router';
 import { cloneDeep } from 'lodash';
 import DeleteClient from './DeleteClient';
+import ErrorDialog from '../errors/ErrorDialog';
 
 function ClientsList(props) {
   const [clients, setClients] = useState([]);
@@ -19,6 +20,8 @@ function ClientsList(props) {
   const [clientsLoading, setClientsLoading] = useState(false);
   const [locations, setLocations] = useState([]);
   const [showDelete, setShowDelete] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [showError, setShowError] = useState(false);
   const [toBeDeleted, setToBeDeleted] = useState({});
 
   function getFirstPhoneNumbers(fetchedClients) {
@@ -61,6 +64,12 @@ function ClientsList(props) {
         getFirstPhoneNumbers(fetchedClients);
         constructLocationsList(fetchedClients);
         setClients(fetchedClients);
+      })
+      .catch((reason) => {
+        if (reason.message === 'Network Error') {
+          setErrorMessage('حدث خطأ أثناء الاتصال بالخادم');
+          setShowError(true);
+        }
       })
       .finally(() => {
         setClientsLoading(false);
@@ -107,6 +116,10 @@ function ClientsList(props) {
     tableContainer: {
       margin: theme.spacing(1),
     },
+    tableContainerFW: {
+      width: '100%',
+      margin: theme.spacing(1),
+    },
     mapContainer: {
       width: '100%',
       margin: theme.spacing(1),
@@ -127,8 +140,15 @@ function ClientsList(props) {
   } else {
     return (
       <div dir='rtl' className={classes.root}>
-        <Grid className={`tableContainer ${classes.tableContainer}`}>
+        {showError && <ErrorDialog message={errorMessage} />}
+        <Grid
+          className={`tableContainer ${
+            clients.length === 0
+              ? classes.tableContainerFW
+              : classes.tableContainer
+          }`}>
           <MaterialTable
+            id={'clientsList'}
             localization={{
               pagination: {
                 labelDisplayedRows: '{from}-{to} من {count}',
@@ -231,15 +251,23 @@ function ClientsList(props) {
           )}
         </Grid>
         {clients.length !== 0 && (
-          <Grid item lg={4} className={classes.mapContainer}>
+          <Grid
+            id={'mapContainer'}
+            item
+            lg={4}
+            className={classes.mapContainer}>
             <MapWithMultipleMarkers
               className={classes.map}
               markers={locations}
               isMarkerShown
-              googleMapURL='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAkTN0O0xKX8L9-NHvR7YSNungyim6nkgk'
+              googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&key=${GOOGLE_MAPS_API_KEY}`}
               loadingElement={<div style={{ height: '100%' }} />}
-              containerElement={<div style={{ height: '580px' }} />}
-              mapElement={<div style={{ height: '100%' }} />}
+              containerElement={
+                <div
+                  style={{ display: 'inline-block clear', height: '100%' }}
+                />
+              }
+              mapElement={<div className={'mapElement'} />}
             />
           </Grid>
         )}

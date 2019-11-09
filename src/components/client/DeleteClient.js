@@ -11,7 +11,6 @@ const DeleteClient = ({ id, clientName, onDeleteDone, identifier }) => {
 
   useEffect(() => {
     if (identifier) {
-      debugger;
       setOpen(true);
     }
   }, [identifier]);
