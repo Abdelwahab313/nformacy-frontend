@@ -1,5 +1,6 @@
 import React from 'react';
 import ClientsList from './client/ClientsList';
+import UsersList from './user/UsersList';
 import Client from './client/detail/Client';
 import {
   createMuiTheme,
@@ -26,7 +27,7 @@ function App() {
       <StylesProvider jss={jss}>
         <Switch>
           <Route exact path='/'>
-            <ClientsList />
+            <UsersList />
           </Route>
           <Route path='/clients/:id' component={Client} />
         </Switch>
