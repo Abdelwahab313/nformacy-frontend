@@ -12,6 +12,7 @@ import { create } from 'jss';
 import preset from 'jss-preset-default';
 import rtl from 'jss-rtl';
 import { Route, Switch } from 'react-router-dom';
+import { clients } from '../data';
 
 const presets = preset().plugins;
 

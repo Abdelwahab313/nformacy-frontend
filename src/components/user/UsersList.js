@@ -1,22 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import MaterialTable from 'material-table';
 import { fetchUsers } from '../../apis/usersApi';
+import { table_localization } from '../../settings';
+import AddUserForm from './addUserForm';
 
 function UsersList(props) {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     fetchUsers().then((res) => {
-      const fetchdeUsers = res.data;
-      fetchdeUsers.sort((a, b) => a.id - b.id);
-      setUsers(fetchdeUsers);
+      const fetchedUsers = res.data;
+      fetchedUsers.sort((a, b) => a.id - b.id);
+      setUsers(fetchedUsers);
     });
   }, []);
+
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      padding: theme.spacing(3),
+    },
+  }));
+
+  const classes = useStyles();
+
   return (
-    <div dir='rtl'>
+    <div dir='rtl' className={classes.root}>
       <Grid>
         <MaterialTable
           id={'usersList'}
+          localization={table_localization(false)}
           columns={[
             {
               title: 'أسم المستخدم',
@@ -42,6 +54,7 @@ function UsersList(props) {
           title={'المستخدمين'}
         />
       </Grid>
+      <AddUserForm />
     </div>
   );
 }

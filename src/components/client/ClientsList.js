@@ -4,7 +4,11 @@ import { makeStyles } from '@material-ui/core';
 import { fetchClients } from '../../apis/clientsApi';
 import Grid from '@material-ui/core/Grid';
 import { MapWithMultipleMarkers } from '../GoogleMap';
-import { default_location, GOOGLE_MAPS_API_KEY } from '../../settings';
+import {
+  default_location,
+  GOOGLE_MAPS_API_KEY,
+  table_localization,
+} from '../../settings';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import MaterialTable from 'material-table';
 import ClientStatus from './status/ClientStatus';
@@ -150,33 +154,7 @@ function ClientsList(props) {
           }`}>
           <MaterialTable
             id={'clientsList'}
-            localization={{
-              pagination: {
-                labelDisplayedRows: '{from}-{to} من {count}',
-                labelRowsSelect: 'عملاء',
-                firstAriaLabel: 'الصفحه الاولى',
-                firstTooltip: 'الصفحه الاولى',
-                previousAriaLabel: 'الصفحه السابقه',
-                previousTooltip: 'الصفحه السابقه',
-                nextAriaLabel: 'الصفحه التاليه',
-                nextTooltip: 'الصفحه التاليه',
-                lastAriaLabel: 'الصفحه الأخيره',
-                lastTooltip: 'الصفحه الأخيره',
-              },
-              toolbar: {
-                searchPlaceholder: 'بحث',
-                searchTooltip: 'بحث',
-              },
-              header: {
-                actions: 'عمليات',
-              },
-              body: {
-                emptyDataSourceMessage: 'لا يوجد عملاء لعرضهم',
-                filterRow: {
-                  filterTooltip: 'Filter',
-                },
-              },
-            }}
+            localization={table_localization()}
             actions={[
               {
                 icon: 'help',
@@ -200,18 +178,8 @@ function ClientsList(props) {
                   setShowDelete(true);
                 },
               },
-              // {
-              //   icon: 'edit',
-              //   tooltip: 'تعديل العميل',
-              //   iconProps: {
-              //     color: 'inherit',
-              //   },
-              //   onClick: (event, rowData) => {
-              //   },
-              // },
             ]}
             columns={[
-              // { title: 'رقم العميل', field: 'id' },
               { title: 'أسم المكان', field: 'name' },
               { title: 'أسم المدير', field: 'ownerName' },
               { title: 'رقم الهاتف', field: 'contacts' },

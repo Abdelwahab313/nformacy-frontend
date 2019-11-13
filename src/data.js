@@ -77,3 +77,36 @@ export let clients = [
     verified: true,
   },
 ];
+export let users = [
+  {
+    id: 0,
+    name: 'احمد سمير',
+    phone_number: '٠١١٣٢٣٨٤٧٤٧٣',
+    national_id: '29601090102799',
+    user_name: 'samiiir69',
+  },
+  {
+    id: 1,
+    name: 'كشك الحمد',
+    ownerName: 'احمد محسن',
+    location: { long: '234.234', lat: '1432.234' },
+    image: 'url',
+    contacts: ['٠١١٣٢٣٨٤٧٤٧٣', '٠٢٢٨٤٨٣٩٢٠'],
+    images: images,
+    address: '١٨ شارع النصر, العباسيه, القاهرة',
+    visits: visits,
+    verified: false,
+  },
+  {
+    id: 2,
+    name: 'كشك عكها و ربك يفكها',
+    ownerName: 'ابو سمره',
+    location: { long: '234.234', lat: '1432.234' },
+    image: 'url',
+    contacts: ['٠١١٣٢٣٨٤٧٤٧٣', '٠٢٢٨٤٨٣٩٢٠'],
+    images: images,
+    address: '١٨ شارع البررم, المعادي, القاهرة',
+    visits: visits,
+    verified: true,
+  },
+];
