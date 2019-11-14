@@ -11,6 +11,7 @@ import useForm from 'react-hook-form';
 import login from '../../apis/authAPI';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Redirect } from 'react-router';
+import { useAuth } from '../../context/auth';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -52,11 +53,17 @@ const Login = (props) => {
   const [loginFailed, setLoginFailed] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { setAuthTokens } = useAuth();
+  const referer = props.location.state.referer || '/';
+
   const onSubmit = (data) => {
     setLoginFailed(false);
     setLoading(true);
     login(data)
-      .then(() => setLoginSuccess(true))
+      .then((result) => {
+        setAuthTokens(result.data.token);
+        setLoginSuccess(true);
+      })
       .catch(({ response }) => {
         if (response.data.error === 'invalid_credentials') {
           setLoginFailed(true);
@@ -72,7 +79,7 @@ const Login = (props) => {
   };
   const classes = useStyles();
   if (loginSuccess) {
-    return <Redirect push to='/clients/list' />;
+    return <Redirect push to={referer} />;
   }
   if (loading) {
     return (

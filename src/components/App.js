@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ClientsList from './client/ClientsList';
 import UsersList from './user/UsersList';
 import Client from './client/detail/Client';
@@ -14,6 +14,8 @@ import rtl from 'jss-rtl';
 import { Route, Switch } from 'react-router-dom';
 import { clients } from '../data';
 import Login from './user/LoginUser';
+import { AuthContext } from '../context/auth';
+import PrivateRoute from './PrivateRoute';
 
 const presets = preset().plugins;
 
@@ -24,16 +26,24 @@ const theme = createMuiTheme({
 });
 
 function App() {
+  const [authTokens, setAuthTokens] = useState();
+
+  const setTokens = (data) => {
+    localStorage.setItem('tokens', JSON.stringify(data));
+    setAuthTokens(data);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <StylesProvider jss={jss}>
-        <Switch>
-          <Route exact path='/'>
-            <UsersList />
-          </Route>
-          <Route path='/clients/list' component={ClientsList} />
-          <Route path='/clients/:uuid' component={Client} />
-        </Switch>
+        <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
+          <Switch>
+            <PrivateRoute exact path='/' component={ClientsList} />
+            <PrivateRoute path='/clients/list' component={ClientsList} />
+            <Route path='/login' component={Login} />
+            <PrivateRoute path='/clients/:uuid' component={Client} />
+          </Switch>
+        </AuthContext.Provider>
       </StylesProvider>
     </ThemeProvider>
   );
