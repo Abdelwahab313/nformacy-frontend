@@ -15,7 +15,7 @@ describe('show all users', () => {
   it('renders users table details', () => {
     const wrapper = shallow(<UsersList />);
     const listColumns = wrapper.find('#usersList').props().columns;
-    expect(listColumns.length).toEqual(4);
+    expect(listColumns.length).toEqual(5);
   });
   it('users table should have name column', () => {
     const wrapper = shallow(<UsersList />);
