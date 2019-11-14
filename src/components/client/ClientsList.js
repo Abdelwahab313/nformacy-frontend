@@ -64,7 +64,7 @@ function ClientsList(props) {
     fetchClients()
       .then((res) => {
         const fetchedClients = res.data;
-        fetchedClients.sort((a, b) => a.id - b.id);
+        fetchedClients.sort((a, b) => a.created - b.created);
         getFirstPhoneNumbers(fetchedClients);
         constructLocationsList(fetchedClients);
         setClients(fetchedClients);
@@ -81,14 +81,16 @@ function ClientsList(props) {
   }, []);
 
   function handleOnStateChanged(id) {
-    const updatedClientIndex = clients.findIndex((client) => client.id === id);
+    const updatedClientIndex = clients.findIndex(
+      (client) => client.uuid === id,
+    );
     const tempClientState = cloneDeep(clients);
     tempClientState[updatedClientIndex].verified = true;
     setClients(tempClientState);
   }
 
   function handleOnDelete(id) {
-    const toBeDeletedIndex = clients.findIndex((client) => client.id === id);
+    const toBeDeletedIndex = clients.findIndex((client) => client.uuid === id);
     const tempClientState = cloneDeep(clients);
     tempClientState.splice(toBeDeletedIndex, 1);
     setClients(tempClientState);
@@ -163,7 +165,7 @@ function ClientsList(props) {
                   color: 'primary',
                 },
                 onClick: (event, rowData) => {
-                  setRedirectTo(`/clients/${rowData.id}`);
+                  setRedirectTo(`/clients/${rowData.uuid}`);
                   setRedirect(true);
                 },
               },
@@ -193,7 +195,7 @@ function ClientsList(props) {
                     status={client.verified}
                     clientName={client.name}
                     onStateChanged={handleOnStateChanged}
-                    id={client.id}
+                    id={client.uuid}
                   />
                 ),
               },
@@ -202,6 +204,7 @@ function ClientsList(props) {
                 field: 'created',
                 type: 'date',
                 render: (client) => {
+                  console.log(client.created);
                   const date = new Date(client.created);
                   return `${date.toLocaleTimeString()} ${date.toLocaleDateString()}`;
                 },
@@ -216,7 +219,7 @@ function ClientsList(props) {
               onDeleteDone={handleOnDelete}
               onDeleteFail={() => {}}
               identifier={Date.now()}
-              id={toBeDeleted.id}
+              id={toBeDeleted.uuid}
             />
           )}
         </Grid>

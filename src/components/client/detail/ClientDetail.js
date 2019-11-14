@@ -39,7 +39,7 @@ const ClientDetails = ({ passedClient }) => {
   }
   function handleOnDeleteSuccess(id) {
     setShowDelete(false);
-    setRedirectTo('');
+    setRedirectTo('/clients/list');
     setRedirect(true);
   }
   function handleOnDeleteFail() {
@@ -61,7 +61,7 @@ const ClientDetails = ({ passedClient }) => {
           onDeleteDone={handleOnDeleteSuccess}
           onDeleteFail={handleOnDeleteFail}
           identifier={Date.now()}
-          id={client.id}
+          id={client.uuid}
         />
       )}
       <p id={'title'}>تفاصيل العميل</p>
@@ -99,7 +99,7 @@ const ClientDetails = ({ passedClient }) => {
                 status={client.verified}
                 clientName={client.name}
                 onStateChanged={handleOnStateChanged}
-                id={client.id}
+                id={client.uuid}
               />
             </TableCell>
           </TableRow>
