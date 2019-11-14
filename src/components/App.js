@@ -32,7 +32,7 @@ function App() {
             <UsersList />
           </Route>
           <Route path='/clients/list' component={ClientsList} />
-          <Route path='/clients/:id' component={Client} />
+          <Route path='/clients/:uuid' component={Client} />
         </Switch>
       </StylesProvider>
     </ThemeProvider>

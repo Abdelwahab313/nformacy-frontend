@@ -7,7 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import { verifyClient } from '../../../apis/clientsApi';
 
-const VerifyClient = ({ id, clientName, onStateChanged }) => {
+const VerifyClient = ({ uuid, clientName, onStateChanged }) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -17,8 +17,8 @@ const VerifyClient = ({ id, clientName, onStateChanged }) => {
     setOpen(false);
   };
   const handleVerification = () => {
-    verifyClient(id).then((res) => {
-      onStateChanged(id);
+    verifyClient(uuid).then((res) => {
+      onStateChanged(uuid);
     });
     setOpen(false);
   };

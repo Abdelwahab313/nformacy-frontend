@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core';
 import React from 'react';
 import VerifyClient from './VerifyClient';
 
-const UnVerifiedClient = ({ clientName, id, onStateChanged }) => {
+const UnVerifiedClient = ({ clientName, uuid, onStateChanged }) => {
   const useStyles = makeStyles(() => ({
     unVerifiedContainer: {
       color: '#FF0000',
@@ -20,7 +20,7 @@ const UnVerifiedClient = ({ clientName, id, onStateChanged }) => {
       <br />
       <VerifyClient
         clientName={clientName}
-        id={id}
+        uuid={uuid}
         onStateChanged={onStateChanged}
       />
     </div>

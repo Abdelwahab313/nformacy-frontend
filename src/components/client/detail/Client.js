@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Client(props) {
-  let { id } = useParams();
+  let { uuid } = useParams();
   const [client, setClient] = useState({});
   const [clientLocation, setClientLocation] = useState({
     lat: 322,
@@ -84,7 +84,7 @@ function Client(props) {
   };
   useEffect(() => {
     setClientLoading(true);
-    fetchClient(id)
+    fetchClient(uuid)
       .then((res) => {
         const fetchedClient = res.data;
         adaptMapsLocation(

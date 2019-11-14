@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import { deleteClient } from '../../apis/clientsApi';
 
 const DeleteClient = ({
-  id,
+  uuid,
   clientName,
   onDeleteDone,
   onDeleteFail,
@@ -25,8 +25,8 @@ const DeleteClient = ({
     onDeleteFail();
   };
   const handleDeletion = () => {
-    deleteClient(id).then((res) => {
-      onDeleteDone(id);
+    deleteClient(uuid).then((res) => {
+      onDeleteDone(uuid);
     });
     setOpen(false);
   };

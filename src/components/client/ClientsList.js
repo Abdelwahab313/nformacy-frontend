@@ -64,7 +64,9 @@ function ClientsList(props) {
     fetchClients()
       .then((res) => {
         const fetchedClients = res.data;
-        fetchedClients.sort((a, b) => a.created - b.created);
+        fetchedClients.sort(
+          (a, b) => new Date(a.created) - new Date(b.created),
+        );
         getFirstPhoneNumbers(fetchedClients);
         constructLocationsList(fetchedClients);
         setClients(fetchedClients);
@@ -80,17 +82,19 @@ function ClientsList(props) {
       });
   }, []);
 
-  function handleOnStateChanged(id) {
+  function handleOnStateChanged(uuid) {
     const updatedClientIndex = clients.findIndex(
-      (client) => client.uuid === id,
+      (client) => client.uuid === uuid,
     );
     const tempClientState = cloneDeep(clients);
     tempClientState[updatedClientIndex].verified = true;
     setClients(tempClientState);
   }
 
-  function handleOnDelete(id) {
-    const toBeDeletedIndex = clients.findIndex((client) => client.uuid === id);
+  function handleOnDelete(uuid) {
+    const toBeDeletedIndex = clients.findIndex(
+      (client) => client.uuid === uuid,
+    );
     const tempClientState = cloneDeep(clients);
     tempClientState.splice(toBeDeletedIndex, 1);
     setClients(tempClientState);
@@ -195,7 +199,7 @@ function ClientsList(props) {
                     status={client.verified}
                     clientName={client.name}
                     onStateChanged={handleOnStateChanged}
-                    id={client.uuid}
+                    uuid={client.uuid}
                   />
                 ),
               },
@@ -219,7 +223,7 @@ function ClientsList(props) {
               onDeleteDone={handleOnDelete}
               onDeleteFail={() => {}}
               identifier={Date.now()}
-              id={toBeDeleted.uuid}
+              uuid={toBeDeleted.uuid}
             />
           )}
         </Grid>

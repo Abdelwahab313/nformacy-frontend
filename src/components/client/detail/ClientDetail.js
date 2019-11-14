@@ -61,7 +61,7 @@ const ClientDetails = ({ passedClient }) => {
           onDeleteDone={handleOnDeleteSuccess}
           onDeleteFail={handleOnDeleteFail}
           identifier={Date.now()}
-          id={client.uuid}
+          uuid={client.uuid}
         />
       )}
       <p id={'title'}>تفاصيل العميل</p>
@@ -99,7 +99,7 @@ const ClientDetails = ({ passedClient }) => {
                 status={client.verified}
                 clientName={client.name}
                 onStateChanged={handleOnStateChanged}
-                id={client.uuid}
+                uuid={client.uuid}
               />
             </TableCell>
           </TableRow>

@@ -2,7 +2,7 @@ import React from 'react';
 import VerifiedClient from './VerfiedClient';
 import UnVerifiedClient from './UnVerifiedClient';
 
-const ClientStatus = ({ status, clientName, id, onStateChanged }) => {
+const ClientStatus = ({ status, clientName, uuid, onStateChanged }) => {
   const isVerified = status;
   if (isVerified) {
     return <VerifiedClient />;
@@ -10,7 +10,7 @@ const ClientStatus = ({ status, clientName, id, onStateChanged }) => {
   return (
     <UnVerifiedClient
       clientName={clientName}
-      id={id}
+      uuid={uuid}
       onStateChanged={onStateChanged}
     />
   );
