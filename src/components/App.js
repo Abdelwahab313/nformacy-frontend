@@ -31,6 +31,7 @@ function App() {
           <Route exact path='/'>
             <Login />
           </Route>
+          <Route path='/clients/list' component={ClientsList} />
           <Route path='/clients/:id' component={Client} />
         </Switch>
       </StylesProvider>

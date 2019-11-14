@@ -82,7 +82,6 @@ function Client(props) {
     setPhoneNumbers(phone_numbers);
     fetchedClient.contacts = phone_numbers;
   };
-  debugger;
   useEffect(() => {
     setClientLoading(true);
     fetchClient(id)

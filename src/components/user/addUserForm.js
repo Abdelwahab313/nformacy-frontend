@@ -46,7 +46,6 @@ export default function SignUp() {
   const onSubmit = (data) =>
     postUser(data).catch((reason) => {
       console.log(reason);
-      debugger;
     });
   return (
     <form onSubmit={handleSubmit(onSubmit)} id={'addUserForm'}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
@@ -8,7 +8,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import useForm from 'react-hook-form';
-import { string as yupstring, object as yupobject } from 'yup';
+import login from '../../apis/authAPI';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { Redirect } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -33,26 +35,52 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  progressContainer: {
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
   error: {
     color: 'red',
     margin: theme.spacing(1),
   },
 }));
 
-const LoginSchema = yupobject().shape({
-  username: yupstring().required(),
-  password: yupstring().required('generic.password.required'),
-});
-
 const Login = (props) => {
-  const { register, handleSubmit, errors } = useForm({
-    validationSchema: LoginSchema,
-  });
+  const { register, handleSubmit, errors } = useForm();
+  const [loginFailed, setLoginFailed] = useState(false);
+  const [loginSuccess, setLoginSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
   const onSubmit = (data) => {
-    console.log(data);
+    setLoginFailed(false);
+    setLoading(true);
+    login(data)
+      .then(() => setLoginSuccess(true))
+      .catch(({ response }) => {
+        if (response.data.error === 'invalid_credentials') {
+          setLoginFailed(true);
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
+  const handleTextChange = () => {
+    setLoginFailed(false);
+  };
   const classes = useStyles();
+  if (loginSuccess) {
+    return <Redirect push to='/clients/list' />;
+  }
+  if (loading) {
+    return (
+      <div className={classes.progressContainer}>
+        <CircularProgress />
+      </div>
+    );
+  }
   return (
     <Container component='main' maxWidth='xs' dir='rtl'>
       <CssBaseline />
@@ -71,9 +99,9 @@ const Login = (props) => {
           <TextField
             variant='outlined'
             margin='normal'
-            inputRef={register}
-            required
+            inputRef={register({ required: true })}
             fullWidth
+            onChange={handleTextChange}
             id='username'
             label='اسم المستخدم او رقم الموبايل'
             name='username'
@@ -89,18 +117,24 @@ const Login = (props) => {
           <TextField
             variant='outlined'
             margin='normal'
-            inputRef={register}
-            required
+            inputRef={register({ required: true })}
             fullWidth
             name='password'
             label='كلمه المرور'
             type='password'
             id='password'
+            onChange={handleTextChange}
             error={!!errors.password}
             autoComplete='current-password'
           />
           {errors.password && (
             <span className={classes.error}>برجاء ادخال كلمه السر</span>
+          )}
+
+          {loginFailed && (
+            <span className={classes.error}>
+              خطأ في اسم المستخدم او كلمه المرور
+            </span>
           )}
           <Button
             id='login'
