@@ -8,14 +8,7 @@ const postUser = (user) => {
   return axios({
     method: 'post',
     url: `${API_BASE_URL}/users/`,
-    data: {
-      first_name: user.first_name,
-      last_name: user.last_name,
-      username: user.user_name,
-      phone_number: user.phone_number,
-      national_id: user.national_id,
-      password: user.password,
-    },
+    data: user,
   });
 };
 

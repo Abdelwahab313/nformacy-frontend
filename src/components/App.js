@@ -29,7 +29,7 @@ function App() {
       <StylesProvider jss={jss}>
         <Switch>
           <Route exact path='/'>
-            <Login />
+            <UsersList />
           </Route>
           <Route path='/clients/list' component={ClientsList} />
           <Route path='/clients/:id' component={Client} />
