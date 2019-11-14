@@ -1,12 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, makeStyles } from '@material-ui/core';
+import {
+  Grid,
+  makeStyles,
+  Button,
+  Dialog,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  Divider,
+  Slide,
+} from '@material-ui/core';
 import MaterialTable from 'material-table';
 import { fetchUsers } from '../../apis/usersApi';
 import { table_localization } from '../../settings';
+import CloseIcon from '@material-ui/icons/Close';
 import AddUserForm from './addUserForm';
-
+import '../../index.css';
 function UsersList(props) {
   const [users, setUsers] = useState([]);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     fetchUsers().then((res) => {
       const fetchedUsers = res.data;
@@ -19,13 +43,32 @@ function UsersList(props) {
     root: {
       padding: theme.spacing(3),
     },
+    toolBar: {
+      position: 'relative',
+      color: '#edf0f2',
+      justifyContent: 'space-between',
+      flexBasis: '100%',
+    },
+    addForm: {
+      margin: 'auto',
+    },
   }));
+  const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction='up' ref={ref} {...props} />;
+  });
 
   const classes = useStyles();
 
   return (
     <div dir='rtl' className={classes.root}>
       <Grid>
+        <Button
+          variant='contained'
+          id={'add-user-button'}
+          onClick={handleClickOpen}
+          color='primary'>
+          اضافه موظف جديد
+        </Button>
         <MaterialTable
           id={'usersList'}
           localization={table_localization(false)}
@@ -54,7 +97,22 @@ function UsersList(props) {
           title={'المستخدمين'}
         />
       </Grid>
-      <AddUserForm />
+      <Dialog
+        fullScreen
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={Transition}
+        id={'add-user-dialog'}>
+        <AppBar>
+          <Toolbar className={classes.toolBar}>
+            <IconButton edge='start' onClick={handleClose} aria-label='close'>
+              <CloseIcon />
+            </IconButton>
+            <Typography>اضافه موظف جديد</Typography>
+          </Toolbar>
+        </AppBar>
+        <AddUserForm />
+      </Dialog>
     </div>
   );
 }

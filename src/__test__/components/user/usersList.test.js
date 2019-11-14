@@ -57,6 +57,16 @@ describe('show all users', () => {
     const listColumns = wrapper.find('#usersList').props().title;
     expect(listColumns).toEqual('المستخدمين');
   });
+  it('should have add user button', () => {
+    const wrapper = shallow(<UsersList />);
+    const found = wrapper.find('#add-user-button').length;
+    expect(found).toEqual(1);
+  });
+  it('should render dialog modal', () => {
+    const wrapper = shallow(<UsersList />);
+    const found = wrapper.find('#add-user-dialog').length;
+    expect(found).toEqual(1);
+  });
   it.skip('users table should have rendered data', async () => {
     axiosMock.get.mockResolvedValueOnce({
       data: [
