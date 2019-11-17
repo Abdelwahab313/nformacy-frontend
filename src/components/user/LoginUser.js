@@ -53,8 +53,10 @@ const Login = (props) => {
   const [loginFailed, setLoginFailed] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { setAuthTokens } = useAuth();
-  const referer = props.location.state.referer || '/';
+  const { authTokens, setAuthTokens, setLoggedInUser, loadedLocal } = useAuth();
+  const referer = props.location.state
+    ? props.location.state.referer || '/'
+    : '/';
 
   const onSubmit = (data) => {
     setLoginFailed(false);
@@ -62,6 +64,12 @@ const Login = (props) => {
     login(data)
       .then((result) => {
         setAuthTokens(result.data.token);
+        return result;
+      })
+      .then((result) => {
+        setLoggedInUser(result.data.user);
+      })
+      .then(() => {
         setLoginSuccess(true);
       })
       .catch(({ response }) => {
@@ -78,7 +86,7 @@ const Login = (props) => {
     setLoginFailed(false);
   };
   const classes = useStyles();
-  if (loginSuccess) {
+  if (loginSuccess || (loadedLocal && authTokens)) {
     return <Redirect push to={referer} />;
   }
   if (loading) {

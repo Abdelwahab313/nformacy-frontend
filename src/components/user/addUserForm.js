@@ -15,6 +15,7 @@ import Container from '@material-ui/core/Container';
 import { postUser } from '../../apis/usersApi';
 import useForm from 'react-hook-form';
 import { Redirect } from 'react-router';
+import { useAuth } from '../../context/auth';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -49,14 +50,20 @@ export default function SignUp() {
   const { register, handleSubmit, errors } = useForm();
   const [userCreatedFailed, setUserCreatedFailed] = useState(false);
   const [userCreatedSuccess, setUserCreatedSuccess] = useState(false);
+  const { authTokens, setAuthTokens } = useAuth();
   const classes = useStyles();
   const onSubmit = (data) => {
     setUserCreatedFailed(false);
-    postUser(data)
+    postUser(data, authTokens)
       .then(() => setUserCreatedSuccess(true))
       .catch(({ response }) => {
         if (response.status === 400) {
           setUserCreatedFailed(true);
+        }
+        if (response.status === 401) {
+          localStorage.removeItem('tokens');
+          localStorage.removeItem('users');
+          setAuthTokens();
         }
       });
   };

@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import { verifyClient } from '../../../apis/clientsApi';
+import { useAuth } from '../../../context/auth';
 
 const VerifyClient = ({ uuid, clientName, onStateChanged }) => {
   const [open, setOpen] = React.useState(false);
+  const { authTokens, setAuthTokens } = useAuth();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -17,9 +19,17 @@ const VerifyClient = ({ uuid, clientName, onStateChanged }) => {
     setOpen(false);
   };
   const handleVerification = () => {
-    verifyClient(uuid).then((res) => {
-      onStateChanged(uuid);
-    });
+    verifyClient(uuid, authTokens)
+      .then((res) => {
+        onStateChanged(uuid);
+      })
+      .catch((reason) => {
+        if (reason.response.status === 401) {
+          localStorage.removeItem('tokens');
+          localStorage.removeItem('users');
+          setAuthTokens();
+        }
+      });
     setOpen(false);
   };
   const useStyles = makeStyles(() => ({

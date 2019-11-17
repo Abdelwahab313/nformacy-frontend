@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import { cloneDeep } from 'lodash';
 import { GOOGLE_MAPS_API_KEY } from '../../../settings';
+import { useAuth } from '../../../context/auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,6 +59,7 @@ function Client(props) {
   const [_, setPhoneNumbers] = useState([]);
   const [clientLoading, setClientLoading] = useState(false);
   const [clientNotFound, setClientNotFound] = useState(false);
+  const { authTokens, setAuthTokens } = useAuth();
 
   const classes = useStyles();
 
@@ -84,7 +86,7 @@ function Client(props) {
   };
   useEffect(() => {
     setClientLoading(true);
-    fetchClient(uuid)
+    fetchClient(uuid, authTokens)
       .then((res) => {
         const fetchedClient = res.data;
         adaptMapsLocation(
@@ -97,6 +99,11 @@ function Client(props) {
       .catch((reason) => {
         if (reason.response.status === 404) {
           setClientNotFound(true);
+        }
+        if (reason.response.status === 401) {
+          localStorage.removeItem('tokens');
+          localStorage.removeItem('users');
+          setAuthTokens();
         }
       })
       .finally(() => {

@@ -16,6 +16,7 @@ import { Redirect } from 'react-router';
 import { cloneDeep } from 'lodash';
 import DeleteClient from './DeleteClient';
 import ErrorDialog from '../errors/ErrorDialog';
+import { useAuth } from '../../context/auth';
 
 function ClientsList(props) {
   const [clients, setClients] = useState([]);
@@ -27,6 +28,7 @@ function ClientsList(props) {
   const [errorMessage, setErrorMessage] = useState('');
   const [showError, setShowError] = useState(false);
   const [toBeDeleted, setToBeDeleted] = useState({});
+  const { authTokens, setAuthTokens } = useAuth();
 
   function getFirstPhoneNumbers(fetchedClients) {
     for (let i = 0; i < fetchedClients.length; i++) {
@@ -61,7 +63,7 @@ function ClientsList(props) {
 
   useEffect(() => {
     setClientsLoading(true);
-    fetchClients()
+    fetchClients(authTokens)
       .then((res) => {
         const fetchedClients = res.data;
         fetchedClients.sort(
@@ -76,11 +78,16 @@ function ClientsList(props) {
           setErrorMessage('حدث خطأ أثناء الاتصال بالخادم');
           setShowError(true);
         }
+        if (reason.response.status === 401) {
+          localStorage.removeItem('tokens');
+          localStorage.removeItem('users');
+          setAuthTokens();
+        }
       })
       .finally(() => {
         setClientsLoading(false);
       });
-  }, []);
+  }, [authTokens, setAuthTokens]);
 
   function handleOnStateChanged(uuid) {
     const updatedClientIndex = clients.findIndex(
@@ -208,7 +215,6 @@ function ClientsList(props) {
                 field: 'created',
                 type: 'date',
                 render: (client) => {
-                  console.log(client.created);
                   const date = new Date(client.created);
                   return `${date.toLocaleTimeString()} ${date.toLocaleDateString()}`;
                 },

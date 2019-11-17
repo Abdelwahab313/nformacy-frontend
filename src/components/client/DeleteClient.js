@@ -5,6 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import { deleteClient } from '../../apis/clientsApi';
+import { useAuth } from '../../context/auth';
 
 const DeleteClient = ({
   uuid,
@@ -14,6 +15,7 @@ const DeleteClient = ({
   identifier,
 }) => {
   const [open, setOpen] = React.useState(true);
+  const { authTokens, setAuthTokens } = useAuth();
 
   useEffect(() => {
     if (identifier) {
@@ -25,9 +27,17 @@ const DeleteClient = ({
     onDeleteFail();
   };
   const handleDeletion = () => {
-    deleteClient(uuid).then((res) => {
-      onDeleteDone(uuid);
-    });
+    deleteClient(uuid, authTokens)
+      .then((res) => {
+        onDeleteDone(uuid);
+      })
+      .catch((reason) => {
+        if (reason.response.status === 401) {
+          localStorage.removeItem('tokens');
+          localStorage.removeItem('users');
+          setAuthTokens();
+        }
+      });
     setOpen(false);
   };
   const useStyles = makeStyles(() => ({

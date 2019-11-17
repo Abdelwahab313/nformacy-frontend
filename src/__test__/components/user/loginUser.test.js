@@ -1,13 +1,29 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Login from '../../../components/user/LoginUser';
-describe.skip('login user form', () => {
+import * as AuthContextMoudle from '../../../context/auth';
+import { AuthContext } from '../../../context/auth';
+
+describe('login user form', () => {
+  let tree;
+  let wrapper;
+  beforeEach(() => {
+    jest.spyOn(AuthContextMoudle, 'useAuth').mockImplementation(() => ({
+      authTokens: '',
+    }));
+    tree = (
+      <AuthContext.Provider>
+        <Login location={{ state: undefined }} />
+      </AuthContext.Provider>
+    );
+    wrapper = shallow(tree)
+      .dive()
+      .dive();
+  });
   it('should render login user form', () => {
-    const wrapper = shallow(<Login />);
     expect(wrapper.find('#loginUserForm').length).toEqual(1);
   });
   it('should render username field', () => {
-    const wrapper = shallow(<Login />);
     const username_field = wrapper.find('#username');
     const username_props = username_field.props();
     expect(username_field.length).toEqual(1);
@@ -16,7 +32,6 @@ describe.skip('login user form', () => {
     expect(username_props.autoComplete).toEqual('username');
   });
   it('should render password field', () => {
-    const wrapper = shallow(<Login />);
     const password_field = wrapper.find('#password');
     const password_props = password_field.props();
     expect(password_field.length).toEqual(1);
@@ -25,7 +40,6 @@ describe.skip('login user form', () => {
     expect(password_props.type).toEqual('password');
   });
   it('should render login button', () => {
-    const wrapper = shallow(<Login />);
     const login_button = wrapper.find('#login');
     expect(login_button.length).toEqual(1);
   });

@@ -20,9 +20,12 @@ import { table_localization } from '../../settings';
 import CloseIcon from '@material-ui/icons/Close';
 import AddUserForm from './addUserForm';
 import '../../index.css';
+import { useAuth } from '../../context/auth';
+
 function UsersList(props) {
   const [users, setUsers] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const { authTokens, setAuthTokens } = useAuth();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -32,11 +35,21 @@ function UsersList(props) {
     setOpen(false);
   };
   useEffect(() => {
-    fetchUsers().then((res) => {
-      const fetchedUsers = res.data;
-      fetchedUsers.sort((a, b) => a.id - b.id);
-      setUsers(fetchedUsers);
-    });
+    fetchUsers(authTokens)
+      .then((res) => {
+        const fetchedUsers = res.data;
+        fetchedUsers.sort(
+          (a, b) => new Date(a.date_joined) - new Date(b.date_joined),
+        );
+        setUsers(fetchedUsers);
+      })
+      .catch((reason) => {
+        if (reason.response.status === 401) {
+          localStorage.removeItem('tokens');
+          localStorage.removeItem('users');
+          setAuthTokens();
+        }
+      });
   }, []);
 
   const useStyles = makeStyles((theme) => ({
