@@ -9,4 +9,12 @@ const login = (user) => {
   });
 };
 
-export default login;
+const logout = (tokenStr) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/auth/logout`,
+    headers: { Authorization: `Bearer ${tokenStr.access_token}` },
+  });
+};
+
+export { login, logout };
