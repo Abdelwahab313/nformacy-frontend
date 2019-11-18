@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -9,7 +9,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { Redirect } from 'react-router';
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const drawerWidth = '15%';
 
@@ -32,29 +34,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LargeSideBar(props) {
+function LargeSideBar(props) {
   const classes = useStyles();
-  const [redirect, setRedirect] = useState(false);
-  const [redirectTo, setRedirectTo] = useState();
+  const [selectedItem, setSelectedItem] = useState();
 
-  function handleOnClick(e) {
-    function checkRouteType() {
-      if (e === 'clients') {
-        setRedirectTo('/clients/list');
-      } else if (e === 'users') {
-        setRedirectTo('/users/list');
-      } else if (e === 'logout') {
-        setRedirectTo('/logout');
-      }
-      setRedirect(true);
-    }
-
-    checkRouteType();
-  }
-
-  if (redirect) {
-    return <Redirect push to={redirectTo} />;
-  }
   return (
     <div className={classes.root} dir='rtl'>
       <Drawer
@@ -68,32 +51,35 @@ export default function LargeSideBar(props) {
         <div className={classes.toolbar} dir={'rtl'} />
         <Divider />
         <List id={'menu-items'}>
-          <ListItem
+          <MenuItem
             button
+            onClick={() => setSelectedItem(1)}
+            selected={selectedItem === 1}
             key={'الموزعين'}
-            onClick={() => handleOnClick('users')}>
+            component={Link}
+            to={'/users/list'}>
             <ListItemIcon>
               <LocalShippingIcon />{' '}
             </ListItemIcon>
             <ListItemText primary={'الموزعين'} />
-          </ListItem>
+          </MenuItem>
           <ListItem
             button
+            onClick={() => setSelectedItem(2)}
+            selected={selectedItem === 2}
             key={'العملاء'}
-            onClick={() => handleOnClick('clients')}>
+            component={Link}
+            to={'/clients/list'}>
             <ListItemIcon>
               <AccessibilityIcon />
             </ListItemIcon>
             <ListItemText primary={'العملاء'} />
           </ListItem>
-          <ListItem button key={'تسجيل الخروج'}>
+          <ListItem button key={'تسجيل الخروج'} component={Link} to={'/logout'}>
             <ListItemIcon>
               <ExitToAppIcon />
             </ListItemIcon>
-            <ListItemText
-              primary={'تسجيل الخروج'}
-              onClick={() => handleOnClick('logout')}
-            />
+            <ListItemText primary={'تسجيل الخروج'} />
           </ListItem>
         </List>
         <Divider />
@@ -101,3 +87,5 @@ export default function LargeSideBar(props) {
     </div>
   );
 }
+
+export default withRouter(LargeSideBar);

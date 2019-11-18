@@ -17,7 +17,6 @@ import { cloneDeep } from 'lodash';
 import DeleteClient from './DeleteClient';
 import ErrorDialog from '../errors/ErrorDialog';
 import { useAuth } from '../../context/auth';
-import LargeSideBar from '../drawer/LargeSideBar';
 
 function ClientsList(props) {
   const [clients, setClients] = useState([]);
@@ -78,8 +77,7 @@ function ClientsList(props) {
         if (reason.message === 'Network Error') {
           setErrorMessage('حدث خطأ أثناء الاتصال بالخادم');
           setShowError(true);
-        }
-        if (reason.response.status === 401) {
+        } else if (reason.response.status === 401) {
           localStorage.removeItem('tokens');
           localStorage.removeItem('users');
           setAuthTokens();
@@ -159,7 +157,6 @@ function ClientsList(props) {
   } else {
     return (
       <div dir='rtl' className={classes.root}>
-        <LargeSideBar location={props.location} />
         {showError && <ErrorDialog message={errorMessage} />}
         <Grid
           className={`tableContainer ${

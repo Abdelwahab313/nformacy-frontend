@@ -12,7 +12,6 @@ import WarningIcon from '@material-ui/icons/Warning';
 import { cloneDeep } from 'lodash';
 import { GOOGLE_MAPS_API_KEY } from '../../../settings';
 import { useAuth } from '../../../context/auth';
-import LargeSideBar from '../../drawer/LargeSideBar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -110,8 +109,7 @@ function Client(props) {
       .catch((reason) => {
         if (reason.response.status === 404) {
           setClientNotFound(true);
-        }
-        if (reason.response.status === 401) {
+        } else if (reason.response.status === 401) {
           localStorage.removeItem('tokens');
           localStorage.removeItem('users');
           setAuthTokens();
@@ -138,7 +136,6 @@ function Client(props) {
   }
   return (
     <div className={classes.root} dir='rtl'>
-      <LargeSideBar />
       <Grid container spacing={3} className={classes.details}>
         <Grid item lg={10}>
           <ClientDetails

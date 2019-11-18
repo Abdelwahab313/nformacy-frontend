@@ -17,9 +17,35 @@ import CloseIcon from '@material-ui/icons/Close';
 import AddUserForm from './addUserForm';
 import '../../index.css';
 import { useAuth } from '../../context/auth';
-import LargeSideBar from '../drawer/LargeSideBar';
 
-function UsersList(props) {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: theme.spacing(3),
+  },
+  addButton: {
+    marginBottom: theme.spacing(1),
+  },
+  toolBar: {
+    position: 'relative',
+    color: '#edf0f2',
+    justifyContent: 'space-between',
+    flexBasis: '100%',
+  },
+  addForm: {
+    margin: 'auto',
+  },
+  tableContainer: {
+    width: '85%',
+    margin: theme.spacing(1),
+  },
+}));
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction='up' ref={ref} {...props} />;
+});
+
+export default function FullScreenDialog() {
+  const classes = useStyles();
   const [users, setUsers] = useState([]);
   const [open, setOpen] = React.useState(false);
   const { authTokens, setAuthTokens } = useAuth();
@@ -49,35 +75,11 @@ function UsersList(props) {
       });
   }, []);
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      padding: theme.spacing(3),
-    },
-    toolBar: {
-      position: 'relative',
-      color: '#edf0f2',
-      justifyContent: 'space-between',
-      flexBasis: '100%',
-    },
-    addForm: {
-      margin: 'auto',
-    },
-    tableContainer: {
-      width: '85%',
-      margin: theme.spacing(1),
-    },
-  }));
-  const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction='up' ref={ref} {...props} />;
-  });
-
-  const classes = useStyles();
-
   return (
     <div dir='rtl' className={classes.root}>
-      <LargeSideBar location={props.location} />
       <Grid className={classes.tableContainer}>
         <Button
+          className={classes.addButton}
           variant='contained'
           id={'add-user-button'}
           onClick={handleClickOpen}
@@ -131,5 +133,3 @@ function UsersList(props) {
     </div>
   );
 }
-
-export default UsersList;

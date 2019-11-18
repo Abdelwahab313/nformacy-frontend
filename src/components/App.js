@@ -17,6 +17,7 @@ import { AuthContext } from '../context/auth';
 import PrivateRoute from './PrivateRoute';
 import LargeSideBar from './drawer/LargeSideBar';
 import Logout from './user/LogoutUser';
+import Layout from './Layout';
 
 const presets = preset().plugins;
 
@@ -65,12 +66,8 @@ function App() {
             setLoadedLocal,
           }}>
           <Switch>
-            <PrivateRoute exact path='/' component={ClientsList} />
-            <PrivateRoute path='/clients/list' component={ClientsList} />
             <Route path='/login' component={Login} />
-            <PrivateRoute path='/logout' component={Logout} />
-            <PrivateRoute path='/clients/:uuid' component={Client} />
-            <PrivateRoute path='/users/list' component={UsersList} />
+            <PrivateRoute path='/' component={Layout} />
           </Switch>
         </AuthContext.Provider>
       </StylesProvider>
