@@ -88,7 +88,7 @@ export default function FullScreenDialog() {
         </Button>
         <MaterialTable
           id={'usersList'}
-          localization={table_localization(false)}
+          localization={table_localization('الموظفين')}
           columns={[
             {
               title: 'أسم المستخدم',

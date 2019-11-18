@@ -6,6 +6,7 @@ import { Switch, withRouter } from 'react-router-dom';
 import Logout from './user/LogoutUser';
 import Client from './client/detail/Client';
 import UsersList from './user/UsersList';
+import ProductsList from './product/ProductsList';
 
 function Layout(props) {
   return (
@@ -17,6 +18,7 @@ function Layout(props) {
         <PrivateRoute path='/logout' component={Logout} />
         <PrivateRoute path='/clients/:uuid' component={Client} />
         <PrivateRoute path='/users/list' component={UsersList} />
+        <PrivateRoute path='/products/list' component={ProductsList} />
       </Switch>
     </div>
   );

@@ -51,7 +51,8 @@ function LargeSideBar(props) {
         <div className={classes.toolbar} dir={'rtl'} />
         <Divider />
         <List id={'menu-items'}>
-          <MenuItem
+          <ListItem
+            id={'reps'}
             button
             onClick={() => setSelectedItem(1)}
             selected={selectedItem === 1}
@@ -62,8 +63,9 @@ function LargeSideBar(props) {
               <LocalShippingIcon />{' '}
             </ListItemIcon>
             <ListItemText primary={'الموزعين'} />
-          </MenuItem>
+          </ListItem>
           <ListItem
+            id={'clients'}
             button
             onClick={() => setSelectedItem(2)}
             selected={selectedItem === 2}
@@ -74,6 +76,19 @@ function LargeSideBar(props) {
               <AccessibilityIcon />
             </ListItemIcon>
             <ListItemText primary={'العملاء'} />
+          </ListItem>
+          <ListItem
+            id={'products'}
+            button
+            onClick={() => setSelectedItem(3)}
+            selected={selectedItem === 3}
+            key={'البضائع'}
+            component={Link}
+            to={'/products/list'}>
+            <ListItemIcon>
+              <AccessibilityIcon />
+            </ListItemIcon>
+            <ListItemText primary={'البضائع'} />
           </ListItem>
           <ListItem button key={'تسجيل الخروج'} component={Link} to={'/logout'}>
             <ListItemIcon>

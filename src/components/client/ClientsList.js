@@ -166,7 +166,7 @@ function ClientsList(props) {
           }`}>
           <MaterialTable
             id={'clientsList'}
-            localization={table_localization()}
+            localization={table_localization('العملاء')}
             actions={[
               {
                 icon: 'help',

@@ -110,3 +110,23 @@ export let users = [
     verified: true,
   },
 ];
+export let products = [
+  {
+    id: 0,
+    productName: 'Todo',
+    sku: '123',
+    productPrice: '5',
+  },
+  {
+    id: 1,
+    productName: 'digestive',
+    sku: '456',
+    productPrice: '5',
+  },
+  {
+    id: 2,
+    productName: 'Andomi',
+    sku: '123',
+    productPrice: '5',
+  },
+];
