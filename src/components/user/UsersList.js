@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Grid,
-  makeStyles,
+  AppBar,
   Button,
   Dialog,
-  AppBar,
-  Toolbar,
+  Grid,
   IconButton,
-  Typography,
-  List,
-  ListItem,
-  ListItemText,
-  Divider,
+  makeStyles,
   Slide,
+  Toolbar,
+  Typography,
 } from '@material-ui/core';
 import MaterialTable from 'material-table';
 import { fetchUsers } from '../../apis/usersApi';
@@ -21,6 +17,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import AddUserForm from './addUserForm';
 import '../../index.css';
 import { useAuth } from '../../context/auth';
+import LargeSideBar from '../drawer/LargeSideBar';
 
 function UsersList(props) {
   const [users, setUsers] = useState([]);
@@ -65,6 +62,10 @@ function UsersList(props) {
     addForm: {
       margin: 'auto',
     },
+    tableContainer: {
+      width: '85%',
+      margin: theme.spacing(1),
+    },
   }));
   const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction='up' ref={ref} {...props} />;
@@ -74,7 +75,8 @@ function UsersList(props) {
 
   return (
     <div dir='rtl' className={classes.root}>
-      <Grid>
+      <LargeSideBar location={props.location} />
+      <Grid className={classes.tableContainer}>
         <Button
           variant='contained'
           id={'add-user-button'}

@@ -17,6 +17,7 @@ import { cloneDeep } from 'lodash';
 import DeleteClient from './DeleteClient';
 import ErrorDialog from '../errors/ErrorDialog';
 import { useAuth } from '../../context/auth';
+import LargeSideBar from '../drawer/LargeSideBar';
 
 function ClientsList(props) {
   const [clients, setClients] = useState([]);
@@ -134,11 +135,11 @@ function ClientsList(props) {
       margin: theme.spacing(1),
     },
     tableContainerFW: {
-      width: '100%',
+      width: '85%',
       margin: theme.spacing(1),
     },
     mapContainer: {
-      width: '100%',
+      width: '85%',
       maxHeight: 600,
       margin: theme.spacing(1),
     },
@@ -158,6 +159,7 @@ function ClientsList(props) {
   } else {
     return (
       <div dir='rtl' className={classes.root}>
+        <LargeSideBar location={props.location} />
         {showError && <ErrorDialog message={errorMessage} />}
         <Grid
           className={`tableContainer ${

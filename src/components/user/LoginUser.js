@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import useForm from 'react-hook-form';
-import login from '../../apis/authAPI';
+import { login } from '../../apis/authAPI';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Redirect } from 'react-router';
 import { useAuth } from '../../context/auth';
@@ -81,12 +81,16 @@ const Login = (props) => {
         setLoading(false);
       });
   };
-
   const handleTextChange = () => {
     setLoginFailed(false);
   };
   const classes = useStyles();
+
   if (loginSuccess || (loadedLocal && authTokens)) {
+    if (referer.pathname === '/logout') {
+      debugger;
+      return <Redirect push to='/users/list' />;
+    }
     return <Redirect push to={referer} />;
   }
   if (loading) {
@@ -96,6 +100,7 @@ const Login = (props) => {
       </div>
     );
   }
+
   return (
     <Container component='main' maxWidth='xs' dir='rtl'>
       <CssBaseline />

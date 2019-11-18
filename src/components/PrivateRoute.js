@@ -17,7 +17,7 @@ function PrivateRoute({ component: Component, ...rest }) {
       />
     );
   }
-  if (authTokens && loadedLocal) {
+  if (authTokens) {
     return <Route {...rest} render={(props) => <Component {...props} />} />;
   }
   // noinspection JSConstructorReturnsPrimitive

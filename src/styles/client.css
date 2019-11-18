@@ -3,7 +3,7 @@
 }
 
 .tableContainer {
-  width: 63%;
+  width: 50%;
 }
 .mapElement {
   height: 100%;
@@ -14,7 +14,7 @@
     height: 500px;
   }
   .tableContainer {
-    width: 100%;
+    width: 85%;
   }
 }
 

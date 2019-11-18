@@ -12,11 +12,21 @@ import WarningIcon from '@material-ui/icons/Warning';
 import { cloneDeep } from 'lodash';
 import { GOOGLE_MAPS_API_KEY } from '../../../settings';
 import { useAuth } from '../../../context/auth';
+import LargeSideBar from '../../drawer/LargeSideBar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     padding: theme.spacing(1),
+  },
+  mapContainer: {
+    padding: theme.spacing(2),
+  },
+  imgContainer: {
+    paddingRight: theme.spacing(1),
+  },
+  mapGrid: {
+    paddingLeft: theme.spacing(1),
   },
   paper: {
     padding: theme.spacing(2),
@@ -32,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     display: 'block',
     width: '100%',
+    // maxWidth: 515,
   },
   emptyContainer: {
     position: 'absolute',
@@ -127,32 +138,35 @@ function Client(props) {
   }
   return (
     <div className={classes.root} dir='rtl'>
+      <LargeSideBar />
       <Grid container spacing={3} className={classes.details}>
-        <Grid item lg={8} md={8} xs={12}>
+        <Grid item lg={10}>
           <ClientDetails
             id={'clientDetails'}
             passedClient={client}
             onStateChanged={handleOnStateChanged}
           />
         </Grid>
-        <Grid item lg={4} md={4} xs={12}>
+      </Grid>
+      <Grid container className={classes.mapContainer}>
+        <Grid item lg={5} xs={10} className={classes.imgContainer}>
           <img
             className={classes.img}
             src={client.image_link}
             id={'client-image'}
           />
         </Grid>
+        <Grid item lg={5} xs={10} className={classes.mapGrid}>
+          <MapWithAMarker
+            location={clientLocation}
+            isMarkerShown
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&key=${GOOGLE_MAPS_API_KEY}`}
+            loadingElement={<div style={{ height: '100%' }} />}
+            containerElement={<div style={{ height: '400px' }} />}
+            mapElement={<div style={{ height: '100%' }} />}
+          />
+        </Grid>
       </Grid>
-      <div className={classes.root} id={'client-location'}>
-        <MapWithAMarker
-          location={clientLocation}
-          isMarkerShown
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&key=${GOOGLE_MAPS_API_KEY}`}
-          loadingElement={<div style={{ height: '100%' }} />}
-          containerElement={<div style={{ height: '400px' }} />}
-          mapElement={<div style={{ height: '100%' }} />}
-        />
-      </div>
     </div>
   );
 }

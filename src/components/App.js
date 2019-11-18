@@ -15,6 +15,8 @@ import { Route, Switch } from 'react-router-dom';
 import Login from './user/LoginUser';
 import { AuthContext } from '../context/auth';
 import PrivateRoute from './PrivateRoute';
+import LargeSideBar from './drawer/LargeSideBar';
+import Logout from './user/LogoutUser';
 
 const presets = preset().plugins;
 
@@ -60,11 +62,13 @@ function App() {
             setAuthTokens: setTokens,
             loadedLocal,
             setLoggedInUser: setLoggedUser,
+            setLoadedLocal,
           }}>
           <Switch>
             <PrivateRoute exact path='/' component={ClientsList} />
             <PrivateRoute path='/clients/list' component={ClientsList} />
             <Route path='/login' component={Login} />
+            <PrivateRoute path='/logout' component={Logout} />
             <PrivateRoute path='/clients/:uuid' component={Client} />
             <PrivateRoute path='/users/list' component={UsersList} />
           </Switch>
