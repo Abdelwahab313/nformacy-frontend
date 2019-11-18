@@ -88,4 +88,4 @@ function LargeSideBar(props) {
   );
 }
 
-export default withRouter(LargeSideBar);
+export default LargeSideBar;
