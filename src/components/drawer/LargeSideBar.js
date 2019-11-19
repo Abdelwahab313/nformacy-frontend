@@ -46,6 +46,8 @@ function LargeSideBar(props) {
       setSelectedItem(2);
     } else if (window.location.pathname.includes('products')) {
       setSelectedItem(3);
+    } else if (window.location.pathname.includes('sales')) {
+      setSelectedItem(4);
     }
   }, []);
   return (
@@ -99,6 +101,19 @@ function LargeSideBar(props) {
               <FastfoodIcon />
             </ListItemIcon>
             <ListItemText primary={'البضائع'} />
+          </ListItem>
+          <ListItem
+            id={'sales'}
+            button
+            onClick={() => setSelectedItem(4)}
+            selected={selectedItem === 4}
+            key={'المبيعات'}
+            component={Link}
+            to={'/sales/list'}>
+            <ListItemIcon>
+              <FastfoodIcon />
+            </ListItemIcon>
+            <ListItemText primary={'المبيعات'} />
           </ListItem>
           <ListItem button key={'تسجيل الخروج'} component={Link} to={'/logout'}>
             <ListItemIcon>

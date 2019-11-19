@@ -18,7 +18,7 @@ describe('Products', () => {
     );
     wrapper = shallow(tree).dive();
   });
-  it('should render products details', () => {
+  it('should render products component', () => {
     wrapper = shallow(<ProductsList />);
     expect(wrapper.find('div').length).toEqual(1);
   });

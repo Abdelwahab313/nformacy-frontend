@@ -130,3 +130,34 @@ export let products = [
     productPrice: '5',
   },
 ];
+
+export let sales = [
+  {
+    id: 0,
+    client: 'aml',
+    rep: 'ahmed',
+    value: '100',
+    date: '19/04/2019',
+  },
+  {
+    id: 2,
+    client: 'samir',
+    rep: 'mohsen',
+    value: '150',
+    date: '20/04/2019',
+  },
+  {
+    id: 3,
+    client: 'misho',
+    rep: 'islam',
+    value: '100',
+    date: '16/04/2019',
+  },
+  {
+    id: 4,
+    client: 'ali',
+    rep: 'mostafa',
+    value: '200',
+    date: '15/04/2019',
+  },
+];
