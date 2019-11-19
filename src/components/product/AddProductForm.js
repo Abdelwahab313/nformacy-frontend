@@ -7,9 +7,9 @@ import TextField from '@material-ui/core/TextField';
 import useForm from 'react-hook-form';
 import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import { Redirect } from 'react-router';
 import { useAuth } from '../../context/auth';
 import { postProduct } from '../../apis/productsApi';
+import { Redirect } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -44,6 +44,9 @@ const AddProductForm = () => {
   const { register, handleSubmit, errors } = useForm();
   const [productCreatedFailed, setProductCreatedFailed] = useState(false);
   const [productCreatedSuccess, setProductCreatedSuccess] = useState(false);
+  const [skuAlreadyExist, setSkuAlreadyExist] = useState(false);
+  const [priceMustBeDigit, setPriceMustBeDigit] = useState(false);
+
   const { authTokens, setAuthTokens } = useAuth();
   const classes = useStyles();
   const onSubmit = (data) => {
@@ -53,6 +56,11 @@ const AddProductForm = () => {
       .catch(({ response }) => {
         if (response.status === 400) {
           setProductCreatedFailed(true);
+          if (response.data.price) {
+            setPriceMustBeDigit(true);
+          } else {
+            setSkuAlreadyExist(true);
+          }
         }
         if (response.status === 401) {
           localStorage.removeItem('tokens');
@@ -77,7 +85,7 @@ const AddProductForm = () => {
           className={classes.form}
           noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={6} sm={6} lg={12}>
               <TextField
                 autoComplete='name'
                 name='name'
@@ -89,10 +97,10 @@ const AddProductForm = () => {
                 autoFocus
               />
             </Grid>
-            {errors.productName && (
+            {errors.name && (
               <span className={classes.error}> برجاء ادخال اسم المنتج</span>
             )}
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={6} sm={6} lg={12}>
               <TextField
                 autoComplete='name'
                 name='sku'
@@ -105,9 +113,12 @@ const AddProductForm = () => {
               />
             </Grid>
             {errors.sku && (
-              <span className={classes.error}> برجاء ادخال sku</span>
+              <span className={classes.error}> برجاء ادخال الرقم التسلسلى</span>
             )}
-            <Grid item xs={12} sm={6}>
+            {skuAlreadyExist && (
+              <span className={classes.error}>الرقم التسلسلى موجود</span>
+            )}
+            <Grid item xs={6} sm={6} lg={12}>
               <TextField
                 autoComplete='name'
                 name='price'
@@ -122,6 +133,12 @@ const AddProductForm = () => {
             {errors.price && (
               <span className={classes.error}> برجاء ادخال سعر المنتج</span>
             )}
+            {priceMustBeDigit && (
+              <span className={classes.error}>
+                {' '}
+                سعر المنتج يجب ان يكون رقما{' '}
+              </span>
+            )}
           </Grid>
           <Button
             type='submit'
@@ -131,7 +148,6 @@ const AddProductForm = () => {
             className={classes.submit}>
             حفظ
           </Button>
-          {productCreatedFailed && <span className={classes.error}>خطأ</span>}
         </form>
       </div>
     </Container>

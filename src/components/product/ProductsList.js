@@ -15,7 +15,7 @@ import { table_localization } from '../../settings';
 import MaterialTable from 'material-table';
 import { fetchProducts } from '../../apis/productsApi';
 import { useAuth } from '../../context/auth';
-import CloseIcon from '@material-ui/core/SvgIcon/SvgIcon';
+import CloseIcon from '@material-ui/icons/Close';
 import AddProductForm from './AddProductForm';
 import ErrorDialog from '../errors/ErrorDialog';
 
@@ -91,8 +91,8 @@ const ProductsList = (props) => {
           }}
         />
       )}
-      <Grid container spacing={3} className={classes.details}>
-        <Grid item lg={8} md={8} xs={12}>
+      <Grid container className={classes.details}>
+        <Grid item lg={10} md={8} xs={12}>
           <Button
             className={classes.addButton}
             variant='contained'
