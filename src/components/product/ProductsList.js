@@ -139,7 +139,7 @@ const ProductsList = (props) => {
             <Typography>اضافه منتج جديد</Typography>
           </Toolbar>
         </AppBar>
-        <AddProductForm />
+        <AddProductForm onClose={handleClose} />
       </Dialog>
     </div>
   );

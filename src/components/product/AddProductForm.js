@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddProductForm = () => {
+const AddProductForm = ({ onClose }) => {
   const { register, handleSubmit, errors } = useForm();
   const [productCreatedFailed, setProductCreatedFailed] = useState(false);
   const [productCreatedSuccess, setProductCreatedSuccess] = useState(false);
@@ -54,6 +54,7 @@ const AddProductForm = () => {
     postProduct(data, authTokens)
       .then(() => setProductCreatedSuccess(true))
       .catch(({ response }) => {
+        console.log(response);
         if (response.status === 400) {
           setProductCreatedFailed(true);
           if (response.data.price) {
@@ -70,7 +71,7 @@ const AddProductForm = () => {
       });
   };
   if (productCreatedSuccess) {
-    return <Redirect push to='/' />;
+    onClose();
   }
   return (
     <Container component='main' maxWidth='xs'>
