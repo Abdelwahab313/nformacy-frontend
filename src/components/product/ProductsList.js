@@ -17,6 +17,7 @@ import { fetchProducts } from '../../apis/productsApi';
 import { useAuth } from '../../context/auth';
 import CloseIcon from '@material-ui/core/SvgIcon/SvgIcon';
 import AddProductForm from './AddProductForm';
+import ErrorDialog from '../errors/ErrorDialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,6 +48,8 @@ const ProductsList = (props) => {
   const [products, setProducts] = useState([]);
   const { authTokens, setAuthTokens } = useAuth();
   const [open, setOpen] = React.useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [showError, setShowError] = useState(false);
   const classes = useStyles();
 
   const handleClickOpen = () => {
@@ -66,6 +69,8 @@ const ProductsList = (props) => {
       })
       .catch((reason) => {
         if (reason.message === 'Network Error') {
+          setErrorMessage('حدث خطأ أثناء الاتصال بالخادم');
+          setShowError(true);
         } else if (reason.response.status === 401) {
           localStorage.removeItem('tokens');
           localStorage.removeItem('users');
@@ -77,6 +82,15 @@ const ProductsList = (props) => {
 
   return (
     <div className={classes.root} dir='rtl'>
+      {showError && (
+        <ErrorDialog
+          message={errorMessage}
+          close={() => {
+            setShowError(false);
+            setErrorMessage();
+          }}
+        />
+      )}
       <Grid container spacing={3} className={classes.details}>
         <Grid item lg={8} md={8} xs={12}>
           <Button
@@ -90,7 +104,7 @@ const ProductsList = (props) => {
           <Paper>
             <MaterialTable
               id={'productsList'}
-              localization={table_localization('البضائع')}
+              localization={table_localization('بضائع')}
               actions={[
                 {
                   icon: 'help',

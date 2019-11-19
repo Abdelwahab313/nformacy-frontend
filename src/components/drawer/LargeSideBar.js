@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -9,9 +9,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import MenuItem from '@material-ui/core/MenuItem';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
 
 const drawerWidth = '15%';
 
@@ -37,7 +36,18 @@ const useStyles = makeStyles((theme) => ({
 function LargeSideBar(props) {
   const classes = useStyles();
   const [selectedItem, setSelectedItem] = useState();
-
+  useEffect(() => {
+    if (
+      window.location.pathname.includes('users') ||
+      window.location.pathname.split('/').length === 2
+    ) {
+      setSelectedItem(1);
+    } else if (window.location.pathname.includes('clients')) {
+      setSelectedItem(2);
+    } else if (window.location.pathname.includes('products')) {
+      setSelectedItem(3);
+    }
+  }, []);
   return (
     <div className={classes.root} dir='rtl'>
       <Drawer
@@ -86,7 +96,7 @@ function LargeSideBar(props) {
             component={Link}
             to={'/products/list'}>
             <ListItemIcon>
-              <AccessibilityIcon />
+              <FastfoodIcon />
             </ListItemIcon>
             <ListItemText primary={'البضائع'} />
           </ListItem>

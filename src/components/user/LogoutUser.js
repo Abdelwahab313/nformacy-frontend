@@ -30,9 +30,14 @@ const Logout = (props) => {
         setLoggedInUser();
       })
       .then(() => {
-        setLoadedLocal(false);
+        setLogoutSuccess(true);
       })
-      .then(() => {
+      .catch(() => {
+        localStorage.removeItem('tokens');
+        localStorage.removeItem('users');
+        setAuthTokens();
+        setLoggedInUser();
+        setLoadedLocal(false);
         setLogoutSuccess(true);
       });
   }, []);

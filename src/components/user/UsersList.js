@@ -17,6 +17,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import AddUserForm from './addUserForm';
 import '../../index.css';
 import { useAuth } from '../../context/auth';
+import ErrorDialog from '../errors/ErrorDialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,6 +49,8 @@ export default function FullScreenDialog() {
   const classes = useStyles();
   const [users, setUsers] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [showError, setShowError] = useState(false);
   const { authTokens, setAuthTokens } = useAuth();
 
   const handleClickOpen = () => {
@@ -72,11 +75,24 @@ export default function FullScreenDialog() {
           localStorage.removeItem('users');
           setAuthTokens();
         }
+      })
+      .catch((reason) => {
+        setErrorMessage('حدث خطأ أثناء الاتصال بالخادم');
+        setShowError(true);
       });
   }, []);
 
   return (
     <div dir='rtl' className={classes.root}>
+      {showError && (
+        <ErrorDialog
+          message={errorMessage}
+          close={() => {
+            setShowError(false);
+            setErrorMessage();
+          }}
+        />
+      )}
       <Grid className={classes.tableContainer}>
         <Button
           className={classes.addButton}
@@ -88,7 +104,7 @@ export default function FullScreenDialog() {
         </Button>
         <MaterialTable
           id={'usersList'}
-          localization={table_localization('الموظفين')}
+          localization={table_localization('موظفين')}
           columns={[
             {
               title: 'أسم المستخدم',

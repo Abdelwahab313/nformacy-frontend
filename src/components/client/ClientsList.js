@@ -157,7 +157,15 @@ function ClientsList(props) {
   } else {
     return (
       <div dir='rtl' className={classes.root}>
-        {showError && <ErrorDialog message={errorMessage} />}
+        {showError && (
+          <ErrorDialog
+            message={errorMessage}
+            close={() => {
+              setShowError(false);
+              setErrorMessage();
+            }}
+          />
+        )}
         <Grid
           className={`tableContainer ${
             clients.length === 0
@@ -166,7 +174,7 @@ function ClientsList(props) {
           }`}>
           <MaterialTable
             id={'clientsList'}
-            localization={table_localization('العملاء')}
+            localization={table_localization('عملاء')}
             actions={[
               {
                 icon: 'help',

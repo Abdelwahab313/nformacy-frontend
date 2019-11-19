@@ -12,6 +12,7 @@ import { login } from '../../apis/authAPI';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Redirect } from 'react-router';
 import { useAuth } from '../../context/auth';
+import ErrorDialog from '../errors/ErrorDialog';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -53,6 +54,8 @@ const Login = (props) => {
   const [loginFailed, setLoginFailed] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [showError, setShowError] = useState(false);
   const { authTokens, setAuthTokens, setLoggedInUser, loadedLocal } = useAuth();
   const referer = props.location.state
     ? props.location.state.referer || '/'
@@ -72,8 +75,14 @@ const Login = (props) => {
       .then(() => {
         setLoginSuccess(true);
       })
-      .catch(({ response }) => {
-        if (response.data.error === 'invalid_credentials') {
+      .catch((reason) => {
+        if (reason.message === 'Network Error') {
+          setErrorMessage('حدث خطأ أثناء الاتصال بالخادم');
+          setShowError(true);
+        } else if (
+          reason.response.data.error === 'invalid_credentials' ||
+          reason.response.data.error === 'unauthorized'
+        ) {
           setLoginFailed(true);
         }
       })
@@ -88,7 +97,6 @@ const Login = (props) => {
 
   if (loginSuccess || (loadedLocal && authTokens)) {
     if (referer.pathname === '/logout') {
-      debugger;
       return <Redirect push to='/users/list' />;
     }
     return <Redirect push to={referer} />;
@@ -103,6 +111,15 @@ const Login = (props) => {
 
   return (
     <Container component='main' maxWidth='xs' dir='rtl'>
+      {showError && (
+        <ErrorDialog
+          message={errorMessage}
+          close={() => {
+            setShowError(false);
+            setErrorMessage();
+          }}
+        />
+      )}
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>

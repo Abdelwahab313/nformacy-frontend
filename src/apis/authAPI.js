@@ -5,7 +5,7 @@ const login = (user) => {
   return axios({
     method: 'post',
     url: `${API_BASE_URL}/auth/login`,
-    data: user,
+    data: { ...user, app_type: 'dashboard' },
   });
 };
 

@@ -13,7 +13,7 @@ function Layout(props) {
     <div>
       <LargeSideBar />
       <Switch>
-        <PrivateRoute exact path='/' component={ClientsList} />
+        <PrivateRoute exact path='/' component={UsersList} />
         <PrivateRoute path='/clients/list' component={ClientsList} />
         <PrivateRoute path='/logout' component={Logout} />
         <PrivateRoute path='/clients/:uuid' component={Client} />

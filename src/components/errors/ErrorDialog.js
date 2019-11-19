@@ -5,11 +5,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 
-const ErrorDialog = ({ message }) => {
+const ErrorDialog = ({ message, close }) => {
   const [open, setOpen] = React.useState(true);
 
   const handleClose = () => {
     setOpen(false);
+    close();
   };
   const useStyles = makeStyles(() => ({
     dialogAction: {
