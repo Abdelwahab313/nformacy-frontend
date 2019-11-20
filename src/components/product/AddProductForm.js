@@ -54,7 +54,6 @@ const AddProductForm = ({ onClose }) => {
     postProduct(data, authTokens)
       .then(() => setProductCreatedSuccess(true))
       .catch(({ response }) => {
-        console.log(response);
         if (response.status === 400) {
           setProductCreatedFailed(true);
           if (response.data.price) {

@@ -144,7 +144,7 @@ export default function FullScreenDialog() {
             <Typography>اضافه موظف جديد</Typography>
           </Toolbar>
         </AppBar>
-        <AddUserForm />
+        <AddUserForm onClose={handleClose} />
       </Dialog>
     </div>
   );

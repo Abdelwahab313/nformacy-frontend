@@ -41,17 +41,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+const SignUp = ({ onClose }) => {
   const { register, handleSubmit, errors } = useForm();
   const [userCreatedFailed, setUserCreatedFailed] = useState(false);
   const [userCreatedSuccess, setUserCreatedSuccess] = useState(false);
   const { authTokens, setAuthTokens } = useAuth();
   const classes = useStyles();
   const onSubmit = (data) => {
+    debugger;
     setUserCreatedFailed(false);
     postUser(data, authTokens)
       .then(() => setUserCreatedSuccess(true))
       .catch(({ response }) => {
+        debugger;
         if (response.status === 400) {
           setUserCreatedFailed(true);
         }
@@ -63,7 +65,7 @@ export default function SignUp() {
       });
   };
   if (userCreatedSuccess) {
-    return <Redirect push to='/' />;
+    onClose();
   }
   return (
     <Container component='main' maxWidth='xs'>
@@ -198,4 +200,5 @@ export default function SignUp() {
       </div>
     </Container>
   );
-}
+};
+export default SignUp;
