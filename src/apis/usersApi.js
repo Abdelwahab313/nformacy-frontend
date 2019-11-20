@@ -6,6 +6,11 @@ const fetchUsers = (tokenStr) => {
     headers: { Authorization: `Bearer ${tokenStr.access_token}` },
   });
 };
+const fetchUser = (user_id, tokenStr) => {
+  return axios.get(`${API_BASE_URL}/users/${user_id}`, {
+    headers: { Authorization: `Bearer ${tokenStr.access_token}` },
+  });
+};
 const postUser = (user, tokenStr) => {
   return axios({
     method: 'post',
@@ -15,4 +20,4 @@ const postUser = (user, tokenStr) => {
   });
 };
 
-export { fetchUsers, postUser };
+export { fetchUsers, postUser, fetchUser };
