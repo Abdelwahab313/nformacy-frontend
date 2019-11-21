@@ -139,10 +139,8 @@ const SalesList = (props) => {
 
   function handleOnFilterClick() {
     setSalesLoading(true);
-    let formattedStartDate = moment(startDate).format('YYYY/MM/DD HH:mm:ssZ');
-    let formattedEndDate = moment(endDate).format('YYYY/MM/DD HH:mm:ssZ');
-    formattedStartDate = formattedStartDate.replace('+', '%2B');
-    formattedEndDate = formattedEndDate.replace('+', '%2B');
+    let formattedStartDate = moment(startDate).format('YYYY/MM/DDZ');
+    let formattedEndDate = moment(endDate).format('YYYY/MM/DDZ');
     getSalesWithDate(formattedStartDate, formattedEndDate, authTokens)
       .then((res) => {
         let fetchedFilteredSales = res.data;
@@ -150,6 +148,7 @@ const SalesList = (props) => {
           return this.find((elem) => element['uuid'] === elem['uuid']);
         }, fetchedFilteredSales);
         setSales(filteredSales);
+        constructLocationsList(fetchedFilteredSales);
       })
       .finally((res) => {
         setSalesLoading(false);
@@ -235,14 +234,12 @@ const SalesList = (props) => {
                       }}>
                       <label>تاريخ البدء</label>
                       <DatePicker
-                        showTimeSelect
                         selected={startDate}
                         onChange={(date) => setStartDate(date)}
                       />
                       <label>تاريخ الانتهاء</label>
                       <DatePicker
                         style={{ borderRadius: 7, padding: 6, fontSize: 13 }}
-                        showTimeSelect
                         selected={endDate}
                         onChange={(date) => setEndDate(date)}
                       />
@@ -321,7 +318,7 @@ const SalesList = (props) => {
               field: 'date',
               render: (sale) => {
                 const date = new Date(sale.created);
-                return `${date.toLocaleTimeString()} ${date.toLocaleDateString()}`;
+                return `${date.toLocaleDateString()}`;
               },
             },
           ]}
@@ -355,14 +352,12 @@ const SalesList = (props) => {
                     }}>
                     <label>تاريخ البدء</label>
                     <DatePicker
-                      showTimeSelect
                       selected={startDate}
                       onChange={(date) => setStartDate(date)}
                     />
                     <label>تاريخ الانتهاء</label>
                     <DatePicker
                       style={{ borderRadius: 7, padding: 6, fontSize: 13 }}
-                      showTimeSelect
                       selected={endDate}
                       onChange={(date) => setEndDate(date)}
                     />
