@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, makeStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import MaterialTable from 'material-table';
+import MaterialTable, { MTableToolbar } from 'material-table';
 import { table_localization } from '../../settings';
 import { sales } from '../../data';
 import DatePicker from 'react-datepicker';
@@ -12,6 +12,7 @@ import { useAuth } from '../../context/auth';
 import ErrorDialog from '../errors/ErrorDialog';
 import { fetchClient } from '../../apis/clientsApi';
 import { fetchUser } from '../../apis/usersApi';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,6 +41,7 @@ const SalesList = (props) => {
   const { authTokens, setAuthTokens } = useAuth();
   const [errorMessage, setErrorMessage] = useState('');
   const [showError, setShowError] = useState(false);
+  const [allSales, setAllSales] = useState([]);
   const classes = useStyles();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -69,6 +71,7 @@ const SalesList = (props) => {
       })
       .then(() => {
         setSales(fetchedSales);
+        setAllSales(fetchedSales);
       })
       .catch((reason) => {
         if (reason.message === 'Network Error') {
@@ -83,6 +86,20 @@ const SalesList = (props) => {
       .finally((res) => {});
   }, []);
 
+  function handleOnFilterClick() {
+    let formattedStartDate = moment(startDate).format('YYYY/MM/DD HH:MM:SSZ');
+    let formattedEndDate = moment(endDate).format('YYYY/MM/DD HH:MM:SSZ');
+    getSalesWithDate(formattedStartDate, formattedEndDate, authTokens).then(
+      (res) => {
+        let fetchedFilteredSales = res.data;
+        let filteredSales = allSales.filter(function(element) {
+          return this.find((elem) => element['uuid'] === elem['uuid']);
+        }, fetchedFilteredSales);
+        setSales(filteredSales);
+      },
+    );
+  }
+
   return (
     <div className={classes.root} dir='rtl'>
       {showError && (
@@ -94,45 +111,87 @@ const SalesList = (props) => {
           }}
         />
       )}
-      <Grid container className={classes.details}>
-        <Grid item lg={7} md={8} xs={12}>
-          <label>تاريخ البدء</label>
-          <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-          />
-          <label>تاريخ الانتهاء</label>
-          <DatePicker
-            selected={endDate}
-            onChange={(date) => setEndDate(date)}
-          />
-          <Button onClick={getSalesWithDate} color='primary'>
-            عرض
-          </Button>
-          <Paper>
-            <MaterialTable
-              id={'salesList'}
-              localization={table_localization('مبيعات')}
-              actions={[
-                {
-                  icon: 'help',
-                  tooltip: 'تفاصيل المبيعات',
-                  iconProps: {
-                    color: 'primary',
-                  },
-                },
-              ]}
-              columns={[
-                { title: 'اسم العميل', field: 'to' },
-                { title: 'اسم المندوب', field: 'by' },
-                { title: 'الحساب الكلي', field: 'total_price' },
-                { title: 'التاريخ', field: 'date' },
-              ]}
-              data={sales}
-              title={'المبيعات'}
-            />
-          </Paper>
-        </Grid>
+      <Grid className={classes.tableContainer}>
+        <MaterialTable
+          id={'salesList'}
+          localization={table_localization('مبيعات')}
+          actions={[
+            {
+              icon: 'help',
+              tooltip: 'تفاصيل المبيعات',
+              iconProps: {
+                color: 'primary',
+              },
+            },
+          ]}
+          columns={[
+            { title: 'اسم العميل', field: 'to' },
+            { title: 'اسم المندوب', field: 'by' },
+            { title: 'الحساب الكلي', field: 'total_price' },
+            {
+              title: 'التاريخ',
+              field: 'date',
+              render: (sale) => {
+                const date = new Date(sale.created);
+                return `${date.toLocaleTimeString()} ${date.toLocaleDateString()}`;
+              },
+            },
+          ]}
+          options={{
+            headerStyle: {
+              zIndex: 0,
+            },
+          }}
+          data={sales}
+          title={'المبيعات'}
+          components={{
+            Toolbar: (props) => (
+              <Grid lg={12}>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Grid
+                    lg={3}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <label>تصفية النتائج:</label>
+                  </Grid>
+                  <Grid
+                    lg={9}
+                    style={{
+                      display: 'flex',
+                      padding: '10px',
+                      justifyContent: 'flex-start',
+                      alignItems: 'center',
+                    }}>
+                    <label>تاريخ البدء</label>
+                    <DatePicker
+                      showTimeSelect
+                      selected={startDate}
+                      onChange={(date) => setStartDate(date)}
+                    />
+                    <label>تاريخ الانتهاء</label>
+                    <DatePicker
+                      style={{ borderRadius: 7, padding: 6, fontSize: 13 }}
+                      showTimeSelect
+                      selected={endDate}
+                      onChange={(date) => setEndDate(date)}
+                    />
+                    <Button
+                      size='small'
+                      variant='contained'
+                      onClick={handleOnFilterClick}
+                      color='primary'>
+                      عرض النتايج
+                    </Button>
+                  </Grid>
+                </div>
+                <MTableToolbar {...props} />
+              </Grid>
+            ),
+          }}
+        />
       </Grid>
     </div>
   );

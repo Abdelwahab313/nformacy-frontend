@@ -7,7 +7,7 @@ const fetchSales = (tokenStr) => {
   });
 };
 const getSalesWithDate = (start_date, end_date, token) => {
-  axios({
+  return axios({
     method: 'get',
     url: `${API_BASE_URL}/sales/?start_date=${start_date}&end_date=${end_date}`,
     headers: { Authorization: `Bearer ${token.access_token}` },
