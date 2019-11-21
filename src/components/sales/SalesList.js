@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, makeStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import MaterialTable, { MTableToolbar } from 'material-table';
 import { table_localization } from '../../settings';
+import { default_location, GOOGLE_MAPS_API_KEY } from '../../settings';
 import { sales } from '../../data';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -13,9 +13,14 @@ import ErrorDialog from '../errors/ErrorDialog';
 import { fetchClient } from '../../apis/clientsApi';
 import { fetchUser } from '../../apis/usersApi';
 import moment from 'moment';
+import '../../styles/client.css';
+import { MapWithMultipleMarkers } from '../GoogleMap';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    display: 'flex',
+    flexFlow: 'row wrap',
+    background: '#F5F5F5',
     padding: theme.spacing(3),
   },
   addButton: {
@@ -31,18 +36,26 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
   },
   tableContainer: {
+    margin: theme.spacing(1),
+  },
+  tableContainerFW: {
     width: '85%',
+    margin: theme.spacing(1),
+  },
+  mapContainer: {
+    width: '85%',
+    maxHeight: 600,
     margin: theme.spacing(1),
   },
 }));
 const SalesList = (props) => {
   const [sales, setSales] = useState([]);
-  const [users, setUsers] = useState([]);
   const { authTokens, setAuthTokens } = useAuth();
   const [errorMessage, setErrorMessage] = useState('');
   const [showError, setShowError] = useState(false);
   const [allSales, setAllSales] = useState([]);
   const classes = useStyles();
+  const [locations, setLocations] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
@@ -52,6 +65,7 @@ const SalesList = (props) => {
       .then((res) => {
         fetchedSales = res.data;
         fetchedSales.sort((a, b) => new Date(a.created) - new Date(b.created));
+        constructLocationsList(fetchedSales);
       })
       .then(async () => {
         return await Promise.all(
@@ -74,6 +88,7 @@ const SalesList = (props) => {
         setAllSales(fetchedSales);
       })
       .catch((reason) => {
+        debugger;
         if (reason.message === 'Network Error') {
           setErrorMessage('حدث خطأ أثناء الاتصال بالخادم');
           setShowError(true);
@@ -85,7 +100,31 @@ const SalesList = (props) => {
       })
       .finally((res) => {});
   }, []);
+  const adaptMapsLocation = (lat, long, name) => {
+    return {
+      lat: parseFloat(lat),
+      lng: parseFloat(long),
+      label: name,
+    };
+  };
 
+  function constructLocationsList(fetchedSales) {
+    const extractedLocations = [];
+    for (let i = 0; i < fetchedSales.length; i++) {
+      debugger;
+      extractedLocations.push(
+        adaptMapsLocation(
+          fetchedSales[i].saved_location.coordinates[0],
+          fetchedSales[i].saved_location.coordinates[1],
+          fetchedSales[i].name,
+        ),
+      );
+    }
+    if (fetchedSales.length === 0) {
+      extractedLocations.push(default_location);
+    }
+    setLocations(extractedLocations);
+  }
   function handleOnFilterClick() {
     let formattedStartDate = moment(startDate).format('YYYY/MM/DD HH:MM:SSZ');
     let formattedEndDate = moment(endDate).format('YYYY/MM/DD HH:MM:SSZ');
@@ -111,7 +150,10 @@ const SalesList = (props) => {
           }}
         />
       )}
-      <Grid className={classes.tableContainer}>
+      <Grid
+        className={`tableContainer ${
+          sales.length === 0 ? classes.tableContainerFW : classes.tableContainer
+        }`}>
         <MaterialTable
           id={'salesList'}
           localization={table_localization('مبيعات')}
@@ -183,7 +225,7 @@ const SalesList = (props) => {
                       variant='contained'
                       onClick={handleOnFilterClick}
                       color='primary'>
-                      عرض النتايج
+                      عرض
                     </Button>
                   </Grid>
                 </div>
@@ -193,6 +235,21 @@ const SalesList = (props) => {
           }}
         />
       </Grid>
+      {sales.length !== 0 && (
+        <Grid id={'mapContainer'} item lg={4} className={classes.mapContainer}>
+          <MapWithMultipleMarkers
+            className={classes.map}
+            markers={locations}
+            isMarkerShown
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&key=${GOOGLE_MAPS_API_KEY}`}
+            loadingElement={<div style={{ height: '100%' }} />}
+            containerElement={
+              <div style={{ display: 'inline-block clear', height: '100%' }} />
+            }
+            mapElement={<div style={{ height: 500 }} />}
+          />
+        </Grid>
+      )}
     </div>
   );
 };
