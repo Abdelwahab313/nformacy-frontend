@@ -13,6 +13,7 @@ import ErrorDialog from '../errors/ErrorDialog';
 import { fetchClient } from '../../apis/clientsApi';
 import { fetchUser } from '../../apis/usersApi';
 import moment from 'moment';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import '../../styles/client.css';
 import { MapWithMultipleMarkers } from '../GoogleMap';
 
@@ -34,6 +35,12 @@ const useStyles = makeStyles((theme) => ({
   },
   addForm: {
     margin: 'auto',
+  },
+  progressContainer: {
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
   },
   tableContainer: {
     margin: theme.spacing(1),
@@ -58,8 +65,10 @@ const SalesList = (props) => {
   const [locations, setLocations] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [salesLoading, setSalesLoading] = useState(false);
 
   useEffect(() => {
+    setSalesLoading(true);
     let fetchedSales;
     fetchSales(authTokens)
       .then((res) => {
@@ -98,7 +107,9 @@ const SalesList = (props) => {
           setAuthTokens();
         }
       })
-      .finally((res) => {});
+      .finally((res) => {
+        setSalesLoading(false);
+      });
   }, []);
   const adaptMapsLocation = (lat, long, name) => {
     return {
@@ -125,20 +136,155 @@ const SalesList = (props) => {
     }
     setLocations(extractedLocations);
   }
+
   function handleOnFilterClick() {
-    let formattedStartDate = moment(startDate).format('YYYY/MM/DD HH:MM:SSZ');
-    let formattedEndDate = moment(endDate).format('YYYY/MM/DD HH:MM:SSZ');
-    getSalesWithDate(formattedStartDate, formattedEndDate, authTokens).then(
-      (res) => {
+    setSalesLoading(true);
+    let formattedStartDate = moment(startDate).format('YYYY/MM/DD HH:mm:ssZ');
+    let formattedEndDate = moment(endDate).format('YYYY/MM/DD HH:mm:ssZ');
+    formattedStartDate = formattedStartDate.replace('+', '%2B');
+    formattedEndDate = formattedEndDate.replace('+', '%2B');
+    getSalesWithDate(formattedStartDate, formattedEndDate, authTokens)
+      .then((res) => {
         let fetchedFilteredSales = res.data;
         let filteredSales = allSales.filter(function(element) {
           return this.find((elem) => element['uuid'] === elem['uuid']);
         }, fetchedFilteredSales);
         setSales(filteredSales);
-      },
-    );
+      })
+      .finally((res) => {
+        setSalesLoading(false);
+      });
   }
 
+  if (salesLoading) {
+    return (
+      <div className={classes.progressContainer}>
+        <CircularProgress />
+      </div>
+    );
+  } else {
+    return (
+      <div className={classes.root} dir='rtl'>
+        {showError && (
+          <ErrorDialog
+            message={errorMessage}
+            close={() => {
+              setShowError(false);
+              setErrorMessage();
+            }}
+          />
+        )}
+        <Grid
+          className={`tableContainer ${
+            sales.length === 0
+              ? classes.tableContainerFW
+              : classes.tableContainer
+          }`}>
+          <MaterialTable
+            id={'salesList'}
+            localization={table_localization('مبيعات')}
+            actions={[
+              {
+                icon: 'help',
+                tooltip: 'تفاصيل المبيعات',
+                iconProps: {
+                  color: 'primary',
+                },
+              },
+            ]}
+            columns={[
+              { title: 'اسم العميل', field: 'to' },
+              { title: 'اسم المندوب', field: 'by' },
+              { title: 'الحساب الكلي', field: 'total_price' },
+              {
+                title: 'التاريخ',
+                field: 'date',
+                render: (sale) => {
+                  const date = new Date(sale.created);
+                  return `${date.toLocaleTimeString()} ${date.toLocaleDateString()}`;
+                },
+              },
+            ]}
+            options={{
+              headerStyle: {
+                zIndex: 0,
+              },
+            }}
+            data={sales}
+            title={'المبيعات'}
+            components={{
+              Toolbar: (props) => (
+                <Grid lg={12}>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Grid
+                      lg={3}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <label>تصفية النتائج:</label>
+                    </Grid>
+                    <Grid
+                      lg={9}
+                      style={{
+                        display: 'flex',
+                        padding: '10px',
+                        justifyContent: 'flex-start',
+                        alignItems: 'center',
+                      }}>
+                      <label>تاريخ البدء</label>
+                      <DatePicker
+                        showTimeSelect
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date)}
+                      />
+                      <label>تاريخ الانتهاء</label>
+                      <DatePicker
+                        style={{ borderRadius: 7, padding: 6, fontSize: 13 }}
+                        showTimeSelect
+                        selected={endDate}
+                        onChange={(date) => setEndDate(date)}
+                      />
+                      <Button
+                        size='small'
+                        variant='contained'
+                        onClick={handleOnFilterClick}
+                        color='primary'>
+                        عرض
+                      </Button>
+                    </Grid>
+                  </div>
+                  <MTableToolbar {...props} />
+                </Grid>
+              ),
+            }}
+          />
+        </Grid>
+        {sales.length !== 0 && (
+          <Grid
+            id={'mapContainer'}
+            item
+            lg={4}
+            className={classes.mapContainer}>
+            <MapWithMultipleMarkers
+              className={classes.map}
+              markers={locations}
+              isMarkerShown
+              googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&key=${GOOGLE_MAPS_API_KEY}`}
+              loadingElement={<div style={{ height: '100%' }} />}
+              containerElement={
+                <div
+                  style={{ display: 'inline-block clear', height: '100%' }}
+                />
+              }
+              mapElement={<div style={{ height: 500 }} />}
+            />
+          </Grid>
+        )}
+      </div>
+    );
+  }
   return (
     <div className={classes.root} dir='rtl'>
       {showError && (
