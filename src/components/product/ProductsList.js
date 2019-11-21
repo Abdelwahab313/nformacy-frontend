@@ -110,15 +110,6 @@ const ProductsList = (props) => {
             <MaterialTable
               id={'productsList'}
               localization={table_localization('بضائع')}
-              actions={[
-                {
-                  icon: 'help',
-                  tooltip: 'تفاصيل المنتجات',
-                  iconProps: {
-                    color: 'primary',
-                  },
-                },
-              ]}
               columns={[
                 { title: 'اسم المنتج', field: 'name' },
                 { title: 'SKU', field: 'sku' },

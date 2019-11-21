@@ -182,15 +182,6 @@ const SalesList = (props) => {
           <MaterialTable
             id={'salesList'}
             localization={table_localization('مبيعات')}
-            actions={[
-              {
-                icon: 'help',
-                tooltip: 'تفاصيل المبيعات',
-                iconProps: {
-                  color: 'primary',
-                },
-              },
-            ]}
             columns={[
               { title: 'اسم العميل', field: 'to' },
               { title: 'اسم المندوب', field: 'by' },
@@ -232,12 +223,12 @@ const SalesList = (props) => {
                         justifyContent: 'flex-start',
                         alignItems: 'center',
                       }}>
-                      <label>تاريخ البدء</label>
+                      <label>من</label>
                       <DatePicker
                         selected={startDate}
                         onChange={(date) => setStartDate(date)}
                       />
-                      <label>تاريخ الانتهاء</label>
+                      <label>الي</label>
                       <DatePicker
                         style={{ borderRadius: 7, padding: 6, fontSize: 13 }}
                         selected={endDate}
