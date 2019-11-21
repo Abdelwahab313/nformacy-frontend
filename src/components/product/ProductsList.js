@@ -57,9 +57,11 @@ const ProductsList = (props) => {
   };
   const handleClose = () => {
     setOpen(false);
+    getProducts();
   };
-  useEffect(() => {
-    fetchProducts(authTokens)
+
+  function getProducts() {
+    return fetchProducts(authTokens)
       .then((res) => {
         const fetchedProducts = res.data;
         fetchedProducts.sort(
@@ -76,8 +78,11 @@ const ProductsList = (props) => {
           localStorage.removeItem('users');
           setAuthTokens();
         }
-      })
-      .finally(() => {});
+      });
+  }
+
+  useEffect(() => {
+    getProducts().finally(() => {});
   }, []);
 
   return (

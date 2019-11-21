@@ -59,8 +59,10 @@ export default function FullScreenDialog() {
 
   const handleClose = () => {
     setOpen(false);
+    getUsers();
   };
-  useEffect(() => {
+
+  function getUsers() {
     fetchUsers(authTokens)
       .then((res) => {
         const fetchedUsers = res.data;
@@ -80,6 +82,10 @@ export default function FullScreenDialog() {
         setErrorMessage('حدث خطأ أثناء الاتصال بالخادم');
         setShowError(true);
       });
+  }
+
+  useEffect(() => {
+    getUsers();
   }, []);
 
   return (
