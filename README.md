@@ -8,7 +8,7 @@ run command
 
 `$ docker build -f Dockerfile-prod --tag dashboard:prod .`
 
-`$ docker run -it -p 80:80 --rm dashboard:prod`
+`$ docker run -d --name=dashboard -p 80:80 --rm dashboard:prod`
 
 ### `Build and run docker image in development mode`
 
