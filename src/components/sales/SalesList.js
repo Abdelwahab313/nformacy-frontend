@@ -140,7 +140,7 @@ const SalesList = (props) => {
   function handleOnFilterClick() {
     setSalesLoading(true);
     let formattedStartDate = moment(startDate).format('YYYY/MM/DD');
-    let formattedEndDate = moment(endDate).format('YYYY/MM/DD');
+    let formattedEndDate = moment(endDate).format('YYYY/MM/DD 23:59:59Z');
     getSalesWithDate(formattedStartDate, formattedEndDate, authTokens)
       .then((res) => {
         let fetchedFilteredSales = res.data;
