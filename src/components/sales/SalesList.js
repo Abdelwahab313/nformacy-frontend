@@ -74,7 +74,6 @@ const SalesList = (props) => {
       .then((res) => {
         fetchedSales = res.data;
         fetchedSales.sort((a, b) => new Date(a.created) - new Date(b.created));
-        constructLocationsList(fetchedSales);
       })
       .then(async () => {
         return await Promise.all(
@@ -94,6 +93,7 @@ const SalesList = (props) => {
       })
       .then(() => {
         setSales(fetchedSales);
+        constructLocationsList(fetchedSales);
         setAllSales(fetchedSales);
       })
       .catch((reason) => {
@@ -122,12 +122,14 @@ const SalesList = (props) => {
   function constructLocationsList(fetchedSales) {
     const extractedLocations = [];
     for (let i = 0; i < fetchedSales.length; i++) {
-      debugger;
+      let date = new Date(fetchedSales[i].created);
       extractedLocations.push(
         adaptMapsLocation(
           fetchedSales[i].saved_location.coordinates[0],
           fetchedSales[i].saved_location.coordinates[1],
-          `${fetchedSales[i].to}_${fetchedSales[i].by}`,
+          `${fetchedSales[i].to}_${
+            fetchedSales[i].by
+          }_${date.toLocaleDateString()}`,
         ),
       );
     }
@@ -140,15 +142,18 @@ const SalesList = (props) => {
   function handleOnFilterClick() {
     setSalesLoading(true);
     let formattedStartDate = moment(startDate).format('YYYY/MM/DD');
-    let formattedEndDate = moment(endDate).format('YYYY/MM/DD 23:59:59Z');
+    let formattedEndDate = moment(endDate).format('YYYY/MM/DD 23:59:59');
     getSalesWithDate(formattedStartDate, formattedEndDate, authTokens)
       .then((res) => {
         let fetchedFilteredSales = res.data;
         let filteredSales = allSales.filter(function(element) {
           return this.find((elem) => element['uuid'] === elem['uuid']);
         }, fetchedFilteredSales);
+        return filteredSales;
+      })
+      .then((filteredSales) => {
         setSales(filteredSales);
-        constructLocationsList(fetchedFilteredSales);
+        constructLocationsList(filteredSales);
       })
       .finally((res) => {
         setSalesLoading(false);
