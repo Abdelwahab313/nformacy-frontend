@@ -127,7 +127,7 @@ const SalesList = (props) => {
         adaptMapsLocation(
           fetchedSales[i].saved_location.coordinates[0],
           fetchedSales[i].saved_location.coordinates[1],
-          fetchedSales[i].name,
+          `${fetchedSales[i].to}_${fetchedSales[i].by}`,
         ),
       );
     }
@@ -139,8 +139,8 @@ const SalesList = (props) => {
 
   function handleOnFilterClick() {
     setSalesLoading(true);
-    let formattedStartDate = moment(startDate).format('YYYY/MM/DDZ');
-    let formattedEndDate = moment(endDate).format('YYYY/MM/DDZ');
+    let formattedStartDate = moment(startDate).format('YYYY/MM/DD');
+    let formattedEndDate = moment(endDate).format('YYYY/MM/DD');
     getSalesWithDate(formattedStartDate, formattedEndDate, authTokens)
       .then((res) => {
         let fetchedFilteredSales = res.data;
