@@ -271,124 +271,13 @@ const SalesList = (props) => {
                   style={{ display: 'inline-block clear', height: '100%' }}
                 />
               }
-              mapElement={<div style={{ height: 500 }} />}
+              mapElement={<div style={{ height: '100%' }} />}
             />
           </Grid>
         )}
       </div>
     );
   }
-  return (
-    <div className={classes.root} dir='rtl'>
-      {showError && (
-        <ErrorDialog
-          message={errorMessage}
-          close={() => {
-            setShowError(false);
-            setErrorMessage();
-          }}
-        />
-      )}
-      <Grid
-        className={`tableContainer ${
-          sales.length === 0 ? classes.tableContainerFW : classes.tableContainer
-        }`}>
-        <MaterialTable
-          id={'salesList'}
-          localization={table_localization('مبيعات')}
-          actions={[
-            {
-              icon: 'help',
-              tooltip: 'تفاصيل المبيعات',
-              iconProps: {
-                color: 'primary',
-              },
-            },
-          ]}
-          columns={[
-            { title: 'اسم العميل', field: 'to' },
-            { title: 'اسم المندوب', field: 'by' },
-            { title: 'الحساب الكلي', field: 'total_price' },
-            {
-              title: 'التاريخ',
-              field: 'date',
-              render: (sale) => {
-                const date = new Date(sale.created);
-                return `${date.toLocaleDateString()}`;
-              },
-            },
-          ]}
-          options={{
-            headerStyle: {
-              zIndex: 0,
-            },
-          }}
-          data={sales}
-          title={'المبيعات'}
-          components={{
-            Toolbar: (props) => (
-              <Grid lg={12}>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Grid
-                    lg={3}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <label>تصفية النتائج:</label>
-                  </Grid>
-                  <Grid
-                    lg={9}
-                    style={{
-                      display: 'flex',
-                      padding: '10px',
-                      justifyContent: 'flex-start',
-                      alignItems: 'center',
-                    }}>
-                    <label>تاريخ البدء</label>
-                    <DatePicker
-                      selected={startDate}
-                      onChange={(date) => setStartDate(date)}
-                    />
-                    <label>تاريخ الانتهاء</label>
-                    <DatePicker
-                      style={{ borderRadius: 7, padding: 6, fontSize: 13 }}
-                      selected={endDate}
-                      onChange={(date) => setEndDate(date)}
-                    />
-                    <Button
-                      size='small'
-                      variant='contained'
-                      onClick={handleOnFilterClick}
-                      color='primary'>
-                      عرض
-                    </Button>
-                  </Grid>
-                </div>
-                <MTableToolbar {...props} />
-              </Grid>
-            ),
-          }}
-        />
-      </Grid>
-      {sales.length !== 0 && (
-        <Grid id={'mapContainer'} item lg={4} className={classes.mapContainer}>
-          <MapWithMultipleMarkers
-            className={classes.map}
-            markers={locations}
-            isMarkerShown
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&key=${GOOGLE_MAPS_API_KEY}`}
-            loadingElement={<div style={{ height: '100%' }} />}
-            containerElement={
-              <div style={{ display: 'inline-block clear', height: '100%' }} />
-            }
-            mapElement={<div style={{ height: 500 }} />}
-          />
-        </Grid>
-      )}
-    </div>
-  );
 };
 
 export default SalesList;

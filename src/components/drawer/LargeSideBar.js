@@ -11,6 +11,7 @@ import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Link } from 'react-router-dom';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 const drawerWidth = '15%';
 
@@ -111,7 +112,7 @@ function LargeSideBar(props) {
             component={Link}
             to={'/sales/list'}>
             <ListItemIcon>
-              <FastfoodIcon />
+              <AttachMoneyIcon />
             </ListItemIcon>
             <ListItemText primary={'المبيعات'} />
           </ListItem>

@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { useAuth } from '../../context/auth';
 import { postProduct } from '../../apis/productsApi';
-import { Redirect } from 'react-router';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -46,12 +46,15 @@ const AddProductForm = ({ onClose }) => {
   const [productCreatedSuccess, setProductCreatedSuccess] = useState(false);
   const [skuAlreadyExist, setSkuAlreadyExist] = useState(false);
   const [priceMustBeDigit, setPriceMustBeDigit] = useState(false);
-
+  const [createdProduct, setCreatedProduct] = useState();
+  const [productSaving, setProductSaving] = useState(false);
   const { authTokens, setAuthTokens } = useAuth();
   const classes = useStyles();
+
   const onSubmit = (data) => {
-    setProductCreatedFailed(false);
+    setProductSaving(true);
     postProduct(data, authTokens)
+      .then(() => setCreatedProduct(data))
       .then(() => setProductCreatedSuccess(true))
       .catch(({ response }) => {
         if (response.status === 400) {
@@ -67,91 +70,107 @@ const AddProductForm = ({ onClose }) => {
           localStorage.removeItem('products');
           setAuthTokens();
         }
+        setProductCreatedFailed(false);
+      })
+      .finally(() => {
+        setProductSaving(false);
       });
   };
   if (productCreatedSuccess) {
-    onClose();
+    if (createdProduct) {
+      onClose(createdProduct);
+    }
+    setProductCreatedSuccess(false);
   }
-  return (
-    <Container component='main' maxWidth='xs'>
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Typography component='h1' variant='h5'>
-          اضافه منتج جديد
-        </Typography>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          id={'addProductForm'}
-          className={classes.form}
-          noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={6} sm={6} lg={12}>
-              <TextField
-                autoComplete='name'
-                name='name'
-                variant='outlined'
-                fullWidth
-                id='productName'
-                label='اسم المنتج'
-                inputRef={register({ required: true })}
-                autoFocus
-              />
-            </Grid>
-            {errors.name && (
-              <span className={classes.error}> برجاء ادخال اسم المنتج</span>
-            )}
-            <Grid item xs={6} sm={6} lg={12}>
-              <TextField
-                autoComplete='name'
-                name='sku'
-                variant='outlined'
-                fullWidth
-                id='sku'
-                label='sku'
-                inputRef={register({ required: true })}
-                autoFocus
-              />
-            </Grid>
-            {errors.sku && (
-              <span className={classes.error}> برجاء ادخال الرقم التسلسلى</span>
-            )}
-            {skuAlreadyExist && (
-              <span className={classes.error}>الرقم التسلسلى موجود</span>
-            )}
-            <Grid item xs={6} sm={6} lg={12}>
-              <TextField
-                autoComplete='name'
-                name='price'
-                variant='outlined'
-                fullWidth
-                id='price'
-                label='سعر المنتج'
-                inputRef={register({ required: true })}
-                autoFocus
-              />
-            </Grid>
-            {errors.price && (
-              <span className={classes.error}> برجاء ادخال سعر المنتج</span>
-            )}
-            {priceMustBeDigit && (
-              <span className={classes.error}>
-                {' '}
-                سعر المنتج يجب ان يكون رقما{' '}
-              </span>
-            )}
-          </Grid>
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            color='primary'
-            className={classes.submit}>
-            حفظ
-          </Button>
-        </form>
+  if (productSaving) {
+    return (
+      <div className={classes.progressContainer}>
+        <CircularProgress />
       </div>
-    </Container>
-  );
+    );
+  } else {
+    return (
+      <Container component='main' maxWidth='xs'>
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Typography component='h1' variant='h5'>
+            اضافه منتج جديد
+          </Typography>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            id={'addProductForm'}
+            className={classes.form}
+            noValidate>
+            <Grid container spacing={2}>
+              <Grid item xs={6} sm={6} lg={12}>
+                <TextField
+                  autoComplete='name'
+                  name='name'
+                  variant='outlined'
+                  fullWidth
+                  id='productName'
+                  label='اسم المنتج'
+                  inputRef={register({ required: true })}
+                  autoFocus
+                />
+              </Grid>
+              {errors.name && (
+                <span className={classes.error}> برجاء ادخال اسم المنتج</span>
+              )}
+              <Grid item xs={6} sm={6} lg={12}>
+                <TextField
+                  autoComplete='name'
+                  name='sku'
+                  variant='outlined'
+                  fullWidth
+                  id='sku'
+                  label='sku'
+                  inputRef={register({ required: true })}
+                />
+              </Grid>
+              {errors.sku && (
+                <span className={classes.error}>
+                  {' '}
+                  برجاء ادخال الرقم التسلسلى
+                </span>
+              )}
+              {skuAlreadyExist && (
+                <span className={classes.error}>الرقم التسلسلى موجود</span>
+              )}
+              <Grid item xs={6} sm={6} lg={12}>
+                <TextField
+                  autoComplete='name'
+                  name='price'
+                  variant='outlined'
+                  fullWidth
+                  id='price'
+                  label='سعر المنتج'
+                  inputRef={register({ required: true })}
+                />
+              </Grid>
+              {errors.price && (
+                <span className={classes.error}> برجاء ادخال سعر المنتج</span>
+              )}
+              {priceMustBeDigit && (
+                <span className={classes.error}>
+                  {' '}
+                  سعر المنتج يجب ان يكون رقما{' '}
+                </span>
+              )}
+            </Grid>
+            <Button
+              type='submit'
+              fullWidth
+              variant='contained'
+              color='primary'
+              className={classes.submit}>
+              حفظ
+            </Button>
+          </form>
+        </div>
+      </Container>
+    );
+  }
 };
 
 export default AddProductForm;

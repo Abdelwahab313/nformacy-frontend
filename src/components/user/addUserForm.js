@@ -9,8 +9,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { postUser } from '../../apis/usersApi';
 import useForm from 'react-hook-form';
-import { Redirect } from 'react-router';
 import { useAuth } from '../../context/auth';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -46,14 +46,18 @@ const SignUp = ({ onClose }) => {
   const [userCreatedFailed, setUserCreatedFailed] = useState(false);
   const [userCreatedSuccess, setUserCreatedSuccess] = useState(false);
   const { authTokens, setAuthTokens } = useAuth();
+  const [createdUser, setCreatedUser] = useState();
+  const [userSaving, setUserSaving] = useState(false);
   const classes = useStyles();
+
   const onSubmit = (data) => {
-    debugger;
-    setUserCreatedFailed(false);
+    setUserSaving(true);
     postUser(data, authTokens)
+      .then((response) => {
+        setCreatedUser(response.data);
+      })
       .then(() => setUserCreatedSuccess(true))
       .catch(({ response }) => {
-        debugger;
         if (response.status === 400) {
           setUserCreatedFailed(true);
         }
@@ -62,143 +66,160 @@ const SignUp = ({ onClose }) => {
           localStorage.removeItem('users');
           setAuthTokens();
         }
+        setUserCreatedFailed(false);
+      })
+      .finally(() => {
+        setUserSaving(false);
       });
   };
   if (userCreatedSuccess) {
-    onClose();
+    if (createdUser) {
+      onClose(createdUser);
+      setUserCreatedSuccess(false);
+    }
   }
-  return (
-    <Container component='main' maxWidth='xs'>
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Typography component='h1' variant='h5'>
-          اضافه موظف جديد
-        </Typography>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          id={'addUserForm'}
-          className={classes.form}
-          noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete='lname'
-                name='last_name'
-                variant='outlined'
-                fullWidth
-                id='lastName'
-                label='الاسم الاخير'
-                inputRef={register({ required: true })}
-                error={!!errors.last_name}
-                autoFocus
-              />
-            </Grid>
-            {errors.last_name && (
-              <span className={classes.error}>
-                {' '}
-                برجاء ادخال اسم الموظف الثانى
-              </span>
-            )}
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant='outlined'
-                fullWidth
-                id='firstName'
-                label='الاسم الاول'
-                name='first_name'
-                autoComplete='fname'
-                inputRef={register({ required: true })}
-                error={!!errors.first_name}
-                autoFocus
-              />
-            </Grid>
-            {errors.first_name && (
-              <span className={classes.error}>
-                {' '}
-                برجاء ادخال اسم الموظف الأول
-              </span>
-            )}
-            <Grid item xs={12}>
-              <TextField
-                variant='outlined'
-                fullWidth
-                name='password'
-                label='كلمه المرور'
-                type='password'
-                id='password'
-                autoComplete='current-password'
-                inputRef={register({ required: true })}
-                error={!!errors.password}
-                autoFocus
-              />
-            </Grid>
-            {errors.password && (
-              <span className={classes.error}>برجاء ادخال كلمه السر</span>
-            )}
-            <Grid item xs={12}>
-              <TextField
-                variant='outlined'
-                fullWidth
-                name='national_id'
-                label='الرقم القومى'
-                id='nationalId'
-                inputRef={register({ required: true })}
-                error={!!errors.national_id}
-                autoFocus
-              />
-            </Grid>
-            {errors.national_id && (
-              <span className={classes.error}>برجاء ادخال الرقم القومى</span>
-            )}
-            <Grid item xs={12}>
-              <TextField
-                variant='outlined'
-                fullWidth
-                name='username'
-                label='اسم تسجيل الدخول'
-                id='userName'
-                inputRef={register({ required: true })}
-                error={!!errors.username}
-                autoFocus
-              />
-            </Grid>
-            {errors.username && (
-              <span className={classes.error}>
-                برجاء ادخال اسم تسجيل الدخول
-              </span>
-            )}
-            <Grid item xs={12}>
-              <TextField
-                variant='outlined'
-                fullWidth
-                name='phone_number'
-                label='رقم الموبايل'
-                id='phone_number'
-                inputRef={register({ required: true })}
-                error={!!errors.phone_number}
-                autoFocus
-              />
-            </Grid>
-            {errors.phone_number && (
-              <span className={classes.error}>برجاء ادخال رقم الهاتف</span>
-            )}
-          </Grid>
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            color='primary'
-            className={classes.submit}>
-            حفظ
-          </Button>
-          {userCreatedFailed && (
-            <span className={classes.error}>
-              خطأ في الرقم القومى او رقم الهاتف
-            </span>
-          )}
-        </form>
+  if (userSaving) {
+    return (
+      <div className={classes.progressContainer}>
+        <CircularProgress />
       </div>
-    </Container>
-  );
+    );
+  } else {
+    return (
+      <Container component='main' maxWidth='xs'>
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Typography component='h1' variant='h5'>
+            اضافه موظف جديد
+          </Typography>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            id={'addUserForm'}
+            className={classes.form}
+            noValidate>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  inputProps={{ tabIndex: '2' }}
+                  autoComplete='lname'
+                  name='last_name'
+                  variant='outlined'
+                  fullWidth
+                  id='lastName'
+                  label='الاسم الاخير'
+                  inputRef={register({ required: true })}
+                  error={!!errors.last_name}
+                />
+                {errors.last_name && (
+                  <span className={classes.error}>
+                    {' '}
+                    برجاء ادخال اسم الموظف الاخير
+                  </span>
+                )}
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  inputProps={{ tabIndex: '1' }}
+                  variant='outlined'
+                  fullWidth
+                  id='firstName'
+                  label='الاسم الاول'
+                  name='first_name'
+                  autoComplete='fname'
+                  inputRef={register({ required: true })}
+                  error={!!errors.first_name}
+                  autoFocus
+                />
+                {errors.first_name && (
+                  <span className={classes.error}>
+                    {' '}
+                    برجاء ادخال اسم الموظف الأول
+                  </span>
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  inputProps={{ tabIndex: '3' }}
+                  variant='outlined'
+                  fullWidth
+                  name='password'
+                  label='كلمه المرور'
+                  type='password'
+                  id='password'
+                  autoComplete='current-password'
+                  inputRef={register({ required: true })}
+                  error={!!errors.password}
+                />
+                {errors.password && (
+                  <span className={classes.error}>برجاء ادخال كلمه السر</span>
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  inputProps={{ tabIndex: '4' }}
+                  variant='outlined'
+                  fullWidth
+                  name='national_id'
+                  label='الرقم القومى'
+                  id='nationalId'
+                  inputRef={register({ required: true })}
+                  error={!!errors.national_id}
+                />
+              </Grid>
+              {errors.national_id && (
+                <span className={classes.error}>برجاء ادخال الرقم القومى</span>
+              )}
+              <Grid item xs={12}>
+                <TextField
+                  inputProps={{ tabIndex: '5' }}
+                  variant='outlined'
+                  fullWidth
+                  name='username'
+                  label='اسم تسجيل الدخول'
+                  id='userName'
+                  inputRef={register({ required: true })}
+                  error={!!errors.username}
+                />
+              </Grid>
+              {errors.username && (
+                <span className={classes.error}>
+                  برجاء ادخال اسم تسجيل الدخول
+                </span>
+              )}
+              <Grid item xs={12}>
+                <TextField
+                  inputProps={{ tabIndex: '6' }}
+                  variant='outlined'
+                  fullWidth
+                  name='phone_number'
+                  label='رقم الموبايل'
+                  id='phone_number'
+                  inputRef={register({ required: true })}
+                  error={!!errors.phone_number}
+                />
+              </Grid>
+              {errors.phone_number && (
+                <span className={classes.error}>برجاء ادخال رقم الهاتف</span>
+              )}
+            </Grid>
+            <Button
+              tabIndex='7'
+              type='submit'
+              fullWidth
+              variant='contained'
+              color='primary'
+              className={classes.submit}>
+              حفظ
+            </Button>
+            {userCreatedFailed && (
+              <span className={classes.error}>
+                خطأ في الرقم القومى او رقم الهاتف
+              </span>
+            )}
+          </form>
+        </div>
+      </Container>
+    );
+  }
 };
 export default SignUp;

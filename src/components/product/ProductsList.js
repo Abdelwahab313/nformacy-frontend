@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import {
   AppBar,
   Button,
@@ -18,9 +17,12 @@ import { useAuth } from '../../context/auth';
 import CloseIcon from '@material-ui/icons/Close';
 import AddProductForm from './AddProductForm';
 import ErrorDialog from '../errors/ErrorDialog';
+import _ from 'lodash';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    background: '#F5F5F5',
     padding: theme.spacing(3),
   },
   addButton: {
@@ -50,17 +52,23 @@ const ProductsList = (props) => {
   const [open, setOpen] = React.useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [showError, setShowError] = useState(false);
+  const [productsLoading, setProductsLoading] = useState(false);
   const classes = useStyles();
 
   const handleClickOpen = () => {
     setOpen(true);
   };
-  const handleClose = () => {
+  const handleClose = (insertedProduct) => {
     setOpen(false);
-    getProducts();
+    if (insertedProduct.type !== 'click') {
+      let tempProducts = _.cloneDeep(products);
+      tempProducts.push(insertedProduct);
+      setProducts(tempProducts);
+    }
   };
 
   function getProducts() {
+    setProductsLoading(true);
     return fetchProducts(authTokens)
       .then((res) => {
         const fetchedProducts = res.data;
@@ -82,22 +90,29 @@ const ProductsList = (props) => {
   }
 
   useEffect(() => {
-    getProducts().finally(() => {});
+    getProducts().finally(() => {
+      setProductsLoading(false);
+    });
   }, []);
-
-  return (
-    <div className={classes.root} dir='rtl'>
-      {showError && (
-        <ErrorDialog
-          message={errorMessage}
-          close={() => {
-            setShowError(false);
-            setErrorMessage();
-          }}
-        />
-      )}
-      <Grid container className={classes.details}>
-        <Grid item lg={10} md={8} xs={12}>
+  if (productsLoading) {
+    return (
+      <div className={classes.progressContainer}>
+        <CircularProgress />
+      </div>
+    );
+  } else {
+    return (
+      <div className={classes.root} dir='rtl'>
+        {showError && (
+          <ErrorDialog
+            message={errorMessage}
+            close={() => {
+              setShowError(false);
+              setErrorMessage();
+            }}
+          />
+        )}
+        <Grid className={classes.tableContainer}>
           <Button
             className={classes.addButton}
             variant='contained'
@@ -106,39 +121,37 @@ const ProductsList = (props) => {
             color='primary'>
             اضافه منتج جديد
           </Button>
-          <Paper>
-            <MaterialTable
-              id={'productsList'}
-              localization={table_localization('بضائع')}
-              columns={[
-                { title: 'اسم المنتج', field: 'name' },
-                { title: 'SKU', field: 'sku' },
-                { title: 'سعر المنتج', field: 'price' },
-              ]}
-              data={products}
-              title={'المنتجات'}
-            />
-          </Paper>
+          <MaterialTable
+            id={'productsList'}
+            localization={table_localization('بضائع')}
+            columns={[
+              { title: 'اسم المنتج', field: 'name' },
+              { title: 'SKU', field: 'sku' },
+              { title: 'سعر المنتج', field: 'price' },
+            ]}
+            data={products}
+            title={'المنتجات'}
+          />
         </Grid>
-      </Grid>
-      <Dialog
-        fullScreen
-        open={open}
-        onClose={handleClose}
-        TransitionComponent={Transition}
-        id={'add-user-dialog'}>
-        <AppBar>
-          <Toolbar className={classes.toolBar}>
-            <IconButton edge='start' onClick={handleClose} aria-label='close'>
-              <CloseIcon />
-            </IconButton>
-            <Typography>اضافه منتج جديد</Typography>
-          </Toolbar>
-        </AppBar>
-        <AddProductForm onClose={handleClose} />
-      </Dialog>
-    </div>
-  );
+        <Dialog
+          fullScreen
+          open={open}
+          onClose={handleClose}
+          TransitionComponent={Transition}
+          id={'add-user-dialog'}>
+          <AppBar>
+            <Toolbar className={classes.toolBar}>
+              <IconButton edge='start' onClick={handleClose} aria-label='close'>
+                <CloseIcon />
+              </IconButton>
+              <Typography>اضافه منتج جديد</Typography>
+            </Toolbar>
+          </AppBar>
+          <AddProductForm onClose={handleClose} />
+        </Dialog>
+      </div>
+    );
+  }
 };
 
 export default ProductsList;
