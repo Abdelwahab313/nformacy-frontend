@@ -16,6 +16,7 @@ import moment from 'moment';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import '../../styles/client.css';
 import { MapWithMultipleMarkers } from '../GoogleMap';
+import '../../styles/sales.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -210,35 +211,26 @@ const SalesList = (props) => {
             components={{
               Toolbar: (props) => (
                 <Grid lg={12}>
-                  <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Grid
-                      lg={3}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}>
+                  <div className={'filterContainer'}>
+                    <Grid lg={3} className={'filterTitle'}>
                       <label>تصفية النتائج:</label>
                     </Grid>
-                    <Grid
-                      lg={9}
-                      style={{
-                        display: 'flex',
-                        padding: '10px',
-                        justifyContent: 'flex-start',
-                        alignItems: 'center',
-                      }}>
-                      <label>من</label>
-                      <DatePicker
-                        selected={startDate}
-                        onChange={(date) => setStartDate(date)}
-                      />
-                      <label>الي</label>
-                      <DatePicker
-                        style={{ borderRadius: 7, padding: 6, fontSize: 13 }}
-                        selected={endDate}
-                        onChange={(date) => setEndDate(date)}
-                      />
+                    <Grid lg={9} className={'filterInputContainer'}>
+                      <div>
+                        <label>من</label>
+                        <DatePicker
+                          selected={startDate}
+                          onChange={(date) => setStartDate(date)}
+                        />
+                      </div>
+                      <div>
+                        <label>الي</label>
+                        <DatePicker
+                          style={{ borderRadius: 7, padding: 6, fontSize: 13 }}
+                          selected={endDate}
+                          onChange={(date) => setEndDate(date)}
+                        />
+                      </div>
                       <Button
                         size='small'
                         variant='contained'
@@ -271,7 +263,7 @@ const SalesList = (props) => {
                   style={{ display: 'inline-block clear', height: '100%' }}
                 />
               }
-              mapElement={<div style={{ height: '100%' }} />}
+              mapElement={<div className={'mapElement'} />}
             />
           </Grid>
         )}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-
+import '../../../styles/client_detail.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { MapWithAMarker } from '../../GoogleMap';
 import { useParams } from 'react-router-dom';
@@ -16,6 +16,7 @@ import { useAuth } from '../../../context/auth';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    background: '#F5F5F5',
     padding: theme.spacing(1),
   },
   mapContainer: {
@@ -25,7 +26,10 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(1),
   },
   mapGrid: {
-    paddingLeft: theme.spacing(1),
+    width: '100%',
+    display: 'flex',
+    flexFlow: 'row nowrap',
+    justifyContent: 'center',
   },
   paper: {
     padding: theme.spacing(2),
@@ -37,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
   img: {
     height: '100%',
+    minHeight: '400px',
     maxHeight: 515,
     overflow: 'hidden',
     display: 'block',
@@ -136,7 +141,7 @@ function Client(props) {
   }
   return (
     <div className={classes.root} dir='rtl'>
-      <Grid container spacing={3} className={classes.details}>
+      <Grid container className={classes.details}>
         <Grid item lg={10}>
           <ClientDetails
             id={'clientDetails'}
@@ -159,8 +164,15 @@ function Client(props) {
             isMarkerShown
             googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&key=${GOOGLE_MAPS_API_KEY}`}
             loadingElement={<div style={{ height: '100%' }} />}
-            containerElement={<div style={{ height: '400px' }} />}
-            mapElement={<div style={{ height: '100%' }} />}
+            containerElement={
+              <div
+                style={{
+                  width: '100%',
+                  marginLeft: 0,
+                }}
+              />
+            }
+            mapElement={<div className='mapElement' />}
           />
         </Grid>
       </Grid>
