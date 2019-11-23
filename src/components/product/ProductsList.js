@@ -41,6 +41,12 @@ const useStyles = makeStyles((theme) => ({
     width: '85%',
     margin: theme.spacing(1),
   },
+  progressContainer: {
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
