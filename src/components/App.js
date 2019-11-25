@@ -15,7 +15,7 @@ import { Route, Switch } from 'react-router-dom';
 import Login from './user/LoginUser';
 import { AuthContext } from '../context/auth';
 import PrivateRoute from './PrivateRoute';
-import LargeSideBar from './drawer/LargeSideBar';
+import SideBar from './drawer/SideBar';
 import Logout from './user/LogoutUser';
 import Layout from './Layout';
 

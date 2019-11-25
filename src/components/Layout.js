@@ -1,5 +1,5 @@
 import React from 'react';
-import LargeSideBar from './drawer/LargeSideBar';
+import SideBar from './drawer/SideBar';
 import PrivateRoute from './PrivateRoute';
 import ClientsList from './client/ClientsList';
 import { Switch, withRouter } from 'react-router-dom';
@@ -12,7 +12,7 @@ import SalesList from './sales/SalesList';
 function Layout(props) {
   return (
     <div>
-      <LargeSideBar />
+      <SideBar />
       <Switch>
         <PrivateRoute exact path='/' component={UsersList} />
         <PrivateRoute path='/clients/list' component={ClientsList} />
