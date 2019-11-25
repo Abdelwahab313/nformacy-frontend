@@ -20,6 +20,7 @@ import { useAuth } from '../../context/auth';
 import ErrorDialog from '../errors/ErrorDialog';
 import _ from 'lodash';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Redirect } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,14 +55,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog() {
+export default function UsersList({ usersList, userDetailsRoute }) {
   const classes = useStyles();
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState(usersList ? usersList : []);
   const [open, setOpen] = React.useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [showError, setShowError] = useState(false);
   const { authTokens, setAuthTokens } = useAuth();
   const [usersLoading, setUsersLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+  const [redirectTo, setRedirectTo] = useState();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -104,7 +107,9 @@ export default function FullScreenDialog() {
       setUsersLoading(false);
     });
   }, []);
-  if (usersLoading) {
+  if (redirect) {
+    return <Redirect push to={redirectTo} />;
+  } else if (usersLoading) {
     return (
       <div className={classes.progressContainer}>
         <CircularProgress />
@@ -134,6 +139,19 @@ export default function FullScreenDialog() {
           <MaterialTable
             id={'usersList'}
             localization={table_localization('موظفين')}
+            actions={[
+              {
+                icon: 'help',
+                tooltip: 'تفاصيل الموزع',
+                iconProps: {
+                  color: 'primary',
+                },
+                onClick: (event, rowData) => {
+                  setRedirectTo(`${userDetailsRoute}${rowData.uuid}`);
+                  setRedirect(true);
+                },
+              },
+            ]}
             columns={[
               {
                 title: 'أسم المستخدم',
@@ -179,3 +197,7 @@ export default function FullScreenDialog() {
     );
   }
 }
+
+UsersList.defaultProps = {
+  userDetailsRoute: '/users/',
+};

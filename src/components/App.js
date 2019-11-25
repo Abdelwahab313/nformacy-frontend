@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ClientsList from './client/ClientsList';
 import UsersList from './user/UsersList';
-import Client from './client/detail/Client';
+import ClientDetailsScreen from './client/detail/ClientDetailsScreen';
 import {
   createMuiTheme,
   StylesProvider,

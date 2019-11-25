@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { clients } from '../../../data';
 import ClientDetails from '../../../components/client/detail/ClientDetail';
 
-describe('Client Details', () => {
+describe('UserDetailsScreen Details', () => {
   it('should show table title', () => {
     const wrapper = shallow(<ClientDetails passedClient={clients[0]} />);
     expect(wrapper.find('#title').length).toEqual(1);

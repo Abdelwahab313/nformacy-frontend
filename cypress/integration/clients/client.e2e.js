@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-context.skip('Client Page', () => {
+context.skip('UserDetailsScreen Page', () => {
   before(() => {
     cy.visit('http://localhost:3000/clients/1/');
   });

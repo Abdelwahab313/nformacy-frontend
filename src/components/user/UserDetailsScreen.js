@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import '../../../styles/client_detail.css';
 import { makeStyles } from '@material-ui/core/styles';
-import { MapWithAMarker } from '../../GoogleMap';
+import { MapWithAMarker } from '../GoogleMap';
 import { useParams } from 'react-router-dom';
-import ClientDetails from './ClientDetail';
-import { fetchClient } from '../../../apis/clientsApi';
+import UserDetails from './UserDetail';
+import { fetchUser } from '../../apis/usersApi';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import { cloneDeep } from 'lodash';
-import { GOOGLE_MAPS_API_KEY } from '../../../settings';
-import { useAuth } from '../../../context/auth';
+import { GOOGLE_MAPS_API_KEY } from '../../settings';
+import { useAuth } from '../../context/auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(1),
   },
   mapGrid: {
-    width: '100%',
+    width: '83%',
     display: 'flex',
     flexFlow: 'row nowrap',
     justifyContent: 'center',
@@ -64,56 +63,51 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Client(props) {
+function UserDetailsScreen(props) {
   let { uuid } = useParams();
-  const [client, setClient] = useState({});
-  const [clientLocation, setClientLocation] = useState({
+  const [user, setUser] = useState({});
+  const [userLocation, setUserLocation] = useState({
     lat: 322,
     lng: 133,
   });
   const [_, setPhoneNumbers] = useState([]);
-  const [clientLoading, setClientLoading] = useState(false);
-  const [clientNotFound, setClientNotFound] = useState(false);
+  const [userLoading, setUserLoading] = useState(false);
+  const [userNotFound, setUserNotFound] = useState(false);
   const { authTokens, setAuthTokens } = useAuth();
 
   const classes = useStyles();
 
   const adaptMapsLocation = (lat, long) => {
-    setClientLocation({
+    setUserLocation({
       lat: parseFloat(lat),
       lng: parseFloat(long),
     });
   };
 
   function handleOnStateChanged() {
-    const tempClientState = cloneDeep(client);
-    tempClientState.verified = true;
-    setClient(tempClientState);
+    const tempUserState = cloneDeep(user);
+    tempUserState.verified = true;
+    setUser(tempUserState);
   }
 
-  const extractPhoneNumbers = (fetchedClient) => {
+  const extractPhoneNumbers = (fetchedUser) => {
     const phone_numbers = [];
-    fetchedClient.contacts.forEach((contact) => {
+    fetchedUser.contacts.forEach((contact) => {
       phone_numbers.push(contact.phone_number);
     });
     setPhoneNumbers(phone_numbers);
-    fetchedClient.contacts = phone_numbers;
+    fetchedUser.contacts = phone_numbers;
   };
   useEffect(() => {
-    setClientLoading(true);
-    fetchClient(uuid, authTokens)
+    setUserLoading(true);
+    fetchUser(uuid, authTokens)
       .then((res) => {
-        const fetchedClient = res.data;
-        adaptMapsLocation(
-          fetchedClient.location.coordinates[0],
-          fetchedClient.location.coordinates[1],
-        );
-        extractPhoneNumbers(fetchedClient);
-        setClient(fetchedClient);
+        const fetchedUser = res.data;
+        setUser(fetchedUser);
       })
       .catch((reason) => {
         if (reason.response.status === 404) {
-          setClientNotFound(true);
+          setUserNotFound(true);
         } else if (reason.response.status === 401) {
           localStorage.removeItem('tokens');
           localStorage.removeItem('users');
@@ -121,16 +115,16 @@ function Client(props) {
         }
       })
       .finally(() => {
-        setClientLoading(false);
+        setUserLoading(false);
       });
   }, []);
-  if (clientLoading) {
+  if (userLoading) {
     return (
       <div className={classes.emptyContainer}>
         <CircularProgress />
       </div>
     );
-  } else if (clientNotFound) {
+  } else if (userNotFound) {
     return (
       <div className={classes.emptyContainer}>
         <Typography variant='h3' className={classes.notFound} gutterBottom>
@@ -143,30 +137,24 @@ function Client(props) {
     <div className={classes.root} dir='rtl'>
       <Grid container className={classes.details}>
         <Grid item lg={10}>
-          <ClientDetails
-            id={'clientDetails'}
-            passedClient={client}
+          <UserDetails
+            id={'userDetails'}
+            passedUser={user}
             onStateChanged={handleOnStateChanged}
           />
         </Grid>
       </Grid>
       <Grid container className={classes.mapContainer}>
-        <Grid item lg={5} xs={10} className={classes.imgContainer}>
-          <img
-            className={classes.img}
-            src={client.image_link}
-            id={'client-image'}
-          />
-        </Grid>
-        <Grid item lg={5} xs={10} className={classes.mapGrid}>
+        <Grid item className={classes.mapGrid}>
           <MapWithAMarker
-            location={clientLocation}
+            location={userLocation}
             isMarkerShown
             googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&key=${GOOGLE_MAPS_API_KEY}`}
             loadingElement={<div style={{ height: '100%' }} />}
             containerElement={
               <div
                 style={{
+                  height: '500px',
                   width: '100%',
                   marginLeft: 0,
                 }}
@@ -180,4 +168,4 @@ function Client(props) {
   );
 }
 
-export default Client;
+export default UserDetailsScreen;
