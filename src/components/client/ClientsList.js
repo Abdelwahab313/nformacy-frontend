@@ -98,6 +98,7 @@ function ClientsList(props) {
   }
 
   function handleOnDelete(uuid) {
+    debugger;
     const toBeDeletedIndex = clients.findIndex(
       (client) => client.uuid === uuid,
     );
@@ -234,7 +235,9 @@ function ClientsList(props) {
             <DeleteClient
               clientName={toBeDeleted.name}
               onDeleteDone={handleOnDelete}
-              onDeleteFail={() => {}}
+              onDeleteFail={() => {
+                setShowDelete(false);
+              }}
               identifier={Date.now()}
               uuid={toBeDeleted.uuid}
             />
