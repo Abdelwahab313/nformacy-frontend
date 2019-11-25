@@ -17,6 +17,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import '../../styles/client.css';
 import { MapWithMultipleMarkers } from '../GoogleMap';
 import '../../styles/sales.css';
+import { Redirect } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -188,6 +189,16 @@ const SalesList = (props) => {
           <MaterialTable
             id={'salesList'}
             localization={table_localization('مبيعات')}
+            actions={[
+              {
+                icon: 'help',
+                tooltip: 'تفاصيل الفاتورة',
+                iconProps: {
+                  color: 'primary',
+                },
+                onClick: (event, rowData) => {},
+              },
+            ]}
             columns={[
               { title: 'اسم العميل', field: 'to' },
               { title: 'اسم المندوب', field: 'by' },
