@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Button, makeStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import MaterialTable, { MTableToolbar } from 'material-table';
-import { table_localization } from '../../settings';
-import { default_location, GOOGLE_MAPS_API_KEY } from '../../settings';
+import {
+  default_location,
+  GOOGLE_MAPS_API_KEY,
+  table_localization,
+} from '../../settings';
 import { sales } from '../../data';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -68,6 +71,8 @@ const SalesList = (props) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [salesLoading, setSalesLoading] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+  const [redirectTo, setRedirectTo] = useState();
 
   useEffect(() => {
     setSalesLoading(true);
@@ -99,7 +104,6 @@ const SalesList = (props) => {
         setAllSales(fetchedSales);
       })
       .catch((reason) => {
-        debugger;
         if (reason.message === 'Network Error') {
           setErrorMessage('حدث خطأ أثناء الاتصال بالخادم');
           setShowError(true);
@@ -162,6 +166,9 @@ const SalesList = (props) => {
       });
   }
 
+  if (redirect) {
+    return <Redirect push to={redirectTo} />;
+  }
   if (salesLoading) {
     return (
       <div className={classes.progressContainer}>
@@ -196,7 +203,10 @@ const SalesList = (props) => {
                 iconProps: {
                   color: 'primary',
                 },
-                onClick: (event, rowData) => {},
+                onClick: (event, rowData) => {
+                  setRedirectTo(`/sales/${rowData.uuid}`);
+                  setRedirect(true);
+                },
               },
             ]}
             columns={[
@@ -217,7 +227,7 @@ const SalesList = (props) => {
                 zIndex: 0,
               },
             }}
-            data={sales}
+            data={props.salesData || sales}
             title={'المبيعات'}
             components={{
               Toolbar: (props) => (

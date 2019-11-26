@@ -6,6 +6,11 @@ const fetchProducts = (tokenStr) => {
     headers: { Authorization: `Bearer ${tokenStr.access_token}` },
   });
 };
+const fetchProduct = (productId, tokenStr) => {
+  return axios.get(`${API_BASE_URL}/products/${productId}`, {
+    headers: { Authorization: `Bearer ${tokenStr.access_token}` },
+  });
+};
 
 const postProduct = (product, tokenStr) => {
   return axios({
@@ -16,4 +21,4 @@ const postProduct = (product, tokenStr) => {
   });
 };
 
-export { fetchProducts, postProduct };
+export { fetchProducts, postProduct, fetchProduct };

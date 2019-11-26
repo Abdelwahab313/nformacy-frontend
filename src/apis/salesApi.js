@@ -13,5 +13,12 @@ const getSalesWithDate = (start_date, end_date, token) => {
     headers: { Authorization: `Bearer ${token.access_token}` },
   });
 };
+const getSaleWithUUID = (UUID, token) => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/sales/${UUID}`,
+    headers: { Authorization: `Bearer ${token.access_token}` },
+  });
+};
 
-export { fetchSales, getSalesWithDate };
+export { fetchSales, getSalesWithDate, getSaleWithUUID };

@@ -1,5 +1,6 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render, shallow } from 'enzyme';
+
 import SalesList from '../../../components/sales/SalesList';
 import * as AuthContextMoudle from '../../../context/auth';
 import { AuthContext } from '../../../context/auth';
@@ -8,6 +9,7 @@ describe('Sales', () => {
   let tree;
   let wrapper;
   let salesColumns;
+
   beforeEach(() => {
     jest.spyOn(AuthContextMoudle, 'useAuth').mockImplementation(() => ({
       authTokens: '',
@@ -51,5 +53,29 @@ describe('Sales', () => {
     expect(salesColumns).toContainEqual(
       expect.objectContaining({ field: 'date', title: 'التاريخ' }),
     );
+  });
+  it.skip('should contain a button with title and href for details', () => {
+    const salesData = [
+      {
+        uuid: '0cda32b8-7f6b-4814-a06b-67c53490f09f',
+        to: 'test',
+        by: 'test test',
+        total_price: 'L.E.80.00',
+        created: '2019-11-25T10:20:51.421812Z',
+        created_location: { coordinates: [37.4219983, -122.084] },
+        saved_location: { coordinates: [37.4219983, -122.084] },
+        // products: (2) [{…}, {…}]
+      },
+    ];
+    tree = (
+      <AuthContext.Provider>
+        <SalesList salesData={salesData} />
+      </AuthContext.Provider>
+    );
+    const renderWrapper = render(tree);
+    const detailsButton = renderWrapper.find(
+      'button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit',
+    )[0];
+    expect(detailsButton.attribs.title).toEqual('تفاصيل الفاتورة');
   });
 });
