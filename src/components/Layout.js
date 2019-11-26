@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
   },
   AppContainer: {
-    width: '85%',
+    width: '100%',
     height: '100%',
   },
 }));

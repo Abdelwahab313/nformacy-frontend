@@ -1,5 +1,5 @@
 .tableContainer {
-  width: 50%;
+  width: 63%;
 }
 
 .mapElement {
@@ -31,7 +31,7 @@
   }
 
   .tableContainer {
-    width: 85%;
+    width: 100%;
   }
 
   .filterContainer {

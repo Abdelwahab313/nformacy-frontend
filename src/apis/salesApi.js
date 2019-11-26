@@ -21,4 +21,9 @@ const getSaleWithUUID = (UUID, token) => {
   });
 };
 
-export { fetchSales, getSalesWithDate, getSaleWithUUID };
+const fetchSalesByRep = (tokenStr, rep_uuid) => {
+  return axios.get(`${API_BASE_URL}/sales/by_rep?rep_uuid=${rep_uuid}`, {
+    headers: { Authorization: `Bearer ${tokenStr.access_token}` },
+  });
+};
+export { fetchSales, getSalesWithDate, getSaleWithUUID, fetchSalesByRep };

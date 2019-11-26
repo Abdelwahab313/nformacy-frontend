@@ -134,11 +134,11 @@ function ClientsList(props) {
       margin: theme.spacing(1),
     },
     tableContainerFW: {
-      width: '85%',
+      width: '100%',
       margin: theme.spacing(1),
     },
     mapContainer: {
-      width: '85%',
+      width: '100%',
       maxHeight: 600,
       margin: theme.spacing(1),
     },

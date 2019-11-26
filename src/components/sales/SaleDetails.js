@@ -22,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
   },
   paper: {
-    padding: theme.spacing(2),
+    marginRight: theme.spacing(3),
+    paddingLeft: theme.spacing(1),
     minWidth: '340px',
     textAlign: 'center',
     color: theme.palette.text.secondary,
@@ -51,13 +52,13 @@ const SaleDetails = (props) => {
   const [saleData, setSaleData] = useState(null);
   const [errors, setErrors] = useState();
   const [saleLoading, setSaleLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     let tempSaleData;
     getSaleWithUUID(uuid, authTokens)
       .then((response) => {
         tempSaleData = response.data;
-        setSaleLoading(false);
       })
       .then(async () => {
         const response = await fetchClient(tempSaleData.to, authTokens);
@@ -83,6 +84,9 @@ const SaleDetails = (props) => {
       })
       .catch((error) => {
         setErrors(error);
+        setNotFound(true);
+      })
+      .finally(() => {
         setSaleLoading(false);
       });
   }, [uuid]);
@@ -92,7 +96,7 @@ const SaleDetails = (props) => {
         <CircularProgress />
       </div>
     );
-  } else if (saleData === null) {
+  } else if (notFound) {
     return (
       <div className={classes.emptyContainer}>
         <Typography variant='h3' className={classes.notFound} gutterBottom>
@@ -102,72 +106,80 @@ const SaleDetails = (props) => {
       </div>
     );
   }
-  return (
-    <div className={classes.root} dir='rtl'>
-      <div className={classes.productList}>
-        <Paper className={classes.paper}>
-          <p id={'title'}>تفاصيل الفاتورة</p>
-          <Table>
-            <TableBody>
-              <TableRow>
-                <TableCell colSpan={2} align='right'>
-                  التاريخ
-                </TableCell>
-                <TableCell colSpan={2} align='left'>
-                  {(() => {
-                    const date = new Date(saleData.created);
-                    return `${date.toLocaleTimeString()} ${date.toLocaleDateString()}`;
-                  })()}
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>أسم العميل</TableCell>
-                <TableCell>{saleData.to.name}</TableCell>
-                <TableCell>أسم المندوب</TableCell>
-                <TableCell>{`${saleData.by.first_name} ${saleData.by.last_name}`}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </Paper>
+  if (saleLoading) {
+    return (
+      <div className={classes.emptyContainer}>
+        <CircularProgress />
       </div>
-      <div className={classes.productList}>
-        <Paper className={classes.paper}>
-          <p id={'title'}>تفاصيل المنتجات</p>
-          <Table id={'client-info'}>
-            <TableBody>
-              <TableRow id={'tableHeader'}>
-                <TableCell>المنتج</TableCell>
-                <TableCell>السعر</TableCell>
-                <TableCell>الكمية</TableCell>
-                <TableCell>الاجمالى</TableCell>
-              </TableRow>
-              {saleData.products.map((product) => {
-                return (
-                  <TableRow key={product.data.uuid} id={'clientName'}>
-                    <TableCell>{product.data.name}</TableCell>
-                    <TableCell>{product.price}</TableCell>
-                    <TableCell>{product.quantity}</TableCell>
-                    <TableCell>
-                      {parseFloat(
-                        product.price.substring(4, product.price.length),
-                      ) * parseFloat(product.quantity)}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-              <TableRow id={'address'}>
-                <TableCell colSpan={3} align='right'>
-                  الحساب الكلي
-                </TableCell>
-                <TableCell colSpan={1} align='right'>
-                  {saleData.total_price}
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </Paper>
+    );
+  } else {
+    return (
+      <div className={classes.root} dir='rtl'>
+        <div className={classes.productList}>
+          <Paper className={classes.paper}>
+            <p id={'title'}>تفاصيل الفاتورة</p>
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell colSpan={2} align='right'>
+                    التاريخ
+                  </TableCell>
+                  <TableCell colSpan={2} align='left'>
+                    {(() => {
+                      const date = new Date(saleData.created);
+                      return `${date.toLocaleTimeString()} ${date.toLocaleDateString()}`;
+                    })()}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>أسم العميل</TableCell>
+                  <TableCell>{saleData.to.name}</TableCell>
+                  <TableCell>أسم المندوب</TableCell>
+                  <TableCell>{`${saleData.by.first_name} ${saleData.by.last_name}`}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </Paper>
+        </div>
+        <div className={classes.productList}>
+          <Paper className={classes.paper}>
+            <p id={'title'}>تفاصيل المنتجات</p>
+            <Table id={'client-info'}>
+              <TableBody>
+                <TableRow id={'tableHeader'}>
+                  <TableCell>المنتج</TableCell>
+                  <TableCell>السعر</TableCell>
+                  <TableCell>الكمية</TableCell>
+                  <TableCell>الاجمالى</TableCell>
+                </TableRow>
+                {saleData.products.map((product) => {
+                  return (
+                    <TableRow key={product.data.uuid} id={'clientName'}>
+                      <TableCell>{product.data.name}</TableCell>
+                      <TableCell>{product.price}</TableCell>
+                      <TableCell>{product.quantity}</TableCell>
+                      <TableCell>
+                        {parseFloat(
+                          product.price.substring(4, product.price.length),
+                        ) * parseFloat(product.quantity)}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+                <TableRow id={'address'}>
+                  <TableCell colSpan={3} align='right'>
+                    الحساب الكلي
+                  </TableCell>
+                  <TableCell colSpan={1} align='right'>
+                    {saleData.total_price}
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </Paper>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 export default SaleDetails;

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import { MapWithAMarker } from '../GoogleMap';
 import { useParams } from 'react-router-dom';
 import UserDetails from './UserDetail';
 import { fetchUser } from '../../apis/usersApi';
@@ -9,23 +8,22 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import { cloneDeep } from 'lodash';
-import { GOOGLE_MAPS_API_KEY } from '../../settings';
 import { useAuth } from '../../context/auth';
+import UserSale from './UserSale';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     background: '#F5F5F5',
+    marginRight: theme.spacing(3),
     padding: theme.spacing(1),
   },
   mapContainer: {
     padding: theme.spacing(2),
   },
-  imgContainer: {
-    paddingRight: theme.spacing(1),
-  },
   mapGrid: {
-    width: '83%',
+    width: '100%',
+    marginRight: theme.spacing(3),
     display: 'flex',
     flexFlow: 'row nowrap',
     justifyContent: 'center',
@@ -136,7 +134,7 @@ function UserDetailsScreen(props) {
   return (
     <div className={classes.root} dir='rtl'>
       <Grid container className={classes.details}>
-        <Grid item lg={10}>
+        <Grid item lg={12}>
           <UserDetails
             id={'userDetails'}
             passedUser={user}
@@ -144,26 +142,7 @@ function UserDetailsScreen(props) {
           />
         </Grid>
       </Grid>
-      <Grid container className={classes.mapContainer}>
-        <Grid item className={classes.mapGrid}>
-          <MapWithAMarker
-            location={userLocation}
-            isMarkerShown
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&key=${GOOGLE_MAPS_API_KEY}`}
-            loadingElement={<div style={{ height: '100%' }} />}
-            containerElement={
-              <div
-                style={{
-                  height: '500px',
-                  width: '100%',
-                  marginLeft: 0,
-                }}
-              />
-            }
-            mapElement={<div className='mapElement' />}
-          />
-        </Grid>
-      </Grid>
+      <UserSale rep_uuid={user.uuid} />
     </div>
   );
 }

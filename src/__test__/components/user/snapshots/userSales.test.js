@@ -1,8 +1,8 @@
-import React from 'react';
-import UsersList from '../../../../components/user/UsersList';
+import { shallow } from 'enzyme';
 import * as AuthContextMoudle from '../../../../context/auth';
 import { AuthContext } from '../../../../context/auth';
-import { shallow } from 'enzyme';
+import React from 'react';
+import UserSalesScreen from '../../../../components/user/UserSale';
 
 function mockAuthObject() {
   jest.spyOn(AuthContextMoudle, 'useAuth').mockImplementation(() => ({
@@ -12,6 +12,7 @@ function mockAuthObject() {
 
 const testUsersList = [
   {
+    uuid: 'randomstring',
     first_name: 'first name',
     last_name: 'second name',
     phone_number: '01099234802',
@@ -26,21 +27,9 @@ it('renders correctly', () => {
 
   const container = shallow(
     <AuthContext.Provider>
-      <UsersList usersList={testUsersList} />
+      <UserSalesScreen user_uuid={testUsersList[0].uuid} />
     </AuthContext.Provider>,
   );
   const tree = container.html();
   expect(tree).toMatchSnapshot();
-});
-
-it('Should route to detail view correctly', () => {
-  mockAuthObject();
-
-  const container = shallow(
-    <AuthContext.Provider>
-      <UsersList usersList={testUsersList} />
-    </AuthContext.Provider>,
-  );
-
-  expect(container.props().userDetailsRoute).toEqual('/users/');
 });

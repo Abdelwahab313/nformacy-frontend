@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
   },
   tableContainer: {
-    width: '85%',
+    width: '98%',
     margin: theme.spacing(1),
   },
   progressContainer: {

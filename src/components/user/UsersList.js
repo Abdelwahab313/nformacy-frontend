@@ -25,6 +25,7 @@ import { Redirect } from 'react-router';
 const useStyles = makeStyles((theme) => ({
   root: {
     background: '#F5F5F5',
+    marginRight: theme.spacing(3),
     padding: theme.spacing(3),
   },
   addButton: {
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
   },
   tableContainer: {
-    width: '85%',
+    width: '100%',
     margin: theme.spacing(1),
   },
   progressContainer: {

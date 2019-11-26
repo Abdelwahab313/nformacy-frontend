@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     background: '#F5F5F5',
+    marginRight: theme.spacing(3),
     padding: theme.spacing(1),
   },
   mapContainer: {
@@ -142,7 +143,7 @@ function ClientDetailsScreen(props) {
   return (
     <div className={classes.root} dir='rtl'>
       <Grid container className={classes.details}>
-        <Grid item lg={10}>
+        <Grid item lg={12}>
           <ClientDetails
             id={'clientDetails'}
             passedClient={client}
@@ -151,14 +152,14 @@ function ClientDetailsScreen(props) {
         </Grid>
       </Grid>
       <Grid container className={classes.mapContainer}>
-        <Grid item lg={5} xs={10} className={classes.imgContainer}>
+        <Grid item lg={6} className={classes.imgContainer}>
           <img
             className={classes.img}
             src={client.image_link}
             id={'client-image'}
           />
         </Grid>
-        <Grid item lg={5} xs={10} className={classes.mapGrid}>
+        <Grid item lg={6} className={classes.mapGrid}>
           <MapWithAMarker
             location={clientLocation}
             isMarkerShown

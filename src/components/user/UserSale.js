@@ -7,14 +7,12 @@ import {
   GOOGLE_MAPS_API_KEY,
   table_localization,
 } from '../../settings';
-import { sales } from '../../data';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { fetchSales, getSalesWithDate } from '../../apis/salesApi';
+import { fetchSalesByRep, getSalesWithDate } from '../../apis/salesApi';
 import { useAuth } from '../../context/auth';
 import ErrorDialog from '../errors/ErrorDialog';
 import { fetchClient } from '../../apis/clientsApi';
-import { fetchUser } from '../../apis/usersApi';
 import moment from 'moment';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { MapWithMultipleMarkers } from '../GoogleMap';
@@ -26,8 +24,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexFlow: 'row wrap',
     background: '#F5F5F5',
-    marginRight: theme.spacing(3),
-    padding: theme.spacing(3),
+    paddingLeft: theme.spacing(1),
   },
   addButton: {
     marginBottom: theme.spacing(1),
@@ -60,12 +57,12 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
 }));
-const SalesList = (props) => {
-  const [sales, setSales] = useState([]);
+const UserSalesScreen = ({ rep_uuid }) => {
+  const [userSales, setUserSales] = useState([]);
   const { authTokens, setAuthTokens } = useAuth();
   const [errorMessage, setErrorMessage] = useState('');
   const [showError, setShowError] = useState(false);
-  const [allSales, setAllSales] = useState([]);
+  const [allUserSales, setAllUserSales] = useState([]);
   const classes = useStyles();
   const [locations, setLocations] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
@@ -77,7 +74,7 @@ const SalesList = (props) => {
   useEffect(() => {
     setSalesLoading(true);
     let fetchedSales;
-    fetchSales(authTokens)
+    fetchSalesByRep(authTokens, rep_uuid)
       .then((res) => {
         fetchedSales = res.data;
         fetchedSales.sort((a, b) => new Date(a.created) - new Date(b.created));
@@ -90,18 +87,10 @@ const SalesList = (props) => {
           }),
         );
       })
-      .then(async () => {
-        return await Promise.all(
-          fetchedSales.map(async (sale) => {
-            let res = await fetchUser(sale.by, authTokens);
-            sale.by = res.data.first_name + ' ' + res.data.last_name;
-          }),
-        );
-      })
       .then(() => {
-        setSales(fetchedSales);
+        setUserSales(fetchedSales);
         constructLocationsList(fetchedSales);
-        setAllSales(fetchedSales);
+        setAllUserSales(fetchedSales);
       })
       .catch((reason) => {
         if (reason.message === 'Network Error') {
@@ -109,7 +98,7 @@ const SalesList = (props) => {
           setShowError(true);
         } else if (reason.response.status === 401) {
           localStorage.removeItem('tokens');
-          localStorage.removeItem('sales');
+          localStorage.removeItem('userSales');
           setAuthTokens();
         }
       })
@@ -133,9 +122,7 @@ const SalesList = (props) => {
         adaptMapsLocation(
           fetchedSales[i].saved_location.coordinates[0],
           fetchedSales[i].saved_location.coordinates[1],
-          `${fetchedSales[i].to}_${
-            fetchedSales[i].by
-          }_${date.toLocaleDateString()}`,
+          `${fetchedSales[i].to}_${date.toLocaleDateString()}`,
         ),
       );
     }
@@ -152,13 +139,13 @@ const SalesList = (props) => {
     getSalesWithDate(formattedStartDate, formattedEndDate, authTokens)
       .then((res) => {
         let fetchedFilteredSales = res.data;
-        let filteredSales = allSales.filter(function(element) {
+        let filteredSales = allUserSales.filter(function(element) {
           return this.find((elem) => element['uuid'] === elem['uuid']);
         }, fetchedFilteredSales);
         return filteredSales;
       })
       .then((filteredSales) => {
-        setSales(filteredSales);
+        setUserSales(filteredSales);
         constructLocationsList(filteredSales);
       })
       .finally((res) => {
@@ -189,7 +176,7 @@ const SalesList = (props) => {
         )}
         <Grid
           className={`tableContainer ${
-            sales.length === 0
+            userSales.length === 0
               ? classes.tableContainerFW
               : classes.tableContainer
           }`}>
@@ -211,7 +198,6 @@ const SalesList = (props) => {
             ]}
             columns={[
               { title: 'اسم العميل', field: 'to' },
-              { title: 'اسم المندوب', field: 'by' },
               { title: 'الحساب الكلي', field: 'total_price' },
               {
                 title: 'التاريخ',
@@ -227,7 +213,7 @@ const SalesList = (props) => {
                 zIndex: 0,
               },
             }}
-            data={props.salesData || sales}
+            data={userSales}
             title={'المبيعات'}
             components={{
               Toolbar: (props) => (
@@ -267,7 +253,7 @@ const SalesList = (props) => {
             }}
           />
         </Grid>
-        {sales.length !== 0 && (
+        {userSales.length !== 0 && (
           <Grid
             id={'mapContainer'}
             item
@@ -293,4 +279,4 @@ const SalesList = (props) => {
   }
 };
 
-export default SalesList;
+export default UserSalesScreen;
