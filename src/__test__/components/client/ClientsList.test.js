@@ -25,9 +25,9 @@ describe('show all clients', () => {
     const listColumns = wrapper.find('#clientsList').props().columns;
     expect(listColumns.length).toEqual(6);
   });
-  it('rendered clients table with 2 actions', () => {
+  it('rendered clients table with 1 actions', () => {
     const listActions = wrapper.find('#clientsList').props().actions;
-    expect(listActions.length).toEqual(2);
+    expect(listActions.length).toEqual(1);
   });
   it('client table should have name column', () => {
     const listColumns = wrapper.find('#clientsList').props().columns;

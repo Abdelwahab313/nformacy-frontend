@@ -14,7 +14,6 @@ import MaterialTable from 'material-table';
 import ClientStatus from './status/ClientStatus';
 import { Redirect } from 'react-router';
 import { cloneDeep } from 'lodash';
-import DeleteClient from './DeleteClient';
 import ErrorDialog from '../errors/ErrorDialog';
 import { useAuth } from '../../context/auth';
 
@@ -24,10 +23,8 @@ function ClientsList(props) {
   const [redirectTo, setRedirectTo] = useState();
   const [clientsLoading, setClientsLoading] = useState(false);
   const [locations, setLocations] = useState([]);
-  const [showDelete, setShowDelete] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [showError, setShowError] = useState(false);
-  const [toBeDeleted, setToBeDeleted] = useState({});
   const { authTokens, setAuthTokens } = useAuth();
 
   function getFirstPhoneNumbers(fetchedClients) {
@@ -95,17 +92,6 @@ function ClientsList(props) {
     const tempClientState = cloneDeep(clients);
     tempClientState[updatedClientIndex].verified = true;
     setClients(tempClientState);
-  }
-
-  function handleOnDelete(uuid) {
-    debugger;
-    const toBeDeletedIndex = clients.findIndex(
-      (client) => client.uuid === uuid,
-    );
-    const tempClientState = cloneDeep(clients);
-    tempClientState.splice(toBeDeletedIndex, 1);
-    setClients(tempClientState);
-    setShowDelete(false);
   }
 
   const useStyles = makeStyles((theme) => ({
@@ -188,17 +174,6 @@ function ClientsList(props) {
                   setRedirect(true);
                 },
               },
-              {
-                icon: 'delete',
-                tooltip: 'حذف العميل',
-                iconProps: {
-                  color: 'secondary',
-                },
-                onClick: (event, rowData) => {
-                  setToBeDeleted(rowData);
-                  setShowDelete(true);
-                },
-              },
             ]}
             columns={[
               { title: 'أسم المكان', field: 'name' },
@@ -231,17 +206,6 @@ function ClientsList(props) {
             data={clients}
             title={'العملاء'}
           />
-          {showDelete && (
-            <DeleteClient
-              clientName={toBeDeleted.name}
-              onDeleteDone={handleOnDelete}
-              onDeleteFail={() => {
-                setShowDelete(false);
-              }}
-              identifier={Date.now()}
-              uuid={toBeDeleted.uuid}
-            />
-          )}
         </Grid>
         {clients.length !== 0 && (
           <Grid
