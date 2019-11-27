@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import * as AuthContextMoudle from '../../../../context/auth';
 import { AuthContext } from '../../../../context/auth';
 import React from 'react';
-import UserSalesScreen from '../../../../components/user/UserSale';
+import UserSalesScreen from '../../../../components/user/userDetail/UserSale';
 
 function mockAuthObject() {
   jest.spyOn(AuthContextMoudle, 'useAuth').mockImplementation(() => ({

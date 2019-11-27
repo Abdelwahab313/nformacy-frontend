@@ -6,17 +6,17 @@ import {
   default_location,
   GOOGLE_MAPS_API_KEY,
   table_localization,
-} from '../../settings';
+} from '../../../settings';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { fetchSalesByRep, getSalesWithDate } from '../../apis/salesApi';
-import { useAuth } from '../../context/auth';
-import ErrorDialog from '../errors/ErrorDialog';
-import { fetchClient } from '../../apis/clientsApi';
+import { fetchSalesByRep, getSalesWithDate } from '../../../apis/salesApi';
+import { useAuth } from '../../../context/auth';
+import ErrorDialog from '../../errors/ErrorDialog';
+import { fetchClient } from '../../../apis/clientsApi';
 import moment from 'moment';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { MapWithMultipleMarkers } from '../GoogleMap';
-import '../../styles/sales.css';
+import { MapWithMultipleMarkers } from '../../GoogleMap';
+import '../../../styles/sales.css';
 import { Redirect } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({

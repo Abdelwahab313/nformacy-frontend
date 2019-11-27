@@ -75,7 +75,7 @@ const UserDetails = ({ passedUser }) => {
             <TableCell>{user.phone_number}</TableCell>
           </TableRow>
           <TableRow id={'nationalid'}>
-            <TableCell>التليفون</TableCell>
+            <TableCell>الرقم القومي</TableCell>
             <TableCell>{user.national_id}</TableCell>
           </TableRow>
           <TableRow id={'username'}>

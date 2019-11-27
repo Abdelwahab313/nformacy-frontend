@@ -3,12 +3,12 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useParams } from 'react-router-dom';
 import UserDetails from './UserDetail';
-import { fetchUser } from '../../apis/usersApi';
+import { fetchUser } from '../../../apis/usersApi';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import { cloneDeep } from 'lodash';
-import { useAuth } from '../../context/auth';
+import { useAuth } from '../../../context/auth';
 import UserSale from './UserSale';
 
 const useStyles = makeStyles((theme) => ({

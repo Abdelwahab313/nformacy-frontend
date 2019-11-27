@@ -9,7 +9,7 @@ import UsersList from './user/UsersList';
 import ProductsList from './product/ProductsList';
 import SalesList from './sales/SalesList';
 import SaleDetails from './sales/SaleDetails';
-import UserDetailsScreen from './user/UserDetailsScreen';
+import UserDetailsScreen from './user/userDetail/UserDetailsScreen';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
