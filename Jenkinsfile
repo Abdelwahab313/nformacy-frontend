@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Run test') {
             steps {
-                sh 'npm test -- -u'
+                sh 'CI=true react-scripts test "-u"'
             }
         }
     }
