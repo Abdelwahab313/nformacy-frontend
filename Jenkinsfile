@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Run test') {
             steps {
-                sh 'CI=true react-scripts test'
+                sh ' CI=true ./node_modules/react-scripts/bin/react-scripts.js test'
             }
         }
     }
