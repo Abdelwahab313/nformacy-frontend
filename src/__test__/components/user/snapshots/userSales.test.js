@@ -24,7 +24,8 @@ const testUsersList = [
 
 it('renders correctly', () => {
   mockAuthObject();
-
+  const now = new Date('12/05/2019');
+  Date.now = jest.spyOn(Date, 'now').mockImplementation(() => now);
   const container = shallow(
     <AuthContext.Provider>
       <UserSalesScreen user_uuid={testUsersList[0].uuid} />

@@ -65,8 +65,8 @@ const UserSalesScreen = ({ rep_uuid }) => {
   const [allUserSales, setAllUserSales] = useState([]);
   const classes = useStyles();
   const [locations, setLocations] = useState([]);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(Date.now());
+  const [endDate, setEndDate] = useState(Date.now());
   const [salesLoading, setSalesLoading] = useState(false);
   const [redirect, setRedirect] = useState(false);
   const [redirectTo, setRedirectTo] = useState();

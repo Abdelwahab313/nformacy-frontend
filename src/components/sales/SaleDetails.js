@@ -13,7 +13,7 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import { fetchProduct } from '../../apis/productsApi';
+import { fetchProduct } from '../../product/productsApi';
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -102,8 +102,5 @@ describe('show all users', () => {
     });
 
     const { result } = renderHook(() => UsersList());
-    act(() => {
-      console.log(result.current.users);
-    });
   });
 });

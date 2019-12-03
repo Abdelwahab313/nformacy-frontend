@@ -13,12 +13,15 @@ const fetchProduct = (productId, tokenStr) => {
 };
 
 const postProduct = (product, tokenStr) => {
-  return axios({
-    method: 'post',
-    url: `${API_BASE_URL}/products/`,
-    data: product,
+  return axios.post(`${API_BASE_URL}/products/`, product, {
     headers: { Authorization: `Bearer ${tokenStr.access_token}` },
   });
 };
 
-export { fetchProducts, postProduct, fetchProduct };
+const editProduct = (product, productUUID, tokenStr) => {
+  return axios.patch(`${API_BASE_URL}/products/${productUUID}`, product, {
+    headers: { Authorization: `Bearer ${tokenStr.access_token}` },
+  });
+};
+
+export { fetchProducts, postProduct, fetchProduct, editProduct };

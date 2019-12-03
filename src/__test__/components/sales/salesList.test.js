@@ -64,7 +64,7 @@ describe('Sales', () => {
         created: '2019-11-25T10:20:51.421812Z',
         created_location: { coordinates: [37.4219983, -122.084] },
         saved_location: { coordinates: [37.4219983, -122.084] },
-        // products: (2) [{…}, {…}]
+        // __test__: (2) [{…}, {…}]
       },
     ];
     tree = (

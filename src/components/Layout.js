@@ -6,11 +6,12 @@ import { Switch, withRouter } from 'react-router-dom';
 import Logout from './user/LogoutUser';
 import ClientDetailsScreen from './client/detail/ClientDetailsScreen';
 import UsersList from './user/UsersList';
-import ProductsList from './product/ProductsList';
 import SalesList from './sales/SalesList';
 import SaleDetails from './sales/SaleDetails';
 import UserDetailsScreen from './user/userDetail/UserDetailsScreen';
 import { makeStyles } from '@material-ui/core';
+import ProductsListScreen from '../product/ProductsPage';
+import { ProductProvider } from '../product/context/context';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,9 +45,14 @@ function Layout(props) {
           <PrivateRoute path='/clients/:uuid' component={ClientDetailsScreen} />
           <PrivateRoute path='/users/list' component={UsersList} />
           <PrivateRoute path='/users/:uuid' component={UserDetailsScreen} />
-          <PrivateRoute path='/products/list' component={ProductsList} />
           <PrivateRoute path='/sales/list' component={SalesList} />
           <PrivateRoute path='/sales/:uuid' component={SaleDetails} />
+          <ProductProvider>
+            <PrivateRoute
+              path='/products/list'
+              component={ProductsListScreen}
+            />
+          </ProductProvider>
         </Switch>
       </div>
     </div>
