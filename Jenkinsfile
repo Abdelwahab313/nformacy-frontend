@@ -1,51 +1,71 @@
 pipeline {
     agent any
 
-    tools {nodejs 'nodejs'}
+    tools { nodejs 'nodejs' }
     stages {
-        stage('install npm packages') {
-                steps {
-                          sh 'npm i'
-                    }
-                }
-         stage('start npm server if not running') {
-                 steps {
-                           sh './node_modules/.bin/pm2 start npm -- stop'
-                           sh './node_modules/.bin/pm2 start npm -- start'
-                     }
-                 }
-        stage('installation') {
+        stage('Build dashboard docker image') {
             steps {
-                    checkout([$class: 'GitSCM',
-                                    branches: [[name: 'refs/heads/master']],
-                                    doGenerateSubmoduleConfigurations: false,
-                                    extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'carrier-backend']],
-                                    gitTool: 'Default',
-                                    submoduleCfg: [],
-                                    userRemoteConfigs: [[credentialsId: 'd63b8d7c-17df-488a-ad2d-b7dacacfcd72', url: 'https://github.com/DevSquads/carrier-backend.git']]
-                                    ])
+                sh 'docker build -f Dockerfile-prod --tag dashboard:prod .'
+            }
+        }
+        stage('Run dashboard container') {
+            steps {
+                sh 'docker run -d --name=dashboard -p 3000:80 --rm dashboard:prod'
+            }
+        }
+        stage('Pull the backend code') {
+            steps {
+                checkout([$class                           : 'GitSCM',
+                          branches                         : [[name: 'refs/heads/master']],
+                          doGenerateSubmoduleConfigurations: false,
+                          extensions                       : [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'carrier-backend']],
+                          gitTool                          : 'Default',
+                          submoduleCfg                     : [],
+                          userRemoteConfigs                : [[credentialsId: 'd63b8d7c-17df-488a-ad2d-b7dacacfcd72', url: 'https://github.com/DevSquads/carrier-backend.git']]
+                ])
 
             }
         }
-       stage('build backend docker images') {
-        steps {
+        stage('Build backend docker images') {
+            steps {
                 dir('carrier-backend') {
-                    sh 'docker-compose build --no-cache'
-                    sh 'docker-compose up -d'
+                    sh 'make build_no_cache'
+                }
+            }
+        }
+        stage('Run backend docker images') {
+            steps {
+                dir('carrier-backend') {
+                    sh 'make up_detach'
+                }
+            }
+        }
+        stage('Loading db seed for test') {
+            steps {
+                dir('carrier-backend') {
+                    sleep 60
                     sh 'make load-seed'
                 }
             }
         }
-       stage('run tests') {
-        steps {
-                  sh 'pwd'
-                  sh './node_modules/.bin/cypress run test'
+        stage('Run tests') {
+            steps {
+                sh 'cypress run'
             }
         }
     }
     post {
         always {
+            echo 'Deleting all containers'
+            sh 'docker container rm -f $(docker container ls -a -q)'
+            echo 'Deleting all Volumes'
+            sh ' docker volume rm -f $(docker volume ls -q)'
             echo "clean "
+        }
+        failure {
+            mail to: 'moessam@devsquads.com',
+                    subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                    body: "Something is wrong with ${env.BUILD_URL}"
         }
     }
 }
