@@ -169,7 +169,7 @@ const Login = (props) => {
           )}
 
           {loginFailed && (
-            <span className={classes.error}>
+            <span id={'loginFailedMessage'} className={classes.error}>
               خطأ في اسم المستخدم او كلمه المرور
             </span>
           )}
