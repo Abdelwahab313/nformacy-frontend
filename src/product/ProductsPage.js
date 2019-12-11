@@ -26,6 +26,7 @@ import {
 import TableSelectedToolBar from './components/TableSelectedToolBar';
 import useProductFetcher from './hooks/ProductFetcher';
 import EditProductPage from './EditProductPage';
+import { tableLabels } from '../constants/tableLocalization';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
@@ -121,40 +122,7 @@ const ProductsPage = () => {
                   />
                 );
               },
-              textLabels: {
-                body: {
-                  noMatch: 'لا يوجد نتائج مطابقه للبحث',
-                  toolTip: 'ترتيب',
-                  columnHeaderTooltip: (column) => `ترتيب حسب ${column.label}`,
-                },
-                pagination: {
-                  next: 'الصفحه التاليه',
-                  previous: 'الصفحه السابقه',
-                  rowsPerPage: 'عدد الصفوف:',
-                  displayRows: 'من',
-                },
-                toolbar: {
-                  search: 'بحث',
-                  downloadCsv: 'CSV تحميل',
-                  print: 'طباعه',
-                  viewColumns: 'عرض',
-                  filterTable: 'تصنيف',
-                },
-                filter: {
-                  all: 'الكل',
-                  title: 'تصنيف',
-                  reset: 'إعادة تعيين',
-                },
-                viewColumns: {
-                  title: 'عرض الأعمدة',
-                  titleAria: 'إظهار / إخفاء أعمدة الجدول',
-                },
-                selectedRows: {
-                  text: 'صف(وف) محددة',
-                  delete: 'حذف',
-                  deleteAria: 'حذف الصف المحدد',
-                },
-              },
+              ...tableLabels,
             }}
           />
         </Grid>

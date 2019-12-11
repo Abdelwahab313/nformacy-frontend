@@ -1,12 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { MemoryRouter, Router } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import ClientDetailsScreen from '../../../components/client/detail/ClientDetailsScreen';
-import * as AuthContextMoudle from '../../../context/auth';
-import { AuthContext } from '../../../context/auth';
+import * as AuthContextMoudle from '../../../auth/auth';
+import { AuthContext } from '../../../auth/auth';
 import axios from 'axios';
 import App from '../../../components/App';
-import ClientDetails from '../../../components/client/detail/ClientDetail';
 
 jest.mock('axios');
 axios.mockResolvedValue();

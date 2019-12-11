@@ -49,11 +49,11 @@ exports[`Product Form should render add form with empty TextField if no props pa
                 />
                 <fieldset
                   aria-hidden="true"
-                  class="PrivateNotchedOutline-root-206 MuiOutlinedInput-notchedOutline"
+                  class="PrivateNotchedOutline-root-204 MuiOutlinedInput-notchedOutline"
                   style="padding-left: 8px;"
                 >
                   <legend
-                    class="PrivateNotchedOutline-legend-207"
+                    class="PrivateNotchedOutline-legend-205"
                     style="width: 0px;"
                   >
                     <span>
@@ -93,11 +93,11 @@ exports[`Product Form should render add form with empty TextField if no props pa
                 />
                 <fieldset
                   aria-hidden="true"
-                  class="PrivateNotchedOutline-root-206 MuiOutlinedInput-notchedOutline"
+                  class="PrivateNotchedOutline-root-204 MuiOutlinedInput-notchedOutline"
                   style="padding-left: 8px;"
                 >
                   <legend
-                    class="PrivateNotchedOutline-legend-207"
+                    class="PrivateNotchedOutline-legend-205"
                     style="width: 0.01px;"
                   >
                     <span>
@@ -137,11 +137,11 @@ exports[`Product Form should render add form with empty TextField if no props pa
                 />
                 <fieldset
                   aria-hidden="true"
-                  class="PrivateNotchedOutline-root-206 MuiOutlinedInput-notchedOutline"
+                  class="PrivateNotchedOutline-root-204 MuiOutlinedInput-notchedOutline"
                   style="padding-left: 8px;"
                 >
                   <legend
-                    class="PrivateNotchedOutline-legend-207"
+                    class="PrivateNotchedOutline-legend-205"
                     style="width: 0.01px;"
                   >
                     <span>
@@ -155,7 +155,7 @@ exports[`Product Form should render add form with empty TextField if no props pa
         </div>
         <button
           class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-submit-3 MuiButton-containedPrimary MuiButton-fullWidth"
-          id="add_product_submit_btn"
+          id="save_product_submit_btn"
           tabindex="0"
           type="submit"
         >
@@ -180,7 +180,7 @@ exports[`Product Form should render add form with values if props passed 1`] = `
     class="MuiContainer-root MuiContainer-maxWidthXs"
   >
     <div
-      class="makeStyles-paper-249"
+      class="makeStyles-paper-247"
     >
       <h1
         class="MuiTypography-root MuiTypography-h5"
@@ -188,7 +188,7 @@ exports[`Product Form should render add form with values if props passed 1`] = `
         اضافه منتج جديد
       </h1>
       <form
-        class="makeStyles-form-250"
+        class="makeStyles-form-248"
         novalidate=""
       >
         <div
@@ -223,11 +223,11 @@ exports[`Product Form should render add form with values if props passed 1`] = `
                 />
                 <fieldset
                   aria-hidden="true"
-                  class="PrivateNotchedOutline-root-454 MuiOutlinedInput-notchedOutline"
+                  class="PrivateNotchedOutline-root-450 MuiOutlinedInput-notchedOutline"
                   style="padding-left: 8px;"
                 >
                   <legend
-                    class="PrivateNotchedOutline-legend-455"
+                    class="PrivateNotchedOutline-legend-451"
                     style="width: 0px;"
                   >
                     <span>
@@ -267,11 +267,11 @@ exports[`Product Form should render add form with values if props passed 1`] = `
                 />
                 <fieldset
                   aria-hidden="true"
-                  class="PrivateNotchedOutline-root-454 MuiOutlinedInput-notchedOutline"
+                  class="PrivateNotchedOutline-root-450 MuiOutlinedInput-notchedOutline"
                   style="padding-left: 8px;"
                 >
                   <legend
-                    class="PrivateNotchedOutline-legend-455"
+                    class="PrivateNotchedOutline-legend-451"
                     style="width: 0px;"
                   >
                     <span>
@@ -311,11 +311,11 @@ exports[`Product Form should render add form with values if props passed 1`] = `
                 />
                 <fieldset
                   aria-hidden="true"
-                  class="PrivateNotchedOutline-root-454 MuiOutlinedInput-notchedOutline"
+                  class="PrivateNotchedOutline-root-450 MuiOutlinedInput-notchedOutline"
                   style="padding-left: 8px;"
                 >
                   <legend
-                    class="PrivateNotchedOutline-legend-455"
+                    class="PrivateNotchedOutline-legend-451"
                     style="width: 0px;"
                   >
                     <span>
@@ -328,8 +328,8 @@ exports[`Product Form should render add form with values if props passed 1`] = `
           </div>
         </div>
         <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-submit-251 MuiButton-containedPrimary MuiButton-fullWidth"
-          id="add_product_submit_btn"
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-submit-249 MuiButton-containedPrimary MuiButton-fullWidth"
+          id="save_product_submit_btn"
           tabindex="0"
           type="submit"
         >

@@ -1,6 +1,6 @@
-import { useAuth } from '../../context/auth';
+import { useAuth } from './auth';
 import React, { useEffect, useState } from 'react';
-import { logout } from '../../apis/authAPI';
+import { logout } from '../apis/authAPI';
 import { Redirect } from 'react-router';
 
 const Logout = (props) => {

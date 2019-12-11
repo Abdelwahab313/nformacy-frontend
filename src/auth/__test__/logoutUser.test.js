@@ -1,18 +1,19 @@
 import React from 'react';
 import axios from 'axios';
-import * as AuthContextMoudle from '../../../context/auth';
-import { AuthContext } from '../../../context/auth';
-import { mount } from 'enzyme';
-import Logout from '../../../components/user/LogoutUser';
-import { API_BASE_URL } from '../../../settings';
-import LocalStorageMock from '../../localStorage';
+import * as AuthContextModule from '../auth';
+import { AuthContext } from '../auth';
+import Logout from '../LogoutUser';
+import { API_BASE_URL } from '../../settings';
+import LocalStorageMock from '../../__test__/localStorage';
+import { MemoryRouter } from 'react-router';
+import { render, act } from '@testing-library/react';
 
 jest.mock('axios');
 axios.mockResolvedValue();
 describe('logout user axios', () => {
   let tree;
   let wrapper;
-  beforeEach(() => {
+  beforeEach(async () => {
     global.localStorage = new LocalStorageMock();
     global.localStorage.setItem('tokens', 'testToken');
     global.localStorage.setItem('users', 'testUser');
@@ -21,20 +22,24 @@ describe('logout user axios', () => {
         response: { status: ['200'] },
       }),
     );
-    jest.spyOn(AuthContextMoudle, 'useAuth').mockImplementation(() => ({
+    jest.spyOn(AuthContextModule, 'useAuth').mockImplementation(() => ({
       authTokens: { access_token: 'testToken' },
       setAuthTokens: () => {},
       setLoggedInUser: () => {},
       setLoadedLocal: () => {},
     }));
     tree = (
-      <AuthContext.Provider>
-        <Logout />
-      </AuthContext.Provider>
+      <MemoryRouter>
+        <AuthContext.Provider>
+          <Logout />
+        </AuthContext.Provider>
+      </MemoryRouter>
     );
-    wrapper = mount(tree);
+    await act(async () => {
+      wrapper = render(tree);
+    });
   });
-  it('should call logout api once', async () => {
+  it('should call logout api once', () => {
     expect(axios).toHaveBeenCalledTimes(1);
     expect(axios).toHaveBeenCalledWith({
       headers: { Authorization: 'Bearer testToken' },

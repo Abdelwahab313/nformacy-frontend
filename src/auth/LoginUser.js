@@ -8,11 +8,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import useForm from 'react-hook-form';
-import { login } from '../../apis/authAPI';
+import { login } from '../apis/authAPI';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Redirect } from 'react-router';
-import { useAuth } from '../../context/auth';
-import ErrorDialog from '../errors/ErrorDialog';
+import { useAuth } from './auth';
+import ErrorDialog from '../components/errors/ErrorDialog';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {

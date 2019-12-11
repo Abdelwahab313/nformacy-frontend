@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import ClientsList from './client/ClientsList';
-import UsersList from './user/UsersList';
-import ClientDetailsScreen from './client/detail/ClientDetailsScreen';
 import {
   createMuiTheme,
   StylesProvider,
@@ -12,11 +9,9 @@ import { create } from 'jss';
 import preset from 'jss-preset-default';
 import rtl from 'jss-rtl';
 import { Route, Switch } from 'react-router-dom';
-import Login from './user/LoginUser';
-import { AuthContext } from '../context/auth';
+import Login from '../auth/LoginUser';
+import { AuthContext } from '../auth/auth';
 import PrivateRoute from './PrivateRoute';
-import SideBar from './drawer/SideBar';
-import Logout from './user/LogoutUser';
 import Layout from './Layout';
 
 const presets = preset().plugins;

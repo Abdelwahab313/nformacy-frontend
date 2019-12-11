@@ -15,7 +15,7 @@ import ClientStatus from './status/ClientStatus';
 import { Redirect } from 'react-router';
 import { cloneDeep } from 'lodash';
 import ErrorDialog from '../errors/ErrorDialog';
-import { useAuth } from '../../context/auth';
+import { useAuth } from '../../auth/auth';
 
 function ClientsList(props) {
   const [clients, setClients] = useState([]);

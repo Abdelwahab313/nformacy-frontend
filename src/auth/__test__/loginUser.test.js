@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Login from '../../../components/user/LoginUser';
-import * as AuthContextMoudle from '../../../context/auth';
-import { AuthContext } from '../../../context/auth';
+import Login from '../LoginUser';
+import * as AuthContextMoudle from '../auth';
+import { AuthContext } from '../auth';
 
 describe('login user form', () => {
   let tree;

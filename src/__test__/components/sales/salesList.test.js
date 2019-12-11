@@ -2,8 +2,8 @@ import React from 'react';
 import { render, shallow } from 'enzyme';
 
 import SalesList from '../../../components/sales/SalesList';
-import * as AuthContextMoudle from '../../../context/auth';
-import { AuthContext } from '../../../context/auth';
+import * as AuthContextMoudle from '../../../auth/auth';
+import { AuthContext } from '../../../auth/auth';
 
 describe('Sales', () => {
   let tree;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import ClientsList from '../../../components/client/ClientsList';
-import * as AuthContextMoudle from '../../../context/auth';
-import { AuthContext } from '../../../context/auth';
+import * as AuthContextMoudle from '../../../auth/auth';
+import { AuthContext } from '../../../auth/auth';
 
 describe('show all clients', () => {
   let tree;

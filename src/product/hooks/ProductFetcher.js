@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useProductState } from '../context/context';
-import { useAuth } from '../../context/auth';
+import { useAuth } from '../../auth/auth';
 import { SET_ERROR, UPDATE_PRODUCTS } from '../context/contextActions';
 import { fetchProducts } from '../productsApi';
 import { convertObjToArray } from '../utils';

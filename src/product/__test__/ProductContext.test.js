@@ -5,8 +5,8 @@ import Button from '@material-ui/core/Button';
 import { getByText as findByText } from '@testing-library/dom';
 import {
   CLOSE_INSERT_DIALOG_AND_SAVE,
-  CLOSE_UPDATE_DIALOG_AND_UPDATE,
   CLOSE_INSERT_DIALOG_WITHOUT_SAVE,
+  CLOSE_UPDATE_DIALOG_AND_UPDATE,
   CLOSE_UPDATE_DIALOG_WITHOUT_SAVE,
   OPEN_INSERT_DIALOG,
   OPEN_UPDATE_DIALOG,
@@ -21,8 +21,8 @@ const ProductTestScreen = (props) => {
   ] = useProductState();
   return (
     <div>
-      {products.map((product) => (
-        <div key={product[0]}>
+      {products.map((product, index) => (
+        <div key={product[0] || index}>
           <p data-testid={product[2]}>{product[1]}</p>
           <Button
             data-testid={'edit'}
@@ -121,11 +121,18 @@ describe('Product context', () => {
   });
 
   it('should throw an error if UseProductState used outside ProductProvider', () => {
+    //to disable the redundant error massage in the test
+    const originalError = console.error;
+    console.error = jest.fn();
+
     const TestComponent = () => {
       const [state, dispatcher] = useProductState();
       return <div></div>;
     };
-    expect(() => render(<TestComponent />)).toThrow();
+    let target = () => render(<TestComponent />);
+
+    expect(target).toThrow();
+    console.error = originalError;
   });
 
   it('should provide insertDialogOpened state', () => {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ProductFetcher Presentation should render products list screen correctly 1`] = `
+exports[`SalesRepsPage snapshot test should render SalesRepsPage correctly 1`] = `
 <DocumentFragment>
   <div
     class="makeStyles-root-1"
@@ -11,18 +11,15 @@ exports[`ProductFetcher Presentation should render products list screen correctl
     >
       <button
         class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-addButton-2 MuiButton-containedPrimary"
-        id="add-product-button"
+        id="add-sales-rep-button"
         tabindex="0"
         type="button"
       >
         <span
           class="MuiButton-label"
         >
-          اضافه منتج جديد
+          اضافه موظف جديد
         </span>
-        <span
-          class="MuiTouchRipple-root"
-        />
       </button>
       <div
         class="MuiPaper-root MuiPaper-elevation4 MUIDataTable-paper-142 MuiPaper-rounded"
@@ -42,7 +39,7 @@ exports[`ProductFetcher Presentation should render products list screen correctl
               <h6
                 class="MuiTypography-root MUIDataTableToolbar-titleText-181 MuiTypography-h6"
               >
-                البضائع
+                المستخدمين
               </h6>
             </div>
           </div>
@@ -72,9 +69,6 @@ exports[`ProductFetcher Presentation should render products list screen correctl
                   />
                 </svg>
               </span>
-              <span
-                class="MuiTouchRipple-root"
-              />
             </button>
             <button
               aria-label="CSV تحميل"
@@ -99,9 +93,6 @@ exports[`ProductFetcher Presentation should render products list screen correctl
                   />
                 </svg>
               </span>
-              <span
-                class="MuiTouchRipple-root"
-              />
             </button>
             <span>
               <span>
@@ -128,9 +119,6 @@ exports[`ProductFetcher Presentation should render products list screen correctl
                       />
                     </svg>
                   </span>
-                  <span
-                    class="MuiTouchRipple-root"
-                  />
                 </button>
               </span>
             </span>
@@ -158,9 +146,6 @@ exports[`ProductFetcher Presentation should render products list screen correctl
                     />
                   </svg>
                 </span>
-                <span
-                  class="MuiTouchRipple-root"
-                />
               </button>
             </span>
           </div>
@@ -180,7 +165,7 @@ exports[`ProductFetcher Presentation should render products list screen correctl
             <caption
               class="MUIDataTable-caption-148"
             >
-              البضائع
+              المستخدمين
             </caption>
             <thead
               class="MuiTableHead-root MUIDataTableHead-main-256"
@@ -204,12 +189,12 @@ exports[`ProductFetcher Presentation should render products list screen correctl
                     class="MUIDataTableHeadCell-toolButton-301"
                     role="button"
                     tabindex="0"
-                    title="ترتيب حسب اسم المنتج"
+                    title="ترتيب حسب أسم المستخدم"
                   >
                     <div
                       class="MUIDataTableHeadCell-data-297"
                     >
-                      اسم المنتج
+                      أسم المستخدم
                     </div>
                     <div
                       class="MUIDataTableHeadCell-sortAction-298"
@@ -231,12 +216,12 @@ exports[`ProductFetcher Presentation should render products list screen correctl
                     class="MUIDataTableHeadCell-toolButton-301"
                     role="button"
                     tabindex="0"
-                    title="ترتيب حسب SKU"
+                    title="ترتيب حسب رقم الموبايل"
                   >
                     <div
                       class="MUIDataTableHeadCell-data-297"
                     >
-                      SKU
+                      رقم الموبايل
                     </div>
                     <div
                       class="MUIDataTableHeadCell-sortAction-298"
@@ -258,12 +243,66 @@ exports[`ProductFetcher Presentation should render products list screen correctl
                     class="MUIDataTableHeadCell-toolButton-301"
                     role="button"
                     tabindex="0"
-                    title="ترتيب حسب سعر المنتج"
+                    title="ترتيب حسب رقم البطاقه"
                   >
                     <div
                       class="MUIDataTableHeadCell-data-297"
                     >
-                      سعر المنتج
+                      رقم البطاقه
+                    </div>
+                    <div
+                      class="MUIDataTableHeadCell-sortAction-298"
+                    >
+                      <span
+                        aria-disabled="false"
+                        class="MuiButtonBase-root MuiTableSortLabel-root MUIDataTableHeadCell-sortLabelRoot-299"
+                        role="button"
+                        tabindex="0"
+                      />
+                    </div>
+                  </span>
+                </th>
+                <th
+                  class="MuiTableCell-root MuiTableCell-head MUIDataTableHeadCell-root-290 MUIDataTableHeadCell-fixedHeaderCommon-292 MUIDataTableHeadCell-fixedHeaderXAxis-293 MUIDataTableHeadCell-fixedHeaderYAxis-294"
+                  scope="col"
+                >
+                  <span
+                    class="MUIDataTableHeadCell-toolButton-301"
+                    role="button"
+                    tabindex="0"
+                    title="ترتيب حسب اسم تسجيل الدخول"
+                  >
+                    <div
+                      class="MUIDataTableHeadCell-data-297"
+                    >
+                      اسم تسجيل الدخول
+                    </div>
+                    <div
+                      class="MUIDataTableHeadCell-sortAction-298"
+                    >
+                      <span
+                        aria-disabled="false"
+                        class="MuiButtonBase-root MuiTableSortLabel-root MUIDataTableHeadCell-sortLabelRoot-299"
+                        role="button"
+                        tabindex="0"
+                      />
+                    </div>
+                  </span>
+                </th>
+                <th
+                  class="MuiTableCell-root MuiTableCell-head MUIDataTableHeadCell-root-290 MUIDataTableHeadCell-fixedHeaderCommon-292 MUIDataTableHeadCell-fixedHeaderXAxis-293 MUIDataTableHeadCell-fixedHeaderYAxis-294"
+                  scope="col"
+                >
+                  <span
+                    class="MUIDataTableHeadCell-toolButton-301"
+                    role="button"
+                    tabindex="0"
+                    title="ترتيب حسب تاريخ الاضافه"
+                  >
+                    <div
+                      class="MUIDataTableHeadCell-data-297"
+                    >
+                      تاريخ الاضافه
                     </div>
                     <div
                       class="MUIDataTableHeadCell-sortAction-298"
@@ -319,44 +358,65 @@ exports[`ProductFetcher Presentation should render products list screen correctl
                           />
                         </svg>
                       </span>
-                      <span
-                        class="MuiTouchRipple-root"
-                      />
                     </span>
                   </div>
                 </td>
                 <td
                   class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326 MUIDataTableBodyCell-cellHide-327"
                 >
-                  اسم المنتج
-                </td>
-                <td
-                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326"
-                  data-testid="MuiDataTableBodyCell-1-0"
-                >
-                  test_product1
-                </td>
-                <td
-                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326 MUIDataTableBodyCell-cellHide-327"
-                >
-                  SKU
-                </td>
-                <td
-                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326"
-                  data-testid="MuiDataTableBodyCell-2-0"
-                >
-                  1
-                </td>
-                <td
-                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326 MUIDataTableBodyCell-cellHide-327"
-                >
-                  سعر المنتج
+                  أسم المستخدم
                 </td>
                 <td
                   class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326"
                   data-testid="MuiDataTableBodyCell-3-0"
                 >
-                  50
+                  fname lname
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326 MUIDataTableBodyCell-cellHide-327"
+                >
+                  رقم الموبايل
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326"
+                  data-testid="MuiDataTableBodyCell-4-0"
+                >
+                  0123456789
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326 MUIDataTableBodyCell-cellHide-327"
+                >
+                  رقم البطاقه
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326"
+                  data-testid="MuiDataTableBodyCell-5-0"
+                >
+                  201378375363737
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326 MUIDataTableBodyCell-cellHide-327"
+                >
+                  اسم تسجيل الدخول
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326"
+                  data-testid="MuiDataTableBodyCell-6-0"
+                >
+                  test_user1
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326 MUIDataTableBodyCell-cellHide-327"
+                >
+                  تاريخ الاضافه
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326"
+                  data-testid="MuiDataTableBodyCell-7-0"
+                >
+                  <p>
+                    Invalid Date
+                  </p>
                 </td>
               </tr>
               <tr
@@ -396,44 +456,65 @@ exports[`ProductFetcher Presentation should render products list screen correctl
                           />
                         </svg>
                       </span>
-                      <span
-                        class="MuiTouchRipple-root"
-                      />
                     </span>
                   </div>
                 </td>
                 <td
                   class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326 MUIDataTableBodyCell-cellHide-327"
                 >
-                  اسم المنتج
-                </td>
-                <td
-                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326"
-                  data-testid="MuiDataTableBodyCell-1-1"
-                >
-                  test_product2
-                </td>
-                <td
-                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326 MUIDataTableBodyCell-cellHide-327"
-                >
-                  SKU
-                </td>
-                <td
-                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326"
-                  data-testid="MuiDataTableBodyCell-2-1"
-                >
-                  2
-                </td>
-                <td
-                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326 MUIDataTableBodyCell-cellHide-327"
-                >
-                  سعر المنتج
+                  أسم المستخدم
                 </td>
                 <td
                   class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326"
                   data-testid="MuiDataTableBodyCell-3-1"
                 >
-                  60
+                  fname lname
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326 MUIDataTableBodyCell-cellHide-327"
+                >
+                  رقم الموبايل
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326"
+                  data-testid="MuiDataTableBodyCell-4-1"
+                >
+                  0123456788
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326 MUIDataTableBodyCell-cellHide-327"
+                >
+                  رقم البطاقه
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326"
+                  data-testid="MuiDataTableBodyCell-5-1"
+                >
+                  201378375363337
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326 MUIDataTableBodyCell-cellHide-327"
+                >
+                  اسم تسجيل الدخول
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326"
+                  data-testid="MuiDataTableBodyCell-6-1"
+                >
+                  test_user2
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326 MUIDataTableBodyCell-cellHide-327"
+                >
+                  تاريخ الاضافه
+                </td>
+                <td
+                  class="MuiTableCell-root MuiTableCell-body MUIDataTableBodyCell-root-326"
+                  data-testid="MuiDataTableBodyCell-7-1"
+                >
+                  <p>
+                    Invalid Date
+                  </p>
                 </td>
               </tr>
             </tbody>

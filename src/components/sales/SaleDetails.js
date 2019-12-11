@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { makeStyles } from '@material-ui/core';
-import { useAuth } from '../../context/auth';
+import { useAuth } from '../../auth/auth';
 import { getSaleWithUUID } from '../../apis/salesApi';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/core/SvgIcon/SvgIcon';
 import { fetchClient } from '../../apis/clientsApi';
-import { fetchUser } from '../../apis/usersApi';
+import { fetchUser } from '../../salesRep/salesRepsAPI';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -90,6 +90,7 @@ const SaleDetails = (props) => {
         setSaleLoading(false);
       });
   }, [uuid]);
+
   if (saleLoading) {
     return (
       <div className={classes.emptyContainer}>

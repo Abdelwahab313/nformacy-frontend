@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth } from '../context/auth';
+import { useAuth } from '../auth/auth';
 import { editProduct } from './productsApi';
 import { useProductState } from './context/context';
 import { convertObjToArray } from './utils';

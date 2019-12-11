@@ -3,15 +3,16 @@ import SideBar from './drawer/SideBar';
 import PrivateRoute from './PrivateRoute';
 import ClientsList from './client/ClientsList';
 import { Switch, withRouter } from 'react-router-dom';
-import Logout from './user/LogoutUser';
+import Logout from '../auth/LogoutUser';
 import ClientDetailsScreen from './client/detail/ClientDetailsScreen';
-import UsersList from './user/UsersList';
+import SalesRepsPage from '../salesRep/SalesRepsPage';
 import SalesList from './sales/SalesList';
 import SaleDetails from './sales/SaleDetails';
-import UserDetailsScreen from './user/userDetail/UserDetailsScreen';
+import UserDetailsScreen from '../salesRep/userDetail/UserDetailsScreen';
 import { makeStyles } from '@material-ui/core';
 import ProductsListScreen from '../product/ProductsPage';
 import { ProductProvider } from '../product/context/context';
+import { SalesRepProvider } from '../salesRep/context';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,20 +40,32 @@ function Layout(props) {
       </div>
       <div className={classes.AppContainer}>
         <Switch>
-          <PrivateRoute exact path='/' component={UsersList} />
+          <PrivateRoute
+            exact
+            path='/'
+            component={SalesRepsPage}
+            provider={SalesRepProvider}
+          />
           <PrivateRoute path='/clients/list' component={ClientsList} />
           <PrivateRoute path='/logout' component={Logout} />
           <PrivateRoute path='/clients/:uuid' component={ClientDetailsScreen} />
-          <PrivateRoute path='/users/list' component={UsersList} />
-          <PrivateRoute path='/users/:uuid' component={UserDetailsScreen} />
+          <PrivateRoute
+            path='/users/list'
+            component={SalesRepsPage}
+            provider={SalesRepProvider}
+          />
+          <PrivateRoute
+            path='/users/:uuid'
+            component={UserDetailsScreen}
+            provider={SalesRepProvider}
+          />
           <PrivateRoute path='/sales/list' component={SalesList} />
           <PrivateRoute path='/sales/:uuid' component={SaleDetails} />
-          <ProductProvider>
-            <PrivateRoute
-              path='/products/list'
-              component={ProductsListScreen}
-            />
-          </ProductProvider>
+          <PrivateRoute
+            path='/products/list'
+            component={ProductsListScreen}
+            provider={ProductProvider}
+          />
         </Switch>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
-import * as AuthContextModule from '../../context/auth';
-import { AuthContext } from '../../context/auth';
+import { act, fireEvent, render } from '@testing-library/react';
+import * as AuthContextModule from '../../auth/auth';
+import { AuthContext } from '../../auth/auth';
 import AddProductPage from '../AddProductPage';
 import { ProductProvider } from '../context/context';
 import { API_BASE_URL } from '../../settings';
@@ -35,15 +35,20 @@ describe('Add Product form', () => {
     const productName = 'test';
     const sku = 'test';
     const price = 123;
-
-    fireEvent.change(getByTestId('productName'), {
-      target: { value: productName },
+    await act(async () => {
+      fireEvent.change(getByTestId('productName'), {
+        target: { value: productName },
+      });
     });
-    fireEvent.change(getByTestId('sku'), { target: { value: sku } });
-    fireEvent.change(getByTestId('price'), { target: { value: price } });
-    fireEvent.submit(getByText('حفظ'));
-
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await act(async () => {
+      fireEvent.change(getByTestId('sku'), { target: { value: sku } });
+    });
+    await act(async () => {
+      fireEvent.change(getByTestId('price'), { target: { value: price } });
+    });
+    await act(async () => {
+      fireEvent.submit(getByText('حفظ'));
+    });
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith(
@@ -62,8 +67,9 @@ describe('Add Product form', () => {
       </AuthContext.Provider>,
     );
 
-    fireEvent.submit(getByText('حفظ'));
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await act(async () => {
+      fireEvent.submit(getByText('حفظ'));
+    });
     expect(spy).toHaveBeenCalledTimes(0);
   });
 });

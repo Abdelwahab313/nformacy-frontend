@@ -1,9 +1,9 @@
 import React from 'react';
-import * as AuthContextMoudle from '../../context/auth';
-import { AuthContext } from '../../context/auth';
+import * as AuthContextMoudle from '../../auth/auth';
+import { AuthContext } from '../../auth/auth';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks';
 import { API_BASE_URL } from '../../settings';
 import LocalStorageMock from '../../__test__/localStorage';
 import * as ProductContextModule from '../context/context';
@@ -68,14 +68,17 @@ describe('ProductFetcher hook', () => {
         price: 60,
       },
     ]);
-    const fetcher = renderHook(() => ProductFetcher(), {
-      wrapper,
+    let fetcher, result;
+    await act(async () => {
+      fetcher = renderHook(() => ProductFetcher(), {
+        wrapper,
+      });
     });
-    const { result, _ } = renderHook(() => TestComponent(), {
-      wrapper,
+    await act(async () => {
+      result = renderHook(() => TestComponent(), {
+        wrapper,
+      }).result;
     });
-    expect(fetcher.result.current.productsLoading).toBe(true);
-    await new Promise((resolve) => setTimeout(resolve, 100));
     expect(fetcher.result.current.productsLoading).toBe(false);
     expect(result.current.state.products.length).toBe(2);
   });
@@ -95,13 +98,17 @@ describe('ProductFetcher hook', () => {
         price: 60,
       },
     ]);
-    const fetcher = renderHook(() => ProductFetcher(), {
-      wrapper,
+    await act(async () => {
+      renderHook(() => ProductFetcher(), {
+        wrapper,
+      });
     });
-    const { result, _ } = renderHook(() => TestComponent(), {
-      wrapper,
+    let result;
+    await act(async () => {
+      result = renderHook(() => TestComponent(), {
+        wrapper,
+      }).result;
     });
-    await new Promise((resolve) => setTimeout(resolve, 100));
     const adaptedResult = [
       ['test_uuid1', 'test_product1', '1', 50],
       ['test_uuid2', 'test_product2', '2', 60],
@@ -111,15 +118,17 @@ describe('ProductFetcher hook', () => {
 
   it('should set error flag true if no connection', async () => {
     mock.onGet(`${API_BASE_URL}/products/`).networkError();
-
-    renderHook(() => ProductFetcher(), {
-      wrapper,
+    await act(async () => {
+      renderHook(() => ProductFetcher(), {
+        wrapper,
+      });
     });
-    const testComponent = renderHook(() => TestComponent(), {
-      wrapper,
+    let testComponent;
+    await act(async () => {
+      testComponent = renderHook(() => TestComponent(), {
+        wrapper,
+      });
     });
-    expect(testComponent.result.current.state.errorMessage).toBe('');
-    await new Promise((resolve) => setTimeout(resolve, 100));
     expect(testComponent.result.current.state.errorMessage).toBe(
       'حدث خطأ أثناء الاتصال بالخادم',
     );
@@ -129,10 +138,11 @@ describe('ProductFetcher hook', () => {
     mock.onGet(`${API_BASE_URL}/products/`).reply(function(config) {
       return [401];
     });
-    renderHook(() => ProductFetcher(), {
-      wrapper,
+    await act(async () => {
+      renderHook(() => ProductFetcher(), {
+        wrapper,
+      });
     });
-    await new Promise((resolve) => setTimeout(resolve, 100));
 
     const loadedToken = global.localStorage.getItem('tokens');
     const loadedUser = global.localStorage.getItem('users');

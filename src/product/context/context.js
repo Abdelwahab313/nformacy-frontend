@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useReducer } from 'react';
 import {
   CLOSE_INSERT_DIALOG_AND_SAVE,
-  CLOSE_UPDATE_DIALOG_AND_UPDATE,
   CLOSE_INSERT_DIALOG_WITHOUT_SAVE,
+  CLOSE_UPDATE_DIALOG_AND_UPDATE,
   CLOSE_UPDATE_DIALOG_WITHOUT_SAVE,
   OPEN_INSERT_DIALOG,
   OPEN_UPDATE_DIALOG,
@@ -11,7 +11,7 @@ import {
 } from './contextActions';
 
 const ProductContext = createContext();
-const initValues = {
+const defaultValues = {
   products: [],
   insertDialogOpened: false,
   updateDialogOpened: false,
@@ -19,7 +19,7 @@ const initValues = {
 };
 
 const ProductProvider = ({ children, initialValue }) => {
-  initialValue = { ...initValues, ...initialValue };
+  initialValue = { ...defaultValues, ...initialValue };
   const { Provider } = ProductContext;
   return (
     <Provider value={useReducer(productReducer, initialValue)}>

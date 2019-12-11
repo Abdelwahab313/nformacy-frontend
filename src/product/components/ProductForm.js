@@ -8,7 +8,6 @@ import Container from '@material-ui/core/Container';
 import useForm from 'react-hook-form';
 import useProductFormStyle from '../styles/productForm';
 
-//TODO: review form validation
 const ProductForm = ({
   pageTitle,
   onSubmit,
@@ -42,7 +41,7 @@ const ProductForm = ({
                 defaultValue={name}
                 inputRef={register({ required: 'برجاء ادخال اسم المنتج' })}
                 autoFocus
-                error={errors.name}
+                error={!!errors.name}
                 helperText={errors.name && errors.name.message}
               />
             </Grid>
@@ -56,7 +55,7 @@ const ProductForm = ({
                 inputProps={{ 'data-testid': 'sku' }}
                 label='sku'
                 defaultValue={sku}
-                error={errors.sku}
+                error={!!errors.sku}
                 inputRef={register({ required: 'برجاء ادخال الرقم التسلسلى' })}
                 helperText={errors.sku && errors.sku.message}
               />
@@ -71,7 +70,7 @@ const ProductForm = ({
                 inputProps={{ 'data-testid': 'price' }}
                 label='سعر المنتج'
                 defaultValue={price}
-                error={errors.price}
+                error={!!errors.price}
                 inputRef={register({
                   required: 'برجاء ادخال سعر المنتج',
                   pattern: {
@@ -87,7 +86,7 @@ const ProductForm = ({
             type='submit'
             fullWidth
             variant='contained'
-            id={'add_product_submit_btn'}
+            id={'save_product_submit_btn'}
             color='primary'
             className={classes.submit}>
             حفظ

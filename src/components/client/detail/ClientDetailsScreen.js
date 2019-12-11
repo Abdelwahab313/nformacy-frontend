@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import { cloneDeep } from 'lodash';
 import { GOOGLE_MAPS_API_KEY } from '../../../settings';
-import { useAuth } from '../../../context/auth';
+import { useAuth } from '../../../auth/auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {

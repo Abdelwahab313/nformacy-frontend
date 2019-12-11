@@ -1,8 +1,8 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { useAuth } from '../context/auth';
+import { useAuth } from '../auth/auth';
 
-function PrivateRoute({ component: Component, ...rest }) {
+function PrivateRoute({ component: Component, provider: Provider, ...rest }) {
   const { authTokens, loadedLocal } = useAuth();
 
   if (!authTokens && loadedLocal) {
@@ -18,7 +18,20 @@ function PrivateRoute({ component: Component, ...rest }) {
     );
   }
   if (authTokens) {
-    return <Route {...rest} render={(props) => <Component {...props} />} />;
+    return (
+      <Route
+        {...rest}
+        render={(props) =>
+          Provider ? (
+            <Provider>
+              <Component {...props} />
+            </Provider>
+          ) : (
+            <Component {...props} />
+          )
+        }
+      />
+    );
   }
   // noinspection JSConstructorReturnsPrimitive
   return null;

@@ -1,12 +1,13 @@
 import { API_BASE_URL } from '../../settings';
-import { fireEvent, render } from '@testing-library/react';
-import { AuthContext } from '../../context/auth';
+import { act, fireEvent, render } from '@testing-library/react';
+import * as AuthContextModule from '../../auth/auth';
+import { AuthContext } from '../../auth/auth';
 import { ProductProvider } from '../context/context';
 import React from 'react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import * as AuthContextModule from '../../context/auth';
 import EditProductPage from '../EditProductPage';
+import LocalStorageMock from '../../__test__/localStorage';
 
 describe('Edit Product form', () => {
   let spy;
@@ -19,6 +20,9 @@ describe('Edit Product form', () => {
   });
   it('should edit product if data is valid', async () => {
     const mock = new MockAdapter(axios);
+    global.localStorage = new LocalStorageMock();
+    global.localStorage.setItem('tokens', 'testToken');
+    global.localStorage.setItem('users', 'testUser');
     mock.onPatch(`${API_BASE_URL}/products/testUUID`).reply(200, {
       uuid: 'testUUID',
       name: 'testName',
@@ -35,16 +39,19 @@ describe('Edit Product form', () => {
     );
     const productName = 'test2';
     const price = 42;
-    fireEvent.change(getByTestId('productName'), {
-      target: { value: productName },
+    await act(async () => {
+      fireEvent.change(getByTestId('productName'), {
+        target: { value: productName },
+      });
     });
-    fireEvent.change(getByTestId('price'), {
-      target: { value: price },
+    await act(async () => {
+      fireEvent.change(getByTestId('price'), {
+        target: { value: price },
+      });
     });
-    fireEvent.submit(getByText('حفظ'));
-
-    await new Promise((resolve) => setTimeout(resolve, 100));
-
+    await act(async () => {
+      fireEvent.submit(getByText('حفظ'));
+    });
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy).toHaveBeenCalledWith(
       `${API_BASE_URL}/products/testUUID`,
