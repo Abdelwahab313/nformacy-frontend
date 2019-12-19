@@ -15,7 +15,7 @@ describe('Sidebar', () => {
     const wrapper = shallow(<SideBar />);
     expect(wrapper.find('#reps').length).toEqual(1);
   });
-  it('should renders clients button ', () => {
+  it('should renders client button ', () => {
     const wrapper = shallow(<SideBar />);
     expect(wrapper.find('#clients').length).toEqual(1);
   });

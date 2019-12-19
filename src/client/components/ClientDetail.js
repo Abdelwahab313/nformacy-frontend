@@ -5,9 +5,14 @@ import TableCell from '@material-ui/core/TableCell';
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import TableBody from '@material-ui/core/TableBody';
-import ClientStatus from '../status/ClientStatus';
+import ClientStatus from './ClientStatus';
 import { cloneDeep } from 'lodash';
 import { Redirect } from 'react-router';
+import { useClientState } from '../context';
+import {
+  UPDATE_CURRENT_CLIENT,
+  VERIFY_CURRENT_CLIENT,
+} from '../context/actionTypes';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -21,20 +26,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ClientDetails = ({ passedClient }) => {
+const ClientDetails = () => {
   const classes = useStyles();
-  const [client, setClient] = useState(passedClient);
-  const [redirect, setRedirect] = useState(false);
-  const [redirectTo, setRedirectTo] = useState();
-  useEffect(() => {
-    setClient(passedClient);
-  }, [passedClient]);
-
-  function handleOnStateChanged(id) {
-    const tempClientState = cloneDeep(client);
-    tempClientState.verified = true;
-    setClient(tempClientState);
-  }
+  const [{ currentClient }, dispatch] = useClientState();
+  const [redirect, _] = useState(false);
+  const [redirectTo, __] = useState();
 
   if (redirect) {
     return <Redirect push to={redirectTo} />;
@@ -47,21 +43,21 @@ const ClientDetails = ({ passedClient }) => {
         <TableBody>
           <TableRow id={'clientName'}>
             <TableCell>أسم المكان</TableCell>
-            <TableCell>{client.name}</TableCell>
+            <TableCell>{currentClient.name}</TableCell>
           </TableRow>
           <TableRow id={'ownerName'}>
             <TableCell>أسم المدير</TableCell>
-            <TableCell>{client.ownerName}</TableCell>
+            <TableCell>{currentClient.ownerName}</TableCell>
           </TableRow>
           <TableRow id={'address'}>
             <TableCell>العنوان</TableCell>
-            <TableCell>{client.address}</TableCell>
+            <TableCell>{currentClient.address}</TableCell>
           </TableRow>
           <TableRow id={'phones'}>
             <TableCell>التليفون</TableCell>
             <TableCell>
-              {client.contacts
-                ? client.contacts.map((phone, index) => (
+              {currentClient.contacts
+                ? currentClient.contacts.map((phone, index) => (
                     <div key={index}>
                       {' '}
                       {phone} <br />
@@ -74,18 +70,20 @@ const ClientDetails = ({ passedClient }) => {
             <TableCell>الحاله</TableCell>
             <TableCell>
               <ClientStatus
-                status={client.verified}
-                clientName={client.name}
-                onStateChanged={handleOnStateChanged}
-                uuid={client.uuid}
+                status={currentClient.verified}
+                clientName={currentClient.name}
+                onStateChange={() => dispatch({ type: VERIFY_CURRENT_CLIENT })}
+                uuid={currentClient.uuid}
               />
             </TableCell>
           </TableRow>
           <TableRow id={'created'}>
             <TableCell>تاريخ الاضافه</TableCell>
             <TableCell>
-              {`${new Date(client.created).toLocaleTimeString()} ${new Date(
-                client.created,
+              {`${new Date(
+                currentClient.created,
+              ).toLocaleTimeString()} ${new Date(
+                currentClient.created,
               ).toLocaleDateString()}`}
             </TableCell>
           </TableRow>

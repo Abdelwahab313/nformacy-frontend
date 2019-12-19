@@ -6,7 +6,7 @@ import { getSaleWithUUID } from '../../apis/salesApi';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/core/SvgIcon/SvgIcon';
-import { fetchClient } from '../../apis/clientsApi';
+import { fetchClient } from '../../client/clientsApi';
 import { fetchUser } from '../../salesRep/salesRepsAPI';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';

@@ -4,7 +4,6 @@ import { useAuth } from '../auth/auth';
 
 function PrivateRoute({ component: Component, provider: Provider, ...rest }) {
   const { authTokens, loadedLocal } = useAuth();
-
   if (!authTokens && loadedLocal) {
     return (
       <Route

@@ -5,7 +5,7 @@ context.skip('UserDetailsScreen Page', () => {
     cy.visit('http://localhost:3000/clients/1/');
   });
   describe('Home page elements', () => {
-    it('should have all clients table', () => {
+    it('should have all client table', () => {
       cy.get('#title');
     });
     it('should have client information section', () => {

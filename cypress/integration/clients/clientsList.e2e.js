@@ -5,10 +5,10 @@ context.skip('Home Page', () => {
     cy.visit('http://localhost:3000/');
   });
   describe('Home page elements', () => {
-    it('should have all clients table', () => {
-      cy.get('#all-clients');
+    it('should have all client table', () => {
+      cy.get('#all-client');
     });
-    it('should have three clients id', () => {
+    it('should have three client id', () => {
       cy.get('#client-1');
       cy.get('#client-2');
       cy.get('#client-3');

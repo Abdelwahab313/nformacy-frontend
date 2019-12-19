@@ -1,10 +1,10 @@
 import React from 'react';
 import SideBar from './drawer/SideBar';
 import PrivateRoute from './PrivateRoute';
-import ClientsList from './client/ClientsList';
+import ClientsPage from '../client/ClientsPage';
 import { Switch, withRouter } from 'react-router-dom';
 import Logout from '../auth/LogoutUser';
-import ClientDetailsScreen from './client/detail/ClientDetailsScreen';
+import ClientDetailsPage from '../client/ClientDetailsPage';
 import SalesRepsPage from '../salesRep/SalesRepsPage';
 import SalesList from './sales/SalesList';
 import SaleDetails from './sales/SaleDetails';
@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core';
 import ProductsListScreen from '../product/ProductsPage';
 import { ProductProvider } from '../product/context/context';
 import { SalesRepProvider } from '../salesRep/context';
+import { ClientProvider } from '../client/context';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,9 +47,17 @@ function Layout(props) {
             component={SalesRepsPage}
             provider={SalesRepProvider}
           />
-          <PrivateRoute path='/clients/list' component={ClientsList} />
+          <PrivateRoute
+            path='/clients/list'
+            component={ClientsPage}
+            provider={ClientProvider}
+          />
+          <PrivateRoute
+            path='/clients/:uuid'
+            component={ClientDetailsPage}
+            provider={ClientProvider}
+          />
           <PrivateRoute path='/logout' component={Logout} />
-          <PrivateRoute path='/clients/:uuid' component={ClientDetailsScreen} />
           <PrivateRoute
             path='/users/list'
             component={SalesRepsPage}

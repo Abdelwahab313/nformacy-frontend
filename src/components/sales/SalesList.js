@@ -13,7 +13,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { fetchSales, getSalesWithDate } from '../../apis/salesApi';
 import { useAuth } from '../../auth/auth';
 import ErrorDialog from '../errors/ErrorDialog';
-import { fetchClient } from '../../apis/clientsApi';
+import { fetchClient } from '../../client/clientsApi';
 import { fetchUser } from '../../salesRep/salesRepsAPI';
 import moment from 'moment';
 import CircularProgress from '@material-ui/core/CircularProgress';

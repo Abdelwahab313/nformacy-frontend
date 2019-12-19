@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
-import ClientDetailsScreen from '../../../components/client/detail/ClientDetailsScreen';
+import ClientDetailsPage from '../../../client/ClientDetailsPage';
 import * as AuthContextMoudle from '../../../auth/auth';
 import { AuthContext } from '../../../auth/auth';
 import axios from 'axios';
@@ -34,6 +34,6 @@ describe('test app routes', () => {
     const wrapper = mount(
       <MemoryRouter initialEntries={['/clients/1']}>{tree}</MemoryRouter>,
     );
-    expect(wrapper.find(ClientDetailsScreen)).toHaveLength(1);
+    expect(wrapper.find(ClientDetailsPage)).toHaveLength(1);
   });
 });

@@ -2,16 +2,15 @@ import { makeStyles } from '@material-ui/core';
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import { Link } from 'react-router-dom';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import { verifyClient } from '../../../apis/clientsApi';
-import { useAuth } from '../../../auth/auth';
+import { verifyClient } from '../clientsApi';
+import { useAuth } from '../../auth/auth';
+import { useClientState } from '../context';
 
-const VerifyClient = ({ uuid, clientName, onStateChanged }) => {
+const VerifyClient = ({ clientName, uuid, onStateChange }) => {
   const [open, setOpen] = React.useState(false);
   const { authTokens, setAuthTokens } = useAuth();
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -20,8 +19,8 @@ const VerifyClient = ({ uuid, clientName, onStateChanged }) => {
   };
   const handleVerification = () => {
     verifyClient(uuid, authTokens)
-      .then((res) => {
-        onStateChanged(uuid);
+      .then(() => {
+        onStateChange();
       })
       .catch((reason) => {
         if (reason.response.status === 401) {
@@ -44,15 +43,16 @@ const VerifyClient = ({ uuid, clientName, onStateChanged }) => {
     },
   }));
   const classes = useStyles();
+
   return (
     <div>
-      <Link
+      <Button
         className={classes.unVerifiedLink}
-        onClick={handleClickOpen}
-        to={'#'}>
+        style={{ backgroundColor: 'transparent' }}
+        onClick={handleClickOpen}>
         {' '}
         وثق العميل
-      </Link>
+      </Button>
       <Dialog
         onClose={handleClose}
         aria-labelledby='customized-dialog-title'
