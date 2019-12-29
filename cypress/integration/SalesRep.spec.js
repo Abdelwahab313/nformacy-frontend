@@ -1,5 +1,6 @@
 import {
   createRequestWithToke,
+  generateRandomDecimal,
   generateRandomString,
   login,
   logout,
@@ -52,6 +53,28 @@ const assertSalesRepDataInTableFirstRow = (
   cy.get(salesRepNationalIdCssSelector).should('have.text', nationalId);
   cy.get(salesRepUserNameCssSelector).should('have.text', userName);
 };
+
+function selectItemFromTable(searchableKey) {
+  searchForItemInTable(searchableKey);
+  cy.get('table >  tbody > tr ').click();
+}
+
+let productsUUIDList = [];
+
+function createProductFromAPI(product) {
+  createRequestWithToke((token) => {
+    cy.request({
+      method: 'POST',
+      url: `${BACKEND_WEB_URL}/products/`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: product,
+    }).then((response) => {
+      productsUUIDList.push(response.body.uuid);
+    });
+  });
+}
 
 describe('Sales Representative', () => {
   let firstName;
@@ -404,6 +427,173 @@ describe('Sales Representative', () => {
         'have.text',
         'برجاء تاكد من تطابق كلمه المرور',
       );
+    });
+  });
+
+  describe('Load Inventory to sales Rep', () => {
+    let salesRep;
+    let product;
+    beforeEach(() => {
+      salesRep = {
+        userName: generateRandomString(),
+        phoneNumber: `01${generateRandomString(9, true)}`,
+        password: generateRandomString(),
+        firstName: 'test',
+        lastName: 'edit',
+        nationalId: generateRandomString(14, true),
+      };
+      createRequestWithToke((token) => {
+        cy.request({
+          method: 'POST',
+          url: `${BACKEND_WEB_URL}/users/`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: {
+            username: salesRep.userName,
+            phone_number: salesRep.phoneNumber,
+            password: salesRep.password,
+            first_name: salesRep.firstName,
+            last_name: salesRep.lastName,
+            national_id: salesRep.nationalId,
+          },
+        });
+      });
+      product = {
+        name: generateRandomString(),
+        price: generateRandomDecimal(),
+        sku: generateRandomString(),
+      };
+      createProductFromAPI(product);
+      cy.reload();
+    });
+
+    afterEach(() => {
+      logout();
+      createRequestWithToke((token) => {
+        while (productsUUIDList.length > 0) {
+          cy.request({
+            method: 'DELETE',
+            url: `${BACKEND_WEB_URL}/products/${productsUUIDList.pop()}`,
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+        }
+      });
+    });
+    it('should be able to add inventory to sales Rep', () => {
+      // arrange
+      selectItemFromTable(salesRep.nationalId);
+      cy.get('#load_inventory_salesRep_btn').click();
+
+      cy.get('#loadInventoryForm').should('have.length', 1);
+      cy.get('#inventory-table > tbody')
+        .children()
+        .should('have.length', 0); // check the selected inventory is empty
+
+      const productQuantity = '30';
+      cy.get('#loadInventoryForm #product').select(product.name);
+      cy.get('#loadInventoryForm #productـquantity')
+        .clear()
+        .type(productQuantity);
+      cy.get('#load_inventory_add_btn').click();
+
+      cy.get('#inventory-table > tbody')
+        .children()
+        .should('have.length', 1);
+
+      cy.get(
+        '#inventory-table > tbody > tr:nth-child(1) > td:nth-child(1)',
+      ).should('have.text', product.name);
+      cy.get(
+        '#inventory-table > tbody > tr:nth-child(1) > td:nth-child(2)',
+      ).should('have.text', productQuantity);
+
+      cy.get('#load_inventory_submit_btn').click();
+      cy.get('#loadInventoryForm').should('have.length', 0);
+    });
+    it('should be able to update quantity for already selected product', () => {
+      // arrange
+      selectItemFromTable(salesRep.nationalId);
+      cy.get('#load_inventory_salesRep_btn').click();
+
+      cy.get('#loadInventoryForm').should('have.length', 1);
+      cy.get('#inventory-table > tbody')
+        .children()
+        .should('have.length', 0); // check the selected inventory is empty
+
+      const productQuantity = '30';
+      cy.get('#loadInventoryForm #product').select(product.name);
+      cy.get('#loadInventoryForm #productـquantity')
+        .clear()
+        .type(productQuantity);
+      cy.get('#load_inventory_add_btn').click();
+
+      cy.get('#loadInventoryForm #productـquantity')
+        .clear()
+        .type('2');
+      cy.get('#load_inventory_add_btn').click();
+      cy.get('#inventory-table > tbody')
+        .children()
+        .should('have.length', 1);
+      cy.get(
+        '#inventory-table > tbody > tr:nth-child(1) > td:nth-child(2)',
+      ).should('have.text', '32');
+    });
+    it('should validate inventory item before add to table', () => {
+      selectItemFromTable(salesRep.nationalId);
+      cy.get('#load_inventory_salesRep_btn').click();
+
+      // no input
+      cy.get('#load_inventory_add_btn').click();
+      cy.get('#productـquantity-helper-text').should(
+        'have.text',
+        'برجاء ادخال الكميه',
+      );
+      cy.get('#inventory-table > tbody')
+        .children()
+        .should('have.length', 0);
+
+      // input zero as quantity
+      cy.get('#loadInventoryForm #product').select(product.name);
+      cy.get('#loadInventoryForm #productـquantity')
+        .clear()
+        .type('0');
+      cy.get('#load_inventory_add_btn').click();
+      cy.get('#inventory-table > tbody')
+        .children()
+        .should('have.length', 0);
+
+      cy.get('#load_inventory_submit_btn').should('be.disabled');
+    });
+    it('should be able to delete product from inventory table', () => {
+      // arrange
+      selectItemFromTable(salesRep.nationalId);
+      cy.get('#load_inventory_salesRep_btn').click();
+
+      cy.get('#loadInventoryForm').should('have.length', 1);
+      cy.get('#inventory-table > tbody')
+        .children()
+        .should('have.length', 0); // check the selected inventory is empty
+
+      const productQuantity = '30';
+      cy.get('#loadInventoryForm #product').select(product.name);
+      cy.get('#loadInventoryForm #productـquantity')
+        .clear()
+        .type(productQuantity);
+      cy.get('#load_inventory_add_btn').click();
+
+      cy.get('#inventory-table > tbody')
+        .children()
+        .should('have.length', 1);
+
+      cy.get(
+        '#inventory-table > tbody > tr:nth-child(1) > td:nth-child(3) > button',
+      ).click();
+      cy.get('#inventory-table > tbody')
+        .children()
+        .should('have.length', 0);
     });
   });
 });

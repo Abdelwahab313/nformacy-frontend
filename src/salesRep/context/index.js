@@ -6,11 +6,14 @@ import {
   CLOSE_INSERT_DIALOG_AND_SAVE,
   SET_UPDATE_DIALOG_OPEN,
   CLOSE_UPDATE_DIALOG_AND_SAVE,
+  ADD_PRODUCT,
+  REMOVE_PRODUCT,
 } from './contextAction';
 
 const SalesRepContext = createContext();
 const defaultValues = {
   users: [],
+  addedProducts: [],
   errorMessage: '',
   isInsertDialogOpen: false,
   isUpdateDialogOpen: false,
@@ -71,6 +74,37 @@ const salesRepReducer = (state, action) => {
         ...state,
         isUpdateDialogOpen: false,
         users: state.users,
+      };
+    case ADD_PRODUCT:
+      const existingProductIndex = state.addedProducts.findIndex(
+        (addedProduct) =>
+          addedProduct.productUUID === action.payload.selectedProduct,
+      );
+      if (existingProductIndex >= 0) {
+        state.addedProducts[existingProductIndex]['quantity'] += Number(
+          action.payload.productQuantity,
+        );
+        return {
+          ...state,
+        };
+      } else {
+        return {
+          ...state,
+          addedProducts: [
+            ...state.addedProducts,
+            {
+              productUUID: action.payload.selectedProduct,
+              quantity: Number(action.payload.productQuantity),
+            },
+          ],
+        };
+      }
+    case REMOVE_PRODUCT:
+      return {
+        ...state,
+        addedProducts: state.addedProducts.filter(
+          (product) => product.productUUID !== action.payload,
+        ),
       };
   }
 };

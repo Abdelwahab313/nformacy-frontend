@@ -28,6 +28,8 @@ import TableSelectedToolBar from './components/TableSelectedToolBar';
 import { tableLabels } from '../constants/tableLocalization';
 import EditSalesRepForm from './EditSalesRepForm';
 import ResetPasswordForm from './components/ResetPasswordForm';
+import LoadInventoryForm from './components/LoadInventoryForm';
+import { ProductProvider } from '../product/context/context';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
@@ -38,6 +40,7 @@ const SalesRepsPage = () => {
   const { usersLoading } = useSalesRepsFetcher();
   const [redirect, setRedirect] = useState(false);
   const [isResetPasswordOpen, setIsResetPasswordOpen] = useState(false);
+  const [isLoadInventoryOpen, setIsLoadInventoryOpen] = useState(false);
   const [redirectTo, setRedirectTo] = useState();
   let selectedSalesRep = useRef(undefined);
   const [
@@ -167,6 +170,7 @@ const SalesRepsPage = () => {
                       dispatch({ type: SET_UPDATE_DIALOG_OPEN, payload: true })
                     }
                     onResetPassword={() => setIsResetPasswordOpen(true)}
+                    onLoadInventory={() => setIsLoadInventoryOpen(true)}
                   />
                 );
               },
@@ -194,6 +198,30 @@ const SalesRepsPage = () => {
             </Toolbar>
           </AppBar>
           <AddSalesRepForm />
+        </Dialog>
+        <Dialog
+          fullScreen
+          open={isLoadInventoryOpen}
+          TransitionComponent={Transition}
+          id={'load-inventory-dialog'}>
+          <AppBar>
+            <Toolbar className={classes.toolBar}>
+              <IconButton
+                edge='start'
+                id={'load-inventory-form-btn'}
+                onClick={() => setIsLoadInventoryOpen(false)}
+                aria-label='close'>
+                <CloseIcon />
+              </IconButton>
+              <Typography>تحميل العربه</Typography>
+            </Toolbar>
+          </AppBar>
+          <ProductProvider>
+            <LoadInventoryForm
+              salesRep={selectedSalesRep.current}
+              closeForm={() => setIsLoadInventoryOpen(false)}
+            />
+          </ProductProvider>
         </Dialog>
         <Dialog
           open={isResetPasswordOpen}

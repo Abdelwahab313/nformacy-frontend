@@ -33,4 +33,24 @@ const resetPassword = (user_uuid, password, tokenStr) => {
   );
 };
 
-export { fetchUsers, postUser, fetchUser, updateUser, resetPassword };
+const addInventoryToUser = (user_uuid, inventoryProducts, tokenStr) => {
+  return axios.post(
+    `${API_BASE_URL}/inventory/`,
+    {
+      to_uuid: user_uuid,
+      products: inventoryProducts,
+    },
+    {
+      headers: { Authorization: `Bearer ${tokenStr.access_token}` },
+    },
+  );
+};
+
+export {
+  fetchUsers,
+  postUser,
+  fetchUser,
+  updateUser,
+  resetPassword,
+  addInventoryToUser,
+};

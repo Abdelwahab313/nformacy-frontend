@@ -53,6 +53,6 @@ const ProductFetcher = () => {
       setProductsLoading(false);
     });
   }, [setProductsLoading]);
-  return { productsLoading };
+  return { productsLoading, setProductsLoading };
 };
 export default ProductFetcher;

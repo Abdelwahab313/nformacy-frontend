@@ -26,9 +26,18 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  selectField: {
+    width: '100%',
+  },
   error: {
     color: 'red',
     margin: theme.spacing(1),
+  },
+  formControl: {
+    margin: theme.spacing(1),
+  },
+  productsList: {
+    width: '100%',
   },
 }));
 export default useStyles;

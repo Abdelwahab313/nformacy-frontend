@@ -4,12 +4,27 @@ import Tooltip from '@material-ui/core/Tooltip';
 import EditIcon from '@material-ui/icons/Edit';
 import HelpIcon from '@material-ui/icons/Help';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import selectedToolbarStyle from '../../styles/tableSelectedToolBar';
 
-const TableSelectedToolBar = ({ onUpdate, onView, onResetPassword }) => {
+const TableSelectedToolBar = ({
+  onUpdate,
+  onView,
+  onResetPassword,
+  onLoadInventory,
+}) => {
   const classes = selectedToolbarStyle();
   return (
     <div>
+      <Tooltip title='تحميل العربه'>
+        <IconButton
+          className={classes.iconButton}
+          id={'load_inventory_salesRep_btn'}
+          onClick={onLoadInventory}
+          aria-label='تحميل العربه'>
+          <LocalShippingIcon />
+        </IconButton>
+      </Tooltip>
       <Tooltip title='إعادة تعيين كلمة المرور'>
         <IconButton
           className={classes.iconButton}
