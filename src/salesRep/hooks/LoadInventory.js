@@ -17,7 +17,6 @@ const LoadInventory = ({ salesRep, closeForm }) => {
     }));
     addInventoryToUser(salesRep[0], inventoryProducts, authTokens)
       .catch((response) => {
-        console.log(response);
         if (response.status === 401) {
           localStorage.removeItem('tokens');
           localStorage.removeItem('users');

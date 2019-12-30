@@ -35,7 +35,7 @@ const resetPassword = (user_uuid, password, tokenStr) => {
 
 const addInventoryToUser = (user_uuid, inventoryProducts, tokenStr) => {
   return axios.post(
-    `${API_BASE_URL}/inventory/`,
+    `${API_BASE_URL}/inventory/transaction/`,
     {
       to_uuid: user_uuid,
       products: inventoryProducts,
