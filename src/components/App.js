@@ -12,6 +12,7 @@ import Login from '../auth/LoginUser';
 import { AuthContext } from '../auth/auth';
 import PrivateRoute from './PrivateRoute';
 import Layout from './Layout';
+import Register from '../Register/Register';
 
 const presets = preset().plugins;
 
@@ -61,6 +62,7 @@ function App() {
           }}>
           <Switch>
             <Route path='/login' component={Login} />
+            <Route path='/signup' component={Register} />
             <PrivateRoute path='/' component={Layout} />
           </Switch>
         </AuthContext.Provider>
