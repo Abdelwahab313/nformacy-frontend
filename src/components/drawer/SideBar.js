@@ -6,12 +6,10 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import LocalShippingIcon from '@material-ui/icons/LocalShipping';
-import AccessibilityIcon from '@material-ui/icons/Accessibility';
+import VideoCallIcon from '@material-ui/icons/VideoCall';
+import HomeIcon from '@material-ui/icons/Home';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Link } from 'react-router-dom';
-import FastfoodIcon from '@material-ui/icons/Fastfood';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 const drawerWidth = '15%';
 
@@ -38,89 +36,55 @@ function SideBar(props) {
   const classes = useStyles();
   const [selectedItem, setSelectedItem] = useState();
   useEffect(() => {
-    if (
-      window.location.pathname.includes('users') ||
-      window.location.pathname.split('/').length === 2
-    ) {
+    if (window.location.pathname.split('/').length === 2) {
       setSelectedItem(1);
-    } else if (window.location.pathname.includes('clients')) {
+    } else if (window.location.pathname.includes('meeting')) {
       setSelectedItem(2);
-    } else if (window.location.pathname.includes('products')) {
-      setSelectedItem(3);
-    } else if (window.location.pathname.includes('sales')) {
-      setSelectedItem(4);
     }
   }, []);
+
   return (
-    <div className={classes.root} dir='rtl'>
+    <div className={classes.root}>
       <Drawer
         className={classes.drawer}
         variant='permanent'
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor='right'
+        classes={{ paper: classes.drawerPaper }}
         id={'side-menu'}>
         <div className={classes.toolbar} dir={'rtl'} />
         <Divider />
         <List id={'menu-items'}>
           <ListItem
-            id={'reps'}
+            id={'home'}
             button
             onClick={() => setSelectedItem(1)}
             selected={selectedItem === 1}
-            key={'الموزعين'}
+            key={'home'}
             component={Link}
-            to={'/users/list'}>
+            to={'/'}>
             <ListItemIcon>
-              <LocalShippingIcon />{' '}
+              <HomeIcon />{' '}
             </ListItemIcon>
-            <ListItemText primary={'الموزعين'} />
+            <ListItemText primary={'Home'} />
           </ListItem>
           <ListItem
-            id={'clients'}
+            id={'meeting'}
             button
             onClick={() => setSelectedItem(2)}
             selected={selectedItem === 2}
-            key={'العملاء'}
+            key={'Meeting'}
             component={Link}
-            to={'/clients/list'}>
+            to={'/meeting/list'}>
             <ListItemIcon>
-              <AccessibilityIcon />
+              <VideoCallIcon />{' '}
             </ListItemIcon>
-            <ListItemText primary={'العملاء'} />
+            <ListItemText primary={'Meeting'} />
           </ListItem>
-          <ListItem
-            id={'products'}
-            button
-            onClick={() => setSelectedItem(3)}
-            selected={selectedItem === 3}
-            key={'البضائع'}
-            component={Link}
-            to={'/products/list'}>
-            <ListItemIcon>
-              <FastfoodIcon />
-            </ListItemIcon>
-            <ListItemText primary={'البضائع'} />
-          </ListItem>
-          <ListItem
-            id={'sales'}
-            button
-            onClick={() => setSelectedItem(4)}
-            selected={selectedItem === 4}
-            key={'المبيعات'}
-            component={Link}
-            to={'/sales/list'}>
-            <ListItemIcon>
-              <AttachMoneyIcon />
-            </ListItemIcon>
-            <ListItemText primary={'المبيعات'} />
-          </ListItem>
-          <ListItem button key={'تسجيل الخروج'} component={Link} to={'/logout'}>
+
+          <ListItem button key={'logout'} component={Link} to={'/logout'}>
             <ListItemIcon>
               <ExitToAppIcon />
             </ListItemIcon>
-            <ListItemText primary={'تسجيل الخروج'} />
+            <ListItemText primary={'logout'} />
           </ListItem>
         </List>
         <Divider />

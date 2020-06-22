@@ -2,8 +2,9 @@ import React from 'react';
 import SideBar from './drawer/SideBar';
 import PrivateRoute from './PrivateRoute';
 import { Switch, withRouter } from 'react-router-dom';
-import HomePage from '../HomePage';
 import { makeStyles } from '@material-ui/core';
+import HomePage from '../HomePage';
+import MeetingPage from '../MeetingsPage';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
   },
   AppContainer: {
-    width: '100%',
+    width: '80%',
     height: '100%',
   },
 }));
@@ -32,6 +33,7 @@ function Layout(props) {
       <div className={classes.AppContainer}>
         <Switch>
           <PrivateRoute exact path='/' component={HomePage} />
+          <PrivateRoute exact path='/meeting/list' component={MeetingPage} />
         </Switch>
       </div>
     </div>
