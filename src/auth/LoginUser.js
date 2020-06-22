@@ -1,54 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { makeStyles } from '@material-ui/core/styles';
+import useStyles from '../styles/formsStyles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import useForm from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { login } from '../apis/authAPI';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Redirect } from 'react-router';
 import { useAuth } from './auth';
 import ErrorDialog from '../components/errors/ErrorDialog';
 import { withNamespaces } from 'react-i18next';
-
-const useStyles = makeStyles((theme) => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white,
-    },
-  },
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  progressContainer: {
-    position: 'absolute',
-    left: '50%',
-    top: '50%',
-    transform: 'translate(-50%, -50%)',
-  },
-  error: {
-    color: 'red',
-    margin: theme.spacing(1),
-  },
-}));
 
 const Login = ({ location, t }) => {
   const { register, handleSubmit, errors } = useForm();
