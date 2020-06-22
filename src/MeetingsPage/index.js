@@ -11,23 +11,21 @@ import {
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import MUIDataTable from 'mui-datatables';
 import ErrorDialog from '../components/errors/ErrorDialog';
-import useSalesRepsStyle from './styles/salesRepsPage';
+import useMeetingPageStyle from './styles/meetingPage';
 
-import { tableLabels } from '../constants/tableLocalization';
 import useMeetingsFetcher from './useMeetingFetcher';
+import MeetingsTable from './MeetingsTable';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
 
 const MeetingsPage = () => {
-  const classes = useSalesRepsStyle();
-
+  const classes = useMeetingPageStyle();
   const { isLoading, fetchedMeetings, errorMessage } = useMeetingsFetcher();
 
-  let selectedSalesRep = useRef(undefined);
+  let selectedMeeting = useRef(undefined);
 
   if (isLoading) {
     return (
@@ -48,70 +46,13 @@ const MeetingsPage = () => {
           <Button
             className={classes.addButton}
             variant='contained'
-            id={'add-sales-rep-button'}
+            id={'add-meeting-button'}
             onClick={() => {}}
             color='primary'>
-            اضافه موظف جديد
+            Request a call
           </Button>
-          <MUIDataTable
-            title={'المستخدمين'}
-            data={fetchedMeetings}
-            columns={[
-              {
-                name: 'id',
-                options: {
-                  filter: false,
-                  display: 'excluded',
-                },
-              },
-              {
-                name: 'first_name',
-                options: {
-                  filter: false,
-                  display: 'excluded',
-                },
-              },
-              {
-                name: 'last_name',
-                options: {
-                  filter: false,
-                  display: 'excluded',
-                },
-              },
-              {
-                name: 'أسم المستخدم',
-                options: {
-                  filter: false,
-                },
-              },
-              {
-                name: 'رقم الموبايل',
-                options: {
-                  filter: false,
-                },
-              },
-              {
-                name: 'رقم البطاقه',
-                options: {
-                  filter: false,
-                },
-              },
-              {
-                name: 'اسم تسجيل الدخول',
-                options: {
-                  filter: false,
-                },
-              },
-            ]}
-            options={{
-              selectableRowsOnClick: true,
-              selectableRows: 'single',
-              responsive: 'scrollMaxHeight',
-              filter: false,
-              rowsPerPageOptions: [5, 10, 20],
-              ...tableLabels,
-            }}
-          />
+
+          <MeetingsTable meetings={fetchedMeetings} />
         </Grid>
 
         <Dialog
@@ -130,7 +71,7 @@ const MeetingsPage = () => {
                 aria-label='close'>
                 <CloseIcon />
               </IconButton>
-              <Typography>تعديل موظف</Typography>
+              <Typography>edit meeting</Typography>
             </Toolbar>
           </AppBar>
         </Dialog>

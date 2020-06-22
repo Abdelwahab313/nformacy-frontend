@@ -3,17 +3,8 @@ import { API_BASE_URL } from '../settings';
 
 const fetchAllMeetings = () => {
   return axios({
-    method: 'post',
-    url: `${API_BASE_URL}/meetings`,
+    method: 'get',
+    url: `${API_BASE_URL}/meeting`,
   });
 };
-
-const logout = (tokenStr) => {
-  return axios({
-    method: 'post',
-    url: `${API_BASE_URL}/auth/logout`,
-    headers: { Authorization: `Bearer ${tokenStr.access_token}` },
-  });
-};
-
-export { fetchAllMeetings, logout };
+export { fetchAllMeetings };

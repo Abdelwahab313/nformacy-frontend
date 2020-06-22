@@ -2,7 +2,7 @@ import React from 'react';
 const HomePage = () => {
   return (
     <div>
-      <p>Test</p>
+      <h1> Welcome to Medad! 🎉</h1>
     </div>
   );
 };
