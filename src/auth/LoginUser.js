@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
@@ -13,6 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { Redirect } from 'react-router';
 import { useAuth } from './auth';
 import ErrorDialog from '../components/errors/ErrorDialog';
+import { withNamespaces } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = (props) => {
+const Login = ({ location, t }) => {
   const { register, handleSubmit, errors } = useForm();
   const [loginFailed, setLoginFailed] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
@@ -57,9 +58,7 @@ const Login = (props) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [showError, setShowError] = useState(false);
   const { authTokens, setAuthTokens, setLoggedInUser, loadedLocal } = useAuth();
-  const referer = props.location.state
-    ? props.location.state.referer || '/'
-    : '/';
+  const referer = location.state ? location.state.referer || '/' : '/';
 
   const onSubmit = (data) => {
     setLoginFailed(false);
@@ -77,7 +76,7 @@ const Login = (props) => {
       })
       .catch((reason) => {
         if (reason.message === 'Network Error') {
-          setErrorMessage('حدث خطأ أثناء الاتصال بالخادم');
+          setErrorMessage(t('Network Error'));
           setShowError(true);
         } else if (
           reason.response.data.error === 'invalid_credentials' ||
@@ -97,7 +96,7 @@ const Login = (props) => {
 
   if (loginSuccess || (loadedLocal && authTokens)) {
     if (referer.pathname === '/logout') {
-      return <Redirect push to='/users/list' />;
+      return <Redirect push to='/' />;
     }
     return <Redirect push to={referer} />;
   }
@@ -108,9 +107,8 @@ const Login = (props) => {
       </div>
     );
   }
-
   return (
-    <Container component='main' maxWidth='xs' dir='rtl'>
+    <Container component='main' maxWidth='xs' dir='ltr'>
       {showError && (
         <ErrorDialog
           message={errorMessage}
@@ -126,7 +124,7 @@ const Login = (props) => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component='h1' variant='h5'>
-          تسجيل الدخول
+          {t('Login')}
         </Typography>
         <form
           id='loginUserForm'
@@ -139,17 +137,15 @@ const Login = (props) => {
             inputRef={register({ required: true })}
             fullWidth
             onChange={handleTextChange}
-            id='username'
-            label='اسم المستخدم او رقم الموبايل'
-            name='username'
-            autoComplete='username'
-            error={!!errors.username}
+            id='email'
+            label={t('Email')}
+            name='email'
+            autoComplete='email'
+            error={!!errors.email}
             autoFocus
           />
-          {errors.username && (
-            <span className={classes.error}>
-              برجاء ادخال اسم المستخدم او رقم الهاتف
-            </span>
+          {errors.email && (
+            <span className={classes.error}>{t('Email empty error')}</span>
           )}
           <TextField
             variant='outlined'
@@ -157,7 +153,7 @@ const Login = (props) => {
             inputRef={register({ required: true })}
             fullWidth
             name='password'
-            label='كلمه المرور'
+            label={t('password')}
             type='password'
             id='password'
             onChange={handleTextChange}
@@ -165,12 +161,12 @@ const Login = (props) => {
             autoComplete='current-password'
           />
           {errors.password && (
-            <span className={classes.error}>برجاء ادخال كلمه السر</span>
+            <span className={classes.error}>{t('Password empty error')}</span>
           )}
 
           {loginFailed && (
             <span id={'loginFailedMessage'} className={classes.error}>
-              خطأ في اسم المستخدم او كلمه المرور
+              {t('Invalid Email or password')}
             </span>
           )}
           <Button
@@ -180,7 +176,7 @@ const Login = (props) => {
             variant='contained'
             color='primary'
             className={classes.submit}>
-            تسجيل الدخول
+            {t('Login')}
           </Button>
         </form>
       </div>
@@ -188,4 +184,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default withNamespaces('login')(Login);

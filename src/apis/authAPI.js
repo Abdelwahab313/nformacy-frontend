@@ -4,15 +4,15 @@ import { API_BASE_URL } from '../settings';
 const login = (user) => {
   return axios({
     method: 'post',
-    url: `${API_BASE_URL}/auth/login`,
-    data: { ...user, app_type: 'dashboard' },
+    url: `${API_BASE_URL}/user/login`,
+    data: { ...user },
   });
 };
 
 const logout = (tokenStr) => {
   return axios({
     method: 'post',
-    url: `${API_BASE_URL}/auth/logout`,
+    url: `${API_BASE_URL}/user/login`,
     headers: { Authorization: `Bearer ${tokenStr.access_token}` },
   });
 };

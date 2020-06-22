@@ -1,3 +1,10 @@
 {
-  "video": false
+  "video": false,
+  "reporter": "junit",
+  "ignoreTestFiles": ["**/cucumber-e2e/**/*.js"],
+  "reporterOptions": {
+    "mochaFile": "cypress/results/cypress-report.[hash].xml",
+    "toConsole": true
+  },
+  "testFiles": "**/*.{feature,features,e2e.js}"
 }

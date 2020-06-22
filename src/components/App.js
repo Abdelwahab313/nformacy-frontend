@@ -4,7 +4,6 @@ import {
   StylesProvider,
   ThemeProvider,
 } from '@material-ui/core/styles';
-
 import { create } from 'jss';
 import preset from 'jss-preset-default';
 import rtl from 'jss-rtl';
@@ -19,7 +18,7 @@ const presets = preset().plugins;
 const jss = create({ plugins: [...presets, rtl()] });
 
 const theme = createMuiTheme({
-  direction: 'rtl', // Both here and <body dir="rtl">
+  direction: 'ltr', // Both here and <body dir="rtl">
 });
 
 function App() {

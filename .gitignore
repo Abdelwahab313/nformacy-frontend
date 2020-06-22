@@ -7,7 +7,6 @@
 
 # testing
 /coverage
-
 # production
 /build
 
@@ -27,4 +26,5 @@ yarn-debug.log*
 yarn-error.log*
 
 #cypress
-cypress/screenshots/*
+/cypress/screenshots/*
+/cypress/results/*
