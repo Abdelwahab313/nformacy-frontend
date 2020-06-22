@@ -6,5 +6,15 @@ Given(/^I am at login page$/, () => {
   cy.visit(BASE_URL);
 });
 
-When(/^I type my email and password$/, function() {});
-Then(/^then should be redirected to homepage$/, function() {});
+When(/^I type my email and password$/, () => {
+  cy.get('#email').type('test@test.te');
+  cy.get('#password').type('testtest');
+});
+
+When(/^press login$/, function() {
+  cy.get('#login').click();
+});
+
+Then(/^then should be redirected to homepage$/, function() {
+  cy.get('#side-menu');
+});
