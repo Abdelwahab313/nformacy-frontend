@@ -6,4 +6,4 @@ Feature: Register
     Given I am at register page
     When I fill my data
     And press signup
-#    Then then should be redirected to homepage
+    Then then should be redirected to homepage

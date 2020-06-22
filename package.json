@@ -7,6 +7,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --passWithNoTests",
     "cy:run": "cypress run",
+    "cy:run:debug": "cypress run --browser chrome",
     "lint": "eslint . --fix",
     "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\"",
     "eject": "react-scripts eject"

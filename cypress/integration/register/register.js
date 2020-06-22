@@ -1,6 +1,6 @@
 import { BASE_URL } from '../../defualtTestValues';
 
-import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When } from 'cypress-cucumber-preprocessor/steps';
 
 Given(/^I am at register page$/, function() {
   cy.visit(BASE_URL + '/signup');
@@ -8,7 +8,7 @@ Given(/^I am at register page$/, function() {
 When(/^I fill my data$/, function() {
   cy.get('#firstName').type('First name');
   cy.get('#lastName').type('last name');
-  cy.get('#email').type('new@new.te');
+  cy.get('#email').type('new@new.new');
   cy.get('#password').type('testtest');
   cy.get('#confirmPassword').type('testtest');
 });

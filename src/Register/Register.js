@@ -102,8 +102,11 @@ const Register = ({ t }) => {
             name='firstName'
             autoComplete='name'
             error={!!errors.firstName}
-            value={user.firstName}
-            onChangeText={(text) => setUser({ ...user, firstName: text })}
+            defaultValue={user.firstName}
+            onChange={(event) => {
+              const { value } = event.target;
+              setUser({ ...user, firstName: value });
+            }}
             autoFocus
           />
           {errors.firstName && (
@@ -119,8 +122,11 @@ const Register = ({ t }) => {
             name='lastName'
             autoComplete='name'
             error={!!errors.lastName}
-            value={user.lastName}
-            onChangeText={(text) => setUser({ ...user, lastName: text })}
+            defaultValue={user.lastName}
+            onChange={(event) => {
+              const { value } = event.target;
+              setUser({ ...user, lastName: value });
+            }}
             autoFocus
           />
           {errors.lastName && (
@@ -142,8 +148,11 @@ const Register = ({ t }) => {
             name='email'
             autoComplete='email'
             error={!!errors.email}
-            value={user.email}
-            onChangeText={(text) => setUser({ ...user, email: text })}
+            defaultValue={user.email}
+            onChange={(event) => {
+              const { value } = event.target;
+              setValue('email', value);
+            }}
             autoFocus
           />
           {errors.email && (
