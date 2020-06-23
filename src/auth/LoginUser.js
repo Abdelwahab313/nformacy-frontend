@@ -14,6 +14,7 @@ import { Redirect } from 'react-router';
 import { useAuth } from './auth';
 import ErrorDialog from '../components/errors/ErrorDialog';
 import { withNamespaces } from 'react-i18next';
+import authManager from '../services/authManager';
 
 const Login = ({ location, t }) => {
   const { register, handleSubmit, errors } = useForm();
@@ -22,7 +23,7 @@ const Login = ({ location, t }) => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [showError, setShowError] = useState(false);
-  const { authTokens, setAuthTokens, setLoggedInUser, loadedLocal } = useAuth();
+  const { setLoggedInUser, loadedLocal } = useAuth();
   const referer = location.state ? location.state.referer || '/' : '/';
 
   const onSubmit = (data) => {
@@ -30,7 +31,7 @@ const Login = ({ location, t }) => {
     setLoading(true);
     login(data)
       .then((result) => {
-        setAuthTokens(result.data.token);
+        authManager.login(result.data.token);
         return result;
       })
       .then((result) => {
@@ -59,7 +60,8 @@ const Login = ({ location, t }) => {
   };
   const classes = useStyles();
 
-  if (loginSuccess || (loadedLocal && authTokens)) {
+  const authToken = authManager.retrieveUserToken();
+  if (loginSuccess || (loadedLocal && authToken)) {
     if (referer.pathname === '/logout') {
       return <Redirect push to='/' />;
     }

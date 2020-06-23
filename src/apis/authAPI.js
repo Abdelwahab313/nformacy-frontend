@@ -9,11 +9,10 @@ const login = (user) => {
   });
 };
 
-const logout = (tokenStr) => {
+const logout = () => {
   return axios({
     method: 'post',
     url: `${API_BASE_URL}/auth/logout`,
-    headers: { Authorization: `Bearer ${tokenStr.access_token}` },
   });
 };
 

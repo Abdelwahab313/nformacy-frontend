@@ -1,10 +1,12 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { useAuth } from '../auth/auth';
+import authManager from '../services/authManager';
 
 function PrivateRoute({ component: Component, provider: Provider, ...rest }) {
-  const { authTokens, loadedLocal } = useAuth();
-  if (!authTokens && loadedLocal) {
+  const { loadedLocal } = useAuth();
+  const authToken = authManager.retrieveUserToken();
+  if (!authToken && loadedLocal) {
     return (
       <Route
         {...rest}
@@ -16,7 +18,7 @@ function PrivateRoute({ component: Component, provider: Provider, ...rest }) {
       />
     );
   }
-  if (authTokens) {
+  if (authToken) {
     return (
       <Route
         {...rest}

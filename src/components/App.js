@@ -13,6 +13,8 @@ import { AuthContext } from '../auth/auth';
 import PrivateRoute from './PrivateRoute';
 import Layout from './Layout';
 import Register from '../Register/Register';
+import authManager from '../services/authManager';
+import Logout from '../auth/LogoutUser';
 
 const presets = preset().plugins;
 
@@ -23,14 +25,8 @@ const theme = createMuiTheme({
 });
 
 function App() {
-  const [authTokens, setAuthTokens] = useState();
   const [loggedInUser, setLoggedInUser] = useState();
   const [loadedLocal, setLoadedLocal] = useState(false);
-
-  const setTokens = (data) => {
-    localStorage.setItem('tokens', JSON.stringify(data));
-    setAuthTokens(data);
-  };
 
   const setLoggedUser = (data) => {
     localStorage.setItem('user', JSON.stringify(data));
@@ -38,14 +34,7 @@ function App() {
   };
 
   useEffect(() => {
-    const loadedTokenString = localStorage.getItem('tokens');
-    let loadedToken = undefined;
-    try {
-      loadedToken = loadedTokenString
-        ? JSON.parse(loadedTokenString)
-        : undefined;
-    } catch (e) {}
-    setAuthTokens(loadedToken);
+    const retrievedToken = authManager.retrieveUserToken();
     setLoadedLocal(true);
   }, []);
 
@@ -54,8 +43,6 @@ function App() {
       <StylesProvider jss={jss}>
         <AuthContext.Provider
           value={{
-            authTokens,
-            setAuthTokens: setTokens,
             loadedLocal,
             setLoggedInUser: setLoggedUser,
             setLoadedLocal,
@@ -63,6 +50,7 @@ function App() {
           <Switch>
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Register} />
+            <Route path='/logout' component={Logout} />
             <PrivateRoute path='/' component={Layout} />
           </Switch>
         </AuthContext.Provider>
