@@ -60,14 +60,16 @@ const MeetingsTable = ({ meetings }) => {
         </TableHead>
         <TableBody>
           {meetings.map((meeting) => (
-            <StyledTableRow key={meeting.id}>
+            <StyledTableRow key={meeting.id} id={`meeting-${meeting.id}`}>
               <StyledTableCell component='th' scope='row'>
                 {meeting.field}
               </StyledTableCell>
               <StyledTableCell align='right'>
                 {meeting.subfield}
               </StyledTableCell>
-              <StyledTableCell align='right'>{meeting.status}</StyledTableCell>
+              <StyledTableCell className={'status'} align='right'>
+                {meeting.status}
+              </StyledTableCell>
               <StyledTableCell align='right'>
                 {moment(meeting.created_at).format('MM/DD/YYYY h:mm a')}
               </StyledTableCell>
@@ -76,6 +78,7 @@ const MeetingsTable = ({ meetings }) => {
               </StyledTableCell>
               <StyledTableCell align='right'>
                 <IconButton
+                  className={'edit'}
                   onClick={() => handleEditClick(meeting.id)}
                   aria-label='edit'>
                   <EditIcon />
