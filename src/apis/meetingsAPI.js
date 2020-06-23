@@ -7,4 +7,11 @@ const fetchAllMeetings = () => {
     url: `${API_BASE_URL}/meeting`,
   });
 };
-export { fetchAllMeetings };
+
+const fetchMeetingDetails = (meetingId) => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/meeting/${meetingId}`,
+  });
+};
+export { fetchAllMeetings, fetchMeetingDetails };

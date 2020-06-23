@@ -32,7 +32,7 @@ const ErrorDialog = ({ message, close }) => {
           <Button
             onClick={handleClose}
             style={{ backgroundColor: '#1975D2', color: 'white' }}>
-            حسناً
+            OK
           </Button>
         </DialogActions>
       </Dialog>

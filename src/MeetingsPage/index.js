@@ -1,31 +1,17 @@
-import React, { useRef, useState } from 'react';
-import {
-  AppBar,
-  Button,
-  Dialog,
-  Grid,
-  IconButton,
-  Slide,
-  Toolbar,
-  Typography,
-} from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+import React, { useState } from 'react';
+import { Button, Grid } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import ErrorDialog from '../components/errors/ErrorDialog';
+
 import useMeetingPageStyle from './styles/meetingPage';
-
-import useMeetingsFetcher from './useMeetingFetcher';
+import ErrorDialog from '../components/errors/ErrorDialog';
+import useMeetingsFetcher from './hooks/useMeetingFetcher';
 import MeetingsTable from './MeetingsTable';
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction='up' ref={ref} {...props} />;
-});
+import { useHistory } from 'react-router';
 
 const MeetingsPage = () => {
+  const history = useHistory();
   const classes = useMeetingPageStyle();
   const { isLoading, fetchedMeetings, errorMessage } = useMeetingsFetcher();
-
-  let selectedMeeting = useRef(undefined);
 
   if (isLoading) {
     return (
@@ -36,12 +22,9 @@ const MeetingsPage = () => {
   } else {
     return (
       <div className={classes.root}>
-        {/* {!!errorMessage && (
-          <ErrorDialog
-            message={errorMessage}
-            close={() => {}}
-          />
-        )} */}
+        {!!errorMessage && (
+          <ErrorDialog message={errorMessage} close={() => {}} />
+        )}
         <Grid className={classes.tableContainer}>
           <Button
             className={classes.addButton}
@@ -54,27 +37,6 @@ const MeetingsPage = () => {
 
           <MeetingsTable meetings={fetchedMeetings} />
         </Grid>
-
-        <Dialog
-          fullScreen
-          open={false}
-          TransitionComponent={Transition}
-          id={'add-user-dialog'}>
-          <AppBar>
-            <Toolbar className={classes.toolBar}>
-              <IconButton
-                edge='start'
-                onClick={
-                  () => {}
-                  // dispatch({ type: SET_UPDATE_DIALOG_OPEN, payload: false })
-                }
-                aria-label='close'>
-                <CloseIcon />
-              </IconButton>
-              <Typography>edit meeting</Typography>
-            </Toolbar>
-          </AppBar>
-        </Dialog>
       </div>
     );
   }

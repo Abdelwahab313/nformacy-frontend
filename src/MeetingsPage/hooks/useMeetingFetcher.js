@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../auth/auth';
-import { fetchAllMeetings } from '../apis/meetingsAPI';
-import authManager from '../services/authManager';
+import { fetchAllMeetings } from '../../apis/meetingsAPI';
+import authManager from '../../services/authManager';
 
 const useMeetingsFetcher = () => {
   const [isLoading, setLoading] = useState(false);
   const [fetchedMeetings, setFetchedMeetings] = useState([]);
-  const [errorMessage, setErrorMessage] = useState([]);
+  const [errorMessage, setErrorMessage] = useState();
 
   function handleApiErrors(reason) {
     if (reason.message === 'Network Error') {
@@ -35,4 +34,5 @@ const useMeetingsFetcher = () => {
   }, [setLoading]);
   return { productsLoading: isLoading, fetchedMeetings, errorMessage };
 };
+
 export default useMeetingsFetcher;

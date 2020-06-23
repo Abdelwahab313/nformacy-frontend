@@ -11,6 +11,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import moment from 'moment';
 
 import { IconButton } from '@material-ui/core';
+import { useHistory } from 'react-router';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -38,6 +39,11 @@ const useStyles = makeStyles({
 
 const MeetingsTable = ({ meetings }) => {
   const classes = useStyles();
+  const history = useHistory();
+
+  function handleEditClick(meetingId) {
+    history.push('/meeting/edit', { meetingId });
+  }
 
   return (
     <TableContainer component={Paper}>
@@ -69,7 +75,9 @@ const MeetingsTable = ({ meetings }) => {
                 {moment(meeting.updated_at).format('MM/DD/YYYY h:mm a')}
               </StyledTableCell>
               <StyledTableCell align='right'>
-                <IconButton on aria-label='edit'>
+                <IconButton
+                  onClick={() => handleEditClick(meeting.id)}
+                  aria-label='edit'>
                   <EditIcon />
                 </IconButton>
               </StyledTableCell>
