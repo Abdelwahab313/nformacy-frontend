@@ -9,13 +9,11 @@ const Logout = () => {
   const [logoutSuccess, setLogoutSuccess] = useState(false);
 
   useEffect(() => {
-    logout().finally(() => {
-      setLogoutSuccess(true);
-      localStorage.removeItem('users');
-      setLoadedLocal(false);
-      setLoggedInUser();
-      authManager.logout();
-    });
+    setLogoutSuccess(true);
+    localStorage.removeItem('users');
+    setLoadedLocal(false);
+    setLoggedInUser();
+    authManager.logout();
   }, []);
 
   if (logoutSuccess) {

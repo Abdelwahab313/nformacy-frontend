@@ -40,18 +40,12 @@ import {
   gender,
   industries,
 } from '../constants/dropDownOptions';
+import { updateProfile } from '../apis/userAPI';
 import HelpIcon from '@material-ui/icons/Help';
 
 const EditProfile = ({ t }) => {
   const user = JSON.parse(localStorage.getItem('user'));
-  const {
-    register,
-    getValues,
-    control,
-    errors,
-    setError,
-    handleSubmit,
-  } = useForm({
+  const { register, getValues, control, errors, handleSubmit } = useForm({
     defaultValues: { ...user },
   });
   const experienceForm = useFieldArray({
@@ -71,17 +65,15 @@ const EditProfile = ({ t }) => {
 
   console.log('formValues', getValues());
   const onSubmit = (userData) => {
-    if (
-      !!user.industriesOfExperience &&
-      user.industriesOfExperience.length === 0
-    ) {
-      setError(
-        'industriesOfExperience',
-        'notMatch',
-        'You have to choose at least one value',
-      );
-    }
-
+    updateProfile({ ...userData, id: user.id })
+      .then((response) => {
+        console.log('succedddddd-----', response);
+        const user = JSON.parse(localStorage.getItem('user'));
+        localStorage.setItem('user', JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log('laaaaa-----', error);
+      });
     console.log('user data', userData);
   };
 
@@ -141,11 +133,7 @@ const EditProfile = ({ t }) => {
                   error={!!errors.firstName}
                   autoFocus
                 />
-                {errors.firstName && (
-                  <span className={classes.error}>
-                    {errors.firstName.message}
-                  </span>
-                )}
+                <ErrorMessage errorField={errors.firstName} />
               </Container>
               <Container maxWidth={false} className={classes.formControl}>
                 <Typography gutterBottom variant='subtitle2'>
@@ -163,11 +151,7 @@ const EditProfile = ({ t }) => {
                   error={!!errors.lastName}
                   autoFocus
                 />
-                {errors.lastName && (
-                  <span className={classes.error}>
-                    {errors.lastName.message}
-                  </span>
-                )}
+                <ErrorMessage errorField={errors.lastName} />
               </Container>
               <Container maxWidth={false} className={classes.formControl}>
                 <Typography gutterBottom variant='subtitle2'>
@@ -191,9 +175,7 @@ const EditProfile = ({ t }) => {
                   error={!!errors.email}
                   autoFocus
                 />
-                {errors.email && (
-                  <span className={classes.error}>{errors.email.message}</span>
-                )}
+                <ErrorMessage errorField={errors.email} />
               </Container>
             </Container>
           </Paper>
@@ -214,7 +196,7 @@ const EditProfile = ({ t }) => {
                   </Typography>
                   <Controller
                     name='gender'
-                    rules={{ required: 'this is required' }}
+                    rules={{ required: 'This field is required' }}
                     control={control}
                     defaultValue={user.gender || ''}
                     as={
@@ -236,6 +218,7 @@ const EditProfile = ({ t }) => {
                       </Select>
                     }
                   />
+                  <ErrorMessage errorField={errors.gender} />
                 </FormControl>
               </Container>
               <Container maxWidth={false} className={classes.formControl}>
@@ -253,7 +236,7 @@ const EditProfile = ({ t }) => {
 
                 <Controller
                   name='country'
-                  rules={{ required: 'this is required' }}
+                  rules={{ required: 'This field is required' }}
                   control={control}
                   defaultValue={!user.country && 0}
                   as={
@@ -271,6 +254,7 @@ const EditProfile = ({ t }) => {
                     />
                   }
                 />
+                <ErrorMessage errorField={errors.country} />
               </Container>
               <Container maxWidth={false} className={classes.formControl}>
                 <Typography gutterBottom variant='subtitle2'>
@@ -287,11 +271,7 @@ const EditProfile = ({ t }) => {
                   error={!!errors.mobileNumber}
                   autoFocus
                 />
-                {errors.mobileNumber && (
-                  <span className={classes.error}>
-                    {errors.mobileNumber.message}
-                  </span>
-                )}
+                <ErrorMessage errorField={errors.mobileNumber} />
               </Container>
               <Container maxWidth={false} className={classes.formControl}>
                 <Typography gutterBottom variant='subtitle2'>
@@ -300,7 +280,7 @@ const EditProfile = ({ t }) => {
                 <FormControl className={classes.formControl} fullWidth>
                   <Controller
                     name='currentEmploymentStatus'
-                    rules={{ required: 'this is required' }}
+                    rules={{ required: 'This field is required' }}
                     control={control}
                     defaultValue={!user.currentEmploymentStatus && 0}
                     as={
@@ -320,6 +300,7 @@ const EditProfile = ({ t }) => {
                       </Select>
                     }
                   />
+                  <ErrorMessage errorField={errors.currentEmploymentStatus} />
                 </FormControl>
               </Container>
             </Container>
@@ -352,7 +333,7 @@ const EditProfile = ({ t }) => {
                 </div>
                 <Controller
                   name='industriesOfExperience'
-                  rules={{ required: 'this is required' }}
+                  rules={{ required: 'This field is required' }}
                   control={control}
                   as={
                     <CreatableSelect
@@ -370,11 +351,7 @@ const EditProfile = ({ t }) => {
                     />
                   }
                 />
-                {errors.industriesOfExperience && (
-                  <span className={classes.error}>
-                    {errors.industriesOfExperience.message}
-                  </span>
-                )}
+                <ErrorMessage errorField={errors.industriesOfExperience} />
               </Container>
             </Container>
           </Paper>
@@ -406,7 +383,7 @@ const EditProfile = ({ t }) => {
                 </div>
                 <Controller
                   name='languageOfAssignments'
-                  rules={{ required: 'this is required' }}
+                  rules={{ required: 'This field is required' }}
                   control={control}
                   as={
                     <CreatableSelect
@@ -428,6 +405,7 @@ const EditProfile = ({ t }) => {
                     />
                   }
                 />
+                <ErrorMessage errorField={errors.languageOfAssignments} />
               </Container>
               <Container maxWidth={false} className={classes.formControl}>
                 <div className={classes.formHeader}>
@@ -444,7 +422,7 @@ const EditProfile = ({ t }) => {
 
                 <Controller
                   name='typesOfAssignments'
-                  rules={{ required: 'this is required' }}
+                  rules={{ required: 'This field is required' }}
                   control={control}
                   as={
                     <ReactSelect
@@ -464,20 +442,11 @@ const EditProfile = ({ t }) => {
                             )
                           : []
                       }
-                      label='Assignment Types'>
-                      <MenuItem value={0} disabled>
-                        Select your gender
-                      </MenuItem>
-                      {gender.map((e, key) => {
-                        return (
-                          <MenuItem key={key} value={e.value}>
-                            {e.name}
-                          </MenuItem>
-                        );
-                      })}
-                    </ReactSelect>
+                      label='Assignment Types'
+                    />
                   }
                 />
+                <ErrorMessage errorField={errors.typesOfAssignments} />
               </Container>
               <Container maxWidth={false} className={classes.formControl}>
                 <div className={classes.formHeader}>
@@ -494,7 +463,7 @@ const EditProfile = ({ t }) => {
                 </div>
                 <Controller
                   name='locationOfAssignments'
-                  rules={{ required: 'this is required' }}
+                  rules={{ required: 'This field is required' }}
                   control={control}
                   as={
                     <CreatableSelect
@@ -516,6 +485,7 @@ const EditProfile = ({ t }) => {
                     />
                   }
                 />
+                <ErrorMessage errorField={errors.locationOfAssignments} />
               </Container>
               <Container maxWidth={false} className={classes.formControl}>
                 <Typography gutterBottom variant='subtitle2'>
@@ -532,11 +502,7 @@ const EditProfile = ({ t }) => {
                   defaultValue={user.dailyRate}
                   autoFocus
                 />
-                {errors.dailyRate && (
-                  <span className={classes.error}>
-                    {errors.dailyRate.message}
-                  </span>
-                )}
+                <ErrorMessage errorField={errors.dailyRate} />
               </Container>
             </Container>
           </Paper>
@@ -913,3 +879,19 @@ const EditProfile = ({ t }) => {
   );
 };
 export default withNamespaces('editProfile')(EditProfile);
+
+const ErrorMessage = ({ errorField }) => {
+  if (!!errorField) {
+    return (
+      <span
+        style={{
+          color: 'red',
+          margin: '8px',
+        }}>
+        {errorField.message}
+      </span>
+    );
+  } else {
+    return null;
+  }
+};

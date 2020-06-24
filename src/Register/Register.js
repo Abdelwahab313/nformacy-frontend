@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { withNamespaces } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useStyles from '../styles/formsStyles';
-import signup from '../apis/userAPI';
+import { signup } from '../apis/userAPI';
 import { useAuth } from '../auth/auth';
 import { Redirect } from 'react-router';
 import authManager from '../services/authManager';
