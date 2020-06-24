@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import {
-  AppBar,
-  Toolbar,
   Card,
   Dialog,
   Slide,
-  Typography,
   DialogTitle,
   DialogContent,
-  DialogContentText,
   Button,
   DialogActions,
+  Grid,
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,17 +20,60 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import EventIcon from '@material-ui/icons/Event';
 import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import Calendar from './Calendar';
+
+const dates = [
+  {
+    type: 'date',
+    date: '2020-06-27',
+    intervals: [
+      {
+        from: '09:00',
+        to: '17:00',
+        excluded_memberships: [],
+      },
+    ],
+  },
+  {
+    type: 'date',
+    date: '2020-06-28',
+    intervals: [
+      {
+        from: '09:00',
+        to: '17:00',
+        excluded_memberships: [],
+      },
+    ],
+  },
+  {
+    type: 'date',
+    date: '2020-06-29',
+    intervals: [
+      {
+        from: '09:00',
+        to: '17:00',
+        excluded_memberships: [],
+      },
+    ],
+  },
+  {
+    type: 'date',
+    date: '2020-06-30',
+    intervals: [
+      {
+        from: '09:00',
+        to: '17:00',
+        excluded_memberships: [],
+      },
+    ],
+  },
+];
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
-  },
-  calendarDialog: {
-    width: 360,
-    maxWidth: 360,
   },
 }));
 
@@ -44,7 +84,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
   const classes = useStyles();
   const [selectedFreelancer, setSelectedFreelancer] = useState();
-  const [isCalendarOpened, setIsCalendarOpened] = useState();
+  const [isCalendarOpened, setIsCalendarOpened] = useState(false);
 
   return (
     <Card id={'shortlisted-candidates-section'}>
@@ -94,12 +134,17 @@ function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
       <Dialog
         open={isCalendarOpened}
         TransitionComponent={Transition}
+        maxWidth={'lg'}
         id={'add-user-dialog'}>
         <DialogTitle id='alert-dialog-title'>
           {'Please pick available date to schedule the call'}
         </DialogTitle>
 
-        <DialogContent className={classes.calendarDialog}></DialogContent>
+        <DialogContent>
+          <Grid>
+            <Calendar availableDates={dates} />
+          </Grid>
+        </DialogContent>
         <DialogActions>
           <Button onClick={() => setIsCalendarOpened(false)} color='primary'>
             Disagree
