@@ -13,6 +13,7 @@ import { AuthContext } from '../auth/auth';
 import PrivateRoute from './PrivateRoute';
 import Layout from './Layout';
 import Register from '../Register/Register';
+import EditProfile from '../EditProfile/EditProfile';
 import authManager from '../services/authManager';
 import Logout from '../auth/LogoutUser';
 
@@ -50,6 +51,7 @@ function App() {
           <Switch>
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Register} />
+            <Route path='/edit' component={EditProfile} />
             <Route path='/logout' component={Logout} />
             <PrivateRoute path='/' component={Layout} />
           </Switch>

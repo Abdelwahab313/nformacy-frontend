@@ -13,6 +13,7 @@ import useStyles from '../styles/formsStyles';
 import signup from '../apis/userAPI';
 import { useAuth } from '../auth/auth';
 import { Redirect } from 'react-router';
+import authManager from '../services/authManager';
 
 const Register = ({ t }) => {
   const {
@@ -28,7 +29,7 @@ const Register = ({ t }) => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
   const [registerSucceeded, setRegisterSucceeded] = useState(false);
-  const { setAuthTokens, setLoggedInUser } = useAuth();
+  const { setLoggedInUser } = useAuth();
   const classes = useStyles();
 
   const repeatVal = (passwordRepeat) =>
@@ -37,7 +38,7 @@ const Register = ({ t }) => {
     setLoading(true);
     signup(data)
       .then((result) => {
-        setAuthTokens(result.data.token);
+        authManager.login(result.data.token);
         return result;
       })
       .then((result) => {
