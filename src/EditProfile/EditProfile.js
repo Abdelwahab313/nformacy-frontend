@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useFieldArray, useForm, Controller } from 'react-hook-form';
 import useStyles from '../styles/formsStyles';
 import { withNamespaces } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
@@ -43,25 +43,16 @@ import {
 import HelpIcon from '@material-ui/icons/Help';
 
 const EditProfile = ({ t }) => {
-  const [user, setUser] = useState({
-    employmentStatus: 0,
-    gender: 0,
-    industriesOfExperience: [],
-    languageOfAssignments: [],
-    typesOfAssignments: [],
-    locationOfAssignments: [],
-    experiencesAttributes: [],
-  });
+  const user = JSON.parse(localStorage.getItem('user'));
   const {
     register,
-    setValue,
+    getValues,
     control,
     errors,
-    clearError,
     setError,
     handleSubmit,
   } = useForm({
-    defaultValues: { workExperience: user.experiencesAttributes },
+    defaultValues: { ...user },
   });
   const experienceForm = useFieldArray({
     control,
@@ -75,17 +66,23 @@ const EditProfile = ({ t }) => {
     control,
     name: 'certification',
   });
-  const [countries, _] = useState(countryList().getData());
+  const [countries] = useState(countryList().getData());
   const classes = useStyles();
 
+  console.log('formValues', getValues());
   const onSubmit = (userData) => {
-    if (user.industriesOfExperience.length === 0) {
+    if (
+      !!user.industriesOfExperience &&
+      user.industriesOfExperience.length === 0
+    ) {
       setError(
         'industriesOfExperience',
         'notMatch',
         'You have to choose at least one value',
       );
     }
+
+    console.log('user data', userData);
   };
 
   return (
@@ -135,17 +132,13 @@ const EditProfile = ({ t }) => {
                 <TextField
                   variant='outlined'
                   margin='normal'
-                  inputRef={register({ required: 'This field is required' })}
                   fullWidth
                   id='firstName'
                   name='firstName'
+                  defaultValue={!user.firstName && ''}
+                  inputRef={register({ required: 'This field is required' })}
                   autoComplete='name'
                   error={!!errors.firstName}
-                  defaultValue={user.firstName}
-                  onChange={(event) => {
-                    const { value } = event.target;
-                    setUser({ ...user, firstName: value });
-                  }}
                   autoFocus
                 />
                 {errors.firstName && (
@@ -161,17 +154,13 @@ const EditProfile = ({ t }) => {
                 <TextField
                   variant='outlined'
                   margin='normal'
-                  inputRef={register({ required: 'This field is required' })}
                   fullWidth
                   id='lastName'
                   name='lastName'
+                  defaultValue={!user.lastName && ''}
+                  inputRef={register({ required: 'This field is required' })}
                   autoComplete='name'
                   error={!!errors.lastName}
-                  defaultValue={user.lastName}
-                  onChange={(event) => {
-                    const { value } = event.target;
-                    setUser({ ...user, lastName: value });
-                  }}
                   autoFocus
                 />
                 {errors.lastName && (
@@ -197,14 +186,9 @@ const EditProfile = ({ t }) => {
                   fullWidth
                   id='email'
                   name='email'
+                  defaultValue={!user.email && ''}
                   autoComplete='email'
                   error={!!errors.email}
-                  defaultValue={user.email}
-                  onChange={(event) => {
-                    const { value } = event.target;
-                    setValue('email', value);
-                    setUser({ ...user, email: value });
-                  }}
                   autoFocus
                 />
                 {errors.email && (
@@ -228,26 +212,30 @@ const EditProfile = ({ t }) => {
                   <Typography gutterBottom variant='subtitle2'>
                     Gender
                   </Typography>
-                  <Select
-                    className={classes.selectControl}
-                    id='genderSelect'
-                    value={user.gender}
-                    onChange={(event) => {
-                      const { value } = event.target;
-                      setUser({ ...user, gender: value });
-                    }}
-                    label='Gender'>
-                    <MenuItem value={0} disabled>
-                      Select your gender
-                    </MenuItem>
-                    {gender.map((e, key) => {
-                      return (
-                        <MenuItem key={key} value={e.value}>
-                          {e.name}
+                  <Controller
+                    name='gender'
+                    rules={{ required: 'this is required' }}
+                    control={control}
+                    defaultValue={user.gender || ''}
+                    as={
+                      <Select
+                        className={classes.selectControl}
+                        id='genderSelect'
+                        defaultValue={user.gender || ''}
+                        label='Gender'>
+                        <MenuItem value={0} disabled>
+                          Select your gender
                         </MenuItem>
-                      );
-                    })}
-                  </Select>
+                        {gender.map((e, key) => {
+                          return (
+                            <MenuItem key={key} value={e.value}>
+                              {e.name}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                    }
+                  />
                 </FormControl>
               </Container>
               <Container maxWidth={false} className={classes.formControl}>
@@ -262,21 +250,26 @@ const EditProfile = ({ t }) => {
                     fontSize='small'
                   />
                 </div>
-                <ReactSelectMaterialUi
-                  id='country-select'
-                  fullWidth={true}
-                  placeholder='Select your country'
-                  SelectProps={{
-                    styles: {
-                      menu: (provided) => ({ ...provided, zIndex: 9999 }),
-                    },
-                    variant: 'outlined',
-                  }}
-                  value={user.country}
-                  options={countries}
-                  onChange={(value) => {
-                    setUser({ ...user, country: value });
-                  }}
+
+                <Controller
+                  name='country'
+                  rules={{ required: 'this is required' }}
+                  control={control}
+                  defaultValue={!user.country && 0}
+                  as={
+                    <ReactSelectMaterialUi
+                      id='country-select'
+                      fullWidth={true}
+                      placeholder='Select your country'
+                      SelectProps={{
+                        styles: {
+                          menu: (provided) => ({ ...provided, zIndex: 9999 }),
+                        },
+                        variant: 'outlined',
+                      }}
+                      options={countries}
+                    />
+                  }
                 />
               </Container>
               <Container maxWidth={false} className={classes.formControl}>
@@ -292,11 +285,6 @@ const EditProfile = ({ t }) => {
                   name='mobileNumber'
                   autoComplete='mobileNumber'
                   error={!!errors.mobileNumber}
-                  defaultValue={user.mobileNumber}
-                  onChange={(event) => {
-                    const { value } = event.target;
-                    setUser({ ...user, mobileNumber: value });
-                  }}
                   autoFocus
                 />
                 {errors.mobileNumber && (
@@ -310,25 +298,28 @@ const EditProfile = ({ t }) => {
                   Current Employment Status
                 </Typography>
                 <FormControl className={classes.formControl} fullWidth>
-                  <Select
-                    id='employmentStatus'
-                    value={user.currentEmploymentStatus}
-                    onChange={(event) => {
-                      const { value } = event.target;
-                      setUser({ ...user, currentEmploymentStatus: value });
-                    }}
-                    label='Current Employment Status'>
-                    <MenuItem value={0} disabled>
-                      Select your Employment Status
-                    </MenuItem>
-                    {employmentStatus.map((e, key) => {
-                      return (
-                        <MenuItem key={key} value={e.value}>
-                          {e.name}
+                  <Controller
+                    name='currentEmploymentStatus'
+                    rules={{ required: 'this is required' }}
+                    control={control}
+                    defaultValue={!user.currentEmploymentStatus && 0}
+                    as={
+                      <Select
+                        id='employmentStatus'
+                        label='Current Employment Status'>
+                        <MenuItem value={0} disabled>
+                          Select your Employment Status
                         </MenuItem>
-                      );
-                    })}
-                  </Select>
+                        {employmentStatus.map((e, key) => {
+                          return (
+                            <MenuItem key={key} value={e.value}>
+                              {e.name}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                    }
+                  />
                 </FormControl>
               </Container>
             </Container>
@@ -359,25 +350,25 @@ const EditProfile = ({ t }) => {
                     fontSize='small'
                   />
                 </div>
-                <CreatableSelect
-                  defaultValue={user.industriesOfExperience.map(
-                    (userIndustry) => {
-                      return industries.find(
-                        (industry) => userIndustry === industry.value,
-                      );
-                    },
-                  )}
-                  isMulti
-                  options={industries}
-                  onChange={(selectedValues) => {
-                    clearError('industriesOfExperience');
-                    setUser({
-                      ...user,
-                      industriesOfExperience: !!selectedValues
-                        ? selectedValues.map(({ value }) => value)
-                        : [],
-                    });
-                  }}
+                <Controller
+                  name='industriesOfExperience'
+                  rules={{ required: 'this is required' }}
+                  control={control}
+                  as={
+                    <CreatableSelect
+                      defaultValue={
+                        !!user.industriesOfExperience
+                          ? user.industriesOfExperience.map((userIndustry) => {
+                              return industries.find(
+                                (industry) => userIndustry === industry.value,
+                              );
+                            })
+                          : []
+                      }
+                      isMulti
+                      options={industries}
+                    />
+                  }
                 />
                 {errors.industriesOfExperience && (
                   <span className={classes.error}>
@@ -413,25 +404,29 @@ const EditProfile = ({ t }) => {
                     fontSize='small'
                   />
                 </div>
-                <CreatableSelect
-                  defaultValue={user.languageOfAssignments.map(
-                    (userAssignmentLanguage) => {
-                      return assignmentLanguage.find(
-                        (assignmentLanguage) =>
-                          userAssignmentLanguage === assignmentLanguage.value,
-                      );
-                    },
-                  )}
-                  onChange={(selectedValues) => {
-                    setUser({
-                      ...user,
-                      languageOfAssignments: selectedValues.map(
-                        ({ value }) => value,
-                      ),
-                    });
-                  }}
-                  isMulti
-                  options={assignmentLanguage}
+                <Controller
+                  name='languageOfAssignments'
+                  rules={{ required: 'this is required' }}
+                  control={control}
+                  as={
+                    <CreatableSelect
+                      defaultValue={
+                        !!user.languageOfAssignments
+                          ? user.languageOfAssignments.map(
+                              (userAssignmentLanguage) => {
+                                return assignmentLanguage.find(
+                                  (assignmentLanguage) =>
+                                    userAssignmentLanguage ===
+                                    assignmentLanguage.value,
+                                );
+                              },
+                            )
+                          : []
+                      }
+                      isMulti
+                      options={assignmentLanguage}
+                    />
+                  }
                 />
               </Container>
               <Container maxWidth={false} className={classes.formControl}>
@@ -446,32 +441,43 @@ const EditProfile = ({ t }) => {
                     fontSize='small'
                   />
                 </div>
-                <ReactSelect
-                  isMulti
-                  options={assignmentTypes}
-                  className={classes.selectControl}
-                  id='assignmentTypesSlect'
-                  value={user.typesOfAssignments.map((userAssignmentType) => {
-                    return assignmentTypes.find(
-                      (assignmentType) =>
-                        userAssignmentType === assignmentType.value,
-                    );
-                  })}
-                  onChange={(selectedValue) => {
-                    setUser({ ...user, typesOfAssignments: selectedValue });
-                  }}
-                  label='Assignment Types'>
-                  <MenuItem value={0} disabled>
-                    Select your gender
-                  </MenuItem>
-                  {gender.map((e, key) => {
-                    return (
-                      <MenuItem key={key} value={e.value}>
-                        {e.name}
+
+                <Controller
+                  name='typesOfAssignments'
+                  rules={{ required: 'this is required' }}
+                  control={control}
+                  as={
+                    <ReactSelect
+                      isMulti
+                      options={assignmentTypes}
+                      className={classes.selectControl}
+                      id='assignmentTypesSlect'
+                      value={
+                        !!user.typesOfAssignments
+                          ? user.typesOfAssignments.map(
+                              (userAssignmentType) => {
+                                return assignmentTypes.find(
+                                  (assignmentType) =>
+                                    userAssignmentType === assignmentType.value,
+                                );
+                              },
+                            )
+                          : []
+                      }
+                      label='Assignment Types'>
+                      <MenuItem value={0} disabled>
+                        Select your gender
                       </MenuItem>
-                    );
-                  })}
-                </ReactSelect>
+                      {gender.map((e, key) => {
+                        return (
+                          <MenuItem key={key} value={e.value}>
+                            {e.name}
+                          </MenuItem>
+                        );
+                      })}
+                    </ReactSelect>
+                  }
+                />
               </Container>
               <Container maxWidth={false} className={classes.formControl}>
                 <div className={classes.formHeader}>
@@ -486,25 +492,29 @@ const EditProfile = ({ t }) => {
                     fontSize='small'
                   />
                 </div>
-                <CreatableSelect
-                  isMulti
-                  options={assignmentLocations}
-                  defaultValue={user.locationOfAssignments.map(
-                    (userAssignmentLocation) => {
-                      return assignmentLocations.find(
-                        (assignmentLocation) =>
-                          userAssignmentLocation === assignmentLocation.value,
-                      );
-                    },
-                  )}
-                  onChange={(selectedValues) => {
-                    setUser({
-                      ...user,
-                      locationOfAssignments: selectedValues.map(
-                        ({ value }) => value,
-                      ),
-                    });
-                  }}
+                <Controller
+                  name='locationOfAssignments'
+                  rules={{ required: 'this is required' }}
+                  control={control}
+                  as={
+                    <CreatableSelect
+                      isMulti
+                      options={assignmentLocations}
+                      defaultValue={
+                        !!user.locationOfAssignments
+                          ? user.locationOfAssignments.map(
+                              (userAssignmentLocation) => {
+                                return assignmentLocations.find(
+                                  (assignmentLocation) =>
+                                    userAssignmentLocation ===
+                                    assignmentLocation.value,
+                                );
+                              },
+                            )
+                          : []
+                      }
+                    />
+                  }
                 />
               </Container>
               <Container maxWidth={false} className={classes.formControl}>
@@ -520,15 +530,11 @@ const EditProfile = ({ t }) => {
                   name='dailyRate'
                   error={!!errors.dailyRate}
                   defaultValue={user.dailyRate}
-                  onChange={(event) => {
-                    const { value } = event.target;
-                    setUser({ ...user, dailyRate: value });
-                  }}
                   autoFocus
                 />
-                {errors.firstName && (
+                {errors.dailyRate && (
                   <span className={classes.error}>
-                    {errors.firstName.message}
+                    {errors.dailyRate.message}
                   </span>
                 )}
               </Container>

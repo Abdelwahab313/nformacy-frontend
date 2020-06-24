@@ -36,6 +36,8 @@ function App() {
 
   useEffect(() => {
     const retrievedToken = authManager.retrieveUserToken();
+    const user = localStorage.getItem('user');
+    setLoggedInUser(user);
     setLoadedLocal(true);
   }, []);
 
@@ -44,6 +46,7 @@ function App() {
       <StylesProvider jss={jss}>
         <AuthContext.Provider
           value={{
+            loggedInUser,
             loadedLocal,
             setLoggedInUser: setLoggedUser,
             setLoadedLocal,
