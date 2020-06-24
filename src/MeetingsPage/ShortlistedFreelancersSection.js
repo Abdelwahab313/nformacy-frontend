@@ -20,7 +20,8 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import EventIcon from '@material-ui/icons/Event';
 import IconButton from '@material-ui/core/IconButton';
-import Calendar from './Calendar';
+import Calendar from './Calendar/Calendar';
+import { CalendarProvider } from './Calendar/Context/CalendarContext';
 
 const dates = [
   {
@@ -142,7 +143,9 @@ function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
 
         <DialogContent>
           <Grid>
-            <Calendar availableDates={dates} />
+            <CalendarProvider initialValue={{ availableDates: dates }}>
+              <Calendar />
+            </CalendarProvider>
           </Grid>
         </DialogContent>
         <DialogActions>

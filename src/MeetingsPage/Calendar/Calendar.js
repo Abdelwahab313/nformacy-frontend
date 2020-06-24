@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import TableCell from '@material-ui/core/TableCell';
 import {
@@ -19,7 +19,10 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 import Opacity from '@material-ui/icons/Opacity';
 import { withStyles } from '@material-ui/core/styles';
-import CheckIcon from '@material-ui/icons/Check';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import { CalendarProvider, useCalendarState } from './Context/CalendarContext';
+import { UPDATE_SELECTED_DAY } from './Context/contextActions';
+import Grid from '@material-ui/core/Grid';
 
 const getBorder = (theme) =>
   `1px solid ${
@@ -155,24 +158,26 @@ const styles = (theme) => ({
   },
 });
 
-const WeatherIcon = ({ classes, id }) => {
-  switch (id) {
-    case 0:
-      return <Opacity className={classes.rain} fontSize='large' />;
-    default:
-      return null;
-  }
-};
-
 const CellBase = React.memo(
-  ({ classes, startDate, formatDate, otherMonth, today }) => {
-    const [selectedDay, setSelectedDay] = useState();
-    const dates = ['2020-06-28', '2020-06-29', '2020-06-30'];
-    const availableDay = dates.some(
-      (date) =>
-        new Date(date).setHours(0, 0, 0, 0) === new Date(startDate).getTime(),
+  ({ classes, startDate, formatDate, otherMonth }) => {
+    const [{ availableDates, selectedDay }, dispatch] = useCalendarState();
+
+    function isSameDate(date1, date2) {
+      return (
+        new Date(date1).setHours(0, 0, 0, 0) ===
+        new Date(date2).setHours(0, 0, 0, 0)
+      );
+    }
+
+    const freelancerAvailableDates = availableDates.map((d) => {
+      return d.date;
+    });
+
+    const availableDay = freelancerAvailableDates.some((date) =>
+      isSameDate(date, startDate),
     );
-    console.log('today', today, startDate);
+
+    console.log('---------------------------', selectedDay)
 
     const isFirstMonthDay = startDate.getDate() === 1;
     const formatOptions = isFirstMonthDay
@@ -180,21 +185,32 @@ const CellBase = React.memo(
       : { day: 'numeric' };
     return (
       <TableCell
-        onClick={() => {
-          setSelectedDay(true);
-          console.log('selected----', startDate);
-        }}
+        style={availableDay? {backgroundColor: '#00a2ff'} : {}}
+        onClick={availableDay? () => {
+          dispatch({
+            type: UPDATE_SELECTED_DAY,
+            payload: startDate,
+          });
+        } : () => {}}
         tabIndex={0}
         className={classNames({
           [classes.cell]: true,
           [classes.opacity]: otherMonth,
         })}>
-        <div id={'cellll'} className={classes.content}>
-          {!!availableDay && <WeatherIcon classes={classes} id={0} />}
-        </div>
         <div className={classes.text}>
-          {!!selectedDay && 'selected'}
-          {formatDate(startDate, formatOptions)}
+          <Grid container spacing={3} justify='space-evenly'>
+            <Grid item xs={4} style={availableDay ? {color: '#FFFFFF'} : {}}>
+              {formatDate(startDate, formatOptions)}
+            </Grid>
+            <Grid item xs={4} alignItems='right'>
+              {isSameDate(startDate, selectedDay) && availableDay && (
+                <CheckCircleOutlineIcon
+                  fontSize={'small'}
+                  style={{ color: '#FFFFFF' }}
+                />
+              )}
+            </Grid>
+          </Grid>
         </div>
       </TableCell>
     );
@@ -203,7 +219,7 @@ const CellBase = React.memo(
 
 const TimeTableCell = withStyles(styles, { name: 'Cell' })(CellBase);
 
-const Calendar = ({ availableDates }) => {
+const Calendar = () => {
   return (
     <Paper style={{ width: '720px' }}>
       <Scheduler>
