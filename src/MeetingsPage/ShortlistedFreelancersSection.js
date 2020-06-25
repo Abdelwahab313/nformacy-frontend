@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import {
   Card,
   Dialog,
@@ -91,7 +91,7 @@ function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
     <Card id={'shortlisted-candidates-section'}>
       <List className={classes.root}>
         {shortlistedFreelancers.map((freelancer) => (
-          <>
+          <Fragment>
             <ListItem
               id={`freelancer-${freelancer.id}`}
               className={'freelancer-row'}
@@ -128,7 +128,7 @@ function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
                 </ListItem>
               </List>
             </Collapse>
-          </>
+          </Fragment>
         ))}
       </List>
 

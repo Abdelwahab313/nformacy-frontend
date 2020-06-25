@@ -1,16 +1,16 @@
 const gender = [
-  { value: 'F', name: 'Female' },
-  { value: 'M', name: 'Male' },
+  { value: 'F', label: 'Female' },
+  { value: 'M', label: 'Male' },
 ];
 
 const employmentStatus = [
-  { value: 'businessOwner', name: 'Business Owner' },
-  { value: 'freelancer', name: 'Freelancer' },
-  { value: 'employedByGovernment', name: 'Employed by government' },
-  { value: 'employedByNGO', name: 'Employed by NGO' },
+  { value: 'businessOwner', label: 'Business Owner' },
+  { value: 'freelancer', label: 'Freelancer' },
+  { value: 'employedByGovernment', label: 'Employed by government' },
+  { value: 'employedByNGO', label: 'Employed by NGO' },
   {
     value: 'employedByPrivateOrganization',
-    name: 'Employed by Private Organisation',
+    label: 'Employed by Private Organisation',
   },
 ];
 

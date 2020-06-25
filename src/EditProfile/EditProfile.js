@@ -20,8 +20,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CreatableSelect from 'react-select/creatable';
 import Card from '@material-ui/core/Card';
 import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import ReactSelect from 'react-select';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -50,31 +48,30 @@ const EditProfile = ({ t }) => {
   });
   const experienceForm = useFieldArray({
     control,
-    name: 'workExperience',
+    name: 'experiences',
   });
   const educationForm = useFieldArray({
     control,
-    name: 'education',
+    name: 'educations',
   });
   const certificationForm = useFieldArray({
     control,
-    name: 'certification',
+    name: 'certifications',
   });
   const [countries] = useState(countryList().getData());
   const classes = useStyles();
 
   console.log('formValues', getValues());
   const onSubmit = (userData) => {
+    console.log('before submit', getValues());
     updateProfile({ ...userData, id: user.id })
       .then((response) => {
         console.log('succedddddd-----', response);
-        const user = JSON.parse(localStorage.getItem('user'));
-        localStorage.setItem('user', JSON.stringify(response.data));
+        // localStorage.setItem('user', JSON.stringify(response.data));
       })
       .catch((error) => {
         console.log('laaaaa-----', error);
       });
-    console.log('user data', userData);
   };
 
   return (
@@ -190,7 +187,7 @@ const EditProfile = ({ t }) => {
               </Grid>
               <Divider variant='middle' />
               <Container maxWidth={false} className={classes.formControl}>
-                <FormControl className={classes.formControl}>
+                <FormControl fullWidth className={classes.formControl}>
                   <Typography gutterBottom variant='subtitle2'>
                     Gender
                   </Typography>
@@ -200,22 +197,18 @@ const EditProfile = ({ t }) => {
                     control={control}
                     defaultValue={user.gender || ''}
                     as={
-                      <Select
-                        className={classes.selectControl}
+                      <ReactSelectMaterialUi
+                        fullWidth
                         id='genderSelect'
-                        defaultValue={user.gender || ''}
-                        label='Gender'>
-                        <MenuItem value={0} disabled>
-                          Select your gender
-                        </MenuItem>
-                        {gender.map((e, key) => {
-                          return (
-                            <MenuItem key={key} value={e.value}>
-                              {e.name}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
+                        placeholder='Select your gender'
+                        SelectProps={{
+                          styles: {
+                            menu: (provided) => ({ ...provided, zIndex: 9999 }),
+                          },
+                          variant: 'outlined',
+                        }}
+                        options={gender}
+                      />
                     }
                   />
                   <ErrorMessage errorField={errors.gender} />
@@ -284,20 +277,18 @@ const EditProfile = ({ t }) => {
                     control={control}
                     defaultValue={!user.currentEmploymentStatus && 0}
                     as={
-                      <Select
+                      <ReactSelectMaterialUi
+                        fullWidth
                         id='employmentStatus'
-                        label='Current Employment Status'>
-                        <MenuItem value={0} disabled>
-                          Select your Employment Status
-                        </MenuItem>
-                        {employmentStatus.map((e, key) => {
-                          return (
-                            <MenuItem key={key} value={e.value}>
-                              {e.name}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
+                        placeholder='Current Employment Status'
+                        SelectProps={{
+                          styles: {
+                            menu: (provided) => ({ ...provided, zIndex: 9999 }),
+                          },
+                          variant: 'outlined',
+                        }}
+                        options={employmentStatus}
+                      />
                     }
                   />
                   <ErrorMessage errorField={errors.currentEmploymentStatus} />
@@ -528,7 +519,7 @@ const EditProfile = ({ t }) => {
                           fullWidth
                           label={t('JobTitle')}
                           variant='outlined'
-                          name={`workExperience[${index}].title`}
+                          name={`workExperience[${index}][title]`}
                           defaultValue={item.title}
                           inputRef={register()}
                         />
@@ -540,7 +531,7 @@ const EditProfile = ({ t }) => {
                           fullWidth
                           label={t('Company')}
                           variant='outlined'
-                          name={`workExperience[${index}].company`}
+                          name={`workExperience[${index}][company]`}
                           defaultValue={item.company}
                           inputRef={register()}
                         />
@@ -550,31 +541,46 @@ const EditProfile = ({ t }) => {
                           <Container
                             maxWidth={false}
                             className={classes.formControl}>
-                            <KeyboardDatePicker
-                              disableToolbar
-                              variant='inline'
-                              format='MM/dd/yyyy'
-                              margin='normal'
-                              id={`workExperience[${index}].startDate`}
-                              label='Start date'
-                              KeyboardButtonProps={{
-                                'aria-label': 'change date',
-                              }}
+                            <Controller
+                              name={`workExperience[${index}][startDate]`}
+                              defaultValue={new Date()}
+                              control={control}
+                              as={
+                                <KeyboardDatePicker
+                                  disableToolbar
+                                  variant='inline'
+                                  format='MM/dd/yyyy'
+                                  margin='normal'
+                                  label='Start date'
+                                  KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                  }}
+                                  onChange={(value) => value[0]}
+                                />
+                              }
                             />
                           </Container>
                           <Container
                             maxWidth={false}
                             className={classes.formControl}>
-                            <KeyboardDatePicker
-                              disableToolbar
-                              variant='inline'
-                              format='MM/dd/yyyy'
-                              margin='normal'
-                              id={`workExperience[${index}].endDate`}
-                              label='end date'
-                              KeyboardButtonProps={{
-                                'aria-label': 'change date',
-                              }}
+                            <Controller
+                              name={`workExperience[${index}][endDate]`}
+                              defaultValue={new Date()}
+                              control={control}
+                              as={
+                                <KeyboardDatePicker
+                                  disableToolbar
+                                  variant='inline'
+                                  format='MM/dd/yyyy'
+                                  margin='normal'
+                                  label='end date'
+                                  inputRef={register()}
+                                  KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                  }}
+                                  onChange={(value) => value[0]}
+                                />
+                              }
                             />
                           </Container>
                         </MuiPickersUtilsProvider>
@@ -681,16 +687,23 @@ const EditProfile = ({ t }) => {
                           <Container
                             maxWidth={false}
                             className={classes.formControl}>
-                            <KeyboardDatePicker
-                              disableToolbar
-                              variant='inline'
-                              format='MM/dd/yyyy'
-                              margin='normal'
-                              id={`education[${index}].endDate`}
-                              label='end date'
-                              KeyboardButtonProps={{
-                                'aria-label': 'change date',
-                              }}
+                            <Controller
+                              name={`education[${index}].endDate`}
+                              defaultValue={new Date()}
+                              control={control}
+                              as={
+                                <KeyboardDatePicker
+                                  disableToolbar
+                                  variant='inline'
+                                  format='MM/dd/yyyy'
+                                  margin='normal'
+                                  label='end date'
+                                  KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                  }}
+                                  onChange={(value) => value[0]}
+                                />
+                              }
                             />
                           </Container>
                         </MuiPickersUtilsProvider>
@@ -789,31 +802,45 @@ const EditProfile = ({ t }) => {
                           <Container
                             maxWidth={false}
                             className={classes.formControl}>
-                            <KeyboardDatePicker
-                              disableToolbar
-                              variant='inline'
-                              format='MM/dd/yyyy'
-                              margin='normal'
-                              id={`certification[${index}].startDate`}
-                              label='Start date'
-                              KeyboardButtonProps={{
-                                'aria-label': 'change date',
-                              }}
+                            <Controller
+                              name={`certification[${index}].startDate`}
+                              defaultValue={new Date()}
+                              control={control}
+                              as={
+                                <KeyboardDatePicker
+                                  disableToolbar
+                                  variant='inline'
+                                  format='MM/dd/yyyy'
+                                  margin='normal'
+                                  label='Start date'
+                                  KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                  }}
+                                  onChange={(value) => value[0]}
+                                />
+                              }
                             />
                           </Container>
                           <Container
                             maxWidth={false}
                             className={classes.formControl}>
-                            <KeyboardDatePicker
-                              disableToolbar
-                              variant='inline'
-                              format='MM/dd/yyyy'
-                              margin='normal'
-                              id={`certification[${index}].endDate`}
-                              label='end date'
-                              KeyboardButtonProps={{
-                                'aria-label': 'change date',
-                              }}
+                            <Controller
+                              name={`certification[${index}].endDate`}
+                              defaultValue={new Date()}
+                              control={control}
+                              as={
+                                <KeyboardDatePicker
+                                  disableToolbar
+                                  variant='inline'
+                                  format='MM/dd/yyyy'
+                                  margin='normal'
+                                  label='end date'
+                                  KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                  }}
+                                  onChange={(value) => value[0]}
+                                />
+                              }
                             />
                           </Container>
                         </MuiPickersUtilsProvider>

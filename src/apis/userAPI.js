@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_BASE_URL } from '../settings';
-import { camelizeKeys } from 'humps';
+import { camelizeKeys, decamelizeKeys } from 'humps';
 
 const signup = (user) => {
   return axios({
@@ -13,8 +13,8 @@ const signup = (user) => {
 const updateProfile = (user) => {
   return axios({
     method: 'put',
-    url: `${API_BASE_URL}/users/3`,
-    data: { ...user },
+    url: `${API_BASE_URL}/users/1`,
+    data: decamelizeKeys({ ...user }),
   }).then((response) => camelizeKeys(response));
 };
 

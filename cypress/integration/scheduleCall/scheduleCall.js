@@ -8,8 +8,8 @@ Given(/^have already requested a call with freelancer$/, () => {});
 
 Given(/^logged in$/, () => {
   cy.visit(BASE_URL);
-  cy.get('#email').type('b@gmail.com');
-  cy.get('#password').type('12345678');
+  cy.get('#email').type('client@test.com');
+  cy.get('#password').type('test1234');
   cy.get('#login').click();
   cy.get('#side-menu');
 });

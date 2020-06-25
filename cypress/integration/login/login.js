@@ -7,8 +7,8 @@ Given(/^I am at login page$/, () => {
 });
 
 When(/^I type my email and password$/, () => {
-  cy.get('#email').type('test@test.te');
-  cy.get('#password').type('testtest');
+  cy.get('#email').type('client@test.com');
+  cy.get('#password').type('test1234');
 });
 
 When(/^press login$/, function() {
