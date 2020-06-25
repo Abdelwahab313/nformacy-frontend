@@ -279,7 +279,7 @@ const EditProfile = ({ t }) => {
                   margin='normal'
                   inputRef={register({ required: 'This field is required' })}
                   fullWidth
-                  id='Mobile Number'
+                  id='mobile_number'
                   name='mobileNumber'
                   autoComplete='mobileNumber'
                   error={!!errors.mobileNumber}
@@ -291,7 +291,10 @@ const EditProfile = ({ t }) => {
                 <Typography gutterBottom variant='subtitle2'>
                   Current Employment Status
                 </Typography>
-                <FormControl className={classes.formControl} fullWidth>
+                <FormControl
+                  id='currentEmploymentStatus'
+                  className={classes.formControl}
+                  fullWidth>
                   <Controller
                     name='currentEmploymentStatus'
                     rules={{ required: 'This field is required' }}
@@ -345,6 +348,7 @@ const EditProfile = ({ t }) => {
                 </div>
                 <Controller
                   name='industriesOfExperience'
+                  id='industriesOfExperience'
                   rules={{ required: 'This field is required' }}
                   control={control}
                   as={
@@ -395,6 +399,7 @@ const EditProfile = ({ t }) => {
                 </div>
                 <Controller
                   name='languageOfAssignments'
+                  id='assignmentLanguage'
                   rules={{ required: 'This field is required' }}
                   control={control}
                   as={
@@ -434,6 +439,7 @@ const EditProfile = ({ t }) => {
 
                 <Controller
                   name='typesOfAssignments'
+                  id='assignmentTypesSelect'
                   rules={{ required: 'This field is required' }}
                   control={control}
                   as={
@@ -441,7 +447,7 @@ const EditProfile = ({ t }) => {
                       isMulti
                       options={assignmentTypes}
                       className={classes.selectControl}
-                      id='assignmentTypesSlect'
+                      id='assignmentTypesSelect'
                       value={
                         !!user.typesOfAssignments
                           ? user.typesOfAssignments.map(
@@ -481,6 +487,7 @@ const EditProfile = ({ t }) => {
                     <CreatableSelect
                       isMulti
                       options={assignmentLocations}
+                      id='locationOfAssignment'
                       defaultValue={
                         !!user.locationOfAssignments
                           ? user.locationOfAssignments.map(
@@ -508,7 +515,7 @@ const EditProfile = ({ t }) => {
                   margin='normal'
                   inputRef={register({ required: 'This field is required' })}
                   fullWidth
-                  id='dailyRate'
+                  id='daily_rate'
                   name='dailyRate'
                   error={!!errors.dailyRate}
                   defaultValue={user.dailyRate}
@@ -550,6 +557,7 @@ const EditProfile = ({ t }) => {
                           label={t('JobTitle')}
                           variant='outlined'
                           name={`experiences[${index}][title]`}
+                          id={`work-experience-title-${index}`}
                           defaultValue={item.title}
                           inputRef={register()}
                         />
@@ -562,6 +570,7 @@ const EditProfile = ({ t }) => {
                           label={t('Company')}
                           variant='outlined'
                           name={`experiences[${index}][company]`}
+                          id={`work-experience-company-${index}`}
                           defaultValue={item.company}
                           inputRef={register()}
                         />
@@ -672,6 +681,7 @@ const EditProfile = ({ t }) => {
                 <section className={classes.formControl}>
                   <Button
                     variant='contained'
+                    id='add-work-experience'
                     onClick={() => experienceForm.append({})}
                     color='primary'
                     startIcon={<Icon>add_circle</Icon>}>
@@ -713,6 +723,7 @@ const EditProfile = ({ t }) => {
                           label={t('University')}
                           variant='outlined'
                           name={`educations[${index}].school`}
+                          id={`educations[${index}]-school`}
                           defaultValue={item.school}
                           inputRef={register()}
                         />
@@ -725,6 +736,7 @@ const EditProfile = ({ t }) => {
                           label={t('Degree')}
                           variant='outlined'
                           name={`educations[${index}].degree`}
+                          id={`educations[${index}]-degree`}
                           defaultValue={item.degree}
                           inputRef={register()}
                         />
@@ -793,6 +805,7 @@ const EditProfile = ({ t }) => {
                 <section className={classes.formControl}>
                   <Button
                     variant='contained'
+                    id='add-education'
                     onClick={() => educationForm.append({})}
                     color='primary'
                     startIcon={<Icon>add_circle</Icon>}>
