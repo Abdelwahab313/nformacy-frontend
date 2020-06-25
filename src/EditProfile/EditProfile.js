@@ -40,12 +40,15 @@ import {
 } from '../constants/dropDownOptions';
 import { updateProfile } from '../apis/userAPI';
 import HelpIcon from '@material-ui/icons/Help';
+import { Hidden, Input } from '@material-ui/core';
 
 const EditProfile = ({ t }) => {
   const user = JSON.parse(localStorage.getItem('user'));
-  const { register, getValues, control, errors, handleSubmit } = useForm({
+  const { register, watch, control, errors, handleSubmit } = useForm({
     defaultValues: { ...user },
   });
+  const watchFields = watch('experiences'); // target specific fields by their names
+
   const experienceForm = useFieldArray({
     control,
     name: 'experiences',
@@ -61,13 +64,12 @@ const EditProfile = ({ t }) => {
   const [countries] = useState(countryList().getData());
   const classes = useStyles();
 
-  console.log('formValues', getValues());
   const onSubmit = (userData) => {
-    console.log('before submit', getValues());
+    console.log('submitted Data', userData);
     updateProfile({ ...userData, id: user.id })
       .then((response) => {
         console.log('succedddddd-----', response);
-        // localStorage.setItem('user', JSON.stringify(response.data));
+        localStorage.setItem('user', JSON.stringify(response.data));
       })
       .catch((error) => {
         console.log('laaaaa-----', error);
@@ -512,6 +514,15 @@ const EditProfile = ({ t }) => {
                   <Card key={item.id} className={classes.nestedCardContainer}>
                     <ReactTooltip globalEventOff={'click'} />
                     <CardContent>
+                      {!!user.experiences[index] && (
+                        <Input
+                          label={t('id')}
+                          type='hidden'
+                          name={`experiences[${index}][id]`}
+                          defaultValue={item.id}
+                          inputRef={register()}
+                        />
+                      )}
                       <Container
                         maxWidth={false}
                         className={classes.formControl}>
@@ -519,7 +530,7 @@ const EditProfile = ({ t }) => {
                           fullWidth
                           label={t('JobTitle')}
                           variant='outlined'
-                          name={`workExperience[${index}][title]`}
+                          name={`experiences[${index}][title]`}
                           defaultValue={item.title}
                           inputRef={register()}
                         />
@@ -531,7 +542,7 @@ const EditProfile = ({ t }) => {
                           fullWidth
                           label={t('Company')}
                           variant='outlined'
-                          name={`workExperience[${index}][company]`}
+                          name={`experiences[${index}][company]`}
                           defaultValue={item.company}
                           inputRef={register()}
                         />
@@ -542,14 +553,14 @@ const EditProfile = ({ t }) => {
                             maxWidth={false}
                             className={classes.formControl}>
                             <Controller
-                              name={`workExperience[${index}][startDate]`}
-                              defaultValue={new Date()}
+                              name={`experiences[${index}][startDate]`}
                               control={control}
                               as={
                                 <KeyboardDatePicker
-                                  disableToolbar
                                   variant='inline'
-                                  format='MM/dd/yyyy'
+                                  views={['year', 'month']}
+                                  format='MM/yyyy'
+                                  autoOk
                                   margin='normal'
                                   label='Start date'
                                   KeyboardButtonProps={{
@@ -563,25 +574,28 @@ const EditProfile = ({ t }) => {
                           <Container
                             maxWidth={false}
                             className={classes.formControl}>
-                            <Controller
-                              name={`workExperience[${index}][endDate]`}
-                              defaultValue={new Date()}
-                              control={control}
-                              as={
-                                <KeyboardDatePicker
-                                  disableToolbar
-                                  variant='inline'
-                                  format='MM/dd/yyyy'
-                                  margin='normal'
-                                  label='end date'
-                                  inputRef={register()}
-                                  KeyboardButtonProps={{
-                                    'aria-label': 'change date',
-                                  }}
-                                  onChange={(value) => value[0]}
+                            {!watchFields[index] ||
+                              (!watchFields[index].toDate && (
+                                <Controller
+                                  name={`experiences[${index}][endDate]`}
+                                  control={control}
+                                  as={
+                                    <KeyboardDatePicker
+                                      variant='inline'
+                                      views={['year', 'month']}
+                                      format='MM/yyyy'
+                                      autoOk
+                                      margin='normal'
+                                      label='end date'
+                                      inputRef={register()}
+                                      KeyboardButtonProps={{
+                                        'aria-label': 'change date',
+                                      }}
+                                      onChange={(value) => value[0]}
+                                    />
+                                  }
                                 />
-                              }
-                            />
+                              ))}
                           </Container>
                         </MuiPickersUtilsProvider>
                       </Container>
@@ -596,8 +610,8 @@ const EditProfile = ({ t }) => {
                             <FormControlLabel
                               control={
                                 <Checkbox
-                                  id={`workExperience[${index}].toPresent`}
-                                  name='gilad'
+                                  name={`experiences[${index}][toDate]`}
+                                  inputRef={register()}
                                 />
                               }
                               label='Present?'
@@ -646,6 +660,15 @@ const EditProfile = ({ t }) => {
                   <Card key={item.id} className={classes.nestedCardContainer}>
                     <ReactTooltip globalEventOff={'click'} />
                     <CardContent>
+                      {!!user.educations[index] && (
+                        <Input
+                          label={t('id')}
+                          type='hidden'
+                          name={`educations[${index}][id]`}
+                          defaultValue={item.id}
+                          inputRef={register()}
+                        />
+                      )}
                       <Container
                         maxWidth={false}
                         className={classes.formControl}>
@@ -653,7 +676,7 @@ const EditProfile = ({ t }) => {
                           fullWidth
                           label={t('University')}
                           variant='outlined'
-                          name={`education[${index}].school`}
+                          name={`educations[${index}].school`}
                           defaultValue={item.school}
                           inputRef={register()}
                         />
@@ -665,7 +688,7 @@ const EditProfile = ({ t }) => {
                           fullWidth
                           label={t('Degree')}
                           variant='outlined'
-                          name={`education[${index}].degree`}
+                          name={`educations[${index}].degree`}
                           defaultValue={item.degree}
                           inputRef={register()}
                         />
@@ -677,7 +700,7 @@ const EditProfile = ({ t }) => {
                           fullWidth
                           label={t('FieldOfStudy')}
                           variant='outlined'
-                          name={`education[${index}].fieldOfStudy`}
+                          name={`educations[${index}].fieldOfStudy`}
                           defaultValue={item.fieldOfStudy}
                           inputRef={register()}
                         />
@@ -688,14 +711,14 @@ const EditProfile = ({ t }) => {
                             maxWidth={false}
                             className={classes.formControl}>
                             <Controller
-                              name={`education[${index}].endDate`}
-                              defaultValue={new Date()}
+                              name={`educations[${index}].endYear`}
                               control={control}
                               as={
                                 <KeyboardDatePicker
-                                  disableToolbar
                                   variant='inline'
-                                  format='MM/dd/yyyy'
+                                  autoOk
+                                  views={['year', 'month']}
+                                  format='MM/yyyy'
                                   margin='normal'
                                   label='end date'
                                   KeyboardButtonProps={{
@@ -749,6 +772,15 @@ const EditProfile = ({ t }) => {
                   <Card key={item.id} className={classes.nestedCardContainer}>
                     <ReactTooltip globalEventOff={'click'} />
                     <CardContent>
+                      {!!user.certifications[index] && (
+                        <Input
+                          label={t('id')}
+                          type='hidden'
+                          name={`certifications[${index}][id]`}
+                          defaultValue={item.id}
+                          inputRef={register()}
+                        />
+                      )}
                       <Container
                         maxWidth={false}
                         className={classes.formControl}>
@@ -756,7 +788,7 @@ const EditProfile = ({ t }) => {
                           fullWidth
                           label={t('Name')}
                           variant='outlined'
-                          name={`certification[${index}].name`}
+                          name={`certifications[${index}].name`}
                           defaultValue={item.name}
                           inputRef={register()}
                         />
@@ -768,7 +800,7 @@ const EditProfile = ({ t }) => {
                           fullWidth
                           label={t('IssuingOrganization')}
                           variant='outlined'
-                          name={`certification[${index}].issuingOrganization`}
+                          name={`certifications[${index}].issuingOrganization`}
                           defaultValue={item.issuingOrganization}
                           inputRef={register()}
                         />
@@ -780,7 +812,7 @@ const EditProfile = ({ t }) => {
                           fullWidth
                           label={t('Credential')}
                           variant='outlined'
-                          name={`certification[${index}].credential`}
+                          name={`certifications[${index}].credential`}
                           defaultValue={item.credential}
                           inputRef={register()}
                         />
@@ -792,7 +824,7 @@ const EditProfile = ({ t }) => {
                           fullWidth
                           label={t('CredentialUrl')}
                           variant='outlined'
-                          name={`certification[${index}].credentialUrl`}
+                          name={`certifications[${index}].credentialUrl`}
                           defaultValue={item.credentialUrl}
                           inputRef={register()}
                         />
@@ -803,14 +835,14 @@ const EditProfile = ({ t }) => {
                             maxWidth={false}
                             className={classes.formControl}>
                             <Controller
-                              name={`certification[${index}].startDate`}
-                              defaultValue={new Date()}
+                              name={`certifications[${index}].startDate`}
                               control={control}
                               as={
                                 <KeyboardDatePicker
-                                  disableToolbar
                                   variant='inline'
-                                  format='MM/dd/yyyy'
+                                  autoOk
+                                  views={['year', 'month']}
+                                  format='MM/yyyy'
                                   margin='normal'
                                   label='Start date'
                                   KeyboardButtonProps={{
@@ -825,14 +857,14 @@ const EditProfile = ({ t }) => {
                             maxWidth={false}
                             className={classes.formControl}>
                             <Controller
-                              name={`certification[${index}].endDate`}
-                              defaultValue={new Date()}
+                              name={`certifications[${index}].endDate`}
                               control={control}
                               as={
                                 <KeyboardDatePicker
-                                  disableToolbar
                                   variant='inline'
-                                  format='MM/dd/yyyy'
+                                  autoOk
+                                  views={['year', 'month']}
+                                  format='MM/yyyy'
                                   margin='normal'
                                   label='end date'
                                   KeyboardButtonProps={{
@@ -856,7 +888,7 @@ const EditProfile = ({ t }) => {
                             <FormControlLabel
                               control={
                                 <Checkbox
-                                  id={`certification[${index}].doesNotExpire`}
+                                  id={`certifications[${index}].doesNotExpire`}
                                   name='gilad'
                                 />
                               }
