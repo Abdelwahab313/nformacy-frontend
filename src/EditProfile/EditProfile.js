@@ -44,10 +44,17 @@ import { Hidden, Input } from '@material-ui/core';
 
 const EditProfile = ({ t }) => {
   const user = JSON.parse(localStorage.getItem('user'));
-  const { register, watch, control, errors, handleSubmit } = useForm({
-    defaultValues: { ...user },
-  });
-  const watchFields = watch('experiences'); // target specific fields by their names
+  const { register, watch, getValues, control, errors, handleSubmit } = useForm(
+    {
+      defaultValues: { ...user },
+    },
+  );
+  const watchExperiences = watch('experiences');
+  const [deletedExperiences, setDeletedExperiences] = useState([]);
+  const [deletedEducations, setDeletedEducations] = useState([]);
+  const [deletedCertification, setDeletedCertifications] = useState([]);
+  console.log('getvalyes', getValues());
+  console.log('deletedItems', deletedCertification);
 
   const experienceForm = useFieldArray({
     control,
@@ -65,8 +72,21 @@ const EditProfile = ({ t }) => {
   const classes = useStyles();
 
   const onSubmit = (userData) => {
-    console.log('submitted Data', userData);
-    updateProfile({ ...userData, id: user.id })
+    const userToBeSubmitted = {
+      ...userData,
+      id: user.id,
+      experiences: !!userData.experiences
+        ? [...userData.experiences, ...deletedExperiences]
+        : deletedExperiences,
+      educations: !!userData.educations
+        ? [...userData.educations, ...deletedEducations]
+        : deletedEducations,
+      certifications: !!userData.certifications
+        ? [...userData.certifications, ...deletedCertification]
+        : deletedCertification,
+    };
+    console.log('submitted Data', userToBeSubmitted);
+    updateProfile(userToBeSubmitted)
       .then((response) => {
         console.log('succedddddd-----', response);
         localStorage.setItem('user', JSON.stringify(response.data));
@@ -574,8 +594,8 @@ const EditProfile = ({ t }) => {
                           <Container
                             maxWidth={false}
                             className={classes.formControl}>
-                            {!watchFields[index] ||
-                              (!watchFields[index].toDate && (
+                            {!watchExperiences[index] ||
+                              (!watchExperiences[index].toDate && (
                                 <Controller
                                   name={`experiences[${index}][endDate]`}
                                   control={control}
@@ -607,14 +627,22 @@ const EditProfile = ({ t }) => {
                           className={classes.formControl}
                           data-tip='Do you still work there?'>
                           <FormGroup>
-                            <FormControlLabel
-                              control={
-                                <Checkbox
-                                  name={`experiences[${index}][toDate]`}
-                                  inputRef={register()}
+                            <Controller
+                              name={`experiences[${index}][toDate]`}
+                              valueName='checked'
+                              type='checkbox'
+                              control={control}
+                              as={
+                                <FormControlLabel
+                                  control={
+                                    <Checkbox
+                                      name={`experiences[${index}][toDate]`}
+                                      inputRef={register()}
+                                    />
+                                  }
+                                  label='Present?'
                                 />
                               }
-                              label='Present?'
                             />
                           </FormGroup>
                         </FormControl>
@@ -624,7 +652,16 @@ const EditProfile = ({ t }) => {
                         className={classes.formControl}>
                         <Button
                           variant='contained'
-                          onClick={() => experienceForm.remove(index)}
+                          onClick={() => {
+                            if (!!item.title) {
+                              item['_destroy'] = true;
+                              setDeletedExperiences((prevItems) => [
+                                ...prevItems,
+                                item,
+                              ]);
+                            }
+                            experienceForm.remove(index);
+                          }}
                           color='secondary'
                           startIcon={<Icon>remove_circle</Icon>}>
                           Remove Work Experience
@@ -736,7 +773,16 @@ const EditProfile = ({ t }) => {
                         className={classes.formControl}>
                         <Button
                           variant='contained'
-                          onClick={() => educationForm.remove(index)}
+                          onClick={() => {
+                            if (!!item.school) {
+                              item['_destroy'] = true;
+                              setDeletedEducations((prevItems) => [
+                                ...prevItems,
+                                item,
+                              ]);
+                            }
+                            educationForm.remove(index);
+                          }}
                           color='secondary'
                           startIcon={<Icon>remove_circle</Icon>}>
                           Remove Education
@@ -902,7 +948,16 @@ const EditProfile = ({ t }) => {
                         className={classes.formControl}>
                         <Button
                           variant='contained'
-                          onClick={() => certificationForm.remove(index)}
+                          onClick={() => {
+                            if (!!item.name) {
+                              item['_destroy'] = true;
+                              setDeletedCertifications((prevItems) => [
+                                ...prevItems,
+                                item,
+                              ]);
+                            }
+                            certificationForm.remove(index);
+                          }}
                           color='secondary'
                           startIcon={<Icon>remove_circle</Icon>}>
                           Remove Certification
