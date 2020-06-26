@@ -3,7 +3,7 @@ FROM node:12.13.0-stretch as build
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json /app/package.json
-RUN npm install --silent
+RUN npm install --production --ignore-scripts --silent
 RUN npm install react-scripts -g --silent
 COPY . /app
 RUN npm run build
