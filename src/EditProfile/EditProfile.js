@@ -86,7 +86,7 @@ const EditProfile = ({ t }) => {
         : deletedCertification,
     };
     console.log('submitted Data', userToBeSubmitted);
-    updateProfile(userToBeSubmitted)
+    updateProfile(userToBeSubmitted, user.id)
       .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));
       })

@@ -10,10 +10,10 @@ const signup = (user) => {
   });
 };
 
-const updateProfile = (user) => {
+const updateProfile = (user, userId) => {
   return axios({
     method: 'put',
-    url: `${API_BASE_URL}/users/1`,
+    url: `${API_BASE_URL}/users/${userId}`,
     data: decamelizeKeys({ ...user }),
   }).then((response) => camelizeKeys(response));
 };
