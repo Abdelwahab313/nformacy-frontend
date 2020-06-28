@@ -49,6 +49,7 @@ const EditProfile = ({ t }) => {
       defaultValues: { ...user },
     },
   );
+  const [avatar, setAvatar] = useState([]);
   const watchExperiences = watch('experiences');
   const [deletedExperiences, setDeletedExperiences] = useState([]);
   const [deletedEducations, setDeletedEducations] = useState([]);
@@ -93,6 +94,24 @@ const EditProfile = ({ t }) => {
       .catch((error) => {
         console.log('laaaaa-----', error);
       });
+
+    const file = new Blob(avatar); // kind of works and choses stream as content type of file (not request)
+
+    const formData = new FormData();
+    formData.append('avatar', file, avatar[0].name);
+
+    updateProfile(formData, user.id)
+      .then((response) => {
+        localStorage.setItem('user', JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log('laaaaa-----', error);
+      });
+  };
+
+  const uploadPhoto = (picture) => {
+    setAvatar(picture);
+    console.log('----------------------AVATARRRR----------', avatar);
   };
 
   return (
@@ -133,6 +152,7 @@ const EditProfile = ({ t }) => {
                   buttonText='Choose images'
                   imgExtension={['.jpg', '.gif', '.png', 'jpeg']}
                   maxFileSize={1048576}
+                  onChange={uploadPhoto}
                 />
               </Container>
               <Container maxWidth={false} className={classes.formControl}>

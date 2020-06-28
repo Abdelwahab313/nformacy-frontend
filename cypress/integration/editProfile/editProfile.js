@@ -45,3 +45,9 @@ Then(/^then should see my updated data when i open edit profile$/, function() {
   cy.visit(BASE_URL + '/user/edit');
   cy.get('#firstName').should('have.value', 'test first name');
 });
+When(/^I Upload an image$/, function() {
+  cy.get('.chooseFileButton ').click();
+  const profilePicturePath = 'download.png';
+  cy.get('input[type="file"]').attachFile(profilePicturePath);
+});
+Then(/^I should see the image i uploaded$/, function() {});

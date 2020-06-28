@@ -18,4 +18,15 @@ const updateProfile = (user, userId) => {
   }).then((response) => camelizeKeys(response));
 };
 
-export { signup, updateProfile };
+const updateProfilePicture = (user, userId) => {
+  return axios({
+    method: 'put',
+    url: `${API_BASE_URL}/users/${userId}`,
+    data: user,
+    headers: {
+      accept: 'application/json',
+    },
+  }).then((response) => camelizeKeys(response));
+};
+
+export { signup, updateProfile, updateProfilePicture };
