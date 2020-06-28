@@ -36,9 +36,11 @@ const Register = ({ t }) => {
     passwordRepeat === getValues().password || 'Passwords do not match';
   const onSubmit = (data) => {
     setLoading(true);
+    console.log(data);
     signup(data)
       .then((result) => {
         authManager.login(result.data.token);
+        setLoggedInUser(result.data.user);
         return result;
       })
       .then((result) => {
@@ -76,7 +78,7 @@ const Register = ({ t }) => {
   }
 
   if (registerSucceeded) {
-    return <Redirect push to='/' />;
+    return <Redirect push to='/user/edit' />;
   }
   return (
     <Container component='main' maxWidth='xs' dir='ltr'>

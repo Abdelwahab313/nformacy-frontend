@@ -6,7 +6,7 @@ const signup = (user) => {
   return axios({
     method: 'post',
     url: `${API_BASE_URL}/users`,
-    data: { ...user },
+    data: decamelizeKeys({ ...user }),
   });
 };
 

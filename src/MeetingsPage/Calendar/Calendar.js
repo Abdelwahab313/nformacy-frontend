@@ -177,21 +177,23 @@ const CellBase = React.memo(
       isSameDate(date, startDate),
     );
 
-    console.log('---------------------------', selectedDay)
-
     const isFirstMonthDay = startDate.getDate() === 1;
     const formatOptions = isFirstMonthDay
       ? { day: 'numeric', month: 'long' }
       : { day: 'numeric' };
     return (
       <TableCell
-        style={availableDay? {backgroundColor: '#00a2ff'} : {}}
-        onClick={availableDay? () => {
-          dispatch({
-            type: UPDATE_SELECTED_DAY,
-            payload: startDate,
-          });
-        } : () => {}}
+        style={availableDay ? { backgroundColor: '#00a2ff' } : {}}
+        onClick={
+          availableDay
+            ? () => {
+                dispatch({
+                  type: UPDATE_SELECTED_DAY,
+                  payload: startDate,
+                });
+              }
+            : () => {}
+        }
         tabIndex={0}
         className={classNames({
           [classes.cell]: true,
@@ -199,7 +201,7 @@ const CellBase = React.memo(
         })}>
         <div className={classes.text}>
           <Grid container spacing={3} justify='space-evenly'>
-            <Grid item xs={4} style={availableDay ? {color: '#FFFFFF'} : {}}>
+            <Grid item xs={4} style={availableDay ? { color: '#FFFFFF' } : {}}>
               {formatDate(startDate, formatOptions)}
             </Grid>
             <Grid item xs={4} alignItems='right'>

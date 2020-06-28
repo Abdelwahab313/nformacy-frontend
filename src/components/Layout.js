@@ -1,11 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
-import { Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import SideBar from './drawer/SideBar';
 import PrivateRoute from './PrivateRoute';
 import HomePage from '../HomePage';
 import MeetingsPage from '../MeetingsPage';
 import EditMeetingPage from '../MeetingsPage/EditMeetingPage';
+import EditProfile from '../EditProfile/EditProfile';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +35,7 @@ function Layout(props) {
       <div className={classes.AppContainer}>
         <Switch>
           <PrivateRoute exact path='/' component={HomePage} />
+          <Route path='/user/edit' component={EditProfile} />
           <PrivateRoute exact path='/meeting/list' component={MeetingsPage} />
           <PrivateRoute
             exact

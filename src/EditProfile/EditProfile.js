@@ -41,6 +41,7 @@ import {
 import { updateProfile } from '../apis/userAPI';
 import HelpIcon from '@material-ui/icons/Help';
 import { Hidden, Input } from '@material-ui/core';
+import { useAuth } from '../auth/auth';
 
 const EditProfile = ({ t }) => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -49,6 +50,7 @@ const EditProfile = ({ t }) => {
       defaultValues: { ...user },
     },
   );
+  const { setLoggedInUser } = useAuth();
   const watchExperiences = watch('experiences');
   const [deletedExperiences, setDeletedExperiences] = useState([]);
   const [deletedEducations, setDeletedEducations] = useState([]);
@@ -88,8 +90,7 @@ const EditProfile = ({ t }) => {
     console.log('submitted Data', userToBeSubmitted);
     updateProfile(userToBeSubmitted)
       .then((response) => {
-        console.log('succedddddd-----', response);
-        localStorage.setItem('user', JSON.stringify(response.data));
+        setLoggedInUser(response.user);
       })
       .catch((error) => {
         console.log('laaaaa-----', error);
@@ -980,12 +981,12 @@ const EditProfile = ({ t }) => {
           </Paper>
           <Container maxWidth={false} className={classes.formControl} />
           <Button
-            id='register'
+            id='save'
             type='submit'
             variant='contained'
             color='primary'
             className={[classes.editButton, classes.submit]}>
-            {t('Register')}
+            {t('Save')}
           </Button>
         </form>
       </div>

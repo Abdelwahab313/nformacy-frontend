@@ -74,6 +74,10 @@ const useStyles = makeStyles((theme) => ({
     color: 'red',
     margin: theme.spacing(1),
   },
+  signupLink: {
+    margin: theme.spacing(1),
+    color: 'royalblue',
+  },
 }));
 
 export default useStyles;

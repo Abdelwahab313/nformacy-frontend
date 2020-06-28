@@ -54,7 +54,6 @@ function App() {
           <Switch>
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Register} />
-            <Route path='/edit' component={EditProfile} />
             <Route path='/logout' component={Logout} />
             <PrivateRoute path='/' component={Layout} />
           </Switch>

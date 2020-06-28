@@ -8,6 +8,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import VideoCallIcon from '@material-ui/icons/VideoCall';
 import HomeIcon from '@material-ui/icons/Home';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Link } from 'react-router-dom';
 
@@ -67,10 +68,23 @@ function SideBar(props) {
             <ListItemText primary={'Home'} />
           </ListItem>
           <ListItem
-            id={'meeting'}
+            id={'editProfile'}
             button
             onClick={() => setSelectedItem(2)}
             selected={selectedItem === 2}
+            key={'editProfile'}
+            component={Link}
+            to={'/user/edit'}>
+            <ListItemIcon>
+              <AccountBoxIcon />{' '}
+            </ListItemIcon>
+            <ListItemText primary={'Edit Profile'} />
+          </ListItem>
+          <ListItem
+            id={'meeting'}
+            button
+            onClick={() => setSelectedItem(3)}
+            selected={selectedItem === 3}
             key={'Meeting'}
             component={Link}
             to={'/meeting/list'}>

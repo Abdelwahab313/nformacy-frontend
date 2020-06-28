@@ -136,6 +136,9 @@ const Login = ({ location, t }) => {
               {t('Invalid Email or password')}
             </span>
           )}
+          <a className={classes.signupLink} href={'signup'}>
+            Don't have account signup now!
+          </a>
           <Button
             id='login'
             type='submit'
