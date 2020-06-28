@@ -40,8 +40,7 @@ import {
 } from '../constants/dropDownOptions';
 import { updateProfile } from '../apis/userAPI';
 import HelpIcon from '@material-ui/icons/Help';
-import { Hidden, Input } from '@material-ui/core';
-import { useAuth } from '../auth/auth';
+import { Input } from '@material-ui/core';
 
 const EditProfile = ({ t }) => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -50,7 +49,6 @@ const EditProfile = ({ t }) => {
       defaultValues: { ...user },
     },
   );
-  const { setLoggedInUser } = useAuth();
   const watchExperiences = watch('experiences');
   const [deletedExperiences, setDeletedExperiences] = useState([]);
   const [deletedEducations, setDeletedEducations] = useState([]);
@@ -90,7 +88,7 @@ const EditProfile = ({ t }) => {
     console.log('submitted Data', userToBeSubmitted);
     updateProfile(userToBeSubmitted)
       .then((response) => {
-        setLoggedInUser(response.user);
+        localStorage.setItem('user', JSON.stringify(response.data));
       })
       .catch((error) => {
         console.log('laaaaa-----', error);
