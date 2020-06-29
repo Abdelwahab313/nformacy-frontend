@@ -10,4 +10,15 @@ Feature: select freelancer to schedule a call
     When click on the meeting details
     Then should see meeting details page with proposed freelancers
     And freelancers list should be selectable
-  
+    
+  Scenario: Calendar for freelancer
+    Given I am a client 
+    And have already requested a call with freelancer
+    And logged in
+    When go to meeting page
+    And click on the meeting details
+    And select a freelancer
+    Then I should see calendar dialog opened
+    And available days are highlighted
+    When I click on a date 
+    Then I should see available times bar on the right

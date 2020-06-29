@@ -136,7 +136,7 @@ function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
         open={isCalendarOpened}
         TransitionComponent={Transition}
         maxWidth={'lg'}
-        id={'add-user-dialog'}>
+        id={'calendar-dialog'}>
         <DialogTitle id='alert-dialog-title'>
           {'Please pick available date to schedule the call'}
         </DialogTitle>
