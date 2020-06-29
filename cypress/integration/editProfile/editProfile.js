@@ -24,6 +24,10 @@ When(/^I fill my updated data$/, function() {
   cy.get('#daily_rate').type('123');
   cy.get('#currentEmploymentStatus').click();
   cy.get('#react-select-4-option-0').click();
+  cy.get('#majorFieldsOfExperienceSelect').click();
+  cy.get('#react-select-5-option-0').click();
+  cy.get('#specificFieldsOfExperienceSelect').click();
+  cy.get('#react-select-6-option-0').click();
   cy.get('#industriesOfExperience').click();
   cy.get('#react-select-5-option-0').click();
   cy.get('#assignmentLanguage').click();

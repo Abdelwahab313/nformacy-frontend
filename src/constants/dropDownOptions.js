@@ -163,6 +163,223 @@ const industries = [
   },
 ];
 
+const fieldsOfExperience = [
+  {
+    value: 'finance',
+    label: 'Finance',
+    subfield: [
+      { label: 'Auditing', value: 'auditing' },
+      { label: 'Accounting', value: 'accounting' },
+      { label: 'Costing', value: 'costing' },
+      { label: 'Financial Analysis', value: 'financialAnalysis' },
+      { label: 'Management Accounting', value: 'managementAccounting' },
+      { label: 'Banking Solutions', value: 'bankingSolutions' },
+      { label: 'Investment', value: 'investment' },
+      { label: 'Credit Management', value: 'creditManagement' },
+      { label: 'Insurance', value: 'insurance' },
+      { label: 'Capital Management', value: 'capitalManagement' },
+      { label: 'Risk Management', value: 'riskManagement' },
+    ],
+  },
+  {
+    value: 'humanResource',
+    label: 'Human Resource',
+    subfield: [
+      { label: 'HR Strategic Planning', value: 'hRStrategicPlanning' },
+      { label: 'Performance Management', value: 'performanceManagement' },
+      { label: 'HR Analytics and Reporting', value: 'hRAnalyticsAndReporting' },
+      { label: 'HR Data Science', value: 'hRDataScience' },
+      {
+        label: 'Compensations and Benefits',
+        value: 'compensationsAndBenefits',
+      },
+      { label: 'HR Operations', value: 'hROperations' },
+      { label: 'Career Management', value: 'careerManagement' },
+      { label: 'Talent Management', value: 'talentManagement' },
+      { label: 'Recruitment', value: 'recruitment' },
+      { label: 'Learning and Development', value: 'learningAndDevelopment' },
+      {
+        label: 'Organization Design and Development',
+        value: 'organizationDesignAndDevelopment',
+      },
+      { label: 'Organization Culture', value: 'organizationCulture' },
+    ],
+  },
+  {
+    value: 'marketingAndPR',
+    label: 'Marketing and PR',
+    subfield: [
+      { label: 'Product Design', value: 'productDesign' },
+      { label: 'Digital Marketing', value: 'digitalMarketing' },
+      { label: 'Promotion and advertising', value: 'promotionAndAdvertising' },
+      { label: 'Market Research', value: 'marketResearch' },
+      {
+        label: 'Corporate Social Responsibility',
+        value: 'corporateSocialResponsibility',
+      },
+      { label: 'Press and Media Management', value: 'pressAndMediaManagement' },
+    ],
+  },
+  {
+    value: 'formalEducation',
+    label: 'Formal Education',
+    subfield: [
+      { label: 'Curriculum Design', value: 'curriculumDesign' },
+      { label: 'Teaching Techniques', value: 'teachingTechniques' },
+      { label: 'Schools Management', value: 'schoolsManagement' },
+      { label: 'Universities Management', value: 'universitiesManagement' },
+    ],
+  },
+  {
+    value: 'development',
+    label: 'Development',
+    subfield: [
+      {
+        label: 'Development Programs Design',
+        value: 'developmentProgramsDesign',
+      },
+      {
+        label: 'Development Programs Delivery',
+        value: 'developmentProgramsDelivery',
+      },
+      { label: 'Coaching', value: 'coaching' },
+    ],
+  },
+  {
+    value: 'entrepreneurshipStartups',
+    label: 'Entrepreneurship & Start ups',
+    subfield: [
+      { label: 'Strategy', value: 'strategy' },
+      { label: 'Financial Modeling', value: 'financialModeling' },
+      { label: 'Technology', value: 'technology' },
+      { label: 'Market Studies', value: 'marketStudies' },
+      { label: 'Lean Startup Methods', value: 'leanStartupMethods' },
+      { label: 'Operations Management', value: 'operationsManagement' },
+    ],
+  },
+  {
+    value: 'strategy',
+    label: 'Strategy',
+    subfield: [
+      { label: 'Strategic Planning', value: 'strategicPlanning' },
+      { label: 'Strategy Execution', value: 'strategyExecution' },
+      { label: 'Business Modeling', value: 'businessModeling' },
+      { label: 'Organization Performance', value: 'organizationPerformance' },
+      { label: 'Sustainability', value: 'sustainability' },
+      { label: 'Business Planning', value: 'businessPlanning' },
+    ],
+  },
+  {
+    value: 'operationsManagement',
+    label: 'Operations Management',
+    subfield: [
+      { label: 'Process Optimization', value: 'processOptimization' },
+      { label: 'Quality Assurance', value: 'qualityAssurance' },
+      { label: 'Operations Management', value: 'operationsManagement' },
+      { label: 'Outsourcing', value: 'outsourcing' },
+    ],
+  },
+  {
+    value: 'supplyChain',
+    label: 'Supply Chain',
+    subfield: [
+      { label: 'Procurement', value: 'procurement' },
+      { label: 'Logistics', value: 'logistics' },
+      { label: 'Warehouse Management', value: 'warehouseManagement' },
+      { label: 'Fleets Management', value: 'fleetsManagement' },
+      { label: 'Shipments', value: 'shipments' },
+      { label: 'Channels', value: 'channels' },
+    ],
+  },
+  {
+    value: 'digitization',
+    label: 'digitization',
+    subfield: [
+      { label: 'Automation', value: 'automation' },
+      { label: 'Digital Strategy design', value: 'digitalStrategyDesign' },
+      {
+        label: 'Digital Strategy Execution',
+        value: 'digitalStrategyExecution',
+      },
+      { label: 'ERP', value: 'eRP' },
+      { label: 'Big Data', value: 'bigData' },
+    ],
+  },
+  {
+    value: 'salesAndCustomerCare',
+    label: 'Sales and Customer Care',
+    subfield: [
+      { label: 'Whole sales', value: 'wholeSales' },
+      { label: 'Retail', value: 'retail' },
+      { label: 'Channels Management', value: 'channelsManagement' },
+      { label: 'Stores Management', value: 'storesManagement' },
+      { label: 'Customer Journey', value: 'customerJourney' },
+      { label: 'Customer Care Strategies', value: 'customerCareStrategies' },
+    ],
+  },
+  {
+    value: 'legal',
+    label: 'Legal',
+    subfield: [
+      { label: 'Corporates Law', value: 'corporatesLaw' },
+      { label: 'Digital Law', value: 'digitalLaw' },
+      { label: 'Employment Law', value: 'employmentLaw' },
+      { label: 'Copy Rights', value: 'copyRights' },
+      { label: 'Disputes Resolution', value: 'disputesResolution' },
+      { label: 'Commercial Law', value: 'commercialLaw' },
+      { label: 'Banking and Finance', value: 'bankingAndFinance' },
+      { label: 'Mobile Money', value: 'mobileMoney' },
+      { label: 'Integrity and Compliance', value: 'integrityAndCompliance' },
+    ],
+  },
+  {
+    value: 'finTech',
+    label: 'finTech',
+    subfield: [
+      { label: 'Blockchain', value: 'blockchain' },
+      { label: 'Payments (PayTech)', value: 'payments(PayTech)' },
+      { label: 'Lending (LendTech)', value: 'lending(LendTech)' },
+      { label: 'Regulatory (RegTeh)', value: 'regulatory(RegTeh)' },
+      { label: 'Trading (TradTech)', value: 'trading(TradTech)' },
+    ],
+  },
+  {
+    value: 'environment',
+    label: 'Environment',
+    subfield: [
+      { label: 'Renewable Energy', value: 'renewableEnergy' },
+      { label: 'Waste', value: 'waste' },
+      { label: 'Recycling', value: 'recycling' },
+      {
+        label: 'Environmental Risk Assessment',
+        value: 'environmentalRiskAssessment',
+      },
+      { label: 'Urban Planning', value: 'urbanPlanning' },
+    ],
+  },
+  {
+    value: 'projectManagement',
+    label: 'Project Management',
+    subfield: [
+      {
+        label: 'Projects Design and planning',
+        value: 'projectsDesignAndPlanning',
+      },
+      { label: 'Fundraising', value: 'fundraising' },
+      { label: 'Teams Management', value: 'teamsManagement' },
+    ],
+  },
+  {
+    value: 'analytics',
+    label: 'Analytics',
+    subfield: [
+      { label: 'Data Analysis', value: 'dataAnalysis' },
+      { label: 'Market Trends', value: 'marketTrends' },
+      { label: 'Big Data', value: 'bigData' },
+    ],
+  },
+];
+
 export {
   gender,
   employmentStatus,
@@ -170,4 +387,5 @@ export {
   assignmentTypes,
   assignmentLocations,
   industries,
+  fieldsOfExperience,
 };
