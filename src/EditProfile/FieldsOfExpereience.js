@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import HelpIcon from '@material-ui/icons/Help';
@@ -22,8 +22,7 @@ const FieldsOfExperience = ({ user }) => {
   const classes = useStyles();
 
   return (
-    <>
-      ' '
+    <Fragment>
       <Container maxWidth={false} className={classes.formControl}>
         <div className={classes.formHeader}>
           <Typography gutterBottom variant='subtitle2'>
@@ -111,7 +110,6 @@ const FieldsOfExperience = ({ user }) => {
         />
         <ErrorMessage errorField={errors.majorFieldsOfExperience} />
       </Container>
-      ' '
       <Container maxWidth={false} className={classes.formControl}>
         <div className={classes.formHeader}>
           <Typography gutterBottom variant='subtitle2'>
@@ -153,8 +151,7 @@ const FieldsOfExperience = ({ user }) => {
         />
         <ErrorMessage errorField={errors.specificFieldsOfExperience} />
       </Container>
-      ' '
-    </>
+    </Fragment>
   );
 };
 
