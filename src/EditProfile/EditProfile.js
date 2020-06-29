@@ -38,7 +38,7 @@ import {
   gender,
   industries,
 } from '../constants/dropDownOptions';
-import { updateProfile } from '../apis/userAPI';
+import { updateProfile, updateProfilePicture } from '../apis/userAPI';
 import HelpIcon from '@material-ui/icons/Help';
 import { Input } from '@material-ui/core';
 
@@ -95,18 +95,19 @@ const EditProfile = ({ t }) => {
         console.log('laaaaa-----', error);
       });
 
-    const file = new Blob(avatar); // kind of works and choses stream as content type of file (not request)
+    if (avatar.length > 0) {
+      const file = new Blob(avatar);
+      const formData = new FormData();
+      formData.append('avatar', file, avatar[0].name);
 
-    const formData = new FormData();
-    formData.append('avatar', file, avatar[0].name);
-
-    updateProfile(formData, user.id)
-      .then((response) => {
-        localStorage.setItem('user', JSON.stringify(response.data));
-      })
-      .catch((error) => {
-        console.log('laaaaa-----', error);
-      });
+      updateProfilePicture(formData, user.id)
+        .then((response) => {
+          localStorage.setItem('user', JSON.stringify(response.data));
+        })
+        .catch((error) => {
+          console.log('laaaaa-----', error);
+        });
+    }
   };
 
   const uploadPhoto = (picture) => {
