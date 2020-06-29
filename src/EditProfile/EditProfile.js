@@ -48,6 +48,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import { Input } from '@material-ui/core';
 import FieldsOfExperience from './FieldsOfExpereience';
 import ErrorMessage from '../components/errors/ErrorMessage';
+import PersonalInfo from '../components/forms/PersonalInfo';
 
 const EditProfile = ({ t }) => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -79,7 +80,6 @@ const EditProfile = ({ t }) => {
     control,
     name: 'certifications',
   });
-  const [countries] = useState(countryList().getData());
   const classes = useStyles();
 
   const onSubmit = (userData) => {
@@ -102,6 +102,7 @@ const EditProfile = ({ t }) => {
       })
       .catch((error) => {});
 
+    debugger;
     if (avatar.length > 0) {
       const file = new Blob(avatar);
       const formData = new FormData();
@@ -135,6 +136,8 @@ const EditProfile = ({ t }) => {
         </Typography>
         <FormContext
           control={control}
+          register={register}
+          user={user}
           errors={errors}
           setValue={setValue}
           getValues={getValues}>
@@ -230,135 +233,7 @@ const EditProfile = ({ t }) => {
                 </Container>
               </Container>
             </Paper>
-            <Paper className={classes.paperSection} elevation={5}>
-              <Container>
-                <Grid container alignItems='center'>
-                  <Grid item xs>
-                    <Typography gutterBottom variant='h4'>
-                      Personal info
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Divider variant='middle' />
-                <Container maxWidth={false} className={classes.formControl}>
-                  <FormControl fullWidth className={classes.formControl}>
-                    <Typography gutterBottom variant='subtitle2'>
-                      Gender
-                    </Typography>
-                    <Controller
-                      name='gender'
-                      rules={{ required: 'This field is required' }}
-                      control={control}
-                      defaultValue={user.gender || ''}
-                      as={
-                        <ReactSelectMaterialUi
-                          fullWidth
-                          id='genderSelect'
-                          placeholder='Select your gender'
-                          SelectProps={{
-                            styles: {
-                              menu: (provided) => ({
-                                ...provided,
-                                zIndex: 9999,
-                              }),
-                            },
-                            variant: 'outlined',
-                          }}
-                          options={gender}
-                        />
-                      }
-                    />
-                    <ErrorMessage errorField={errors.gender} />
-                  </FormControl>
-                </Container>
-                <Container maxWidth={false} className={classes.formControl}>
-                  <div className={classes.formHeader}>
-                    <Typography gutterBottom variant='subtitle2'>
-                      Country
-                    </Typography>
-                    <HelpIcon
-                      className={classes.formHeaderIcon}
-                      data-tip='Select your country of residence'
-                      color='primary'
-                      fontSize='small'
-                    />
-                  </div>
-
-                  <Controller
-                    name='country'
-                    rules={{ required: 'This field is required' }}
-                    control={control}
-                    defaultValue={!user.country && 0}
-                    as={
-                      <ReactSelectMaterialUi
-                        id='country-select'
-                        fullWidth={true}
-                        placeholder='Select your country'
-                        SelectProps={{
-                          styles: {
-                            menu: (provided) => ({ ...provided, zIndex: 9999 }),
-                          },
-                          variant: 'outlined',
-                        }}
-                        options={countries}
-                      />
-                    }
-                  />
-                  <ErrorMessage errorField={errors.country} />
-                </Container>
-                <Container maxWidth={false} className={classes.formControl}>
-                  <Typography gutterBottom variant='subtitle2'>
-                    Mobile Number
-                  </Typography>
-                  <TextField
-                    variant='outlined'
-                    margin='normal'
-                    inputRef={register({ required: 'This field is required' })}
-                    fullWidth
-                    id='mobile_number'
-                    name='mobileNumber'
-                    autoComplete='mobileNumber'
-                    error={!!errors.mobileNumber}
-                    autoFocus
-                  />
-                  <ErrorMessage errorField={errors.mobileNumber} />
-                </Container>
-                <Container maxWidth={false} className={classes.formControl}>
-                  <Typography gutterBottom variant='subtitle2'>
-                    Current Employment Status
-                  </Typography>
-                  <FormControl
-                    id='currentEmploymentStatus'
-                    className={classes.formControl}
-                    fullWidth>
-                    <Controller
-                      name='currentEmploymentStatus'
-                      rules={{ required: 'This field is required' }}
-                      control={control}
-                      defaultValue={!user.currentEmploymentStatus && 0}
-                      as={
-                        <ReactSelectMaterialUi
-                          fullWidth
-                          id='employmentStatus'
-                          placeholder='Current Employment Status'
-                          SelectProps={{
-                            styles: {
-                              menu: (provided) => ({
-                                ...provided,
-                                zIndex: 9999,
-                              }),
-                            },
-                            variant: 'outlined',
-                          }}
-                          options={employmentStatus}
-                        />
-                      }
-                    />
-                    <ErrorMessage errorField={errors.currentEmploymentStatus} />
-                  </FormControl>
-                </Container>
-              </Container>
-            </Paper>
+            <PersonalInfo />
             <Paper className={classes.paperSection} elevation={5}>
               <Container>
                 <Grid container alignItems='center'>

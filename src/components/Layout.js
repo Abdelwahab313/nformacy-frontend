@@ -7,6 +7,7 @@ import HomePage from '../HomePage';
 import MeetingsPage from '../MeetingsPage';
 import EditMeetingPage from '../MeetingsPage/EditMeetingPage';
 import EditProfile from '../EditProfile/EditProfile';
+import FreeLancerProfileForm from '../FreelancerProfile/FreelancerProfileForm';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +36,7 @@ function Layout(props) {
       <div className={classes.AppContainer}>
         <Switch>
           <PrivateRoute exact path='/' component={HomePage} />
-          <Route path='/user/edit' component={EditProfile} />
+          <PrivateRoute path='/user/edit' component={EditProfile} />
           <PrivateRoute exact path='/meeting/list' component={MeetingsPage} />
           <PrivateRoute
             exact

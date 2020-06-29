@@ -16,8 +16,10 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
+  maleFemaleIcon: {
+    margin: theme.spacing(1),
+  },
   paperSection: {
-    width: '40%',
     marginTop: theme.spacing(5),
     padding: theme.spacing(3),
   },

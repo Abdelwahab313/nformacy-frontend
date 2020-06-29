@@ -16,6 +16,7 @@ import Register from '../Register/Register';
 import EditProfile from '../EditProfile/EditProfile';
 import authManager from '../services/authManager';
 import Logout from '../auth/LogoutUser';
+import FreeLancerProfileForm from '../FreelancerProfile/FreelancerProfileForm';
 
 const presets = preset().plugins;
 
@@ -55,6 +56,10 @@ function App() {
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Register} />
             <Route path='/logout' component={Logout} />
+            <PrivateRoute
+              path='/user/profile'
+              component={FreeLancerProfileForm}
+            />
             <PrivateRoute path='/' component={Layout} />
           </Switch>
         </AuthContext.Provider>

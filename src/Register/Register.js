@@ -78,7 +78,7 @@ const Register = ({ t }) => {
   }
 
   if (registerSucceeded) {
-    return <Redirect push to='/user/edit' />;
+    return <Redirect push to='/user/profile' />;
   }
   return (
     <Container component='main' maxWidth='xs' dir='ltr'>
