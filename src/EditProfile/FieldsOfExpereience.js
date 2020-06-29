@@ -12,7 +12,7 @@ const FieldsOfExperience = ({ user }) => {
   const { control, errors, setValue, getValues } = useFormContext();
   const defaultExperiencesOptions = user?.majorFieldsOfExperience?.map(
     (userMajor) =>
-      fieldsOfExperience.find((exp) => exp.value === userMajor.value).subfield,
+      fieldsOfExperience.find((exp) => exp.value === userMajor.value)?.subfield,
   );
   const [specificFields, setSpecificFields] = useState(
     defaultExperiencesOptions
@@ -61,23 +61,21 @@ const FieldsOfExperience = ({ user }) => {
             } else if (action === 'remove-value') {
               const { removedValue } = selectionAction;
               const selectedSpecificFields = fieldsOfExperience.find(
-                (exp) => exp.value === removedValue.value,
-              ).subfield;
-              const allSelections = specificFields.filter(
+                (exp) => exp.value === removedValue?.value,
+              )?.subfield;
+              const allSelections = specificFields?.filter(
                 (exp) =>
-                  selectedSpecificFields.filter(
+                  selectedSpecificFields?.filter(
                     (selectedExp) => selectedExp.value === exp.value,
                   ).length === 0,
               );
               const selectedValues = getValues('specificFieldsOfExperience');
-              const filteredSelectedValues =
-                selectedValues &&
-                selectedValues.filter(
-                  (exp) =>
-                    selectedSpecificFields.filter(
-                      (selectedExp) => selectedExp.value === exp.value,
-                    ).length === 0,
-                );
+              const filteredSelectedValues = selectedValues?.filter(
+                (exp) =>
+                  selectedSpecificFields?.filter(
+                    (selectedExp) => selectedExp.value === exp.value,
+                  ).length === 0,
+              );
               setValue('specificFieldsOfExperience', filteredSelectedValues);
               setSpecificFields(allSelections);
               return getValues('majorFieldsOfExperience').filter(
@@ -144,7 +142,7 @@ const FieldsOfExperience = ({ user }) => {
                         return specificFields.find(
                           (specificFieldOfExperience) =>
                             userSpecificFieldOfExperience ===
-                            specificFieldOfExperience.value,
+                            specificFieldOfExperience?.value,
                         );
                       },
                     )
