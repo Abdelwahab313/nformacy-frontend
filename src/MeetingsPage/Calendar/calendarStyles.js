@@ -18,7 +18,7 @@ const calendarStyles = (theme) => ({
     userSelect: 'none',
     verticalAlign: 'top',
     padding: 0,
-    height: 100,
+    height: '6em',
     borderLeft: getBorder(theme),
     '&:first-child': {
       borderLeft: 'none',

@@ -6,8 +6,6 @@ import classNames from 'clsx';
 import {
   Scheduler,
   MonthView,
-  WeekView,
-  ViewSwitcher,
   Toolbar,
   TodayButton,
   DateNavigator,
@@ -41,30 +39,28 @@ const CellBase = React.memo(
       return d.date;
     });
 
-    const availableDay = freelancerAvailableDates.some((date) =>
+    const isAvailableDay = freelancerAvailableDates.some((date) =>
       isSameDate(date, startDate),
     );
-
+    const onSelectDay = () => {
+      if (isAvailableDay) {
+        dispatch({
+          type: UPDATE_SELECTED_DAY,
+          payload: startDate,
+        });
+      }
+    };
     const isFirstMonthDay = startDate.getDate() === 1;
     const formatOptions = isFirstMonthDay
       ? { day: 'numeric', month: 'long' }
       : { day: 'numeric' };
     return (
       <TableCell
-        style={availableDay ? { backgroundColor: '#00a2ff' } : {}}
-        onClick={
-          availableDay
-            ? () => {
-                dispatch({
-                  type: UPDATE_SELECTED_DAY,
-                  payload: startDate,
-                });
-              }
-            : () => {}
-        }
+        style={isAvailableDay ? { backgroundColor: '#00a2ff' } : {}}
+        onClick={onSelectDay}
         tabIndex={0}
         className={classNames({
-          availableCell: availableDay,
+          availableCell: isAvailableDay,
           [classes.cell]: true,
           [classes.opacity]: otherMonth,
         })}>
@@ -74,13 +70,13 @@ const CellBase = React.memo(
               item
               xs={4}
               className={classNames({
-                [classes.availableDay]: availableDay,
+                [classes.availableDay]: isAvailableDay,
                 dayText: true,
               })}>
               {formatDate(startDate, formatOptions)}
             </Grid>
             <Grid item xs={4} alignItems='right'>
-              {isSameDate(startDate, selectedDay) && availableDay && (
+              {isSameDate(startDate, selectedDay) && isAvailableDay && (
                 <CheckCircleOutlineIcon
                   id={'selectedDayIcon'}
                   style={{ color: '#FFFFFF' }}
@@ -96,23 +92,21 @@ const CellBase = React.memo(
 
 const TimeTableCell = withStyles(calendarStyles, { name: 'Cell' })(CellBase);
 
-const Calendar = () => {
+const CalendarView = () => {
   return (
-    <Paper style={{ width: '720px' }}>
+    <Paper>
       <Scheduler>
         <ViewState defaultCurrentDate={Date.now()} />
         <MonthView
           timeTableCellComponent={TimeTableCell}
           dayScaleCellComponent={DayScaleCell}
         />
-        <WeekView startDayHour={9} endDayHour={19} />
         <Toolbar />
         <DateNavigator />
-        <ViewSwitcher />
         <TodayButton />
       </Scheduler>
     </Paper>
   );
 };
 
-export default Calendar;
+export default CalendarView;

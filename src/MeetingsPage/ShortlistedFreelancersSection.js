@@ -1,14 +1,5 @@
 import React, { useState, Fragment } from 'react';
-import {
-  Card,
-  Dialog,
-  Slide,
-  DialogTitle,
-  DialogContent,
-  Button,
-  DialogActions,
-  Grid,
-} from '@material-ui/core';
+import { Card } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -20,55 +11,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import EventIcon from '@material-ui/icons/Event';
 import IconButton from '@material-ui/core/IconButton';
-import Calendar from './Calendar/Calendar';
-import { CalendarProvider } from './Calendar/Context/CalendarContext';
-
-const dates = [
-  {
-    type: 'date',
-    date: '2020-06-27',
-    intervals: [
-      {
-        from: '09:00',
-        to: '17:00',
-        excluded_memberships: [],
-      },
-    ],
-  },
-  {
-    type: 'date',
-    date: '2020-06-28',
-    intervals: [
-      {
-        from: '09:00',
-        to: '17:00',
-        excluded_memberships: [],
-      },
-    ],
-  },
-  {
-    type: 'date',
-    date: '2020-06-29',
-    intervals: [
-      {
-        from: '09:00',
-        to: '17:00',
-        excluded_memberships: [],
-      },
-    ],
-  },
-  {
-    type: 'date',
-    date: '2020-06-30',
-    intervals: [
-      {
-        from: '09:00',
-        to: '17:00',
-        excluded_memberships: [],
-      },
-    ],
-  },
-];
+import CalendarDialog from './Calendar/CalendarDialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -77,10 +20,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
 }));
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction='up' ref={ref} {...props} />;
-});
 
 function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
   const classes = useStyles();
@@ -132,34 +71,10 @@ function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
         ))}
       </List>
 
-      <Dialog
+      <CalendarDialog
         open={isCalendarOpened}
-        TransitionComponent={Transition}
-        maxWidth={'lg'}
-        id={'calendar-dialog'}>
-        <DialogTitle id='alert-dialog-title'>
-          {'Please pick available date to schedule the call'}
-        </DialogTitle>
-
-        <DialogContent>
-          <Grid>
-            <CalendarProvider initialValue={{ availableDates: dates }}>
-              <Calendar />
-            </CalendarProvider>
-          </Grid>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setIsCalendarOpened(false)} color='primary'>
-            Disagree
-          </Button>
-          <Button
-            onClick={() => setIsCalendarOpened(false)}
-            color='primary'
-            autoFocus>
-            Agree
-          </Button>
-        </DialogActions>
-      </Dialog>
+        onClose={() => setIsCalendarOpened(false)}
+      />
     </Card>
   );
 }

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer } from 'react';
-import { UPDATE_SELECTED_DAY } from './contextActions';
+import { UPDATE_SELECTED_DAY, UPDATE_SELECTED_TIME } from './contextActions';
 
 const CalendarContext = createContext();
 const defaultValues = {
@@ -28,6 +28,8 @@ const useCalendarState = () => {
 const calendarReducer = (state, action) => {
   switch (action.type) {
     case UPDATE_SELECTED_DAY:
+      return { ...state, selectedDay: action.payload };
+    case UPDATE_SELECTED_TIME:
       return { ...state, selectedDay: action.payload };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
