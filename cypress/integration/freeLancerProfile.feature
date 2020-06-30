@@ -3,7 +3,6 @@ Feature:
   Scenario: Successful completion
     Given I am a freelancer and registered
     Then I am on the freelancer profile completion form
-    Then I should see multistep form.
     And I should see step one form
     When I fill personal info data
     And click next

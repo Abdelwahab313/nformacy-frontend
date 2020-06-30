@@ -13,11 +13,9 @@ Given(/^I am a freelancer and registered$/, function() {
 });
 
 Then(/^I am on the freelancer profile completion form$/, function() {
-  cy.get('#stepsPercentage');
-});
-Then(/^I should see multistep form\.$/, function() {
   cy.get('#multiStepForm');
 });
+
 Then(/^I should see step one form$/, function() {
   cy.get('#stepOneForm');
 });

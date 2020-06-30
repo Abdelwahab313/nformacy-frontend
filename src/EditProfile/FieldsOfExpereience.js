@@ -5,7 +5,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import { Controller, useFormContext } from 'react-hook-form';
 import { fieldsOfExperience } from '../constants/dropDownOptions';
 import ReactSelect from 'react-select';
-import useStyles from '../styles/formsStyles';
+import { useStyles } from '../styles/formsStyles';
 import ErrorMessage from '../components/errors/ErrorMessage';
 
 const FieldsOfExperience = ({ user }) => {

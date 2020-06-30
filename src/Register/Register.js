@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import { useForm } from 'react-hook-form';
 import { withNamespaces } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import useStyles from '../styles/formsStyles';
+import { useStyles } from '../styles/formsStyles';
 import { signup } from '../apis/userAPI';
 import { useAuth } from '../auth/auth';
 import { Redirect } from 'react-router';

@@ -20,7 +20,7 @@ When(/^I fill my updated data$/, function() {
   cy.get('#email').clear();
   cy.get('#email').type('client@test.com');
   cy.get('#mobile_number').clear();
-  cy.get('#mobile_number').type('0111111111');
+  cy.get('#mobile_number').type('201069942659');
   cy.get('#daily_rate').type('123');
   cy.get('#currentEmploymentStatus').click();
   cy.get('#react-select-3-option-0').click();
@@ -33,7 +33,7 @@ When(/^I fill my updated data$/, function() {
   cy.get('#assignmentLanguage').click();
   cy.get('#react-select-7-option-0').click();
   cy.get('#assignmentTypesSelect').click();
-  cy.get('#react-select-8-option-1').click();
+  cy.get('#react-select-8-option-0').click();
   cy.get('#locationOfAssignment').click();
   cy.get('#react-select-9-option-0').click();
   cy.get('#add-work-experience').click();

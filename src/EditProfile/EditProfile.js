@@ -13,14 +13,12 @@ import {
   Controller,
   FormContext,
 } from 'react-hook-form';
-import useStyles from '../styles/formsStyles';
+import { useStyles } from '../styles/formsStyles';
 import { withNamespaces } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import ImageUploader from 'react-images-upload';
 import ReactTooltip from 'react-tooltip';
-import countryList from 'react-select-country-list';
-import ReactSelectMaterialUi from 'react-select-material-ui';
 import CardContent from '@material-ui/core/CardContent';
 import CreatableSelect from 'react-select/creatable';
 import Card from '@material-ui/core/Card';

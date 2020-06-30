@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { lightPink, pink } from './colors';
 
-const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
   '@global': {
     body: {
       backgroundColor: theme.palette.common.white,
@@ -17,7 +18,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   maleFemaleIcon: {
-    margin: theme.spacing(1),
+    marginRight: theme.spacing(2),
+  },
+  coloredBorder: {
+    borderColor: pink,
   },
   paperSection: {
     marginTop: theme.spacing(5),
@@ -26,6 +30,13 @@ const useStyles = makeStyles((theme) => ({
   nestedContainer: {
     display: 'flex',
     flexDirection: 'column',
+  },
+  freelancerProfileContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
   },
   form: {
     display: 'flex',
@@ -82,4 +93,81 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default useStyles;
+export const selectStyle = {
+  menu: (provided) => ({
+    ...provided,
+    zIndex: 9999,
+  }),
+  control: (provided) => ({
+    ...provided,
+    borderRadius: 5,
+    borderBottom: `solid 1px ${pink}`,
+    borderWidth: 1,
+    borderColor: pink,
+    '&:hover': { color: pink },
+  }),
+  indicatorSeparator: (provided) => ({
+    borderLeft: 0,
+  }),
+  dropdownIndicator: (provided) => ({
+    color: pink,
+    '&:hover': { color: pink },
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    marginLeft: 10,
+  }),
+  input: (provided) => ({
+    ...provided,
+    height: 51,
+  }),
+};
+
+export const radioStyle = makeStyles({
+  root: {
+    '&:hover': {
+      backgroundColor: 'transparent',
+    },
+  },
+  icon: {
+    borderRadius: '50%',
+    width: 20,
+    height: 20,
+    boxShadow:
+      'inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)',
+    backgroundColor: 'white',
+    backgroundImage:
+      'linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))',
+    '$root.Mui-focusVisible &': {
+      outline: '2px auto rgba(19,124,189,.6)',
+      outlineOffset: 2,
+    },
+    'input:hover ~ &': {
+      backgroundColor: lightPink,
+    },
+    'input:disabled ~ &': {
+      boxShadow: 'none',
+      background: 'rgba(206,217,224,.5)',
+    },
+  },
+  checkedIcon: {
+    backgroundColor: pink,
+    backgroundImage:
+      'linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))',
+    borderRadius: 50,
+    '&:before': {
+      display: 'block',
+      width: 20,
+      height: 20,
+      backgroundImage: 'radial-gradient(#fff,#fff 28%,transparent 32%)',
+      content: '""',
+    },
+    'input:hover ~ &': {
+      backgroundColor: lightPink,
+    },
+  },
+});
+
+export const dividerStyle = {
+  backgroundColor: lightPink,
+};

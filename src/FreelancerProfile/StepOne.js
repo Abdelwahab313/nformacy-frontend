@@ -10,12 +10,11 @@ const StepOne = () => {
       direction='row'
       justify='center'
       alignItems='center'
-      spacing={5}
-      style={{ height: '100vh' }}>
-      <Grid item xs={12} lg={4}>
-        <img src={require('../assets/male-female.png')} width={'100%'} />
+      spacing={5}>
+      <Grid item xs={12} lg={5}>
+        <img src={require('../assets/me.gif')} width={'100%'} />
       </Grid>
-      <Grid item xs={12} lg={4}>
+      <Grid item xs={12} lg={5}>
         <PersonalInfo />
       </Grid>
     </Grid>

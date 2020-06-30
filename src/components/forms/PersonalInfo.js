@@ -3,30 +3,40 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import TextField from '@material-ui/core/TextField';
 import ErrorMessage from '../errors/ErrorMessage';
 import React, { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import useStyles from '../../styles/formsStyles';
+import {
+  useStyles,
+  selectStyle,
+  radioStyle,
+  dividerStyle,
+} from '../../styles/formsStyles';
 import FormControl from '@material-ui/core/FormControl';
 import ReactSelectMaterialUi from 'react-select-material-ui';
-import { employmentStatus, gender } from '../../constants/dropDownOptions';
+import { employmentStatus } from '../../constants/dropDownOptions';
 import HelpIcon from '@material-ui/icons/Help';
 import countryList from 'react-select-country-list';
 import 'react-phone-input-2/lib/bootstrap.css';
 import PhoneInput from 'react-phone-input-2';
+import { pink } from '../../styles/colors';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import ReactTooltip from 'react-tooltip';
+import IconTint from 'react-icon-tint';
 
 const PersonalInfo = () => {
+  const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
   const { errors, control, user } = useFormContext();
   const [countries] = useState(countryList().getData());
   const classes = useStyles();
+  const radiosStyles = radioStyle();
 
   return (
-    <Paper className={classes.paperSection} elevation={5}>
+    <Paper className={classes.paperSection} elevation={3}>
       <Container>
+        <ReactTooltip globalEventOff={'click'} />
         <Grid container alignItems='center'>
           <Grid item xs>
             <Typography gutterBottom variant='h4'>
@@ -34,7 +44,7 @@ const PersonalInfo = () => {
             </Typography>
           </Grid>
         </Grid>
-        <Divider variant='middle' />
+        <Divider variant='middle' style={dividerStyle} />
         <Container maxWidth={false} className={classes.formControl}>
           <FormControl fullWidth className={classes.formControl}>
             <Typography gutterBottom variant='subtitle2'>
@@ -46,18 +56,39 @@ const PersonalInfo = () => {
                 <RadioGroup row horizontal>
                   <FormControlLabel
                     value='M'
-                    control={<Radio id='maleRadio' />}
+                    control={
+                      <Radio
+                        id='maleRadio'
+                        className={radiosStyles.root}
+                        color='default'
+                        checkedIcon={
+                          <span className={radiosStyles.checkedIcon} />
+                        }
+                        icon={<span className={radiosStyles.icon} />}
+                      />
+                    }
                     label='Male'
                     defaultValue={user?.gender}
                   />
-                  <img
-                    className={classes.maleFemaleIcon}
-                    src={require('../../assets/male-female.png')}
-                    width={50}
-                  />
+                  <div className={classes.maleFemaleIcon}>
+                    <IconTint
+                      color={pink}
+                      src={require('../../assets/maleFemale.png')}
+                    />
+                  </div>
                   <FormControlLabel
                     value='F'
-                    control={<Radio id='femaleRadio' />}
+                    control={
+                      <Radio
+                        id='femaleRadio'
+                        className={radiosStyles.root}
+                        color='default'
+                        checkedIcon={
+                          <span className={radiosStyles.checkedIcon} />
+                        }
+                        icon={<span className={radiosStyles.icon} />}
+                      />
+                    }
                     label='Female'
                   />
                 </RadioGroup>
@@ -91,10 +122,7 @@ const PersonalInfo = () => {
                   fullWidth={true}
                   placeholder='Select your country'
                   SelectProps={{
-                    styles: {
-                      menu: (provided) => ({ ...provided, zIndex: 9999 }),
-                    },
-                    variant: 'outlined',
+                    styles: selectStyle,
                   }}
                   options={countries}
                 />
@@ -112,7 +140,7 @@ const PersonalInfo = () => {
             as={
               <PhoneInput
                 preferredCountries={['jo', 'eg']}
-                inputStyle={{ width: '100%' }}
+                inputStyle={{ width: '100%', borderColor: pink }}
                 inputProps={{
                   id: 'mobile_number',
                   name: 'mobile_number',
@@ -122,6 +150,19 @@ const PersonalInfo = () => {
               />
             }
             name='mobileNumber'
+            rules={{
+              validate: (value) => {
+                try {
+                  const number = phoneUtil.parse('+' + value);
+                  return (
+                    phoneUtil.isValidNumber(number) ||
+                    'Invalid Phone Number format'
+                  );
+                } catch (e) {
+                  return 'Invalid Phone Number format';
+                }
+              },
+            }}
             control={control}
             error={!!errors.mobileNumber}
           />
@@ -146,13 +187,7 @@ const PersonalInfo = () => {
                   id='employmentStatus'
                   placeholder='Current Employment Status'
                   SelectProps={{
-                    styles: {
-                      menu: (provided) => ({
-                        ...provided,
-                        zIndex: 9999,
-                      }),
-                    },
-                    variant: 'outlined',
+                    styles: selectStyle,
                   }}
                   options={employmentStatus}
                 />
