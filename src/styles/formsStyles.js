@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { lightPink, pink } from './colors';
+import { lightPink, pink, white } from './colors';
 
 export const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -25,7 +25,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   paperSection: {
     marginTop: theme.spacing(5),
-    padding: theme.spacing(3),
+    padding: theme.spacing(5),
   },
   nestedContainer: {
     display: 'flex',
@@ -34,7 +34,6 @@ export const useStyles = makeStyles((theme) => ({
   freelancerProfileContainer: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
   },
@@ -117,6 +116,10 @@ export const selectStyle = {
     ...provided,
     marginLeft: 10,
   }),
+  placeholder: (provided) => ({
+    ...provided,
+    marginLeft: 10,
+  }),
   input: (provided) => ({
     ...provided,
     height: 51,
@@ -170,4 +173,25 @@ export const radioStyle = makeStyles({
 
 export const dividerStyle = {
   backgroundColor: lightPink,
+};
+
+export const stepIndicatorStyles = {
+  container: {
+    width: '50%',
+    alignSelf: 'center',
+  },
+};
+
+export const nextButtonStyles = {
+  backgroundColor: pink,
+  color: white,
+  alignSelf: 'center',
+  marginTop: '30px',
+  width: '20%',
+};
+
+export const formStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
 };

@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FormContext, useForm } from 'react-hook-form';
 import StepOne from './StepOne';
 import StepsIndicator from './StepsIndicator';
-import { useStyles } from '../styles/formsStyles';
+import {
+  formStyle,
+  nextButtonStyles,
+  stepIndicatorStyles,
+  useStyles,
+} from '../styles/formsStyles';
+import { Button } from '@material-ui/core';
+import Icon from '@material-ui/core/Icon';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 const FreeLancerProfileForm = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -12,10 +20,18 @@ const FreeLancerProfileForm = () => {
   });
   const classes = useStyles();
 
+  const [activeStep, setActiveStep] = useState(0);
+
+  function proceedToNextStep() {
+    setActiveStep(activeStep + 1);
+  }
+
   return (
     <div className={classes.freelancerProfileContainer}>
-      <StepsIndicator />
-      <form id='multiStepForm' noValidate>
+      <div style={stepIndicatorStyles.container}>
+        <StepsIndicator activeStep={activeStep} />
+      </div>
+      <form id='multiStepForm' style={formStyle} noValidate>
         <FormContext
           errors={errors}
           register={register}
@@ -23,6 +39,14 @@ const FreeLancerProfileForm = () => {
           user={user}>
           <StepOne />
         </FormContext>
+        <Button
+          onClick={proceedToNextStep}
+          variant='contained'
+          color='primary'
+          style={nextButtonStyles}
+          endIcon={<ArrowForwardIosIcon />}>
+          Next
+        </Button>
       </form>
     </div>
   );

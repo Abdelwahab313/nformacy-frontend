@@ -25,6 +25,7 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ReactTooltip from 'react-tooltip';
 import IconTint from 'react-icon-tint';
+import Hidden from '@material-ui/core/Hidden';
 
 const PersonalInfo = () => {
   const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
@@ -70,12 +71,14 @@ const PersonalInfo = () => {
                     label='Male'
                     defaultValue={user?.gender}
                   />
-                  <div className={classes.maleFemaleIcon}>
-                    <IconTint
-                      color={pink}
-                      src={require('../../assets/maleFemale.png')}
-                    />
-                  </div>
+                  <Hidden mdDown>
+                    <div className={classes.maleFemaleIcon}>
+                      <IconTint
+                        color={pink}
+                        src={require('../../assets/maleFemale.png')}
+                      />
+                    </div>
+                  </Hidden>
                   <FormControlLabel
                     value='F'
                     control={

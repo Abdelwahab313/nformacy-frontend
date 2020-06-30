@@ -8,42 +8,45 @@ import { Check } from '@material-ui/icons';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
+import { lighterPink, pink } from '../styles/colors';
 
 const QontoConnector = withStyles({
   alternativeLabel: {
     top: 10,
     left: 'calc(-50% + 16px)',
     right: 'calc(50% + 16px)',
+    color: pink,
   },
   active: {
     '& $line': {
-      borderColor: '#784af4',
+      borderColor: pink,
     },
   },
   completed: {
     '& $line': {
-      borderColor: '#784af4',
+      borderColor: pink,
     },
   },
   line: {
-    borderColor: '#eaeaf0',
+    borderColor: lighterPink,
     borderTopWidth: 3,
     borderRadius: 1,
   },
 })(StepConnector);
+
 function getSteps() {
   return ['Select campaign settings', 'Create an ad group', 'Create an ad'];
 }
 
 const useQontoStepIconStyles = makeStyles({
   root: {
-    color: '#eaeaf0',
+    color: lighterPink,
     display: 'flex',
     height: 22,
     alignItems: 'center',
   },
   active: {
-    color: '#784af4',
+    color: pink,
   },
   circle: {
     width: 8,
@@ -52,7 +55,7 @@ const useQontoStepIconStyles = makeStyles({
     backgroundColor: 'currentColor',
   },
   completed: {
-    color: '#784af4',
+    color: pink,
     zIndex: 1,
     fontSize: 18,
   },
@@ -76,14 +79,13 @@ function QontoStepIcon(props) {
   );
 }
 
-const StepsIndicator = () => {
-  const [activeStep, setActiveStep] = React.useState(1);
+const StepsIndicator = (props) => {
   const steps = getSteps();
   return (
     <Grid>
       <Stepper
         alternativeLabel
-        activeStep={activeStep}
+        activeStep={props.activeStep}
         connector={<QontoConnector />}>
         {steps.map((label) => (
           <Step key={label}>
