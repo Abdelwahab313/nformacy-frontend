@@ -12,6 +12,8 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import EventIcon from '@material-ui/icons/Event';
 import IconButton from '@material-ui/core/IconButton';
 import CalendarDialog from './Calendar/CalendarDialog';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,11 +23,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const Alert = (props) => {
+  return <MuiAlert elevation={6} variant='filled' {...props} />;
+};
+
 function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
   const classes = useStyles();
-  const [selectedFreelancer, setSelectedFreelancer] = useState();
+  const [selectedFreelancer, setSelectedFreelancer] = useState({});
   const [isCalendarOpened, setIsCalendarOpened] = useState(false);
-
+  const [isSnackbarShown, setIsSnackbarShown] = useState(false);
+  const closeCalendar = () => {
+    setIsCalendarOpened(false);
+  };
+  const handleDateSelected = (selectedDay) => {
+    closeCalendar();
+    setIsSnackbarShown(true);
+    console.log('----selectedDay', selectedDay);
+  };
   return (
     <Card id={'shortlisted-candidates-section'}>
       <List className={classes.root}>
@@ -36,19 +50,19 @@ function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
               className={'freelancer-row'}
               button
               onClick={() => {
-                setSelectedFreelancer(freelancer.id);
+                setSelectedFreelancer(freelancer);
               }}>
               <ListItemText
                 primary={`${freelancer.firstName} ${freelancer.lastName}`}
               />
-              {selectedFreelancer === freelancer.id ? (
+              {selectedFreelancer.id === freelancer.id ? (
                 <ExpandLess />
               ) : (
                 <ExpandMore />
               )}
             </ListItem>
             <Collapse
-              in={selectedFreelancer === freelancer.id}
+              in={selectedFreelancer.id === freelancer.id}
               timeout='auto'
               unmountOnExit>
               <List component='div' disablePadding>
@@ -70,10 +84,22 @@ function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
           </Fragment>
         ))}
       </List>
+      <Snackbar
+        open={isSnackbarShown}
+        autoHideDuration={2000}
+        onClose={() => setIsSnackbarShown(false)}>
+        <Alert onClose={() => setIsSnackbarShown(false)} severity='success'>
+          {`Meeting has been scheduled successfully with ${selectedFreelancer.firstName} ${selectedFreelancer.lastName}`}
+        </Alert>
+      </Snackbar>
 
       <CalendarDialog
         open={isCalendarOpened}
-        onClose={() => setIsCalendarOpened(false)}
+        onClose={closeCalendar}
+        availableDates={
+          !!selectedFreelancer.freeDates ? selectedFreelancer.freeDates : []
+        }
+        onSelectDate={handleDateSelected}
       />
     </Card>
   );

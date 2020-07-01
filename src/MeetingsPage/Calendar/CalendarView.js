@@ -69,7 +69,7 @@ const CellBase = React.memo(
               })}>
               {formatDate(startDate, formatOptions)}
             </Grid>
-            <Grid item xs={4} alignItems='right'>
+            <Grid item xs={4} alignself='right'>
               {dateTimeParser.isSameDate(startDate, selectedDay) &&
                 isAvailableDay && (
                   <CheckCircleOutlineIcon

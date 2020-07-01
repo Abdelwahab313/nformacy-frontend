@@ -52,7 +52,7 @@ Then(/^I should see calendar dialog opened$/, function() {
 });
 
 Then(/^available days are highlighted$/, function() {
-  cy.get('.availableCell').should('have.length', 4);
+  cy.get('.availableCell').should('have.length', 3);
 });
 
 Then(/^I click on a date$/, function() {

@@ -183,7 +183,6 @@ const EditProfile = ({ t }) => {
                     inputRef={register({ required: 'This field is required' })}
                     autoComplete='name'
                     error={!!errors.firstName}
-                    autoFocus
                   />
                   <ErrorMessage errorField={errors.firstName} />
                 </Container>
@@ -201,7 +200,6 @@ const EditProfile = ({ t }) => {
                     inputRef={register({ required: 'This field is required' })}
                     autoComplete='name'
                     error={!!errors.lastName}
-                    autoFocus
                   />
                   <ErrorMessage errorField={errors.lastName} />
                 </Container>
@@ -225,7 +223,6 @@ const EditProfile = ({ t }) => {
                     defaultValue={!user.email && ''}
                     autoComplete='email'
                     error={!!errors.email}
-                    autoFocus
                   />
                   <ErrorMessage errorField={errors.email} />
                 </Container>

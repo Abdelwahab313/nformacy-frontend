@@ -62,15 +62,18 @@ const dates = [
   },
 ];
 
-const CalendarContent = ({ onClose }) => {
-  const [{ selectedDay, isUpdatedTime }, dispatch] = useCalendarState();
+const CalendarContent = ({ onClose, onSelectDate }) => {
+  const [
+    { selectedDay, isUpdatedTime, availableDates },
+    dispatch,
+  ] = useCalendarState();
   const selectedDayFormatted = !!selectedDay
     ? moment(selectedDay).format('DD-MM-YYYY')
     : null;
 
   const selectedDayTimeRange =
     !!selectedDay &&
-    dates.filter((dateSlot) => {
+    availableDates.filter((dateSlot) => {
       return dateTimeParser.isSameDate(dateSlot.date, selectedDay);
     })[0].intervals[0];
   const handleTimeChange = (selectedDateTime) => {
@@ -82,11 +85,12 @@ const CalendarContent = ({ onClose }) => {
 
   return (
     <Fragment>
+      <DialogTitle id='dialog-title'>
+        {'Please pick available date to schedule the call'}
+      </DialogTitle>
       <DialogContent>
         <Grid container spacing={2}>
-          <Grid item xs={1}>
-            <Typography>Jonas Adam</Typography>
-          </Grid>
+          <Grid item xs={1}></Grid>
           <Grid item xs>
             <CalendarView />
           </Grid>
@@ -126,7 +130,7 @@ const CalendarContent = ({ onClose }) => {
         </Button>
         <Button
           disabled={!isUpdatedTime}
-          onClick={() => onClose()}
+          onClick={() => onSelectDate(selectedDay)}
           color='primary'
           autoFocus>
           Confirm
@@ -136,18 +140,15 @@ const CalendarContent = ({ onClose }) => {
   );
 };
 
-const CalendarDialog = ({ open, onClose }) => {
+const CalendarDialog = ({ open, onClose, onSelectDate, availableDates }) => {
   return (
     <Dialog
       open={open}
       TransitionComponent={Transition}
       maxWidth={'lg'}
       id={'calendar-dialog'}>
-      <DialogTitle id='dialog-title'>
-        {'Please pick available date to schedule the call'}
-      </DialogTitle>
-      <CalendarProvider initialValue={{ availableDates: dates }}>
-        <CalendarContent onClose={onClose} />
+      <CalendarProvider initialValue={{ availableDates: availableDates }}>
+        <CalendarContent onClose={onClose} onSelectDate={onSelectDate} />
       </CalendarProvider>
     </Dialog>
   );

@@ -35,12 +35,14 @@ const useStyles = makeStyles((theme) => ({
 
 function SideBar(props) {
   const classes = useStyles();
-  const [selectedItem, setSelectedItem] = useState();
+  const [selectedItem, setSelectedItem] = useState(1);
   useEffect(() => {
     if (window.location.pathname.split('/').length === 2) {
       setSelectedItem(1);
-    } else if (window.location.pathname.includes('meeting')) {
+    } else if (window.location.pathname.includes('user/edit')) {
       setSelectedItem(2);
+    } else if (window.location.pathname.includes('meeting')) {
+      setSelectedItem(3);
     }
   }, []);
 
