@@ -7,7 +7,6 @@ import {
   DialogActions,
   Grid,
   Typography,
-  Slide,
   Container,
   Box,
 } from '@material-ui/core';
@@ -18,6 +17,7 @@ import moment from 'moment';
 import { UPDATE_SELECTED_TIME } from './Context/contextActions';
 import AvailableTimePicker from './AvailableTimePicker';
 import dateTimeParser from '../../services/dateTimeParser';
+import Transition from '../../components/animations/Transition';
 
 const dates = [
   {
@@ -62,12 +62,8 @@ const dates = [
   },
 ];
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction='up' ref={ref} {...props} />;
-});
-
 const CalendarContent = ({ onClose }) => {
-  const [{ selectedDay }, dispatch] = useCalendarState();
+  const [{ selectedDay, isUpdatedTime }, dispatch] = useCalendarState();
   const selectedDayFormatted = !!selectedDay
     ? moment(selectedDay).format('DD-MM-YYYY')
     : null;
@@ -98,8 +94,11 @@ const CalendarContent = ({ onClose }) => {
             {selectedDay && (
               <Container>
                 <Box>
-                  <Typography variant='h5' align='center' color={'primary'}>
-                    {selectedDayFormatted}
+                  <Typography variant='h6' align='center' color={'primary'}>
+                    {`Your call will be in ${selectedDayFormatted}`}
+                  </Typography>
+                  <Typography variant='h6' align='center' color={'primary'}>
+                    {isUpdatedTime && `at ${moment(selectedDay).format('LT')}`}
                   </Typography>
                 </Box>
                 <Box mt={8}>
@@ -125,7 +124,11 @@ const CalendarContent = ({ onClose }) => {
         <Button onClick={() => onClose()} color='primary'>
           Cancel
         </Button>
-        <Button onClick={() => onClose()} color='primary' autoFocus>
+        <Button
+          disabled={!isUpdatedTime}
+          onClick={() => onClose()}
+          color='primary'
+          autoFocus>
           Confirm
         </Button>
       </DialogActions>

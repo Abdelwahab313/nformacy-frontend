@@ -4,7 +4,19 @@ import { UPDATE_SELECTED_DAY, UPDATE_SELECTED_TIME } from './contextActions';
 const CalendarContext = createContext();
 const defaultValues = {
   selectedDay: '',
-  availableDates: ['2020-06-28', '2020-06-29', '2020-06-30'],
+  isUpdatedTime: false,
+  availableDates: [
+    {
+      type: 'date',
+      date: '2020-07-27',
+      intervals: [
+        {
+          from: '09:00',
+          to: '17:00',
+        },
+      ],
+    },
+  ],
 };
 
 const CalendarProvider = ({ children, initialValue }) => {
@@ -28,9 +40,9 @@ const useCalendarState = () => {
 const calendarReducer = (state, action) => {
   switch (action.type) {
     case UPDATE_SELECTED_DAY:
-      return { ...state, selectedDay: action.payload };
+      return { ...state, isUpdatedTime: false, selectedDay: action.payload };
     case UPDATE_SELECTED_TIME:
-      return { ...state, selectedDay: action.payload };
+      return { ...state, isUpdatedTime: true, selectedDay: action.payload };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
