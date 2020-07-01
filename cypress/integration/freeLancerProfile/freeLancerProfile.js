@@ -50,7 +50,21 @@ When(/^I fill step two data$/, function() {
   cy.get('#react-select-9-option-0').click();
   cy.get('#daily_rate').type('5');
 });
-When(/^I fill step three data$/, function() {});
 When(/^click submit$/, function() {});
 Then(/^I should see welcome message$/, function() {});
-Then(/^I should see step three form$/, function() {});
+Then(/^I should see step three form$/, function() {
+  cy.get('#stepThreeForm');
+});
+When(/^I fill step three data$/, function() {
+  cy.get('#add-work-experience').click();
+  cy.get('#work-experience-title-0').clear();
+  cy.get('#work-experience-title-0').type('test job title');
+  cy.get('#work-experience-company-0').clear();
+  cy.get('#work-experience-company-0').type('test company name');
+  cy.get('#add-education').click();
+  cy.get('#educations-school-0').clear();
+  cy.get('#educations-school-0').type('test school');
+  cy.get('#add-certification').click();
+  cy.get('#certification-name-0').clear();
+  cy.get('#certification-name-0').type('test school');
+});

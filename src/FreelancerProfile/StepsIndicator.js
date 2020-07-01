@@ -5,8 +5,8 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import PersonIcon from '@material-ui/icons/Person';
-import GroupAddIcon from '@material-ui/icons/GroupAdd';
-import VideoLabelIcon from '@material-ui/icons/VideoLabel';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
+import SettingsIcon from '@material-ui/icons/Settings';
 import StepConnector from '@material-ui/core/StepConnector';
 import { lighterPink, lightPink, pink } from '../styles/colors';
 
@@ -59,8 +59,8 @@ function ColorlibStepIcon(props) {
 
   const icons = {
     1: <PersonIcon />,
-    2: <GroupAddIcon />,
-    3: <VideoLabelIcon />,
+    2: <SettingsIcon />,
+    3: <BusinessCenterIcon />,
   };
 
   return (
@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ['Personal Info', 'Create an ad group', 'Create an ad'];
+  return ['Personal Info', 'Specialization and preferences', 'Career'];
 }
 
 const StepsIndicator = (props) => {

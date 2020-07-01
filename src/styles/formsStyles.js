@@ -184,6 +184,9 @@ export const radioStyle = makeStyles({
     },
   },
 });
+export const checkboxStyle = {
+  color: pink,
+};
 
 export const dividerStyle = {
   backgroundColor: lightPink,
@@ -220,4 +223,11 @@ export const navigationButtonsContainer = {
 export const iconStyle = {
   fill: pink,
   alignSelf: 'center',
+};
+
+export const dateInputStyle = {
+  borderBottom: '0',
+  border: `solid 1px ${pink}`,
+  padding: '5px',
+  borderRadius: '5%',
 };
