@@ -16,6 +16,7 @@ import { useCalendarState } from './Context/CalendarContext';
 import { UPDATE_SELECTED_DAY } from './Context/contextActions';
 import Grid from '@material-ui/core/Grid';
 import calendarStyles from './calendarStyles';
+import dateTimeParser from '../../services/dateTimeParser';
 
 const DayScaleCell = (props) => (
   <MonthView.DayScaleCell
@@ -28,19 +29,12 @@ const CellBase = React.memo(
   ({ classes, startDate, formatDate, otherMonth }) => {
     const [{ availableDates, selectedDay }, dispatch] = useCalendarState();
 
-    function isSameDate(date1, date2) {
-      return (
-        new Date(date1).setHours(0, 0, 0, 0) ===
-        new Date(date2).setHours(0, 0, 0, 0)
-      );
-    }
-
     const freelancerAvailableDates = availableDates.map((d) => {
       return d.date;
     });
 
     const isAvailableDay = freelancerAvailableDates.some((date) =>
-      isSameDate(date, startDate),
+      dateTimeParser.isSameDate(date, startDate),
     );
     const onSelectDay = () => {
       if (isAvailableDay) {
@@ -76,12 +70,13 @@ const CellBase = React.memo(
               {formatDate(startDate, formatOptions)}
             </Grid>
             <Grid item xs={4} alignItems='right'>
-              {isSameDate(startDate, selectedDay) && isAvailableDay && (
-                <CheckCircleOutlineIcon
-                  id={'selectedDayIcon'}
-                  style={{ color: '#FFFFFF' }}
-                />
-              )}
+              {dateTimeParser.isSameDate(startDate, selectedDay) &&
+                isAvailableDay && (
+                  <CheckCircleOutlineIcon
+                    id={'selectedDayIcon'}
+                    style={{ color: '#FFFFFF' }}
+                  />
+                )}
             </Grid>
           </Grid>
         </div>

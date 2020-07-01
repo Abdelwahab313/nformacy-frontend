@@ -15,17 +15,14 @@ import {
 import CalendarView from './CalendarView';
 import { CalendarProvider, useCalendarState } from './Context/CalendarContext';
 import moment from 'moment';
-import {
-  KeyboardTimePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import { UPDATE_SELECTED_TIME } from './Context/contextActions';
+import AvailableTimePicker from './AvailableTimePicker';
+import dateTimeParser from '../../services/dateTimeParser';
 
 const dates = [
   {
     type: 'date',
-    date: '2020-06-27',
+    date: '2020-07-27',
     intervals: [
       {
         from: '09:00',
@@ -35,7 +32,7 @@ const dates = [
   },
   {
     type: 'date',
-    date: '2020-06-28',
+    date: '2020-07-28',
     intervals: [
       {
         from: '09:00',
@@ -45,21 +42,21 @@ const dates = [
   },
   {
     type: 'date',
-    date: '2020-06-29',
+    date: '2020-07-29',
     intervals: [
       {
-        from: '09:00',
+        from: '13:00',
         to: '17:00',
       },
     ],
   },
   {
     type: 'date',
-    date: '2020-06-30',
+    date: '2020-07-30',
     intervals: [
       {
         from: '09:00',
-        to: '17:00',
+        to: '12:00',
       },
     ],
   },
@@ -68,6 +65,73 @@ const dates = [
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
+
+const CalendarContent = ({ onClose }) => {
+  const [{ selectedDay }, dispatch] = useCalendarState();
+  const selectedDayFormatted = !!selectedDay
+    ? moment(selectedDay).format('DD-MM-YYYY')
+    : null;
+
+  const selectedDayTimeRange =
+    !!selectedDay &&
+    dates.filter((dateSlot) => {
+      return dateTimeParser.isSameDate(dateSlot.date, selectedDay);
+    })[0].intervals[0];
+  const handleTimeChange = (selectedDateTime) => {
+    dispatch({
+      type: UPDATE_SELECTED_TIME,
+      payload: selectedDateTime,
+    });
+  };
+
+  return (
+    <Fragment>
+      <DialogContent>
+        <Grid container spacing={2}>
+          <Grid item xs={1}>
+            <Typography>Jonas Adam</Typography>
+          </Grid>
+          <Grid item xs>
+            <CalendarView />
+          </Grid>
+          <Grid item xs={4}>
+            {selectedDay && (
+              <Container>
+                <Box>
+                  <Typography variant='h5' align='center' color={'primary'}>
+                    {selectedDayFormatted}
+                  </Typography>
+                </Box>
+                <Box mt={8}>
+                  <AvailableTimePicker
+                    startTime={moment(
+                      `${selectedDayFormatted} ${selectedDayTimeRange.from}`,
+                      'DD-MM-YYYY hh:mm',
+                    )}
+                    endTime={moment(
+                      `${selectedDayFormatted} ${selectedDayTimeRange.to}`,
+                      'DD-MM-YYYY hh:mm',
+                    )}
+                    selectedTime={moment(selectedDay).toDate()}
+                    handleTimeChange={handleTimeChange}
+                  />
+                </Box>
+              </Container>
+            )}
+          </Grid>
+        </Grid>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={() => onClose()} color='primary'>
+          Cancel
+        </Button>
+        <Button onClick={() => onClose()} color='primary' autoFocus>
+          Confirm
+        </Button>
+      </DialogActions>
+    </Fragment>
+  );
+};
 
 const CalendarDialog = ({ open, onClose }) => {
   return (
@@ -87,64 +151,3 @@ const CalendarDialog = ({ open, onClose }) => {
 };
 
 export default CalendarDialog;
-
-const CalendarContent = ({ onClose }) => {
-  const [{ selectedDay }, dispatch] = useCalendarState();
-  const slectedDayFormatted = selectedDay
-    ? moment(selectedDay).format('DD-MM-YYYY')
-    : null;
-
-  const handleTimeChange = (selectedDateTime) => {
-    dispatch({
-      type: UPDATE_SELECTED_TIME,
-      payload: selectedDateTime,
-    });
-  };
-  return (
-    <Fragment>
-      <DialogContent>
-        <Grid container spacing={2}>
-          <Grid item xs={1}>
-            <Typography>Jonas Adam</Typography>
-          </Grid>
-          <Grid item xs>
-            <CalendarView />
-          </Grid>
-          <Grid item xs={4}>
-            {selectedDay && (
-              <Container>
-                <Box>
-                  <Typography variant='h5' align='center' color={'primary'}>
-                    {slectedDayFormatted}
-                  </Typography>
-                </Box>
-                <Box mt={8}>
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <KeyboardTimePicker
-                      autoOk
-                      minutesStep={5}
-                      variant='static'
-                      allowKeyboardControl
-                      openTo='hours'
-                      label='Select Time'
-                      value={selectedDay}
-                      onChange={handleTimeChange}
-                    />
-                  </MuiPickersUtilsProvider>
-                </Box>
-              </Container>
-            )}
-          </Grid>
-        </Grid>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={() => onClose()} color='primary'>
-          Cancel
-        </Button>
-        <Button onClick={() => onClose()} color='primary' autoFocus>
-          Confirm
-        </Button>
-      </DialogActions>
-    </Fragment>
-  );
-};

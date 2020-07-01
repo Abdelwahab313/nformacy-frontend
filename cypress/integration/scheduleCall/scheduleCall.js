@@ -56,7 +56,9 @@ Then(/^available days are highlighted$/, function() {
 });
 
 Then(/^I click on a date$/, function() {
-  cy.get('.availableCell:first-child').click();
+  cy.get('.availableCell')
+    .first()
+    .click();
   cy.get('#selectedDayIcon').should('have.length', 1);
 });
 
