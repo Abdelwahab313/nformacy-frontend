@@ -4,13 +4,15 @@ import StepOne from './StepOne';
 import StepsIndicator from './StepsIndicator';
 import {
   formStyle,
+  navigationButtonsContainer,
   nextButtonStyles,
   stepIndicatorStyles,
   useStyles,
 } from '../styles/formsStyles';
 import { Button } from '@material-ui/core';
-import Icon from '@material-ui/core/Icon';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import Grid from '@material-ui/core/Grid';
 
 const FreeLancerProfileForm = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -23,7 +25,15 @@ const FreeLancerProfileForm = () => {
   const [activeStep, setActiveStep] = useState(0);
 
   function proceedToNextStep() {
-    setActiveStep(activeStep + 1);
+    if (activeStep < 2) {
+      setActiveStep(activeStep + 1);
+    }
+  }
+
+  function getBackToPreviousStep() {
+    if (activeStep > 0) {
+      setActiveStep(activeStep - 1);
+    }
   }
 
   return (
@@ -39,14 +49,21 @@ const FreeLancerProfileForm = () => {
           user={user}>
           <StepOne />
         </FormContext>
-        <Button
-          onClick={proceedToNextStep}
-          variant='contained'
-          color='primary'
-          style={nextButtonStyles}
-          endIcon={<ArrowForwardIosIcon />}>
-          Next
-        </Button>
+        <Grid xs={12} md={10} style={navigationButtonsContainer}>
+          <Button
+            onClick={getBackToPreviousStep}
+            variant='contained'
+            startIcon={<ArrowBackIosIcon />}>
+            back
+          </Button>
+          <Button
+            onClick={proceedToNextStep}
+            variant='contained'
+            style={nextButtonStyles}
+            endIcon={<ArrowForwardIosIcon />}>
+            Next
+          </Button>
+        </Grid>
       </form>
     </div>
   );

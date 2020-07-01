@@ -2,6 +2,7 @@ import PersonalInfo from '../components/forms/PersonalInfo';
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
+import Grow from '@material-ui/core/Grow';
 
 const StepOne = () => {
   return (
@@ -13,13 +14,17 @@ const StepOne = () => {
       alignItems='center'
       spacing={5}>
       <Hidden mdDown>
-        <Grid item xs={12} md={5}>
-          <img src={require('../assets/me.gif')} width={'100%'} />
-        </Grid>
+        <Grow in={true} timeout={2000}>
+          <Grid item xs={12} md={5}>
+            <img src={require('../assets/me.gif')} width={'100%'}/>
+          </Grid>
+        </Grow>
       </Hidden>
-      <Grid item xs={12} md={5}>
-        <PersonalInfo />
-      </Grid>
+      <Grow in={true} timeout={3500}>
+        <Grid item xs={12} md={5}>
+          <PersonalInfo/>
+        </Grid>
+      </Grow>
     </Grid>
   );
 };

@@ -186,12 +186,19 @@ export const nextButtonStyles = {
   backgroundColor: pink,
   color: white,
   alignSelf: 'center',
-  marginTop: '30px',
-  width: '20%',
 };
 
 export const formStyle = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
+};
+
+export const navigationButtonsContainer = {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  marginTop: '10px',
+  alignSelf: 'center',
+  width: '100%',
 };

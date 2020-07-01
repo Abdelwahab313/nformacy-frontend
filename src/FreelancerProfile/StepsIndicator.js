@@ -1,99 +1,112 @@
 import React from 'react';
-import StepConnector from '@material-ui/core/StepConnector';
-import Stepper from '@material-ui/core/Stepper';
-import StepLabel from '@material-ui/core/StepLabel';
-import Step from '@material-ui/core/Step';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { Check } from '@material-ui/icons';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Grid from '@material-ui/core/Grid';
-import { lighterPink, pink } from '../styles/colors';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import PersonIcon from '@material-ui/icons/Person';
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import VideoLabelIcon from '@material-ui/icons/VideoLabel';
+import StepConnector from '@material-ui/core/StepConnector';
+import { lighterPink, lightPink, pink } from '../styles/colors';
 
-const QontoConnector = withStyles({
+const ColorlibConnector = withStyles({
   alternativeLabel: {
-    top: 10,
-    left: 'calc(-50% + 16px)',
-    right: 'calc(50% + 16px)',
-    color: pink,
+    top: 22,
   },
   active: {
     '& $line': {
-      borderColor: pink,
+      backgroundColor: pink,
     },
   },
   completed: {
     '& $line': {
-      borderColor: pink,
+      backgroundColor: pink,
     },
   },
   line: {
-    borderColor: lighterPink,
-    borderTopWidth: 3,
+    height: 3,
+    border: 0,
+    backgroundColor: lighterPink,
     borderRadius: 1,
   },
 })(StepConnector);
 
-function getSteps() {
-  return ['Select campaign settings', 'Create an ad group', 'Create an ad'];
-}
-
-const useQontoStepIconStyles = makeStyles({
+const useColorlibStepIconStyles = makeStyles({
   root: {
-    color: lighterPink,
+    backgroundColor: lightPink,
+    zIndex: 1,
+    color: '#fff',
+    width: 50,
+    height: 50,
     display: 'flex',
-    height: 22,
+    borderRadius: '50%',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   active: {
-    color: pink,
-  },
-  circle: {
-    width: 8,
-    height: 8,
-    borderRadius: '50%',
-    backgroundColor: 'currentColor',
+    backgroundColor: pink,
+    boxShadow: '0 8px 20px 0 rgba(0,0,0,.25)',
   },
   completed: {
-    color: pink,
-    zIndex: 1,
-    fontSize: 18,
+    backgroundColor: pink,
   },
 });
 
-function QontoStepIcon(props) {
-  const classes = useQontoStepIconStyles();
+function ColorlibStepIcon(props) {
+  const classes = useColorlibStepIconStyles();
   const { active, completed } = props;
+
+  const icons = {
+    1: <PersonIcon />,
+    2: <GroupAddIcon />,
+    3: <VideoLabelIcon />,
+  };
 
   return (
     <div
       className={clsx(classes.root, {
         [classes.active]: active,
+        [classes.completed]: completed,
       })}>
-      {completed ? (
-        <Check className={classes.completed} />
-      ) : (
-        <div className={classes.circle} />
-      )}
+      {icons[String(props.icon)]}
     </div>
   );
 }
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+  },
+  button: {
+    marginRight: theme.spacing(1),
+  },
+  instructions: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+}));
+
+function getSteps() {
+  return ['Personal Info', 'Create an ad group', 'Create an ad'];
+}
+
 const StepsIndicator = (props) => {
+  const classes = useStyles();
   const steps = getSteps();
   return (
-    <Grid>
+    <div className={classes.root}>
       <Stepper
         alternativeLabel
         activeStep={props.activeStep}
-        connector={<QontoConnector />}>
+        connector={<ColorlibConnector />}>
         {steps.map((label) => (
           <Step key={label}>
-            <StepLabel StepIconComponent={QontoStepIcon}>{label}</StepLabel>
+            <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
-    </Grid>
+    </div>
   );
 };
 
