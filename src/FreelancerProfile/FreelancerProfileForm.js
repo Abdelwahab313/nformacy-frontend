@@ -13,10 +13,11 @@ import { Button } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Grid from '@material-ui/core/Grid';
+import StepTwo from './StepTwo';
 
 const FreeLancerProfileForm = () => {
   const user = JSON.parse(localStorage.getItem('user'));
-  const { register, errors, control } = useForm({
+  const { register, errors, control, getValues, setValue } = useForm({
     mode: 'onChange',
     defaultValues: { ...user },
   });
@@ -39,28 +40,31 @@ const FreeLancerProfileForm = () => {
   return (
     <div className={classes.freelancerProfileContainer}>
       <div style={stepIndicatorStyles.container}>
-        <StepsIndicator activeStep={activeStep} />
+        <StepsIndicator activeStep={activeStep}/>
       </div>
       <form id='multiStepForm' style={formStyle} noValidate>
         <FormContext
           errors={errors}
           register={register}
           control={control}
-          user={user}>
-          <StepOne />
+          user={user}
+          getValues={getValues}
+          setValue={setValue}>
+          {activeStep === 0 && <StepOne/>}
+          {activeStep === 1 && <StepTwo/>}
         </FormContext>
         <Grid xs={12} md={10} style={navigationButtonsContainer}>
           <Button
             onClick={getBackToPreviousStep}
             variant='contained'
-            startIcon={<ArrowBackIosIcon />}>
+            startIcon={<ArrowBackIosIcon/>}>
             back
           </Button>
           <Button
             onClick={proceedToNextStep}
             variant='contained'
             style={nextButtonStyles}
-            endIcon={<ArrowForwardIosIcon />}>
+            endIcon={<ArrowForwardIosIcon/>}>
             Next
           </Button>
         </Grid>

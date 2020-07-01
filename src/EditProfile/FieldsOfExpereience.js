@@ -5,7 +5,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import { Controller, useFormContext } from 'react-hook-form';
 import { fieldsOfExperience } from '../constants/dropDownOptions';
 import ReactSelect from 'react-select';
-import { useStyles } from '../styles/formsStyles';
+import { selectStyle, useStyles } from '../styles/formsStyles';
 import ErrorMessage from '../components/errors/ErrorMessage';
 
 const FieldsOfExperience = ({ user }) => {
@@ -91,24 +91,25 @@ const FieldsOfExperience = ({ user }) => {
               isMulti
               options={fieldsOfExperience}
               className={classes.selectControl}
+              styles={selectStyle}
               value={
                 !!user.majorFieldsOfExperience
                   ? user.majorFieldsOfExperience.map(
-                      (userMajorFieldOfExperience) => {
-                        return fieldsOfExperience.find(
-                          (majorFieldOfExperience) =>
-                            userMajorFieldOfExperience ===
-                            majorFieldOfExperience.value,
-                        );
-                      },
-                    )
+                  (userMajorFieldOfExperience) => {
+                    return fieldsOfExperience.find(
+                      (majorFieldOfExperience) =>
+                        userMajorFieldOfExperience ===
+                        majorFieldOfExperience.value,
+                    );
+                  },
+                  )
                   : []
               }
               label='Major Fields Of Experience'
             />
           }
         />
-        <ErrorMessage errorField={errors.majorFieldsOfExperience} />
+        <ErrorMessage errorField={errors.majorFieldsOfExperience}/>
       </Container>
       <Container maxWidth={false} className={classes.formControl}>
         <div className={classes.formHeader}>
@@ -133,23 +134,24 @@ const FieldsOfExperience = ({ user }) => {
               options={specificFields}
               className={classes.selectControl}
               label='Major Fields Of Experience'
+              styles={selectStyle}
               value={
                 !!user.specificFieldsOfExperience
                   ? user.specificFieldsOfExperience.map(
-                      (userSpecificFieldOfExperience) => {
-                        return specificFields.find(
-                          (specificFieldOfExperience) =>
-                            userSpecificFieldOfExperience ===
-                            specificFieldOfExperience?.value,
-                        );
-                      },
-                    )
+                  (userSpecificFieldOfExperience) => {
+                    return specificFields.find(
+                      (specificFieldOfExperience) =>
+                        userSpecificFieldOfExperience ===
+                        specificFieldOfExperience?.value,
+                    );
+                  },
+                  )
                   : []
               }
             />
           }
         />
-        <ErrorMessage errorField={errors.specificFieldsOfExperience} />
+        <ErrorMessage errorField={errors.specificFieldsOfExperience}/>
       </Container>
     </Fragment>
   );

@@ -44,11 +44,11 @@ import {
 import { updateProfile, updateProfilePicture } from '../apis/userAPI';
 import HelpIcon from '@material-ui/icons/Help';
 import { Input } from '@material-ui/core';
-import FieldsOfExperience from './FieldsOfExpereience';
+import FieldsOfSpecialization from '../components/forms/FieldsOfSpecialization';
 import ErrorMessage from '../components/errors/ErrorMessage';
 import PersonalInfo from '../components/forms/PersonalInfo';
-
 const EditProfile = ({ t }) => {
+
   const user = JSON.parse(localStorage.getItem('user'));
   const {
     register,
@@ -123,11 +123,11 @@ const EditProfile = ({ t }) => {
 
   return (
     <Container component='main' maxWidth={false} dir='ltr'>
-      <ReactTooltip globalEventOff={'click'} />
-      <CssBaseline />
+      <ReactTooltip globalEventOff={'click'}/>
+      <CssBaseline/>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <AccountCircleIcon />
+          <AccountCircleIcon/>
         </Avatar>
         <Typography component='h1' variant='h5'>
           {t('Edit Profile')}
@@ -153,7 +153,7 @@ const EditProfile = ({ t }) => {
                     </Typography>
                   </Grid>
                 </Grid>
-                <Divider variant='middle' />
+                <Divider variant='middle'/>
                 <Container maxWidth={false} className={classes.formControl}>
                   <Typography gutterBottom variant='subtitle2'>
                     Profile Picture
@@ -185,7 +185,7 @@ const EditProfile = ({ t }) => {
                     error={!!errors.firstName}
                     autoFocus
                   />
-                  <ErrorMessage errorField={errors.firstName} />
+                  <ErrorMessage errorField={errors.firstName}/>
                 </Container>
                 <Container maxWidth={false} className={classes.formControl}>
                   <Typography gutterBottom variant='subtitle2'>
@@ -203,7 +203,7 @@ const EditProfile = ({ t }) => {
                     error={!!errors.lastName}
                     autoFocus
                   />
-                  <ErrorMessage errorField={errors.lastName} />
+                  <ErrorMessage errorField={errors.lastName}/>
                 </Container>
                 <Container maxWidth={false} className={classes.formControl}>
                   <Typography gutterBottom variant='subtitle2'>
@@ -227,66 +227,17 @@ const EditProfile = ({ t }) => {
                     error={!!errors.email}
                     autoFocus
                   />
-                  <ErrorMessage errorField={errors.email} />
+                  <ErrorMessage errorField={errors.email}/>
                 </Container>
               </Container>
             </Paper>
-            <PersonalInfo />
-            <Paper className={classes.paperSection} elevation={5}>
-              <Container>
-                <Grid container alignItems='center'>
-                  <Grid item xs>
-                    <Typography gutterBottom variant='h4'>
-                      Fields of Specialization
-                    </Typography>
-                    <Typography variant='subtitle1' gutterBottom>
-                      What are your areas of expertise as a subject matter
-                      expert, and the industries you have deep knowledge in.
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Divider variant='middle' />
-                <FieldsOfExperience user={user} />
-                <Container maxWidth={false} className={classes.formControl}>
-                  <div className={classes.formHeader}>
-                    <Typography gutterBottom variant='subtitle2'>
-                      Industry of experience
-                    </Typography>
-                    <HelpIcon
-                      className={classes.formHeaderIcon}
-                      data-tip='You can choose more than one industry, if your industry is not listed please type it down.'
-                      color='primary'
-                      fontSize='small'
-                    />
-                  </div>
-                  <Controller
-                    name='industriesOfExperience'
-                    id='industriesOfExperience'
-                    rules={{ required: 'This field is required' }}
-                    control={control}
-                    as={
-                      <CreatableSelect
-                        defaultValue={
-                          !!user.industriesOfExperience
-                            ? user.industriesOfExperience.map(
-                                (userIndustry) => {
-                                  return industries.find(
-                                    (industry) =>
-                                      userIndustry === industry.value,
-                                  );
-                                },
-                              )
-                            : []
-                        }
-                        isMulti
-                        options={industries}
-                      />
-                    }
-                  />
-                  <ErrorMessage errorField={errors.industriesOfExperience} />
-                </Container>
-              </Container>
-            </Paper>
+            <PersonalInfo/>
+            <FieldsOfSpecialization classes={classes} user={user} control={control} prop3={(userIndustry) => {
+              return industries.find(
+                (industry) =>
+                  userIndustry === industry.value,
+              );
+            }} errors={errors}/>
             <Paper className={classes.paperSection} elevation={5}>
               <Container className={classes.nestedContainer}>
                 <Grid container alignItems='center'>
@@ -299,7 +250,7 @@ const EditProfile = ({ t }) => {
                     </Typography>
                   </Grid>
                 </Grid>
-                <Divider variant='middle' />
+                <Divider variant='middle'/>
                 <Container maxWidth={false} className={classes.formControl}>
                   <div className={classes.formHeader}>
                     <Typography gutterBottom variant='subtitle2'>
@@ -323,14 +274,14 @@ const EditProfile = ({ t }) => {
                         defaultValue={
                           !!user.languageOfAssignments
                             ? user.languageOfAssignments.map(
-                                (userAssignmentLanguage) => {
-                                  return assignmentLanguage.find(
-                                    (assignmentLanguage) =>
-                                      userAssignmentLanguage ===
-                                      assignmentLanguage.value,
-                                  );
-                                },
-                              )
+                            (userAssignmentLanguage) => {
+                              return assignmentLanguage.find(
+                                (assignmentLanguage) =>
+                                  userAssignmentLanguage ===
+                                  assignmentLanguage.value,
+                              );
+                            },
+                            )
                             : []
                         }
                         isMulti
@@ -338,7 +289,7 @@ const EditProfile = ({ t }) => {
                       />
                     }
                   />
-                  <ErrorMessage errorField={errors.languageOfAssignments} />
+                  <ErrorMessage errorField={errors.languageOfAssignments}/>
                 </Container>
                 <Container maxWidth={false} className={classes.formControl}>
                   <div className={classes.formHeader}>
@@ -367,21 +318,21 @@ const EditProfile = ({ t }) => {
                         value={
                           !!user.typesOfAssignments
                             ? user.typesOfAssignments.map(
-                                (userAssignmentType) => {
-                                  return assignmentTypes.find(
-                                    (assignmentType) =>
-                                      userAssignmentType ===
-                                      assignmentType.value,
-                                  );
-                                },
-                              )
+                            (userAssignmentType) => {
+                              return assignmentTypes.find(
+                                (assignmentType) =>
+                                  userAssignmentType ===
+                                  assignmentType.value,
+                              );
+                            },
+                            )
                             : []
                         }
                         label='Assignment Types'
                       />
                     }
                   />
-                  <ErrorMessage errorField={errors.typesOfAssignments} />
+                  <ErrorMessage errorField={errors.typesOfAssignments}/>
                 </Container>
                 <Container maxWidth={false} className={classes.formControl}>
                   <div className={classes.formHeader}>
@@ -408,20 +359,20 @@ const EditProfile = ({ t }) => {
                         defaultValue={
                           !!user.locationOfAssignments
                             ? user.locationOfAssignments.map(
-                                (userAssignmentLocation) => {
-                                  return assignmentLocations.find(
-                                    (assignmentLocation) =>
-                                      userAssignmentLocation ===
-                                      assignmentLocation.value,
-                                  );
-                                },
-                              )
+                            (userAssignmentLocation) => {
+                              return assignmentLocations.find(
+                                (assignmentLocation) =>
+                                  userAssignmentLocation ===
+                                  assignmentLocation.value,
+                              );
+                            },
+                            )
                             : []
                         }
                       />
                     }
                   />
-                  <ErrorMessage errorField={errors.locationOfAssignments} />
+                  <ErrorMessage errorField={errors.locationOfAssignments}/>
                 </Container>
                 <Container maxWidth={false} className={classes.formControl}>
                   <Typography gutterBottom variant='subtitle2'>
@@ -438,7 +389,7 @@ const EditProfile = ({ t }) => {
                     defaultValue={user.dailyRate}
                     autoFocus
                   />
-                  <ErrorMessage errorField={errors.dailyRate} />
+                  <ErrorMessage errorField={errors.dailyRate}/>
                 </Container>
               </Container>
             </Paper>
@@ -451,11 +402,11 @@ const EditProfile = ({ t }) => {
                     </Typography>
                   </Grid>
                 </Grid>
-                <Divider variant='middle' />
+                <Divider variant='middle'/>
                 <Container>
                   {experienceForm.fields.map((item, index) => (
                     <Card key={item.id} className={classes.nestedCardContainer}>
-                      <ReactTooltip globalEventOff={'click'} />
+                      <ReactTooltip globalEventOff={'click'}/>
                       <CardContent>
                         {!!user.experiences[index] && (
                           <Input
@@ -520,27 +471,27 @@ const EditProfile = ({ t }) => {
                               maxWidth={false}
                               className={classes.formControl}>
                               {!watchExperiences[index] ||
-                                (!watchExperiences[index].toDate && (
-                                  <Controller
-                                    name={`experiences[${index}][endDate]`}
-                                    control={control}
-                                    as={
-                                      <KeyboardDatePicker
-                                        variant='inline'
-                                        views={['year', 'month']}
-                                        format='MM/yyyy'
-                                        autoOk
-                                        margin='normal'
-                                        label='end date'
-                                        inputRef={register()}
-                                        KeyboardButtonProps={{
-                                          'aria-label': 'change date',
-                                        }}
-                                        onChange={(value) => value[0]}
-                                      />
-                                    }
-                                  />
-                                ))}
+                              (!watchExperiences[index].toDate && (
+                                <Controller
+                                  name={`experiences[${index}][endDate]`}
+                                  control={control}
+                                  as={
+                                    <KeyboardDatePicker
+                                      variant='inline'
+                                      views={['year', 'month']}
+                                      format='MM/yyyy'
+                                      autoOk
+                                      margin='normal'
+                                      label='end date'
+                                      inputRef={register()}
+                                      KeyboardButtonProps={{
+                                        'aria-label': 'change date',
+                                      }}
+                                      onChange={(value) => value[0]}
+                                    />
+                                  }
+                                />
+                              ))}
                             </Container>
                           </MuiPickersUtilsProvider>
                         </Container>
@@ -617,11 +568,11 @@ const EditProfile = ({ t }) => {
                     </Typography>
                   </Grid>
                 </Grid>
-                <Divider variant='middle' />
+                <Divider variant='middle'/>
                 <Container>
                   {educationForm.fields.map((item, index) => (
                     <Card key={item.id} className={classes.nestedCardContainer}>
-                      <ReactTooltip globalEventOff={'click'} />
+                      <ReactTooltip globalEventOff={'click'}/>
                       <CardContent>
                         {!!user.educations[index] && (
                           <Input
@@ -741,11 +692,11 @@ const EditProfile = ({ t }) => {
                     </Typography>
                   </Grid>
                 </Grid>
-                <Divider variant='middle' />
+                <Divider variant='middle'/>
                 <Container>
                   {certificationForm.fields.map((item, index) => (
                     <Card key={item.id} className={classes.nestedCardContainer}>
-                      <ReactTooltip globalEventOff={'click'} />
+                      <ReactTooltip globalEventOff={'click'}/>
                       <CardContent>
                         {!!user.certifications[index] && (
                           <Input
@@ -907,7 +858,7 @@ const EditProfile = ({ t }) => {
                 </Container>
               </Container>
             </Paper>
-            <Container maxWidth={false} className={classes.formControl} />
+            <Container maxWidth={false} className={classes.formControl}/>
             <Button
               id='save'
               type='submit'
