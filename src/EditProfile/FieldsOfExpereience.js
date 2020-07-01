@@ -95,21 +95,21 @@ const FieldsOfExperience = ({ user }) => {
               value={
                 !!user.majorFieldsOfExperience
                   ? user.majorFieldsOfExperience.map(
-                  (userMajorFieldOfExperience) => {
-                    return fieldsOfExperience.find(
-                      (majorFieldOfExperience) =>
-                        userMajorFieldOfExperience ===
-                        majorFieldOfExperience.value,
-                    );
-                  },
-                  )
+                      (userMajorFieldOfExperience) => {
+                        return fieldsOfExperience.find(
+                          (majorFieldOfExperience) =>
+                            userMajorFieldOfExperience ===
+                            majorFieldOfExperience.value,
+                        );
+                      },
+                    )
                   : []
               }
               label='Major Fields Of Experience'
             />
           }
         />
-        <ErrorMessage errorField={errors.majorFieldsOfExperience}/>
+        <ErrorMessage errorField={errors.majorFieldsOfExperience} />
       </Container>
       <Container maxWidth={false} className={classes.formControl}>
         <div className={classes.formHeader}>
@@ -138,20 +138,20 @@ const FieldsOfExperience = ({ user }) => {
               value={
                 !!user.specificFieldsOfExperience
                   ? user.specificFieldsOfExperience.map(
-                  (userSpecificFieldOfExperience) => {
-                    return specificFields.find(
-                      (specificFieldOfExperience) =>
-                        userSpecificFieldOfExperience ===
-                        specificFieldOfExperience?.value,
-                    );
-                  },
-                  )
+                      (userSpecificFieldOfExperience) => {
+                        return specificFields.find(
+                          (specificFieldOfExperience) =>
+                            userSpecificFieldOfExperience ===
+                            specificFieldOfExperience?.value,
+                        );
+                      },
+                    )
                   : []
               }
             />
           }
         />
-        <ErrorMessage errorField={errors.specificFieldsOfExperience}/>
+        <ErrorMessage errorField={errors.specificFieldsOfExperience} />
       </Container>
     </Fragment>
   );

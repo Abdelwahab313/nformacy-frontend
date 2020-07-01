@@ -16,13 +16,13 @@ const StepOne = () => {
       <Hidden mdDown>
         <Grow in={true} timeout={2000}>
           <Grid item xs={12} md={5}>
-            <img src={require('../assets/me.gif')} width={'100%'}/>
+            <img src={require('../assets/me.gif')} width={'100%'} />
           </Grid>
         </Grow>
       </Hidden>
       <Grow in={true} timeout={3500}>
         <Grid item xs={12} md={5}>
-          <PersonalInfo/>
+          <PersonalInfo />
         </Grid>
       </Grow>
     </Grid>

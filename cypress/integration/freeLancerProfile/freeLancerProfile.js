@@ -29,11 +29,28 @@ When(/^I fill personal info data$/, function() {
   cy.get('#react-select-3-option-0').click();
 });
 
-When(/^click next$/, function() {});
-Then(/^I should see step two form$/, function() {});
-Then(/^percentage should be 30%$/, function() {});
-When(/^I fill step two data$/, function() {});
-Then(/^percentage should be 60%$/, function() {});
+When(/^click next$/, function() {
+  cy.get('#nextButton').click();
+});
+Then(/^I should see step two form$/, function() {
+  cy.get('#stepTwoForm');
+});
+When(/^I fill step two data$/, function() {
+  cy.get('#majorFieldsOfExperienceSelect').click();
+  cy.get('#react-select-4-option-0').click();
+  cy.get('#specificFieldsOfExperienceSelect').click();
+  cy.get('#react-select-5-option-0').click();
+  cy.get('#industriesOfExperience').click();
+  cy.get('#react-select-6-option-0').click();
+  cy.get('#assignmentLanguage').click();
+  cy.get('#react-select-7-option-0').click();
+  cy.get('#assignmentTypesSelect').click();
+  cy.get('#react-select-8-option-0').click();
+  cy.get('#locationOfAssignment').click();
+  cy.get('#react-select-9-option-0').click();
+  cy.get('#daily_rate').type('5');
+});
 When(/^I fill step three data$/, function() {});
 When(/^click submit$/, function() {});
 Then(/^I should see welcome message$/, function() {});
+Then(/^I should see step three form$/, function() {});

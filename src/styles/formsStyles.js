@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { lightPink, pink, white } from './colors';
+import { lightGrey, lightPink, pink, white } from './colors';
 
 export const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -35,7 +35,8 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    height: '100vh',
+    overflow: 'scroll',
+    padding: theme.spacing(3),
   },
   form: {
     display: 'flex',
@@ -89,6 +90,19 @@ export const useStyles = makeStyles((theme) => ({
   signupLink: {
     margin: theme.spacing(1),
     color: 'royalblue',
+  },
+  hintContainer: {
+    borderRadius: '5%',
+    padding: theme.spacing(3),
+    backgroundColor: lightGrey,
+  },
+  hintText: {
+    textAlign: 'center',
+  },
+
+  textField: {
+    borderWidth: '1px',
+    borderColor: `${pink} !important`,
   },
 }));
 
@@ -201,4 +215,9 @@ export const navigationButtonsContainer = {
   marginTop: '10px',
   alignSelf: 'center',
   width: '100%',
+};
+
+export const iconStyle = {
+  fill: pink,
+  alignSelf: 'center',
 };

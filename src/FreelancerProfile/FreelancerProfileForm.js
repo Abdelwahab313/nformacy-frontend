@@ -40,7 +40,7 @@ const FreeLancerProfileForm = () => {
   return (
     <div className={classes.freelancerProfileContainer}>
       <div style={stepIndicatorStyles.container}>
-        <StepsIndicator activeStep={activeStep}/>
+        <StepsIndicator activeStep={activeStep} />
       </div>
       <form id='multiStepForm' style={formStyle} noValidate>
         <FormContext
@@ -50,21 +50,22 @@ const FreeLancerProfileForm = () => {
           user={user}
           getValues={getValues}
           setValue={setValue}>
-          {activeStep === 0 && <StepOne/>}
-          {activeStep === 1 && <StepTwo/>}
+          {activeStep === 0 && <StepOne />}
+          {activeStep === 1 && <StepTwo />}
         </FormContext>
-        <Grid xs={12} md={10} style={navigationButtonsContainer}>
+        <Grid item xs={12} md={10} style={navigationButtonsContainer}>
           <Button
             onClick={getBackToPreviousStep}
             variant='contained'
-            startIcon={<ArrowBackIosIcon/>}>
+            startIcon={<ArrowBackIosIcon />}>
             back
           </Button>
           <Button
+            id='nextButton'
             onClick={proceedToNextStep}
             variant='contained'
             style={nextButtonStyles}
-            endIcon={<ArrowForwardIosIcon/>}>
+            endIcon={<ArrowForwardIosIcon />}>
             Next
           </Button>
         </Grid>
