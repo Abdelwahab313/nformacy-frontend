@@ -18,7 +18,6 @@
 .env.production.local
 .idea
 yarn.lock
-package-lock.json
 .idea/*
 
 npm-debug.log*

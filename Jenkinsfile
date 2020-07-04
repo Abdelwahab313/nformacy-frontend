@@ -1,71 +1,113 @@
+/* groovylint-disable CompileStatic, NestedBlockDepth */
+// Example Jenkins pipeline with Cypress end-to-end tests running in parallel on 2 workers
+// Pipeline syntax from https://jenkins.io/doc/book/pipeline/
+
+// Setup:
+//  before starting Jenkins, I have created several volumes to cache
+//  Jenkins configuration, NPM modules and Cypress binary
+
+// docker volume create jenkins-data
+// docker volume create npm-cache
+// docker volume create cypress-cache
+
+// Start Jenkins command line by line:
+//  - run as "root" user (insecure, contact your admin to configure user and groups!)
+//  - run Docker in disconnected mode
+//  - name running container "blue-ocean"
+//  - map port 8080 with Jenkins UI
+//  - map volumes for Jenkins data, NPM and Cypress caches
+//  - pass Docker socket which allows Jenkins to start worker containers
+//  - download and execute the latest BlueOcean Docker image
+
+// docker run \
+//   -u root \
+//   -d \
+//   --name blue-ocean \
+//   -p 8080:8080 \
+//   -v jenkins-data:/var/jenkins_home \
+//   -v npm-cache:/root/.npm \
+//   -v cypress-cache:/root/.cache \
+//   -v /var/run/docker.sock:/var/run/docker.sock \
+//   jenkinsci/blueocean:latest
+
+// If you start for the very first time, inspect the logs from the running container
+// to see Administrator password - you will need it to configure Jenkins via localhost:8080 UI
+//    docker logs blue-ocean
+
 pipeline {
-    agent any
-
-    tools { nodejs 'nodejs' }
-    stages {
-        stage('Build dashboard docker image') {
-            steps {
-                sh 'docker build -f Dockerfile-prod --tag dashboard:prod .'
-            }
+  agent any
+  tools { nodejs 'nodejs' }
+  environment {
+    BackendPath = '/var/lib/jenkins/workspace/sandbox-backend'
+  }
+  stages {
+    // first stage installs node dependencies and Cypress binary
+    stage('build') {
+      parallel {
+        stage('Build front end') {
+          steps {
+            echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
+            sh 'npm install'
+            sh 'npm run cy:verify'
+            sh 'nohup npm run cy:start &'
+          }
         }
-        stage('Run dashboard container') {
-            steps {
-                sh 'docker run -d --name=dashboard -p 3000:80 --rm dashboard:prod'
+        stage('Setup sandbox backend') {
+          steps {
+            echo '-- Fetch Backend'
+            sh "mkdir -p ${env.BackendPath}"
+            dir("${env.BackendPath}") {
+              git(
+                  branch: 'try-sandbox-ci',
+                  credentialsId: 'gitlab_abdo',
+                  url: 'https://gitlab.com/devsquads.egy/meddad.git'
+                )
             }
-        }
-        stage('Pull the backend code') {
-            steps {
-                checkout([$class                           : 'GitSCM',
-                          branches                         : [[name: 'refs/heads/master']],
-                          doGenerateSubmoduleConfigurations: false,
-                          extensions                       : [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'carrier-backend']],
-                          gitTool                          : 'Default',
-                          submoduleCfg                     : [],
-                          userRemoteConfigs                : [[credentialsId: 'd63b8d7c-17df-488a-ad2d-b7dacacfcd72', url: 'https://github.com/DevSquads/carrier-backend.git']]
-                ])
-
+            dir("${env.BackendPath}") {
+              sh 'make sandbox-up'
+              // wait for docker to setup
+              // change this to localhost insetead of IP
+              sh './wait-for-it.sh 164.90.178.254:3001 -- echo "Sandbox is up"'
+              sh 'make sandbox-setup'
             }
+          }
+        // post { always { junit '**/TEST-*.xml'  } }
         }
-        stage('Build backend docker images') {
-            steps {
-                dir('carrier-backend') {
-                    sh 'make build_no_cache'
-                }
-            }
-        }
-        stage('Run backend docker images') {
-            steps {
-                dir('carrier-backend') {
-                    sh 'make up_detach'
-                }
-            }
-        }
-        stage('Loading db seed for test') {
-            steps {
-                dir('carrier-backend') {
-                    sleep 60
-                    sh 'make load-seed'
-                }
-            }
-        }
-        stage('Run tests') {
-            steps {
-                sh 'cypress run'
-            }
-        }
+      }
     }
-    post {
-        always {
-            echo 'Deleting all containers'
-            sh 'docker container rm -f $(docker container ls -a -q)'
-            echo 'Deleting all Volumes'
-            sh ' docker volume rm -f $(docker volume ls -q)'
-            echo "clean "
-        }
-        failure {
-            mail to: 'moessam@devsquads.com',
-                    subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-                    body: "Something is wrong with ${env.BUILD_URL}"
-        }
+
+    // this stage runs end-to-end tests, and each agent uses the workspace
+    // from the previous stage
+    stage('cypress run tests') {
+      environment {
+        // because parallel steps share the workspace they might race to delete
+        // screenshots and videos folders. Tell Cypress not to delete these folders
+        CYPRESS_trashAssetsBeforeRuns = 'false'
+      }
+
+      steps {
+        echo "Running build ${env.BUILD_ID}"
+        sh 'npm run cy:run'
+      }
     }
+
+    stage('deploy to production') {
+      when {
+        branch 'production'
+      }
+      steps {
+        // start local server in the background
+        // we will shut it down in "post" command block
+        echo '---------------------> deployment <<<++++++++++++++++++'
+      }
+    }
+  }
+
+  post {
+    always {
+      junit 'cypress/results/*.xml'
+      echo 'stop server'
+      sh './node_modules/.bin/pm2 kill'
+    }
+  }
 }

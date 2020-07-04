@@ -18,3 +18,21 @@ import './commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+// before(() => {
+//   cy.log('reseeding database!!!!!!');
+//   const CURRENT_WORKING = '/Users/devsquads/projects/medad/medad_frontend';
+//   const SERVER_PATH = '/Users/devsquads/projects/medad/medad-server';
+//   cy.exec(
+//     `cd ${SERVER_PATH} && make sandbox-drop && make sandbox-setup && cd ${CURRENT_WORKING}`,
+//   )
+//     .its('code')
+//     .should('eq', 0);
+
+// });
+
+// before(() => {
+//   const CURRENT_WORKING="/Users/devsquads/projects/medad/medad_frontend"
+//   const SERVER_PATH="/Users/devsquads/projects/medad/medad-server"
+//   cy.exec(`cd ${SERVER_PATH} && make sandbox-drop sandbox-setup && cd ${CURRENT_WORKING}`)
+// })
