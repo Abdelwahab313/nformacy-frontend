@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
@@ -24,7 +24,7 @@ import Education from '../components/forms/Education';
 import Certification from '../components/forms/Certification';
 
 const EditProfile = ({ t }) => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = useRef(JSON.parse(localStorage.getItem('user')));
   const {
     register,
     watch,
@@ -34,7 +34,7 @@ const EditProfile = ({ t }) => {
     errors,
     handleSubmit,
   } = useForm({
-    defaultValues: { ...user },
+    defaultValues: { ...user.current },
   });
   const [avatar, setAvatar] = useState([]);
   const [deletedExperiences, setDeletedExperiences] = useState([]);
@@ -49,7 +49,7 @@ const EditProfile = ({ t }) => {
   const onSubmit = (userData) => {
     const userToBeSubmitted = {
       ...userData,
-      id: user.id,
+      id: user.current.id,
       experiences: !!userData.experiences
         ? [...userData.experiences, ...deletedExperiences]
         : deletedExperiences,
@@ -60,7 +60,7 @@ const EditProfile = ({ t }) => {
         ? [...userData.certifications, ...deletedCertification]
         : deletedCertification,
     };
-    updateProfile(userToBeSubmitted, user.id)
+    updateProfile(userToBeSubmitted, user.current.id)
       .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));
       })
@@ -72,19 +72,16 @@ const EditProfile = ({ t }) => {
       const formData = new FormData();
       formData.append('avatar', file, avatar[0].name);
 
-      updateProfilePicture(formData, user.id)
+      updateProfilePicture(formData, user.current.id)
         .then((response) => {
           localStorage.setItem('user', JSON.stringify(response.data));
         })
-        .catch((error) => {
-          console.log('laaaaa-----', error);
-        });
+        .catch((error) => {});
     }
   };
 
   const uploadPhoto = (picture) => {
     setAvatar(picture);
-    console.log('----------------------AVATARRRR----------', avatar);
   };
 
   return (
@@ -146,7 +143,7 @@ const EditProfile = ({ t }) => {
                     fullWidth
                     id='firstName'
                     name='firstName'
-                    defaultValue={!user.firstName && ''}
+                    defaultValue={!user.current.firstName && ''}
                     inputRef={register({ required: 'This field is required' })}
                     autoComplete='name'
                     error={!!errors.firstName}
@@ -163,7 +160,7 @@ const EditProfile = ({ t }) => {
                     fullWidth
                     id='lastName'
                     name='lastName'
-                    defaultValue={!user.lastName && ''}
+                    defaultValue={!user.current.lastName && ''}
                     inputRef={register({ required: 'This field is required' })}
                     autoComplete='name'
                     error={!!errors.lastName}
@@ -187,7 +184,7 @@ const EditProfile = ({ t }) => {
                     fullWidth
                     id='email'
                     name='email'
-                    defaultValue={!user.email && ''}
+                    defaultValue={!user.current.email && ''}
                     autoComplete='email'
                     error={!!errors.email}
                   />

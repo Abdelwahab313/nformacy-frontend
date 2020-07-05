@@ -77,9 +77,12 @@ const FieldsOfExperience = ({ user }) => {
               );
               setValue('specificFieldsOfExperience', filteredSelectedValues);
               setSpecificFields(allSelections);
-              return getValues('majorFieldsOfExperience').filter(
+              let filteredValues = getValues('majorFieldsOfExperience').filter(
                 (exp) => exp.value !== removedValue.value,
               );
+              return filteredValues?.length === 0
+                ? null
+                : filteredSelectedValues;
             } else if (action === 'clear') {
               setSpecificFields([]);
               setValue('specificFieldsOfExperience', null);

@@ -24,7 +24,8 @@ When(/^I fill personal info data$/, function() {
   cy.get('#maleRadio').click();
   cy.get('#country-select').click();
   cy.get('#react-select-2-option-0').click();
-  cy.get('#mobile_number').type('+20106994259');
+  cy.get('#mobile_number').clear();
+  cy.get('#mobile_number').type('201069942509');
   cy.get('#currentEmploymentStatus').click();
   cy.get('#react-select-3-option-0').click();
 });
@@ -48,7 +49,6 @@ When(/^I fill step two data$/, function() {
   cy.get('#react-select-8-option-0').click();
   cy.get('#locationOfAssignment').click();
   cy.get('#react-select-9-option-0').click();
-  cy.get('#daily_rate').type('5');
 });
 When(/^click submit$/, function() {});
 Then(/^I should see welcome message$/, function() {});

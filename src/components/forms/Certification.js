@@ -29,7 +29,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 const Certification = () => {
-  const { errors, control, user, register } = useFormContext();
+  const { errors, control, user, register, watch } = useFormContext();
+  const watchCertifications = watch('certifications');
   const classes = useStyles();
   const [deletedCertification, setDeletedCertifications] = useState([]);
   const certificationForm = useFieldArray({
@@ -53,7 +54,7 @@ const Certification = () => {
             <Card key={item.id} className={classes.nestedCardContainer}>
               <ReactTooltip globalEventOff={'click'} />
               <CardContent>
-                {!!user.certifications[index] && (
+                {!!user.current.certifications[index] && (
                   <Input
                     label={'id'}
                     type='hidden'
@@ -136,30 +137,7 @@ const Certification = () => {
                             views={['year', 'month']}
                             format='MM/yyyy'
                             margin='normal'
-                            label='Start date'
-                            KeyboardButtonProps={{
-                              'aria-label': 'change date',
-                            }}
-                            onChange={(value) => value[0]}
-                            InputProps={{
-                              style: dateInputStyle,
-                            }}
-                          />
-                        }
-                      />
-                    </Container>
-                    <Container maxWidth={false} className={classes.formControl}>
-                      <Controller
-                        name={`certifications[${index}].endDate`}
-                        control={control}
-                        as={
-                          <KeyboardDatePicker
-                            variant='inline'
-                            autoOk
-                            views={['year', 'month']}
-                            format='MM/yyyy'
-                            margin='normal'
-                            label='end date'
+                            label='Completed by'
                             KeyboardButtonProps={{
                               'aria-label': 'change date',
                             }}
@@ -172,26 +150,6 @@ const Certification = () => {
                       />
                     </Container>
                   </MuiPickersUtilsProvider>
-                </Container>
-                <Container maxWidth={false} className={classes.checkBoxControl}>
-                  <FormControl
-                    component='fieldset'
-                    className={classes.formControl}
-                    data-tip='The certificate does not expire?'>
-                    <FormGroup>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            styles={{ root: { color: 'red' } }}
-                            id={`certifications-${index}-does-not-expire`}
-                            name='gilad'
-                            style={checkboxStyle}
-                          />
-                        }
-                        label='Does not expire?'
-                      />
-                    </FormGroup>
-                  </FormControl>
                 </Container>
                 <Container maxWidth={false} className={classes.formControl}>
                   <Button
@@ -216,7 +174,7 @@ const Certification = () => {
           <section className={classes.formControl}>
             <Button
               variant='contained'
-              style={nextButtonStyles}
+              style={nextButtonStyles(false)}
               onClick={() => certificationForm.append({})}
               startIcon={<Icon>add_circle</Icon>}
               id='add-certification'>

@@ -33,7 +33,7 @@ function FieldsOfSpecialization() {
         </Grid>
         <Divider variant='middle' style={dividerStyle} />
         <ReactTooltip globalEventOff={'click'} />
-        <FieldsOfExperience user={user} />
+        <FieldsOfExperience user={user.current} />
         <Container maxWidth={false} className={classes.formControl}>
           <div className={classes.formHeader}>
             <Typography gutterBottom variant='subtitle2'>
@@ -54,12 +54,14 @@ function FieldsOfSpecialization() {
             as={
               <CreatableSelect
                 defaultValue={
-                  !!user.industriesOfExperience
-                    ? user.industriesOfExperience.map((userIndustry) => {
-                        return industries.find(
-                          (industry) => userIndustry === industry.value,
-                        );
-                      })
+                  !!user.current.industriesOfExperience
+                    ? user.current.industriesOfExperience.map(
+                        (userIndustry) => {
+                          return industries.find(
+                            (industry) => userIndustry === industry.value,
+                          );
+                        },
+                      )
                     : []
                 }
                 styles={selectStyle}

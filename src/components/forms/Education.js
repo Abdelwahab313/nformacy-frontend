@@ -48,7 +48,7 @@ const Education = () => {
             <Card key={item.id} className={classes.nestedCardContainer}>
               <ReactTooltip globalEventOff={'click'} />
               <CardContent>
-                {!!user.educations[index] && (
+                {!!user.current.educations[index] && (
                   <Input
                     label={'id'}
                     type='hidden'
@@ -157,7 +157,7 @@ const Education = () => {
               id='add-education'
               onClick={() => educationForm.append({})}
               startIcon={<Icon>add_circle</Icon>}
-              style={nextButtonStyles}>
+              style={nextButtonStyles(false)}>
               Add Education
             </Button>
           </section>

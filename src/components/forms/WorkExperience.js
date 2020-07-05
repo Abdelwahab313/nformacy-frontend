@@ -36,8 +36,9 @@ const WorkExperience = () => {
   const experienceForm = useFieldArray({
     control,
     name: 'experiences',
+    toDate: false,
   });
-
+  console.log(watchExperiences);
   return (
     <Paper className={classes.paperSection} elevation={5}>
       <Container className={classes.nestedContainer}>
@@ -54,7 +55,7 @@ const WorkExperience = () => {
             <Card key={item.id} className={classes.nestedCardContainer}>
               <ReactTooltip globalEventOff={'click'} />
               <CardContent>
-                {!!user.experiences[index] && (
+                {!!user.current.experiences[index] && (
                   <Input
                     label={'id'}
                     type='hidden'
@@ -159,6 +160,7 @@ const WorkExperience = () => {
                       <Controller
                         name={`experiences[${index}][toDate]`}
                         valueName='checked'
+                        defaultValue={false}
                         type='checkbox'
                         control={control}
                         as={
@@ -202,7 +204,7 @@ const WorkExperience = () => {
               variant='contained'
               id='add-work-experience'
               onClick={() => experienceForm.append({})}
-              style={nextButtonStyles}
+              style={nextButtonStyles(false)}
               startIcon={<Icon>add_circle</Icon>}>
               Add Work Experience
             </Button>

@@ -21,7 +21,6 @@ When(/^I fill my updated data$/, function() {
   cy.get('#email').type('client@test.com');
   cy.get('#mobile_number').clear();
   cy.get('#mobile_number').type('201069942659');
-  cy.get('#daily_rate').type('123');
   cy.get('#currentEmploymentStatus').click();
   cy.get('#react-select-3-option-0').click();
   cy.get('#majorFieldsOfExperienceSelect').click();

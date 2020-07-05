@@ -58,8 +58,8 @@ const AssignmentPreferences = () => {
             as={
               <CreatableSelect
                 defaultValue={
-                  !!user.languageOfAssignments
-                    ? user.languageOfAssignments.map(
+                  !!user.current.languageOfAssignments
+                    ? user.current.languageOfAssignments.map(
                         (userAssignmentLanguage) => {
                           return assignmentLanguage.find(
                             (assignmentLanguage) =>
@@ -104,13 +104,15 @@ const AssignmentPreferences = () => {
                 id='assignmentTypesSelect'
                 styles={selectStyle}
                 value={
-                  !!user.typesOfAssignments
-                    ? user.typesOfAssignments.map((userAssignmentType) => {
-                        return assignmentTypes.find(
-                          (assignmentType) =>
-                            userAssignmentType === assignmentType.value,
-                        );
-                      })
+                  !!user.current.typesOfAssignments
+                    ? user.current.typesOfAssignments.map(
+                        (userAssignmentType) => {
+                          return assignmentTypes.find(
+                            (assignmentType) =>
+                              userAssignmentType === assignmentType.value,
+                          );
+                        },
+                      )
                     : []
                 }
                 label='Assignment Types'
@@ -143,8 +145,8 @@ const AssignmentPreferences = () => {
                 id='locationOfAssignment'
                 styles={selectStyle}
                 defaultValue={
-                  !!user.locationOfAssignments
-                    ? user.locationOfAssignments.map(
+                  !!user.current.locationOfAssignments
+                    ? user.current.locationOfAssignments.map(
                         (userAssignmentLocation) => {
                           return assignmentLocations.find(
                             (assignmentLocation) =>
@@ -159,29 +161,6 @@ const AssignmentPreferences = () => {
             }
           />
           <ErrorMessage errorField={errors.locationOfAssignments} />
-        </Container>
-        <Container maxWidth={false} className={classes.formControl}>
-          <Typography gutterBottom variant='subtitle2'>
-            Daily Rate
-          </Typography>
-          <TextField
-            variant='outlined'
-            margin='normal'
-            inputRef={register({ required: 'This field is required' })}
-            fullWidth
-            id='daily_rate'
-            name='dailyRate'
-            type='number'
-            InputProps={{
-              classes: {
-                notchedOutline: classes.textField,
-              },
-              inputMode: 'numeric',
-            }}
-            error={!!errors.dailyRate}
-            defaultValue={user.dailyRate}
-          />
-          <ErrorMessage errorField={errors.dailyRate} />
         </Container>
       </Container>
     </Paper>

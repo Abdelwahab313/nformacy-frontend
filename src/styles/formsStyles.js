@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { lightGrey, lightPink, pink, white } from './colors';
+import { lighterPink, lightGrey, lightPink, pink, white } from './colors';
 
 export const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -199,10 +199,12 @@ export const stepIndicatorStyles = {
   },
 };
 
-export const nextButtonStyles = {
-  backgroundColor: pink,
-  color: white,
-  alignSelf: 'center',
+export const nextButtonStyles = (disabled) => {
+  return {
+    backgroundColor: disabled ? lighterPink : pink,
+    color: white,
+    alignSelf: 'center',
+  };
 };
 
 export const formStyle = {

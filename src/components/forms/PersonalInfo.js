@@ -69,7 +69,7 @@ const PersonalInfo = () => {
                       />
                     }
                     label='Male'
-                    defaultValue={user?.gender}
+                    defaultValue={user?.current?.gender}
                   />
                   <Hidden mdDown>
                     <div className={classes.maleFemaleIcon}>
@@ -119,7 +119,7 @@ const PersonalInfo = () => {
               name='country'
               rules={{ required: 'This field is required' }}
               control={control}
-              defaultValue={!user.country && 0}
+              defaultValue={!user.current.country && 0}
               as={
                 <ReactSelectMaterialUi
                   fullWidth={true}
@@ -183,7 +183,7 @@ const PersonalInfo = () => {
               name='currentEmploymentStatus'
               rules={{ required: 'This field is required' }}
               control={control}
-              defaultValue={!user.currentEmploymentStatus && 0}
+              defaultValue={!user.current.currentEmploymentStatus && 0}
               as={
                 <ReactSelectMaterialUi
                   fullWidth
