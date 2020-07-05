@@ -5,7 +5,7 @@ import SideBar from './drawer/SideBar';
 import PrivateRoute from './PrivateRoute';
 import HomePage from '../HomePage';
 import MeetingsPage from '../MeetingsPage';
-import EditMeetingPage from '../MeetingsPage/EditMeetingPage';
+import MeetingDetailsPage from '../MeetingsPage/MeetingDetailsPage';
 import EditProfile from '../EditProfile/EditProfile';
 import FreeLancerProfileForm from '../FreelancerProfile/FreelancerProfileForm';
 import Success from '../FreelancerProfile/success';
@@ -42,7 +42,7 @@ function Layout(props) {
           <PrivateRoute
             exact
             path='/meeting/edit'
-            component={EditMeetingPage}
+            component={MeetingDetailsPage}
           />
         </Switch>
       </div>

@@ -12,7 +12,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ShortlistedFreelancersSection from './ShortlistedFreelancersSection';
 
-const EditMeetingPage = () => {
+const MeetingDetailsPage = () => {
   const meetingPageclasses = useMeetingPageStyle();
   const classes = useStyles();
 
@@ -76,9 +76,9 @@ const EditMeetingPage = () => {
         <Grid className={meetingPageclasses.root}>
           <h3>Proposed freelancers</h3>
 
-          {meetingDetails.shortlistedFreelancers.length > 0 ? (
+          {meetingDetails.meetingFreelancers.length > 0 ? (
             <ShortlistedFreelancersSection
-              shortlistedFreelancers={meetingDetails.shortlistedFreelancers}
+              shortlistedFreelancers={meetingDetails.meetingFreelancers.map((meetingFreelancers)=> meetingFreelancers.user)}
             />
           ) : (
             <h6>No available freelancers</h6>
@@ -89,7 +89,7 @@ const EditMeetingPage = () => {
   }
 };
 
-export default EditMeetingPage;
+export default MeetingDetailsPage;
 
 const useStyles = makeStyles((theme) => ({
   root: {

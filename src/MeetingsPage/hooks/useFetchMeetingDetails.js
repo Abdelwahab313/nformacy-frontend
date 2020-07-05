@@ -21,7 +21,7 @@ const useFetchShowMeetingDetails = (meetingId) => {
     setLoading(true);
     return fetchMeetingDetails(meetingId)
       .then((res) => {
-        const meeting = camelizeKeys(res.data[0]);
+        const meeting = camelizeKeys(res.data);
         setFetchedMeetingDetails(meeting);
       })
       .catch((reason) => {
