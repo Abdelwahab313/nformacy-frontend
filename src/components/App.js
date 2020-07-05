@@ -17,6 +17,7 @@ import EditProfile from '../EditProfile/EditProfile';
 import authManager from '../services/authManager';
 import Logout from '../auth/LogoutUser';
 import FreeLancerProfileForm from '../FreelancerProfile/FreelancerProfileForm';
+import Success from '../FreelancerProfile/success';
 
 const presets = preset().plugins;
 
@@ -60,6 +61,7 @@ function App() {
               path='/user/profile'
               component={FreeLancerProfileForm}
             />
+            <PrivateRoute path='/user/success' component={Success} />
             <PrivateRoute path='/' component={Layout} />
           </Switch>
         </AuthContext.Provider>

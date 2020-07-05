@@ -29,4 +29,14 @@ const updateProfilePicture = (user, userId) => {
   }).then((response) => camelizeKeys(response));
 };
 
-export { signup, updateProfile, updateProfilePicture };
+const uploadCV = (cv, userId) => {
+  return axios({
+    method: 'put',
+    url: `${API_BASE_URL}/users/${userId}`,
+    data: cv,
+    headers: {
+      accept: 'application/json',
+    },
+  }).then((response) => camelizeKeys(response));
+};
+export { signup, updateProfile, updateProfilePicture, uploadCV };

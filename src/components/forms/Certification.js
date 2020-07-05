@@ -5,9 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  checkboxStyle,
   dateInputStyle,
   nextButtonStyles,
   useStyles,
@@ -23,16 +22,15 @@ import {
 import DateFnsUtils from '@date-io/date-fns';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 
 const Certification = () => {
-  const { errors, control, user, register, watch } = useFormContext();
-  const watchCertifications = watch('certifications');
+  const {
+    control,
+    user,
+    register,
+    setDeletedCertifications,
+  } = useFormContext();
   const classes = useStyles();
-  const [deletedCertification, setDeletedCertifications] = useState([]);
   const certificationForm = useFieldArray({
     control,
     name: 'certifications',

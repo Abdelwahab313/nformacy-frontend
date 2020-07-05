@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { FormContext, useForm } from 'react-hook-form';
 import StepOne from './StepOne';
 import StepsIndicator from './StepsIndicator';
@@ -10,11 +10,14 @@ import {
   useStyles,
 } from '../styles/formsStyles';
 import { Button } from '@material-ui/core';
+import DoneIcon from '@material-ui/icons/Done';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Grid from '@material-ui/core/Grid';
 import StepTwo from './StepTwo';
 import StepThree from './StepThree';
+import { updateProfile, updateProfilePicture, uploadCV } from '../apis/userAPI';
+import { useHistory } from 'react-router-dom';
 
 const FreeLancerProfileForm = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -24,15 +27,22 @@ const FreeLancerProfileForm = () => {
     control,
     getValues,
     setValue,
+    handleSubmit,
     watch,
     reset,
   } = useForm({
     mode: 'onChange',
     defaultValues: { ...user.current },
   });
+  const history = useHistory();
+  const [loading, setLoading] = useState(false);
+  const [deletedExperiences, setDeletedExperiences] = useState([]);
+  const [deletedEducations, setDeletedEducations] = useState([]);
+  const [deletedCertification, setDeletedCertifications] = useState([]);
+
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
-
+  const [cv, setCV] = useState();
   const stepsFields = [
     ['gender', 'country', 'mobileNumber', 'currentEmploymentStatus'],
     [
@@ -52,6 +62,42 @@ const FreeLancerProfileForm = () => {
     return hasAnyInvalidField;
   }, [errors, activeStep]);
 
+  const onSubmit = (userData) => {
+    setLoading(true);
+    const userToBeSubmitted = {
+      ...user.current,
+      id: user.current.id,
+      experiences: !!userData.experiences
+        ? [...userData.experiences, ...deletedExperiences]
+        : deletedExperiences,
+      educations: !!userData.educations
+        ? [...userData.educations, ...deletedEducations]
+        : deletedEducations,
+      certifications: !!userData.certifications
+        ? [...userData.certifications, ...deletedCertification]
+        : deletedCertification,
+    };
+    updateProfile(userToBeSubmitted, user.current.id)
+      .then((response) => {
+        localStorage.setItem('user', JSON.stringify(response.data));
+        history.push('/user/success');
+      })
+      .catch((error) => {})
+      .finally(() => setLoading(false));
+
+    if (cv?.length > 0) {
+      const file = new Blob(cv);
+      const formData = new FormData();
+      formData.append('cv', file, cv[0].name);
+
+      uploadCV(formData, user.current.id)
+        .then((response) => {
+          localStorage.setItem('user', JSON.stringify(response.data));
+        })
+        .catch((error) => {});
+    }
+  };
+
   function proceedToNextStep() {
     if (activeStep < 2) {
       user.current = { ...user.current, ...getValues(stepsFields[activeStep]) };
@@ -65,13 +111,16 @@ const FreeLancerProfileForm = () => {
       setActiveStep(activeStep - 1);
     }
   }
-
   return (
     <div className={classes.freelancerProfileContainer}>
       <div style={stepIndicatorStyles.container}>
         <StepsIndicator activeStep={activeStep} />
       </div>
-      <form id='multiStepForm' style={formStyle} noValidate>
+      <form
+        id='multiStepForm'
+        style={formStyle}
+        noValidate
+        onSubmit={handleSubmit(onSubmit)}>
         <FormContext
           errors={errors}
           register={register}
@@ -79,6 +128,11 @@ const FreeLancerProfileForm = () => {
           user={user}
           getValues={getValues}
           setValue={setValue}
+          setDeletedExperiences={setDeletedExperiences}
+          setDeletedEducations={setDeletedEducations}
+          setDeletedCertifications={setDeletedCertifications}
+          cv={cv}
+          setCV={setCV}
           watch={watch}>
           {activeStep === 0 && <StepOne />}
           {activeStep === 1 && <StepTwo />}
@@ -96,20 +150,34 @@ const FreeLancerProfileForm = () => {
           {activeStep !== 0 && (
             <Button
               onClick={getBackToPreviousStep}
+              disabled={loading}
               variant='contained'
               startIcon={<ArrowBackIosIcon />}>
               back
             </Button>
           )}
-          <Button
-            id='nextButton'
-            disabled={stepValid()}
-            onClick={proceedToNextStep}
-            variant='contained'
-            style={nextButtonStyles(stepValid())}
-            endIcon={<ArrowForwardIosIcon />}>
-            Next
-          </Button>
+          {activeStep !== 2 && (
+            <Button
+              id='nextButton'
+              disabled={stepValid() || loading}
+              onClick={proceedToNextStep}
+              variant='contained'
+              style={nextButtonStyles(stepValid() || loading)}
+              endIcon={<ArrowForwardIosIcon />}>
+              Next
+            </Button>
+          )}
+          {activeStep === 2 && (
+            <Button
+              id='submitButton'
+              type='submit'
+              disabled={stepValid() || loading}
+              variant='contained'
+              style={nextButtonStyles(stepValid() || loading)}
+              endIcon={<DoneIcon />}>
+              Submit
+            </Button>
+          )}
         </Grid>
       </form>
     </div>

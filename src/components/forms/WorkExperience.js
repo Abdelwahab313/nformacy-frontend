@@ -29,10 +29,16 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 
 const WorkExperience = () => {
-  const { errors, control, user, register, watch } = useFormContext();
+  const {
+    errors,
+    control,
+    user,
+    register,
+    watch,
+    setDeletedExperiences,
+  } = useFormContext();
   const classes = useStyles();
   const watchExperiences = watch('experiences');
-  const [deletedExperiences, setDeletedExperiences] = useState([]);
   const experienceForm = useFieldArray({
     control,
     name: 'experiences',

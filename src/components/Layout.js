@@ -8,6 +8,7 @@ import MeetingsPage from '../MeetingsPage';
 import EditMeetingPage from '../MeetingsPage/EditMeetingPage';
 import EditProfile from '../EditProfile/EditProfile';
 import FreeLancerProfileForm from '../FreelancerProfile/FreelancerProfileForm';
+import Success from '../FreelancerProfile/success';
 
 const useStyles = makeStyles((theme) => ({
   root: {

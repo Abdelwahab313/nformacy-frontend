@@ -66,7 +66,6 @@ const EditProfile = ({ t }) => {
       })
       .catch((error) => {});
 
-    debugger;
     if (avatar.length > 0) {
       const file = new Blob(avatar);
       const formData = new FormData();

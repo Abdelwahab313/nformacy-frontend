@@ -24,9 +24,14 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 
 const Education = () => {
-  const { errors, control, user, register } = useFormContext();
+  const {
+    errors,
+    control,
+    user,
+    register,
+    setDeletedEducations,
+  } = useFormContext();
   const classes = useStyles();
-  const [deletedEducations, setDeletedEducations] = useState([]);
   const educationForm = useFieldArray({
     control,
     name: 'educations',

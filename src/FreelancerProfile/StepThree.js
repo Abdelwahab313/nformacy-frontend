@@ -5,8 +5,16 @@ import Grow from '@material-ui/core/Grow';
 import WorkExperience from '../components/forms/WorkExperience';
 import Education from '../components/forms/Education';
 import Certification from '../components/forms/Certification';
+import ImageUploader from 'react-images-upload';
+import { useFormContext } from 'react-hook-form';
+import Typography from '@material-ui/core/Typography';
 
 const StepOne = () => {
+  const { cv, setCV } = useFormContext();
+
+  const uploadCV = (cv) => {
+    setCV(cv);
+  };
   return (
     <Grid id='stepThreeForm' container>
       <Grid
@@ -31,7 +39,22 @@ const StepOne = () => {
           </Grid>
         </Grow>
         <Grow in={true} timeout={3500}>
-          <Grid item xs={12} md={2}></Grid>
+          <Grid container justify='center' xs={12} md={2}>
+            <ImageUploader
+              singleImage={true}
+              label={'Accepted file format: pdf'}
+              accept='application/pdf'
+              withIcon={true}
+              onChange={uploadCV}
+              buttonText='Choose your CV'
+              imgExtension={['.pdf']}
+            />
+            {cv?.length > 0 && (
+              <Typography gutterBottom variant='subtitle2'>
+                {cv[0].name}
+              </Typography>
+            )}
+          </Grid>
         </Grow>
       </Grid>
       <Grid
