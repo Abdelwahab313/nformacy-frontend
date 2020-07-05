@@ -12,6 +12,7 @@ const Success = () => {
         <Grid md={3} item />
       </Hidden>
       <Grid
+        id='welcomeContainer'
         xs={12}
         md={6}
         direction='column'

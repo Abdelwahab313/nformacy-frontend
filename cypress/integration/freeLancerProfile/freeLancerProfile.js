@@ -50,8 +50,12 @@ When(/^I fill step two data$/, function() {
   cy.get('#locationOfAssignment').click();
   cy.get('#react-select-9-option-0').click();
 });
-When(/^click submit$/, function() {});
-Then(/^I should see welcome message$/, function() {});
+When(/^click submit$/, function() {
+  cy.get('#submitButton').click();
+});
+Then(/^I should see welcome message$/, function() {
+  cy.get('#welcomeContainer');
+});
 Then(/^I should see step three form$/, function() {
   cy.get('#stepThreeForm');
 });
@@ -66,5 +70,5 @@ When(/^I fill step three data$/, function() {
   cy.get('#educations-school-0').type('test school');
   cy.get('#add-certification').click();
   cy.get('#certification-name-0').clear();
-  cy.get('#certification-name-0').type('test school');
+  cy.get('#certification-name-0').type('test certification');
 });
