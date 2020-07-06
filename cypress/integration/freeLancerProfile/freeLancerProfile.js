@@ -1,12 +1,13 @@
 import { BASE_URL } from '../../defualtTestValues';
 
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import faker from 'faker';
 
 Given(/^I am a freelancer and registered$/, function() {
   cy.visit(BASE_URL + '/signup');
-  cy.get('#firstName').type('First name');
-  cy.get('#lastName').type('last name');
-  cy.get('#email').type('new2@new.new');
+  cy.get('#firstName').type(faker.name.findName());
+  cy.get('#lastName').type(faker.name.findName());
+  cy.get('#email').type(faker.internet.email());
   cy.get('#password').type('testtest');
   cy.get('#confirmPassword').type('testtest');
   cy.get('#register').click();

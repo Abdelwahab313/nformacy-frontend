@@ -1,24 +1,26 @@
 import { BASE_URL } from '../../defualtTestValues';
 
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
+import { signUpAndSetTokens } from '../../helperFunctions';
+import faker from 'faker';
 
 Given(/^I log in$/, function() {
-  cy.visit(BASE_URL);
-  cy.get('#email').type('client@test.com');
-  cy.get('#password').type('test1234');
-  cy.get('#login').click();
-  cy.get('#side-menu');
+  signUpAndSetTokens();
+  cy.wrap(faker.name.findName()).as('updatedFirstName');
 });
 When(/^I go to edit profile page$/, function() {
   cy.visit(BASE_URL + '/user/edit');
 });
 When(/^I fill my updated data$/, function() {
   cy.get('#firstName').clear();
-  cy.get('#firstName').type('test first name');
+  cy.get('#firstName').type(this.updatedFirstName);
   cy.get('#lastName').clear();
-  cy.get('#lastName').type('test last name');
+  cy.get('#lastName').type(faker.name.findName());
   cy.get('#email').clear();
-  cy.get('#email').type('client@test.com');
+  cy.get('#email').type(this.user.email);
+  cy.get('#maleRadio').click();
+  cy.get('#country-select').click();
+  cy.get('#react-select-2-option-0').click();
   cy.get('#mobile_number').clear();
   cy.get('#mobile_number').type('201069942659');
   cy.get('#currentEmploymentStatus').click();
@@ -45,7 +47,7 @@ When(/^press submit$/, function() {
 });
 Then(/^then should see my updated data when i open edit profile$/, function() {
   cy.visit(BASE_URL + '/user/edit');
-  cy.get('#firstName').should('have.value', 'test first name');
+  cy.get('#firstName').should('have.value', this.updatedFirstName);
 });
 When(/^I Upload an image$/, function() {
   cy.get('.chooseFileButton ').click();
