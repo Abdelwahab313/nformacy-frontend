@@ -40,7 +40,6 @@ const useFetchShowMeetingDetails = (meetingId) => {
     isLoading,
     fetchedMeetingDetails,
     errorMessage,
-    setFetchedMeetingDetails,
   };
 };
 

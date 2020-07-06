@@ -29,14 +29,8 @@ const Alert = (props) => {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
 };
 
-function ShortlistedFreelancersSection({
-  shortlistedFreelancers,
-  setFetchedMeetingDetails,
-}) {
+function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
   const classes = useStyles();
-  const location = useLocation();
-  const meetingId = location.state.meetingId;
-
   const [selectedFreelancer, setSelectedFreelancer] = useState({});
   const [isCalendarOpened, setIsCalendarOpened] = useState(false);
   const [isSnackbarShown, setIsSnackbarShown] = useState(false);
@@ -47,7 +41,6 @@ function ShortlistedFreelancersSection({
     scheduleMeeting(meetingId, selectedFreelancer.id, selectedDay).then(
       (response) => {
         setIsSnackbarShown(true);
-        setFetchedMeetingDetails(response.data);
       },
     );
     closeCalendar();
@@ -99,8 +92,11 @@ function ShortlistedFreelancersSection({
       </List>
       <Snackbar
         open={isSnackbarShown}
-        autoHideDuration={2000}
-        onClose={() => setIsSnackbarShown(false)}>
+        autoHideDuration={1000}
+        onClose={() => {
+          setIsSnackbarShown(false);
+          window.location.reload();
+        }}>
         <Alert onClose={() => setIsSnackbarShown(false)} severity='success'>
           {`Meeting has been scheduled successfully with ${selectedFreelancer.firstName} ${selectedFreelancer.lastName}`}
         </Alert>
