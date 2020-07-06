@@ -8,7 +8,6 @@ import { Controller, useFormContext } from 'react-hook-form';
 import CreatableSelect from 'react-select/creatable/dist/react-select.esm';
 import {
   assignmentLanguage,
-  assignmentLocations,
   assignmentTypes,
 } from '../../constants/dropDownOptions';
 import ErrorMessage from '../errors/ErrorMessage';
@@ -119,47 +118,6 @@ const AssignmentPreferences = () => {
             }
           />
           <ErrorMessage errorField={errors.typesOfAssignments} />
-        </Container>
-        <Container maxWidth={false} className={classes.formControl}>
-          <div className={classes.formHeader}>
-            <Typography gutterBottom variant='subtitle2'>
-              {t['locationOfAssignments']}
-            </Typography>
-            <HelpIcon
-              className={classes.formHeaderIcon}
-              data-tip={t['locationOfAssignmentsHint']}
-              data-multiline={true}
-              color='primary'
-              fontSize='small'
-            />
-          </div>
-          <Controller
-            name='locationOfAssignments'
-            rules={{ required: t['requiredMessage'] }}
-            control={control}
-            as={
-              <CreatableSelect
-                isMulti
-                options={assignmentLocations}
-                id='locationOfAssignment'
-                styles={selectStyle}
-                defaultValue={
-                  !!user.current.locationOfAssignments
-                    ? user.current.locationOfAssignments.map(
-                        (userAssignmentLocation) => {
-                          return assignmentLocations.find(
-                            (assignmentLocation) =>
-                              userAssignmentLocation ===
-                              assignmentLocation.value,
-                          );
-                        },
-                      )
-                    : []
-                }
-              />
-            }
-          />
-          <ErrorMessage errorField={errors.locationOfAssignments} />
         </Container>
       </Container>
     </Paper>

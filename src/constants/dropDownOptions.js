@@ -21,11 +21,8 @@ const assignmentLanguage = [
 ];
 
 const assignmentTypes = [
-  { value: 'fullTime', label: 'Full-Time' },
-  { value: 'partTime', label: 'Part-Time' },
-];
-
-const assignmentLocations = [
+  { value: 'lessThanOneMonth', label: 'Less than 1 month duration' },
+  { value: 'moreThanOneMonth', label: 'More than 1 month duration' },
   { value: 'countryOfResidence', label: 'Country of Residence' },
   { value: 'virtualAssignments', label: 'Virtual Assignments' },
   { value: 'openForTravel', label: 'Open for Travel' },
@@ -385,7 +382,6 @@ export {
   employmentStatus,
   assignmentLanguage,
   assignmentTypes,
-  assignmentLocations,
   industries,
   fieldsOfExperience,
 };

@@ -106,7 +106,7 @@ const PersonalInfo = () => {
         <Container maxWidth={false} className={classes.formControl}>
           <div className={classes.formHeader}>
             <Typography gutterBottom variant='subtitle2'>
-              Country
+              {t['country']}
             </Typography>
             <HelpIcon
               className={classes.formHeaderIcon}
@@ -173,7 +173,7 @@ const PersonalInfo = () => {
         </Container>
         <Container maxWidth={false} className={classes.formControl}>
           <Typography gutterBottom variant='subtitle2'>
-            Current Employment Status
+            {t['currentEmploymentStatus']}
           </Typography>
           <FormControl
             id='currentEmploymentStatus'

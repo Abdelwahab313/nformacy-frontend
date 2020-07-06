@@ -47,8 +47,6 @@ When(/^I fill step two data$/, function() {
   cy.get('#react-select-7-option-0').click();
   cy.get('#assignmentTypesSelect').click();
   cy.get('#react-select-8-option-0').click();
-  cy.get('#locationOfAssignment').click();
-  cy.get('#react-select-9-option-0').click();
 });
 When(/^click submit$/, function() {
   cy.get('#submitButton').click();

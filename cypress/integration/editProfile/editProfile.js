@@ -33,8 +33,6 @@ When(/^I fill my updated data$/, function() {
   cy.get('#react-select-7-option-0').click();
   cy.get('#assignmentTypesSelect').click();
   cy.get('#react-select-8-option-0').click();
-  cy.get('#locationOfAssignment').click();
-  cy.get('#react-select-9-option-0').click();
   cy.get('#add-work-experience').click();
   cy.get('#work-experience-title-0').clear();
   cy.get('#work-experience-title-0').type('test job title');

@@ -7,6 +7,7 @@ import { fieldsOfExperience } from '../constants/dropDownOptions';
 import ReactSelect from 'react-select';
 import { selectStyle, useStyles } from '../styles/formsStyles';
 import ErrorMessage from '../components/errors/ErrorMessage';
+import t from '../locales/en/freelancerProfile.json';
 
 const FieldsOfExperience = ({ user }) => {
   const { control, errors, setValue, getValues } = useFormContext();
@@ -26,11 +27,11 @@ const FieldsOfExperience = ({ user }) => {
       <Container maxWidth={false} className={classes.formControl}>
         <div className={classes.formHeader}>
           <Typography gutterBottom variant='subtitle2'>
-            Major field of experience
+            {t['experiencedIn']}
           </Typography>
           <HelpIcon
             className={classes.formHeaderIcon}
-            data-tip='You can choose more than one major field of experience.'
+            data-tip={t['experiencedInHint']}
             color='primary'
             fontSize='small'
           />
@@ -38,9 +39,9 @@ const FieldsOfExperience = ({ user }) => {
         <Controller
           id='majorFieldsOfExperienceSelect'
           name='majorFieldsOfExperience'
-          rules={{ required: 'This field is required' }}
+          rules={{ required: t['requiredMessage'] }}
           control={control}
-          onChange={([selectedItems, selectionAction]) => {
+          onChange={([, selectionAction]) => {
             const { action } = selectionAction;
             if (action === 'select-option') {
               const { option } = selectionAction;
@@ -108,7 +109,7 @@ const FieldsOfExperience = ({ user }) => {
                     )
                   : []
               }
-              label='Major Fields Of Experience'
+              label={t['majorFieldOfExperience']}
             />
           }
         />
@@ -117,11 +118,11 @@ const FieldsOfExperience = ({ user }) => {
       <Container maxWidth={false} className={classes.formControl}>
         <div className={classes.formHeader}>
           <Typography gutterBottom variant='subtitle2'>
-            Specific field of experience
+            {t['specificallyIn']}
           </Typography>
           <HelpIcon
             className={classes.formHeaderIcon}
-            data-tip='You can choose more than one specific field of experience.'
+            data-tip={t['specificallyInHint']}
             color='primary'
             fontSize='small'
           />
@@ -129,14 +130,14 @@ const FieldsOfExperience = ({ user }) => {
         <Controller
           id='specificFieldsOfExperienceSelect'
           name='specificFieldsOfExperience'
-          rules={{ required: 'This field is required' }}
+          rules={{ required: t['requiredMessage'] }}
           control={control}
           as={
             <ReactSelect
               isMulti
               options={specificFields}
               className={classes.selectControl}
-              label='Major Fields Of Experience'
+              label={t['specificField']}
               styles={selectStyle}
               value={
                 !!user.specificFieldsOfExperience

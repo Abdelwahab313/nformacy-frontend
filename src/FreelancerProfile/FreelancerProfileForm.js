@@ -52,7 +52,6 @@ const FreeLancerProfileForm = () => {
       'specificFieldsOfExperience',
       'languageOfAssignments',
       'typesOfAssignments',
-      'locationOfAssignments',
     ],
   ];
 
