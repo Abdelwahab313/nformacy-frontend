@@ -16,8 +16,9 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Grid from '@material-ui/core/Grid';
 import StepTwo from './StepTwo';
 import StepThree from './StepThree';
-import { updateProfile, updateProfilePicture, uploadCV } from '../apis/userAPI';
+import { updateProfile, uploadCV } from '../apis/userAPI';
 import { useHistory } from 'react-router-dom';
+import t from '../locales/en/freelancerProfile.json';
 
 const FreeLancerProfileForm = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -156,7 +157,7 @@ const FreeLancerProfileForm = () => {
               disabled={loading}
               variant='contained'
               startIcon={<ArrowBackIosIcon />}>
-              back
+              {t['back']}
             </Button>
           )}
           {activeStep !== 2 && (
@@ -167,7 +168,7 @@ const FreeLancerProfileForm = () => {
               variant='contained'
               style={nextButtonStyles(stepValid() || loading)}
               endIcon={<ArrowForwardIosIcon />}>
-              Next
+              {t['next']}
             </Button>
           )}
           {activeStep === 2 && (
@@ -178,7 +179,7 @@ const FreeLancerProfileForm = () => {
               variant='contained'
               style={nextButtonStyles(stepValid() || loading)}
               endIcon={<DoneIcon />}>
-              Submit
+              {t['submit']}
             </Button>
           )}
         </Grid>

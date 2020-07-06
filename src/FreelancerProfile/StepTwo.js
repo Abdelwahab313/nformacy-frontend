@@ -7,6 +7,7 @@ import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import Typography from '@material-ui/core/Typography';
 import { iconStyle, useStyles } from '../styles/formsStyles';
 import AssignmentPreferences from '../components/forms/AssignmentPreferences';
+import t from '../locales/en/freelancerProfile.json';
 
 const StepTwo = () => {
   const classes = useStyles();
@@ -42,10 +43,7 @@ const StepTwo = () => {
                 variant='subtitle1'
                 gutterBottom
                 className={classes.hintText}>
-                Select the areas and majors you have solid experience and
-                history in, you can add as many fields as you want. After
-                selecting the major field you can choose the specific sub fields
-                related to it.
+                {t['fieldsOfSpecializationHint']}
               </Typography>
             </Grid>
           </Grid>

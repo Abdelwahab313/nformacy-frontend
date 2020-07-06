@@ -8,6 +8,7 @@ import Certification from '../components/forms/Certification';
 import ImageUploader from 'react-images-upload';
 import { useFormContext } from 'react-hook-form';
 import Typography from '@material-ui/core/Typography';
+import t from '../locales/en/freelancerProfile.json';
 
 const StepOne = () => {
   const { cv, setCV } = useFormContext();
@@ -46,7 +47,7 @@ const StepOne = () => {
               accept='application/pdf'
               withIcon={true}
               onChange={uploadCV}
-              buttonText='Choose your CV'
+              buttonText={t['chooseCV']}
               imgExtension={['.pdf']}
             />
             {cv?.length > 0 && (

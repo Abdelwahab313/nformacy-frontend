@@ -22,6 +22,7 @@ import {
 import DateFnsUtils from '@date-io/date-fns';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
+import t from '../../locales/en/freelancerProfile.json';
 
 const Certification = () => {
   const {
@@ -42,7 +43,7 @@ const Certification = () => {
         <Grid container alignItems='center'>
           <Grid item xs>
             <Typography gutterBottom variant='h4'>
-              Certifications
+              {t['certifications']}
             </Typography>
           </Grid>
         </Grid>
@@ -65,7 +66,7 @@ const Certification = () => {
                   <TextField
                     id={`certification-name-${index}`}
                     fullWidth
-                    label={'Name'}
+                    label={t['name']}
                     variant='outlined'
                     name={`certifications[${index}].name`}
                     defaultValue={item.name}
@@ -95,7 +96,7 @@ const Certification = () => {
                 <Container maxWidth={false} className={classes.formControl}>
                   <TextField
                     fullWidth
-                    label={'Credential'}
+                    label={t['credential']}
                     variant='outlined'
                     name={`certifications[${index}].credential`}
                     defaultValue={item.credential}
@@ -110,7 +111,7 @@ const Certification = () => {
                 <Container maxWidth={false} className={classes.formControl}>
                   <TextField
                     fullWidth
-                    label={'Credential URL'}
+                    label={t['credentialURL']}
                     variant='outlined'
                     name={`certifications[${index}].credentialUrl`}
                     defaultValue={item.credentialUrl}
@@ -135,9 +136,9 @@ const Certification = () => {
                             views={['year', 'month']}
                             format='MM/yyyy'
                             margin='normal'
-                            label='Completed by'
+                            label={t['completedBy']}
                             KeyboardButtonProps={{
-                              'aria-label': 'change date',
+                              'aria-label': t['changeDate'],
                             }}
                             onChange={(value) => value[0]}
                             InputProps={{
@@ -163,7 +164,7 @@ const Certification = () => {
                       certificationForm.remove(index);
                     }}
                     startIcon={<Icon>remove_circle</Icon>}>
-                    Remove Certification
+                    {t['removeCertification']}
                   </Button>
                 </Container>
               </CardContent>
@@ -176,7 +177,7 @@ const Certification = () => {
               onClick={() => certificationForm.append({})}
               startIcon={<Icon>add_circle</Icon>}
               id='add-certification'>
-              Add Certification
+              {t['addCertification']}
             </Button>
           </section>
         </Container>

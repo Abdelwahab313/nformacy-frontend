@@ -9,6 +9,7 @@ import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import SettingsIcon from '@material-ui/icons/Settings';
 import StepConnector from '@material-ui/core/StepConnector';
 import { lighterPink, lightPink, pink } from '../styles/colors';
+import t from '../locales/en/freelancerProfile.json';
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -88,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ['Personal Info', 'Specialization and preferences', 'Career'];
+  return [t['personalInfo'], t['specializationAndPreferences'], t['career']];
 }
 
 const StepsIndicator = (props) => {

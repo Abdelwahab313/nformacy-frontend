@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   dateInputStyle,
   nextButtonStyles,
@@ -22,15 +22,10 @@ import {
 import DateFnsUtils from '@date-io/date-fns';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
+import t from '../../locales/en/freelancerProfile.json';
 
 const Education = () => {
-  const {
-    errors,
-    control,
-    user,
-    register,
-    setDeletedEducations,
-  } = useFormContext();
+  const { control, user, register, setDeletedEducations } = useFormContext();
   const classes = useStyles();
   const educationForm = useFieldArray({
     control,
@@ -43,7 +38,7 @@ const Education = () => {
         <Grid container alignItems='center'>
           <Grid item xs>
             <Typography gutterBottom variant='h4'>
-              Education
+              {t['education']}
             </Typography>
           </Grid>
         </Grid>
@@ -65,7 +60,7 @@ const Education = () => {
                 <Container maxWidth={false} className={classes.formControl}>
                   <TextField
                     fullWidth
-                    label={'University'}
+                    label={t['university']}
                     variant='outlined'
                     name={`educations[${index}].school`}
                     id={`educations-school-${index}`}
@@ -81,7 +76,7 @@ const Education = () => {
                 <Container maxWidth={false} className={classes.formControl}>
                   <TextField
                     fullWidth
-                    label={'Degree'}
+                    label={t['degree']}
                     variant='outlined'
                     name={`educations[${index}].degree`}
                     id={`educations[${index}]-degree`}
@@ -97,7 +92,7 @@ const Education = () => {
                 <Container maxWidth={false} className={classes.formControl}>
                   <TextField
                     fullWidth
-                    label={'Field of study'}
+                    label={t['fieldOfStudy']}
                     variant='outlined'
                     name={`educations[${index}].fieldOfStudy`}
                     InputProps={{
@@ -122,9 +117,9 @@ const Education = () => {
                             views={['year', 'month']}
                             format='MM/yyyy'
                             margin='normal'
-                            label='end date'
+                            label={t['endDate']}
                             KeyboardButtonProps={{
-                              'aria-label': 'change date',
+                              'aria-label': t['changeDate'],
                             }}
                             onChange={(value) => value[0]}
                             InputProps={{
@@ -150,7 +145,7 @@ const Education = () => {
                       educationForm.remove(index);
                     }}
                     startIcon={<Icon>remove_circle</Icon>}>
-                    Remove Education
+                    {t['removeEducation']}
                   </Button>
                 </Container>
               </CardContent>
@@ -163,7 +158,7 @@ const Education = () => {
               onClick={() => educationForm.append({})}
               startIcon={<Icon>add_circle</Icon>}
               style={nextButtonStyles(false)}>
-              Add Education
+              {t['addEducation']}
             </Button>
           </section>
         </Container>

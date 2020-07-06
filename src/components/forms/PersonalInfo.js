@@ -26,6 +26,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ReactTooltip from 'react-tooltip';
 import IconTint from 'react-icon-tint';
 import Hidden from '@material-ui/core/Hidden';
+import t from '../../locales/en/freelancerProfile.json';
 
 const PersonalInfo = () => {
   const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
@@ -41,7 +42,7 @@ const PersonalInfo = () => {
         <Grid container alignItems='center'>
           <Grid item xs>
             <Typography gutterBottom variant='h4'>
-              Personal info
+              {t['personalInfo']}
             </Typography>
           </Grid>
         </Grid>
@@ -49,7 +50,7 @@ const PersonalInfo = () => {
         <Container maxWidth={false} className={classes.formControl}>
           <FormControl fullWidth className={classes.formControl}>
             <Typography gutterBottom variant='subtitle2'>
-              Gender
+              {t['gender']}
             </Typography>
             <Controller
               name='gender'
@@ -68,7 +69,7 @@ const PersonalInfo = () => {
                         icon={<span className={radiosStyles.icon} />}
                       />
                     }
-                    label='Male'
+                    label={t['male']}
                     defaultValue={user?.current?.gender}
                   />
                   <Hidden mdDown>
@@ -92,12 +93,12 @@ const PersonalInfo = () => {
                         icon={<span className={radiosStyles.icon} />}
                       />
                     }
-                    label='Female'
+                    label={t['female']}
                   />
                 </RadioGroup>
               }
               control={control}
-              rules={{ required: 'This field is required' }}
+              rules={{ required: t['requiredMessage'] }}
             />
             <ErrorMessage errorField={errors.gender} />
           </FormControl>
@@ -109,7 +110,7 @@ const PersonalInfo = () => {
             </Typography>
             <HelpIcon
               className={classes.formHeaderIcon}
-              data-tip='Select your country of residence'
+              data-tip={t['selectCountryOfResidenceMessage']}
               color='primary'
               fontSize='small'
             />
@@ -117,13 +118,13 @@ const PersonalInfo = () => {
           <FormControl fullWidth id='country-select'>
             <Controller
               name='country'
-              rules={{ required: 'This field is required' }}
+              rules={{ required: t['requiredMessage'] }}
               control={control}
               defaultValue={!user.current.country && 0}
               as={
                 <ReactSelectMaterialUi
                   fullWidth={true}
-                  placeholder='Select your country'
+                  placeholder={t['selectCountryMessage']}
                   SelectProps={{
                     styles: selectStyle,
                   }}
@@ -137,7 +138,7 @@ const PersonalInfo = () => {
         </Container>
         <Container maxWidth={false} className={classes.formControl}>
           <Typography gutterBottom variant='subtitle2'>
-            Mobile Number
+            {t['mobileNumber']}
           </Typography>
           <Controller
             as={
@@ -147,7 +148,7 @@ const PersonalInfo = () => {
                 inputProps={{
                   id: 'mobile_number',
                   name: 'mobile_number',
-                  required: true,
+                  required: t['requiredMessage'],
                 }}
                 enableSearch
               />
@@ -158,11 +159,10 @@ const PersonalInfo = () => {
                 try {
                   const number = phoneUtil.parse('+' + value);
                   return (
-                    phoneUtil.isValidNumber(number) ||
-                    'Invalid Phone Number format'
+                    phoneUtil.isValidNumber(number) || t['invalidPhoneMessage']
                   );
                 } catch (e) {
-                  return 'Invalid Phone Number format';
+                  return t['invalidPhoneMessage'];
                 }
               },
             }}
@@ -181,14 +181,14 @@ const PersonalInfo = () => {
             fullWidth>
             <Controller
               name='currentEmploymentStatus'
-              rules={{ required: 'This field is required' }}
+              rules={{ required: t['requiredMessage'] }}
               control={control}
               defaultValue={user.current.currentEmploymentStatus}
               as={
                 <ReactSelectMaterialUi
                   fullWidth
                   id='employmentStatus'
-                  placeholder='Current Employment Status'
+                  placeholder={t['currentEmploymentStatus']}
                   SelectProps={{
                     styles: selectStyle,
                   }}

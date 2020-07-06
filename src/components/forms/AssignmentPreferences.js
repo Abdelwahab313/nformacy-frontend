@@ -13,14 +13,13 @@ import {
 } from '../../constants/dropDownOptions';
 import ErrorMessage from '../errors/ErrorMessage';
 import ReactSelect from 'react-select';
-import TextField from '@material-ui/core/TextField';
 import React from 'react';
 import { selectStyle, useStyles } from '../../styles/formsStyles';
-import { pink } from '../../styles/colors';
 import ReactTooltip from 'react-tooltip';
+import t from '../../locales/en/freelancerProfile.json';
 
 const AssignmentPreferences = () => {
-  const { errors, control, user, register } = useFormContext();
+  const { errors, control, user } = useFormContext();
   const classes = useStyles();
   return (
     <Paper className={classes.paperSection} elevation={5}>
@@ -28,10 +27,10 @@ const AssignmentPreferences = () => {
         <Grid container alignItems='center'>
           <Grid item xs>
             <Typography gutterBottom variant='h4'>
-              Assignment Preferences
+              {t['assignmentPreferences']}
             </Typography>
             <Typography variant='subtitle1' gutterBottom>
-              What are your preferences in a project or assignment.
+              {t['assignmentPreferencesSubtitle']}
             </Typography>
           </Grid>
         </Grid>
@@ -40,11 +39,11 @@ const AssignmentPreferences = () => {
         <Container maxWidth={false} className={classes.formControl}>
           <div className={classes.formHeader}>
             <Typography gutterBottom variant='subtitle2'>
-              Assignment language
+              {t['assignmentLanguage']}
             </Typography>
             <HelpIcon
               className={classes.formHeaderIcon}
-              data-tip='Your preferred languages of the assignments you want to tackle (You may select more than one option).<br> if your language is not listed please type it down.'
+              data-tip={t['assignmentLanguageHint']}
               data-multiline={true}
               color='primary'
               fontSize='small'
@@ -53,7 +52,7 @@ const AssignmentPreferences = () => {
           <Controller
             name='languageOfAssignments'
             id='assignmentLanguage'
-            rules={{ required: 'This field is required' }}
+            rules={{ required: t['requiredMessage'] }}
             control={control}
             as={
               <CreatableSelect
@@ -81,11 +80,11 @@ const AssignmentPreferences = () => {
         <Container maxWidth={false} className={classes.formControl}>
           <div className={classes.formHeader}>
             <Typography gutterBottom variant='subtitle2'>
-              Types of Assignments
+              {t['typesOfAssignments']}
             </Typography>
             <HelpIcon
               className={classes.formHeaderIcon}
-              data-tip='Your preferred types of the assignments you want to tackle (You may select more than one option)'
+              data-tip={t['typesOfAssignmentsHint']}
               color='primary'
               fontSize='small'
             />
@@ -94,7 +93,7 @@ const AssignmentPreferences = () => {
           <Controller
             name='typesOfAssignments'
             id='assignmentTypesSelect'
-            rules={{ required: 'This field is required' }}
+            rules={{ required: t['requiredMessage'] }}
             control={control}
             as={
               <ReactSelect
@@ -115,7 +114,7 @@ const AssignmentPreferences = () => {
                       )
                     : []
                 }
-                label='Assignment Types'
+                label={t['assignmentTypes']}
               />
             }
           />
@@ -124,11 +123,11 @@ const AssignmentPreferences = () => {
         <Container maxWidth={false} className={classes.formControl}>
           <div className={classes.formHeader}>
             <Typography gutterBottom variant='subtitle2'>
-              Location of Assignments
+              {t['locationOfAssignments']}
             </Typography>
             <HelpIcon
               className={classes.formHeaderIcon}
-              data-tip='Your preferred location of the assignments you want to tackle (You may select more than one option).<br> if your language is not listed please type it down.'
+              data-tip={t['locationOfAssignmentsHint']}
               data-multiline={true}
               color='primary'
               fontSize='small'
@@ -136,7 +135,7 @@ const AssignmentPreferences = () => {
           </div>
           <Controller
             name='locationOfAssignments'
-            rules={{ required: 'This field is required' }}
+            rules={{ required: t['requiredMessage'] }}
             control={control}
             as={
               <CreatableSelect

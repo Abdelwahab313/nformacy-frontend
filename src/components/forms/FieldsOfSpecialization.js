@@ -12,9 +12,10 @@ import ErrorMessage from '../errors/ErrorMessage';
 import React from 'react';
 import { dividerStyle, selectStyle, useStyles } from '../../styles/formsStyles';
 import ReactTooltip from 'react-tooltip';
+import t from '../../locales/en/freelancerProfile.json';
 
 function FieldsOfSpecialization() {
-  const { errors, control, user, getValues, setValue } = useFormContext();
+  const { errors, control, user } = useFormContext();
   const classes = useStyles();
 
   return (
@@ -23,11 +24,10 @@ function FieldsOfSpecialization() {
         <Grid container alignItems='center'>
           <Grid item xs>
             <Typography gutterBottom variant='h4'>
-              Fields of Specialization
+              {t['fieldsOfSpecialization']}
             </Typography>
             <Typography variant='subtitle1' gutterBottom>
-              What are your areas of expertise as a subject matter expert, and
-              the industries you have deep knowledge in.
+              {t['fieldsOfSpecializationSubtitle']}
             </Typography>
           </Grid>
         </Grid>
@@ -37,11 +37,11 @@ function FieldsOfSpecialization() {
         <Container maxWidth={false} className={classes.formControl}>
           <div className={classes.formHeader}>
             <Typography gutterBottom variant='subtitle2'>
-              Industry of experience
+              {t['industryOfExperience']}
             </Typography>
             <HelpIcon
               className={classes.formHeaderIcon}
-              data-tip='You can choose more than one industry, if your industry is not listed please type it down.'
+              data-tip={t['industryOfExperienceHint']}
               color='primary'
               fontSize='small'
             />
@@ -49,7 +49,7 @@ function FieldsOfSpecialization() {
           <Controller
             name='industriesOfExperience'
             id='industriesOfExperience'
-            rules={{ required: 'This field is required' }}
+            rules={{ required: t['requiredMessage'] }}
             control={control}
             as={
               <CreatableSelect

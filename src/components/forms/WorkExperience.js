@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   checkboxStyle,
   dateInputStyle,
@@ -27,10 +27,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
+import t from '../../locales/en/freelancerProfile.json';
 
 const WorkExperience = () => {
   const {
-    errors,
     control,
     user,
     register,
@@ -51,7 +51,7 @@ const WorkExperience = () => {
         <Grid container alignItems='center'>
           <Grid item xs>
             <Typography gutterBottom variant='h4'>
-              Work experience
+              {t['workExperience']}
             </Typography>
           </Grid>
         </Grid>
@@ -74,7 +74,7 @@ const WorkExperience = () => {
                   <TextField
                     fullWidth
                     autoFocus={index === 0}
-                    label={'Job Title'}
+                    label={t['jobTitle']}
                     variant='outlined'
                     name={`experiences[${index}][title]`}
                     id={`work-experience-title-${index}`}
@@ -90,7 +90,7 @@ const WorkExperience = () => {
                 <Container maxWidth={false} className={classes.formControl}>
                   <TextField
                     fullWidth
-                    label={'Company'}
+                    label={t['company']}
                     variant='outlined'
                     name={`experiences[${index}][company]`}
                     id={`work-experience-company-${index}`}
@@ -116,9 +116,9 @@ const WorkExperience = () => {
                             format='MM/yyyy'
                             autoOk
                             margin='normal'
-                            label='Start date'
+                            label={t['startDate']}
                             KeyboardButtonProps={{
-                              'aria-label': 'change date',
+                              'aria-label': t['changeDate'],
                             }}
                             InputProps={{
                               style: dateInputStyle,
@@ -141,10 +141,10 @@ const WorkExperience = () => {
                                 format='MM/yyyy'
                                 autoOk
                                 margin='normal'
-                                label='end date'
+                                label={t['endDate']}
                                 inputRef={register()}
                                 KeyboardButtonProps={{
-                                  'aria-label': 'change date',
+                                  'aria-label': t['changeDate'],
                                 }}
                                 InputProps={{
                                   style: dateInputStyle,
@@ -161,7 +161,7 @@ const WorkExperience = () => {
                   <FormControl
                     component='fieldset'
                     className={classes.formControl}
-                    data-tip='Do you still work there?'>
+                    data-tip={t['presentHint']}>
                     <FormGroup>
                       <Controller
                         name={`experiences[${index}][toDate]`}
@@ -178,7 +178,7 @@ const WorkExperience = () => {
                                 style={checkboxStyle}
                               />
                             }
-                            label='Present?'
+                            label={t['present?']}
                           />
                         }
                       />
@@ -199,7 +199,7 @@ const WorkExperience = () => {
                       experienceForm.remove(index);
                     }}
                     startIcon={<Icon>remove_circle</Icon>}>
-                    Remove Work Experience
+                    {t['removeWorkExperience']}
                   </Button>
                 </Container>
               </CardContent>
@@ -212,7 +212,7 @@ const WorkExperience = () => {
               onClick={() => experienceForm.append({})}
               style={nextButtonStyles(false)}
               startIcon={<Icon>add_circle</Icon>}>
-              Add Work Experience
+              {t['addWorkExperience']}
             </Button>
           </section>
         </Container>
