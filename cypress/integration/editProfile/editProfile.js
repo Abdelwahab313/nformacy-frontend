@@ -41,7 +41,7 @@ When(/^I fill my updated data$/, function() {
 });
 When(/^press submit$/, function() {
   cy.get('#save').click();
-  cy.wait(100);
+  cy.wait(500);
 });
 Then(/^then should see my updated data when i open edit profile$/, function() {
   cy.visit(BASE_URL + '/user/edit');

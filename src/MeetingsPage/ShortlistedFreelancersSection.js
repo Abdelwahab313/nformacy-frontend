@@ -31,6 +31,9 @@ const Alert = (props) => {
 
 function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
   const classes = useStyles();
+  const location = useLocation();
+  const meetingId = location.state.meetingId;
+
   const [selectedFreelancer, setSelectedFreelancer] = useState({});
   const [isCalendarOpened, setIsCalendarOpened] = useState(false);
   const [isSnackbarShown, setIsSnackbarShown] = useState(false);
