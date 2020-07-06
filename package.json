@@ -8,6 +8,7 @@
     "test": "react-scripts test --passWithNoTests",
     "cy:run": "cypress run",
     "cy:start": "REACT_APP_ENV=e2e PORT=5001 react-scripts start",
+    "e2e": "./run-e2e-tests.sh $BACKEND_PATH",
     "cy:run:debug": "cypress run --browser chrome",
     "cy:verify": "cypress verify",
     "cy:info": "cypress info",
@@ -96,7 +97,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && CI=true npm run test && npm run cy:run"
+      "pre-commit": "npm run e2e"
     }
   },
   "lint-staged": {

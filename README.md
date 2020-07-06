@@ -1,4 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Note: Before running locally do the following command in order for the prehook to work**
+### `export BACKEND_PATH="/meddad"`
 
 ## For running the application in docker
 
