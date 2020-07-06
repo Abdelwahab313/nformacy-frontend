@@ -14,6 +14,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CalendarDialog from './Calendar/CalendarDialog';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import { useLocation } from 'react-router';
+import { scheduleMeeting } from '../apis/meetingsAPI';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,8 +29,14 @@ const Alert = (props) => {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
 };
 
-function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
+function ShortlistedFreelancersSection({
+  shortlistedFreelancers,
+  setFetchedMeetingDetails,
+}) {
   const classes = useStyles();
+  const location = useLocation();
+  const meetingId = location.state.meetingId;
+
   const [selectedFreelancer, setSelectedFreelancer] = useState({});
   const [isCalendarOpened, setIsCalendarOpened] = useState(false);
   const [isSnackbarShown, setIsSnackbarShown] = useState(false);
@@ -36,8 +44,13 @@ function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
     setIsCalendarOpened(false);
   };
   const handleDateSelected = (selectedDay) => {
+    scheduleMeeting(meetingId, selectedFreelancer.id, selectedDay).then(
+      (response) => {
+        setIsSnackbarShown(true);
+        setFetchedMeetingDetails(response.data);
+      },
+    );
     closeCalendar();
-    setIsSnackbarShown(true);
     console.log('----selectedDay', selectedDay);
   };
   return (

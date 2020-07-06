@@ -6,12 +6,13 @@ import { camelizeKeys } from 'humps';
 const useFetchShowMeetingDetails = (meetingId) => {
   const [isLoading, setLoading] = useState(true);
   const [fetchedMeetingDetails, setFetchedMeetingDetails] = useState({});
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState('');
 
   function handleApiErrors(reason) {
     if (reason.message === 'Network Error') {
       setErrorMessage('something went wrong');
     } else if (reason.response.status === 401) {
+      setErrorMessage('Login session invalid, please log in again');
       localStorage.removeItem('users');
       authManager.logout();
     }
@@ -35,7 +36,12 @@ const useFetchShowMeetingDetails = (meetingId) => {
   useEffect(() => {
     getData();
   }, [setLoading]);
-  return { isLoading, fetchedMeetingDetails, errorMessage };
+  return {
+    isLoading,
+    fetchedMeetingDetails,
+    errorMessage,
+    setFetchedMeetingDetails,
+  };
 };
 
 export default useFetchShowMeetingDetails;

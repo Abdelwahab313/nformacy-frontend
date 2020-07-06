@@ -26,7 +26,7 @@ const AvailableTimePicker = ({
   const timesRange = calculateTimeSlotsOptions(startTime, endTime);
 
   return (
-    <Container fluid>
+    <Container>
       <ReactSelectMaterialUi
         id={'available-time'}
         fullWidth={true}
