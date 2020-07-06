@@ -54,7 +54,7 @@ const PersonalInfo = () => {
             <Controller
               name='gender'
               as={
-                <RadioGroup row horizontal>
+                <RadioGroup row>
                   <FormControlLabel
                     value='M'
                     control={
@@ -183,7 +183,7 @@ const PersonalInfo = () => {
               name='currentEmploymentStatus'
               rules={{ required: 'This field is required' }}
               control={control}
-              defaultValue={!user.current.currentEmploymentStatus && 0}
+              defaultValue={user.current.currentEmploymentStatus}
               as={
                 <ReactSelectMaterialUi
                   fullWidth

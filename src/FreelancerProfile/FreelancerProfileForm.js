@@ -59,7 +59,10 @@ const FreeLancerProfileForm = () => {
     const hasAnyInvalidField = Object.keys(errors).some((error) =>
       stepsFields[activeStep].includes(error),
     );
-    return hasAnyInvalidField;
+    const anyFieldUninitialized = stepsFields[activeStep]?.some(
+      (field) => getValues(field) === undefined,
+    );
+    return hasAnyInvalidField || anyFieldUninitialized;
   }, [errors, activeStep]);
 
   const onSubmit = (userData) => {

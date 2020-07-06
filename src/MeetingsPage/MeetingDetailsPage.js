@@ -78,7 +78,9 @@ const MeetingDetailsPage = () => {
 
           {meetingDetails.meetingFreelancers.length > 0 ? (
             <ShortlistedFreelancersSection
-              shortlistedFreelancers={meetingDetails.meetingFreelancers.map((meetingFreelancers)=> meetingFreelancers.user)}
+              shortlistedFreelancers={meetingDetails.meetingFreelancers.map(
+                (meetingFreelancers) => meetingFreelancers.user,
+              )}
             />
           ) : (
             <h6>No available freelancers</h6>
