@@ -1,9 +1,14 @@
 import React from 'react';
+import Typography from '@material-ui/core/Typography';
+import { Box } from '@material-ui/core';
+
 const HomePage = () => {
   return (
-    <div>
-      <h1> Welcome to Medad! 🎉</h1>
-    </div>
+    <Box mt={8}>
+      <Typography variant='h4' align='center'>
+        Welcome to Medad! 🎉
+      </Typography>
+    </Box>
   );
 };
 

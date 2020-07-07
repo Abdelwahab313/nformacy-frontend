@@ -16,6 +16,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { useLocation } from 'react-router';
 import { scheduleMeeting } from '../apis/meetingsAPI';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,9 +66,9 @@ function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
                 primary={`${freelancer.firstName} ${freelancer.lastName}`}
               />
               {selectedFreelancer.id === freelancer.id ? (
-                <ExpandLess />
+                <ExpandLess/>
               ) : (
-                <ExpandMore />
+                <ExpandMore/>
               )}
             </ListItem>
             <Collapse
@@ -76,7 +77,9 @@ function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
               unmountOnExit>
               <List component='div' disablePadding>
                 <ListItem className={classes.nested}>
-                  <ListItemText primary='Pick a date' />
+                  <ListItemText
+                    primary={<Typography>Pick a Date</Typography>}
+                  />
                   <ListItemIcon>
                     <IconButton
                       id={`freelancer-${freelancer.id}-calendar`}
@@ -84,7 +87,7 @@ function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
                         setIsCalendarOpened(true);
                       }}
                       aria-label='add to calendar'>
-                      <EventIcon />
+                      <EventIcon/>
                     </IconButton>
                   </ListItemIcon>
                 </ListItem>
@@ -101,7 +104,9 @@ function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
           window.location.reload();
         }}>
         <Alert onClose={() => setIsSnackbarShown(false)} severity='success'>
-          {`Meeting has been scheduled successfully with ${selectedFreelancer.firstName} ${selectedFreelancer.lastName}`}
+          <Typography>
+            {`Meeting has been scheduled successfully with ${selectedFreelancer.firstName} ${selectedFreelancer.lastName}`}
+          </Typography>
         </Alert>
       </Snackbar>
 

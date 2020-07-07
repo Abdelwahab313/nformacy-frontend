@@ -51,10 +51,10 @@ const MeetingsTable = ({ meetings }) => {
         <TableHead>
           <TableRow>
             <StyledTableCell>Field</StyledTableCell>
-            <StyledTableCell align='right'>Sub field</StyledTableCell>
+            <StyledTableCell align='right'>Sub Field</StyledTableCell>
             <StyledTableCell align='right'>Status</StyledTableCell>
-            <StyledTableCell align='right'>submitted since</StyledTableCell>
-            <StyledTableCell align='right'>last update</StyledTableCell>
+            <StyledTableCell align='right'>Submitted Since</StyledTableCell>
+            <StyledTableCell align='right'>Last Update</StyledTableCell>
             <StyledTableCell align='right'>Actions</StyledTableCell>
           </TableRow>
         </TableHead>
@@ -81,7 +81,7 @@ const MeetingsTable = ({ meetings }) => {
                   className={'edit'}
                   onClick={() => handleEditClick(meeting.id)}
                   aria-label='edit'>
-                  <EditIcon />
+                  <EditIcon/>
                 </IconButton>
               </StyledTableCell>
             </StyledTableRow>

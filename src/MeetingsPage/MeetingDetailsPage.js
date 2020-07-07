@@ -12,6 +12,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ShortlistedFreelancersSection from './ShortlistedFreelancersSection';
 import MeetingScheduledSection from './MeetingScheduledSection';
+import Typography from '@material-ui/core/Typography';
 
 const MEETING_STATUS = {
   pending: 'Pending',
@@ -36,19 +37,19 @@ const MeetingDetailsPage = () => {
   const renderLowerSection = (meetingDetails) => {
     switch (true) {
       case meetingDetails.status === MEETING_STATUS.pending:
-        return <h3>No available freelancers</h3>;
+        return <Typography variant='h6'>No Available Freelancers</Typography>;
       case meetingDetails.status === MEETING_STATUS.meetingScheduled:
         const selectedFreelancer = meetingDetails.meetingFreelancers.filter(
           (meetingFreelancer) => meetingFreelancer.selected,
         )[0];
         return (
-          <MeetingScheduledSection selectedFreelancer={selectedFreelancer} />
+          <MeetingScheduledSection selectedFreelancer={selectedFreelancer}/>
         );
       case meetingDetails.status === MEETING_STATUS.candidatesShortlisted &&
-        meetingDetails.meetingFreelancers.length > 0:
+      meetingDetails.meetingFreelancers.length > 0:
         return (
           <Fragment>
-            <h3>Proposed freelancers</h3>
+            <Typography variant='h6'>Proposed Freelancers</Typography>
             <ShortlistedFreelancersSection
               setFetchedMeetingDetails={setFetchedMeetingDetails}
               shortlistedFreelancers={meetingDetails.meetingFreelancers.map(
@@ -58,13 +59,13 @@ const MeetingDetailsPage = () => {
           </Fragment>
         );
       default:
-        return <h3>No available freelancers</h3>;
+        return <Typography variant='h6'>No Available Freelancers</Typography>;
     }
   };
   if (isLoading) {
     return (
       <div className={meetingPageClasses.progressContainer}>
-        <CircularProgress />
+        <CircularProgress/>
       </div>
     );
   }
@@ -72,24 +73,28 @@ const MeetingDetailsPage = () => {
   return (
     <div>
       {!!errorMessage && (
-        <ErrorDialog message={errorMessage} close={() => {}} />
+        <ErrorDialog message={errorMessage} close={() => {
+        }}/>
       )}
       <Grid className={meetingPageClasses.root}>
-        <h3>Meeting Details</h3>
+        <Typography variant='h6'>Meeting Details</Typography>
         <Card id={'meeting-details'}>
           <List className={classes.root}>
             <ListItem>
-              <ListItemText primary='Field' secondary={meetingDetails.field} />
+              <ListItemText primary={<Typography>Purpose of The Call</Typography>}/>
+            </ListItem>
+            <ListItem>
+              <ListItemText primary='Field' secondary={meetingDetails.field}/>
             </ListItem>
             <ListItem>
               <ListItemText
-                primary='Sub field'
+                primary='Sub Field'
                 secondary={meetingDetails.subfield}
               />
             </ListItem>
             <ListItem>
               <ListItemText
-                primary='industry'
+                primary='Industry'
                 secondary={meetingDetails.industry}
               />
             </ListItem>

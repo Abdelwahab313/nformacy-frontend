@@ -17,6 +17,7 @@ import { UPDATE_SELECTED_DAY } from './Context/contextActions';
 import Grid from '@material-ui/core/Grid';
 import calendarStyles from './calendarStyles';
 import dateTimeParser from '../../services/dateTimeParser';
+import { pink } from '../../styles/colors';
 
 const DayScaleCell = (props) => (
   <MonthView.DayScaleCell
@@ -50,7 +51,7 @@ const CellBase = React.memo(
       : { day: 'numeric' };
     return (
       <TableCell
-        style={isAvailableDay ? { backgroundColor: '#00a2ff' } : {}}
+        style={isAvailableDay ? { backgroundColor: pink } : {}}
         onClick={onSelectDay}
         tabIndex={0}
         className={classNames({
