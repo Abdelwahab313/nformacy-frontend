@@ -5,10 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
-import React from 'react';
+import React, { Fragment } from 'react';
 import {
   checkboxStyle,
-  dateInputStyle,
   nextButtonStyles,
   useStyles,
 } from '../../styles/formsStyles';
@@ -16,10 +15,7 @@ import ReactTooltip from 'react-tooltip';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Input } from '@material-ui/core';
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
+import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -44,10 +40,17 @@ const WorkExperience = () => {
     name: 'experiences',
     toDate: false,
   });
+  const getFormattedDateForPicker = (index) => {
+    const endDate = watchExperiences[index].endDate || new Date().toISOString();
+    const formattedDate = endDate?.includes('/')
+      ? new Date(endDate.split('/')[1], endDate.split('/')[0])
+      : endDate;
+    return formattedDate;
+  };
   console.log(watchExperiences);
   return (
     <Paper className={classes.paperSection} elevation={5}>
-      <Container className={classes.nestedContainer}>
+      <Container maxWidth={false} className={classes.nestedContainer}>
         <Grid container alignItems='center'>
           <Grid item xs>
             <Typography gutterBottom variant='h4'>
@@ -56,7 +59,7 @@ const WorkExperience = () => {
           </Grid>
         </Grid>
         <Divider variant='middle' />
-        <Container>
+        <Fragment>
           {experienceForm.fields.map((item, index) => (
             <Card key={item.id} className={classes.nestedCardContainer}>
               <ReactTooltip globalEventOff={'click'} />
@@ -103,88 +106,107 @@ const WorkExperience = () => {
                     inputRef={register()}
                   />
                 </Container>
-                <Container className={classes.datesContainer}>
+                <Grid>
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <Container maxWidth={false} className={classes.formControl}>
+                    <Container
+                      maxWidth={false}
+                      className={classes.dateController}>
                       <Controller
+                        id={`work-experience-startDate-${index}`}
                         name={`experiences[${index}][startDate]`}
                         control={control}
                         as={
-                          <KeyboardDatePicker
-                            variant='inline'
+                          <DatePicker
                             views={['year', 'month']}
                             format='MM/yyyy'
+                            inputVariant='outlined'
                             autoOk
                             margin='normal'
+                            maxDate={
+                              watchExperiences[index]?.toDate === false
+                                ? getFormattedDateForPicker(index)
+                                : Date.now()
+                            }
                             label={t['startDate']}
                             KeyboardButtonProps={{
                               'aria-label': t['changeDate'],
                             }}
                             InputProps={{
-                              style: dateInputStyle,
+                              classes: {
+                                notchedOutline: classes.textField,
+                              },
                             }}
                             onChange={(value) => value[0]}
                           />
                         }
                       />
                     </Container>
-                    <Container maxWidth={false} className={classes.formControl}>
+                    <Container
+                      maxWidth={false}
+                      className={classes.dateController}>
                       {!watchExperiences[index] ||
                         (!watchExperiences[index].toDate && (
                           <Controller
+                            id={`work-experience-endDate-${index}`}
                             name={`experiences[${index}][endDate]`}
                             control={control}
                             as={
-                              <KeyboardDatePicker
-                                variant='inline'
+                              <DatePicker
                                 views={['year', 'month']}
                                 format='MM/yyyy'
                                 autoOk
+                                inputVariant='outlined'
                                 margin='normal'
                                 label={t['endDate']}
+                                minDate={
+                                  new Date(watchExperiences[index].startDate)
+                                }
+                                maxDate={Date.now()}
                                 inputRef={register()}
                                 KeyboardButtonProps={{
                                   'aria-label': t['changeDate'],
                                 }}
                                 InputProps={{
-                                  style: dateInputStyle,
+                                  classes: {
+                                    notchedOutline: classes.textField,
+                                  },
                                 }}
                                 onChange={(value) => value[0]}
                               />
                             }
                           />
                         ))}
+                      <Grid item className={classes.checkBoxControl}>
+                        <FormControl
+                          component='fieldset'
+                          className={classes.formControl}
+                          data-tip={t['presentHint']}>
+                          <FormGroup>
+                            <Controller
+                              name={`experiences[${index}][toDate]`}
+                              valueName='checked'
+                              defaultValue={false}
+                              type='checkbox'
+                              control={control}
+                              as={
+                                <FormControlLabel
+                                  control={
+                                    <Checkbox
+                                      name={`experiences[${index}][toDate]`}
+                                      inputRef={register()}
+                                      style={checkboxStyle}
+                                    />
+                                  }
+                                  label={t['present?']}
+                                />
+                              }
+                            />
+                          </FormGroup>
+                        </FormControl>
+                      </Grid>
                     </Container>
                   </MuiPickersUtilsProvider>
-                </Container>
-                <Container maxWidth={false} className={classes.checkBoxControl}>
-                  <FormControl
-                    component='fieldset'
-                    className={classes.formControl}
-                    data-tip={t['presentHint']}>
-                    <FormGroup>
-                      <Controller
-                        name={`experiences[${index}][toDate]`}
-                        valueName='checked'
-                        defaultValue={false}
-                        type='checkbox'
-                        control={control}
-                        as={
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                name={`experiences[${index}][toDate]`}
-                                inputRef={register()}
-                                style={checkboxStyle}
-                              />
-                            }
-                            label={t['present?']}
-                          />
-                        }
-                      />
-                    </FormGroup>
-                  </FormControl>
-                </Container>
+                </Grid>
                 <Container maxWidth={false} className={classes.formControl}>
                   <Button
                     variant='contained'
@@ -215,7 +237,7 @@ const WorkExperience = () => {
               {t['addWorkExperience']}
             </Button>
           </section>
-        </Container>
+        </Fragment>
       </Container>
     </Paper>
   );

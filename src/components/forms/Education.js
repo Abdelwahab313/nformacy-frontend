@@ -6,19 +6,12 @@ import Divider from '@material-ui/core/Divider';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import React from 'react';
-import {
-  dateInputStyle,
-  nextButtonStyles,
-  useStyles,
-} from '../../styles/formsStyles';
+import { nextButtonStyles, useStyles } from '../../styles/formsStyles';
 import ReactTooltip from 'react-tooltip';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Input } from '@material-ui/core';
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
+import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
@@ -104,33 +97,35 @@ const Education = () => {
                     inputRef={register()}
                   />
                 </Container>
-                <Container className={classes.datesContainer}>
+                <Grid>
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Container maxWidth={false} className={classes.formControl}>
                       <Controller
                         name={`educations[${index}].endYear`}
                         control={control}
                         as={
-                          <KeyboardDatePicker
-                            variant='inline'
+                          <DatePicker
+                            inputVariant='outlined'
                             autoOk
                             views={['year', 'month']}
                             format='MM/yyyy'
                             margin='normal'
                             label={t['endDate']}
+                            maxDate={Date.now()}
                             KeyboardButtonProps={{
                               'aria-label': t['changeDate'],
                             }}
                             onChange={(value) => value[0]}
                             InputProps={{
-                              style: dateInputStyle,
-                            }}
+                              classes: {
+                                notchedOutline: classes.textField,
+                              },}}
                           />
                         }
                       />
                     </Container>
                   </MuiPickersUtilsProvider>
-                </Container>
+                </Grid>
                 <Container maxWidth={false} className={classes.formControl}>
                   <Button
                     variant='contained'

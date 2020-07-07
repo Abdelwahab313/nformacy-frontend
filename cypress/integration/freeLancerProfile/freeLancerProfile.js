@@ -71,3 +71,13 @@ When(/^I fill step three data$/, function() {
   cy.get('#certification-name-0').clear();
   cy.get('#certification-name-0').type('test certification');
 });
+When(/^i choose an end date$/, function() {
+  cy.get('#add-work-experience').click();
+  cy.get('#work-experience-startDate-0').click();
+});
+When(/^i click on start date$/, function() {
+
+});
+Then(/^Only dates below end date show up$/, function() {
+
+});

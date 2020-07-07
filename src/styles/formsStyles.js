@@ -30,6 +30,8 @@ export const useStyles = makeStyles((theme) => ({
   nestedContainer: {
     display: 'flex',
     flexDirection: 'column',
+    paddingLeft: 0,
+    paddingRight: 0
   },
   freelancerProfileContainer: {
     display: 'flex',
@@ -47,6 +49,9 @@ export const useStyles = makeStyles((theme) => ({
   },
   formControl: {
     marginTop: theme.spacing(3),
+  },
+  dateController: {
+    marginTop: theme.spacing(1),
   },
   formHeader: {
     display: 'flex',

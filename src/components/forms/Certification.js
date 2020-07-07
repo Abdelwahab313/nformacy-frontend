@@ -16,6 +16,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Input } from '@material-ui/core';
 import {
+  DatePicker,
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
@@ -123,7 +124,7 @@ const Certification = () => {
                     }}
                   />
                 </Container>
-                <Container className={classes.datesContainer}>
+                <Grid>
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Container maxWidth={false} className={classes.formControl}>
                       <Controller
@@ -131,25 +132,28 @@ const Certification = () => {
                         control={control}
                         as={
                           <KeyboardDatePicker
-                            variant='inline'
+                            inputVariant='outlined'
                             autoOk
                             views={['year', 'month']}
                             format='MM/yyyy'
                             margin='normal'
                             label={t['completedBy']}
+                            maxDate={Date.now()}
                             KeyboardButtonProps={{
                               'aria-label': t['changeDate'],
                             }}
                             onChange={(value) => value[0]}
                             InputProps={{
-                              style: dateInputStyle,
+                              classes: {
+                                notchedOutline: classes.textField,
+                              },
                             }}
                           />
                         }
                       />
                     </Container>
                   </MuiPickersUtilsProvider>
-                </Container>
+                </Grid>
                 <Container maxWidth={false} className={classes.formControl}>
                   <Button
                     variant='contained'
