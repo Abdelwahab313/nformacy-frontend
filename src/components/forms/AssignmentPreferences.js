@@ -6,14 +6,11 @@ import Divider from '@material-ui/core/Divider';
 import HelpIcon from '@material-ui/icons/Help';
 import { Controller, useFormContext } from 'react-hook-form';
 import CreatableSelect from 'react-select/creatable/dist/react-select.esm';
-import {
-  assignmentLanguage,
-  assignmentTypes,
-} from '../../constants/dropDownOptions';
+import { assignmentLanguage, assignmentTypes } from '../../constants/dropDownOptions';
 import ErrorMessage from '../errors/ErrorMessage';
 import ReactSelect from 'react-select';
 import React from 'react';
-import { sectionContainerStyles, selectStyle, useStyles } from '../../styles/formsStyles';
+import { dividerStyle, sectionContainerStyles, selectStyle, useStyles } from '../../styles/formsStyles';
 import ReactTooltip from 'react-tooltip';
 import t from '../../locales/en/freelancerProfile.json';
 
@@ -28,13 +25,10 @@ const AssignmentPreferences = () => {
             <Typography gutterBottom className={classes.sectionHeaderStyles}>
               {t['assignmentPreferences']}
             </Typography>
-            <Typography variant='subtitle1' gutterBottom>
-              {t['assignmentPreferencesSubtitle']}
-            </Typography>
           </Grid>
         </Grid>
-        <Divider variant='middle' />
-        <ReactTooltip globalEventOff={'click'} />
+        <Divider variant='middle' style={dividerStyle}/>
+        <ReactTooltip globalEventOff={'click'}/>
         <Container maxWidth={false} className={classes.formControl}>
           <div className={classes.formHeader}>
             <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
@@ -58,14 +52,14 @@ const AssignmentPreferences = () => {
                 defaultValue={
                   !!user.current.languageOfAssignments
                     ? user.current.languageOfAssignments.map(
-                        (userAssignmentLanguage) => {
-                          return assignmentLanguage.find(
-                            (assignmentLanguage) =>
-                              userAssignmentLanguage ===
-                              assignmentLanguage.value,
-                          );
-                        },
-                      )
+                    (userAssignmentLanguage) => {
+                      return assignmentLanguage.find(
+                        (assignmentLanguage) =>
+                          userAssignmentLanguage ===
+                          assignmentLanguage.value,
+                      );
+                    },
+                    )
                     : []
                 }
                 isMulti
@@ -74,7 +68,7 @@ const AssignmentPreferences = () => {
               />
             }
           />
-          <ErrorMessage errorField={errors.languageOfAssignments} />
+          <ErrorMessage errorField={errors.languageOfAssignments}/>
         </Container>
         <Container maxWidth={false} className={classes.formControl}>
           <div className={classes.formHeader}>
@@ -104,20 +98,20 @@ const AssignmentPreferences = () => {
                 value={
                   !!user.current.typesOfAssignments
                     ? user.current.typesOfAssignments.map(
-                        (userAssignmentType) => {
-                          return assignmentTypes.find(
-                            (assignmentType) =>
-                              userAssignmentType === assignmentType.value,
-                          );
-                        },
-                      )
+                    (userAssignmentType) => {
+                      return assignmentTypes.find(
+                        (assignmentType) =>
+                          userAssignmentType === assignmentType.value,
+                      );
+                    },
+                    )
                     : []
                 }
                 label={t['assignmentTypes']}
               />
             }
           />
-          <ErrorMessage errorField={errors.typesOfAssignments} />
+          <ErrorMessage errorField={errors.typesOfAssignments}/>
         </Container>
       </Container>
     </Paper>
