@@ -58,7 +58,7 @@ pipeline {
             sh "mkdir -p ${env.BackendPath}"
             dir("${env.BackendPath}") {
               git(
-                  branch: 'try-sandbox-ci',
+                  branch: 'master',
                   credentialsId: 'gitlab_abdo',
                   url: 'https://gitlab.com/devsquads.egy/meddad.git'
                 )
