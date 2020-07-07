@@ -26,7 +26,7 @@ const FieldsOfExperience = ({ user }) => {
     <Fragment>
       <Container maxWidth={false} className={classes.formControl}>
         <div className={classes.formHeader}>
-          <Typography gutterBottom variant='subtitle2'>
+          <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
             {t['experiencedIn']}
           </Typography>
           <HelpIcon
@@ -117,7 +117,7 @@ const FieldsOfExperience = ({ user }) => {
       </Container>
       <Container maxWidth={false} className={classes.formControl}>
         <div className={classes.formHeader}>
-          <Typography gutterBottom variant='subtitle2'>
+          <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
             {t['specificallyIn']}
           </Typography>
           <HelpIcon

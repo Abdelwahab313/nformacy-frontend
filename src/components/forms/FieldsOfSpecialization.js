@@ -10,7 +10,7 @@ import CreatableSelect from 'react-select/creatable/dist/react-select.esm';
 import { industries } from '../../constants/dropDownOptions';
 import ErrorMessage from '../errors/ErrorMessage';
 import React from 'react';
-import { dividerStyle, selectStyle, useStyles } from '../../styles/formsStyles';
+import { dividerStyle, sectionContainerStyles, selectStyle, useStyles } from '../../styles/formsStyles';
 import ReactTooltip from 'react-tooltip';
 import t from '../../locales/en/freelancerProfile.json';
 
@@ -20,14 +20,11 @@ function FieldsOfSpecialization() {
 
   return (
     <Paper className={classes.paperSection} elevation={5}>
-      <Container>
+      <Container style={sectionContainerStyles}>
         <Grid container alignItems='center'>
           <Grid item xs>
-            <Typography gutterBottom variant='h4'>
+            <Typography gutterBottom className={classes.sectionHeaderStyles}>
               {t['fieldsOfSpecialization']}
-            </Typography>
-            <Typography variant='subtitle1' gutterBottom>
-              {t['fieldsOfSpecializationSubtitle']}
             </Typography>
           </Grid>
         </Grid>
@@ -36,7 +33,7 @@ function FieldsOfSpecialization() {
         <FieldsOfExperience user={user.current} />
         <Container maxWidth={false} className={classes.formControl}>
           <div className={classes.formHeader}>
-            <Typography gutterBottom variant='subtitle2'>
+            <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
               {t['industryOfExperience']}
             </Typography>
             <HelpIcon

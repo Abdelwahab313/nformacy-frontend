@@ -16,29 +16,29 @@ const StepTwo = () => {
       <Grid
         container
         direction='row'
-        justify='center'
+        justify='space-evenly'
         alignItems='center'
         spacing={5}>
         <Hidden mdDown>
           <Grow in={true} timeout={2000}>
             <Grid item xs={12} md={3}>
-              <img src={require('../assets/Clipboard.gif')} width={'100%'} />
+              <img src={require('../assets/Clipboard.gif')} width={'100%'}/>
             </Grid>
           </Grow>
         </Hidden>
         <Grow in={true} timeout={3500}>
-          <Grid item xs={12} md={5}>
-            <FieldsOfSpecialization />
+          <Grid item xs={12} md={6}>
+            <FieldsOfSpecialization/>
           </Grid>
         </Grow>
         <Grow in={true} timeout={4500}>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={2} className={classes.paddingZero}>
             <Grid
               container
               direction='column'
               justify={'center'}
               className={classes.hintContainer}>
-              <BusinessCenterIcon fontSize='large' style={iconStyle} />
+              <BusinessCenterIcon fontSize='large' style={iconStyle}/>
               <Typography
                 variant='subtitle1'
                 gutterBottom
@@ -52,17 +52,17 @@ const StepTwo = () => {
       <Grid
         container
         direction='row'
-        justify='center'
+        justify='space-evenly'
         alignItems='center'
         spacing={5}>
-        <Grid item xs={12} md={3}></Grid>
+        <Grid item xs={12} md={3}/>
         <Grow in={true} timeout={5500}>
-          <Grid item xs={12} md={5}>
-            <AssignmentPreferences />
+          <Grid item xs={12} md={6}>
+            <AssignmentPreferences/>
           </Grid>
         </Grow>
         <Grow in={true} timeout={6500}>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={2} className={classes.paddingZero}>
             <img
               src={require('../assets/hello.png')}
               alt='hello'

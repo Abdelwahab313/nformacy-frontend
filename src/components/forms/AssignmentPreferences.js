@@ -13,7 +13,7 @@ import {
 import ErrorMessage from '../errors/ErrorMessage';
 import ReactSelect from 'react-select';
 import React from 'react';
-import { selectStyle, useStyles } from '../../styles/formsStyles';
+import { sectionContainerStyles, selectStyle, useStyles } from '../../styles/formsStyles';
 import ReactTooltip from 'react-tooltip';
 import t from '../../locales/en/freelancerProfile.json';
 
@@ -22,10 +22,10 @@ const AssignmentPreferences = () => {
   const classes = useStyles();
   return (
     <Paper className={classes.paperSection} elevation={5}>
-      <Container className={classes.nestedContainer}>
+      <Container className={classes.nestedContainer} style={sectionContainerStyles}>
         <Grid container alignItems='center'>
           <Grid item xs>
-            <Typography gutterBottom variant='h4'>
+            <Typography gutterBottom className={classes.sectionHeaderStyles}>
               {t['assignmentPreferences']}
             </Typography>
             <Typography variant='subtitle1' gutterBottom>
@@ -37,7 +37,7 @@ const AssignmentPreferences = () => {
         <ReactTooltip globalEventOff={'click'} />
         <Container maxWidth={false} className={classes.formControl}>
           <div className={classes.formHeader}>
-            <Typography gutterBottom variant='subtitle2'>
+            <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
               {t['assignmentLanguage']}
             </Typography>
             <HelpIcon
@@ -78,7 +78,7 @@ const AssignmentPreferences = () => {
         </Container>
         <Container maxWidth={false} className={classes.formControl}>
           <div className={classes.formHeader}>
-            <Typography gutterBottom variant='subtitle2'>
+            <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
               {t['typesOfAssignments']}
             </Typography>
             <HelpIcon

@@ -127,7 +127,10 @@ export const useStyles = makeStyles((theme) => ({
   gifContainerStyles: {
     paddingLeft: '0 !important',
     paddingRight: '0 !important',
-  }
+  },
+  paddingZero: {
+    padding: '0 !important',
+  },
 }));
 
 export const selectStyle = {
