@@ -103,7 +103,7 @@ const StepsIndicator = (props) => {
         connector={<ColorlibConnector />}>
         {steps.map((label) => (
           <Step key={label}>
-            <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
+            <StepLabel StepIconComponent={ColorlibStepIcon} style={{color: 'red'}}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>

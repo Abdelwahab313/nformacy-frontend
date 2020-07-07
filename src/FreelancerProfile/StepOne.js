@@ -4,8 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import Grow from '@material-ui/core/Grow';
 import t from '../locales/en/freelancerProfile.json';
+import { useStyles } from '../styles/formsStyles';
 
 const StepOne = () => {
+  const classes = useStyles();
   return (
     <Grid
       id='stepOneForm'
@@ -14,9 +16,9 @@ const StepOne = () => {
       justify='center'
       alignItems='center'
       spacing={5}>
-      <Hidden mdDown>
+      <Hidden smDown>
         <Grow in={true} timeout={2000}>
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} sm={4} className={classes.gifContainerStyles}>
             <img
               src={require('../assets/me.gif')}
               width={'100%'}
@@ -26,8 +28,8 @@ const StepOne = () => {
         </Grow>
       </Hidden>
       <Grow in={true} timeout={3500}>
-        <Grid item xs={12} md={5}>
-          <PersonalInfo />
+        <Grid item xs={12} sm={7} lg={5}>
+          <PersonalInfo/>
         </Grid>
       </Grow>
     </Grid>

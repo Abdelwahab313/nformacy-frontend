@@ -18,6 +18,7 @@ import authManager from '../services/authManager';
 import Logout from '../auth/LogoutUser';
 import FreeLancerProfileForm from '../FreelancerProfile/FreelancerProfileForm';
 import Success from '../FreelancerProfile/success';
+import { grey, lighterPink, lightGrey, lightPink, pink, white } from '../styles/colors';
 
 const presets = preset().plugins;
 
@@ -25,6 +26,23 @@ const jss = create({ plugins: [...presets, rtl()] });
 
 const theme = createMuiTheme({
   direction: 'ltr', // Both here and <body dir="rtl">
+  palette: {
+    primary: {
+      lighter: lighterPink,
+      light: lightPink,
+      main: pink
+    },
+    secondary: {
+      main: white
+    },
+    overlay: {
+      dark: grey,
+      light: lightGrey
+    }
+  },
+  typography: {
+    fontFamily: 'Arial'
+  }
 });
 
 function App() {

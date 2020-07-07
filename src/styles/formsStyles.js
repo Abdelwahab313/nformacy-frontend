@@ -25,7 +25,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   paperSection: {
     marginTop: theme.spacing(5),
-    padding: theme.spacing(5),
+    padding: theme.spacing(3),
   },
   nestedContainer: {
     display: 'flex',
@@ -34,9 +34,9 @@ export const useStyles = makeStyles((theme) => ({
   freelancerProfileContainer: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
     overflow: 'scroll',
     padding: theme.spacing(3),
+    height: '100vh',
   },
   form: {
     display: 'flex',
@@ -104,6 +104,30 @@ export const useStyles = makeStyles((theme) => ({
     borderWidth: '1px',
     borderColor: `${pink} !important`,
   },
+  fieldLabelStylesDesktop: {
+    fontSize: '1.190vw',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2.604vw',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '4vw',
+    },
+  },
+  sectionHeaderStyles: {
+    fontSize: '2.024vw',
+    textAlign: 'center',
+    fontWeight: '600',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '3vw',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '5vw',
+    },
+  },
+  gifContainerStyles: {
+    paddingLeft: '0 !important',
+    paddingRight: '0 !important',
+  }
 }));
 
 export const selectStyle = {
@@ -232,4 +256,8 @@ export const dateInputStyle = {
   border: `solid 1px ${pink}`,
   padding: '5px',
   borderRadius: '5%',
+};
+
+export const sectionContainerStyles = {
+  padding: 0,
 };

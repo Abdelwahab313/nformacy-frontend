@@ -6,12 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import ErrorMessage from '../errors/ErrorMessage';
 import React, { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import {
-  dividerStyle,
-  radioStyle,
-  selectStyle,
-  useStyles,
-} from '../../styles/formsStyles';
+import { dividerStyle, radioStyle, sectionContainerStyles, selectStyle, useStyles } from '../../styles/formsStyles';
 import FormControl from '@material-ui/core/FormControl';
 import ReactSelectMaterialUi from 'react-select-material-ui';
 import { employmentStatus } from '../../constants/dropDownOptions';
@@ -37,19 +32,19 @@ const PersonalInfo = () => {
 
   return (
     <Paper className={classes.paperSection} elevation={3}>
-      <Container>
-        <ReactTooltip globalEventOff={'click'} />
+      <Container style={sectionContainerStyles}>
+        <ReactTooltip globalEventOff={'click'}/>
         <Grid container alignItems='center'>
           <Grid item xs>
-            <Typography gutterBottom variant='h4'>
+            <Typography gutterBottom className={classes.sectionHeaderStyles}>
               {t['personalInfo']}
             </Typography>
           </Grid>
         </Grid>
-        <Divider variant='middle' style={dividerStyle} />
+        <Divider variant='middle' style={dividerStyle}/>
         <Container maxWidth={false} className={classes.formControl}>
           <FormControl fullWidth className={classes.formControl}>
-            <Typography gutterBottom variant='subtitle2'>
+            <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
               {t['gender']}
             </Typography>
             <Controller
@@ -64,9 +59,9 @@ const PersonalInfo = () => {
                         className={radiosStyles.root}
                         color='default'
                         checkedIcon={
-                          <span className={radiosStyles.checkedIcon} />
+                          <span className={radiosStyles.checkedIcon}/>
                         }
-                        icon={<span className={radiosStyles.icon} />}
+                        icon={<span className={radiosStyles.icon}/>}
                       />
                     }
                     label={t['male']}
@@ -88,9 +83,9 @@ const PersonalInfo = () => {
                         className={radiosStyles.root}
                         color='default'
                         checkedIcon={
-                          <span className={radiosStyles.checkedIcon} />
+                          <span className={radiosStyles.checkedIcon}/>
                         }
-                        icon={<span className={radiosStyles.icon} />}
+                        icon={<span className={radiosStyles.icon}/>}
                       />
                     }
                     label={t['female']}
@@ -100,12 +95,12 @@ const PersonalInfo = () => {
               control={control}
               rules={{ required: t['requiredMessage'] }}
             />
-            <ErrorMessage errorField={errors.gender} />
+            <ErrorMessage errorField={errors.gender}/>
           </FormControl>
         </Container>
         <Container maxWidth={false} className={classes.formControl}>
           <div className={classes.formHeader}>
-            <Typography gutterBottom variant='subtitle2'>
+            <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
               {t['country']}
             </Typography>
             <HelpIcon
@@ -134,10 +129,10 @@ const PersonalInfo = () => {
             />
           </FormControl>
 
-          <ErrorMessage errorField={errors.country} />
+          <ErrorMessage errorField={errors.country}/>
         </Container>
         <Container maxWidth={false} className={classes.formControl}>
-          <Typography gutterBottom variant='subtitle2'>
+          <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
             {t['mobileNumber']}
           </Typography>
           <Controller
@@ -169,10 +164,10 @@ const PersonalInfo = () => {
             control={control}
             error={!!errors.mobileNumber}
           />
-          <ErrorMessage errorField={errors.mobileNumber} />
+          <ErrorMessage errorField={errors.mobileNumber}/>
         </Container>
         <Container maxWidth={false} className={classes.formControl}>
-          <Typography gutterBottom variant='subtitle2'>
+          <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
             {t['currentEmploymentStatus']}
           </Typography>
           <FormControl
@@ -196,7 +191,7 @@ const PersonalInfo = () => {
                 />
               }
             />
-            <ErrorMessage errorField={errors.currentEmploymentStatus} />
+            <ErrorMessage errorField={errors.currentEmploymentStatus}/>
           </FormControl>
         </Container>
       </Container>
