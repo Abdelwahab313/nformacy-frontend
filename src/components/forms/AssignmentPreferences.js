@@ -1,16 +1,13 @@
-import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import HelpIcon from '@material-ui/icons/Help';
 import { Controller, useFormContext } from 'react-hook-form';
 import CreatableSelect from 'react-select/creatable/dist/react-select.esm';
 import { assignmentLanguage, assignmentTypes } from '../../constants/dropDownOptions';
 import ErrorMessage from '../errors/ErrorMessage';
 import ReactSelect from 'react-select';
-import React from 'react';
-import { dividerStyle, sectionContainerStyles, selectStyle, useStyles } from '../../styles/formsStyles';
+import React, { Fragment } from 'react';
+import { sectionContainerStyles, selectStyle, useStyles } from '../../styles/formsStyles';
 import ReactTooltip from 'react-tooltip';
 import t from '../../locales/en/freelancerProfile.json';
 
@@ -18,16 +15,8 @@ const AssignmentPreferences = () => {
   const { errors, control, user } = useFormContext();
   const classes = useStyles();
   return (
-    <Paper className={classes.paperSection} elevation={5}>
+    <Fragment>
       <Container className={classes.nestedContainer} style={sectionContainerStyles}>
-        <Grid container alignItems='center'>
-          <Grid item xs>
-            <Typography gutterBottom className={classes.sectionHeaderStyles}>
-              {t['assignmentPreferences']}
-            </Typography>
-          </Grid>
-        </Grid>
-        <Divider variant='middle' style={dividerStyle}/>
         <ReactTooltip globalEventOff={'click'}/>
         <Container maxWidth={false} className={classes.formControl}>
           <div className={classes.formHeader}>
@@ -59,7 +48,7 @@ const AssignmentPreferences = () => {
                           assignmentLanguage.value,
                       );
                     },
-                    )
+                    ).sort
                     : []
                 }
                 isMulti
@@ -114,7 +103,7 @@ const AssignmentPreferences = () => {
           <ErrorMessage errorField={errors.typesOfAssignments}/>
         </Container>
       </Container>
-    </Paper>
+    </Fragment>
   );
 };
 

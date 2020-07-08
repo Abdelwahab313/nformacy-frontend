@@ -19,6 +19,7 @@ import StepThree from './StepThree';
 import { updateProfile, uploadCV } from '../apis/userAPI';
 import { useHistory } from 'react-router-dom';
 import t from '../locales/en/freelancerProfile.json';
+import Hidden from '@material-ui/core/Hidden';
 
 const FreeLancerProfileForm = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -85,7 +86,8 @@ const FreeLancerProfileForm = () => {
         localStorage.setItem('user', JSON.stringify(response.data));
         history.push('/user/success');
       })
-      .catch((error) => {})
+      .catch((error) => {
+      })
       .finally(() => setLoading(false));
 
     if (cv?.length > 0) {
@@ -97,7 +99,8 @@ const FreeLancerProfileForm = () => {
         .then((response) => {
           localStorage.setItem('user', JSON.stringify(response.data));
         })
-        .catch((error) => {});
+        .catch((error) => {
+        });
     }
   };
 
@@ -114,11 +117,14 @@ const FreeLancerProfileForm = () => {
       setActiveStep(activeStep - 1);
     }
   }
+
   return (
     <div className={classes.freelancerProfileContainer}>
-      <div style={stepIndicatorStyles.container}>
-        <StepsIndicator activeStep={activeStep} />
-      </div>
+      <Hidden smDown>
+        <div style={stepIndicatorStyles.container}>
+          <StepsIndicator activeStep={activeStep}/>
+        </div>
+      </Hidden>
       <form
         id='multiStepForm'
         style={formStyle}
@@ -137,9 +143,9 @@ const FreeLancerProfileForm = () => {
           cv={cv}
           setCV={setCV}
           watch={watch}>
-          {activeStep === 0 && <StepOne />}
-          {activeStep === 1 && <StepTwo />}
-          {activeStep === 2 && <StepThree />}
+          {activeStep === 0 && <StepOne/>}
+          {activeStep === 1 && <StepTwo/>}
+          {activeStep === 2 && <StepThree/>}
         </FormContext>
         <Grid
           item
@@ -155,7 +161,7 @@ const FreeLancerProfileForm = () => {
               onClick={getBackToPreviousStep}
               disabled={loading}
               variant='contained'
-              startIcon={<ArrowBackIosIcon />}>
+              startIcon={<ArrowBackIosIcon/>}>
               {t['back']}
             </Button>
           )}
@@ -166,7 +172,7 @@ const FreeLancerProfileForm = () => {
               onClick={proceedToNextStep}
               variant='contained'
               style={nextButtonStyles(stepValid() || loading)}
-              endIcon={<ArrowForwardIosIcon />}>
+              endIcon={<ArrowForwardIosIcon/>}>
               {t['next']}
             </Button>
           )}
@@ -177,7 +183,7 @@ const FreeLancerProfileForm = () => {
               disabled={stepValid() || loading}
               variant='contained'
               style={nextButtonStyles(stepValid() || loading)}
-              endIcon={<DoneIcon />}>
+              endIcon={<DoneIcon/>}>
               {t['submit']}
             </Button>
           )}

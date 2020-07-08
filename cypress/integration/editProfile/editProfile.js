@@ -30,11 +30,11 @@ When(/^I fill my updated data$/, function() {
   cy.get('#specificFieldsOfExperienceSelect').click();
   cy.get('#react-select-5-option-0').click();
   cy.get('#industriesOfExperience').click();
-  cy.get('#react-select-6-option-0').click();
-  cy.get('#assignmentLanguage').click();
-  cy.get('#react-select-7-option-0').click();
-  cy.get('#assignmentTypesSelect').click();
   cy.get('#react-select-8-option-0').click();
+  cy.get('#assignmentLanguage').click();
+  cy.get('#react-select-6-option-6').click();
+  cy.get('#assignmentTypesSelect').click();
+  cy.get('#react-select-7-option-0').click();
   cy.get('#add-work-experience').click();
   cy.get('#work-experience-title-0').clear();
   cy.get('#work-experience-title-0').type('test job title');

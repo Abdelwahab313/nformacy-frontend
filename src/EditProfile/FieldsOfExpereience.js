@@ -8,6 +8,7 @@ import ReactSelect from 'react-select';
 import { selectStyle, useStyles } from '../styles/formsStyles';
 import ErrorMessage from '../components/errors/ErrorMessage';
 import t from '../locales/en/freelancerProfile.json';
+import AssignmentPreferences from '../components/forms/AssignmentPreferences';
 
 const FieldsOfExperience = ({ user }) => {
   const { control, errors, setValue, getValues } = useFormContext();
@@ -99,21 +100,21 @@ const FieldsOfExperience = ({ user }) => {
               value={
                 !!user.majorFieldsOfExperience
                   ? user.majorFieldsOfExperience.map(
-                      (userMajorFieldOfExperience) => {
-                        return fieldsOfExperience.find(
-                          (majorFieldOfExperience) =>
-                            userMajorFieldOfExperience ===
-                            majorFieldOfExperience.value,
-                        );
-                      },
-                    )
+                  (userMajorFieldOfExperience) => {
+                    return fieldsOfExperience.find(
+                      (majorFieldOfExperience) =>
+                        userMajorFieldOfExperience ===
+                        majorFieldOfExperience.value,
+                    );
+                  },
+                  )
                   : []
               }
               label={t['majorFieldOfExperience']}
             />
           }
         />
-        <ErrorMessage errorField={errors.majorFieldsOfExperience} />
+        <ErrorMessage errorField={errors.majorFieldsOfExperience}/>
       </Container>
       <Container maxWidth={false} className={classes.formControl}>
         <div className={classes.formHeader}>
@@ -142,21 +143,22 @@ const FieldsOfExperience = ({ user }) => {
               value={
                 !!user.specificFieldsOfExperience
                   ? user.specificFieldsOfExperience.map(
-                      (userSpecificFieldOfExperience) => {
-                        return specificFields.find(
-                          (specificFieldOfExperience) =>
-                            userSpecificFieldOfExperience ===
-                            specificFieldOfExperience?.value,
-                        );
-                      },
-                    )
+                  (userSpecificFieldOfExperience) => {
+                    return specificFields.find(
+                      (specificFieldOfExperience) =>
+                        userSpecificFieldOfExperience ===
+                        specificFieldOfExperience?.value,
+                    );
+                  },
+                  )
                   : []
               }
             />
           }
         />
-        <ErrorMessage errorField={errors.specificFieldsOfExperience} />
+        <ErrorMessage errorField={errors.specificFieldsOfExperience}/>
       </Container>
+      <AssignmentPreferences/>
     </Fragment>
   );
 };

@@ -31,7 +31,7 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     paddingLeft: 0,
-    paddingRight: 0
+    paddingRight: 0,
   },
   freelancerProfileContainer: {
     display: 'flex',
@@ -103,6 +103,13 @@ export const useStyles = makeStyles((theme) => ({
   },
   hintText: {
     textAlign: 'center',
+    fontSize: '1.190vw',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2.604vw',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '4vw',
+    },
   },
 
   textField: {
@@ -134,6 +141,13 @@ export const useStyles = makeStyles((theme) => ({
     paddingRight: '0 !important',
   },
   paddingZero: {
+    padding: '0 !important',
+  },
+  sideHintContainer: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
     padding: '0 !important',
   },
 }));
