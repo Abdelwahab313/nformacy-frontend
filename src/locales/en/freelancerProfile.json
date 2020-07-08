@@ -58,5 +58,9 @@
   "majorFieldOfExperience": "Major Fields Of Experience",
   "specificallyIn": "Specifically in these areas",
   "specificallyInHint": "You can choose more than one specific field of experience.",
-  "specificField": "Specific Fields Of Experience"
+  "specificField": "Specific Fields Of Experience",
+  "areYouSureYouWantToBack": "Are you sure you want to go back?",
+  "ifYouGoBackYourDataWillBeLost": "If you chose to go back your data in this page will be lost and you will have to fill it again.",
+  "confirm": "Confirm",
+  "cancel": "Cancel"
 }

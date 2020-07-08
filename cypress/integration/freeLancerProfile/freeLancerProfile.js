@@ -81,3 +81,15 @@ When(/^i click on start date$/, function() {
 Then(/^Only dates below end date show up$/, function() {
 
 });
+When(/^I click back$/, function() {
+  cy.get('#backButton').click();
+});
+Then(/^I should see the dialog box asking for confirmation$/, function() {
+  cy.get('#backDialog');
+});
+When(/^I press cancel$/, function() {
+  cy.get('#cancelBack').click();
+});
+When(/^I press confirm$/, function() {
+  cy.get('#confirmBack').click();
+});

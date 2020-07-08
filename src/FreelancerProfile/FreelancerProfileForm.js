@@ -20,6 +20,7 @@ import { updateProfile, uploadCV } from '../apis/userAPI';
 import { useHistory } from 'react-router-dom';
 import t from '../locales/en/freelancerProfile.json';
 import Hidden from '@material-ui/core/Hidden';
+import BackDialog from './BackDialog';
 
 const FreeLancerProfileForm = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -45,6 +46,8 @@ const FreeLancerProfileForm = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [cv, setCV] = useState();
+  const [isBackDialogueOpen, setIsDialogueOpen] = useState(false);
+  const [isConfirmedBack, setIsConfirmedBack] = useState(false);
   const stepsFields = [
     ['gender', 'country', 'mobileNumber', 'currentEmploymentStatus'],
     [
@@ -112,11 +115,22 @@ const FreeLancerProfileForm = () => {
   }
 
   function getBackToPreviousStep() {
+    setIsDialogueOpen(true);
+  }
+
+  const onClickAgree = () => {
+    setIsConfirmedBack(true);
+    setIsDialogueOpen(false);
     if (activeStep > 0) {
       reset(user.current);
       setActiveStep(activeStep - 1);
     }
-  }
+  };
+
+  const onClickCancel = () => {
+    setIsConfirmedBack(false);
+    setIsDialogueOpen(false);
+  };
 
   return (
     <div className={classes.freelancerProfileContainer}>
@@ -159,6 +173,7 @@ const FreeLancerProfileForm = () => {
           {activeStep !== 0 && (
             <Button
               onClick={getBackToPreviousStep}
+              id='backButton'
               disabled={loading}
               variant='contained'
               startIcon={<ArrowBackIosIcon/>}>
@@ -189,6 +204,7 @@ const FreeLancerProfileForm = () => {
           )}
         </Grid>
       </form>
+      <BackDialog open={isBackDialogueOpen} isAgreed={isConfirmedBack} onAgree={onClickAgree} onCancel={onClickCancel}/>
     </div>
   );
 };
