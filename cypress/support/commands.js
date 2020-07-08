@@ -25,3 +25,15 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 import 'cypress-file-upload';
 import "cypress-localstorage-commands"
+Cypress.Commands.add(
+  'clickNth',
+  { prevSubject: 'element' },
+  (subject, pos) => {
+    cy.wrap(subject)
+      .children('div')
+      .eq(pos)
+      .then(e => {
+        e.click()
+      })
+  }
+)
