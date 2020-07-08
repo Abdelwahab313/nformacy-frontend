@@ -78,7 +78,7 @@ function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
               <List component='div' disablePadding>
                 <ListItem className={classes.nested}>
                   <ListItemText
-                    primary={<Typography>Pick a Date</Typography>}
+                    primary={<Typography variant={'body2'}>Pick Time of the Call</Typography>}
                   />
                   <ListItemIcon>
                     <IconButton

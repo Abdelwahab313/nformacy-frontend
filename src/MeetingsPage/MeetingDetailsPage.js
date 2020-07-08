@@ -81,7 +81,7 @@ const MeetingDetailsPage = () => {
         <Card id={'meeting-details'}>
           <List className={classes.root}>
             <ListItem>
-              <ListItemText primary={<Typography>Purpose of The Call</Typography>}/>
+              <ListItemText primary={<Typography>Purpose of The Call</Typography>} secondary={'consult Expert'}/>
             </ListItem>
             <ListItem>
               <ListItemText primary='Field' secondary={meetingDetails.field}/>
