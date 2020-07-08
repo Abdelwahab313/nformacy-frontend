@@ -31,7 +31,7 @@ const StepTwo = () => {
           </Grid>
         </Grow>
         <Grow in={true} timeout={4500}>
-          <Grid item xs={12} md={2} className={classes.sideHintContainer} alignContent='space-between'>
+          <Grid container xs={12} md={2} className={classes.sideHintContainer} alignContent='space-between'>
             <Grid
               container
               direction='column'

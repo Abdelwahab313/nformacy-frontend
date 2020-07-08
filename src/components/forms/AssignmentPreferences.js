@@ -48,7 +48,7 @@ const AssignmentPreferences = () => {
                           assignmentLanguage.value,
                       );
                     },
-                    ).sort
+                    )
                     : []
                 }
                 isMulti
