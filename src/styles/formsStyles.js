@@ -170,11 +170,35 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '5vw',
     },
   },
+  signUpHeaderStyle: {
+    fontSize: '1.190vw',
+    textAlign: 'left',
+    color: white,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2.604vw',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '4vw',
+    },
+  },
   logInButtonContainer: {
     display: 'flex',
     width: '40%',
     justifySelf: 'center',
   },
+  signUpButtonContainer: {
+    display: 'flex',
+    width: '40%',
+    alignSelf: 'flex-end',
+  },
+  headerWithBackground: {
+    padding: theme.spacing(3),
+    backgroundColor: pink,
+    border: `1px solid ${pink}`,
+    borderRadius: '16px',
+    width: 'fit-content',
+    height: 'fit-content',
+  }
 }));
 
 export const selectStyle = {
