@@ -94,7 +94,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   signupLink: {
     margin: theme.spacing(1),
-    color: 'royalblue',
+    color: pink,
   },
   hintContainer: {
     borderRadius: '5%',
@@ -152,7 +152,29 @@ export const useStyles = makeStyles((theme) => ({
   },
   removeNestedText: {
     color: grey
-  }
+  },
+  logInPageContainer: {
+    padding: theme.spacing(5),
+    [theme.breakpoints.up('md')]: {
+      height: '100vh',
+    },
+  },
+  pageHeaderStyle: {
+    fontSize: '2.024vw',
+    textAlign: 'left',
+    fontWeight: '600',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '3vw',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '5vw',
+    },
+  },
+  logInButtonContainer: {
+    display: 'flex',
+    width: '40%',
+    justifySelf: 'center',
+  },
 }));
 
 export const selectStyle = {
@@ -187,6 +209,7 @@ export const selectStyle = {
     ...provided,
     height: 51,
   }),
+
 };
 
 export const radioStyle = makeStyles({

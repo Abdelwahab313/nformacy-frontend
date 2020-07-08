@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useStyles } from '../styles/formsStyles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -15,6 +12,7 @@ import { useAuth } from './auth';
 import ErrorDialog from '../components/errors/ErrorDialog';
 import { withNamespaces } from 'react-i18next';
 import authManager from '../services/authManager';
+import { Grid } from '@material-ui/core';
 
 const Login = ({ location, t }) => {
   const { register, handleSubmit, errors } = useForm();
@@ -63,94 +61,103 @@ const Login = ({ location, t }) => {
   const authToken = authManager.retrieveUserToken();
   if (loginSuccess || (loadedLocal && authToken)) {
     if (referer.pathname === '/logout') {
-      return <Redirect push to='/' />;
+      return <Redirect push to='/'/>;
     }
-    return <Redirect push to={referer} />;
+    return <Redirect push to={referer}/>;
   }
   if (loading) {
     return (
       <div className={classes.progressContainer}>
-        <CircularProgress />
+        <CircularProgress/>
       </div>
     );
   }
   return (
-    <Container component='main' maxWidth='xs' dir='ltr'>
-      {showError && (
-        <ErrorDialog
-          message={errorMessage}
-          close={() => {
-            setShowError(false);
-            setErrorMessage();
-          }}
-        />
-      )}
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component='h1' variant='h5'>
-          {t('Login')}
-        </Typography>
-        <form
-          id='loginUserForm'
-          className={classes.form}
-          noValidate
-          onSubmit={handleSubmit(onSubmit)}>
-          <TextField
-            variant='outlined'
-            margin='normal'
-            inputRef={register({ required: true })}
-            fullWidth
-            onChange={handleTextChange}
-            id='email'
-            label={t('Email')}
-            name='email'
-            autoComplete='email'
-            error={!!errors.email}
-            autoFocus
+    <Grid container className={classes.logInPageContainer} alignContent={'center'}>
+      <Grid container alignContent='center' style={{height: 'fit-content', marginBottom: '50px'}}>
+        <Grid item xs={1}/>
+        <Grid item xs={10}>
+          <Typography className={classes.pageHeaderStyle}>
+            {t('Login')}
+          </Typography>
+        </Grid>
+      </Grid>
+      <Grid container justify={'space-evenly'} alignContent={'center'}>
+        {showError && (
+          <ErrorDialog
+            message={errorMessage}
+            close={() => {
+              setShowError(false);
+              setErrorMessage();
+            }}
           />
-          {errors.email && (
-            <span className={classes.error}>{t('Email empty error')}</span>
-          )}
-          <TextField
-            variant='outlined'
-            margin='normal'
-            inputRef={register({ required: true })}
-            fullWidth
-            name='password'
-            label={t('password')}
-            type='password'
-            id='password'
-            onChange={handleTextChange}
-            error={!!errors.password}
-            autoComplete='current-password'
-          />
-          {errors.password && (
-            <span className={classes.error}>{t('Password empty error')}</span>
-          )}
+        )}
+        <CssBaseline/>
+        <Grid item xs={12} md={3}>
+          <img src={require('../assets/22759-girl-on-a-scooter.gif')} width={'100%'}/>
+        </Grid>
+        <Grid item xs={12} md={6} className={classes.paper}>
+          <form
+            id='loginUserForm'
+            className={classes.form}
+            noValidate
+            onSubmit={handleSubmit(onSubmit)}>
+            <TextField
+              variant='outlined'
+              margin='normal'
+              inputRef={register({ required: true })}
+              fullWidth
+              onChange={handleTextChange}
+              id='email'
+              label={t('Email')}
+              name='email'
+              autoComplete='email'
+              error={!!errors.email}
+              autoFocus
+            />
+            {errors.email && (
+              <span className={classes.error}>{t('Email empty error')}</span>
+            )}
+            <TextField
+              variant='outlined'
+              margin='normal'
+              inputRef={register({ required: true })}
+              fullWidth
+              name='password'
+              label={t('password')}
+              type='password'
+              id='password'
+              onChange={handleTextChange}
+              error={!!errors.password}
+              autoComplete='current-password'
+            />
+            {errors.password && (
+              <span className={classes.error}>{t('Password empty error')}</span>
+            )}
 
-          {loginFailed && (
-            <span id={'loginFailedMessage'} className={classes.error}>
+            {loginFailed && (
+              <span id={'loginFailedMessage'} className={classes.error}>
               {t('Invalid Email or password')}
             </span>
-          )}
-          <a className={classes.signupLink} href={'signup'}>
-            Don't have account signup now!
-          </a>
-          <Button
-            id='login'
-            type='submit'
-            fullWidth
-            variant='contained'
-            color='primary'
-            className={classes.submit}>
-            {t('Login')}
-          </Button>
-        </form>
-      </div>
-    </Container>
+            )}
+            <a className={classes.signupLink} href={'signup'}>
+              Don't have account signup now!
+            </a>
+            <div className={classes.logInButtonContainer}>
+              <Button
+                id='login'
+                type='submit'
+                fullWidth
+                variant='contained'
+                color='primary'
+                className={classes.submit}>
+                {t('Login')}
+              </Button>
+            </div>
+          </form>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
