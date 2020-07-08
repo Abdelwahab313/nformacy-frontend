@@ -6,11 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import React, { Fragment } from 'react';
-import {
-  checkboxStyle,
-  nextButtonStyles,
-  useStyles,
-} from '../../styles/formsStyles';
+import { checkboxStyle, useStyles } from '../../styles/formsStyles';
 import ReactTooltip from 'react-tooltip';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -21,15 +17,16 @@ import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
 import t from '../../locales/en/freelancerProfile.json';
+import Link from '@material-ui/core/Link';
+import ErrorMessage from '../errors/ErrorMessage';
 
 const WorkExperience = () => {
   const {
     control,
     user,
     register,
+    errors,
     watch,
     setDeletedExperiences,
   } = useFormContext();
@@ -47,7 +44,7 @@ const WorkExperience = () => {
       : endDate;
     return formattedDate;
   };
-  console.log(watchExperiences);
+
   return (
     <Paper className={classes.paperSection} elevation={5}>
       <Container maxWidth={false} className={classes.nestedContainer}>
@@ -87,7 +84,12 @@ const WorkExperience = () => {
                         notchedOutline: classes.textField,
                       },
                     }}
-                    inputRef={register()}
+                    inputRef={register({ required: t['requiredMessage'] })}
+                  />
+                  <ErrorMessage
+                    errorField={
+                      errors.experiences && errors.experiences[index]?.title
+                    }
                   />
                 </Container>
                 <Container maxWidth={false} className={classes.formControl}>
@@ -103,7 +105,12 @@ const WorkExperience = () => {
                         notchedOutline: classes.textField,
                       },
                     }}
-                    inputRef={register()}
+                    inputRef={register({ required: t['requiredMessage'] })}
+                  />
+                  <ErrorMessage
+                    errorField={
+                      errors.experiences && errors.experiences[index]?.title
+                    }
                   />
                 </Container>
                 <Grid>
@@ -112,11 +119,12 @@ const WorkExperience = () => {
                       maxWidth={false}
                       className={classes.dateController}>
                       <Controller
-                        id={`work-experience-startDate-${index}`}
                         name={`experiences[${index}][startDate]`}
                         control={control}
+                        rules={{ required: t['requiredMessage'] }}
                         as={
                           <DatePicker
+                            id={`work-experience-startDate-${index}`}
                             views={['year', 'month']}
                             format='MM/yyyy'
                             inputVariant='outlined'
@@ -140,41 +148,72 @@ const WorkExperience = () => {
                           />
                         }
                       />
+                      {errors.experiences &&
+                        errors.experiences[index]?.startDate && (
+                          <Grid maxWidth={false}>
+                            <ErrorMessage
+                              errorField={
+                                errors.experiences &&
+                                errors.experiences[index]?.startDate
+                              }
+                            />
+                          </Grid>
+                        )}
                     </Container>
                     <Container
                       maxWidth={false}
                       className={classes.dateController}>
                       {!watchExperiences[index] ||
                         (!watchExperiences[index].toDate && (
-                          <Controller
-                            id={`work-experience-endDate-${index}`}
-                            name={`experiences[${index}][endDate]`}
-                            control={control}
-                            as={
-                              <DatePicker
-                                views={['year', 'month']}
-                                format='MM/yyyy'
-                                autoOk
-                                inputVariant='outlined'
-                                margin='normal'
-                                label={t['endDate']}
-                                minDate={
-                                  new Date(watchExperiences[index].startDate)
-                                }
-                                maxDate={Date.now()}
-                                inputRef={register()}
-                                KeyboardButtonProps={{
-                                  'aria-label': t['changeDate'],
-                                }}
-                                InputProps={{
-                                  classes: {
-                                    notchedOutline: classes.textField,
-                                  },
-                                }}
-                                onChange={(value) => value[0]}
-                              />
-                            }
-                          />
+                          <Fragment>
+                            <Controller
+                              id={`work-experience-endDate-${index}`}
+                              rules={{
+                                validate: (endDate) =>
+                                  (watchExperiences[index] &&
+                                    watchExperiences[index].toDate) ||
+                                  endDate ||
+                                  t['requiredMessage'],
+                              }}
+                              name={`experiences[${index}][endDate]`}
+                              control={control}
+                              as={
+                                <DatePicker
+                                  views={['year', 'month']}
+                                  format='MM/yyyy'
+                                  autoOk
+                                  inputVariant='outlined'
+                                  margin='normal'
+                                  label={t['endDate']}
+                                  minDate={
+                                    new Date(watchExperiences[index].startDate)
+                                  }
+                                  maxDate={Date.now()}
+                                  inputRef={register()}
+                                  KeyboardButtonProps={{
+                                    'aria-label': t['changeDate'],
+                                  }}
+                                  InputProps={{
+                                    classes: {
+                                      notchedOutline: classes.textField,
+                                    },
+                                  }}
+                                  onChange={(value) => value[0]}
+                                />
+                              }
+                            />
+                            {errors.experiences &&
+                              errors.experiences[index]?.endDate && (
+                                <Grid maxWidth={false}>
+                                  <ErrorMessage
+                                    errorField={
+                                      errors.experiences &&
+                                      errors.experiences[index]?.endDate
+                                    }
+                                  />
+                                </Grid>
+                              )}
+                          </Fragment>
                         ))}
                       <Grid item className={classes.checkBoxControl}>
                         <FormControl
@@ -192,6 +231,7 @@ const WorkExperience = () => {
                                 <FormControlLabel
                                   control={
                                     <Checkbox
+                                      id ={`experiences-toDate-${index}`}
                                       name={`experiences[${index}][toDate]`}
                                       inputRef={register()}
                                       style={checkboxStyle}
@@ -208,8 +248,13 @@ const WorkExperience = () => {
                   </MuiPickersUtilsProvider>
                 </Grid>
                 <Container maxWidth={false} className={classes.formControl}>
-                  <Button
-                    variant='contained'
+                  <Link
+                    className={[
+                      classes.fieldLabelStylesDesktop,
+                      classes.removeNestedText,
+                    ]}
+                    component='button'
+                    variant='body2'
                     onClick={() => {
                       if (!!item.title) {
                         item['_destroy'] = true;
@@ -219,23 +264,23 @@ const WorkExperience = () => {
                         ]);
                       }
                       experienceForm.remove(index);
-                    }}
-                    startIcon={<Icon>remove_circle</Icon>}>
+                    }}>
                     {t['removeWorkExperience']}
-                  </Button>
+                  </Link>
                 </Container>
               </CardContent>
             </Card>
           ))}
+          <ErrorMessage errorField={errors.experiencesLength} />
           <section className={classes.formControl}>
-            <Button
-              variant='contained'
+            <Link
+              className={classes.fieldLabelStylesDesktop}
               id='add-work-experience'
-              onClick={() => experienceForm.append({})}
-              style={nextButtonStyles(false)}
-              startIcon={<Icon>add_circle</Icon>}>
+              component='button'
+              variant='body2'
+              onClick={() => experienceForm.append({})}>
               {t['addWorkExperience']}
-            </Button>
+            </Link>
           </section>
         </Fragment>
       </Container>

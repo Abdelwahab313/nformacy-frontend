@@ -5,18 +5,13 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
-import React from 'react';
-import {
-  dateInputStyle,
-  nextButtonStyles,
-  useStyles,
-} from '../../styles/formsStyles';
+import React, { Fragment } from 'react';
+import { useStyles } from '../../styles/formsStyles';
 import ReactTooltip from 'react-tooltip';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Input } from '@material-ui/core';
 import {
-  DatePicker,
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
@@ -24,6 +19,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import t from '../../locales/en/freelancerProfile.json';
+import Link from '@material-ui/core/Link';
 
 const Certification = () => {
   const {
@@ -49,7 +45,7 @@ const Certification = () => {
           </Grid>
         </Grid>
         <Divider variant='middle' />
-        <Container>
+        <Fragment>
           {certificationForm.fields.map((item, index) => (
             <Card key={item.id} className={classes.nestedCardContainer}>
               <ReactTooltip globalEventOff={'click'} />
@@ -155,8 +151,10 @@ const Certification = () => {
                   </MuiPickersUtilsProvider>
                 </Grid>
                 <Container maxWidth={false} className={classes.formControl}>
-                  <Button
-                    variant='contained'
+                  <Link
+                    className={[classes.fieldLabelStylesDesktop, classes.removeNestedText]}
+                    component='button'
+                    variant='body2'
                     onClick={() => {
                       if (!!item.name) {
                         item['_destroy'] = true;
@@ -166,25 +164,24 @@ const Certification = () => {
                         ]);
                       }
                       certificationForm.remove(index);
-                    }}
-                    startIcon={<Icon>remove_circle</Icon>}>
+                    }}>
                     {t['removeCertification']}
-                  </Button>
+                  </Link>
                 </Container>
               </CardContent>
             </Card>
           ))}
           <section className={classes.formControl}>
-            <Button
-              variant='contained'
-              style={nextButtonStyles(false)}
-              onClick={() => certificationForm.append({})}
-              startIcon={<Icon>add_circle</Icon>}
-              id='add-certification'>
+            <Link
+              id='add-certification'
+              className={classes.fieldLabelStylesDesktop}
+              component='button'
+              variant='body2'
+              onClick={() => certificationForm.append({})}>
               {t['addCertification']}
-            </Button>
+            </Link>
           </section>
-        </Container>
+        </Fragment>
       </Container>
     </Paper>
   );

@@ -21,12 +21,12 @@ const StepOne = () => {
       <Grid
         container
         direction='row'
-        justify='center'
+        justify='space-evenly'
         alignItems='center'
         spacing={5}>
-        <Hidden mdDown>
+        <Hidden smDown>
           <Grow in={true} timeout={2000}>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} sm={3}>
               <img
                 src={require('../assets/11564-scanner-animation.gif')}
                 width={'100%'}
@@ -35,7 +35,7 @@ const StepOne = () => {
           </Grow>
         </Hidden>
         <Grow in={true} timeout={3500}>
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} md={6}>
             <WorkExperience />
           </Grid>
         </Grow>
@@ -43,7 +43,7 @@ const StepOne = () => {
           <Grid container justify='center' xs={12} md={2}>
             <ImageUploader
               singleImage={true}
-              label={'Accepted file format: pdf'}
+              label={'Accepted File Format: pdf'}
               accept='application/pdf'
               withIcon={true}
               onChange={uploadCV}
@@ -61,16 +61,16 @@ const StepOne = () => {
       <Grid
         container
         direction='row'
-        justify='center'
+        justify='space-evenly'
         alignItems='center'
         spacing={5}>
-        <Hidden mdDown>
+        <Hidden smDown>
           <Grow in={true} timeout={2000}>
-            <Grid item xs={12} md={3}></Grid>
+            <Grid item xs={12} sm={3}></Grid>
           </Grow>
         </Hidden>
         <Grow in={true} timeout={3500}>
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} md={6}>
             <Education />
           </Grid>
         </Grow>
@@ -81,7 +81,7 @@ const StepOne = () => {
       <Grid
         container
         direction='row'
-        justify='center'
+        justify='space-evenly'
         alignItems='center'
         spacing={5}>
         <Hidden mdDown>
@@ -90,7 +90,7 @@ const StepOne = () => {
           </Grow>
         </Hidden>
         <Grow in={true} timeout={3500}>
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} md={6}>
             <Certification />
           </Grid>
         </Grow>

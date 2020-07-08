@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return [t['personalInfo'], t['specializationAndPreferences'], t['career']];
+  return [t['personalInfo'], t['specializationAndPreferences'], t['resume']];
 }
 
 const StepsIndicator = (props) => {

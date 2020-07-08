@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { lighterPink, lightGrey, lightPink, pink, white } from './colors';
+import { grey, lighterPink, lightGrey, lightPink, pink, white } from './colors';
 
 export const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -150,6 +150,9 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-evenly',
     padding: '0 !important',
   },
+  removeNestedText: {
+    color: grey
+  }
 }));
 
 export const selectStyle = {

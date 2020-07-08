@@ -40,6 +40,20 @@ When(/^I fill my updated data$/, function() {
   cy.get('#work-experience-title-0').type('test job title');
   cy.get('#work-experience-company-0').clear();
   cy.get('#work-experience-company-0').type('test company name');
+  cy.get('#work-experience-startDate-0').click();
+  cy.get('.MuiPickersYearSelection-container').first().click();
+  cy.get('.MuiPickersMonthSelection-container').first().click();
+  cy.get('#experiences-toDate-0').click()
+  cy.get('#add-education').click();
+  cy.get('#educations-degree-0').clear();
+  cy.get('#educations-degree-0').type('test degree');
+  cy.get('#educations-fieldOfStudy-0').clear();
+  cy.get('#educations-fieldOfStudy-0').type('test fieldOfStudy');
+  cy.get('#educations-school-0').clear();
+  cy.get('#educations-school-0').type('test school');
+  cy.get('#educations-endYear-0').click();
+  cy.get('.MuiPickersYearSelection-container').first().click();
+  cy.get('.MuiPickersMonthSelection-container').first().click();
 });
 When(/^press submit$/, function() {
   cy.get('#save').click();

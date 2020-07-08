@@ -5,20 +5,26 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
-import React from 'react';
-import { nextButtonStyles, useStyles } from '../../styles/formsStyles';
+import React, { Fragment } from 'react';
+import { useStyles } from '../../styles/formsStyles';
 import ReactTooltip from 'react-tooltip';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Input } from '@material-ui/core';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
 import t from '../../locales/en/freelancerProfile.json';
+import Link from '@material-ui/core/Link';
+import ErrorMessage from '../errors/ErrorMessage';
 
 const Education = () => {
-  const { control, user, register, setDeletedEducations } = useFormContext();
+  const {
+    control,
+    user,
+    register,
+    setDeletedEducations,
+    errors,
+  } = useFormContext();
   const classes = useStyles();
   const educationForm = useFieldArray({
     control,
@@ -36,7 +42,7 @@ const Education = () => {
           </Grid>
         </Grid>
         <Divider variant='middle' />
-        <Container>
+        <Fragment>
           {educationForm.fields.map((item, index) => (
             <Card key={item.id} className={classes.nestedCardContainer}>
               <ReactTooltip globalEventOff={'click'} />
@@ -53,6 +59,49 @@ const Education = () => {
                 <Container maxWidth={false} className={classes.formControl}>
                   <TextField
                     fullWidth
+                    id={`educations-degree-${index}`}
+                    label={t['degree']}
+                    variant='outlined'
+                    name={`educations[${index}].degree`}
+                    defaultValue={item.degree}
+                    InputProps={{
+                      classes: {
+                        notchedOutline: classes.textField,
+                      },
+                    }}
+                    inputRef={register({ required: t['requiredMessage'] })}
+                  />
+                  <ErrorMessage
+                    errorField={
+                      errors.educations && errors.educations[index]?.degree
+                    }
+                  />
+                </Container>
+                <Container maxWidth={false} className={classes.formControl}>
+                  <TextField
+                    fullWidth
+                    id={`educations-fieldOfStudy-${index}`}
+                    label={t['fieldOfStudy']}
+                    variant='outlined'
+                    name={`educations[${index}].fieldOfStudy`}
+                    InputProps={{
+                      classes: {
+                        notchedOutline: classes.textField,
+                      },
+                    }}
+                    defaultValue={item.fieldOfStudy}
+                    inputRef={register({ required: t['requiredMessage'] })}
+                  />
+                  <ErrorMessage
+                    errorField={
+                      errors.educations &&
+                      errors.educations[index]?.fieldOfStudy
+                    }
+                  />
+                </Container>
+                <Container maxWidth={false} className={classes.formControl}>
+                  <TextField
+                    fullWidth
                     label={t['university']}
                     variant='outlined'
                     name={`educations[${index}].school`}
@@ -63,54 +112,30 @@ const Education = () => {
                         notchedOutline: classes.textField,
                       },
                     }}
-                    inputRef={register()}
+                    inputRef={register({ required: t['requiredMessage'] })}
                   />
-                </Container>
-                <Container maxWidth={false} className={classes.formControl}>
-                  <TextField
-                    fullWidth
-                    label={t['degree']}
-                    variant='outlined'
-                    name={`educations[${index}].degree`}
-                    id={`educations[${index}]-degree`}
-                    defaultValue={item.degree}
-                    InputProps={{
-                      classes: {
-                        notchedOutline: classes.textField,
-                      },
-                    }}
-                    inputRef={register()}
-                  />
-                </Container>
-                <Container maxWidth={false} className={classes.formControl}>
-                  <TextField
-                    fullWidth
-                    label={t['fieldOfStudy']}
-                    variant='outlined'
-                    name={`educations[${index}].fieldOfStudy`}
-                    InputProps={{
-                      classes: {
-                        notchedOutline: classes.textField,
-                      },
-                    }}
-                    defaultValue={item.fieldOfStudy}
-                    inputRef={register()}
+                  <ErrorMessage
+                    errorField={
+                      errors.educations && errors.educations[index]?.school
+                    }
                   />
                 </Container>
                 <Grid>
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Container maxWidth={false} className={classes.formControl}>
                       <Controller
+                        rules={{ required: t['requiredMessage'] }}
                         name={`educations[${index}].endYear`}
                         control={control}
                         as={
                           <DatePicker
+                            id={`educations-endYear-${index}`}
                             inputVariant='outlined'
                             autoOk
                             views={['year', 'month']}
                             format='MM/yyyy'
                             margin='normal'
-                            label={t['endDate']}
+                            label={t['completedBy']}
                             maxDate={Date.now()}
                             KeyboardButtonProps={{
                               'aria-label': t['changeDate'],
@@ -119,16 +144,33 @@ const Education = () => {
                             InputProps={{
                               classes: {
                                 notchedOutline: classes.textField,
-                              },}}
+                              },
+                            }}
                           />
                         }
                       />
+                      {errors.educations &&
+                        errors.educations[index]?.endYear && (
+                          <Grid maxWidth={false}>
+                            <ErrorMessage
+                              errorField={
+                                errors.educations &&
+                                errors.educations[index]?.endYear
+                              }
+                            />
+                          </Grid>
+                        )}
                     </Container>
                   </MuiPickersUtilsProvider>
                 </Grid>
                 <Container maxWidth={false} className={classes.formControl}>
-                  <Button
-                    variant='contained'
+                  <Link
+                    className={[
+                      classes.fieldLabelStylesDesktop,
+                      classes.removeNestedText,
+                    ]}
+                    component='button'
+                    variant='body2'
                     onClick={() => {
                       if (!!item.school) {
                         item['_destroy'] = true;
@@ -138,25 +180,25 @@ const Education = () => {
                         ]);
                       }
                       educationForm.remove(index);
-                    }}
-                    startIcon={<Icon>remove_circle</Icon>}>
+                    }}>
                     {t['removeEducation']}
-                  </Button>
+                  </Link>
                 </Container>
               </CardContent>
             </Card>
           ))}
+          <ErrorMessage errorField={errors.educationLength} />
           <section className={classes.formControl}>
-            <Button
-              variant='contained'
+            <Link
+              className={classes.fieldLabelStylesDesktop}
               id='add-education'
-              onClick={() => educationForm.append({})}
-              startIcon={<Icon>add_circle</Icon>}
-              style={nextButtonStyles(false)}>
+              component='button'
+              variant='body2'
+              onClick={() => educationForm.append({})}>
               {t['addEducation']}
-            </Button>
+            </Link>
           </section>
-        </Container>
+        </Fragment>
       </Container>
     </Paper>
   );

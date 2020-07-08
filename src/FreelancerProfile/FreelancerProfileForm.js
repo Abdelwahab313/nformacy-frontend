@@ -27,6 +27,7 @@ const FreeLancerProfileForm = () => {
   const {
     register,
     errors,
+    setError,
     control,
     getValues,
     setValue,
@@ -57,6 +58,7 @@ const FreeLancerProfileForm = () => {
       'languageOfAssignments',
       'typesOfAssignments',
     ],
+    [],
   ];
 
   const stepValid = useCallback(() => {
@@ -68,6 +70,28 @@ const FreeLancerProfileForm = () => {
     );
     return hasAnyInvalidField || anyFieldUninitialized;
   }, [errors, activeStep]);
+
+  function validateNestedFields(userToBeSubmitted) {
+    let experiences = [...userToBeSubmitted.experiences];
+    experiences = experiences.filter(
+      (exp) => !deletedExperiences.includes(exp),
+    );
+    let educations = [...userToBeSubmitted.educations];
+    educations = educations.filter((edu) => !deletedEducations.includes(edu));
+    console.log('exp', experiences)
+    console.log('edu', educations)
+    if (experiences.length === 0) {
+      setError(
+        'experiencesLength',
+        'manual',
+        'At least one experience required',
+      );
+    }
+    if (educations.length === 0) {
+      setError('educationLength', 'manual', 'At least one education required');
+    }
+    return educations.length !== 0 && experiences.length !== 0;
+  }
 
   const onSubmit = (userData) => {
     setLoading(true);
@@ -84,26 +108,28 @@ const FreeLancerProfileForm = () => {
         ? [...userData.certifications, ...deletedCertification]
         : deletedCertification,
     };
-    updateProfile(userToBeSubmitted, user.current.id)
-      .then((response) => {
-        localStorage.setItem('user', JSON.stringify(response.data));
-        history.push('/user/success');
-      })
-      .catch((error) => {
-      })
-      .finally(() => setLoading(false));
-
-    if (cv?.length > 0) {
-      const file = new Blob(cv);
-      const formData = new FormData();
-      formData.append('cv', file, cv[0].name);
-
-      uploadCV(formData, user.current.id)
+    const nestedFieldsValid = validateNestedFields(userToBeSubmitted);
+    console.log(nestedFieldsValid);
+    if (nestedFieldsValid) {
+      updateProfile(userToBeSubmitted, user.current.id)
         .then((response) => {
           localStorage.setItem('user', JSON.stringify(response.data));
+          history.push('/user/success');
         })
-        .catch((error) => {
-        });
+        .catch((error) => {})
+        .finally(() => setLoading(false));
+
+      if (cv?.length > 0) {
+        const file = new Blob(cv);
+        const formData = new FormData();
+        formData.append('cv', file, cv[0].name);
+
+        uploadCV(formData, user.current.id)
+          .then((response) => {
+            localStorage.setItem('user', JSON.stringify(response.data));
+          })
+          .catch((error) => {});
+      }
     }
   };
 
@@ -136,7 +162,7 @@ const FreeLancerProfileForm = () => {
     <div className={classes.freelancerProfileContainer}>
       <Hidden smDown>
         <div style={stepIndicatorStyles.container}>
-          <StepsIndicator activeStep={activeStep}/>
+          <StepsIndicator activeStep={activeStep} />
         </div>
       </Hidden>
       <form
@@ -157,9 +183,9 @@ const FreeLancerProfileForm = () => {
           cv={cv}
           setCV={setCV}
           watch={watch}>
-          {activeStep === 0 && <StepOne/>}
-          {activeStep === 1 && <StepTwo/>}
-          {activeStep === 2 && <StepThree/>}
+          {activeStep === 0 && <StepOne />}
+          {activeStep === 1 && <StepTwo />}
+          {activeStep === 2 && <StepThree />}
         </FormContext>
         <Grid
           item
@@ -176,7 +202,7 @@ const FreeLancerProfileForm = () => {
               id='backButton'
               disabled={loading}
               variant='contained'
-              startIcon={<ArrowBackIosIcon/>}>
+              startIcon={<ArrowBackIosIcon />}>
               {t['back']}
             </Button>
           )}
@@ -187,7 +213,7 @@ const FreeLancerProfileForm = () => {
               onClick={proceedToNextStep}
               variant='contained'
               style={nextButtonStyles(stepValid() || loading)}
-              endIcon={<ArrowForwardIosIcon/>}>
+              endIcon={<ArrowForwardIosIcon />}>
               {t['next']}
             </Button>
           )}
@@ -198,7 +224,7 @@ const FreeLancerProfileForm = () => {
               disabled={stepValid() || loading}
               variant='contained'
               style={nextButtonStyles(stepValid() || loading)}
-              endIcon={<DoneIcon/>}>
+              endIcon={<DoneIcon />}>
               {t['submit']}
             </Button>
           )}
