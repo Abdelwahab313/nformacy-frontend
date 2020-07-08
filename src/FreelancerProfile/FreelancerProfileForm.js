@@ -189,6 +189,7 @@ const FreeLancerProfileForm = () => {
         </FormContext>
         <Grid
           item
+          className={classes.buttonsContainer}
           xs={12}
           md={10}
           style={

@@ -14,6 +14,7 @@ const StepTwo = () => {
     <Grid id='stepTwoForm' container>
       <Grid
         container
+        className={classes.stepTwoContainer}
         direction='row'
         justify='space-evenly'
         alignItems='center'
@@ -21,23 +22,28 @@ const StepTwo = () => {
         <Hidden smDown>
           <Grow in={true} timeout={2000}>
             <Grid item xs={12} sm={3}>
-              <img src={require('../assets/Clipboard.gif')} width={'100%'}/>
+              <img src={require('../assets/Clipboard.gif')} width={'100%'} />
             </Grid>
           </Grow>
         </Hidden>
         <Grow in={true} timeout={3500}>
           <Grid item xs={12} md={6}>
-            <FieldsOfSpecialization/>
+            <FieldsOfSpecialization />
           </Grid>
         </Grow>
         <Grow in={true} timeout={4500}>
-          <Grid container xs={12} md={2} className={classes.sideHintContainer} alignContent='space-between'>
+          <Grid
+            container
+            xs={10}
+            md={2}
+            className={classes.sideHintContainer}
+            alignContent='space-between'>
             <Grid
               container
               direction='column'
               justify={'center'}
               className={classes.hintContainer}>
-              <BusinessCenterIcon fontSize='large' style={iconStyle}/>
+              <BusinessCenterIcon fontSize='large' style={iconStyle} />
               <Typography
                 variant='subtitle1'
                 gutterBottom
@@ -45,15 +51,17 @@ const StepTwo = () => {
                 {t['fieldsOfSpecializationHint']}
               </Typography>
             </Grid>
-            <Grow in={true} timeout={6500}>
-              <Grid item className={classes.paddingZero}>
-                <img
-                  src={require('../assets/hello.png')}
-                  alt='hello'
-                  style={{ height: 'auto', width: '100%' }}
-                />
-              </Grid>
-            </Grow>
+            <Hidden smDown>
+              <Grow in={true} timeout={6500}>
+                <Grid item className={classes.paddingZero}>
+                  <img
+                    src={require('../assets/hello.png')}
+                    alt='hello'
+                    style={{ height: 'auto', width: '100%' }}
+                  />
+                </Grid>
+              </Grow>
+            </Hidden>
           </Grid>
         </Grow>
       </Grid>

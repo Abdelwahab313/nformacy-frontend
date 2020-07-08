@@ -9,9 +9,11 @@ import ImageUploader from 'react-images-upload';
 import { useFormContext } from 'react-hook-form';
 import Typography from '@material-ui/core/Typography';
 import t from '../locales/en/freelancerProfile.json';
+import { useStyles } from '../styles/formsStyles';
 
 const StepOne = () => {
   const { cv, setCV } = useFormContext();
+  const classes = useStyles();
 
   const uploadCV = (cv) => {
     setCV(cv);
@@ -21,8 +23,9 @@ const StepOne = () => {
       <Grid
         container
         direction='row'
-        justify='space-evenly'
-        alignItems='center'
+        className={classes.stepThreeContainer}
+        alignItems='flex-start'
+        justify='center'
         spacing={5}>
         <Hidden smDown>
           <Grow in={true} timeout={2000}>
@@ -35,67 +38,36 @@ const StepOne = () => {
           </Grow>
         </Hidden>
         <Grow in={true} timeout={3500}>
-          <Grid item xs={12} md={6}>
+          <Grid
+            container
+            direction='column'
+            justify='flex-start'
+            xs={12}
+            md={6}>
             <WorkExperience />
-          </Grid>
-        </Grow>
-        <Grow in={true} timeout={3500}>
-          <Grid container justify='center' xs={12} md={2}>
-            <ImageUploader
-              singleImage={true}
-              label={'Accepted File Format: pdf'}
-              accept='application/pdf'
-              withIcon={true}
-              onChange={uploadCV}
-              buttonText={t['chooseCV']}
-              imgExtension={['.pdf']}
-            />
-            {cv?.length > 0 && (
-              <Typography gutterBottom variant='subtitle2'>
-                {cv[0].name}
-              </Typography>
-            )}
-          </Grid>
-        </Grow>
-      </Grid>
-      <Grid
-        container
-        direction='row'
-        justify='space-evenly'
-        alignItems='center'
-        spacing={5}>
-        <Hidden smDown>
-          <Grow in={true} timeout={2000}>
-            <Grid item xs={12} sm={3}></Grid>
-          </Grow>
-        </Hidden>
-        <Grow in={true} timeout={3500}>
-          <Grid item xs={12} md={6}>
             <Education />
-          </Grid>
-        </Grow>
-        <Grow in={true} timeout={3500}>
-          <Grid item xs={12} md={2}></Grid>
-        </Grow>
-      </Grid>
-      <Grid
-        container
-        direction='row'
-        justify='space-evenly'
-        alignItems='center'
-        spacing={5}>
-        <Hidden mdDown>
-          <Grow in={true} timeout={2000}>
-            <Grid item xs={12} md={3}></Grid>
-          </Grow>
-        </Hidden>
-        <Grow in={true} timeout={3500}>
-          <Grid item xs={12} md={6}>
             <Certification />
           </Grid>
         </Grow>
         <Grow in={true} timeout={3500}>
-          <Grid item xs={12} md={2}></Grid>
+          <Grid item xs={12} md={2} className={classes.imageUploadContainer}>
+            <Grid container justify='center' alignItems='flex-start'>
+              <ImageUploader
+                singleImage={true}
+                label={'Accepted File Format: pdf'}
+                accept='application/pdf'
+                withIcon={true}
+                onChange={uploadCV}
+                buttonText={t['chooseCV']}
+                imgExtension={['.pdf']}
+              />
+              {cv?.length > 0 && (
+                <Typography gutterBottom variant='subtitle2'>
+                  {cv[0].name}
+                </Typography>
+              )}
+            </Grid>
+          </Grid>
         </Grow>
       </Grid>
     </Grid>

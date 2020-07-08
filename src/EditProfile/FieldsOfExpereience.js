@@ -8,7 +8,6 @@ import ReactSelect from 'react-select';
 import { selectStyle, useStyles } from '../styles/formsStyles';
 import ErrorMessage from '../components/errors/ErrorMessage';
 import t from '../locales/en/freelancerProfile.json';
-import AssignmentPreferences from '../components/forms/AssignmentPreferences';
 
 const FieldsOfExperience = ({ user }) => {
   const { control, errors, setValue, getValues } = useFormContext();
@@ -158,7 +157,6 @@ const FieldsOfExperience = ({ user }) => {
         />
         <ErrorMessage errorField={errors.specificFieldsOfExperience}/>
       </Container>
-      <AssignmentPreferences/>
     </Fragment>
   );
 };

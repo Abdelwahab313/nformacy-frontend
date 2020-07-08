@@ -9,10 +9,11 @@ import { Controller, useFormContext } from 'react-hook-form';
 import CreatableSelect from 'react-select/creatable/dist/react-select.esm';
 import { industries } from '../../constants/dropDownOptions';
 import ErrorMessage from '../errors/ErrorMessage';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { dividerStyle, sectionContainerStyles, selectStyle, useStyles } from '../../styles/formsStyles';
 import ReactTooltip from 'react-tooltip';
 import t from '../../locales/en/freelancerProfile.json';
+import AssignmentPreferences from './AssignmentPreferences';
 
 function FieldsOfSpecialization() {
   const { errors, control, user } = useFormContext();
@@ -69,6 +70,7 @@ function FieldsOfSpecialization() {
           />
           <ErrorMessage errorField={errors.industriesOfExperience} />
         </Container>
+        <AssignmentPreferences/>
       </Container>
     </Paper>
   );

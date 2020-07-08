@@ -118,6 +118,9 @@ export const useStyles = makeStyles((theme) => ({
   },
   fieldLabelStylesDesktop: {
     fontSize: '1.190vw',
+    [theme.breakpoints.up('lg')]: {
+      fontSize: '1.00vw',
+    },
     [theme.breakpoints.down('sm')]: {
       fontSize: '2.604vw',
     },
@@ -135,6 +138,9 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       fontSize: '5vw',
     },
+    [theme.breakpoints.up('lg')]: {
+      fontSize: '1.00vw',
+    },
   },
   gifContainerStyles: {
     paddingLeft: '0 !important',
@@ -143,12 +149,37 @@ export const useStyles = makeStyles((theme) => ({
   paddingZero: {
     padding: '0 !important',
   },
+  buttonsContainer: {
+    marginTop: "50px !important",
+  },
+  stepTwoContainer: {
+    [theme.breakpoints.down('sm')]: {
+      flexWrap: 'nowrap !important',
+      flexDirection: 'column-reverse'
+    },
+  },
+  stepThreeContainer: {
+    [theme.breakpoints.down('sm')]: {
+      flexWrap: 'nowrap !important',
+      flexDirection: 'column-reverse',
+    },
+  },
+  imageUploadContainer: {
+    [theme.breakpoints.down('sm')]: {
+     alignSelf: 'center'
+    },
+  },
   sideHintContainer: {
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-evenly',
     padding: '0 !important',
+
+    [theme.breakpoints.up('lg')]: {
+      paddingTop: '24px !important',
+      marginTop: '40px'
+    },
   },
   removeNestedText: {
     color: grey

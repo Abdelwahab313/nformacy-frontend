@@ -37,7 +37,7 @@ const AssignmentPreferences = () => {
             rules={{ required: t['requiredMessage'] }}
             control={control}
             as={
-              <CreatableSelect
+              <ReactSelect
                 defaultValue={
                   !!user.current.languageOfAssignments
                     ? user.current.languageOfAssignments.map(
