@@ -284,7 +284,7 @@ const industries = [
   },
   {
     value: 'learningDevelopmentSolutions',
-    label: 'Learning and Development solutions',
+    label: 'Learning and Development Solutions',
   },
   {
     value: 'manufacturing',
