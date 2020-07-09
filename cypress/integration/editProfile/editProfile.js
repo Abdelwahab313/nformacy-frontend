@@ -25,16 +25,17 @@ When(/^I fill my updated data$/, function() {
   cy.get('#mobile_number').type('201069942659');
   cy.get('#currentEmploymentStatus').click();
   cy.get('#react-select-3-option-0').click();
+
   cy.get('#majorFieldsOfExperienceSelect').click();
-  cy.get('#react-select-4-option-0').click();
+  cy.get('#majorFieldsOfExperienceSelect .optionContainer .option:nth-child(3)').click();
   cy.get('#specificFieldsOfExperienceSelect').click();
-  cy.get('#react-select-5-option-0').click();
+  cy.get('#specificFieldsOfExperienceSelect .optionContainer .option:nth-child(3)').click();
   cy.get('#industriesOfExperience').click();
-  cy.get('#react-select-6-option-0').click();
+  cy.get('#react-select-4-option-0').click();
   cy.get('#assignmentLanguage').click();
-  cy.get('#react-select-7-option-6').click();
+  cy.get('#react-select-5-option-6').click();
   cy.get('#assignmentTypesSelect').click();
-  cy.get('#react-select-8-option-0').click();
+  cy.get('#react-select-6-option-0').click();
   cy.get('#add-work-experience').click();
   cy.get('#work-experience-title-0').clear();
   cy.get('#work-experience-title-0').type('test job title');

@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import t from '../locales/en/freelancerProfile.json';
 import { useStyles } from '../styles/formsStyles';
 
-const StepOne = () => {
+const StepThree = () => {
   const { cv, setCV } = useFormContext();
   const classes = useStyles();
 
@@ -74,4 +74,4 @@ const StepOne = () => {
   );
 };
 
-export default StepOne;
+export default StepThree;

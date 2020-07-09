@@ -263,8 +263,28 @@ export const selectStyle = {
   input: (provided) => ({
     ...provided,
     height: 51,
+    display: 'flex',
+    alignItems: 'center'
   }),
 
+};
+
+
+export const multiSelectStyles = {
+  searchBox: { // To change search box element look
+    borderColor: pink,
+    padding: '4px 8px',
+    minHeight: '60px',
+    display: 'flex',
+    flexGrow: 1,
+    flexWrap: 'wrap',
+    alignItems: 'center',
+  },
+  chips: { // To change css chips(Selected options)
+    background: '#e6e6e6',
+    color: '#333333',
+    borderRadius: 0,
+  },
 };
 
 export const radioStyle = makeStyles({

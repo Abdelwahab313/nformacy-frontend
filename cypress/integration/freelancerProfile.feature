@@ -14,6 +14,15 @@ Feature: Freelancer profile completion
     And click submit
     Then I should see welcome message
 
+  Scenario: Fields and specific fields
+    Given I am a freelancer and registered
+    And I fill personal info data
+    And click next
+    Then I should see step two form with fields and specific fields
+    When I select a field
+    Then Specific fields should have select box with options from above field
+    And I can select multiple options
+
   Scenario: Show prompt to let the user know if he pressed back they will lose current step data
     Given I am a freelancer and registered
     Then I am on the freelancer profile completion form

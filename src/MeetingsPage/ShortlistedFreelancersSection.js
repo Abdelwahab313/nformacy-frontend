@@ -48,7 +48,6 @@ function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
       },
     );
     closeCalendar();
-    console.log('----selectedDay', selectedDay);
   };
   return (
     <Card id={'shortlisted-candidates-section'}>

@@ -1,26 +1,57 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useMemo } from 'react';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import HelpIcon from '@material-ui/icons/Help';
-import { Controller, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { fieldsOfExperience } from '../constants/dropDownOptions';
-import ReactSelect from 'react-select';
-import { selectStyle, useStyles } from '../styles/formsStyles';
+import { multiSelectStyles, useStyles } from '../styles/formsStyles';
 import ErrorMessage from '../components/errors/ErrorMessage';
 import t from '../locales/en/freelancerProfile.json';
+import { Multiselect } from 'multiselect-react-dropdown';
 
-const FieldsOfExperience = ({ user }) => {
-  const { control, errors, setValue, getValues } = useFormContext();
-  const defaultExperiencesOptions = user?.majorFieldsOfExperience?.map(
-    (userMajor) =>
-      fieldsOfExperience.find((exp) => exp.value === userMajor.value)?.subfield,
-  );
-  const [specificFields, setSpecificFields] = useState(
-    defaultExperiencesOptions
-      ? [].concat.apply([], defaultExperiencesOptions)
-      : [],
-  );
+
+const FieldsOfExperience = () => {
+  const { errors, watch, setValue, getValues, register } = useFormContext();
   const classes = useStyles();
+  const majorFieldsOfExperience = watch('majorFieldsOfExperience');
+  const specificFieldsOfExperience = watch('specificFieldsOfExperience');
+
+  const availableSpecificFieldsOptions = useCallback(() => {
+    if (!!majorFieldsOfExperience && majorFieldsOfExperience.length > 0) {
+      let availableSubFields;
+      availableSubFields = majorFieldsOfExperience.map((majorField) => {
+        let majorFieldRelatedOptions;
+        const majorFieldRelatedSubFields = fieldsOfExperience.filter(field => field.label === majorField.label)[0].subfields;
+        majorFieldRelatedOptions = majorFieldRelatedSubFields.map((subfield) => {
+          subfield['majorField'] = majorField.label;
+          return (subfield);
+        });
+        return majorFieldRelatedOptions;
+      }).flat();
+
+      return availableSubFields;
+    } else {
+      return [];
+    }
+  }, [majorFieldsOfExperience]);
+
+  useEffect(() => {
+    // check if name was existed before
+    register({ name: 'majorFieldsOfExperience' });
+    register({ name: 'specificFieldsOfExperience' });
+  }, [register]);
+
+  const handleSubFieldsChange = (selectedList) => {
+    setValue('specificFieldsOfExperience', selectedList);
+  };
+  const handleMajorFieldsSelect = (selectedList) => {
+    setValue('majorFieldsOfExperience', selectedList);
+  };
+  const handleMajorFieldsRemove = useCallback((selectedList, removedItem) => {
+    setValue('majorFieldsOfExperience', selectedList);
+    const filteredSelectedSpecificFields = specificFieldsOfExperience.filter((subField) => (subField.majorField !== removedItem.label));
+    setValue('specificFieldsOfExperience', filteredSelectedSpecificFields);
+  }, [specificFieldsOfExperience]);
 
   return (
     <Fragment>
@@ -36,82 +67,22 @@ const FieldsOfExperience = ({ user }) => {
             fontSize='small'
           />
         </div>
-        <Controller
+        <Multiselect
+          className={classes.selectControl}
           id='majorFieldsOfExperienceSelect'
           name='majorFieldsOfExperience'
-          rules={{ required: t['requiredMessage'] }}
-          control={control}
-          onChange={([, selectionAction]) => {
-            const { action } = selectionAction;
-            if (action === 'select-option') {
-              const { option } = selectionAction;
-              const selectedSpecificFields = fieldsOfExperience.find(
-                (exp) => exp.value === option.value,
-              ).subfield;
-              const allSelections = [
-                ...specificFields,
-                ...selectedSpecificFields,
-              ];
-              setSpecificFields(allSelections);
-              const currentMajor = getValues('majorFieldsOfExperience') || [];
-              return [
-                ...currentMajor,
-                { value: option.value, label: option.label },
-              ];
-            } else if (action === 'remove-value') {
-              const { removedValue } = selectionAction;
-              const selectedSpecificFields = fieldsOfExperience.find(
-                (exp) => exp.value === removedValue?.value,
-              )?.subfield;
-              const allSelections = specificFields?.filter(
-                (exp) =>
-                  selectedSpecificFields?.filter(
-                    (selectedExp) => selectedExp.value === exp.value,
-                  ).length === 0,
-              );
-              const selectedValues = getValues('specificFieldsOfExperience');
-              const filteredSelectedValues = selectedValues?.filter(
-                (exp) =>
-                  selectedSpecificFields?.filter(
-                    (selectedExp) => selectedExp.value === exp.value,
-                  ).length === 0,
-              );
-              setValue('specificFieldsOfExperience', filteredSelectedValues);
-              setSpecificFields(allSelections);
-              let filteredValues = getValues('majorFieldsOfExperience').filter(
-                (exp) => exp.value !== removedValue.value,
-              );
-              return filteredValues?.length === 0
-                ? null
-                : filteredSelectedValues;
-            } else if (action === 'clear') {
-              setSpecificFields([]);
-              setValue('specificFieldsOfExperience', null);
-              setValue('majorFieldsOfExperience', null);
-            }
-          }}
-          as={
-            <ReactSelect
-              isMulti
-              options={fieldsOfExperience}
-              className={classes.selectControl}
-              styles={selectStyle}
-              value={
-                !!user.majorFieldsOfExperience
-                  ? user.majorFieldsOfExperience.map(
-                  (userMajorFieldOfExperience) => {
-                    return fieldsOfExperience.find(
-                      (majorFieldOfExperience) =>
-                        userMajorFieldOfExperience ===
-                        majorFieldOfExperience.value,
-                    );
-                  },
-                  )
-                  : []
-              }
-              label={t['majorFieldOfExperience']}
-            />
-          }
+          label={t['specificField']}
+          style={multiSelectStyles}
+          options={fieldsOfExperience}
+          avoidHighlightFirstOption
+          onSelect={handleMajorFieldsSelect}
+          onRemove={handleMajorFieldsRemove}
+          selectedValues={majorFieldsOfExperience}
+          displayValue="label"
+          hidePlaceholder
+          closeOnSelect
+          closeIcon={'cancel'}
+          showCheckbox={true}
         />
         <ErrorMessage errorField={errors.majorFieldsOfExperience}/>
       </Container>
@@ -127,33 +98,22 @@ const FieldsOfExperience = ({ user }) => {
             fontSize='small'
           />
         </div>
-        <Controller
-          id='specificFieldsOfExperienceSelect'
+        <Multiselect
+          className={classes.selectControl}
           name='specificFieldsOfExperience'
-          rules={{ required: t['requiredMessage'] }}
-          control={control}
-          as={
-            <ReactSelect
-              isMulti
-              options={specificFields}
-              className={classes.selectControl}
-              label={t['specificField']}
-              styles={selectStyle}
-              value={
-                !!user.specificFieldsOfExperience
-                  ? user.specificFieldsOfExperience.map(
-                  (userSpecificFieldOfExperience) => {
-                    return specificFields.find(
-                      (specificFieldOfExperience) =>
-                        userSpecificFieldOfExperience ===
-                        specificFieldOfExperience?.value,
-                    );
-                  },
-                  )
-                  : []
-              }
-            />
-          }
+          id='specificFieldsOfExperienceSelect'
+          label={t['specificField']}
+          style={multiSelectStyles}
+          options={availableSpecificFieldsOptions()}
+          onSelect={handleSubFieldsChange}
+          onRemove={handleSubFieldsChange}
+          selectedValues={specificFieldsOfExperience}
+          displayValue="label"
+          groupBy="majorField"
+          hidePlaceholder
+          closeOnSelect
+          closeIcon={'cancel'}
+          showCheckbox={true}
         />
         <ErrorMessage errorField={errors.specificFieldsOfExperience}/>
       </Container>

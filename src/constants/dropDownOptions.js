@@ -344,7 +344,7 @@ const fieldsOfExperience = [
   {
     value: 'finance',
     label: 'Finance',
-    subfield: [
+    subfields: [
       { label: 'Auditing', value: 'auditing' },
       { label: 'Accounting', value: 'accounting' },
       { label: 'Costing', value: 'costing' },
@@ -361,7 +361,7 @@ const fieldsOfExperience = [
   {
     value: 'humanResource',
     label: 'Human Resource',
-    subfield: [
+    subfields: [
       { label: 'HR Strategic Planning', value: 'hRStrategicPlanning' },
       { label: 'Performance Management', value: 'performanceManagement' },
       { label: 'HR Analytics and Reporting', value: 'hRAnalyticsAndReporting' },
@@ -385,10 +385,10 @@ const fieldsOfExperience = [
   {
     value: 'marketingAndPR',
     label: 'Marketing and PR',
-    subfield: [
+    subfields: [
       { label: 'Product Design', value: 'productDesign' },
       { label: 'Digital Marketing', value: 'digitalMarketing' },
-      { label: 'Promotion and advertising', value: 'promotionAndAdvertising' },
+      { label: 'Promotion and Advertising', value: 'promotionAndAdvertising' },
       { label: 'Market Research', value: 'marketResearch' },
       {
         label: 'Corporate Social Responsibility',
@@ -400,7 +400,7 @@ const fieldsOfExperience = [
   {
     value: 'formalEducation',
     label: 'Formal Education',
-    subfield: [
+    subfields: [
       { label: 'Curriculum Design', value: 'curriculumDesign' },
       { label: 'Teaching Techniques', value: 'teachingTechniques' },
       { label: 'Schools Management', value: 'schoolsManagement' },
@@ -410,7 +410,7 @@ const fieldsOfExperience = [
   {
     value: 'development',
     label: 'Development',
-    subfield: [
+    subfields: [
       {
         label: 'Development Programs Design',
         value: 'developmentProgramsDesign',
@@ -425,7 +425,7 @@ const fieldsOfExperience = [
   {
     value: 'entrepreneurshipStartups',
     label: 'Entrepreneurship & Start ups',
-    subfield: [
+    subfields: [
       { label: 'Strategy', value: 'strategy' },
       { label: 'Financial Modeling', value: 'financialModeling' },
       { label: 'Technology', value: 'technology' },
@@ -437,7 +437,7 @@ const fieldsOfExperience = [
   {
     value: 'strategy',
     label: 'Strategy',
-    subfield: [
+    subfields: [
       { label: 'Strategic Planning', value: 'strategicPlanning' },
       { label: 'Strategy Execution', value: 'strategyExecution' },
       { label: 'Business Modeling', value: 'businessModeling' },
@@ -449,7 +449,7 @@ const fieldsOfExperience = [
   {
     value: 'operationsManagement',
     label: 'Operations Management',
-    subfield: [
+    subfields: [
       { label: 'Process Optimization', value: 'processOptimization' },
       { label: 'Quality Assurance', value: 'qualityAssurance' },
       { label: 'Operations Management', value: 'operationsManagement' },
@@ -459,7 +459,7 @@ const fieldsOfExperience = [
   {
     value: 'supplyChain',
     label: 'Supply Chain',
-    subfield: [
+    subfields: [
       { label: 'Procurement', value: 'procurement' },
       { label: 'Logistics', value: 'logistics' },
       { label: 'Warehouse Management', value: 'warehouseManagement' },
@@ -471,7 +471,7 @@ const fieldsOfExperience = [
   {
     value: 'digitization',
     label: 'digitization',
-    subfield: [
+    subfields: [
       { label: 'Automation', value: 'automation' },
       { label: 'Digital Strategy design', value: 'digitalStrategyDesign' },
       {
@@ -485,7 +485,7 @@ const fieldsOfExperience = [
   {
     value: 'salesAndCustomerCare',
     label: 'Sales and Customer Care',
-    subfield: [
+    subfields: [
       { label: 'Whole sales', value: 'wholeSales' },
       { label: 'Retail', value: 'retail' },
       { label: 'Channels Management', value: 'channelsManagement' },
@@ -497,7 +497,7 @@ const fieldsOfExperience = [
   {
     value: 'legal',
     label: 'Legal',
-    subfield: [
+    subfields: [
       { label: 'Corporates Law', value: 'corporatesLaw' },
       { label: 'Digital Law', value: 'digitalLaw' },
       { label: 'Employment Law', value: 'employmentLaw' },
@@ -512,7 +512,7 @@ const fieldsOfExperience = [
   {
     value: 'finTech',
     label: 'finTech',
-    subfield: [
+    subfields: [
       { label: 'Blockchain', value: 'blockchain' },
       { label: 'Payments (PayTech)', value: 'payments(PayTech)' },
       { label: 'Lending (LendTech)', value: 'lending(LendTech)' },
@@ -523,7 +523,7 @@ const fieldsOfExperience = [
   {
     value: 'environment',
     label: 'Environment',
-    subfield: [
+    subfields: [
       { label: 'Renewable Energy', value: 'renewableEnergy' },
       { label: 'Waste', value: 'waste' },
       { label: 'Recycling', value: 'recycling' },
@@ -537,9 +537,9 @@ const fieldsOfExperience = [
   {
     value: 'projectManagement',
     label: 'Project Management',
-    subfield: [
+    subfields: [
       {
-        label: 'Projects Design and planning',
+        label: 'Projects Design and Planning',
         value: 'projectsDesignAndPlanning',
       },
       { label: 'Fundraising', value: 'fundraising' },
@@ -549,7 +549,7 @@ const fieldsOfExperience = [
   {
     value: 'analytics',
     label: 'Analytics',
-    subfield: [
+    subfields: [
       { label: 'Data Analysis', value: 'dataAnalysis' },
       { label: 'Market Trends', value: 'marketTrends' },
       { label: 'Big Data', value: 'bigData' },

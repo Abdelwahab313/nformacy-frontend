@@ -38,16 +38,17 @@ Then(/^I should see step two form$/, function() {
   cy.get('#stepTwoForm');
 });
 When(/^I fill step two data$/, function() {
+
   cy.get('#majorFieldsOfExperienceSelect').click();
-  cy.get('#react-select-4-option-0').click();
+  cy.get('#majorFieldsOfExperienceSelect .optionContainer .option:nth-child(3)').click();
   cy.get('#specificFieldsOfExperienceSelect').click();
-  cy.get('#react-select-5-option-0').click();
+  cy.get('#specificFieldsOfExperienceSelect .optionContainer .option:nth-child(3)').click();
   cy.get('#industriesOfExperience').click();
-  cy.get('#react-select-6-option-0').click();
+  cy.get('#react-select-4-option-0').click();
   cy.get('#assignmentLanguage').click();
-  cy.get('#react-select-7-option-6').click();
+  cy.get('#react-select-5-option-6').click();
   cy.get('#assignmentTypesSelect').click();
-  cy.get('#react-select-8-option-0').click();
+  cy.get('#react-select-6-option-0').click();
 });
 When(/^click submit$/, function() {
   cy.get('#submitButton').click();
@@ -67,7 +68,7 @@ When(/^I fill step three data$/, function() {
   cy.get('#work-experience-startDate-0').click();
   cy.get('.MuiPickersYearSelection-container').first().click();
   cy.get('.MuiPickersMonthSelection-container').first().click();
-  cy.get('#experiences-toDate-0').click()
+  cy.get('#experiences-toDate-0').click();
   cy.get('#add-education').click();
   cy.get('#educations-degree-0').clear();
   cy.get('#educations-degree-0').type('test degree');
@@ -107,4 +108,42 @@ Then(/^Make end date populated$/, function() {
   cy.get('#work-experience-startDate-0').click();
   cy.get('.MuiPickersYearSelection-container').scrollTo("top").first().click();
   cy.get('.MuiPickersMonthSelection-container').first().click();
+});
+Then(/^I should see step two form with fields and specific fields$/, function() {
+  cy.get('#stepTwoForm');
+});
+When(/^I select a field$/, function() {
+  cy.get('#majorFieldsOfExperienceSelect').click();
+
+  const optionToBeSelected = '#majorFieldsOfExperienceSelect .optionContainer .option:nth-child(3)';
+  cy.get(optionToBeSelected).then(($option) => {
+    const optionText = $option.text();
+    cy.get(optionToBeSelected).click();
+    cy.get('#majorFieldsOfExperienceSelect span.false')
+      .should('be.visible')
+      .should('have.text', optionText);
+  });
+});
+Then(/^Specific fields should have select box with options from above field$/, function() {
+  cy.get('#specificFieldsOfExperienceSelect').click();
+  const optionToBeSelected = '#specificFieldsOfExperienceSelect .optionContainer .option:nth-child(3)';
+  cy.get(optionToBeSelected).then(($option) => {
+    const optionText = $option.text();
+    cy.get(optionToBeSelected).click();
+    cy.get('#specificFieldsOfExperienceSelect span.false')
+      .should('be.visible')
+      .should('have.text', optionText);
+  });
+});
+
+Then(/^I can select multiple options$/, function() {
+  cy.get('#specificFieldsOfExperienceSelect').click();
+  const secondOptionToBeSelected = '#specificFieldsOfExperienceSelect .optionContainer .option:nth-child(5)';
+  cy.get(secondOptionToBeSelected).then(($option) => {
+    const optionText = $option.text();
+    cy.get(secondOptionToBeSelected).click();
+    cy.get('#specificFieldsOfExperienceSelect span.false')
+      .should('be.visible')
+      .should('contain', optionText);
+  });
 });

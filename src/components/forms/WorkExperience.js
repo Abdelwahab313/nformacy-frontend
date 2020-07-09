@@ -28,6 +28,7 @@ const WorkExperience = () => {
     register,
     errors,
     watch,
+    getValues,
     setDeletedExperiences,
   } = useFormContext();
   const classes = useStyles();
@@ -37,6 +38,7 @@ const WorkExperience = () => {
     name: 'experiences',
     toDate: false,
   });
+  console.log('----getValues', getValues());
   const getFormattedDateForPicker = (index) => {
     const endDate = watchExperiences[index].endDate || new Date().toISOString();
     const formattedDate = endDate?.includes('/')
@@ -55,11 +57,11 @@ const WorkExperience = () => {
             </Typography>
           </Grid>
         </Grid>
-        <Divider variant='middle' />
+        <Divider variant='middle'/>
         <Fragment>
           {experienceForm.fields.map((item, index) => (
             <Card key={item.id} className={classes.nestedCardContainer}>
-              <ReactTooltip globalEventOff={'click'} />
+              <ReactTooltip globalEventOff={'click'}/>
               <CardContent>
                 {!!user.current.experiences[index] && (
                   <Input
@@ -149,72 +151,72 @@ const WorkExperience = () => {
                         }
                       />
                       {errors.experiences &&
-                        errors.experiences[index]?.startDate && (
-                          <Grid maxWidth={false}>
-                            <ErrorMessage
-                              errorField={
-                                errors.experiences &&
-                                errors.experiences[index]?.startDate
-                              }
-                            />
-                          </Grid>
-                        )}
+                      errors.experiences[index]?.startDate && (
+                        <Grid maxWidth={false}>
+                          <ErrorMessage
+                            errorField={
+                              errors.experiences &&
+                              errors.experiences[index]?.startDate
+                            }
+                          />
+                        </Grid>
+                      )}
                     </Container>
                     <Container
                       maxWidth={false}
                       className={classes.dateController}>
                       {!watchExperiences[index] ||
-                        (!watchExperiences[index].toDate && (
-                          <Fragment>
-                            <Controller
-                              id={`work-experience-endDate-${index}`}
-                              rules={{
-                                validate: (endDate) =>
-                                  (watchExperiences[index] &&
-                                    watchExperiences[index].toDate) ||
-                                  endDate ||
-                                  t['requiredMessage'],
-                              }}
-                              name={`experiences[${index}][endDate]`}
-                              control={control}
-                              as={
-                                <DatePicker
-                                  views={['year', 'month']}
-                                  format='MM/yyyy'
-                                  autoOk
-                                  inputVariant='outlined'
-                                  margin='normal'
-                                  label={t['endDate']}
-                                  minDate={
-                                    new Date(watchExperiences[index].startDate)
-                                  }
-                                  maxDate={Date.now()}
-                                  inputRef={register()}
-                                  KeyboardButtonProps={{
-                                    'aria-label': t['changeDate'],
-                                  }}
-                                  InputProps={{
-                                    classes: {
-                                      notchedOutline: classes.textField,
-                                    },
-                                  }}
-                                  onChange={(value) => value[0]}
-                                />
-                              }
-                            />
-                            {errors.experiences &&
-                              errors.experiences[index]?.endDate && (
-                                <Grid maxWidth={false}>
-                                  <ErrorMessage
-                                    errorField={
-                                      errors.experiences &&
-                                      errors.experiences[index]?.endDate
-                                    }
-                                  />
-                                </Grid>
-                              )}
-                          </Fragment>
-                        ))}
+                      (!watchExperiences[index].toDate && (
+                        <Fragment>
+                          <Controller
+                            id={`work-experience-endDate-${index}`}
+                            rules={{
+                              validate: (endDate) =>
+                                (watchExperiences[index] &&
+                                  watchExperiences[index].toDate) ||
+                                endDate ||
+                                t['requiredMessage'],
+                            }}
+                            name={`experiences[${index}][endDate]`}
+                            control={control}
+                            as={
+                              <DatePicker
+                                views={['year', 'month']}
+                                format='MM/yyyy'
+                                autoOk
+                                inputVariant='outlined'
+                                margin='normal'
+                                label={t['endDate']}
+                                minDate={
+                                  new Date(watchExperiences[index].startDate)
+                                }
+                                maxDate={Date.now()}
+                                inputRef={register()}
+                                KeyboardButtonProps={{
+                                  'aria-label': t['changeDate'],
+                                }}
+                                InputProps={{
+                                  classes: {
+                                    notchedOutline: classes.textField,
+                                  },
+                                }}
+                                onChange={(value) => value[0]}
+                              />
+                            }
+                          />
+                          {errors.experiences &&
+                          errors.experiences[index]?.endDate && (
+                            <Grid maxWidth={false}>
+                              <ErrorMessage
+                                errorField={
+                                  errors.experiences &&
+                                  errors.experiences[index]?.endDate
+                                }
+                              />
+                            </Grid>
+                          )}
+                        </Fragment>
+                      ))}
                       <Grid item className={classes.checkBoxControl}>
                         <FormControl
                           component='fieldset'
@@ -231,7 +233,7 @@ const WorkExperience = () => {
                                 <FormControlLabel
                                   control={
                                     <Checkbox
-                                      id ={`experiences-toDate-${index}`}
+                                      id={`experiences-toDate-${index}`}
                                       name={`experiences[${index}][toDate]`}
                                       inputRef={register()}
                                       style={checkboxStyle}
@@ -271,7 +273,7 @@ const WorkExperience = () => {
               </CardContent>
             </Card>
           ))}
-          <ErrorMessage errorField={errors.experiencesLength} />
+          <ErrorMessage errorField={errors.experiencesLength}/>
           <section className={classes.formControl}>
             <Link
               className={classes.fieldLabelStylesDesktop}

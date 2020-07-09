@@ -29,9 +29,9 @@ function FieldsOfSpecialization() {
             </Typography>
           </Grid>
         </Grid>
-        <Divider variant='middle' style={dividerStyle} />
-        <ReactTooltip globalEventOff={'click'} />
-        <FieldsOfExperience user={user.current} />
+        <Divider variant='middle' style={dividerStyle}/>
+        <ReactTooltip globalEventOff={'click'}/>
+        <FieldsOfExperience/>
         <Container maxWidth={false} className={classes.formControl}>
           <div className={classes.formHeader}>
             <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
@@ -54,12 +54,12 @@ function FieldsOfSpecialization() {
                 defaultValue={
                   !!user.current.industriesOfExperience
                     ? user.current.industriesOfExperience.map(
-                        (userIndustry) => {
-                          return industries.find(
-                            (industry) => userIndustry === industry.value,
-                          );
-                        },
-                      )
+                    (userIndustry) => {
+                      return industries.find(
+                        (industry) => userIndustry === industry.value,
+                      );
+                    },
+                    )
                     : []
                 }
                 styles={selectStyle}
@@ -68,7 +68,7 @@ function FieldsOfSpecialization() {
               />
             }
           />
-          <ErrorMessage errorField={errors.industriesOfExperience} />
+          <ErrorMessage errorField={errors.industriesOfExperience}/>
         </Container>
         <AssignmentPreferences/>
       </Container>
