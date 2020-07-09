@@ -34,7 +34,7 @@ When(/^I fill my updated data$/, function() {
   cy.get('#react-select-4-option-0').click();
   cy.get('#assignmentLanguage').click();
   cy.get('#react-select-5-option-6').click();
-  cy.get('#typesOfAssignmentCheckboxes').check('moreThanOneMonth');
+  cy.get('[name="moreThanOneMonth"]').click();
   cy.get('#add-work-experience').click();
   cy.get('#work-experience-title-0').clear();
   cy.get('#work-experience-title-0').type('test job title');

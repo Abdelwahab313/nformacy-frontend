@@ -47,7 +47,7 @@ When(/^I fill step two data$/, function() {
   cy.get('#react-select-4-option-0').click();
   cy.get('#assignmentLanguage').click();
   cy.get('#react-select-5-option-6').click();
-  cy.get('#typesOfAssignmentCheckboxes').check('moreThanOneMonth');
+  cy.get('[name="moreThanOneMonth"]').click();
 });
 When(/^click submit$/, function() {
   cy.get('#submitButton').click();

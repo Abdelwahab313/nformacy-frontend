@@ -18,7 +18,7 @@ const AssignmentPreferences = () => {
   useEffect(() => {
     register({ name: 'typesOfAssignments' });
   }, [register]);
-  const assignmentTypesValue = watch('typesOfAssignments');
+  const assignmentTypesValue = watch('typesOfAssignments') || [];
   const classes = useStyles();
 
   function handleAssignmentTypesChange(assignmentType) {

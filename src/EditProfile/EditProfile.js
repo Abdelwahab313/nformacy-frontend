@@ -193,7 +193,6 @@ const EditProfile = ({ t }) => {
             </Paper>
             <PersonalInfo />
             <FieldsOfSpecialization />
-            <AssignmentPreferences />
             <WorkExperience />
             <Education />
             <Certification />
