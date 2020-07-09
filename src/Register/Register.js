@@ -83,6 +83,9 @@ const Register = () => {
       <Grid container alignContent='center' style={{ height: 'fit-content', marginBottom: '50px' }}>
         <Grid item xs={1}/>
         <Grid item xs={10}>
+          <Typography className={classes.pageHeaderStyle}>
+            {t['signUp']}
+          </Typography>
           <div className={classes.headerWithBackground}>
             <Typography className={classes.signUpHeaderStyle}>
               {t['bePartOfTheFastedGrowingTalentCommunity']}
@@ -215,7 +218,7 @@ const Register = () => {
                 fullWidth
                 variant='contained'
                 color='primary'
-                style={{alignSelf: 'center'}}
+                style={{ alignSelf: 'center' }}
                 className={classes.submit}>
                 {t['register']}
               </Button>

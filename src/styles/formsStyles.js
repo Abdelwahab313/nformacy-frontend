@@ -43,6 +43,7 @@ export const useStyles = makeStyles((theme) => ({
   form: {
     display: 'flex',
     width: '100%',
+    maxWidth: '400px',
     flexDirection: 'column',
     alignItems: 'center',
     marginTop: theme.spacing(1),
