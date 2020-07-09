@@ -92,7 +92,6 @@ const FreeLancerProfileForm = () => {
   }
 
   const onSubmit = (userData) => {
-    setLoading(true);
     const userToBeSubmitted = {
       ...user.current,
       id: user.current.id,
@@ -108,6 +107,7 @@ const FreeLancerProfileForm = () => {
     };
     const nestedFieldsValid = validateNestedFields(userToBeSubmitted);
     if (nestedFieldsValid) {
+      setLoading(true);
       updateProfile(userToBeSubmitted, user.current.id)
         .then((response) => {
           localStorage.setItem('user', JSON.stringify(response.data));
@@ -219,9 +219,9 @@ const FreeLancerProfileForm = () => {
             <Button
               id='submitButton'
               type='submit'
-              disabled={stepValid() || loading}
+              disabled={loading}
               variant='contained'
-              style={nextButtonStyles(stepValid() || loading)}
+              style={nextButtonStyles(loading)}
               endIcon={<DoneIcon />}>
               {t['submit']}
             </Button>
