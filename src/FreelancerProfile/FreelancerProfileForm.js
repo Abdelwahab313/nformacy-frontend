@@ -78,8 +78,6 @@ const FreeLancerProfileForm = () => {
     );
     let educations = [...userToBeSubmitted.educations];
     educations = educations.filter((edu) => !deletedEducations.includes(edu));
-    console.log('exp', experiences)
-    console.log('edu', educations)
     if (experiences.length === 0) {
       setError(
         'experiencesLength',
@@ -109,7 +107,6 @@ const FreeLancerProfileForm = () => {
         : deletedCertification,
     };
     const nestedFieldsValid = validateNestedFields(userToBeSubmitted);
-    console.log(nestedFieldsValid);
     if (nestedFieldsValid) {
       updateProfile(userToBeSubmitted, user.current.id)
         .then((response) => {

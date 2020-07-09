@@ -38,7 +38,6 @@ const WorkExperience = () => {
     name: 'experiences',
     toDate: false,
   });
-  console.log('----getValues', getValues());
   const getFormattedDateForPicker = (index) => {
     const endDate = watchExperiences[index].endDate || new Date().toISOString();
     const formattedDate = endDate?.includes('/')

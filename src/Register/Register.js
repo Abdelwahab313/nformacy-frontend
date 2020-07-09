@@ -35,7 +35,6 @@ const Register = () => {
     passwordRepeat === getValues().password || 'Passwords do not match';
   const onSubmit = (data) => {
     setLoading(true);
-    console.log(data);
     signup(data)
       .then((result) => {
         authManager.login(result.data.token);
