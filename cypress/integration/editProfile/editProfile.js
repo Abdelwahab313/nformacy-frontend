@@ -1,6 +1,6 @@
 import { BASE_URL } from '../../defualtTestValues';
 
-import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { signUpAndSetTokens } from '../../helperFunctions';
 import faker from 'faker';
 
@@ -34,8 +34,7 @@ When(/^I fill my updated data$/, function() {
   cy.get('#react-select-4-option-0').click();
   cy.get('#assignmentLanguage').click();
   cy.get('#react-select-5-option-6').click();
-  cy.get('#assignmentTypesSelect').click();
-  cy.get('#react-select-6-option-0').click();
+  cy.get('#typesOfAssignmentCheckboxes').check('moreThanOneMonth');
   cy.get('#add-work-experience').click();
   cy.get('#work-experience-title-0').clear();
   cy.get('#work-experience-title-0').type('test job title');
@@ -44,7 +43,7 @@ When(/^I fill my updated data$/, function() {
   cy.get('#work-experience-startDate-0').click();
   cy.get('.MuiPickersYearSelection-container').first().click();
   cy.get('.MuiPickersMonthSelection-container').first().click();
-  cy.get('#experiences-toDate-0').click()
+  cy.get('#experiences-toDate-0').click();
   cy.get('#add-education').click();
   cy.get('#educations-degree-0').clear();
   cy.get('#educations-degree-0').type('test degree');
@@ -69,4 +68,5 @@ When(/^I Upload an image$/, function() {
   const profilePicturePath = 'download.png';
   cy.get('input[type="file"]').attachFile(profilePicturePath);
 });
-Then(/^I should see the image i uploaded$/, function() {});
+Then(/^I should see the image i uploaded$/, function() {
+});
