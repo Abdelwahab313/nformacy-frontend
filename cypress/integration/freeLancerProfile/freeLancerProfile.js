@@ -81,14 +81,14 @@ When(/^I fill step three data$/, function() {
 });
 When(/^i choose an end date$/, function() {
   cy.get('#work-experience-endDate-0').click();
-  cy.get('.MuiPickersYearSelection-container').clickNth(2);
+  cy.get('.MuiPickersYearSelection-container').scrollTo("top").first().click("top");
   cy.get('.MuiPickersMonthSelection-container').first().click();
 });
 When(/^i click on start date$/, function() {
   cy.get('#work-experience-startDate-0').click();
 });
 Then(/^Only dates below end date show up$/, function() {
-  cy.get('.MuiPickersYearSelection-container').first().contains('1901');
+  cy.get('.MuiPickersYearSelection-container > div').last().should('have.text', '1903')
 });
 When(/^I click back$/, function() {
   cy.get('#backButton').click();
@@ -105,6 +105,6 @@ When(/^I press confirm$/, function() {
 Then(/^Make end date populated$/, function() {
   cy.get('#add-work-experience').click();
   cy.get('#work-experience-startDate-0').click();
-  cy.get('.MuiPickersYearSelection-container').first().click();
+  cy.get('.MuiPickersYearSelection-container').scrollTo("top").first().click();
   cy.get('.MuiPickersMonthSelection-container').first().click();
 });

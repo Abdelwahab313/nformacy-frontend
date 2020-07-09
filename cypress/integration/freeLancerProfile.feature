@@ -30,6 +30,7 @@ Feature: Freelancer profile completion
     When I press confirm
     Then I should see step one form
 
+  @focus
   Scenario: Only show dates in start date that are below end date
     Given I am a freelancer and registered
     Then I am on the freelancer profile completion form
