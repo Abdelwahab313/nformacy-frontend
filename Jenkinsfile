@@ -47,7 +47,8 @@ pipeline {
         stage('Build front end') {
           steps {
             echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-            sh 'npm install'
+            sh 'npm ci'
+//             sh 'npm install'
             sh 'npm run cy:verify'
             sh 'nohup npm run cy:start &'
           }
