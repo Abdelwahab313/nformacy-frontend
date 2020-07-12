@@ -5,13 +5,13 @@ import HelpIcon from '@material-ui/icons/Help';
 import { useFormContext } from 'react-hook-form';
 import { fieldsOfExperience } from '../../constants/dropDownOptions';
 import { multiSelectStyles, useStyles } from '../../styles/formsStyles';
-import ErrorMessage from '../../components/errors/ErrorMessage';
+import ErrorMessage from '../errors/ErrorMessage';
 import t from '../../locales/en/freelancerProfile.json';
 import { Multiselect } from 'multiselect-react-dropdown';
 
 
 const FieldsOfExperience = () => {
-  const { errors, watch, setValue, getValues, register } = useFormContext();
+  const { errors, watch, setValue, register } = useFormContext();
   const classes = useStyles();
   const majorFieldsOfExperience = watch('majorFieldsOfExperience');
   const specificFieldsOfExperience = watch('specificFieldsOfExperience');

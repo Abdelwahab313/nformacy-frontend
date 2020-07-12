@@ -8,7 +8,7 @@ Given(/^I log in$/, function() {
   signUpAndSetTokens();
   cy.wrap(faker.name.findName()).as('updatedFirstName');
 });
-When(/^I go to edit profile page$/, function() {
+When(/^I go to profile page$/, function() {
   cy.visit(BASE_URL + '/user/edit');
 });
 When(/^I fill my updated data$/, function() {
@@ -69,4 +69,26 @@ When(/^I Upload an image$/, function() {
   cy.get('input[type="file"]').attachFile(profilePicturePath);
 });
 Then(/^I should see the image i uploaded$/, function() {
+});
+When(/^I click on edit basic info$/, function() {
+  cy.get('#editBasicInfo ').click();
+});
+Then(/^I should see edit basic info dialog$/, function() {
+
+});
+When(/^i edit basic info$/, function() {
+
+});
+When(/^click save$/, function() {
+
+});
+Then(/^i should see edited basic info$/, function() {
+
+});
+Then(/^I should see basic info section$/, function() {
+  cy.get('#basicInfo ');
+  cy.get('#profilePicture ');
+  cy.get('#firstName ');
+  cy.get('#lastName ');
+  cy.get('#email ');
 });

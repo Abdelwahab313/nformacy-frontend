@@ -3,7 +3,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import FieldsOfExperience from '../../pages/EditProfile/FieldsOfExpereience';
+import FieldsOfExperience from './FieldsOfExpereience';
 import HelpIcon from '@material-ui/icons/Help';
 import { Controller, useFormContext } from 'react-hook-form';
 import CreatableSelect from 'react-select/creatable/dist/react-select.esm';
