@@ -2,11 +2,15 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    display: 'flex',
+    flexGrow: 1,
+    justifyContent: 'center',
     marginRight: theme.spacing(3),
     padding: theme.spacing(3),
   },
   addButton: {
     marginBottom: theme.spacing(1),
+    alignSelf: 'flex-start'
   },
   toolBar: {
     position: 'relative',
@@ -18,7 +22,10 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
   },
   tableContainer: {
-    width: '100%',
+    display: 'flex',
+    flexGrow: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
     margin: theme.spacing(1),
   },
   progressContainer: {

@@ -19,6 +19,7 @@ import Logout from '../pages/auth/LogoutUser';
 import FreeLancerProfileForm from '../pages/FreelancerProfile/FreelancerProfileForm';
 import Success from '../pages/FreelancerProfile/success';
 import { grey, lighterPink, lightGrey, lightPink, pink, white } from '../styles/colors';
+import HomePage from '../pages/Home';
 
 const presets = preset().plugins;
 

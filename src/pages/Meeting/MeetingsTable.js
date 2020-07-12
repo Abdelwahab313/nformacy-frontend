@@ -33,7 +33,7 @@ const StyledTableRow = withStyles((theme) => ({
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 700,
+    maxWidth: 1500,
   },
 });
 
@@ -46,8 +46,8 @@ const MeetingsTable = ({ meetings }) => {
   }
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label='customized table'>
+    <TableContainer className={classes.table} component={Paper}>
+      <Table aria-label='customized table'>
         <TableHead>
           <TableRow>
             <StyledTableCell>Field</StyledTableCell>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment } from 'react';
 import { Button, Grid } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -6,7 +6,6 @@ import useMeetingPageStyle from './styles/meetingPage';
 import ErrorDialog from '../../components/errors/ErrorDialog';
 import useMeetingsFetcher from './hooks/useMeetingFetcher';
 import MeetingsTable from './MeetingsTable';
-import { useHistory } from 'react-router';
 
 const MeetingsPage = () => {
   const classes = useMeetingPageStyle();
@@ -15,7 +14,7 @@ const MeetingsPage = () => {
   if (isLoading) {
     return (
       <div className={classes.progressContainer}>
-        <CircularProgress />
+        <CircularProgress/>
       </div>
     );
   } else {
@@ -34,7 +33,7 @@ const MeetingsPage = () => {
             Request a call
           </Button>
 
-          <MeetingsTable meetings={fetchedMeetings} />
+          <MeetingsTable meetings={fetchedMeetings}/>
         </Grid>
       </div>
     );

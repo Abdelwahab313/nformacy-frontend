@@ -11,7 +11,7 @@ export const login = (email = USER_NAME, password = PASSWORD) => {
   cy.get('#email').type(userName);
   cy.get('#password').type(password);
   cy.get('#login').click();
-  cy.get('#side-menu');
+  cy.get('#header');
 };
 export const logout = () => {
   cy.clearLocalStorage();

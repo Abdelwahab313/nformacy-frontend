@@ -1,5 +1,5 @@
 import { Then } from 'cypress-cucumber-preprocessor/steps';
 
 Then(/^then should be redirected to homepage$/, function() {
-  cy.get('#side-menu');
+  cy.get('#header');
 });

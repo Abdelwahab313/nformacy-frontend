@@ -11,7 +11,7 @@ Given(/^logged in$/, () => {
   cy.get('#email').type('client@test.com');
   cy.get('#password').type('test1234');
   cy.get('#login').click();
-  cy.get('#side-menu');
+  cy.get('#header');
 });
 
 When(/^go to meeting page$/, function() {
