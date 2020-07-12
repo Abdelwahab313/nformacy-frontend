@@ -9,7 +9,6 @@ import MeetingsTable from './MeetingsTable';
 import { useHistory } from 'react-router';
 
 const MeetingsPage = () => {
-  const history = useHistory();
   const classes = useMeetingPageStyle();
   const { isLoading, fetchedMeetings, errorMessage } = useMeetingsFetcher();
 
