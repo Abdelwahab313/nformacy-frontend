@@ -7,6 +7,7 @@ import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import Typography from '@material-ui/core/Typography';
 import { iconStyle, useStyles } from '../../styles/formsStyles';
 import t from '../../locales/en/freelancerProfile.json';
+import Paper from '@material-ui/core/Paper';
 
 const StepTwo = () => {
   const classes = useStyles();
@@ -28,7 +29,9 @@ const StepTwo = () => {
         </Hidden>
         <Grow in={true} timeout={3500}>
           <Grid item xs={12} md={6}>
-            <FieldsOfSpecialization />
+            <Paper className={classes.paperSection} elevation={5}>
+              <FieldsOfSpecialization />
+            </Paper>
           </Grid>
         </Grow>
         <Grow in={true} timeout={4500}>

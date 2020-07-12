@@ -5,6 +5,7 @@ import Hidden from '@material-ui/core/Hidden';
 import Grow from '@material-ui/core/Grow';
 import t from '../../locales/en/freelancerProfile.json';
 import { useStyles } from '../../styles/formsStyles';
+import Paper from '@material-ui/core/Paper';
 
 const StepOne = () => {
   const classes = useStyles();
@@ -29,7 +30,9 @@ const StepOne = () => {
       </Hidden>
       <Grow in={true} timeout={3500}>
         <Grid item xs={12} sm={7} lg={5}>
-          <PersonalInfo/>
+          <Paper className={classes.paperSection} elevation={3}>
+            <PersonalInfo />
+          </Paper>
         </Grid>
       </Grow>
     </Grid>

@@ -10,6 +10,7 @@ import { useFormContext } from 'react-hook-form';
 import Typography from '@material-ui/core/Typography';
 import t from '../../locales/en/freelancerProfile.json';
 import { useStyles } from '../../styles/formsStyles';
+import Paper from '@material-ui/core/Paper';
 
 const StepThree = () => {
   const { cv, setCV } = useFormContext();
@@ -44,9 +45,15 @@ const StepThree = () => {
             justify='flex-start'
             xs={12}
             md={6}>
-            <WorkExperience />
-            <Education />
-            <Certification />
+            <Paper className={classes.paperSection} elevation={5}>
+              <WorkExperience />
+            </Paper>
+            <Paper className={classes.paperSection} elevation={5}>
+              <Education />
+            </Paper>
+            <Paper className={classes.paperSection} elevation={5}>
+              <Certification />
+            </Paper>
           </Grid>
         </Grow>
         <Grow in={true} timeout={3500}>

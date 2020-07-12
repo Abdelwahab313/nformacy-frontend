@@ -22,6 +22,7 @@ import AssignmentPreferences from '../../components/forms/AssignmentPreferences'
 import WorkExperience from '../../components/forms/WorkExperience';
 import Education from '../../components/forms/Education';
 import Certification from '../../components/forms/Certification';
+import BasicInfo from '../../components/forms/BasicInfo';
 
 const EditProfile = ({ t }) => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -79,10 +80,6 @@ const EditProfile = ({ t }) => {
     }
   };
 
-  const uploadPhoto = (picture) => {
-    setAvatar(picture);
-  };
-
   return (
     <Container component='main' maxWidth={false} dir='ltr'>
       <ReactTooltip globalEventOff={'click'} />
@@ -101,96 +98,14 @@ const EditProfile = ({ t }) => {
           errors={errors}
           setValue={setValue}
           getValues={getValues}
+          setAvatar={setAvatar}
           watch={watch}>
           <form
             id='editProfileForm'
             className={classes.form}
             noValidate
             onSubmit={handleSubmit(onSubmit)}>
-            <Paper className={classes.paperSection} elevation={5}>
-              <Container>
-                <Grid container alignItems='center'>
-                  <Grid item xs>
-                    <Typography gutterBottom variant='h4'>
-                      Basic Info
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Divider variant='middle' />
-                <Container maxWidth={false} className={classes.formControl}>
-                  <Typography gutterBottom variant='subtitle2'>
-                    Profile Picture
-                  </Typography>
-                  <ImageUploader
-                    withPreview={true}
-                    singleImage={true}
-                    label={'Max file size: 1mb, accepted: jpg, gif, png'}
-                    withIcon={true}
-                    buttonText='Choose images'
-                    imgExtension={['.jpg', '.gif', '.png', 'jpeg']}
-                    maxFileSize={1048576}
-                    onChange={uploadPhoto}
-                  />
-                </Container>
-                <Container maxWidth={false} className={classes.formControl}>
-                  <Typography gutterBottom variant='subtitle2'>
-                    First Name
-                  </Typography>
-                  <TextField
-                    variant='outlined'
-                    margin='normal'
-                    fullWidth
-                    id='firstName'
-                    name='firstName'
-                    defaultValue={!user.current.firstName && ''}
-                    inputRef={register({ required: 'This field is required' })}
-                    autoComplete='name'
-                    error={!!errors.firstName}
-                  />
-                  <ErrorMessage errorField={errors.firstName} />
-                </Container>
-                <Container maxWidth={false} className={classes.formControl}>
-                  <Typography gutterBottom variant='subtitle2'>
-                    Last Name
-                  </Typography>
-                  <TextField
-                    variant='outlined'
-                    margin='normal'
-                    fullWidth
-                    id='lastName'
-                    name='lastName'
-                    defaultValue={!user.current.lastName && ''}
-                    inputRef={register({ required: 'This field is required' })}
-                    autoComplete='name'
-                    error={!!errors.lastName}
-                  />
-                  <ErrorMessage errorField={errors.lastName} />
-                </Container>
-                <Container maxWidth={false} className={classes.formControl}>
-                  <Typography gutterBottom variant='subtitle2'>
-                    Email
-                  </Typography>
-                  <TextField
-                    variant='outlined'
-                    margin='normal'
-                    inputRef={register({
-                      required: 'This field is required',
-                      pattern: {
-                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                        message: 'invalid email address',
-                      },
-                    })}
-                    fullWidth
-                    id='email'
-                    name='email'
-                    defaultValue={!user.current.email && ''}
-                    autoComplete='email'
-                    error={!!errors.email}
-                  />
-                  <ErrorMessage errorField={errors.email} />
-                </Container>
-              </Container>
-            </Paper>
+            <BasicInfo />
             <PersonalInfo />
             <FieldsOfSpecialization />
             <WorkExperience />

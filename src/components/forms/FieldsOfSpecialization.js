@@ -20,7 +20,6 @@ function FieldsOfSpecialization() {
   const classes = useStyles();
 
   return (
-    <Paper className={classes.paperSection} elevation={5}>
       <Container style={sectionContainerStyles}>
         <Grid container alignItems='center'>
           <Grid item xs>
@@ -72,7 +71,6 @@ function FieldsOfSpecialization() {
         </Container>
         <AssignmentPreferences/>
       </Container>
-    </Paper>
   );
 }
 

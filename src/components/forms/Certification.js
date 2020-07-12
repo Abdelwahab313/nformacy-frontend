@@ -1,4 +1,3 @@
-import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -11,13 +10,8 @@ import ReactTooltip from 'react-tooltip';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Input } from '@material-ui/core';
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
 import t from '../../locales/en/freelancerProfile.json';
 import Link from '@material-ui/core/Link';
 
@@ -35,7 +29,6 @@ const Certification = () => {
   });
 
   return (
-    <Paper className={classes.paperSection} elevation={5}>
       <Container className={classes.nestedContainer}>
         <Grid container alignItems='center'>
           <Grid item xs>
@@ -183,7 +176,6 @@ const Certification = () => {
           </section>
         </Fragment>
       </Container>
-    </Paper>
   );
 };
 

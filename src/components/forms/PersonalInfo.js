@@ -6,7 +6,13 @@ import Divider from '@material-ui/core/Divider';
 import ErrorMessage from '../errors/ErrorMessage';
 import React, { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { dividerStyle, radioStyle, sectionContainerStyles, selectStyle, useStyles } from '../../styles/formsStyles';
+import {
+  dividerStyle,
+  radioStyle,
+  sectionContainerStyles,
+  selectStyle,
+  useStyles,
+} from '../../styles/formsStyles';
 import FormControl from '@material-ui/core/FormControl';
 import ReactSelectMaterialUi from 'react-select-material-ui';
 import { employmentStatus } from '../../constants/dropDownOptions';
@@ -31,171 +37,169 @@ const PersonalInfo = () => {
   const radiosStyles = radioStyle();
 
   return (
-    <Paper className={classes.paperSection} elevation={3}>
-      <Container style={sectionContainerStyles}>
-        <ReactTooltip globalEventOff={'click'}/>
-        <Grid container alignItems='center'>
-          <Grid item xs>
-            <Typography gutterBottom className={classes.sectionHeaderStyles}>
-              {t['personalInfo']}
-            </Typography>
-          </Grid>
+    <Container style={sectionContainerStyles}>
+      <ReactTooltip globalEventOff={'click'} />
+      <Grid container alignItems='center'>
+        <Grid item xs>
+          <Typography gutterBottom className={classes.sectionHeaderStyles}>
+            {t['personalInfo']}
+          </Typography>
         </Grid>
-        <Divider variant='middle' style={dividerStyle}/>
-        <Container maxWidth={false} className={classes.formControl}>
-          <FormControl fullWidth className={classes.formControl}>
-            <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-              {t['gender']}
-            </Typography>
-            <Controller
-              name='gender'
-              as={
-                <RadioGroup row>
-                  <FormControlLabel
-                    value='M'
-                    control={
-                      <Radio
-                        id='maleRadio'
-                        className={radiosStyles.root}
-                        color='default'
-                        checkedIcon={
-                          <span className={radiosStyles.checkedIcon}/>
-                        }
-                        icon={<span className={radiosStyles.icon}/>}
-                      />
-                    }
-                    label={t['male']}
-                    defaultValue={user?.current?.gender}
-                  />
-                  <Hidden mdDown>
-                    <div className={classes.maleFemaleIcon}>
-                      <IconTint
-                        color={pink}
-                        src={require('../../assets/maleFemale.png')}
-                      />
-                    </div>
-                  </Hidden>
-                  <FormControlLabel
-                    value='F'
-                    control={
-                      <Radio
-                        id='femaleRadio'
-                        className={radiosStyles.root}
-                        color='default'
-                        checkedIcon={
-                          <span className={radiosStyles.checkedIcon}/>
-                        }
-                        icon={<span className={radiosStyles.icon}/>}
-                      />
-                    }
-                    label={t['female']}
-                  />
-                </RadioGroup>
-              }
-              control={control}
-              rules={{ required: t['requiredMessage'] }}
-            />
-            <ErrorMessage errorField={errors.gender}/>
-          </FormControl>
-        </Container>
-        <Container maxWidth={false} className={classes.formControl}>
-          <div className={classes.formHeader}>
-            <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-              {t['country']}
-            </Typography>
-            <HelpIcon
-              className={classes.formHeaderIcon}
-              data-tip={t['selectCountryOfResidenceMessage']}
-              color='primary'
-              fontSize='small'
-            />
-          </div>
-          <FormControl fullWidth id='country-select'>
-            <Controller
-              name='country'
-              rules={{ required: t['requiredMessage'] }}
-              control={control}
-              defaultValue={!user.current.country && 0}
-              as={
-                <ReactSelectMaterialUi
-                  fullWidth={true}
-                  placeholder={t['selectCountryMessage']}
-                  SelectProps={{
-                    styles: selectStyle,
-                  }}
-                  options={countries}
-                />
-              }
-            />
-          </FormControl>
-
-          <ErrorMessage errorField={errors.country}/>
-        </Container>
-        <Container maxWidth={false} className={classes.formControl}>
+      </Grid>
+      <Divider variant='middle' style={dividerStyle} />
+      <Container maxWidth={false} className={classes.formControl}>
+        <FormControl fullWidth className={classes.formControl}>
           <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-            {t['mobileNumber']}
+            {t['gender']}
           </Typography>
           <Controller
+            name='gender'
             as={
-              <PhoneInput
-                preferredCountries={['jo', 'eg']}
-                inputStyle={{ width: '100%', borderColor: pink }}
-                inputProps={{
-                  id: 'mobile_number',
-                  name: 'mobile_number',
-                  required: t['requiredMessage'],
+              <RadioGroup row>
+                <FormControlLabel
+                  value='M'
+                  control={
+                    <Radio
+                      id='maleRadio'
+                      className={radiosStyles.root}
+                      color='default'
+                      checkedIcon={
+                        <span className={radiosStyles.checkedIcon} />
+                      }
+                      icon={<span className={radiosStyles.icon} />}
+                    />
+                  }
+                  label={t['male']}
+                  defaultValue={user?.current?.gender}
+                />
+                <Hidden mdDown>
+                  <div className={classes.maleFemaleIcon}>
+                    <IconTint
+                      color={pink}
+                      src={require('../../assets/maleFemale.png')}
+                    />
+                  </div>
+                </Hidden>
+                <FormControlLabel
+                  value='F'
+                  control={
+                    <Radio
+                      id='femaleRadio'
+                      className={radiosStyles.root}
+                      color='default'
+                      checkedIcon={
+                        <span className={radiosStyles.checkedIcon} />
+                      }
+                      icon={<span className={radiosStyles.icon} />}
+                    />
+                  }
+                  label={t['female']}
+                />
+              </RadioGroup>
+            }
+            control={control}
+            rules={{ required: t['requiredMessage'] }}
+          />
+          <ErrorMessage errorField={errors.gender} />
+        </FormControl>
+      </Container>
+      <Container maxWidth={false} className={classes.formControl}>
+        <div className={classes.formHeader}>
+          <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+            {t['country']}
+          </Typography>
+          <HelpIcon
+            className={classes.formHeaderIcon}
+            data-tip={t['selectCountryOfResidenceMessage']}
+            color='primary'
+            fontSize='small'
+          />
+        </div>
+        <FormControl fullWidth id='country-select'>
+          <Controller
+            name='country'
+            rules={{ required: t['requiredMessage'] }}
+            control={control}
+            defaultValue={!user.current.country && 0}
+            as={
+              <ReactSelectMaterialUi
+                fullWidth={true}
+                placeholder={t['selectCountryMessage']}
+                SelectProps={{
+                  styles: selectStyle,
                 }}
-                enableSearch
+                options={countries}
               />
             }
-            name='mobileNumber'
-            rules={{
-              validate: (value) => {
-                try {
-                  const number = phoneUtil.parse('+' + value);
-                  return (
-                    phoneUtil.isValidNumber(number) || t['invalidPhoneMessage']
-                  );
-                } catch (e) {
-                  return t['invalidPhoneMessage'];
-                }
-              },
-            }}
-            control={control}
-            error={!!errors.mobileNumber}
           />
-          <ErrorMessage errorField={errors.mobileNumber}/>
-        </Container>
-        <Container maxWidth={false} className={classes.formControl}>
-          <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-            {t['currentEmploymentStatus']}
-          </Typography>
-          <FormControl
-            id='currentEmploymentStatus'
-            className={classes.formControl}
-            fullWidth>
-            <Controller
-              name='currentEmploymentStatus'
-              rules={{ required: t['requiredMessage'] }}
-              control={control}
-              defaultValue={user.current.currentEmploymentStatus}
-              as={
-                <ReactSelectMaterialUi
-                  fullWidth
-                  id='employmentStatus'
-                  placeholder={t['currentEmploymentStatus']}
-                  SelectProps={{
-                    styles: selectStyle,
-                  }}
-                  options={employmentStatus}
-                />
-              }
-            />
-            <ErrorMessage errorField={errors.currentEmploymentStatus}/>
-          </FormControl>
-        </Container>
+        </FormControl>
+
+        <ErrorMessage errorField={errors.country} />
       </Container>
-    </Paper>
+      <Container maxWidth={false} className={classes.formControl}>
+        <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+          {t['mobileNumber']}
+        </Typography>
+        <Controller
+          as={
+            <PhoneInput
+              preferredCountries={['jo', 'eg']}
+              inputStyle={{ width: '100%', borderColor: pink }}
+              inputProps={{
+                id: 'mobile_number',
+                name: 'mobile_number',
+                required: t['requiredMessage'],
+              }}
+              enableSearch
+            />
+          }
+          name='mobileNumber'
+          rules={{
+            validate: (value) => {
+              try {
+                const number = phoneUtil.parse('+' + value);
+                return (
+                  phoneUtil.isValidNumber(number) || t['invalidPhoneMessage']
+                );
+              } catch (e) {
+                return t['invalidPhoneMessage'];
+              }
+            },
+          }}
+          control={control}
+          error={!!errors.mobileNumber}
+        />
+        <ErrorMessage errorField={errors.mobileNumber} />
+      </Container>
+      <Container maxWidth={false} className={classes.formControl}>
+        <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+          {t['currentEmploymentStatus']}
+        </Typography>
+        <FormControl
+          id='currentEmploymentStatus'
+          className={classes.formControl}
+          fullWidth>
+          <Controller
+            name='currentEmploymentStatus'
+            rules={{ required: t['requiredMessage'] }}
+            control={control}
+            defaultValue={user.current.currentEmploymentStatus}
+            as={
+              <ReactSelectMaterialUi
+                fullWidth
+                id='employmentStatus'
+                placeholder={t['currentEmploymentStatus']}
+                SelectProps={{
+                  styles: selectStyle,
+                }}
+                options={employmentStatus}
+              />
+            }
+          />
+          <ErrorMessage errorField={errors.currentEmploymentStatus} />
+        </FormControl>
+      </Container>
+    </Container>
   );
 };
 
