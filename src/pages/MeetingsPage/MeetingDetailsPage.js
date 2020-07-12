@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Grid, Card } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useMeetingPageStyle from './styles/meetingPage';
-import ErrorDialog from '../components/errors/ErrorDialog';
+import ErrorDialog from '../../components/errors/ErrorDialog';
 import useFetchShowMeetingDetails from './hooks/useFetchMeetingDetails';
 import { useLocation } from 'react-router';
 

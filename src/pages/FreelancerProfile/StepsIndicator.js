@@ -8,8 +8,8 @@ import PersonIcon from '@material-ui/icons/Person';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import SettingsIcon from '@material-ui/icons/Settings';
 import StepConnector from '@material-ui/core/StepConnector';
-import { lighterPink, lightPink, pink } from '../styles/colors';
-import t from '../locales/en/freelancerProfile.json';
+import { lighterPink, lightPink, pink } from '../../styles/colors';
+import t from '../../locales/en/freelancerProfile.json';
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {

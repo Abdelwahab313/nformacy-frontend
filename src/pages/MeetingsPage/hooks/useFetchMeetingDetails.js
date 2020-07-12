@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { fetchMeetingDetails } from '../../apis/meetingsAPI';
-import authManager from '../../services/authManager';
+import { fetchMeetingDetails } from '../../../apis/meetingsAPI';
+import authManager from '../../../services/authManager';
 import { camelizeKeys } from 'humps';
 
 const useFetchShowMeetingDetails = (meetingId) => {

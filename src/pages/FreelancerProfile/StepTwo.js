@@ -2,11 +2,11 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import Grow from '@material-ui/core/Grow';
-import FieldsOfSpecialization from '../components/forms/FieldsOfSpecialization';
+import FieldsOfSpecialization from '../../components/forms/FieldsOfSpecialization';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import Typography from '@material-ui/core/Typography';
-import { iconStyle, useStyles } from '../styles/formsStyles';
-import t from '../locales/en/freelancerProfile.json';
+import { iconStyle, useStyles } from '../../styles/formsStyles';
+import t from '../../locales/en/freelancerProfile.json';
 
 const StepTwo = () => {
   const classes = useStyles();
@@ -22,7 +22,7 @@ const StepTwo = () => {
         <Hidden smDown>
           <Grow in={true} timeout={2000}>
             <Grid item xs={12} sm={3}>
-              <img src={require('../assets/Clipboard.gif')} width={'100%'} />
+              <img src={require('../../assets/Clipboard.gif')} width={'100%'} />
             </Grid>
           </Grow>
         </Hidden>
@@ -55,7 +55,7 @@ const StepTwo = () => {
               <Grow in={true} timeout={6500}>
                 <Grid item className={classes.paddingZero}>
                   <img
-                    src={require('../assets/hello.png')}
+                    src={require('../../assets/hello.png')}
                     alt='hello'
                     style={{ height: 'auto', width: '100%' }}
                   />

@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
-import { useStyles } from '../styles/formsStyles';
+import { useStyles } from '../../styles/formsStyles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useForm } from 'react-hook-form';
-import { login } from '../apis/authAPI';
+import { login } from '../../apis/authAPI';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Redirect } from 'react-router';
 import { useAuth } from './auth';
-import ErrorDialog from '../components/errors/ErrorDialog';
+import ErrorDialog from '../../components/errors/ErrorDialog';
 import { withNamespaces } from 'react-i18next';
-import authManager from '../services/authManager';
+import authManager from '../../services/authManager';
 import { Grid } from '@material-ui/core';
 
 const Login = ({ location, t }) => {
@@ -94,7 +94,7 @@ const Login = ({ location, t }) => {
         )}
         <CssBaseline/>
         <Grid item xs={12} md={3}>
-          <img src={require('../assets/22759-girl-on-a-scooter.gif')} width={'100%'}/>
+          <img src={require('../../assets/22759-girl-on-a-scooter.gif')} width={'100%'}/>
         </Grid>
         <Grid item xs={12} md={6} className={classes.paper}>
           <form

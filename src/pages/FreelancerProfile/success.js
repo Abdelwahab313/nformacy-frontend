@@ -2,8 +2,8 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
-import { useStyles } from '../styles/successStyle';
-import SubmitButton from '../components/buttons/SubmitButton';
+import { useStyles } from '../../styles/successStyle';
+import SubmitButton from '../../components/buttons/SubmitButton';
 
 const Success = () => {
   const classes = useStyles();
@@ -20,7 +20,7 @@ const Success = () => {
         alignItems='center'
         className={classes.successMessageContainer}
         container>
-        <img src={require('../assets/fireworks.gif')} width={'50%'}/>
+        <img src={require('../../assets/fireworks.gif')} width={'50%'}/>
         <Typography gutterBottom className={classes.successText}>
           Congratulations for becoming a member of our family. <br/>
           We would love to welcome you to our community, <br/>

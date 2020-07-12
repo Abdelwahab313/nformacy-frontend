@@ -3,12 +3,12 @@ import { makeStyles } from '@material-ui/core';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import SideBar from './drawer/SideBar';
 import PrivateRoute from './PrivateRoute';
-import HomePage from '../HomePage';
-import MeetingsPage from '../MeetingsPage';
-import MeetingDetailsPage from '../MeetingsPage/MeetingDetailsPage';
-import EditProfile from '../EditProfile/EditProfile';
-import FreeLancerProfileForm from '../FreelancerProfile/FreelancerProfileForm';
-import Success from '../FreelancerProfile/success';
+import HomePage from '../pages/HomePage';
+import MeetingsPage from '../pages/MeetingsPage';
+import MeetingDetailsPage from '../pages/MeetingsPage/MeetingDetailsPage';
+import EditProfile from '../pages/EditProfile/EditProfile';
+import FreeLancerProfileForm from '../pages/FreelancerProfile/FreelancerProfileForm';
+import Success from '../pages/FreelancerProfile/success';
 
 const useStyles = makeStyles((theme) => ({
   root: {

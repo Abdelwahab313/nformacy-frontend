@@ -5,14 +5,14 @@ import Button from '@material-ui/core/Button';
 import { useForm } from 'react-hook-form';
 import { withNamespaces } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { useStyles } from '../styles/formsStyles';
-import { signup } from '../apis/userAPI';
+import { useStyles } from '../../styles/formsStyles';
+import { signup } from '../../apis/userAPI';
 import { useAuth } from '../auth/auth';
 import { Redirect } from 'react-router';
-import authManager from '../services/authManager';
+import authManager from '../../services/authManager';
 import { Grid } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import t from '../locales/en/signUp.json';
+import t from '../../locales/en/signUp.json';
 
 const Register = () => {
   const {
@@ -96,7 +96,7 @@ const Register = () => {
       <Grid container justify={'space-evenly'} alignContent={'center'}>
         <CssBaseline/>
         <Grid item xs={12} md={3}>
-          <img src={require('../assets/Airplane.gif')} width={'100%'}/>
+          <img src={require('../../assets/Airplane.gif')} width={'100%'}/>
         </Grid>
         <Grid item xs={12} md={6} className={classes.paper}>
           <form

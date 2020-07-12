@@ -8,7 +8,7 @@ import {
   nextButtonStyles,
   stepIndicatorStyles,
   useStyles,
-} from '../styles/formsStyles';
+} from '../../styles/formsStyles';
 import { Button } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
@@ -16,9 +16,9 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Grid from '@material-ui/core/Grid';
 import StepTwo from './StepTwo';
 import StepThree from './StepThree';
-import { updateProfile, uploadCV } from '../apis/userAPI';
+import { updateProfile, uploadCV } from '../../apis/userAPI';
 import { useHistory } from 'react-router-dom';
-import t from '../locales/en/freelancerProfile.json';
+import t from '../../locales/en/freelancerProfile.json';
 import Hidden from '@material-ui/core/Hidden';
 import BackDialog from './BackDialog';
 

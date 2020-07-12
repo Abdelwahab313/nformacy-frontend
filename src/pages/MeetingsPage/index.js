@@ -3,7 +3,7 @@ import { Button, Grid } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import useMeetingPageStyle from './styles/meetingPage';
-import ErrorDialog from '../components/errors/ErrorDialog';
+import ErrorDialog from '../../components/errors/ErrorDialog';
 import useMeetingsFetcher from './hooks/useMeetingFetcher';
 import MeetingsTable from './MeetingsTable';
 import { useHistory } from 'react-router';

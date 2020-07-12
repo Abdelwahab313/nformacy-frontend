@@ -1,10 +1,10 @@
-import PersonalInfo from '../components/forms/PersonalInfo';
+import PersonalInfo from '../../components/forms/PersonalInfo';
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import Grow from '@material-ui/core/Grow';
-import t from '../locales/en/freelancerProfile.json';
-import { useStyles } from '../styles/formsStyles';
+import t from '../../locales/en/freelancerProfile.json';
+import { useStyles } from '../../styles/formsStyles';
 
 const StepOne = () => {
   const classes = useStyles();
@@ -20,7 +20,7 @@ const StepOne = () => {
         <Grow in={true} timeout={2000}>
           <Grid item xs={12} sm={4} className={classes.gifContainerStyles}>
             <img
-              src={require('../assets/me.gif')}
+              src={require('../../assets/me.gif')}
               width={'100%'}
               alt={t['stepOneImgCaption']}
             />

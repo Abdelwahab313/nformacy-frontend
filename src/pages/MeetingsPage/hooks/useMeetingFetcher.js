@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { fetchAllMeetings } from '../../apis/meetingsAPI';
-import authManager from '../../services/authManager';
+import { fetchAllMeetings } from '../../../apis/meetingsAPI';
+import authManager from '../../../services/authManager';
 
 const useMeetingsFetcher = () => {
   const [isLoading, setLoading] = useState(false);

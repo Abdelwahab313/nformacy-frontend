@@ -3,10 +3,10 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import HelpIcon from '@material-ui/icons/Help';
 import { useFormContext } from 'react-hook-form';
-import { fieldsOfExperience } from '../constants/dropDownOptions';
-import { multiSelectStyles, useStyles } from '../styles/formsStyles';
-import ErrorMessage from '../components/errors/ErrorMessage';
-import t from '../locales/en/freelancerProfile.json';
+import { fieldsOfExperience } from '../../constants/dropDownOptions';
+import { multiSelectStyles, useStyles } from '../../styles/formsStyles';
+import ErrorMessage from '../../components/errors/ErrorMessage';
+import t from '../../locales/en/freelancerProfile.json';
 import { Multiselect } from 'multiselect-react-dropdown';
 
 

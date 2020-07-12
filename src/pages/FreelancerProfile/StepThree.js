@@ -2,14 +2,14 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import Grow from '@material-ui/core/Grow';
-import WorkExperience from '../components/forms/WorkExperience';
-import Education from '../components/forms/Education';
-import Certification from '../components/forms/Certification';
+import WorkExperience from '../../components/forms/WorkExperience';
+import Education from '../../components/forms/Education';
+import Certification from '../../components/forms/Certification';
 import ImageUploader from 'react-images-upload';
 import { useFormContext } from 'react-hook-form';
 import Typography from '@material-ui/core/Typography';
-import t from '../locales/en/freelancerProfile.json';
-import { useStyles } from '../styles/formsStyles';
+import t from '../../locales/en/freelancerProfile.json';
+import { useStyles } from '../../styles/formsStyles';
 
 const StepThree = () => {
   const { cv, setCV } = useFormContext();
@@ -31,7 +31,7 @@ const StepThree = () => {
           <Grow in={true} timeout={2000}>
             <Grid item xs={12} sm={3}>
               <img
-                src={require('../assets/11564-scanner-animation.gif')}
+                src={require('../../assets/11564-scanner-animation.gif')}
                 width={'100%'}
               />
             </Grid>

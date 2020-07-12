@@ -11,11 +11,11 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import EventIcon from '@material-ui/icons/Event';
 import IconButton from '@material-ui/core/IconButton';
-import CalendarDialog from './Calendar/CalendarDialog';
+import CalendarDialog from '../Calendar/CalendarDialog';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { useLocation } from 'react-router';
-import { scheduleMeeting } from '../apis/meetingsAPI';
+import { scheduleMeeting } from '../../apis/meetingsAPI';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
