@@ -12,12 +12,7 @@ When(/^I go to profile page$/, function() {
   cy.visit(BASE_URL + '/user/edit');
 });
 When(/^I fill my updated data$/, function() {
-  cy.get('#firstName').clear();
-  cy.get('#firstName').type(this.updatedFirstName);
-  cy.get('#lastName').clear();
-  cy.get('#lastName').type(faker.name.findName());
-  cy.get('#email').clear();
-  cy.get('#email').type(this.user.email);
+
   cy.get('#maleRadio').click();
   cy.get('#country-select').click();
   cy.get('#react-select-2-option-0').click();
@@ -56,8 +51,10 @@ When(/^I fill my updated data$/, function() {
   cy.get('.MuiPickersMonthSelection-container').first().click();
 });
 When(/^press submit$/, function() {
-  cy.get('#save').click();
-  cy.wait(500);
+  cy.get('#saveResume').click();
+  cy.get('#savePersonalInfo').click();
+  cy.get('#saveFieldsOfSpecialization').click();
+
 });
 Then(/^then should see my updated data when i open edit profile$/, function() {
   cy.visit(BASE_URL + '/user/edit');
