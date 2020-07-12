@@ -29,11 +29,9 @@ const DayScaleCell = (props) => (
 const CellBase = React.memo(
   ({ classes, startDate, formatDate, otherMonth }) => {
     const [{ availableDates, selectedDay }, dispatch] = useCalendarState();
-
     const freelancerAvailableDates = availableDates.map((d) => {
       return d.date;
     });
-
     const isAvailableDay = freelancerAvailableDates.some((date) =>
       dateTimeParser.isSameDate(date, startDate),
     );
@@ -72,12 +70,12 @@ const CellBase = React.memo(
             </Grid>
             <Grid item xs={4} alignself='right'>
               {dateTimeParser.isSameDate(startDate, selectedDay) &&
-                isAvailableDay && (
-                  <CheckCircleOutlineIcon
-                    id={'selectedDayIcon'}
-                    style={{ color: '#FFFFFF' }}
-                  />
-                )}
+              isAvailableDay && (
+                <CheckCircleOutlineIcon
+                  id={'selectedDayIcon'}
+                  className={classes.checkedIcon}
+                />
+              )}
             </Grid>
           </Grid>
         </div>
@@ -92,14 +90,14 @@ const CalendarView = () => {
   return (
     <Paper>
       <Scheduler>
-        <ViewState defaultCurrentDate={Date.now()} />
+        <ViewState defaultCurrentDate={Date.now()}/>
         <MonthView
           timeTableCellComponent={TimeTableCell}
           dayScaleCellComponent={DayScaleCell}
         />
-        <Toolbar />
-        <DateNavigator />
-        <TodayButton />
+        <Toolbar/>
+        <DateNavigator/>
+        <TodayButton/>
       </Scheduler>
     </Paper>
   );
