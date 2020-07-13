@@ -76,7 +76,7 @@ const ResumeSection = () => {
   const renderExperienceItem = (experience, key) => {
     return (
       <TimelineItem key={key}>
-        <TimelineOppositeContent>
+        <TimelineOppositeContent className={classes.timelineDateFieldStyles}>
           <Typography className={classes.timelineFieldValueStyles} color='textSecondary'>
             {experience.date?.toDateString()}
           </Typography>
@@ -101,7 +101,7 @@ const ResumeSection = () => {
   const renderEducationItem = (education, key) => {
     return (
       <TimelineItem key={key}>
-        <TimelineOppositeContent>
+        <TimelineOppositeContent className={classes.timelineDateFieldStyles}>
           <Typography className={classes.timelineFieldValueStyles} color='textSecondary'>
             {education.date?.toDateString()}
           </Typography>
@@ -131,7 +131,7 @@ const ResumeSection = () => {
   const renderCertificationItem = (certification, key) => {
     return (
       <TimelineItem key={key}>
-        <TimelineOppositeContent>
+        <TimelineOppositeContent className={classes.timelineDateFieldStyles}>
           <Typography className={classes.timelineFieldValueStyles} color='textSecondary'>
             {certification.date?.toDateString()}
           </Typography>

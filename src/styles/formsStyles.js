@@ -158,6 +158,10 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '4vw',
     },
   },
+  timelineDateFieldStyles: {
+    height: 'fit-content',
+    alignSelf: 'center',
+  },
   sectionHeaderStyles: {
     fontSize: '2.024vw',
     textAlign: 'center',
