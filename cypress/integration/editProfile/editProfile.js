@@ -89,3 +89,7 @@ Then(/^I should see basic info section$/, function() {
   cy.get('#lastName ');
   cy.get('#email ');
 });
+Then(/^I should see personal info section$/, function() {
+  cy.get('#personalInfo ');
+
+});

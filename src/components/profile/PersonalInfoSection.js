@@ -1,24 +1,25 @@
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import React, { useRef, useState } from 'react';
+import DialogContent from '@material-ui/core/DialogContent';
+import { FormContext, useForm } from 'react-hook-form';
+import Dialog from '@material-ui/core/Dialog';
+import PersonalInfo from '../forms/PersonalInfo';
+import { dividerStyle, useStyles } from '../../styles/formsStyles';
+import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
 import t from '../../locales/en/freelancerProfile.json';
 import Divider from '@material-ui/core/Divider';
-import { dividerStyle, useStyles } from '../../styles/formsStyles';
-import React, { Fragment, useRef, useState } from 'react';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import BasicInfo from '../forms/BasicInfo';
-import { FormContext, useForm } from 'react-hook-form';
+import countryList from 'react-select-country-list';
 
-const BasicInfoSection = () => {
+const PersonalInfoSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
+  const [countries] = useState(countryList().getData());
   const [open, setOpen] = React.useState(false);
   const formMethod = useForm({
     defaultValues: { ...user.current },
   });
-  const [avatar, setAvatar] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -29,14 +30,14 @@ const BasicInfoSection = () => {
 
   const classes = useStyles();
   return (
-    <Grid item id='basicInfo'>
+    <Grid item id='personalInfo'>
       <Dialog
         PaperProps={{ id: 'basicInfoDialog' }}
         onClose={handleClose}
         open={open}>
         <DialogContent>
-          <FormContext {...formMethod} user={user} setAvatar={setAvatar}>
-            <BasicInfo />
+          <FormContext {...formMethod} user={user}>
+            <PersonalInfo />
           </FormContext>
         </DialogContent>
       </Dialog>
@@ -49,53 +50,58 @@ const BasicInfoSection = () => {
         <Grid container alignItems='center'>
           <Grid item xs>
             <Typography gutterBottom className={classes.sectionHeaderStyles}>
-              Basic Information
+              {t['personalInfo']}
             </Typography>
           </Grid>
         </Grid>
         <Divider variant='middle' style={dividerStyle} />
-        <img
-          id='profilePicture'
-          src={user.current.avatar || require('../../assets/emptyavatar.jpg')}
-          width={150}
-          alt='Profile Picture'
-        />
         <Grid container spacing={5}>
           <Grid item>
             <Typography
               gutterBottom
               className={classes.fieldLabelStylesDesktop}>
-              First Name
+              Gender
             </Typography>
             <Typography
               gutterBottom
               className={classes.fieldLabelStylesDesktop}>
-              Last Name
+              Country
             </Typography>
             <Typography
               gutterBottom
               className={classes.fieldLabelStylesDesktop}>
-              Email
+              Mobile Number
+            </Typography>
+            <Typography
+              gutterBottom
+              className={classes.fieldLabelStylesDesktop}>
+              My current employment status
             </Typography>
           </Grid>
           <Grid item>
             <Typography
-              id='firstName'
+              id='gender'
               gutterBottom
               className={classes.fieldLabelStylesDesktop}>
-              {user.current.firstName}
+              {user.current.gender}
             </Typography>
             <Typography
-              id='lastName'
+              id='country'
               gutterBottom
               className={classes.fieldLabelStylesDesktop}>
-              {user.current.lastName}
+              {user.current.country && countries?.find(country => country.value === user.current.country).label}
             </Typography>
             <Typography
-              id='email'
+              id='mobileNumber'
               gutterBottom
               className={classes.fieldLabelStylesDesktop}>
-              {user.current.email}
+              {user.current.mobileNumber}
+            </Typography>
+            <Typography
+              id='currentEmploymentStatus'
+              gutterBottom
+              className={classes.fieldLabelStylesDesktop}>
+              {user.current.currentEmploymentStatus}
             </Typography>
           </Grid>
         </Grid>
@@ -103,4 +109,5 @@ const BasicInfoSection = () => {
     </Grid>
   );
 };
-export default BasicInfoSection;
+
+export default PersonalInfoSection;

@@ -6,7 +6,6 @@ import { updateProfile, updateProfilePicture } from '../../apis/userAPI';
 import { useStyles } from '../../styles/formsStyles';
 
 const BasicInfoForm = () => {
-
   const user = useRef(JSON.parse(localStorage.getItem('user')));
   const {
     register,

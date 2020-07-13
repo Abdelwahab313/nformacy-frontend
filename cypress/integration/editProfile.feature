@@ -29,3 +29,5 @@ Feature: Edit profile
     Given I log in
     When I go to profile page
     Then I should see basic info section
+    And I should see personal info section
+
