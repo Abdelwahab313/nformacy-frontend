@@ -11,6 +11,10 @@ import BasicInfoForm from '../../components/forms/BasicInfoForm';
 import PersonalInfoForm from '../../components/forms/PersonalInfoForm';
 import FieldsOfSprecializtaionForm from '../../components/forms/FieldsOfSpecializationForm';
 import ResumeForm from '../../components/forms/ResumeForm';
+import BasicInfoSection from '../../components/profile/BasicInfoSection';
+import PersonalInfoSection from '../../components/profile/PersonalInfoSection';
+import FieldsOfSpecializationSection from '../../components/profile/FieldsOfSpecilaizationSection';
+import Grid from '@material-ui/core/Grid';
 
 const EditProfile = ({ t }) => {
   const classes = useStyles();
@@ -27,9 +31,9 @@ const EditProfile = ({ t }) => {
         <Typography component='h1' variant='h5'>
           {t('Edit Profile')}
         </Typography>
-        <BasicInfoForm/>
-        <PersonalInfoForm/>
-        <FieldsOfSprecializtaionForm/>
+        <BasicInfoSection />
+        <PersonalInfoSection />
+        <FieldsOfSpecializationSection />
         <ResumeForm/>
         <Container maxWidth={false} className={classes.formControl}/>
       </div>

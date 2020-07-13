@@ -1,6 +1,7 @@
 Feature: Edit profile
   As a user i should be able to edit my profile
 
+  @ignore
   Scenario: Upload profile picture
     Given I log in
     When I go to profile page

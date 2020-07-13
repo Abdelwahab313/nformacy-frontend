@@ -3,7 +3,6 @@ import React, { useRef, useState } from 'react';
 import DialogContent from '@material-ui/core/DialogContent';
 import { FormContext, useForm } from 'react-hook-form';
 import Dialog from '@material-ui/core/Dialog';
-import PersonalInfo from '../forms/PersonalInfo';
 import { dividerStyle, useStyles } from '../../styles/formsStyles';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import t from '../../locales/en/freelancerProfile.json';
 import Divider from '@material-ui/core/Divider';
 import countryList from 'react-select-country-list';
+import PersonalInfoForm from '../forms/PersonalInfoForm';
 
 const PersonalInfoSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -37,7 +37,7 @@ const PersonalInfoSection = () => {
         open={open}>
         <DialogContent>
           <FormContext {...formMethod} user={user}>
-            <PersonalInfo />
+            <PersonalInfoForm />
           </FormContext>
         </DialogContent>
       </Dialog>

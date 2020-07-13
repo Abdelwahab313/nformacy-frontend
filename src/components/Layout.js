@@ -7,7 +7,6 @@ import MeetingsPage from '../pages/Meeting';
 import MeetingDetailsPage from '../pages/Meeting/MeetingDetailsPage';
 import EditProfile from '../pages/EditProfile/EditProfile';
 import MainHeader from './header/Header';
-import ViewProfile from '../pages/EditProfile/ViewProfile';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +26,6 @@ function Layout() {
         <Switch>
           <PrivateRoute exact path='/' component={HomePage}/>
           <PrivateRoute path='/user/edit' component={EditProfile}/>
-          <PrivateRoute path='/user/view' component={ViewProfile} />
           <PrivateRoute exact path='/meeting/list' component={MeetingsPage}/>
           <PrivateRoute
             exact

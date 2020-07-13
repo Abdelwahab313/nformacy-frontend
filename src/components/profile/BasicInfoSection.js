@@ -3,14 +3,13 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
-import t from '../../locales/en/freelancerProfile.json';
 import Divider from '@material-ui/core/Divider';
 import { dividerStyle, useStyles } from '../../styles/formsStyles';
-import React, { Fragment, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import BasicInfo from '../forms/BasicInfo';
 import { FormContext, useForm } from 'react-hook-form';
+import BasicInfoForm from '../forms/BasicInfoForm';
 
 const BasicInfoSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -36,7 +35,7 @@ const BasicInfoSection = () => {
         open={open}>
         <DialogContent>
           <FormContext {...formMethod} user={user} setAvatar={setAvatar}>
-            <BasicInfo />
+            <BasicInfoForm />
           </FormContext>
         </DialogContent>
       </Dialog>
