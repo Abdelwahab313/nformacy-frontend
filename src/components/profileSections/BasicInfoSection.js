@@ -63,45 +63,57 @@ const BasicInfoSection = () => {
             />
           </Grid>
           <Grid xs={12} sm={9} className={classes.sectionRowContainerStyles}>
-            <div className={classes.sectionRowStyles}>
-              <Typography
-                gutterBottom
-                className={classes.fieldLabelStylesDesktop}>
-                First Name
-              </Typography>
-              <Typography
-                id='firstName'
-                gutterBottom
-                className={classes.fieldValueStyles}>
-                {user.current.firstName}
-              </Typography>
-            </div>
-            <div className={classes.sectionRowStyles}>
-              <Typography
-                gutterBottom
-                className={classes.fieldLabelStylesDesktop}>
-                Last Name
-              </Typography>
-              <Typography
-                id='lastName'
-                gutterBottom
-                className={classes.fieldValueStyles}>
-                {user.current.lastName}
-              </Typography>
-            </div>
-            <div className={classes.sectionRowStyles}>
-              <Typography
-                gutterBottom
-                className={classes.fieldLabelStylesDesktop}>
-                Email
-              </Typography>
-              <Typography
-                id='email'
-                gutterBottom
-                className={classes.fieldValueStyles}>
-                {user.current.email}
-              </Typography>
-            </div>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={4}>
+                <Typography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
+                  First Name
+                </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography
+                  id='firstName'
+                  gutterBottom
+                  className={classes.fieldValueStyles}>
+                  {user.current.firstName}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={4}>
+                <Typography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
+                  Last Name
+                </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography
+                  id='lastName'
+                  gutterBottom
+                  className={classes.fieldValueStyles}>
+                  {user.current.lastName}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={4}>
+                <Typography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
+                  Email
+                </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography
+                  id='email'
+                  gutterBottom
+                  className={classes.fieldValueStyles}>
+                  {user.current.email}
+                </Typography>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Paper>

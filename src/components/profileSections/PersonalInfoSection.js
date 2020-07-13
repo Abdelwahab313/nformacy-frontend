@@ -57,58 +57,73 @@ const PersonalInfoSection = () => {
         <Divider variant='middle' style={dividerStyle}/>
         <Grid container spacing={5} className={classes.paperSectionContentStyles}>
           <Grid item xs={12} className={classes.sectionRowContainerStyles} style={{ paddingLeft: '45px' }}>
-            <div className={classes.sectionRowStyles}>
-              <Typography
-                gutterBottom
-                className={classes.fieldLabelStylesDesktop}>
-                Gender
-              </Typography>
-              <Typography
-                id='gender'
-                gutterBottom
-                className={classes.fieldValueStyles}>
-                {user.current.gender}
-              </Typography>
-            </div>
-            <div className={classes.sectionRowStyles}>
-              <Typography
-                gutterBottom
-                className={classes.fieldLabelStylesDesktop}>
-                Country
-              </Typography>
-              <Typography
-                id='country'
-                gutterBottom
-                className={classes.fieldValueStyles}>
-                {user.current.country && countries?.find(country => country.value === user.current.country).label}
-              </Typography>
-            </div>
-            <div className={classes.sectionRowStyles}>
-              <Typography
-                gutterBottom
-                className={classes.fieldLabelStylesDesktop}>
-                Mobile Number
-              </Typography>
-              <Typography
-                id='mobileNumber'
-                gutterBottom
-                className={classes.fieldValueStyles}>
-                {user.current.mobileNumber}
-              </Typography>
-            </div>
-            <div className={classes.sectionRowStyles}>
-              <Typography
-                gutterBottom
-                className={classes.fieldLabelStylesDesktop}>
-                My current employment status
-              </Typography>
-              <Typography
-                id='currentEmploymentStatus'
-                gutterBottom
-                className={classes.fieldValueStyles}>
-                {user.current.currentEmploymentStatus}
-              </Typography>
-            </div>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={6}>
+                <Typography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
+                  Gender
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography
+                  id='gender'
+                  gutterBottom
+                  className={classes.fieldValueStyles}>
+                  {user.current.gender}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid className={classes.sectionRowStyles}>
+              <Grid item xs={6}>
+                <Typography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
+                  Country
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography
+                  id='country'
+                  gutterBottom
+                  className={classes.fieldValueStyles}>
+                  {user.current.country && countries?.find(country => country.value === user.current.country).label}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={6}>
+                <Typography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
+                  Mobile Number
+                </Typography></Grid>
+              <Grid item xs={6}>
+                <Typography
+                  id='mobileNumber'
+                  gutterBottom
+                  className={classes.fieldValueStyles}>
+                  {user.current.mobileNumber}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={6}>
+                <Typography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
+                  My current employment status
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography
+                  id='currentEmploymentStatus'
+                  gutterBottom
+                  className={classes.fieldValueStyles}>
+                  {user.current.currentEmploymentStatus}
+                </Typography>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Paper>

@@ -239,7 +239,7 @@ export const useStyles = makeStyles((theme) => ({
   profilePhotoContainer: {
     padding: '10px !important',
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   signUpHeaderStyle: {
     fontSize: '1.190vw',

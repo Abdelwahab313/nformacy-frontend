@@ -56,81 +56,91 @@ const FieldsOfSpecializationSection = () => {
         <Divider variant='middle' style={dividerStyle}/>
         <Grid container spacing={5} className={classes.paperSectionContentStyles}>
           <Grid item xs={12} className={classes.sectionRowContainerStyles} style={{ paddingLeft: '45px' }}>
-            <div className={classes.sectionRowStyles}>
-              <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-                {t['industryOfExperience']}
-              </Typography>
-              <Typography
-                id='industriesOfExperience'
-                gutterBottom
-                className={classes.fieldValueStyles}>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={6}>
+                <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+                  {t['industryOfExperience']}
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
                 {user.current?.industriesOfExperience?.map((industry, key) => (
-                  <Grid item key={key} xs={5}>
+                  <Typography
+                    id='industriesOfExperience'
+                    gutterBottom
+                    className={classes.fieldValueStyles}>
                     {industry.label}
-                  </Grid>
+                  </Typography>
                 ))}
-              </Typography>
-            </div>
-            <div className={classes.sectionRowStyles}>
-              <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-                {t['experiencedIn']}
-              </Typography>
-              <Typography
-                id='majorFieldsOfExperience'
-                gutterBottom
-                className={classes.fieldValueStyles}>
+              </Grid>
+            </Grid>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={6}>
+                <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+                  {t['experiencedIn']}
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
                 {user.current?.majorFieldsOfExperience?.map((major, key) => (
-                  <Grid item key={key} xs={5}>
+                  <Typography
+                    id='majorFieldsOfExperience'
+                    gutterBottom
+                    className={classes.fieldValueStyles}>
                     {major.label}
-                  </Grid>
+                  </Typography>
                 ))}
-              </Typography>
-            </div>
-            <div className={classes.sectionRowStyles}>
-              <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-                {t['specificallyIn']}
-              </Typography>
-              <Typography
-                id='specificFieldsOfExperience'
-                gutterBottom
-                className={classes.fieldValueStyles}>
+              </Grid>
+            </Grid>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={6}>
+                <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+                  {t['specificallyIn']}
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
                 {user.current?.specificFieldsOfExperience?.map((specific, key) => (
-                  <Grid item key={key} xs={5}>
+                  <Typography
+                    id='specificFieldsOfExperience'
+                    gutterBottom
+                    className={classes.fieldValueStyles}>
                     {specific.label}
-                  </Grid>
+                  </Typography>
                 ))}
-              </Typography>
-            </div>
-            <div className={classes.sectionRowStyles}>
-              <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-                {t['assignmentLanguage']}
-              </Typography>
-              <Typography
-                id='languageOfAssignments'
-                gutterBottom
-                className={classes.fieldValueStyles}>
+              </Grid>
+            </Grid>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={6}>
+                <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+                  {t['assignmentLanguage']}
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
                 {user.current?.languageOfAssignments?.map((lng, key) => (
-                  <Grid item key={key} xs={5}>
+                  <Typography
+                    id='languageOfAssignments'
+                    gutterBottom
+                    className={classes.fieldValueStyles}>
                     {lng.label}
-                  </Grid>
+                  </Typography>
                 ))}
-              </Typography>
-            </div>
-            <div className={classes.sectionRowStyles}>
-              <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-                {t['typesOfAssignments']}
-              </Typography>
-              <Typography
-                id='typesOfAssignments'
-                gutterBottom
-                className={classes.fieldValueStyles}>
+              </Grid>
+            </Grid>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={6}>
+                <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+                  {t['typesOfAssignments']}
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
                 {user.current?.typesOfAssignments?.map((lng, key) => (
-                  <Grid item key={key} xs={5}>
+                  <Typography
+                    id='typesOfAssignments'
+                    gutterBottom
+                    className={classes.fieldValueStyles}>
                     {lng.label}
-                  </Grid>
+                  </Typography>
                 ))}
-              </Typography>
-            </div>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Paper>
