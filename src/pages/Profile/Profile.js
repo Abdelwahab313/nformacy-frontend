@@ -6,12 +6,13 @@ import { useStyles } from '../../styles/formsStyles';
 import { withNamespaces } from 'react-i18next';
 import ReactTooltip from 'react-tooltip';
 import ResumeForm from '../../components/forms/ResumeForm';
-import BasicInfoSection from '../../components/profile/BasicInfoSection';
-import PersonalInfoSection from '../../components/profile/PersonalInfoSection';
-import FieldsOfSpecializationSection from '../../components/profile/FieldsOfSpecilaizationSection';
+import BasicInfoSection from '../../components/profileSections/BasicInfoSection';
+import PersonalInfoSection from '../../components/profileSections/PersonalInfoSection';
+import FieldsOfSpecializationSection from '../../components/profileSections/FieldsOfSpecilaizationSection';
 import Grid from '@material-ui/core/Grid';
+import ResumeSection from '../../components/profileSections/ResumeSection';
 
-const EditProfile = ({ t }) => {
+const Profile = ({ t }) => {
   const classes = useStyles();
 
 
@@ -21,17 +22,14 @@ const EditProfile = ({ t }) => {
       <CssBaseline/>
       <Grid container justify={'center'} alignContent={'center'}>
         <Grid item xs={12} sm={8}>
-          <Typography className={classes.pageHeaderStyle} style={{ textAlign: 'center' }}>
-            {t('Edit Profile')}
-          </Typography>
           <BasicInfoSection/>
           <PersonalInfoSection/>
           <FieldsOfSpecializationSection/>
-          <ResumeForm/>
+          <ResumeSection />
         </Grid>
         <Container maxWidth={false} className={classes.formControl}/>
       </Grid>
     </Container>
   );
 };
-export default withNamespaces('editProfile')(EditProfile);
+export default withNamespaces('profile')(Profile);

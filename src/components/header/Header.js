@@ -18,7 +18,7 @@ export default function MainHeader() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
-    console.log('profile clicked');
+    console.log('profileSections clicked');
   };
   const handleClose = () => {
     setAnchorEl(null);

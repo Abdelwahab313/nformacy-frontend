@@ -13,7 +13,7 @@ import { AuthContext } from '../pages/auth/auth';
 import PrivateRoute from './PrivateRoute';
 import Layout from './Layout';
 import Register from '../pages/Register/Register';
-import EditProfile from '../pages/EditProfile/EditProfile';
+import EditProfile from '../pages/Profile/Profile';
 import authManager from '../services/authManager';
 import Logout from '../pages/auth/LogoutUser';
 import FreeLancerProfileForm from '../pages/FreelancerProfile/FreelancerProfileForm';

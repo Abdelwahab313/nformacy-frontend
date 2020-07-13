@@ -5,7 +5,7 @@ import PrivateRoute from './PrivateRoute';
 import HomePage from '../pages/Home';
 import MeetingsPage from '../pages/Meeting';
 import MeetingDetailsPage from '../pages/Meeting/MeetingDetailsPage';
-import EditProfile from '../pages/EditProfile/EditProfile';
+import EditProfile from '../pages/Profile/Profile';
 import MainHeader from './header/Header';
 
 const useStyles = makeStyles((theme) => ({
