@@ -1,6 +1,17 @@
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
+  meetingPageSection: {
+    width: '100%',
+    backgroundColor: theme.palette.background.paper,
+  },
+  meetingPageContainer: {
+    marginRight: theme.spacing(3),
+    padding: theme.spacing(3),
+  },
+  meetingPageLowerSection: {
+    marginTop: theme.spacing(6),
+  },
   root: {
     display: 'flex',
     flexGrow: 1,
@@ -10,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   addButton: {
     marginBottom: theme.spacing(1),
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
   },
   toolBar: {
     position: 'relative',

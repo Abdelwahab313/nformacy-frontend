@@ -6,13 +6,14 @@ import ErrorDialog from '../../components/errors/ErrorDialog';
 import useFetchShowMeetingDetails from './hooks/useFetchMeetingDetails';
 import { useLocation } from 'react-router';
 
-import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ShortlistedFreelancersSection from './ShortlistedFreelancersSection';
 import MeetingScheduledSection from './MeetingScheduledSection';
 import Typography from '@material-ui/core/Typography';
+import useStyles from './styles/meetingPage';
+import Box from '@material-ui/core/Box';
 
 const MEETING_STATUS = {
   pending: 'Pending',
@@ -22,9 +23,7 @@ const MEETING_STATUS = {
 };
 
 const MeetingDetailsPage = () => {
-  const meetingPageClasses = useMeetingPageStyle();
   const classes = useStyles();
-
   const location = useLocation();
   const meetingId = location.state.meetingId;
   const {
@@ -64,22 +63,22 @@ const MeetingDetailsPage = () => {
   };
   if (isLoading) {
     return (
-      <div className={meetingPageClasses.progressContainer}>
+      <div className={classes.progressContainer}>
         <CircularProgress/>
       </div>
     );
   }
 
   return (
-    <div>
+    <Grid container className={classes.meetingPageContainer}>
       {!!errorMessage && (
         <ErrorDialog message={errorMessage} close={() => {
         }}/>
       )}
-      <Grid className={meetingPageClasses.root}>
+      <Grid className={classes.meetingPageSection}>
         <Typography variant='h6'>Meeting Details</Typography>
         <Card id={'meeting-details'}>
-          <List className={classes.root}>
+          <List className={classes.meetingPageSection}>
             <ListItem>
               <ListItemText primary={<Typography>Purpose of The Call</Typography>} secondary={'consult Expert'}/>
             </ListItem>
@@ -113,19 +112,11 @@ const MeetingDetailsPage = () => {
           </List>
         </Card>
       </Grid>
-      <Grid className={meetingPageClasses.root}>
+      <Box className={classes.meetingPageLowerSection}>
         {renderLowerSection(meetingDetails)}
-      </Grid>
-    </div>
+      </Box>
+    </Grid>
   );
 };
 
 export default MeetingDetailsPage;
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
