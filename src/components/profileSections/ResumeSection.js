@@ -77,7 +77,7 @@ const ResumeSection = () => {
     return (
       <TimelineItem key={key}>
         <TimelineOppositeContent>
-          <Typography variant='body2' color='textSecondary'>
+          <Typography className={classes.timelineFieldValueStyles} color='textSecondary'>
             {experience.date?.toDateString()}
           </Typography>
         </TimelineOppositeContent>
@@ -89,10 +89,10 @@ const ResumeSection = () => {
         </TimelineSeparator>
         <TimelineContent>
           <Paper elevation={3} className={classes.timeLineContent}>
-            <Typography variant='h6' component='h4'>
+            <Typography className={classes.fieldLabelStylesDesktop}>
               {experience.title}
             </Typography>
-            <Typography>{experience.company}</Typography>
+            <Typography className={classes.timelineFieldValueStyles}>{experience.company}</Typography>
           </Paper>
         </TimelineContent>
       </TimelineItem>
@@ -102,7 +102,7 @@ const ResumeSection = () => {
     return (
       <TimelineItem key={key}>
         <TimelineOppositeContent>
-          <Typography variant='body2' color='textSecondary'>
+          <Typography className={classes.timelineFieldValueStyles} color='textSecondary'>
             {education.date?.toDateString()}
           </Typography>
         </TimelineOppositeContent>
@@ -114,13 +114,13 @@ const ResumeSection = () => {
         </TimelineSeparator>
         <TimelineContent>
           <Paper elevation={3} className={classes.timeLineContent}>
-            <Typography variant='h6' component='h4'>
+            <Typography className={classes.fieldLabelStylesDesktop}>
               {education.degree}
             </Typography>
-            <Typography variant='h6' component='h4'>
+            <Typography className={classes.timelineFieldValueStyles}>
               {education.fieldOfStudy}
             </Typography>
-            <Typography variant='h6' component='h4'>
+            <Typography className={classes.timelineFieldValueStyles}>
               {education.school}
             </Typography>
           </Paper>
@@ -132,7 +132,7 @@ const ResumeSection = () => {
     return (
       <TimelineItem key={key}>
         <TimelineOppositeContent>
-          <Typography variant='body2' color='textSecondary'>
+          <Typography className={classes.timelineFieldValueStyles} color='textSecondary'>
             {certification.date?.toDateString()}
           </Typography>
         </TimelineOppositeContent>
@@ -144,10 +144,10 @@ const ResumeSection = () => {
         </TimelineSeparator>
         <TimelineContent>
           <Paper elevation={3} className={classes.timeLineContent}>
-            <Typography variant='h6' component='h4'>
+            <Typography className={classes.fieldLabelStylesDesktop}>
               {certification.name}
             </Typography>
-            <Typography variant='h6' component='h4'>
+            <Typography className={classes.timelineFieldValueStyles}>
               {certification.issuingOrganization}
             </Typography>
           </Paper>
