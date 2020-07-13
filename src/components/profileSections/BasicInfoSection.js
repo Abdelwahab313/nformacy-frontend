@@ -46,8 +46,8 @@ const BasicInfoSection = () => {
             </Typography>
           </Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
-            <IconButton aria-label='edit' onClick={handleClickOpen}>
-              <EditIcon />
+            <IconButton aria-label='edit' id='editBasicInfo' onClick={handleClickOpen}>
+              <EditIcon color={'primary'} />
             </IconButton>
           </Grid>
         </Grid>
@@ -77,7 +77,7 @@ const BasicInfoSection = () => {
               </Grid>
               <Grid item xs={8}>
                 <Typography
-                  id='firstName'
+                  id='firstNameValue'
                   gutterBottom
                   className={classes.fieldValueStyles}>
                   {user.current.firstName}

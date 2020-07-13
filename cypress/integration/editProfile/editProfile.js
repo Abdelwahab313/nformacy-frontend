@@ -12,24 +12,6 @@ When(/^I go to profile page$/, function() {
   cy.visit(BASE_URL + '/user/edit');
 });
 When(/^I fill my updated data$/, function() {
-
-  cy.get('#maleRadio').click();
-  cy.get('#country-select').click();
-  cy.get('#react-select-2-option-0').click();
-  cy.get('#mobile_number').clear();
-  cy.get('#mobile_number').type('201069942659');
-  cy.get('#currentEmploymentStatus').click();
-  cy.get('#react-select-3-option-0').click();
-
-  cy.get('#majorFieldsOfExperienceSelect').click();
-  cy.get('#majorFieldsOfExperienceSelect .optionContainer .option:nth-child(3)').click();
-  cy.get('#specificFieldsOfExperienceSelect').click();
-  cy.get('#specificFieldsOfExperienceSelect .optionContainer .option:nth-child(3)').click();
-  cy.get('#industriesOfExperience').click();
-  cy.get('#react-select-4-option-0').click();
-  cy.get('#assignmentLanguage').click();
-  cy.get('#react-select-5-option-6').click();
-  cy.get('[name="moreThanOneMonth"]').click();
   cy.get('#add-work-experience').click();
   cy.get('#work-experience-title-0').clear();
   cy.get('#work-experience-title-0').type('test job title');
@@ -56,9 +38,8 @@ When(/^press submit$/, function() {
   cy.get('#saveFieldsOfSpecialization').click();
 
 });
-Then(/^then should see my updated data when i open edit profile$/, function() {
-  cy.visit(BASE_URL + '/user/edit');
-  cy.get('#firstName').should('have.value', this.updatedFirstName);
+Then(/^then should see my updated basic info$/, function() {
+  cy.get('#firstNameValue').contains('test first name');
 });
 When(/^I Upload an image$/, function() {
   cy.get('.chooseFileButton ').click();
@@ -91,5 +72,59 @@ Then(/^I should see basic info section$/, function() {
 });
 Then(/^I should see personal info section$/, function() {
   cy.get('#personalInfo ');
-
+});
+When(/^I fill my updated basic Info data$/, function() {
+  cy.get('#editBasicInfoForm').should('be.visible');
+  cy.get('input[name="firstName"]').clear();
+  cy.get('input[name="firstName"]').type('test first name');
+  cy.get('input[name="lastName"]').clear();
+  cy.get('input[name="lastName"]').type('test last name');
+  cy.get('input[name="email"]').clear();
+  cy.get('input[name="email"]').type('test@test.com');
+});
+When(/^press save basic info$/, function() {
+  cy.get('#saveBasicInfo').click();
+  cy.get('#editBasicInfoForm').should('not.be.visible');
+});
+When(/^I click on edit personal info$/, function() {
+  cy.get('#editPersonalInfo ').click();
+});
+When(/^I fill my updated personal Info data$/, function() {
+  cy.get('#personalInfoDialog').should('be.visible');
+  cy.get('#maleRadio').click();
+  cy.get('#country-select').click();
+  cy.get('#react-select-2-option-0').click();
+  cy.get('#mobile_number').clear();
+  cy.get('#mobile_number').type('201069942659');
+  cy.get('#employmentStatus').click();
+  cy.get('#react-select-3-option-0').click();
+});
+When(/^press save personal info$/, function() {
+  cy.get('#savePersonalInfo').click();
+  cy.get('#editPersonalInfo').should('be.visible');
+});
+Then(/^then should see my updated personal$/, function() {
+  cy.get('#genderValue').contains('Male');
+});
+When(/^I click on edit fields of specializations$/, function() {
+  cy.get('#editFieldsOfSpecializations ').click();
+});
+When(/^I fill my updated fields of specializations data$/, function() {
+  cy.get('#fieldsOfSpecializationDialog').should('be.visible');
+  cy.get('#majorFieldsOfExperienceSelect').click();
+  cy.get('#majorFieldsOfExperienceSelect .optionContainer .option:nth-child(3)').click();
+  cy.get('#specificFieldsOfExperienceSelect').click();
+  cy.get('#specificFieldsOfExperienceSelect .optionContainer .option:nth-child(3)').click();
+  cy.get('#industriesOfExperience').click();
+  cy.get('#react-select-2-option-29').click();
+  cy.get('#assignmentLanguage').click();
+  cy.get('#react-select-3-option-3').click();
+  cy.get('[name="moreThanOneMonth"]').click();
+});
+When(/^press save fields of specializations$/, function() {
+  cy.get('#saveFieldsOfSpecialization').click();
+  cy.get('#editFieldsOfSpecializations').should('be.visible');
+});
+Then(/^then should see my updatedfields of specializations$/, function() {
+  cy.get('#industriesOfExperience').contains('Utilities');
 });

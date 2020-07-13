@@ -48,7 +48,7 @@ const FieldsOfSpecializationSection = () => {
             </Typography>
           </Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
-            <IconButton aria-label='edit' onClick={handleClickOpen}>
+            <IconButton aria-label='edit' id='editFieldsOfSpecializations' onClick={handleClickOpen}>
               <EditIcon color={'primary'}/>
             </IconButton>
           </Grid>

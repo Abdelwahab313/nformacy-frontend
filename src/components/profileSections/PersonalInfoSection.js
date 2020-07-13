@@ -36,7 +36,7 @@ const PersonalInfoSection = () => {
       <Dialog
         TransitionComponent={Transition}
         maxWidth='lg'
-        PaperProps={{ id: 'basicInfoDialog' }}
+        PaperProps={{ id: 'personalInfoDialog' }}
         onClose={handleClose}
         open={open}>
         <DialogContent>
@@ -55,7 +55,7 @@ const PersonalInfoSection = () => {
             </Typography>
           </Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
-            <IconButton aria-label='edit' onClick={handleClickOpen}>
+            <IconButton aria-label='edit' id='editPersonalInfo' onClick={handleClickOpen}>
               <EditIcon color={'primary'} />
             </IconButton>
           </Grid>
@@ -80,7 +80,7 @@ const PersonalInfoSection = () => {
               </Grid>
               <Grid item xs={6}>
                 <Typography
-                  id='gender'
+                  id='genderValue'
                   gutterBottom
                   className={classes.fieldValueStyles}>
                   {user.current.gender === 'M' ? 'Male' : 'Female'}
