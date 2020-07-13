@@ -12,6 +12,7 @@ import t from '../../locales/en/freelancerProfile.json';
 import Divider from '@material-ui/core/Divider';
 import countryList from 'react-select-country-list';
 import PersonalInfoForm from '../forms/PersonalInfoForm';
+import Transition from '../animations/Transition';
 
 const PersonalInfoSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -32,12 +33,16 @@ const PersonalInfoSection = () => {
   return (
     <Grid item id='personalInfo'>
       <Dialog
+        TransitionComponent={Transition}
+        maxWidth='lg'
         PaperProps={{ id: 'basicInfoDialog' }}
         onClose={handleClose}
         open={open}>
         <DialogContent>
           <FormContext {...formMethod} user={user}>
-            <PersonalInfoForm/>
+            <Grid container xs={12}>
+              <PersonalInfoForm user={user} closeDialog={handleClose} />
+            </Grid>
           </FormContext>
         </DialogContent>
       </Dialog>

@@ -5,19 +5,8 @@ import React, { useRef } from 'react';
 import { useStyles } from '../../styles/formsStyles';
 import { updateProfile } from '../../apis/userAPI';
 
-
-const FieldsOfSprecializtaionForm = () => {
-
-  const user = useRef(JSON.parse(localStorage.getItem('user')));
-  const {
-    register,
-    watch,
-    setValue,
-    getValues,
-    control,
-    errors,
-    handleSubmit,
-  } = useForm({
+const FieldsOfSpecializationForm = ({ user, closeDialog }) => {
+  const formMethods = useForm({
     defaultValues: { ...user.current },
   });
   const classes = useStyles();
@@ -31,25 +20,19 @@ const FieldsOfSprecializtaionForm = () => {
       .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));
       })
-      .catch((error) => {
-      });
+      .catch((error) => {});
+    user.current = { ...user.current, ...userData };
+    closeDialog();
   };
 
   return (
-    <FormContext
-      control={control}
-      register={register}
-      user={user}
-      errors={errors}
-      setValue={setValue}
-      getValues={getValues}
-      watch={watch}>
+    <FormContext user={user} {...formMethods}>
       <form
         id='editProfileForm'
-        className={classes.form}
+        className={classes.nestedForm}
         noValidate
-        onSubmit={handleSubmit(onSubmitFieldsOfSpecialization)}>
-        <FieldsOfSpecialization/>
+        onSubmit={formMethods.handleSubmit(onSubmitFieldsOfSpecialization)}>
+        <FieldsOfSpecialization />
         <Button
           id='saveFieldsOfSpecialization'
           type='submit'
@@ -63,4 +46,4 @@ const FieldsOfSprecializtaionForm = () => {
   );
 };
 
-export default FieldsOfSprecializtaionForm;
+export default FieldsOfSpecializationForm;

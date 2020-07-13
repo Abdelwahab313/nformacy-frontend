@@ -1,7 +1,7 @@
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import { FormContext, useFieldArray, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
@@ -21,14 +21,13 @@ import TimelineContent from '@material-ui/lab/TimelineContent';
 import WorkIcon from '@material-ui/icons/Work';
 import SchoolIcon from '@material-ui/icons/School';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import Transition from '../animations/Transition';
 
 const ResumeSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
   const [resume, setResume] = useState([]);
   const [open, setOpen] = useState(false);
-  const formMethod = useForm({
-    defaultValues: { ...user.current },
-  });
+
   const classes = useStyles();
 
   const handleClickOpen = () => {
@@ -158,13 +157,15 @@ const ResumeSection = () => {
   return (
     <Grid item id='resume'>
       <Dialog
+        TransitionComponent={Transition}
+        maxWidth='lg'
         PaperProps={{ id: 'resumeDialog' }}
         onClose={handleClose}
         open={open}>
         <DialogContent>
-          <FormContext {...formMethod} user={user}>
-            <ResumeForm />
-          </FormContext>
+          <Grid container xs={12}>
+            <ResumeForm user={user} closeDialog={handleClose} />
+          </Grid>
         </DialogContent>
       </Dialog>
       <Paper className={classes.paperSection} elevation={3}>

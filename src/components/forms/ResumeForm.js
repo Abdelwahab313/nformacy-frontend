@@ -7,19 +7,8 @@ import React, { useRef, useState } from 'react';
 import { useStyles } from '../../styles/formsStyles';
 import { updateProfile } from '../../apis/userAPI';
 
-
-const ResumeForm = () => {
-
-  const user = useRef(JSON.parse(localStorage.getItem('user')));
-  const {
-    register,
-    watch,
-    setValue,
-    getValues,
-    control,
-    errors,
-    handleSubmit,
-  } = useForm({
+const ResumeForm = ({ user, closeDialog }) => {
+  const formMethods = useForm({
     defaultValues: { ...user.current },
   });
   const [deletedExperiences, setDeletedExperiences] = useState([]);
@@ -45,30 +34,32 @@ const ResumeForm = () => {
       .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));
       })
-      .catch((error) => {
-      });
+      .catch((error) => {});
+    user.current = {
+      ...user.current,
+      educations: [],
+      certifications: [],
+      experiences: [],
+      ...userData,
+    };
+    closeDialog();
   };
 
   return (
     <FormContext
-      control={control}
-      register={register}
       user={user}
-      errors={errors}
-      setValue={setValue}
-      getValues={getValues}
+      {...formMethods}
       setDeletedExperiences={setDeletedExperiences}
       setDeletedEducations={setDeletedEducations}
-      setDeletedCertifications={setDeletedCertifications}
-      watch={watch}>
+      setDeletedCertifications={setDeletedCertifications}>
       <form
         id='editProfileForm'
-        className={classes.form}
+        className={classes.nestedForm}
         noValidate
-        onSubmit={handleSubmit(onSubmitResume)}>
-        <WorkExperience/>
-        <Education/>
-        <Certification/>
+        onSubmit={formMethods.handleSubmit(onSubmitResume)}>
+        <WorkExperience />
+        <Education />
+        <Certification />
         <Button
           id='saveResume'
           type='submit'

@@ -51,6 +51,13 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     marginTop: theme.spacing(1),
   },
+  nestedForm: {
+    display: 'flex',
+    width: '100vw',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: theme.spacing(1),
+  },
   formControl: {
     marginTop: theme.spacing(3),
   },

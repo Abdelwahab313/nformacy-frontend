@@ -11,15 +11,13 @@ import { dividerStyle, useStyles } from '../../styles/formsStyles';
 import React, { useRef, useState } from 'react';
 import t from '../../locales/en/freelancerProfile.json';
 import FieldsOfSpecializationForm from '../forms/FieldsOfSpecializationForm';
+import Transition from '../animations/Transition';
 
 const FieldsOfSpecializationSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
   const [open, setOpen] = React.useState(false);
-  const formMethod = useForm({
-    defaultValues: { ...user.current },
-  });
+
   const classes = useStyles();
-  const [avatar, setAvatar] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,13 +29,15 @@ const FieldsOfSpecializationSection = () => {
   return (
     <Grid item id='fieldsOfSpecialization'>
       <Dialog
+        TransitionComponent={Transition}
+        maxWidth='lg'
         PaperProps={{ id: 'fieldsOfSpecializationDialog' }}
         onClose={handleClose}
         open={open}>
         <DialogContent>
-          <FormContext {...formMethod} user={user} setAvatar={setAvatar}>
-            <FieldsOfSpecializationForm/>
-          </FormContext>
+          <Grid container xs={12}>
+            <FieldsOfSpecializationForm user={user} closeDialog={handleClose}/>
+          </Grid>
         </DialogContent>
       </Dialog>
       <Paper className={classes.paperSection} elevation={3}>

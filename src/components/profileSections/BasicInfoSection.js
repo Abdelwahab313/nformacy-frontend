@@ -8,16 +8,12 @@ import { dividerStyle, useStyles } from '../../styles/formsStyles';
 import React, { useRef, useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import { FormContext, useForm } from 'react-hook-form';
 import BasicInfoForm from '../forms/BasicInfoForm';
+import Transition from '../animations/Transition';
 
 const BasicInfoSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
   const [open, setOpen] = React.useState(false);
-  const formMethod = useForm({
-    defaultValues: { ...user.current },
-  });
-  const [avatar, setAvatar] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -30,13 +26,15 @@ const BasicInfoSection = () => {
   return (
     <Grid item id='basicInfo'>
       <Dialog
+        TransitionComponent={Transition}
+        maxWidth='lg'
         PaperProps={{ id: 'basicInfoDialog' }}
         onClose={handleClose}
         open={open}>
         <DialogContent>
-          <FormContext {...formMethod} user={user} setAvatar={setAvatar}>
-            <BasicInfoForm/>
-          </FormContext>
+          <Grid container xs={12}>
+            <BasicInfoForm user={user} closeDialog={handleClose} />
+          </Grid>
         </DialogContent>
       </Dialog>
       <Paper className={classes.paperSection} elevation={3}>
@@ -48,16 +46,21 @@ const BasicInfoSection = () => {
           </Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
             <IconButton aria-label='edit' onClick={handleClickOpen}>
-              <EditIcon color={'primary'}/>
+              <EditIcon />
             </IconButton>
           </Grid>
         </Grid>
-        <Divider variant='middle' style={dividerStyle}/>
-        <Grid container spacing={5} className={classes.paperSectionContentStyles}>
+        <Divider variant='middle' style={dividerStyle} />
+        <Grid
+          container
+          spacing={5}
+          className={classes.paperSectionContentStyles}>
           <Grid item xs={12} sm={3} className={classes.profilePhotoContainer}>
             <img
               id='profilePicture'
-              src={user.current.avatar || require('../../assets/emptyavatar.jpg')}
+              src={
+                user.current.avatar || require('../../assets/emptyavatar.jpg')
+              }
               width={150}
               alt='Profile Picture'
             />

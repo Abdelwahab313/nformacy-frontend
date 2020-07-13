@@ -5,17 +5,8 @@ import { FormContext, useForm } from 'react-hook-form';
 import { updateProfile, updateProfilePicture } from '../../apis/userAPI';
 import { useStyles } from '../../styles/formsStyles';
 
-const BasicInfoForm = () => {
-  const user = useRef(JSON.parse(localStorage.getItem('user')));
-  const {
-    register,
-    watch,
-    setValue,
-    getValues,
-    control,
-    errors,
-    handleSubmit,
-  } = useForm({
+const BasicInfoForm = ({ user, closeDialog }) => {
+  const formMethod = useForm({
     defaultValues: { ...user.current },
   });
   const [avatar, setAvatar] = useState([]);
@@ -26,12 +17,12 @@ const BasicInfoForm = () => {
       ...userData,
       id: user.current.id,
     };
+    console.log(userData);
     updateProfile(userToBeSubmitted, user.current.id)
       .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));
       })
-      .catch((error) => {
-      });
+      .catch((error) => {});
     if (avatar.length > 0) {
       const file = new Blob(avatar);
       const formData = new FormData();
@@ -41,27 +32,20 @@ const BasicInfoForm = () => {
         .then((response) => {
           localStorage.setItem('user', JSON.stringify(response.data));
         })
-        .catch((error) => {
-        });
+        .catch((error) => {});
     }
+    user.current = { ...user.current, ...userData };
+    closeDialog();
   };
 
   return (
-    <FormContext
-      control={control}
-      register={register}
-      user={user}
-      errors={errors}
-      setValue={setValue}
-      getValues={getValues}
-      setAvatar={setAvatar}
-      watch={watch}>
+    <FormContext user={user} setAvatar={setAvatar} {...formMethod}>
       <form
         id='editBasicInfoForm'
-        className={classes.form}
+        className={classes.nestedForm}
         noValidate
-        onSubmit={handleSubmit(onSubmitBasicInfo)}>
-        <BasicInfo/>
+        onSubmit={formMethod.handleSubmit(onSubmitBasicInfo)}>
+        <BasicInfo />
         <Button
           id='saveBasicInfo'
           type='submit'
@@ -73,7 +57,6 @@ const BasicInfoForm = () => {
       </form>
     </FormContext>
   );
-
 };
 
 export default BasicInfoForm;

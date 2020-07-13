@@ -10,7 +10,10 @@ import ReactTooltip from 'react-tooltip';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Input } from '@material-ui/core';
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import t from '../../locales/en/freelancerProfile.json';
 import Link from '@material-ui/core/Link';
@@ -29,153 +32,159 @@ const Certification = () => {
   });
 
   return (
-      <Container className={classes.nestedContainer}>
-        <Grid container alignItems='center'>
-          <Grid item xs>
-            <Typography gutterBottom variant='h4'>
-              {t['certifications']}
-            </Typography>
-          </Grid>
+    <Container className={classes.nestedContainer}>
+      <Grid container alignItems='center'>
+        <Grid item xs>
+          <Typography gutterBottom variant='h4'>
+            {t['certifications']}
+          </Typography>
         </Grid>
-        <Divider variant='middle' />
-        <Fragment>
-          {certificationForm.fields.map((item, index) => (
-            <Card key={item.id} className={classes.nestedCardContainer}>
-              <ReactTooltip globalEventOff={'click'} />
-              <CardContent>
-                {!!user.current.certifications[index] && (
-                  <Input
-                    label={'id'}
-                    type='hidden'
-                    name={`certifications[${index}][id]`}
-                    defaultValue={item.id}
-                    inputRef={register()}
-                  />
-                )}
-                <Container maxWidth={false} className={classes.formControl}>
-                  <TextField
-                    id={`certification-name-${index}`}
-                    fullWidth
-                    label={t['name']}
-                    variant='outlined'
-                    name={`certifications[${index}].name`}
-                    defaultValue={item.name}
-                    inputRef={register()}
-                    InputProps={{
-                      classes: {
-                        notchedOutline: classes.textField,
-                      },
-                    }}
-                  />
-                </Container>
-                <Container maxWidth={false} className={classes.formControl}>
-                  <TextField
-                    fullWidth
-                    label={'Issuing organization'}
-                    variant='outlined'
-                    name={`certifications[${index}].issuingOrganization`}
-                    defaultValue={item.issuingOrganization}
-                    inputRef={register()}
-                    InputProps={{
-                      classes: {
-                        notchedOutline: classes.textField,
-                      },
-                    }}
-                  />
-                </Container>
-                <Container maxWidth={false} className={classes.formControl}>
-                  <TextField
-                    fullWidth
-                    label={t['credential']}
-                    variant='outlined'
-                    name={`certifications[${index}].credential`}
-                    defaultValue={item.credential}
-                    inputRef={register()}
-                    InputProps={{
-                      classes: {
-                        notchedOutline: classes.textField,
-                      },
-                    }}
-                  />
-                </Container>
-                <Container maxWidth={false} className={classes.formControl}>
-                  <TextField
-                    fullWidth
-                    label={t['credentialURL']}
-                    variant='outlined'
-                    name={`certifications[${index}].credentialUrl`}
-                    defaultValue={item.credentialUrl}
-                    inputRef={register()}
-                    InputProps={{
-                      classes: {
-                        notchedOutline: classes.textField,
-                      },
-                    }}
-                  />
-                </Container>
-                <Grid>
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <Container maxWidth={false} className={classes.formControl}>
-                      <Controller
-                        name={`certifications[${index}].startDate`}
-                        control={control}
-                        as={
-                          <KeyboardDatePicker
-                            inputVariant='outlined'
-                            autoOk
-                            views={['year', 'month']}
-                            format='MM/yyyy'
-                            margin='normal'
-                            label={t['completedBy']}
-                            maxDate={Date.now()}
-                            KeyboardButtonProps={{
-                              'aria-label': t['changeDate'],
-                            }}
-                            onChange={(value) => value[0]}
-                            InputProps={{
-                              classes: {
-                                notchedOutline: classes.textField,
-                              },
-                            }}
-                          />
-                        }
-                      />
-                    </Container>
-                  </MuiPickersUtilsProvider>
-                </Grid>
-                <Container maxWidth={false} className={classes.formControl}>
-                  <Link
-                    className={[classes.fieldLabelStylesDesktop, classes.removeNestedText]}
-                    component='button'
-                    variant='body2'
-                    onClick={() => {
-                      if (!!item.name) {
-                        item['_destroy'] = true;
-                        setDeletedCertifications((prevItems) => [
-                          ...prevItems,
-                          item,
-                        ]);
+      </Grid>
+      <Divider variant='middle' />
+      <Fragment>
+        {certificationForm.fields.map((item, index) => (
+          <Card key={item.id} className={classes.nestedCardContainer}>
+            <ReactTooltip globalEventOff={'click'} />
+            <CardContent>
+              {!!user.current.certifications[index] && (
+                <Input
+                  label={'id'}
+                  type='hidden'
+                  name={`certifications[${index}][id]`}
+                  defaultValue={item.id}
+                  inputRef={register()}
+                />
+              )}
+              <Container maxWidth={false} className={classes.formControl}>
+                <TextField
+                  id={`certification-name-${index}`}
+                  fullWidth
+                  label={t['name']}
+                  variant='outlined'
+                  name={`certifications[${index}].name`}
+                  defaultValue={item.name}
+                  inputRef={register()}
+                  InputProps={{
+                    classes: {
+                      notchedOutline: classes.textField,
+                    },
+                  }}
+                />
+              </Container>
+              <Container maxWidth={false} className={classes.formControl}>
+                <TextField
+                  fullWidth
+                  label={'Issuing organization'}
+                  variant='outlined'
+                  name={`certifications[${index}].issuingOrganization`}
+                  defaultValue={item.issuingOrganization}
+                  inputRef={register()}
+                  InputProps={{
+                    classes: {
+                      notchedOutline: classes.textField,
+                    },
+                  }}
+                />
+              </Container>
+              <Container maxWidth={false} className={classes.formControl}>
+                <TextField
+                  fullWidth
+                  label={t['credential']}
+                  variant='outlined'
+                  name={`certifications[${index}].credential`}
+                  defaultValue={item.credential}
+                  inputRef={register()}
+                  InputProps={{
+                    classes: {
+                      notchedOutline: classes.textField,
+                    },
+                  }}
+                />
+              </Container>
+              <Container maxWidth={false} className={classes.formControl}>
+                <TextField
+                  fullWidth
+                  label={t['credentialURL']}
+                  variant='outlined'
+                  name={`certifications[${index}].credentialUrl`}
+                  defaultValue={item.credentialUrl}
+                  inputRef={register()}
+                  InputProps={{
+                    classes: {
+                      notchedOutline: classes.textField,
+                    },
+                  }}
+                />
+              </Container>
+              <Grid>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <Container maxWidth={false} className={classes.formControl}>
+                    <Controller
+                      name={`certifications[${index}].startDate`}
+                      control={control}
+                      as={
+                        <KeyboardDatePicker
+                          inputVariant='outlined'
+                          autoOk
+                          views={['year', 'month']}
+                          format='MM/yyyy'
+                          margin='normal'
+                          label={t['completedBy']}
+                          maxDate={Date.now()}
+                          KeyboardButtonProps={{
+                            'aria-label': t['changeDate'],
+                          }}
+                          onChange={(value) => value[0]}
+                          InputProps={{
+                            classes: {
+                              notchedOutline: classes.textField,
+                            },
+                          }}
+                        />
                       }
-                      certificationForm.remove(index);
-                    }}>
-                    {t['removeCertification']}
-                  </Link>
-                </Container>
-              </CardContent>
-            </Card>
-          ))}
-          <section className={classes.formControl}>
-            <Link
-              id='add-certification'
-              className={classes.fieldLabelStylesDesktop}
-              component='button'
-              variant='body2'
-              onClick={() => certificationForm.append({})}>
-              {t['addCertification']}
-            </Link>
-          </section>
-        </Fragment>
-      </Container>
+                    />
+                  </Container>
+                </MuiPickersUtilsProvider>
+              </Grid>
+              <Container maxWidth={false} className={classes.formControl}>
+                <Link
+                  className={[
+                    classes.fieldLabelStylesDesktop,
+                    classes.removeNestedText,
+                  ]}
+                  component='button'
+                  variant='body2'
+                  onClick={() => {
+                    if (!!item.name) {
+                      item['_destroy'] = true;
+                      setDeletedCertifications((prevItems) => [
+                        ...prevItems,
+                        item,
+                      ]);
+                    }
+                    certificationForm.remove(index);
+                  }}>
+                  {t['removeCertification']}
+                </Link>
+              </Container>
+            </CardContent>
+          </Card>
+        ))}
+        <section className={classes.formControl}>
+          <Link
+            id='add-certification'
+            className={classes.fieldLabelStylesDesktop}
+            component='button'
+            variant='body2'
+            onClick={(e) => {
+              e.preventDefault();
+              certificationForm.append({});
+            }}>
+            {t['addCertification']}
+          </Link>
+        </section>
+      </Fragment>
+    </Container>
   );
 };
 
