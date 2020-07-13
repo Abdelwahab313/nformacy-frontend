@@ -131,6 +131,7 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   fieldValueStyles: {
+    width: '50%',
     fontSize: '1.190vw',
     marginLeft: '15px',
     [theme.breakpoints.up('lg')]: {

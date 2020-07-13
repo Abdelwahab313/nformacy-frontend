@@ -37,72 +37,78 @@ const PersonalInfoSection = () => {
         open={open}>
         <DialogContent>
           <FormContext {...formMethod} user={user}>
-            <PersonalInfoForm />
+            <PersonalInfoForm/>
           </FormContext>
         </DialogContent>
       </Dialog>
       <Paper className={classes.paperSection} elevation={3}>
-        <Grid container justify='flex-end'>
-          <IconButton aria-label='edit' onClick={handleClickOpen}>
-            <EditIcon />
-          </IconButton>
-        </Grid>
-        <Grid container alignItems='center'>
-          <Grid item xs>
+        <Grid container justify={'space-between'}>
+          <Grid item xs={11} className={classes.paperSectionHeaderStyles}>
             <Typography gutterBottom className={classes.sectionHeaderStyles}>
               {t['personalInfo']}
             </Typography>
           </Grid>
-        </Grid>
-        <Divider variant='middle' style={dividerStyle} />
-        <Grid container spacing={5}>
-          <Grid item>
-            <Typography
-              gutterBottom
-              className={classes.fieldLabelStylesDesktop}>
-              Gender
-            </Typography>
-            <Typography
-              gutterBottom
-              className={classes.fieldLabelStylesDesktop}>
-              Country
-            </Typography>
-            <Typography
-              gutterBottom
-              className={classes.fieldLabelStylesDesktop}>
-              Mobile Number
-            </Typography>
-            <Typography
-              gutterBottom
-              className={classes.fieldLabelStylesDesktop}>
-              My current employment status
-            </Typography>
+          <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
+            <IconButton aria-label='edit' onClick={handleClickOpen}>
+              <EditIcon/>
+            </IconButton>
           </Grid>
-          <Grid item>
-            <Typography
-              id='gender'
-              gutterBottom
-              className={classes.fieldLabelStylesDesktop}>
-              {user.current.gender}
-            </Typography>
-            <Typography
-              id='country'
-              gutterBottom
-              className={classes.fieldLabelStylesDesktop}>
-              {user.current.country && countries?.find(country => country.value === user.current.country).label}
-            </Typography>
-            <Typography
-              id='mobileNumber'
-              gutterBottom
-              className={classes.fieldLabelStylesDesktop}>
-              {user.current.mobileNumber}
-            </Typography>
-            <Typography
-              id='currentEmploymentStatus'
-              gutterBottom
-              className={classes.fieldLabelStylesDesktop}>
-              {user.current.currentEmploymentStatus}
-            </Typography>
+        </Grid>
+        <Divider variant='middle' style={dividerStyle}/>
+        <Grid container spacing={5} className={classes.paperSectionContentStyles}>
+          <Grid item xs={12} className={classes.sectionRowContainerStyles} style={{ paddingLeft: '45px' }}>
+            <div className={classes.sectionRowStyles}>
+              <Typography
+                gutterBottom
+                className={classes.fieldLabelStylesDesktop}>
+                Gender
+              </Typography>
+              <Typography
+                id='gender'
+                gutterBottom
+                className={classes.fieldValueStyles}>
+                {user.current.gender}
+              </Typography>
+            </div>
+            <div className={classes.sectionRowStyles}>
+              <Typography
+                gutterBottom
+                className={classes.fieldLabelStylesDesktop}>
+                Country
+              </Typography>
+              <Typography
+                id='country'
+                gutterBottom
+                className={classes.fieldValueStyles}>
+                {user.current.country && countries?.find(country => country.value === user.current.country).label}
+              </Typography>
+            </div>
+            <div className={classes.sectionRowStyles}>
+              <Typography
+                gutterBottom
+                className={classes.fieldLabelStylesDesktop}>
+                Mobile Number
+              </Typography>
+              <Typography
+                id='mobileNumber'
+                gutterBottom
+                className={classes.fieldValueStyles}>
+                {user.current.mobileNumber}
+              </Typography>
+            </div>
+            <div className={classes.sectionRowStyles}>
+              <Typography
+                gutterBottom
+                className={classes.fieldLabelStylesDesktop}>
+                My current employment status
+              </Typography>
+              <Typography
+                id='currentEmploymentStatus'
+                gutterBottom
+                className={classes.fieldValueStyles}>
+                {user.current.currentEmploymentStatus}
+              </Typography>
+            </div>
           </Grid>
         </Grid>
       </Paper>
