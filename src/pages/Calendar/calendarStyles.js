@@ -34,7 +34,7 @@ const calendarStyles = (theme) => ({
       backgroundColor: 'white',
     },
     '&:focus': {
-      backgroundColor: fade(theme.palette.primary.main, 0.15),
+      // backgroundColor: fade(theme.palette.primary.main, 0.15),
       outline: 0,
     },
   },

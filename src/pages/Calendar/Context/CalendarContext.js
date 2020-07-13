@@ -5,6 +5,7 @@ const CalendarContext = createContext();
 const defaultValues = {
   selectedDay: '',
   isUpdatedTime: false,
+  isInteractable: true,
   availableDates: [
     {
       type: 'date',

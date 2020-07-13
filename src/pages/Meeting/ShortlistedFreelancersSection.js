@@ -53,7 +53,7 @@ function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
     <Card id={'shortlisted-candidates-section'}>
       <List className={classes.root}>
         {shortlistedFreelancers.map((freelancer) => (
-          <Fragment>
+          <Fragment key={freelancer.id}>
             <ListItem
               id={`freelancer-${freelancer.id}`}
               className={'freelancer-row'}

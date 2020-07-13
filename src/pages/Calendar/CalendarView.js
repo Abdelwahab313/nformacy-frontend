@@ -43,31 +43,42 @@ const DayScaleLayoutBase = ({ classes, ...props }) => (
 const DayScaleLayout = withStyles(calendarStyles, { name: 'TimeTable' })(DayScaleLayoutBase);
 
 
+const useCalendarDayState = (day) => {
+  const [{ availableDates, isInteractable, selectedDay }, dispatch] = useCalendarState();
+  console.log(availableDates);
+  const freelancerAvailableDates = availableDates.map((d) => {
+    return d.date;
+  });
+  const isAvailableDay = freelancerAvailableDates.some((date) =>
+    dateTimeParser.isSameDate(date, day),
+  );
+  const setSelectedDay = () => {
+    if (isAvailableDay && isInteractable) {
+      dispatch({
+        type: UPDATE_SELECTED_DAY,
+        payload: day,
+      });
+    }
+  };
+  const isSelectedDay = dateTimeParser.isSameDate(day, selectedDay);
+
+  return { isAvailableDay, isSelectedDay, setSelectedDay };
+};
+
 const CellBase = React.memo(
   ({ classes, startDate, formatDate, otherMonth }) => {
-    const [{ availableDates, selectedDay }, dispatch] = useCalendarState();
-    const freelancerAvailableDates = availableDates.map((d) => {
-      return d.date;
-    });
-    const isAvailableDay = freelancerAvailableDates.some((date) =>
-      dateTimeParser.isSameDate(date, startDate),
-    );
-    const onSelectDay = () => {
-      if (isAvailableDay) {
-        dispatch({
-          type: UPDATE_SELECTED_DAY,
-          payload: startDate,
-        });
-      }
-    };
+    const { isAvailableDay, isSelectedDay, setSelectedDay } = useCalendarDayState(startDate);
+    console.log(isAvailableDay);
+
     const isFirstMonthDay = startDate.getDate() === 1;
     const formatOptions = isFirstMonthDay
       ? { day: 'numeric', month: 'long' }
       : { day: 'numeric' };
+
     return (
       <TableCell
         style={isAvailableDay ? { backgroundColor: pink } : {}}
-        onClick={onSelectDay}
+        onClick={setSelectedDay}
         tabIndex={0}
         className={classNames({
           availableCell: isAvailableDay,
@@ -86,8 +97,7 @@ const CellBase = React.memo(
               {formatDate(startDate, formatOptions)}
             </Grid>
             <Grid item xs={4} alignself='right'>
-              {dateTimeParser.isSameDate(startDate, selectedDay) &&
-              isAvailableDay && (
+              {isSelectedDay && isAvailableDay && (
                 <CheckCircleOutlineIcon
                   id={'selectedDayIcon'}
                   className={classes.checkedIcon}
