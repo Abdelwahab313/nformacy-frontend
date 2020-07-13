@@ -38,6 +38,10 @@ const calendarStyles = (theme) => ({
       outline: 0,
     },
   },
+  table: {
+    minWidth: '200px'
+    // minWidth: '200px'
+  },
   content: {
     display: 'flex',
     justifyContent: 'center',

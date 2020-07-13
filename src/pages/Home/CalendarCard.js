@@ -1,28 +1,19 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
 import useStyles from './styles/HomePageStyles';
+import CalendarView from '../Calendar/CalendarView';
+import { Grid } from '@material-ui/core';
 
-const ProfileSummaryCard = () => {
+const CalendarCard = () => {
   const classes = useStyles();
 
   return (
     <Card className={classes.card}>
-      <CardActionArea>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Profile
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-           Expert in the (Fields/subfields) In these industries
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+      <Grid item>
+        <CalendarView/>
+      </Grid>
     </Card>
   );
 };
 
-export default ProfileSummaryCard;
+export default CalendarCard;

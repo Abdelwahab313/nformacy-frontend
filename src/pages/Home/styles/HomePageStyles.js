@@ -4,6 +4,7 @@ import { lightTurquoise } from '../../../styles/colors';
 const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 345,
+    marginBottom: theme.spacing(3),
     borderRadius: 25,
     backgroundColor: lightTurquoise,
   },

@@ -26,6 +26,23 @@ const DayScaleCell = (props) => (
   />
 );
 
+const TimeTableLayoutBase = ({ classes, ...props }) => (
+  <MonthView.TimeTableLayout
+    {...props}
+    className={classes.table}
+  />
+);
+const TimeTableLayout = withStyles(calendarStyles, { name: 'TimeTable' })(TimeTableLayoutBase);
+
+const DayScaleLayoutBase = ({ classes, ...props }) => (
+  <MonthView.DayScaleLayout
+    {...props}
+    className={classes.table}
+  />
+);
+const DayScaleLayout = withStyles(calendarStyles, { name: 'TimeTable' })(DayScaleLayoutBase);
+
+
 const CellBase = React.memo(
   ({ classes, startDate, formatDate, otherMonth }) => {
     const [{ availableDates, selectedDay }, dispatch] = useCalendarState();
@@ -94,6 +111,8 @@ const CalendarView = () => {
         <MonthView
           timeTableCellComponent={TimeTableCell}
           dayScaleCellComponent={DayScaleCell}
+          dayScaleLayoutComponent={DayScaleLayout}
+          timeTableLayoutComponent={TimeTableLayout}
         />
         <Toolbar/>
         <DateNavigator/>
