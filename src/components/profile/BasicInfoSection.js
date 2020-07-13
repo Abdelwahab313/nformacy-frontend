@@ -35,67 +35,73 @@ const BasicInfoSection = () => {
         open={open}>
         <DialogContent>
           <FormContext {...formMethod} user={user} setAvatar={setAvatar}>
-            <BasicInfoForm />
+            <BasicInfoForm/>
           </FormContext>
         </DialogContent>
       </Dialog>
       <Paper className={classes.paperSection} elevation={3}>
-        <Grid container justify='flex-end'>
-          <IconButton aria-label='edit' onClick={handleClickOpen}>
-            <EditIcon />
-          </IconButton>
-        </Grid>
-        <Grid container alignItems='center'>
-          <Grid item xs>
+        <Grid container justify={'space-between'}>
+          <Grid item xs={11} className={classes.paperSectionHeaderStyles}>
             <Typography gutterBottom className={classes.sectionHeaderStyles}>
               Basic Information
             </Typography>
           </Grid>
-        </Grid>
-        <Divider variant='middle' style={dividerStyle} />
-        <img
-          id='profilePicture'
-          src={user.current.avatar || require('../../assets/emptyavatar.jpg')}
-          width={150}
-          alt='Profile Picture'
-        />
-        <Grid container spacing={5}>
-          <Grid item>
-            <Typography
-              gutterBottom
-              className={classes.fieldLabelStylesDesktop}>
-              First Name
-            </Typography>
-            <Typography
-              gutterBottom
-              className={classes.fieldLabelStylesDesktop}>
-              Last Name
-            </Typography>
-            <Typography
-              gutterBottom
-              className={classes.fieldLabelStylesDesktop}>
-              Email
-            </Typography>
+          <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
+            <IconButton aria-label='edit' onClick={handleClickOpen}>
+              <EditIcon/>
+            </IconButton>
           </Grid>
-          <Grid item>
-            <Typography
-              id='firstName'
-              gutterBottom
-              className={classes.fieldLabelStylesDesktop}>
-              {user.current.firstName}
-            </Typography>
-            <Typography
-              id='lastName'
-              gutterBottom
-              className={classes.fieldLabelStylesDesktop}>
-              {user.current.lastName}
-            </Typography>
-            <Typography
-              id='email'
-              gutterBottom
-              className={classes.fieldLabelStylesDesktop}>
-              {user.current.email}
-            </Typography>
+        </Grid>
+        <Divider variant='middle' style={dividerStyle}/>
+        <Grid container spacing={5} className={classes.paperSectionContentStyles}>
+          <Grid item xs={12} sm={3} className={classes.profilePhotoContainer}>
+            <img
+              id='profilePicture'
+              src={user.current.avatar || require('../../assets/emptyavatar.jpg')}
+              width={150}
+              alt='Profile Picture'
+            />
+          </Grid>
+          <Grid xs={12} sm={9} className={classes.sectionRowContainerStyles}>
+            <div className={classes.sectionRowStyles}>
+              <Typography
+                gutterBottom
+                className={classes.fieldLabelStylesDesktop}>
+                First Name
+              </Typography>
+              <Typography
+                id='firstName'
+                gutterBottom
+                className={classes.fieldValueStyles}>
+                {user.current.firstName}
+              </Typography>
+            </div>
+            <div className={classes.sectionRowStyles}>
+              <Typography
+                gutterBottom
+                className={classes.fieldLabelStylesDesktop}>
+                Last Name
+              </Typography>
+              <Typography
+                id='lastName'
+                gutterBottom
+                className={classes.fieldValueStyles}>
+                {user.current.lastName}
+              </Typography>
+            </div>
+            <div className={classes.sectionRowStyles}>
+              <Typography
+                gutterBottom
+                className={classes.fieldLabelStylesDesktop}>
+                Email
+              </Typography>
+              <Typography
+                id='email'
+                gutterBottom
+                className={classes.fieldValueStyles}>
+                {user.current.email}
+              </Typography>
+            </div>
           </Grid>
         </Grid>
       </Paper>

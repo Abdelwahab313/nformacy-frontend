@@ -119,6 +119,20 @@ export const useStyles = makeStyles((theme) => ({
   },
   fieldLabelStylesDesktop: {
     fontSize: '1.190vw',
+    fontWeight: 'bold',
+    [theme.breakpoints.up('lg')]: {
+      fontSize: '1.00vw',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2.604vw',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '4vw',
+    },
+  },
+  fieldValueStyles: {
+    fontSize: '1.190vw',
+    marginLeft: '15px',
     [theme.breakpoints.up('lg')]: {
       fontSize: '1.00vw',
     },
@@ -151,12 +165,12 @@ export const useStyles = makeStyles((theme) => ({
     padding: '0 !important',
   },
   buttonsContainer: {
-    marginTop: "50px !important",
+    marginTop: '50px !important',
   },
   stepTwoContainer: {
     [theme.breakpoints.down('sm')]: {
       flexWrap: 'nowrap !important',
-      flexDirection: 'column-reverse'
+      flexDirection: 'column-reverse',
     },
   },
   stepThreeContainer: {
@@ -167,7 +181,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   imageUploadContainer: {
     [theme.breakpoints.down('sm')]: {
-     alignSelf: 'center'
+      alignSelf: 'center',
     },
   },
   sideHintContainer: {
@@ -179,11 +193,11 @@ export const useStyles = makeStyles((theme) => ({
 
     [theme.breakpoints.up('lg')]: {
       paddingTop: '24px !important',
-      marginTop: '40px'
+      marginTop: '40px',
     },
   },
   removeNestedText: {
-    color: grey
+    color: grey,
   },
   logInPageContainer: {
     padding: theme.spacing(5),
@@ -201,6 +215,27 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       fontSize: '5vw',
     },
+  },
+  paperSectionHeaderStyles: {
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  sectionRowStyles: {
+    display: 'flex',
+  },
+  sectionRowContainerStyles: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+  },
+  paperSectionContentStyles: {
+    marginTop: '10px !important',
+  },
+  profilePhotoContainer: {
+    padding: '10px !important',
+    display: 'flex',
+    justifyContent: 'center'
   },
   signUpHeaderStyle: {
     fontSize: '1.190vw',
@@ -230,7 +265,7 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: '16px',
     width: 'fit-content',
     height: 'fit-content',
-  }
+  },
 }));
 
 export const selectStyle = {
@@ -265,7 +300,7 @@ export const selectStyle = {
     ...provided,
     height: 51,
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
   }),
 
 };
