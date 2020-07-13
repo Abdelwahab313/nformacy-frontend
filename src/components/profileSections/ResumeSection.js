@@ -177,7 +177,7 @@ const ResumeSection = () => {
             </Grid>
             <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
               <IconButton aria-label='edit' onClick={handleClickOpen}>
-                <EditIcon />
+                <EditIcon color={'primary'}/>
               </IconButton>
             </Grid>
           </Grid>

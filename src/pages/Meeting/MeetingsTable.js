@@ -81,7 +81,7 @@ const MeetingsTable = ({ meetings }) => {
                   className={'edit'}
                   onClick={() => handleEditClick(meeting.id)}
                   aria-label='edit'>
-                  <EditIcon/>
+                  <EditIcon color={'primary'}/>
                 </IconButton>
               </StyledTableCell>
             </StyledTableRow>
