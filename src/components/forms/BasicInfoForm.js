@@ -3,7 +3,7 @@ import BasicInfo from './BasicInfo';
 import Button from '@material-ui/core/Button';
 import { FormContext, useForm } from 'react-hook-form';
 import { updateProfile, updateProfilePicture } from '../../apis/userAPI';
-import { useStyles } from '../../styles/formsStyles';
+import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
 
 const BasicInfoForm = ({ user, closeDialog }) => {
   const formMethod = useForm({
@@ -51,7 +51,7 @@ const BasicInfoForm = ({ user, closeDialog }) => {
           type='submit'
           variant='contained'
           color='primary'
-          className={[classes.editButton, classes.submit]}>
+          style={saveButtonStyle()}>
           Save
         </Button>
       </form>

@@ -10,6 +10,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import BasicInfoForm from '../forms/BasicInfoForm';
 import Transition from '../animations/Transition';
+import t from '../../locales/en/freelancerProfile.json';
 
 const BasicInfoSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -41,7 +42,7 @@ const BasicInfoSection = () => {
         <Grid container justify={'space-between'}>
           <Grid item xs={11} className={classes.paperSectionHeaderStyles}>
             <Typography gutterBottom className={classes.sectionHeaderStyles}>
-              Basic Information
+              {t['basicInformation']}
             </Typography>
           </Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
@@ -71,7 +72,7 @@ const BasicInfoSection = () => {
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  First Name
+                  {t['firstName']}
                 </Typography>
               </Grid>
               <Grid item xs={8}>
@@ -88,7 +89,7 @@ const BasicInfoSection = () => {
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  Last Name
+                  {t['lastName']}
                 </Typography>
               </Grid>
               <Grid item xs={8}>
@@ -105,7 +106,7 @@ const BasicInfoSection = () => {
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  Email
+                  {t['email']}
                 </Typography>
               </Grid>
               <Grid item xs={8}>

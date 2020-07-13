@@ -62,5 +62,9 @@
   "areYouSureYouWantToBack": "Are you sure you want to go back?",
   "ifYouGoBackYourDataWillBeLost": "If you chose to go back your data in this page will be lost and you will have to fill it again.",
   "confirm": "Confirm",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "basicInformation": "Basic Information",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "email": "Email"
 }

@@ -2,7 +2,7 @@ import PersonalInfo from './PersonalInfo';
 import Button from '@material-ui/core/Button';
 import { FormContext, useForm } from 'react-hook-form';
 import React, { useRef } from 'react';
-import { useStyles } from '../../styles/formsStyles';
+import { nextButtonStyles, saveButtonStyle, useStyles } from '../../styles/formsStyles';
 import { updateProfile } from '../../apis/userAPI';
 
 const PersonalInfoForm = ({ user, closeDialog }) => {
@@ -37,8 +37,8 @@ const PersonalInfoForm = ({ user, closeDialog }) => {
           id='savePersonalInfo'
           type='submit'
           variant='contained'
-          color='primary'
-          className={[classes.editButton, classes.submit]}>
+          style={saveButtonStyle()}
+          color='primary'>
           Save
         </Button>
       </form>

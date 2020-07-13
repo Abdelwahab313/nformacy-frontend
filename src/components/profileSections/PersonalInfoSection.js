@@ -13,6 +13,7 @@ import Divider from '@material-ui/core/Divider';
 import countryList from 'react-select-country-list';
 import PersonalInfoForm from '../forms/PersonalInfoForm';
 import Transition from '../animations/Transition';
+import { employmentStatus } from '../../constants/dropDownOptions';
 
 const PersonalInfoSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -55,19 +56,26 @@ const PersonalInfoSection = () => {
           </Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
             <IconButton aria-label='edit' onClick={handleClickOpen}>
-              <EditIcon color={'primary'}/>
+              <EditIcon color={'primary'} />
             </IconButton>
           </Grid>
         </Grid>
-        <Divider variant='middle' style={dividerStyle}/>
-        <Grid container spacing={5} className={classes.paperSectionContentStyles}>
-          <Grid item xs={12} className={classes.sectionRowContainerStyles} style={{ paddingLeft: '45px' }}>
+        <Divider variant='middle' style={dividerStyle} />
+        <Grid
+          container
+          spacing={5}
+          className={classes.paperSectionContentStyles}>
+          <Grid
+            item
+            xs={12}
+            className={classes.sectionRowContainerStyles}
+            style={{ paddingLeft: '45px' }}>
             <Grid container className={classes.sectionRowStyles}>
               <Grid item xs={6}>
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  Gender
+                  {t['gender']}
                 </Typography>
               </Grid>
               <Grid item xs={6}>
@@ -75,7 +83,7 @@ const PersonalInfoSection = () => {
                   id='gender'
                   gutterBottom
                   className={classes.fieldValueStyles}>
-                  {user.current.gender}
+                  {user.current.gender === 'M' ? 'Male' : 'Female'}
                 </Typography>
               </Grid>
             </Grid>
@@ -84,7 +92,7 @@ const PersonalInfoSection = () => {
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  Country
+                  {t['country']}
                 </Typography>
               </Grid>
               <Grid item xs={6}>
@@ -92,7 +100,10 @@ const PersonalInfoSection = () => {
                   id='country'
                   gutterBottom
                   className={classes.fieldValueStyles}>
-                  {user.current.country && countries?.find(country => country.value === user.current.country).label}
+                  {user.current.country &&
+                    countries?.find(
+                      (country) => country.value === user.current.country,
+                    ).label}
                 </Typography>
               </Grid>
             </Grid>
@@ -101,8 +112,9 @@ const PersonalInfoSection = () => {
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  Mobile Number
-                </Typography></Grid>
+                  {t['mobileNumber']}
+                </Typography>
+              </Grid>
               <Grid item xs={6}>
                 <Typography
                   id='mobileNumber'
@@ -117,7 +129,7 @@ const PersonalInfoSection = () => {
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  My current employment status
+                  {t['currentEmploymentStatus']}
                 </Typography>
               </Grid>
               <Grid item xs={6}>
@@ -125,7 +137,12 @@ const PersonalInfoSection = () => {
                   id='currentEmploymentStatus'
                   gutterBottom
                   className={classes.fieldValueStyles}>
-                  {user.current.currentEmploymentStatus}
+                  {
+                    employmentStatus.find(
+                      (status) =>
+                        status.value === user.current.currentEmploymentStatus,
+                    )?.label
+                  }
                 </Typography>
               </Grid>
             </Grid>

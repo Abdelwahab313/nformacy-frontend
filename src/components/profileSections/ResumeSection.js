@@ -63,7 +63,7 @@ const ResumeSection = () => {
       history.push(historyEntry);
     });
     return history.sort((entry1, entry2) =>
-      entry1.date <= entry2.date ? -1 : 1,
+      entry1.date <= entry2.date ? 1 : -1,
     );
   };
 

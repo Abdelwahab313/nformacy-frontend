@@ -6,7 +6,7 @@ const gender = [
 const employmentStatus = [
   { value: 'businessOwner', label: 'Business Owner' },
   { value: 'freelancer', label: 'Freelancer' },
-  { value: 'employedByGovernment', label: 'Employed by government' },
+  { value: 'employedByGovernment', label: 'Employed by Government' },
   { value: 'employedByNGO', label: 'Employed by NGO' },
   {
     value: 'employedByPrivateOrganization',

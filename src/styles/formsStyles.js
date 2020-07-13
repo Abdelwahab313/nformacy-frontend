@@ -416,6 +416,13 @@ export const nextButtonStyles = (disabled) => {
   };
 };
 
+export const saveButtonStyle = () => {
+  return {
+    width: '10%',
+    marginTop: '20px'
+  };
+};
+
 export const formStyle = {
   display: 'flex',
   flexDirection: 'column',
