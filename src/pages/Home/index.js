@@ -4,7 +4,6 @@ import { Box, Grid } from '@material-ui/core';
 import ProfileSummaryCard from './ProfileSummaryCard';
 import useStyles from './styles/HomePageStyles';
 import CalendarCard from './CalendarCard';
-import { CalendarProvider } from '../Calendar/Context/CalendarContext';
 
 const HomePage = () => {
   const classes = useStyles();

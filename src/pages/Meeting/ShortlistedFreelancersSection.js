@@ -11,7 +11,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import EventIcon from '@material-ui/icons/Event';
 import IconButton from '@material-ui/core/IconButton';
-import CalendarDialog from '../Calendar/CalendarDialog';
+import MeetingTimeSelectorCalendarDialog from '../../components/calendarDialogs/MeetingTimeSelectorCalendarDialog';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { useLocation } from 'react-router';
@@ -109,7 +109,7 @@ function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
         </Alert>
       </Snackbar>
 
-      <CalendarDialog
+      <MeetingTimeSelectorCalendarDialog
         open={isCalendarOpened}
         onClose={closeCalendar}
         availableDates={

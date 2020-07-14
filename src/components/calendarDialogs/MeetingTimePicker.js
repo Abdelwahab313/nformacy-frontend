@@ -18,7 +18,7 @@ const calculateTimeSlotsOptions = (startTime, endTime) => {
   return timeSlots;
 };
 
-const AvailableTimePicker = ({
+const MeetingTimePicker = ({
   startTime,
   endTime,
   handleTimeChange,
@@ -44,4 +44,4 @@ const AvailableTimePicker = ({
   );
 };
 
-export default AvailableTimePicker;
+export default MeetingTimePicker;
