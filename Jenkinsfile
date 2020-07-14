@@ -112,8 +112,9 @@ pipeline {
       junit 'cypress/results/*.xml'
       script {
           if (fileExists('cypress/screenshots')) {
-              sh 'zip -r screenshots.zip -i cypress/screenshot/'
               archiveArtifacts artifacts: 'cypress/screenshots/**/*.png'
+              sh 'zip -r screenshots.zip -i cypress/screenshots/'
+              archiveArtifacts artifacts: 'screenshots.zip'
               echo 'Yes'
           }
       }
