@@ -153,6 +153,19 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '4vw',
     },
   },
+  summaryValueStyles: {
+    marginLeft: theme.spacing(2),
+    fontSize: '1.190vw',
+    [theme.breakpoints.up('lg')]: {
+      fontSize: '1.00vw',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2.604vw',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '4vw',
+    },
+  },
   timelineFieldValueStyles: {
     fontSize: '1.190vw',
     [theme.breakpoints.up('lg')]: {

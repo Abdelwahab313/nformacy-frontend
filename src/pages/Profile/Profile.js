@@ -10,24 +10,25 @@ import FieldsOfSpecializationSection from '../../components/profileSections/Fiel
 import Grid from '@material-ui/core/Grid';
 import EducationAndCertificationSection from '../../components/profileSections/EducationAndCertificationSection';
 import WorkExperienceSection from '../../components/profileSections/WorkExperienceSection';
+import SummarySection from '../../components/profileSections/SummarySection';
 
 const Profile = ({ t }) => {
   const classes = useStyles();
 
-
   return (
     <Container component='main' maxWidth={false} dir='ltr'>
-      <ReactTooltip globalEventOff={'click'}/>
-      <CssBaseline/>
+      <ReactTooltip globalEventOff={'click'} />
+      <CssBaseline />
       <Grid container justify={'center'} alignContent={'center'}>
         <Grid item xs={12} sm={8}>
-          <BasicInfoSection/>
-          <PersonalInfoSection/>
-          <FieldsOfSpecializationSection/>
-          <WorkExperienceSection/>
-          <EducationAndCertificationSection/>
+          <SummarySection />
+          <BasicInfoSection />
+          <PersonalInfoSection />
+          <FieldsOfSpecializationSection />
+          <WorkExperienceSection />
+          <EducationAndCertificationSection />
         </Grid>
-        <Container maxWidth={false} className={classes.formControl}/>
+        <Container maxWidth={false} className={classes.formControl} />
       </Grid>
     </Container>
   );

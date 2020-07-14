@@ -70,5 +70,6 @@
   "educationHeader": "Education",
   "certificationHeader": "Certification",
   "workExperienceHeader": "Work Experience",
-  "educationAndCertificationHeader": "Education and Certification"
+  "educationAndCertificationHeader": "Education and Certification",
+  "summary": "Summary"
 }

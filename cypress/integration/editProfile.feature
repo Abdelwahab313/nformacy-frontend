@@ -32,6 +32,14 @@ Feature: Edit profile
     And press save fields of specializations
     Then then should see my updatedfields of specializations
 
+  Scenario: Successfully edit summary
+    Given I log in
+    When I go to profile page
+    And I click on edit summary info
+    When I fill my summary
+    And press save summary info
+    Then then should see my updated summary
+
 #  @ignore
 #  Scenario: Edit Profile
 #    Given I log in

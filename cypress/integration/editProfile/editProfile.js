@@ -130,3 +130,18 @@ When(/^press save fields of specializations$/, function() {
 Then(/^then should see my updatedfields of specializations$/, function() {
   cy.get('#industriesOfExperience').contains('Utilities');
 });
+When(/^I click on edit summary info$/, function() {
+  cy.get('#editSummary ').click();
+
+});
+When(/^I fill my summary$/, function() {
+  cy.get('#summaryField').clear();
+  cy.get('#summaryField').type('test summary');
+});
+When(/^press save summary info$/, function() {
+  cy.get('#saveSummary').click();
+  cy.get('#editSummary').should('be.visible');
+});
+Then(/^then should see my updated summary$/, function() {
+  cy.get('#summaryValue').contains('test summary');
+});
