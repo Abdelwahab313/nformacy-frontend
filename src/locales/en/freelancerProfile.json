@@ -71,5 +71,6 @@
   "certificationHeader": "Certification",
   "workExperienceHeader": "Work Experience",
   "educationAndCertificationHeader": "Education and Certification",
-  "summary": "Summary"
+  "summary": "Summary",
+  "linkedInProfileUrl": "Linked in Profile Link"
 }

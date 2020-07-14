@@ -21,8 +21,8 @@ const Profile = ({ t }) => {
       <CssBaseline />
       <Grid container justify={'center'} alignContent={'center'}>
         <Grid item xs={12} sm={8}>
-          <SummarySection />
           <BasicInfoSection />
+          <SummarySection />
           <PersonalInfoSection />
           <FieldsOfSpecializationSection />
           <WorkExperienceSection />

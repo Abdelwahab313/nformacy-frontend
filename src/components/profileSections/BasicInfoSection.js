@@ -11,6 +11,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import BasicInfoForm from '../forms/BasicInfoForm';
 import Transition from '../animations/Transition';
 import t from '../../locales/en/freelancerProfile.json';
+import Link from '@material-ui/core/Link';
 
 const BasicInfoSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -67,7 +68,7 @@ const BasicInfoSection = () => {
             <img
               id='profilePicture'
               src={profilePic}
-              width={150}
+              style={{width: '100%', height: 'auto'}}
               alt='Profile Picture'
             />
           </Grid>
@@ -120,6 +121,26 @@ const BasicInfoSection = () => {
                   gutterBottom
                   className={classes.fieldValueStyles}>
                   {user.current.email}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={4}>
+                <Typography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
+                  {t['linkedInProfileUrl']}
+                </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography
+                  id='linkedInProfileUrlValue'
+                  gutterBottom
+                  className={classes.fieldValueStyles}>
+                  <Link id="linkedInProfileUrlLink" href={user.current.linkedInProfileUrl}>
+                    {user.current.linkedInProfileUrl}
+                  </Link>
+
                 </Typography>
               </Grid>
             </Grid>

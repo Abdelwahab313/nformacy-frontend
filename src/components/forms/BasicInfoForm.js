@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import BasicInfo from './BasicInfo';
 import Button from '@material-ui/core/Button';
 import { FormContext, useForm } from 'react-hook-form';
@@ -22,7 +22,8 @@ const BasicInfoForm = ({ user, closeDialog, setProfilePic }) => {
       .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));
       })
-      .catch((error) => {});
+      .catch((error) => {
+      });
     if (avatar.length > 0) {
       const file = new Blob(avatar);
       const formData = new FormData();
@@ -35,7 +36,8 @@ const BasicInfoForm = ({ user, closeDialog, setProfilePic }) => {
             setProfilePic(response.data.avatar);
           }
         })
-        .catch((error) => {});
+        .catch((error) => {
+        });
     }
     user.current = { ...user.current, ...userData };
     closeDialog();
@@ -48,7 +50,7 @@ const BasicInfoForm = ({ user, closeDialog, setProfilePic }) => {
         className={classes.nestedForm}
         noValidate
         onSubmit={formMethod.handleSubmit(onSubmitBasicInfo)}>
-        <BasicInfo />
+        <BasicInfo/>
         <Button
           id='saveBasicInfo'
           type='submit'

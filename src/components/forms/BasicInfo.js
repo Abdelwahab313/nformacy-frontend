@@ -8,6 +8,7 @@ import ErrorMessage from '../errors/ErrorMessage';
 import React from 'react';
 import { useStyles } from '../../styles/formsStyles';
 import { useFormContext } from 'react-hook-form';
+import t from '../../locales/en/freelancerProfile.json';
 
 const BasicInfo = () => {
   const classes = useStyles();
@@ -43,7 +44,7 @@ const BasicInfo = () => {
       </Container>
       <Container maxWidth={false} className={classes.formControl}>
         <Typography gutterBottom variant='subtitle2'>
-          First Name
+          {t["firstName"]}
         </Typography>
         <TextField
           variant='outlined'
@@ -60,7 +61,7 @@ const BasicInfo = () => {
       </Container>
       <Container maxWidth={false} className={classes.formControl}>
         <Typography gutterBottom variant='subtitle2'>
-          Last Name
+          {t["lastName"]}
         </Typography>
         <TextField
           variant='outlined'
@@ -77,7 +78,7 @@ const BasicInfo = () => {
       </Container>
       <Container maxWidth={false} className={classes.formControl}>
         <Typography gutterBottom variant='subtitle2'>
-          Email
+          {t["email"]}
         </Typography>
         <TextField
           variant='outlined'
@@ -97,6 +98,23 @@ const BasicInfo = () => {
           error={!!errors.email}
         />
         <ErrorMessage errorField={errors.email} />
+      </Container>
+      <Container maxWidth={false} className={classes.formControl}>
+        <Typography gutterBottom variant='subtitle2'>
+          {t["linkedInProfileUrl"]}
+        </Typography>
+        <TextField
+          variant='outlined'
+          margin='normal'
+          fullWidth
+          id='linkedInProfileUrl'
+          name='linkedInProfileUrl'
+          defaultValue={!user.current.linkedInProfileUrl && ''}
+          inputRef={register({ required: 'This field is required' })}
+          autoComplete='name'
+          error={!!errors.linkedInProfileUrl}
+        />
+        <ErrorMessage errorField={errors.linkedInProfileUrl} />
       </Container>
     </Container>
   );

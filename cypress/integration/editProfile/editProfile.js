@@ -40,6 +40,7 @@ When(/^press submit$/, function() {
 });
 Then(/^then should see my updated basic info$/, function() {
   cy.get('#firstNameValue').contains('test first name');
+  cy.get('#linkedInProfileUrlValue').contains('linkedin.com');
 });
 When(/^I Upload an image$/, function() {
   cy.get('.chooseFileButton ').click();
@@ -81,6 +82,8 @@ When(/^I fill my updated basic Info data$/, function() {
   cy.get('input[name="lastName"]').type('test last name');
   cy.get('input[name="email"]').clear();
   cy.get('input[name="email"]').type('test@test.com');
+  cy.get('input[name="linkedInProfileUrl"]').clear();
+  cy.get('input[name="linkedInProfileUrl"]').type('linkedin.com');
 });
 When(/^press save basic info$/, function() {
   cy.get('#saveBasicInfo').click();
