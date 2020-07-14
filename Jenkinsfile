@@ -110,12 +110,12 @@ pipeline {
   post {
     always {
       junit 'cypress/results/*.xml'
-
-      def exists = fileExists 'cypress/screenshots'
-      if (exists) {
-          sh 'zip -r screenshots.zip -i cypress/screenshot/'
-          archiveArtifacts artifacts: 'cypress/screenshots/**/*.png'
-          echo 'Yes'
+      script {
+          if (fileExists('cypress/screenshots')) {
+              sh 'zip -r screenshots.zip -i cypress/screenshot/'
+              archiveArtifacts artifacts: 'cypress/screenshots/**/*.png'
+              echo 'Yes'
+          }
       }
 
       echo 'stop server'
