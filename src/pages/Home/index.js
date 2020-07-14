@@ -15,12 +15,8 @@ const HomePage = () => {
     <Grid container>
       <Grid item lg={3} className={classes.sidebar}>
         <ProfileSummaryCard/>
-        <CalendarProvider initialValue={{
-          isInteractable: false,
-          availableDates: !!user.freeDates ? user.freeDates : [],
-        }}>
-          <CalendarCard/>
-        </CalendarProvider>
+
+        <CalendarCard user={user}/>
       </Grid>
       <Grid item lg>
         <Box mt={8}>

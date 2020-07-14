@@ -32,16 +32,11 @@ const StyledMenu = withStyles({
   />
 ));
 
-const StyledMenuItem = withStyles((theme) => ({
+const StyledListText = withStyles((theme) => ({
   root: {
-    '&:focus': {
-      backgroundColor: theme.palette.primary.main,
-      // '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-      //   color: theme.palette.common.white,
-      // },
-    },
+    color: theme.palette.common.white,
   },
-}))(MenuItem);
+}))(ListItemText);
 
 const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
   return (
@@ -52,53 +47,53 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
       open={Boolean(anchorEl)}
       onClose={handleClose}
     >
-      <StyledMenuItem
+      <MenuItem
         id={'home'}
         key={'home'}
         onClick={() => handleClose()}
         component={Link}
         to={'/'}>
         <ListItemIcon>
-          <HomeIcon/>
+          <HomeIcon color={'secondary'}/>
         </ListItemIcon>
-        <ListItemText primary={'Home'}/>
-      </StyledMenuItem>
+        <StyledListText primary={'Home'}/>
+      </MenuItem>
 
-      <StyledMenuItem
+      <MenuItem
         id={'editProfile'}
         key={'editProfile'}
         onClick={() => handleClose()}
         component={Link}
         to={'/user/edit'}>
         <ListItemIcon>
-          <AccountBoxIcon/>
+          <AccountBoxIcon color={'secondary'}/>
         </ListItemIcon>
-        <ListItemText primary={'Profile'}/>
-      </StyledMenuItem>
+        <StyledListText primary={'Profile'}/>
+      </MenuItem>
 
-      <StyledMenuItem
+      <MenuItem
         id={'meeting'}
         key={'Meeting'}
         onClick={() => handleClose()}
         component={Link}
         to={'/meeting/list'}>
         <ListItemIcon>
-          <VideoCallIcon/>
+          <VideoCallIcon color={'secondary'}/>
         </ListItemIcon>
-        <ListItemText primary={'Meeting'}/>
-      </StyledMenuItem>
+        <StyledListText primary={'Meeting'}/>
+      </MenuItem>
 
-      <StyledMenuItem
+      <MenuItem
         id={'logout'}
         key={'logout'}
         onClick={() => handleClose()}
         component={Link}
         to={'/logout'}>
         <ListItemIcon>
-          <ExitToAppIcon/>
+          <ExitToAppIcon color={'secondary'}/>
         </ListItemIcon>
-        <ListItemText primary={'logout'}/>
-      </StyledMenuItem>
+        <StyledListText primary={'logout'}/>
+      </MenuItem>
     </StyledMenu>
   );
 };

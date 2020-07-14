@@ -12,8 +12,6 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import { useCalendarState } from './Context/CalendarContext';
-import { UPDATE_SELECTED_DAY } from './Context/contextActions';
 import Grid from '@material-ui/core/Grid';
 import calendarStyles from './calendarStyles';
 import dateTimeParser from '../../services/dateTimeParser';
@@ -43,32 +41,21 @@ const DayScaleLayoutBase = ({ classes, ...props }) => (
 const DayScaleLayout = withStyles(calendarStyles, { name: 'TimeTable' })(DayScaleLayoutBase);
 
 
-const useCalendarDayState = (day) => {
-  const [{ availableDates, isInteractable, selectedDay }, dispatch] = useCalendarState();
-  console.log(availableDates);
-  const freelancerAvailableDates = availableDates.map((d) => {
-    return d.date;
-  });
-  const isAvailableDay = freelancerAvailableDates.some((date) =>
-    dateTimeParser.isSameDate(date, day),
-  );
-  const setSelectedDay = () => {
-    if (isAvailableDay && isInteractable) {
-      dispatch({
-        type: UPDATE_SELECTED_DAY,
-        payload: day,
-      });
-    }
-  };
-  const isSelectedDay = dateTimeParser.isSameDate(day, selectedDay);
-
-  return { isAvailableDay, isSelectedDay, setSelectedDay };
-};
-
 const CellBase = React.memo(
-  ({ classes, startDate, formatDate, otherMonth }) => {
-    const { isAvailableDay, isSelectedDay, setSelectedDay } = useCalendarDayState(startDate);
-    console.log(isAvailableDay);
+  ({ classes, startDate, formatDate, otherMonth, availableDates, isInteractable, selectedDay, setSelectedDay }) => {
+
+    const isSelectedDay = dateTimeParser.isSameDate(startDate, selectedDay);
+    const isAvailableDay = availableDates.map((d) => {
+      return d.date;
+    }).some((date) =>
+      dateTimeParser.isSameDate(date, startDate),
+    );
+
+    const dayClicked = () => {
+      if (isAvailableDay && isInteractable) {
+        setSelectedDay(startDate);
+      }
+    };
 
     const isFirstMonthDay = startDate.getDate() === 1;
     const formatOptions = isFirstMonthDay
@@ -78,7 +65,7 @@ const CellBase = React.memo(
     return (
       <TableCell
         style={isAvailableDay ? { backgroundColor: pink } : {}}
-        onClick={setSelectedDay}
+        onClick={dayClicked}
         tabIndex={0}
         className={classNames({
           availableCell: isAvailableDay,
@@ -113,13 +100,19 @@ const CellBase = React.memo(
 
 const TimeTableCell = withStyles(calendarStyles, { name: 'Cell' })(CellBase);
 
-const CalendarView = () => {
+const CalendarView = ({ availableDates, selectedDay, isInteractable, setSelectedDay }) => {
   return (
     <Paper>
       <Scheduler>
         <ViewState defaultCurrentDate={Date.now()}/>
         <MonthView
-          timeTableCellComponent={TimeTableCell}
+          timeTableCellComponent={(props) => (<TimeTableCell
+            {...props}
+            availableDates={availableDates}
+            selectedDay={selectedDay}
+            isInteractable={isInteractable}
+            setSelectedDay={setSelectedDay}
+          />)}
           dayScaleCellComponent={DayScaleCell}
           dayScaleLayoutComponent={DayScaleLayout}
           timeTableLayoutComponent={TimeTableLayout}

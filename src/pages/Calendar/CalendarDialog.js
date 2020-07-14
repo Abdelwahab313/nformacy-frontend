@@ -12,7 +12,7 @@ import {
 import CalendarView from './CalendarView';
 import { CalendarProvider, useCalendarState } from './Context/CalendarContext';
 import moment from 'moment';
-import { UPDATE_SELECTED_TIME } from './Context/contextActions';
+import { UPDATE_SELECTED_DAY, UPDATE_SELECTED_TIME } from './Context/contextActions';
 import AvailableTimePicker from './AvailableTimePicker';
 import dateTimeParser from '../../services/dateTimeParser';
 import Transition from '../../components/animations/Transition';
@@ -23,7 +23,7 @@ import SubmitButton from '../../components/buttons/SubmitButton';
 const CalendarContent = ({ onClose, onSelectDate }) => {
   const classes = useStyles();
   const [
-    { selectedDay, isUpdatedTime, availableDates },
+    { selectedDay, isUpdatedTime, isInteractable, availableDates },
     dispatch,
   ] = useCalendarState();
   const selectedDayFormatted = !!selectedDay
@@ -41,7 +41,12 @@ const CalendarContent = ({ onClose, onSelectDate }) => {
       payload: selectedDateTime,
     });
   };
-
+  const setSelectedDay = (day) => {
+    dispatch({
+      type: UPDATE_SELECTED_DAY,
+      payload: day,
+    });
+  };
   const selectedTimeText = isUpdatedTime && `at ${moment(selectedDay).format('LT')}`;
 
   return (
@@ -53,7 +58,8 @@ const CalendarContent = ({ onClose, onSelectDate }) => {
         <Grid container spacing={2} className={classes.dialogMargin}>
           <Grid item xs={1}/>
           <Grid item xs>
-            <CalendarView/>
+            <CalendarView availableDates={availableDates} isInteractable selectedDay={selectedDay}
+                          setSelectedDay={setSelectedDay}/>
           </Grid>
           <Grid container direction={'column'} justify={'space-between'} alignItems={'center'} xs={4}>
             <Grid item>
@@ -64,7 +70,7 @@ const CalendarContent = ({ onClose, onSelectDate }) => {
                       {`Your call will be in ${selectedDayFormatted}`}
                     </Typography>
                     <Typography variant='h6' align='center'>
-                      {isUpdatedTime && `at ${moment(selectedDay).format('LT')}`}
+                      {selectedTimeText}
                     </Typography>
                   </Box>
                   <Box mt={8}>
