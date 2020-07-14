@@ -69,6 +69,9 @@ const WorkExperienceSection = () => {
         </TimelineSeparator>
         <TimelineContent>
           <Paper elevation={3} className={classes.timeLineContent}>
+            <Typography className={classes.sectionHeaderStyles} color={'primary'}>
+              {t['workExperienceHeader']}
+            </Typography>
             <Typography className={classes.fieldLabelStylesDesktop}>
               {experience.title}
             </Typography>
