@@ -48,7 +48,7 @@ pipeline {
           steps {
             echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
             sh 'npm ci'
-//             sh 'npm install'
+            sh 'rm -rf cypress/screenshots'
             sh 'npm run cy:verify'
             sh 'nohup npm run cy:start &'
             dir("${env.BackendPath}") {
@@ -110,6 +110,14 @@ pipeline {
   post {
     always {
       junit 'cypress/results/*.xml'
+
+      def exists = fileExists 'cypress/screenshots'
+      if (exists) {
+          sh 'zip -r screenshots.zip -i cypress/screenshot/'
+          archiveArtifacts artifacts: 'cypress/screenshots/**/*.png'
+          echo 'Yes'
+      }
+
       echo 'stop server'
       dir("${env.BackendPath}") {
         sh 'make sandbox-down'
