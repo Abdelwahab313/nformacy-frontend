@@ -9,7 +9,6 @@ import ErrorMessage from '../errors/ErrorMessage';
 import t from '../../locales/en/freelancerProfile.json';
 import { Multiselect } from 'multiselect-react-dropdown';
 
-
 const FieldsOfExperience = () => {
   const { errors, watch, setValue, register } = useFormContext();
   const classes = useStyles();
@@ -19,15 +18,21 @@ const FieldsOfExperience = () => {
   const availableSpecificFieldsOptions = useCallback(() => {
     if (!!majorFieldsOfExperience && majorFieldsOfExperience.length > 0) {
       let availableSubFields;
-      availableSubFields = majorFieldsOfExperience.map((majorField) => {
-        let majorFieldRelatedOptions;
-        const majorFieldRelatedSubFields = fieldsOfExperience.filter(field => field.label === majorField.label)[0].subfields;
-        majorFieldRelatedOptions = majorFieldRelatedSubFields.map((subfield) => {
-          subfield['majorField'] = majorField.label;
-          return (subfield);
-        });
-        return majorFieldRelatedOptions;
-      }).flat();
+      availableSubFields = majorFieldsOfExperience
+        .map((majorField) => {
+          let majorFieldRelatedOptions;
+          const majorFieldRelatedSubFields = fieldsOfExperience.filter(
+            (field) => field.label === majorField.label,
+          )[0].subfields;
+          majorFieldRelatedOptions = majorFieldRelatedSubFields.map(
+            (subfield) => {
+              subfield['majorField'] = majorField.label;
+              return subfield;
+            },
+          );
+          return majorFieldRelatedOptions;
+        })
+        .flat();
 
       return availableSubFields;
     } else {
@@ -47,11 +52,16 @@ const FieldsOfExperience = () => {
   const handleMajorFieldsSelect = (selectedList) => {
     setValue('majorFieldsOfExperience', selectedList);
   };
-  const handleMajorFieldsRemove = useCallback((selectedList, removedItem) => {
-    setValue('majorFieldsOfExperience', selectedList);
-    const filteredSelectedSpecificFields = specificFieldsOfExperience.filter((subField) => (subField.majorField !== removedItem.label));
-    setValue('specificFieldsOfExperience', filteredSelectedSpecificFields);
-  }, [specificFieldsOfExperience]);
+  const handleMajorFieldsRemove = useCallback(
+    (selectedList, removedItem) => {
+      setValue('majorFieldsOfExperience', selectedList);
+      const filteredSelectedSpecificFields = specificFieldsOfExperience.filter(
+        (subField) => subField.majorField !== removedItem.label,
+      );
+      setValue('specificFieldsOfExperience', filteredSelectedSpecificFields);
+    },
+    [specificFieldsOfExperience],
+  );
 
   return (
     <Fragment>
@@ -72,19 +82,19 @@ const FieldsOfExperience = () => {
           id='majorFieldsOfExperienceSelect'
           name='majorFieldsOfExperience'
           label={t['specificField']}
+          closeOnSelect={false}
           style={multiSelectStyles}
           options={fieldsOfExperience}
           avoidHighlightFirstOption
           onSelect={handleMajorFieldsSelect}
           onRemove={handleMajorFieldsRemove}
           selectedValues={majorFieldsOfExperience}
-          displayValue="label"
+          displayValue='label'
           hidePlaceholder
-          closeOnSelect
           closeIcon={'cancel'}
           showCheckbox={true}
         />
-        <ErrorMessage errorField={errors.majorFieldsOfExperience}/>
+        <ErrorMessage errorField={errors.majorFieldsOfExperience} />
       </Container>
       <Container maxWidth={false} className={classes.formControl}>
         <div className={classes.formHeader}>
@@ -108,14 +118,14 @@ const FieldsOfExperience = () => {
           onSelect={handleSubFieldsChange}
           onRemove={handleSubFieldsChange}
           selectedValues={specificFieldsOfExperience}
-          displayValue="label"
-          groupBy="majorField"
+          displayValue='label'
+          groupBy='majorField'
           hidePlaceholder
           closeOnSelect
           closeIcon={'cancel'}
           showCheckbox={true}
         />
-        <ErrorMessage errorField={errors.specificFieldsOfExperience}/>
+        <ErrorMessage errorField={errors.specificFieldsOfExperience} />
       </Container>
     </Fragment>
   );

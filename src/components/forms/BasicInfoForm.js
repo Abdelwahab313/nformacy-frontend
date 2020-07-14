@@ -5,13 +5,13 @@ import { FormContext, useForm } from 'react-hook-form';
 import { updateProfile, updateProfilePicture } from '../../apis/userAPI';
 import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
 
-const BasicInfoForm = ({ user, closeDialog }) => {
+const BasicInfoForm = ({ user, closeDialog, setProfilePic }) => {
   const formMethod = useForm({
     defaultValues: { ...user.current },
   });
   const [avatar, setAvatar] = useState([]);
-  const classes = useStyles();
 
+  const classes = useStyles();
   const onSubmitBasicInfo = (userData) => {
     const userToBeSubmitted = {
       ...userData,
@@ -31,6 +31,9 @@ const BasicInfoForm = ({ user, closeDialog }) => {
       updateProfilePicture(formData, user.current.id)
         .then((response) => {
           localStorage.setItem('user', JSON.stringify(response.data));
+          if (response.data.avatar) {
+            setProfilePic(response.data.avatar);
+          }
         })
         .catch((error) => {});
     }

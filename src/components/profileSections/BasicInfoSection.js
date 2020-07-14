@@ -15,6 +15,9 @@ import t from '../../locales/en/freelancerProfile.json';
 const BasicInfoSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
   const [open, setOpen] = React.useState(false);
+  const [profilePic, setProfilePic] = React.useState(
+    user.current.avatar || require('../../assets/emptyavatar.jpg'),
+  );
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -34,7 +37,11 @@ const BasicInfoSection = () => {
         open={open}>
         <DialogContent>
           <Grid container xs={12}>
-            <BasicInfoForm user={user} closeDialog={handleClose} />
+            <BasicInfoForm
+              user={user}
+              closeDialog={handleClose}
+              setProfilePic={setProfilePic}
+            />
           </Grid>
         </DialogContent>
       </Dialog>
@@ -59,9 +66,7 @@ const BasicInfoSection = () => {
           <Grid item xs={12} sm={3} className={classes.profilePhotoContainer}>
             <img
               id='profilePicture'
-              src={
-                user.current.avatar || require('../../assets/emptyavatar.jpg')
-              }
+              src={profilePic}
               width={150}
               alt='Profile Picture'
             />
