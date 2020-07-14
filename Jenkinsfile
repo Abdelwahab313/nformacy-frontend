@@ -51,6 +51,10 @@ pipeline {
 //             sh 'npm install'
             sh 'npm run cy:verify'
             sh 'nohup npm run cy:start &'
+            dir("${env.BackendPath}") {
+                // wait for npm start to
+                sh './wait-for-it.sh localhost:5001 -- echo "Sandbox is up"'
+            }
           }
         }
         stage('Setup sandbox backend') {
@@ -67,8 +71,7 @@ pipeline {
             dir("${env.BackendPath}") {
               sh 'make sandbox-up'
               // wait for docker to setup
-              // change this to localhost insetead of IP
-              sh './wait-for-it.sh 164.90.178.254:3001 -- echo "Sandbox is up"'
+              sh './wait-for-it.sh localhost:3001 -- echo "Sandbox is up"'
               sh 'make sandbox-setup'
             }
           }
@@ -108,7 +111,9 @@ pipeline {
     always {
       junit 'cypress/results/*.xml'
       echo 'stop server'
-      sh './node_modules/.bin/pm2 kill'
+      dir("${env.BackendPath}") {
+        sh 'make sandbox-down'
+      }
     }
   }
 }
