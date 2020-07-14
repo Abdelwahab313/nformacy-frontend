@@ -42,6 +42,18 @@ const calendarStyles = (theme) => ({
     minWidth: '200px'
     // minWidth: '200px'
   },
+  appointment: {
+    borderRadius: '10px',
+    '&:hover': {
+      opacity: 0.6,
+    },
+  },
+  apptContent: {
+    '&>div>div': {
+      whiteSpace: 'normal !important',
+      lineHeight: 1.2,
+    },
+  },
   content: {
     display: 'flex',
     justifyContent: 'center',

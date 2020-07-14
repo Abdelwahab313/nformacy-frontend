@@ -9,6 +9,10 @@ import {
   Toolbar,
   TodayButton,
   DateNavigator,
+  Appointments,
+  AppointmentTooltip,
+  Resources,
+  AppointmentForm,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
@@ -97,13 +101,63 @@ const CellBase = React.memo(
     );
   },
 );
-
 const TimeTableCell = withStyles(calendarStyles, { name: 'Cell' })(CellBase);
+
+const AppointmentContent = withStyles(calendarStyles, { name: 'AppointmentContent' })(({ classes, ...restProps }) => (
+  <Appointments.AppointmentContent {...restProps} className={classes.apptContent}/>
+));
+
+const Appointment = withStyles(calendarStyles, { name: 'Appointment' })(({ classes, ...restProps }) => (
+  <Appointments.Appointment
+    {...restProps}
+    className={classes.appointment}
+  />
+));
+
+const appointments = [
+  {
+    id: 0,
+    title: 'Call with Consultant',
+    startDate: new Date(2020, 6, 23, 9, 30),
+    endDate: new Date(2020, 6, 23, 11, 30),
+    ownerId: 1,
+  }, {
+    id: 1,
+    title: 'Call with Medad Expert',
+    startDate: new Date(2020, 6, 9, 11, 0),
+    endDate: new Date(2020, 6, 9, 12, 0),
+    ownerId: 3,
+  },
+];
+export const owners = [
+  {
+    text: 'Andrew Glover',
+    id: 1,
+    color: '#7E57C2',
+  }, {
+    text: 'Arnie Schwartz',
+    id: 2,
+    color: '#FF7043',
+  }, {
+    text: 'John Heart',
+    id: 3,
+    color: '#E91E63',
+  },
+];
+
+const resources = [{
+  fieldName: 'ownerId',
+  title: 'Owners',
+  instances: owners,
+}];
+
 
 const CalendarView = ({ availableDates, selectedDay, isInteractable, setSelectedDay }) => {
   return (
     <Paper>
-      <Scheduler>
+      <Scheduler
+        data={isInteractable ? [] : appointments}
+      >
         <ViewState defaultCurrentDate={Date.now()}/>
         <MonthView
           timeTableCellComponent={(props) => (<TimeTableCell
@@ -117,9 +171,24 @@ const CalendarView = ({ availableDates, selectedDay, isInteractable, setSelected
           dayScaleLayoutComponent={DayScaleLayout}
           timeTableLayoutComponent={TimeTableLayout}
         />
+        <Appointments
+          appointmentComponent={Appointment}
+          appointmentContentComponent={AppointmentContent}
+        />
+        <Resources
+          data={resources}
+        />
+
         <Toolbar/>
         <DateNavigator/>
         <TodayButton/>
+        <AppointmentTooltip
+          showCloseButton
+          // showDeleteButton
+          // showOpenButton
+        />
+        <AppointmentForm/>
+
       </Scheduler>
     </Paper>
   );
