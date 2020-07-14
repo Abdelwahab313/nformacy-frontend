@@ -51,10 +51,7 @@ pipeline {
             sh 'rm -rf cypress/screenshots'
             sh 'npm run cy:verify'
             sh 'nohup npm run cy:start &'
-            dir("${env.BackendPath}") {
-                // wait for npm start to
-                sh './wait-for-it.sh localhost:5001 -- echo "Sandbox is up"'
-            }
+
           }
         }
         stage('Setup sandbox backend') {
@@ -90,6 +87,10 @@ pipeline {
       }
 
       steps {
+        dir("${env.BackendPath}") {
+          // wait for npm start to
+          sh './wait-for-it.sh localhost:5001 -- echo "Sandbox is up"'
+        }
         echo "Running build ${env.BUILD_ID}"
         sh 'npm run cy:run'
       }
@@ -113,9 +114,6 @@ pipeline {
       script {
           if (fileExists('cypress/screenshots')) {
               archiveArtifacts artifacts: 'cypress/screenshots/**/*.png'
-              sh 'zip -r screenshots.zip -i cypress/screenshots/'
-              archiveArtifacts artifacts: 'screenshots.zip'
-              echo 'Yes'
           }
       }
 
