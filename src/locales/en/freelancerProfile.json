@@ -66,5 +66,9 @@
   "basicInformation": "Basic Information",
   "firstName": "First Name",
   "lastName": "Last Name",
-  "email": "Email"
+  "email": "Email",
+  "educationHeader": "Education",
+  "certificationHeader": "Certification",
+  "workExperienceHeader": "Work Experience",
+  "educationAndCertificationHeader": "Education and Certification"
 }

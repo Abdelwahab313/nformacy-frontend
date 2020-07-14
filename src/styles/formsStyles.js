@@ -14,7 +14,7 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   timeLineContent: {
-    padding: '6px 16px',
+    padding: '16px',
   },
   avatar: {
     margin: theme.spacing(1),
@@ -249,6 +249,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   sectionRowStyles: {
     display: 'flex',
+    margin: '15px 0',
   },
   sectionRowContainerStyles: {
     display: 'flex',
@@ -419,7 +420,7 @@ export const nextButtonStyles = (disabled) => {
 export const saveButtonStyle = () => {
   return {
     width: '10%',
-    marginTop: '20px'
+    marginTop: '20px',
   };
 };
 

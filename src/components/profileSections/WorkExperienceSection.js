@@ -1,7 +1,6 @@
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import { useForm } from 'react-hook-form';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
@@ -10,7 +9,6 @@ import t from '../../locales/en/freelancerProfile.json';
 import Divider from '@material-ui/core/Divider';
 import { dividerStyle, useStyles } from '../../styles/formsStyles';
 import React, { useEffect, useRef, useState } from 'react';
-import ResumeForm from '../forms/ResumeForm';
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
@@ -19,11 +17,10 @@ import TimelineDot from '@material-ui/lab/TimelineDot';
 import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
 import WorkIcon from '@material-ui/icons/Work';
-import SchoolIcon from '@material-ui/icons/School';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
 import Transition from '../animations/Transition';
+import WorkExperienceForm from '../forms/WorkExperienceForm';
 
-const ResumeSection = () => {
+const WorkExperienceSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
   const [resume, setResume] = useState([]);
   const [open, setOpen] = useState(false);
@@ -43,22 +40,6 @@ const ResumeSection = () => {
         type: 'experience',
         ...experience,
         date: new Date(experience.startDate),
-      };
-      history.push(historyEntry);
-    });
-    user.current.educations.forEach((education) => {
-      const historyEntry = {
-        type: 'education',
-        ...education,
-        date: new Date(education.endYear),
-      };
-      history.push(historyEntry);
-    });
-    user.current.certifications.forEach((certificate) => {
-      const historyEntry = {
-        type: 'certificate',
-        ...certificate,
-        date: new Date(certificate.startDate),
       };
       history.push(historyEntry);
     });
@@ -82,9 +63,9 @@ const ResumeSection = () => {
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color='primary'>
-            <WorkIcon />
+            <WorkIcon/>
           </TimelineDot>
-          <TimelineConnector />
+          <TimelineConnector/>
         </TimelineSeparator>
         <TimelineContent>
           <Paper elevation={3} className={classes.timeLineContent}>
@@ -97,74 +78,17 @@ const ResumeSection = () => {
       </TimelineItem>
     );
   };
-  const renderEducationItem = (education, key) => {
-    return (
-      <TimelineItem key={key}>
-        <TimelineOppositeContent className={classes.timelineDateFieldStyles}>
-          <Typography className={classes.timelineFieldValueStyles} color='textSecondary'>
-            {education.date?.toDateString()}
-          </Typography>
-        </TimelineOppositeContent>
-        <TimelineSeparator>
-          <TimelineDot color='primary'>
-            <SchoolIcon />
-          </TimelineDot>
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>
-          <Paper elevation={3} className={classes.timeLineContent}>
-            <Typography className={classes.fieldLabelStylesDesktop}>
-              {education.degree}
-            </Typography>
-            <Typography className={classes.timelineFieldValueStyles}>
-              {education.fieldOfStudy}
-            </Typography>
-            <Typography className={classes.timelineFieldValueStyles}>
-              {education.school}
-            </Typography>
-          </Paper>
-        </TimelineContent>
-      </TimelineItem>
-    );
-  };
-  const renderCertificationItem = (certification, key) => {
-    return (
-      <TimelineItem key={key}>
-        <TimelineOppositeContent className={classes.timelineDateFieldStyles}>
-          <Typography className={classes.timelineFieldValueStyles} color='textSecondary'>
-            {certification.date?.toDateString()}
-          </Typography>
-        </TimelineOppositeContent>
-        <TimelineSeparator>
-          <TimelineDot color='primary'>
-            <MenuBookIcon />
-          </TimelineDot>
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>
-          <Paper elevation={3} className={classes.timeLineContent}>
-            <Typography className={classes.fieldLabelStylesDesktop}>
-              {certification.name}
-            </Typography>
-            <Typography className={classes.timelineFieldValueStyles}>
-              {certification.issuingOrganization}
-            </Typography>
-          </Paper>
-        </TimelineContent>
-      </TimelineItem>
-    );
-  };
   return (
-    <Grid item id='resume'>
+    <Grid item id='workExperience'>
       <Dialog
         TransitionComponent={Transition}
         maxWidth='lg'
-        PaperProps={{ id: 'resumeDialog' }}
+        PaperProps={{ id: 'workExperienceDialog' }}
         onClose={handleClose}
         open={open}>
         <DialogContent>
           <Grid container xs={12}>
-            <ResumeForm user={user} closeDialog={handleClose} />
+            <WorkExperienceForm user={user} closeDialog={handleClose}/>
           </Grid>
         </DialogContent>
       </Dialog>
@@ -173,7 +97,7 @@ const ResumeSection = () => {
           <Grid container alignItems='center'>
             <Grid item xs={11} className={classes.paperSectionHeaderStyles}>
               <Typography gutterBottom className={classes.sectionHeaderStyles}>
-                {t['resume']}
+                {t['workExperienceHeader']}
               </Typography>
             </Grid>
             <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
@@ -183,16 +107,10 @@ const ResumeSection = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Divider variant='middle' style={dividerStyle} />
+        <Divider variant='middle' style={dividerStyle}/>
         <Timeline align='alternate'>
           {resume.map((history, key) => {
-            if (history.type === 'experience') {
-              return renderExperienceItem(history, key);
-            } else if (history.type === 'education') {
-              return renderEducationItem(history, key);
-            } else if (history.type === 'certificate') {
-              return renderCertificationItem(history, key);
-            }
+            return renderExperienceItem(history, key);
           })}
         </Timeline>
       </Paper>
@@ -200,4 +118,4 @@ const ResumeSection = () => {
   );
 };
 
-export default ResumeSection;
+export default WorkExperienceSection;

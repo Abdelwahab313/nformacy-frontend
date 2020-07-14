@@ -82,7 +82,6 @@ const FieldsOfExperience = () => {
           id='majorFieldsOfExperienceSelect'
           name='majorFieldsOfExperience'
           label={t['specificField']}
-          closeOnSelect={false}
           style={multiSelectStyles}
           options={fieldsOfExperience}
           avoidHighlightFirstOption
