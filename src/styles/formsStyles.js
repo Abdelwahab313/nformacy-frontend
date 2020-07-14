@@ -329,12 +329,11 @@ export const selectStyle = {
     display: 'flex',
     alignItems: 'center',
   }),
-
 };
 
-
 export const multiSelectStyles = {
-  searchBox: { // To change search box element look
+  searchBox: {
+    // To change search box element look
     borderColor: pink,
     padding: '4px 8px',
     minHeight: '60px',
@@ -343,7 +342,8 @@ export const multiSelectStyles = {
     flexWrap: 'wrap',
     alignItems: 'center',
   },
-  chips: { // To change css chips(Selected options)
+  chips: {
+    // To change css chips(Selected options)
     background: '#e6e6e6',
     color: '#333333',
     borderRadius: 0,
@@ -454,3 +454,5 @@ export const dateInputStyle = {
 export const sectionContainerStyles = {
   padding: 0,
 };
+
+export const selectCheckBox = { marginRight: 8 };
