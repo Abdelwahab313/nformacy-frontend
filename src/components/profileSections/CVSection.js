@@ -64,7 +64,7 @@ const CVSection = () => {
           className={classes.paperSectionContentStyles}>
           <Grid item>
             <Link id='cvLink' target='_blank' href={cvLink}>
-              {t['downloadCV']}
+              {t['viewCV']}
             </Link>
           </Grid>
         </Grid>

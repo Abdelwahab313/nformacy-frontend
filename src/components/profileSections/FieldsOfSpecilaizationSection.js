@@ -25,7 +25,6 @@ const FieldsOfSpecializationSection = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log('==================', user.current.specificFieldsOfExperience);
 
   const isMajorContainsSpecificField = (subField) => {
     return user.current.specificFieldsOfExperience.filter(specificField => specificField.value === subField.value).length > 0;

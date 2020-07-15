@@ -17,7 +17,6 @@ const BasicInfoForm = ({ user, closeDialog, setProfilePic }) => {
       ...userData,
       id: user.current.id,
     };
-    console.log(userData);
     updateProfile(userToBeSubmitted, user.current.id)
       .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));

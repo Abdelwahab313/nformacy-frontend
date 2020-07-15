@@ -27,6 +27,8 @@ const BasicInfoSection = () => {
     setOpen(false);
   };
 
+  console.log('--------------', user.current);
+
   const classes = useStyles();
   return (
     <Grid item id='basicInfo'>
@@ -58,11 +60,11 @@ const BasicInfoSection = () => {
               aria-label='edit'
               id='editBasicInfo'
               onClick={handleClickOpen}>
-              <EditIcon color={'primary'} />
+              <EditIcon color={'primary'}/>
             </IconButton>
           </Grid>
         </Grid>
-        <Divider variant='middle' style={dividerStyle} />
+        <Divider variant='middle' style={dividerStyle}/>
         <Grid
           container
           spacing={5}
@@ -111,6 +113,23 @@ const BasicInfoSection = () => {
                   gutterBottom
                   className={classes.fieldValueStyles}>
                   {user.current.lastName}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={4}>
+                <Typography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
+                  {t['shortName']}
+                </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography
+                  id='shortNameValue'
+                  gutterBottom
+                  className={classes.fieldValueStyles}>
+                  {user.current.firstName ? user.current.firstName.split('')[0] + ' ' + user.current.lastName : ''}
                 </Typography>
               </Grid>
             </Grid>

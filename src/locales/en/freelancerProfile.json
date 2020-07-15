@@ -65,6 +65,7 @@
   "cancel": "Cancel",
   "basicInformation": "Basic Information",
   "firstName": "First Name",
+  "shortName": "Short Name",
   "lastName": "Last Name",
   "email": "Email",
   "educationHeader": "Education",
@@ -73,6 +74,6 @@
   "educationAndCertificationHeader": "Education and Certification",
   "summary": "Summary",
   "linkedInProfileUrl": "Linked in Profile Link",
-  "CV": "Curriculum Vitae",
-  "downloadCV": "Download CV"
+  "CV": "CV",
+  "viewCV": "View my CV"
 }
