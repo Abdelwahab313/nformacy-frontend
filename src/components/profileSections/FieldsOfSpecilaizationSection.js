@@ -1,17 +1,17 @@
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import { FormContext, useForm } from 'react-hook-form';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { dividerStyle, useStyles } from '../../styles/formsStyles';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import t from '../../locales/en/freelancerProfile.json';
 import FieldsOfSpecializationForm from '../forms/FieldsOfSpecializationForm';
 import Transition from '../animations/Transition';
+import { fieldsOfExperience } from '../../constants/dropDownOptions';
 
 const FieldsOfSpecializationSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -25,7 +25,11 @@ const FieldsOfSpecializationSection = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  console.log('==================', user.current.specificFieldsOfExperience);
 
+  const isMajorContainsSpecificField = (subField) => {
+    return user.current.specificFieldsOfExperience.filter(specificField => specificField.value === subField.value).length > 0;
+  };
   return (
     <Grid item id='fieldsOfSpecialization'>
       <Dialog
@@ -86,26 +90,17 @@ const FieldsOfSpecializationSection = () => {
                     id='majorFieldsOfExperience'
                     key={key}
                     gutterBottom
-                    className={classes.fieldValueStyles}>
-                    {major.label}
-                  </Typography>
-                ))}
-              </Grid>
-            </Grid>
-            <Grid container className={classes.sectionRowStyles}>
-              <Grid item xs={6}>
-                <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-                  {t['specificallyIn']}
-                </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                {user.current?.specificFieldsOfExperience?.map((specific, key) => (
-                  <Typography
-                    id='specificFieldsOfExperience'
-                    key={key}
-                    gutterBottom
-                    className={classes.fieldValueStyles}>
-                    {specific.label}
+                    className={classes.fieldLabelStylesDesktop}>
+                    {major.label + ':'}
+                    <Grid container>
+                      {fieldsOfExperience.find(experience => experience.value === major.value).subfields.filter(specificField => isMajorContainsSpecificField(specificField))?.map(field => (
+                        <Grid item className={classes.subFieldContainerStyles}>
+                          <Typography gutterBottom className={classes.subFieldValueStyles}>
+                            {field.label}
+                          </Typography>
+                        </Grid>
+                      ))}
+                    </Grid>
                   </Typography>
                 ))}
               </Grid>

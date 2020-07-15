@@ -156,6 +156,26 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '4vw',
     },
   },
+  subFieldValueStyles: {
+    width: 'fit-content',
+    fontSize: '1.190vw',
+    margin: '0 !important',
+    [theme.breakpoints.up('lg')]: {
+      fontSize: '1.00vw',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2.604vw',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '4vw',
+    },
+  },
+  subFieldContainerStyles: {
+    backgroundColor: lightGrey,
+    borderRadius: '50px',
+    padding: '5px 10px',
+    margin: '5px !important',
+  },
   summaryValueStyles: {
     marginLeft: theme.spacing(2),
     fontSize: '1.190vw',
