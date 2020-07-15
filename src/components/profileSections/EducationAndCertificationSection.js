@@ -134,7 +134,7 @@ const EducationAndCertificationSection = () => {
         onClose={handleClose}
         open={open}>
         <DialogContent>
-          <Grid container xs={12}>
+          <Grid container>
             <EducationAndCertificationForm user={user} closeDialog={handleClose}/>
           </Grid>
         </DialogContent>

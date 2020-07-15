@@ -37,7 +37,7 @@ const SummarySection = () => {
         onClose={handleClose}
         open={open}>
         <DialogContent>
-          <Grid container xs={12}>
+          <Grid container>
             <SummaryForm user={user} closeDialog={handleClose} />
           </Grid>
         </DialogContent>
@@ -64,9 +64,8 @@ const SummarySection = () => {
           spacing={5}
           className={classes.paperSectionContentStyles}>
           <Grid item xs={12}>
-            <Typography
+            <Grid
               id='summaryValue'
-              gutterBottom
               className={classes.summaryValueStyles}>
               <ShowMoreText
                 lines={2}
@@ -82,7 +81,7 @@ const SummarySection = () => {
                 }>
                 {user.current.summary || 'No summary to display'}
               </ShowMoreText>
-            </Typography>
+            </Grid>
           </Grid>
         </Grid>
       </Paper>

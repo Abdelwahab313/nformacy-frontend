@@ -35,7 +35,7 @@ const FieldsOfSpecializationSection = () => {
         onClose={handleClose}
         open={open}>
         <DialogContent>
-          <Grid container xs={12}>
+          <Grid container>
             <FieldsOfSpecializationForm user={user} closeDialog={handleClose}/>
           </Grid>
         </DialogContent>
@@ -66,6 +66,7 @@ const FieldsOfSpecializationSection = () => {
                 {user.current?.industriesOfExperience?.map((industry, key) => (
                   <Typography
                     id='industriesOfExperience'
+                    key={key}
                     gutterBottom
                     className={classes.fieldValueStyles}>
                     {industry.label}
@@ -83,6 +84,7 @@ const FieldsOfSpecializationSection = () => {
                 {user.current?.majorFieldsOfExperience?.map((major, key) => (
                   <Typography
                     id='majorFieldsOfExperience'
+                    key={key}
                     gutterBottom
                     className={classes.fieldValueStyles}>
                     {major.label}
@@ -100,6 +102,7 @@ const FieldsOfSpecializationSection = () => {
                 {user.current?.specificFieldsOfExperience?.map((specific, key) => (
                   <Typography
                     id='specificFieldsOfExperience'
+                    key={key}
                     gutterBottom
                     className={classes.fieldValueStyles}>
                     {specific.label}
@@ -117,6 +120,7 @@ const FieldsOfSpecializationSection = () => {
                 {user.current?.languageOfAssignments?.map((lng, key) => (
                   <Typography
                     id='languageOfAssignments'
+                    key={key}
                     gutterBottom
                     className={classes.fieldValueStyles}>
                     {lng.label}
@@ -134,6 +138,7 @@ const FieldsOfSpecializationSection = () => {
                 {user.current?.typesOfAssignments?.map((lng, key) => (
                   <Typography
                     id='typesOfAssignments'
+                    key={key}
                     gutterBottom
                     className={classes.fieldValueStyles}>
                     {lng.label}

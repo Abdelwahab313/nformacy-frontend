@@ -90,7 +90,7 @@ const WorkExperienceSection = () => {
         onClose={handleClose}
         open={open}>
         <DialogContent>
-          <Grid container xs={12}>
+          <Grid container>
             <WorkExperienceForm user={user} closeDialog={handleClose}/>
           </Grid>
         </DialogContent>

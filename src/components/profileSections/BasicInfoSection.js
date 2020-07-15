@@ -5,7 +5,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { dividerStyle, useStyles } from '../../styles/formsStyles';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import BasicInfoForm from '../forms/BasicInfoForm';
@@ -37,7 +37,7 @@ const BasicInfoSection = () => {
         onClose={handleClose}
         open={open}>
         <DialogContent>
-          <Grid container xs={12}>
+          <Grid container>
             <BasicInfoForm
               user={user}
               closeDialog={handleClose}
@@ -54,7 +54,10 @@ const BasicInfoSection = () => {
             </Typography>
           </Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
-            <IconButton aria-label='edit' id='editBasicInfo' onClick={handleClickOpen}>
+            <IconButton
+              aria-label='edit'
+              id='editBasicInfo'
+              onClick={handleClickOpen}>
               <EditIcon color={'primary'} />
             </IconButton>
           </Grid>
@@ -68,11 +71,15 @@ const BasicInfoSection = () => {
             <img
               id='profilePicture'
               src={profilePic}
-              style={{width: '100%', height: 'auto'}}
+              className={classes.largeProfilePic}
               alt='Profile Picture'
             />
           </Grid>
-          <Grid xs={12} sm={9} className={classes.sectionRowContainerStyles}>
+          <Grid
+            item
+            xs={12}
+            sm={9}
+            className={classes.sectionRowContainerStyles}>
             <Grid container className={classes.sectionRowStyles}>
               <Grid item xs={4}>
                 <Typography
@@ -137,10 +144,13 @@ const BasicInfoSection = () => {
                   id='linkedInProfileUrlValue'
                   gutterBottom
                   className={classes.fieldValueStyles}>
-                  <Link id="linkedInProfileUrlLink" href={user.current.linkedInProfileUrl}>
-                    {user.current.linkedInProfileUrl}
-                  </Link>
-
+                  {user.current?.linkedInProfileUrl && (
+                    <Link
+                      id='linkedInProfileUrlLink'
+                      href={user.current.linkedInProfileUrl}>
+                      {user.current.linkedInProfileUrl}
+                    </Link>
+                  )}
                 </Typography>
               </Grid>
             </Grid>

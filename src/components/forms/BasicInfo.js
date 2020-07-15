@@ -110,11 +110,9 @@ const BasicInfo = () => {
           id='linkedInProfileUrl'
           name='linkedInProfileUrl'
           defaultValue={!user.current.linkedInProfileUrl && ''}
-          inputRef={register({ required: 'This field is required' })}
+          inputRef={register()}
           autoComplete='name'
-          error={!!errors.linkedInProfileUrl}
         />
-        <ErrorMessage errorField={errors.linkedInProfileUrl} />
       </Container>
     </Container>
   );

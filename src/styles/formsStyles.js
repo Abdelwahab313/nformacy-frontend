@@ -61,6 +61,9 @@ export const useStyles = makeStyles((theme) => ({
   formControl: {
     marginTop: theme.spacing(3),
   },
+  profileContainer: {
+    marginBottom: theme.spacing(3),
+  },
   dateController: {
     marginTop: theme.spacing(1),
   },
@@ -276,6 +279,19 @@ export const useStyles = makeStyles((theme) => ({
     padding: '10px !important',
     display: 'flex',
     justifyContent: 'center',
+  },
+  largeProfilePic: {
+    width: '200px',
+    height: '200px',
+    [theme.breakpoints.down('md')]: {
+      width: '150px',
+      height: '150px',
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '100px',
+      height: '100px',
+    },
+    borderRadius: '100%',
   },
   signUpHeaderStyle: {
     fontSize: '1.190vw',

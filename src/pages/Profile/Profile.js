@@ -19,7 +19,7 @@ const Profile = ({ t }) => {
     <Container component='main' maxWidth={false} dir='ltr'>
       <ReactTooltip globalEventOff={'click'} />
       <CssBaseline />
-      <Grid container justify={'center'} alignContent={'center'}>
+      <Grid container justify={'center'} alignContent={'center'}  className={classes.profileContainer}>
         <Grid item xs={12} sm={8}>
           <BasicInfoSection />
           <SummarySection />
@@ -28,7 +28,6 @@ const Profile = ({ t }) => {
           <WorkExperienceSection />
           <EducationAndCertificationSection />
         </Grid>
-        <Container maxWidth={false} className={classes.formControl} />
       </Grid>
     </Container>
   );

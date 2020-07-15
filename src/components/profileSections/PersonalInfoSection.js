@@ -41,7 +41,7 @@ const PersonalInfoSection = () => {
         open={open}>
         <DialogContent>
           <FormContext {...formMethod} user={user}>
-            <Grid container xs={12}>
+            <Grid container>
               <PersonalInfoForm user={user} closeDialog={handleClose} />
             </Grid>
           </FormContext>
