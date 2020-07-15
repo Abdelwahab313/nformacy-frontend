@@ -148,3 +148,20 @@ When(/^press save summary info$/, function() {
 Then(/^then should see my updated summary$/, function() {
   cy.get('#summaryValue').contains('test summary');
 });
+When(/^I click on update cv$/, function() {
+  cy.get('#editCV ').click();
+});
+
+When(/^I upload my cv$/, function() {
+  cy.get('.chooseFileButton ').click();
+  const profilePicturePath = 'sample.pdf';
+  cy.get('input[type="file"]').attachFile(profilePicturePath);
+});
+
+When(/^press save cv$/, function() {
+  cy.get('#saveCV').click();
+  cy.get('#editCV').should('be.visible');
+});
+Then(/^then should see my cv$/, function() {
+
+});

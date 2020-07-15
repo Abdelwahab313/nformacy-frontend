@@ -106,12 +106,14 @@ const FreeLancerProfileForm = () => {
         : deletedCertification,
     };
     const nestedFieldsValid = validateNestedFields(userToBeSubmitted);
-    if (nestedFieldsValid) {
+    if (nestedFieldsValid && cv?.length > 0) {
       setLoading(true);
       updateProfile(userToBeSubmitted, user.current.id)
         .then((response) => {
           localStorage.setItem('user', JSON.stringify(response.data));
-          history.push('/user/success');
+          if (cv?.length === 0 || cv === undefined) {
+            history.push('/user/success');
+          }
         })
         .catch((error) => {})
         .finally(() => setLoading(false));
@@ -124,9 +126,12 @@ const FreeLancerProfileForm = () => {
         uploadCV(formData, user.current.id)
           .then((response) => {
             localStorage.setItem('user', JSON.stringify(response.data));
+            history.push('/user/success');
           })
           .catch((error) => {});
       }
+    } else if (cv?.length === 0 || cv === undefined) {
+      setError('cv', 'manual', t['requiredMessage']);
     }
   };
 
@@ -228,7 +233,12 @@ const FreeLancerProfileForm = () => {
           )}
         </Grid>
       </form>
-      <BackDialog open={isBackDialogueOpen} isAgreed={isConfirmedBack} onAgree={onClickAgree} onCancel={onClickCancel}/>
+      <BackDialog
+        open={isBackDialogueOpen}
+        isAgreed={isConfirmedBack}
+        onAgree={onClickAgree}
+        onCancel={onClickCancel}
+      />
     </div>
   );
 };

@@ -11,14 +11,11 @@ import Typography from '@material-ui/core/Typography';
 import t from '../../locales/en/freelancerProfile.json';
 import { useStyles } from '../../styles/formsStyles';
 import Paper from '@material-ui/core/Paper';
+import CV from '../../components/forms/CV';
 
 const StepThree = () => {
-  const { cv, setCV } = useFormContext();
   const classes = useStyles();
 
-  const uploadCV = (cv) => {
-    setCV(cv);
-  };
   return (
     <Grid id='stepThreeForm' container>
       <Grid
@@ -46,6 +43,9 @@ const StepThree = () => {
             xs={12}
             md={6}>
             <Paper className={classes.paperSection} elevation={5}>
+              <CV />
+            </Paper>
+            <Paper className={classes.paperSection} elevation={5}>
               <WorkExperience />
             </Paper>
             <Paper className={classes.paperSection} elevation={5}>
@@ -54,26 +54,6 @@ const StepThree = () => {
             <Paper className={classes.paperSection} elevation={5}>
               <Certification />
             </Paper>
-          </Grid>
-        </Grow>
-        <Grow in={true} timeout={3500}>
-          <Grid item xs={12} md={2} className={classes.imageUploadContainer}>
-            <Grid container justify='center' alignItems='flex-start'>
-              <ImageUploader
-                singleImage={true}
-                label={'Accepted File Format: pdf'}
-                accept='application/pdf'
-                withIcon={true}
-                onChange={uploadCV}
-                buttonText={t['chooseCV']}
-                imgExtension={['.pdf']}
-              />
-              {cv?.length > 0 && (
-                <Typography gutterBottom variant='subtitle2'>
-                  {cv[0].name}
-                </Typography>
-              )}
-            </Grid>
           </Grid>
         </Grow>
       </Grid>

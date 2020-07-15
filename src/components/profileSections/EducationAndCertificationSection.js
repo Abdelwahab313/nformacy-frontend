@@ -20,6 +20,7 @@ import TimelineContent from '@material-ui/lab/TimelineContent';
 import SchoolIcon from '@material-ui/icons/School';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import Transition from '../animations/Transition';
+import { formattedDate } from '../../services/dateTimeParser';
 
 const EducationAndCertificationSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -66,19 +67,23 @@ const EducationAndCertificationSection = () => {
     return (
       <TimelineItem key={key}>
         <TimelineOppositeContent className={classes.timelineDateFieldStyles}>
-          <Typography className={classes.timelineFieldValueStyles} color='textSecondary'>
-            {education.date?.toDateString()}
+          <Typography
+            className={classes.timelineFieldValueStyles}
+            color='textSecondary'>
+            {education.date && formattedDate(education.date)}
           </Typography>
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color='primary'>
-            <SchoolIcon/>
+            <SchoolIcon />
           </TimelineDot>
-          <TimelineConnector/>
+          <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent>
           <Paper elevation={3} className={classes.timeLineContent}>
-            <Typography className={classes.sectionHeaderStyles} color={'primary'}>
+            <Typography
+              className={classes.sectionHeaderStyles}
+              color={'primary'}>
               {t['educationHeader']}
             </Typography>
             <Typography className={classes.fieldLabelStylesDesktop}>
@@ -99,19 +104,23 @@ const EducationAndCertificationSection = () => {
     return (
       <TimelineItem key={key}>
         <TimelineOppositeContent className={classes.timelineDateFieldStyles}>
-          <Typography className={classes.timelineFieldValueStyles} color='textSecondary'>
-            {certification.date?.toDateString()}
+          <Typography
+            className={classes.timelineFieldValueStyles}
+            color='textSecondary'>
+            {certification.date && formattedDate(certification.date)}
           </Typography>
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color='primary'>
-            <MenuBookIcon/>
+            <MenuBookIcon />
           </TimelineDot>
-          <TimelineConnector/>
+          <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent>
           <Paper elevation={3} className={classes.timeLineContent}>
-            <Typography className={classes.sectionHeaderStyles} color={'primary'}>
+            <Typography
+              className={classes.sectionHeaderStyles}
+              color={'primary'}>
               {t['certificationHeader']}
             </Typography>
             <Typography className={classes.fieldLabelStylesDesktop}>
@@ -135,7 +144,10 @@ const EducationAndCertificationSection = () => {
         open={open}>
         <DialogContent>
           <Grid container>
-            <EducationAndCertificationForm user={user} closeDialog={handleClose}/>
+            <EducationAndCertificationForm
+              user={user}
+              closeDialog={handleClose}
+            />
           </Grid>
         </DialogContent>
       </Dialog>
@@ -149,12 +161,12 @@ const EducationAndCertificationSection = () => {
             </Grid>
             <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
               <IconButton aria-label='edit' onClick={handleClickOpen}>
-                <EditIcon color={'primary'}/>
+                <EditIcon color={'primary'} />
               </IconButton>
             </Grid>
           </Grid>
         </Grid>
-        <Divider variant='middle' style={dividerStyle}/>
+        <Divider variant='middle' style={dividerStyle} />
         <Timeline align='alternate'>
           {resume.map((history, key) => {
             if (history.type === 'education') {

@@ -40,20 +40,11 @@ Feature: Edit profile
     And press save summary info
     Then then should see my updated summary
 
-#  @ignore
-#  Scenario: Edit Profile
-#    Given I log in
-#    When I go to profile page
-#    When I click on edit basic info
-#    Then I should see edit basic info dialog
-#    When i edit basic info
-#    And click save
-#    Then i should see edited basic info
-#
-#  @ignore
-#  Scenario: View Profile
-#    Given I log in
-#    When I go to profile page
-#    Then I should see basic info section
-#    And I should see personal info section
+  Scenario: Successfully edit summary
+    Given I log in
+    When I go to profile page
+    And I click on update cv
+    When I upload my cv
+    And press save cv
+    Then then should see my cv
 

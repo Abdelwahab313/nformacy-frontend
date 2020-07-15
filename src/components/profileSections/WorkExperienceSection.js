@@ -19,6 +19,7 @@ import TimelineContent from '@material-ui/lab/TimelineContent';
 import WorkIcon from '@material-ui/icons/Work';
 import Transition from '../animations/Transition';
 import WorkExperienceForm from '../forms/WorkExperienceForm';
+import { formattedDate } from '../../services/dateTimeParser';
 
 const WorkExperienceSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -57,25 +58,31 @@ const WorkExperienceSection = () => {
     return (
       <TimelineItem key={key}>
         <TimelineOppositeContent className={classes.timelineDateFieldStyles}>
-          <Typography className={classes.timelineFieldValueStyles} color='textSecondary'>
-            {experience.date?.toDateString()}
+          <Typography
+            className={classes.timelineFieldValueStyles}
+            color='textSecondary'>
+            {experience.date && formattedDate(experience.date)}
           </Typography>
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color='primary'>
-            <WorkIcon/>
+            <WorkIcon />
           </TimelineDot>
-          <TimelineConnector/>
+          <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent>
           <Paper elevation={3} className={classes.timeLineContent}>
-            <Typography className={classes.sectionHeaderStyles} color={'primary'}>
+            <Typography
+              className={classes.sectionHeaderStyles}
+              color={'primary'}>
               {t['workExperienceHeader']}
             </Typography>
             <Typography className={classes.fieldLabelStylesDesktop}>
               {experience.title}
             </Typography>
-            <Typography className={classes.timelineFieldValueStyles}>{experience.company}</Typography>
+            <Typography className={classes.timelineFieldValueStyles}>
+              {experience.company}
+            </Typography>
           </Paper>
         </TimelineContent>
       </TimelineItem>
@@ -91,7 +98,7 @@ const WorkExperienceSection = () => {
         open={open}>
         <DialogContent>
           <Grid container>
-            <WorkExperienceForm user={user} closeDialog={handleClose}/>
+            <WorkExperienceForm user={user} closeDialog={handleClose} />
           </Grid>
         </DialogContent>
       </Dialog>
@@ -105,12 +112,12 @@ const WorkExperienceSection = () => {
             </Grid>
             <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
               <IconButton aria-label='edit' onClick={handleClickOpen}>
-                <EditIcon color={'primary'}/>
+                <EditIcon color={'primary'} />
               </IconButton>
             </Grid>
           </Grid>
         </Grid>
-        <Divider variant='middle' style={dividerStyle}/>
+        <Divider variant='middle' style={dividerStyle} />
         <Timeline align='alternate'>
           {resume.map((history, key) => {
             return renderExperienceItem(history, key);

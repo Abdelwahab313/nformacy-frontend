@@ -52,6 +52,7 @@ When(/^I fill step two data$/, function() {
 });
 When(/^click submit$/, function() {
   cy.get('#submitButton').click();
+  cy.wait(5000);
 });
 Then(/^I should see welcome message$/, function() {
   cy.get('#welcomeContainer');
@@ -159,4 +160,9 @@ Then(/^I can select multiple options$/, function() {
   cy.get('#specificFieldsOfExperienceSelect').click();
   cy.get('div[name="specificFieldsOfExperience"]').should('contain','Promotion and Advertising' );
   cy.get('div[name="specificFieldsOfExperience"]').should('contain','Market Research' );
+});
+When(/^I upload my cv$/, function() {
+  cy.get('.chooseFileButton ').click();
+  const profilePicturePath = 'sample.pdf';
+  cy.get('input[type="file"]').attachFile(profilePicturePath);
 });

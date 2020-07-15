@@ -10,7 +10,8 @@ Feature: Freelancer profile completion
     When I fill step two data
     And click next
     Then I should see step three form
-    When I fill step three data
+    When I upload my cv
+    And I fill step three data
     And click submit
     Then I should see welcome message
 

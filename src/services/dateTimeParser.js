@@ -6,4 +6,13 @@ const isSameDate = (date1, date2) => {
   return startOfDay1.isSame(startOfDay2);
 };
 
+export const formattedDate = (date) => {
+  const dateTimeFormat = new Intl.DateTimeFormat('en', {
+    year: 'numeric',
+    month: 'long',
+  });
+  const formattedParts = dateTimeFormat.formatToParts(date);
+  return `${formattedParts[0].value}, ${formattedParts[2].value}`;
+};
+
 export default { isSameDate };

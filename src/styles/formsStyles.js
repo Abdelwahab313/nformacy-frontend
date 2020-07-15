@@ -242,6 +242,7 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   imageUploadContainer: {
+    marginTop: theme.spacing(5),
     [theme.breakpoints.down('sm')]: {
       alignSelf: 'center',
     },

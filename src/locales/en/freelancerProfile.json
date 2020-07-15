@@ -72,5 +72,7 @@
   "workExperienceHeader": "Work Experience",
   "educationAndCertificationHeader": "Education and Certification",
   "summary": "Summary",
-  "linkedInProfileUrl": "Linked in Profile Link"
+  "linkedInProfileUrl": "Linked in Profile Link",
+  "CV": "Curriculum Vitae",
+  "downloadCV": "Download CV"
 }
