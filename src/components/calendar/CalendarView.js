@@ -46,7 +46,7 @@ const DayScaleLayout = withStyles(calendarStyles, { name: 'TimeTable' })(DayScal
 
 
 const CellBase = React.memo(
-  ({ classes, startDate, formatDate, otherMonth, availableDates, isInteractable, selectedDay, setSelectedDay }) => {
+  ({ classes, startDate, formatDate, otherMonth, availableDates, selectedDay, onDayClick }) => {
 
     const isSelectedDay = dateTimeParser.isSameDate(startDate, selectedDay);
     const isAvailableDay = availableDates.map((d) => {
@@ -56,9 +56,8 @@ const CellBase = React.memo(
     );
 
     const dayClicked = () => {
-      if (isAvailableDay && isInteractable) {
-        setSelectedDay(startDate);
-      }
+      console.log('day pressed',startDate )
+      onDayClick && onDayClick({ selectedDay: startDate, isAvailableDay });
     };
 
     const isFirstMonthDay = startDate.getDate() === 1;
@@ -80,10 +79,11 @@ const CellBase = React.memo(
           <Grid container spacing={3} justify='space-evenly'>
             <Grid
               item
-              xs={4}
+              xs={3}
               className={classNames({
-                [classes.availableDay]: isAvailableDay,
                 dayText: true,
+                [classes.dayText]: true,
+                [classes.availableDay]: isAvailableDay,
               })}>
               {formatDate(startDate, formatOptions)}
             </Grid>
@@ -104,7 +104,7 @@ const CellBase = React.memo(
 const TimeTableCell = withStyles(calendarStyles, { name: 'Cell' })(CellBase);
 
 const AppointmentContent = withStyles(calendarStyles, { name: 'AppointmentContent' })(({ classes, ...restProps }) => (
-  <Appointments.AppointmentContent {...restProps} className={classes.apptContent}/>
+  <Appointments.AppointmentContent {...restProps} className={classes.appointmentContent}/>
 ));
 
 const Appointment = withStyles(calendarStyles, { name: 'Appointment' })(({ classes, ...restProps }) => (
@@ -152,9 +152,9 @@ const resources = [{
 }];
 
 
-const CalendarView = ({ availableDates, selectedDay, isInteractable, setSelectedDay, containerStyle }) => {
+const CalendarView = ({ availableDates, selectedDay, isInteractable, onDayClick, containerStyle }) => {
   return (
-    <Paper id={"calendar-view"} className={containerStyle}>
+    <Paper id={'calendar-view'} className={containerStyle}>
       <Scheduler
         data={isInteractable ? [] : appointments}
       >
@@ -165,7 +165,7 @@ const CalendarView = ({ availableDates, selectedDay, isInteractable, setSelected
             availableDates={availableDates}
             selectedDay={selectedDay}
             isInteractable={isInteractable}
-            setSelectedDay={setSelectedDay}
+            onDayClick={onDayClick}
           />)}
           dayScaleCellComponent={DayScaleCell}
           dayScaleLayoutComponent={DayScaleLayout}

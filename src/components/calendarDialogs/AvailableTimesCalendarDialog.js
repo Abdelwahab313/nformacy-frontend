@@ -6,15 +6,31 @@ import Transition from '../animations/Transition';
 import SubmitButton from '../buttons/SubmitButton';
 import SelectTimeZone from '../inputs/SelectTimeZone';
 import Box from '@material-ui/core/Box';
+import AvailableTimeRangeForm from './AvailableTimesRangeForm';
+
 
 const AvailableTimesCalendarDialog = ({ open, onClose, onSubmit, availableDates }) => {
-  const [timeZone, setTimeZone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
-
   const classes = useStyles();
-  const onChange = (timezone) => {
+  const [timeZone, setTimeZone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
+  const onChangeTimeZone = (timezone) => {
     console.log(timezone);
-    setTimeZone(timezone.value)
+    setTimeZone(timezone.value);
   };
+  const [localState, setLocalState] = useState({
+    selectedStartDate: '',
+    selectedEndDate: '',
+    selectedStartTime: '',
+    selectedEndTime: '',
+  });
+
+  const handleDayClicked = ({ selectedDay, isAvailableDay }) => {
+    setLocalState((previousLocalState) => ({
+      ...previousLocalState,
+      selectedStartDate: selectedDay,
+      selectedEndDate: selectedDay,
+    }));
+  };
+
   return (
     <Dialog
       open={open}
@@ -28,17 +44,25 @@ const AvailableTimesCalendarDialog = ({ open, onClose, onSubmit, availableDates 
         <Grid container spacing={2} className={classes.dialogMargin}>
           <Grid item xs>
             <CalendarView
+              onDayClick={handleDayClicked}
               containerStyle={classes.cardBorder}
               availableDates={availableDates}
             />
             <Box mt={3}>
               <SelectTimeZone
                 timezoneName={timeZone}
-                onChange={onChange}/>
+                onChange={onChangeTimeZone}/>
             </Box>
           </Grid>
           <Grid container direction={'column'} justify={'space-between'} alignItems={'center'} xs={5}>
             <Grid item>
+              {!!localState.selectedStartDate && (
+                <AvailableTimeRangeForm
+                  dateRange={{from: localState.selectedStartDate, to: localState.selectedEndDate}}
+                  timeRange={{from: localState.selectedStartTime, to: localState.selectedEndTime}}
+                  onSubmitRange={(handleDateChange) => console.log(handleDateChange)}
+                />
+              )}
             </Grid>
             <Grid item justify={'space-evenly'} className={classes.buttonContainer}>
               <Button

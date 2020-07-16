@@ -29,12 +29,15 @@ const MeetingTimeSelectorCalendarDialog = ({ open, onClose, onSelectDate, availa
       selectedDay: selectedDateTime,
     }));
   };
-  const setSelectedDay = (selectedDateTime) => {
-    setLocalState((previousLocalState) => ({
-      ...previousLocalState,
-      isUpdatedTime: false,
-      selectedDay: selectedDateTime,
-    }));
+  const handleSelectDay = ({ selectedDay, isAvailableDay }) => {
+    console.log(selectedDay, isAvailableDay)
+    if (isAvailableDay) {
+      setLocalState((previousLocalState) => ({
+        ...previousLocalState,
+        isUpdatedTime: false,
+        selectedDay: selectedDay,
+      }));
+    }
   };
 
   const selectedTimeText = localState.isUpdatedTime && `at ${moment(localState.selectedDay).format('LT')}`;
@@ -54,8 +57,11 @@ const MeetingTimeSelectorCalendarDialog = ({ open, onClose, onSelectDate, availa
           <Grid container spacing={2} className={classes.dialogMargin}>
             <Grid item xs={1}/>
             <Grid item xs>
-              <CalendarView availableDates={availableDates} isInteractable selectedDay={localState.selectedDay}
-                            setSelectedDay={setSelectedDay}/>
+              <CalendarView
+                availableDates={availableDates}
+                isInteractable
+                selectedDay={localState.selectedDay}
+                onDayClick={handleSelectDay}/>
             </Grid>
             <Grid container direction={'column'} justify={'space-between'} alignItems={'center'} xs={4}>
               <Grid item>

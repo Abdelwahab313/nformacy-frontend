@@ -48,7 +48,7 @@ const calendarStyles = (theme) => ({
       opacity: 0.6,
     },
   },
-  apptContent: {
+  appointmentContent: {
     '&>div>div': {
       whiteSpace: 'normal !important',
       lineHeight: 1.2,
@@ -61,6 +61,10 @@ const calendarStyles = (theme) => ({
     height: '100%',
     position: 'absolute',
     alignItems: 'center',
+  },
+  dayText: {
+    color: theme.palette.common.black,
+    
   },
   text: {
     padding: '0.5em',

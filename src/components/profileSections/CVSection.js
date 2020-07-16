@@ -42,7 +42,8 @@ const CVSection = () => {
       </Dialog>
       <Paper className={classes.paperSection} elevation={3}>
         <Grid container justify={'space-between'}>
-          <Grid item xs={11} className={classes.paperSectionHeaderStyles}>
+          <Grid item xs={1} className={classes.paperSectionHeaderStyles} />
+          <Grid item xs={10} className={classes.paperSectionHeaderStyles}>
             <Typography gutterBottom className={classes.sectionHeaderStyles}>
               {t['CV']}
             </Typography>
