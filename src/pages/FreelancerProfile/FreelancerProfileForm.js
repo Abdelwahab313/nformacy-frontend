@@ -16,7 +16,11 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Grid from '@material-ui/core/Grid';
 import StepTwo from './StepTwo';
 import StepThree from './StepThree';
-import { activateFreelancer, updateProfile, uploadCV } from '../../apis/userAPI';
+import {
+  activateFreelancer,
+  updateProfile,
+  uploadCV,
+} from '../../apis/userAPI';
 import { useHistory } from 'react-router-dom';
 import t from '../../locales/en/freelancerProfile.json';
 import Hidden from '@material-ui/core/Hidden';
@@ -115,18 +119,18 @@ const FreeLancerProfileForm = () => {
       setLoading(true);
       activateFreelancer(userToBeSubmitted)
         .then((response) => {
-          console.log('user', userToBeSubmitted);
-          console.log('user from form', userData);
-          console.log('updateProfile', userToBeSubmitted);
+          console.log('activateFreelancer', response.data);
           localStorage.setItem('user', JSON.stringify(response.data));
           if (cv?.length === 0 || cv === undefined) {
             history.push('/user/success');
           }
         })
-        .catch((error) => {
-          debugger;
-        })
-        .finally(() => setLoading(false));
+        .catch((error) => {})
+        .finally(() => {
+          if (cv?.length === 0 || cv === undefined) {
+            setLoading(false);
+          }
+        });
 
       if (cv?.length > 0) {
         const file = new Blob(cv);
@@ -135,11 +139,14 @@ const FreeLancerProfileForm = () => {
 
         uploadCV(formData, user.current.id)
           .then((response) => {
-            console.log('uploadCV', userToBeSubmitted);
-            localStorage.setItem('user', JSON.stringify(response.data));
+            console.log('uploadCV', response.data);
+            const userFromStorage = JSON.parse(localStorage.getItem('user'));
+            userFromStorage.cv = response.data.cv;
+            localStorage.setItem('user', JSON.stringify(userFromStorage));
             history.push('/user/success');
           })
-          .catch((error) => {});
+          .catch((error) => {})
+          .finally(() => setLoading(false));
       }
     } else if (cv?.length === 0 || cv === undefined) {
       setError('cv', 'manual', t['requiredMessage']);

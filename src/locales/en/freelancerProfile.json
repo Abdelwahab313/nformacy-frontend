@@ -6,7 +6,7 @@
   "gender": "My Gender *",
   "male": "Male",
   "female": "Female",
-  "country": "My Country *",
+  "country": "My Country of Residence*",
   "requiredMessage": "This field is required",
   "selectCountryOfResidenceMessage": "Select your country of residence *",
   "selectCountry": "Select your country",
@@ -75,5 +75,6 @@
   "summary": "Summary",
   "linkedInProfileUrl": "Linked in Profile Link",
   "CV": "CV",
-  "viewCV": "View my CV"
+  "viewCV": "View my CV",
+  "referenceNumber": "Reference Number"
 }

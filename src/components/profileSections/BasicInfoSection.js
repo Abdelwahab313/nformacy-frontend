@@ -138,6 +138,23 @@ const BasicInfoSection = () => {
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
+                  {t['referenceNumber']}
+                </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography
+                  id='referenceNumberValue'
+                  gutterBottom
+                  className={classes.fieldValueStyles}>
+                  {user.current.referenceNumber}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={4}>
+                <Typography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
                   {t['email']}
                 </Typography>
               </Grid>

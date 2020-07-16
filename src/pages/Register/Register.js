@@ -156,7 +156,7 @@ const Register = () => {
               })}
               fullWidth
               id='email'
-              label={t['Email']}
+              label={t['email']}
               name='email'
               autoComplete='email'
               error={!!errors.email}
