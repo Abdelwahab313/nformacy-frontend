@@ -1,31 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Dialog, DialogContent, DialogTitle, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import CalendarView from '../calendar/CalendarView';
 import Transition from '../animations/Transition';
 import SubmitButton from '../buttons/SubmitButton';
+import SelectTimeZone from '../inputs/SelectTimeZone';
+import Box from '@material-ui/core/Box';
 
 const AvailableTimesCalendarDialog = ({ open, onClose, onSubmit, availableDates }) => {
-  const classes = useStyles();
+  const [timeZone, setTimeZone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
 
+  const classes = useStyles();
+  const onChange = (timezone) => {
+    console.log(timezone);
+    setTimeZone(timezone.value)
+  };
   return (
     <Dialog
       open={open}
       TransitionComponent={Transition}
       maxWidth={'lg'}
-      id={'calendar-dialog'}>
+      id={'update-calendar-dialog'}>
       <DialogTitle id='dialog-title'>
         {'Please Update your Calendar with your Available Times'}
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2} className={classes.dialogMargin}>
-          <Grid item xs={1}/>
           <Grid item xs>
             <CalendarView
+              containerStyle={classes.cardBorder}
               availableDates={availableDates}
             />
+            <Box mt={3}>
+              <SelectTimeZone
+                timezoneName={timeZone}
+                onChange={onChange}/>
+            </Box>
           </Grid>
-          <Grid container direction={'column'} justify={'space-between'} alignItems={'center'} xs={4}>
+          <Grid container direction={'column'} justify={'space-between'} alignItems={'center'} xs={5}>
             <Grid item>
             </Grid>
             <Grid item justify={'space-evenly'} className={classes.buttonContainer}>
@@ -59,6 +71,9 @@ const useStyles = makeStyles((theme) => ({
   },
   margin: {
     margin: theme.spacing(1),
+  },
+  cardBorder: {
+    border: `1px solid ${theme.palette.primary.main}`,
   },
   dialogMargin: {
     marginBottom: theme.spacing(2),

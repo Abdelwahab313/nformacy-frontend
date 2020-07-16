@@ -4,10 +4,6 @@ import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { signUpAndSetTokens } from '../../helperFunctions';
 import faker from 'faker';
 
-Given(/^I log in$/, function() {
-  signUpAndSetTokens();
-  cy.wrap(faker.name.findName()).as('updatedFirstName');
-});
 When(/^I go to profile page$/, function() {
   cy.visit(BASE_URL + '/user/edit');
 });

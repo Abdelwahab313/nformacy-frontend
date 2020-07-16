@@ -152,9 +152,9 @@ const resources = [{
 }];
 
 
-const CalendarView = ({ availableDates, selectedDay, isInteractable, setSelectedDay }) => {
+const CalendarView = ({ availableDates, selectedDay, isInteractable, setSelectedDay, containerStyle }) => {
   return (
-    <Paper>
+    <Paper id={"calendar-view"} className={containerStyle}>
       <Scheduler
         data={isInteractable ? [] : appointments}
       >

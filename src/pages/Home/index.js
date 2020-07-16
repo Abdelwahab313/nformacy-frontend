@@ -25,7 +25,6 @@ const HomePage = () => {
         </Box>
       </Grid>
       <Grid item lg={3}>
-        {/*<Typography>Hello</Typography>*/}
       </Grid>
     </Grid>
   );

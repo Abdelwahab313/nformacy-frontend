@@ -26,6 +26,7 @@ const CalendarCard = ({ user }) => {
 
         <Box m={1}>
           <SubmitButton
+            id={"open-update-calendar-dialog-btn"}
             buttonText={
               (<Typography align={'center'} variant="body2">
                 Update your Available Times
