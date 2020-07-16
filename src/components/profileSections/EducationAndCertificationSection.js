@@ -49,8 +49,9 @@ const EducationAndCertificationSection = () => {
       const historyEntry = {
         type: 'certificate',
         ...certificate,
-        date: new Date(certificate.startDate),
+        date: new Date(certificate.startDate || Date.now()),
       };
+      console.log(certificate.startDate);
       history.push(historyEntry);
     });
     return history.sort((entry1, entry2) =>

@@ -7,13 +7,21 @@ const signup = (user) => {
     method: 'post',
     url: `${API_BASE_URL}/users`,
     data: decamelizeKeys({ ...user }),
-  });
+  }).then((response) => camelizeKeys(response));
 };
 
 const updateProfile = (user, userId) => {
   return axios({
     method: 'put',
     url: `${API_BASE_URL}/users/${userId}`,
+    data: decamelizeKeys({ ...user }),
+  }).then((response) => camelizeKeys(response));
+};
+
+const activateFreelancer = (user) => {
+  return axios({
+    method: 'put',
+    url: `${API_BASE_URL}/users/activate`,
     data: decamelizeKeys({ ...user }),
   }).then((response) => camelizeKeys(response));
 };
@@ -39,4 +47,4 @@ const uploadCV = (cv, userId) => {
     },
   }).then((response) => camelizeKeys(response));
 };
-export { signup, updateProfile, updateProfilePicture, uploadCV };
+export { signup, updateProfile, updateProfilePicture, uploadCV, activateFreelancer };

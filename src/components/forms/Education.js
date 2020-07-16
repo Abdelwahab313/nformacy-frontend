@@ -135,9 +135,6 @@ const Education = () => {
                           margin='normal'
                           label={t['completedBy']}
                           maxDate={Date.now()}
-                          KeyboardButtonProps={{
-                            'aria-label': t['changeDate'],
-                          }}
                           onChange={(value) => value[0]}
                           InputProps={{
                             classes: {

@@ -16,7 +16,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Grid from '@material-ui/core/Grid';
 import StepTwo from './StepTwo';
 import StepThree from './StepThree';
-import { updateProfile, uploadCV } from '../../apis/userAPI';
+import { activateFreelancer, updateProfile, uploadCV } from '../../apis/userAPI';
 import { useHistory } from 'react-router-dom';
 import t from '../../locales/en/freelancerProfile.json';
 import Hidden from '@material-ui/core/Hidden';
@@ -36,7 +36,12 @@ const FreeLancerProfileForm = () => {
     reset,
   } = useForm({
     mode: 'onChange',
-    defaultValues: { ...user.current },
+    defaultValues: {
+      ...user.current,
+      mobileNumber: user.current.mobileNumber || '',
+      majorFieldsOfExperience: user.current.majorFieldsOfExperience || [],
+      specificFieldsOfExperience: user.current.specificFieldsOfExperience || [],
+    },
   });
   const history = useHistory();
   const [loading, setLoading] = useState(false);
@@ -108,14 +113,19 @@ const FreeLancerProfileForm = () => {
     const nestedFieldsValid = validateNestedFields(userToBeSubmitted);
     if (nestedFieldsValid && cv?.length > 0) {
       setLoading(true);
-      updateProfile(userToBeSubmitted, user.current.id)
+      activateFreelancer(userToBeSubmitted)
         .then((response) => {
+          console.log('user', userToBeSubmitted);
+          console.log('user from form', userData);
+          console.log('updateProfile', userToBeSubmitted);
           localStorage.setItem('user', JSON.stringify(response.data));
           if (cv?.length === 0 || cv === undefined) {
             history.push('/user/success');
           }
         })
-        .catch((error) => {})
+        .catch((error) => {
+          debugger;
+        })
         .finally(() => setLoading(false));
 
       if (cv?.length > 0) {
@@ -125,6 +135,7 @@ const FreeLancerProfileForm = () => {
 
         uploadCV(formData, user.current.id)
           .then((response) => {
+            console.log('uploadCV', userToBeSubmitted);
             localStorage.setItem('user', JSON.stringify(response.data));
             history.push('/user/success');
           })

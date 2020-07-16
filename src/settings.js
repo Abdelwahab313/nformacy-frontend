@@ -8,3 +8,5 @@ export const API_BASE_URL =
     : process.env.REACT_APP_ENV === 'staging'
     ? STAGING_URL
     : DEV_URL;
+
+console.log(API_BASE_URL);

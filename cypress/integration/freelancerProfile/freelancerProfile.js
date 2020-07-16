@@ -52,7 +52,8 @@ When(/^I fill step two data$/, function() {
 });
 When(/^click submit$/, function() {
   cy.get('#submitButton').click();
-  cy.wait(5000);
+  cy.wait(['@updateUser', '@updateUser']);
+  cy.wait(1000);
 });
 Then(/^I should see welcome message$/, function() {
   cy.get('#welcomeContainer');
@@ -88,6 +89,9 @@ When(/^I fill step three data$/, function() {
   cy.get('.MuiPickersMonthSelection-container')
     .first()
     .click();
+
+  cy.server();
+  cy.route('PUT','/users/**').as('updateUser');
 });
 When(/^i choose an end date$/, function() {
   cy.get('#work-experience-endDate-0').click();
@@ -158,11 +162,17 @@ Then(/^I can select multiple options$/, function() {
   cy.get('#specificFieldsOfExperienceSelect').click();
   cy.get('#specificFieldsOfExperienceSelect-option-3').click();
   cy.get('#specificFieldsOfExperienceSelect').click();
-  cy.get('div[name="specificFieldsOfExperience"]').should('contain','Promotion and Advertising' );
-  cy.get('div[name="specificFieldsOfExperience"]').should('contain','Market Research' );
+  cy.get('div[name="specificFieldsOfExperience"]').should(
+    'contain',
+    'Promotion and Advertising',
+  );
+  cy.get('div[name="specificFieldsOfExperience"]').should(
+    'contain',
+    'Market Research',
+  );
 });
 When(/^I upload my cv$/, function() {
   cy.get('.chooseFileButton ').click();
-  const profilePicturePath = 'sample.pdf';
-  cy.get('input[type="file"]').attachFile(profilePicturePath);
+  const profilePicturePath = 'cv.pdf';
+  cy.get('input[type="file"]').attachFile(profilePicturePath, {allowEmpty: true});
 });

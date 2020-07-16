@@ -85,22 +85,21 @@ const FieldsOfSpecializationSection = () => {
               </Grid>
               <Grid item xs={6}>
                 {user.current?.majorFieldsOfExperience?.map((major, key) => (
-                  <Typography
+                  <Grid
                     id='majorFieldsOfExperience'
                     key={key}
-                    gutterBottom
                     className={classes.fieldLabelStylesDesktop}>
                     {major.label + ':'}
                     <Grid container>
-                      {fieldsOfExperience.find(experience => experience.value === major.value).subfields.filter(specificField => isMajorContainsSpecificField(specificField))?.map(field => (
-                        <Grid item className={classes.subFieldContainerStyles}>
+                      {fieldsOfExperience.find(experience => experience.value === major.value).subfields.filter(specificField => isMajorContainsSpecificField(specificField))?.map((field, key) => (
+                        <Grid item className={classes.subFieldContainerStyles} key={key}>
                           <Typography gutterBottom className={classes.subFieldValueStyles}>
                             {field.label}
                           </Typography>
                         </Grid>
                       ))}
                     </Grid>
-                  </Typography>
+                  </Grid>
                 ))}
               </Grid>
             </Grid>

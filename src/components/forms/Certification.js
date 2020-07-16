@@ -131,9 +131,6 @@ const Certification = () => {
                           margin='normal'
                           label={t['completedBy']}
                           maxDate={Date.now()}
-                          KeyboardButtonProps={{
-                            'aria-label': t['changeDate'],
-                          }}
                           onChange={(value) => value[0]}
                           InputProps={{
                             classes: {
@@ -178,7 +175,7 @@ const Certification = () => {
             variant='body2'
             onClick={(e) => {
               e.preventDefault();
-              certificationForm.append({});
+              certificationForm.append({ startDate: Date.now() });
             }}>
             {t['addCertification']}
           </Link>

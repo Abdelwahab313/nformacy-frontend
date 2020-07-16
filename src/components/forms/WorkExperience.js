@@ -134,9 +134,6 @@ const WorkExperience = () => {
                               : Date.now()
                           }
                           label={t['startDate']}
-                          KeyboardButtonProps={{
-                            'aria-label': t['changeDate'],
-                          }}
                           InputProps={{
                             classes: {
                               notchedOutline: classes.textField,
@@ -188,9 +185,6 @@ const WorkExperience = () => {
                                 }
                                 maxDate={Date.now()}
                                 inputRef={register()}
-                                KeyboardButtonProps={{
-                                  'aria-label': t['changeDate'],
-                                }}
                                 InputProps={{
                                   classes: {
                                     notchedOutline: classes.textField,

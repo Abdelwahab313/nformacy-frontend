@@ -150,8 +150,8 @@ When(/^I click on update cv$/, function() {
 
 When(/^I upload my cv$/, function() {
   cy.get('.chooseFileButton ').click();
-  const profilePicturePath = 'sample.pdf';
-  cy.get('input[type="file"]').attachFile(profilePicturePath);
+  const profilePicturePath = 'cv.pdf';
+  cy.get('input[type="file"]').attachFile(profilePicturePath, {allowEmpty: true});
 });
 
 When(/^press save cv$/, function() {
