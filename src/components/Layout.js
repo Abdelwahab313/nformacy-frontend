@@ -7,6 +7,7 @@ import MeetingsPage from '../pages/Meeting';
 import MeetingDetailsPage from '../pages/Meeting/MeetingDetailsPage';
 import EditProfile from '../pages/Profile/Profile';
 import MainHeader from './header/Header';
+import QuestionRoasterView from '../pages/QuestionRoaster/QuestionRoasterView';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +26,7 @@ function Layout() {
       <div className={classes.root}>
         <Switch>
           <PrivateRoute exact path='/' component={HomePage}/>
+          <PrivateRoute path='/questions' component={QuestionRoasterView}/>
           <PrivateRoute path='/user/edit' component={EditProfile}/>
           <PrivateRoute exact path='/meeting/list' component={MeetingsPage}/>
           <PrivateRoute

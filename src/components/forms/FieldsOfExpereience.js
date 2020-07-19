@@ -15,24 +15,24 @@ import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { pink } from '../../styles/colors';
 
-const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
-const checkedIcon = <CheckBoxIcon fontSize='small' />;
+const icon = <CheckBoxOutlineBlankIcon fontSize='small'/>;
+const checkedIcon = <CheckBoxIcon fontSize='small'/>;
 
 const useSelectStyles = makeStyles(theme => ({
   inputRoot: {
-    "& .MuiOutlinedInput-notchedOutline": {
-      borderColor: pink
+    '& .MuiOutlinedInput-notchedOutline': {
+      borderColor: pink,
     },
     popupIndicatorOpen: {
-      backgroundColor: pink
+      backgroundColor: pink,
     },
-    "&:hover .MuiOutlinedInput-notchedOutline": {
-      borderColor: pink
+    '&:hover .MuiOutlinedInput-notchedOutline': {
+      borderColor: pink,
     },
-    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: pink
-    }
-  }
+    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+      borderColor: pink,
+    },
+  },
 }));
 
 const FieldsOfExperience = () => {
@@ -130,7 +130,7 @@ const FieldsOfExperience = () => {
             />
           )}
         />
-        <ErrorMessage errorField={errors.majorFieldsOfExperience} />
+        <ErrorMessage errorField={errors.majorFieldsOfExperience}/>
       </Container>
       <Container maxWidth={false} className={classes.formControl}>
         <div className={classes.formHeader}>
@@ -175,7 +175,7 @@ const FieldsOfExperience = () => {
             />
           )}
         />
-        <ErrorMessage errorField={errors.specificFieldsOfExperience} />
+        <ErrorMessage errorField={errors.specificFieldsOfExperience}/>
       </Container>
     </Fragment>
   );
