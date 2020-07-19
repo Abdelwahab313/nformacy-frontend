@@ -12,10 +12,6 @@ const MeetingTimeSelectorCalendarDialog = ({ open, onClose, onSelectDate, availa
   const classes = useStyles();
   const [localState, setLocalState] = useState({ selectedDay: '', isUpdatedTime: false });
 
-  const selectedDayFormatted = !!localState.selectedDay
-    ? moment(localState.selectedDay).format('DD-MM-YYYY')
-    : null;
-
   const selectedDayTimeRange =
     !!localState.selectedDay &&
     availableDates[formatDayAsKey(localState.selectedDay)].intervals;
@@ -38,6 +34,7 @@ const MeetingTimeSelectorCalendarDialog = ({ open, onClose, onSelectDate, availa
     }
   };
 
+  const selectedDayFormatted = !!localState.selectedDay && moment(localState.selectedDay).format('DD-MM-YYYY');
   const selectedTimeText = localState.isUpdatedTime && `at ${moment(localState.selectedDay).format('LT')}`;
 
   return (

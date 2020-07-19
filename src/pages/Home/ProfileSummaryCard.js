@@ -2,10 +2,10 @@ import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './styles/HomePageStyles';
 import { Link } from 'react-router-dom';
+import Box from '@material-ui/core/Box';
 
 const ProfileSummaryCard = () => {
   const classes = useStyles();
@@ -15,10 +15,8 @@ const ProfileSummaryCard = () => {
       <CardActionArea
         component={Link}
         to={'/user/edit'}>
-        <CardMedia
-          className={classes.media}
-          title="Contemplative Reptile"
-        />
+        <Box className={classes.media}/>
+
         <CardContent>
           <Typography align={'center'} gutterBottom variant="h5" component="h2">
             Profile

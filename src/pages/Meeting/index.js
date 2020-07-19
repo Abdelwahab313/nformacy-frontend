@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Button, Grid } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -21,14 +21,16 @@ const MeetingsPage = () => {
     return (
       <div className={classes.root}>
         {!!errorMessage && (
-          <ErrorDialog message={errorMessage} close={() => {}} />
+          <ErrorDialog message={errorMessage} close={() => {
+          }}/>
         )}
         <Grid className={classes.tableContainer}>
           <Button
             className={classes.addButton}
             variant='contained'
             id={'add-meeting-button'}
-            onClick={() => {}}
+            onClick={() => {
+            }}
             color='primary'>
             Request a call
           </Button>

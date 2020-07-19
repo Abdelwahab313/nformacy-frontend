@@ -46,7 +46,6 @@ const SelectTimeZone = ({
     return options.find((option) => option.value === timezoneName);
   }, [options, timezoneName]);
 
-  console.log({ value, defaultValue, options });
   const classes = useStyles();
 
   return (
@@ -99,7 +98,6 @@ export const getTimeZoneOptions = () => {
         timezoneOffset,
       });
     });
-    console.log(timeZoneOptions);
     return timeZoneOptions;
   }
 ;

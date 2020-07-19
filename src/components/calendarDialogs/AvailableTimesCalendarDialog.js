@@ -7,6 +7,7 @@ import SubmitButton from '../buttons/SubmitButton';
 import SelectTimeZone from '../inputs/SelectTimeZone';
 import Box from '@material-ui/core/Box';
 import AvailableTimeRangeForm from './AvailableTimesRangeForm';
+import t from '../../locales/en/freelancerProfile.json';
 
 
 const AvailableTimesCalendarDialog = ({ open, onClose, onSubmit, availableDates }) => {
@@ -16,18 +17,19 @@ const AvailableTimesCalendarDialog = ({ open, onClose, onSubmit, availableDates 
     console.log(timezone);
     setTimeZone(timezone.value);
   };
-  const [localState, setLocalState] = useState({
-    selectedStartDate: '',
-    selectedEndDate: '',
-    selectedStartTime: '',
-    selectedEndTime: '',
+
+  const [selectedRange, setSelectedRange] = useState({
+    startDate: '',
+    endDate: '',
+    startTime: '',
+    endTime: '',
   });
 
-  const handleDayClicked = ({ selectedDay, isAvailableDay }) => {
-    setLocalState((previousLocalState) => ({
+  const handleDayClicked = ({ selectedDay }) => {
+    setSelectedRange((previousLocalState) => ({
       ...previousLocalState,
-      selectedStartDate: selectedDay,
-      selectedEndDate: selectedDay,
+      startDate: selectedDay,
+      endDate: selectedDay,
     }));
   };
 
@@ -38,7 +40,7 @@ const AvailableTimesCalendarDialog = ({ open, onClose, onSubmit, availableDates 
       maxWidth={'lg'}
       id={'update-calendar-dialog'}>
       <DialogTitle id='dialog-title'>
-        {'Please Update your Calendar with your Available Times'}
+        {t['updateCalendarTitle']}
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2} className={classes.dialogMargin}>
@@ -56,15 +58,14 @@ const AvailableTimesCalendarDialog = ({ open, onClose, onSubmit, availableDates 
           </Grid>
           <Grid container direction={'column'} justify={'space-between'} alignItems={'center'} xs={5}>
             <Grid item>
-              {!!localState.selectedStartDate && (
+              {!!selectedRange.startDate && (
                 <AvailableTimeRangeForm
-                  dateRange={{from: localState.selectedStartDate, to: localState.selectedEndDate}}
-                  timeRange={{from: localState.selectedStartTime, to: localState.selectedEndTime}}
-                  onSubmitRange={(handleDateChange) => console.log(handleDateChange)}
+                  selectedRange={selectedRange}
+                  setSelectedRange={setSelectedRange}
                 />
               )}
             </Grid>
-            <Grid item justify={'space-evenly'} className={classes.buttonContainer}>
+            <Grid item className={classes.buttonContainer}>
               <Button
                 variant="contained"
                 size="large"

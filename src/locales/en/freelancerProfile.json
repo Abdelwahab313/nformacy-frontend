@@ -76,5 +76,6 @@
   "linkedInProfileUrl": "Linked in Profile Link",
   "CV": "CV",
   "viewCV": "View my CV",
-  "referenceNumber": "Reference Number"
+  "referenceNumber": "Reference Number",
+  "updateCalendarTitle" : "Please Update your Calendar with your Available Times"
 }
