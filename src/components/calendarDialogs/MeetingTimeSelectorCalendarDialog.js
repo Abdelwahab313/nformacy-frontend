@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Box, Button, Dialog, DialogContent, DialogTitle, Grid, Typography } from '@material-ui/core';
 import CalendarView from '../calendar/CalendarView';
 import MeetingTimePicker from './MeetingTimePicker';
-import dateTimeParser from '../../services/dateTimeParser';
+import { formatDayAsKey } from '../../services/dateTimeParser';
 import Transition from '../animations/Transition';
 import { makeStyles } from '@material-ui/core/styles';
 import SubmitButton from '../buttons/SubmitButton';
@@ -18,9 +18,7 @@ const MeetingTimeSelectorCalendarDialog = ({ open, onClose, onSelectDate, availa
 
   const selectedDayTimeRange =
     !!localState.selectedDay &&
-    availableDates.filter((dateSlot) => {
-      return dateTimeParser.isSameDate(dateSlot.date, localState.selectedDay);
-    })[0].intervals[0];
+    availableDates[formatDayAsKey(localState.selectedDay)].intervals;
 
   const handleTimeChange = (selectedDateTime) => {
     setLocalState((previousLocalState) => ({
@@ -30,7 +28,7 @@ const MeetingTimeSelectorCalendarDialog = ({ open, onClose, onSelectDate, availa
     }));
   };
   const handleSelectDay = ({ selectedDay, isAvailableDay }) => {
-    console.log(selectedDay, isAvailableDay)
+    console.log(selectedDay, isAvailableDay);
     if (isAvailableDay) {
       setLocalState((previousLocalState) => ({
         ...previousLocalState,

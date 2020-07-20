@@ -8,6 +8,7 @@ import CalendarCard from './CalendarCard';
 const HomePage = () => {
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem('user'));
+  console.log('---------------------------', user);
 
 
   return (

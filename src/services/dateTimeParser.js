@@ -15,4 +15,6 @@ export const formattedDate = (date) => {
   return `${formattedParts[0].value}, ${formattedParts[2].value}`;
 };
 
+export const formatDayAsKey = (day) => moment(day).format('YYYYMMDD');
+
 export default { isSameDate };

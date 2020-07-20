@@ -4,21 +4,21 @@ import TableCell from '@material-ui/core/TableCell';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import classNames from 'clsx';
 import {
-  Scheduler,
-  MonthView,
-  Toolbar,
-  TodayButton,
-  DateNavigator,
+  AppointmentForm,
   Appointments,
   AppointmentTooltip,
+  DateNavigator,
+  MonthView,
   Resources,
-  AppointmentForm,
+  Scheduler,
+  TodayButton,
+  Toolbar,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Grid from '@material-ui/core/Grid';
 import calendarStyles from './calendarStyles';
-import dateTimeParser from '../../services/dateTimeParser';
+import dateTimeParser, { formatDayAsKey } from '../../services/dateTimeParser';
 import { pink } from '../../styles/colors';
 
 const DayScaleCell = (props) => (
@@ -49,14 +49,11 @@ const CellBase = React.memo(
   ({ classes, startDate, formatDate, otherMonth, availableDates, selectedDay, onDayClick }) => {
 
     const isSelectedDay = dateTimeParser.isSameDate(startDate, selectedDay);
-    const isAvailableDay = availableDates.map((d) => {
-      return d.date;
-    }).some((date) =>
-      dateTimeParser.isSameDate(date, startDate),
-    );
+
+    const isAvailableDay = formatDayAsKey(startDate) in availableDates;
 
     const dayClicked = () => {
-      console.log('day pressed',startDate )
+      console.log('day pressed', startDate);
       onDayClick && onDayClick({ selectedDay: startDate, isAvailableDay });
     };
 
