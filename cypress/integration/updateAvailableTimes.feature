@@ -18,7 +18,7 @@ Feature: Update Calendar for available times for a freelancer
     When I fill the available time
     And click submit time
     Then I should see the selected day labeled as available day in the calendar
-#
+
 #  @ignore
 #  Scenario: Add available day range
 #    When When I click on a day that not available
@@ -26,15 +26,16 @@ Feature: Update Calendar for available times for a freelancer
 #    And fill the time range
 #    And click submit time
 #    Then I should see the selected range of days as available time
-#
-#  @ignore
-#  Scenario: update available day available time
-#    When I click on a day that already set as available
-#    Then I should the time range populated with the available time range
-#    When I update the time range
-#    And click submit time
-#    Then I should see the selected dat as available day with the updated time
-#
+
+  @focus
+  Scenario: update available day available time
+    Given I am a freelacer with day selected as available
+    When I click on a day that already set as available
+    Then I should the time range populated with the available time range
+    When I update the time range
+    And click submit time
+    Then I should see the selected dat as available day with the updated time
+
 #  @ignore
 #  Scenario: remove the day as not available
 #    When I click on a day that already set as available

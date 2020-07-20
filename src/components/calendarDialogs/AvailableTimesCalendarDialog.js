@@ -32,7 +32,7 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailab
     endTime: '',
   });
 
-  const handleDayClicked = ({ selectedDay }) => {
+  const handleDayClicked = ({ selectedDay, }) => {
     setSelectedRange((previousLocalState) => ({
       ...previousLocalState,
       startDate: selectedDay,
@@ -50,8 +50,8 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailab
       dates[formattedDay] = {
         intervals:
           {
-            from: startTime.format('X'),
-            to: endTime.format('X'),
+            from: moment(startTime).format('X'),
+            to: moment(endTime).format('X'),
           },
       };
       enumeratedDate.add(1, 'days');
