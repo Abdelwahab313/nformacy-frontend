@@ -21,8 +21,8 @@ cd -
 
 if [[ $( lsof -w -n -i tcp:5001) ]]
 then
-  npm run cy:run
+  npm test & npm run cy:run
 else
-  npm run cy:start & npm run cy:run
+  npm test & npm run cy:start & npm run cy:run
 fi
 
