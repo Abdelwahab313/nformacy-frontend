@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Button, Dialog, DialogContent, DialogTitle, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import CalendarView from '../calendar/CalendarView';
@@ -8,9 +8,12 @@ import SelectTimeZone from '../inputs/SelectTimeZone';
 import Box from '@material-ui/core/Box';
 import AvailableTimeRangeForm from './AvailableTimesRangeForm';
 import t from '../../locales/en/freelancerProfile.json';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import moment from 'moment';
 
-
-const AvailableTimesCalendarDialog = ({ open, onClose, onSubmit, availableDates }) => {
+const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, availableDates }) => {
   const classes = useStyles();
   const [timeZone, setTimeZone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
   const onChangeTimeZone = (timezone) => {
@@ -30,7 +33,13 @@ const AvailableTimesCalendarDialog = ({ open, onClose, onSubmit, availableDates 
       ...previousLocalState,
       startDate: selectedDay,
       endDate: selectedDay,
+      startTime: moment(selectedDay).set('hour', 8),
+      endTime: moment(selectedDay).set('hour', 17),
     }));
+  };
+
+  const handleUpdateRangeClicked = () => {
+
   };
 
   return (
@@ -40,8 +49,20 @@ const AvailableTimesCalendarDialog = ({ open, onClose, onSubmit, availableDates 
       maxWidth={'lg'}
       id={'update-calendar-dialog'}>
       <DialogTitle id='dialog-title'>
-        {t['updateCalendarTitle']}
+        <Grid container justify={'space-between'}>
+          <Grid item>
+            <Typography variant={'h6'}>
+              {t['updateCalendarTitle']}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <IconButton id={'close-dialog'} aria-label='edit' onClick={closeDialog}>
+              <CloseIcon color={'primary'}/>
+            </IconButton>
+          </Grid>
+        </Grid>
       </DialogTitle>
+
       <DialogContent>
         <Grid container spacing={2} className={classes.dialogMargin}>
           <Grid item xs>
@@ -56,32 +77,31 @@ const AvailableTimesCalendarDialog = ({ open, onClose, onSubmit, availableDates 
                 onChange={onChangeTimeZone}/>
             </Box>
           </Grid>
-          <Grid container direction={'column'} justify={'space-between'} alignItems={'center'} xs={5}>
-            <Grid item>
-              {!!selectedRange.startDate && (
+
+          <Grid container direction={'column'} alignItems={'center'} xs={5}>
+            {!!selectedRange.startDate && (
+              <Fragment>
                 <AvailableTimeRangeForm
                   selectedRange={selectedRange}
                   setSelectedRange={setSelectedRange}
                 />
-              )}
-            </Grid>
-            <Grid item className={classes.buttonContainer}>
-              <Button
-                variant="contained"
-                size="large"
-                className={classes.margin}
-                onClick={() => onClose()}>
-                Cancel
-              </Button>
-              <SubmitButton
-                onClick={() => onSubmit}
-                variant="contained"
-                size="large"
-                className={classes.margin}
-                autoFocus
-                buttonText={'Confirm'}
-              />
-            </Grid>
+                <Grid className={classes.buttonContainer}>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    className={classes.margin}
+                    onClick={() => setSelectedRange(prevState => ({ ...prevState, startDate: '' }))}>
+                    Cancel
+                  </Button>
+                  <SubmitButton
+                    onClick={handleUpdateRangeClicked}
+                    size="large"
+                    className={classes.margin}
+                    buttonText={'Confirm'}
+                  />
+                </Grid>
+              </Fragment>
+            )}
           </Grid>
         </Grid>
       </DialogContent>
@@ -91,6 +111,7 @@ const AvailableTimesCalendarDialog = ({ open, onClose, onSubmit, availableDates 
 
 const useStyles = makeStyles((theme) => ({
   buttonContainer: {
+    marginTop: theme.spacing(2),
     alignSelf: 'flex-end',
     justifyContent: 'space-evenly',
   },

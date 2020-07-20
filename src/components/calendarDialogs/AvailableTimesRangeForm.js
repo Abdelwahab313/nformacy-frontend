@@ -1,17 +1,28 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { KeyboardDatePicker, KeyboardTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { Grid } from '@material-ui/core';
 import * as PropTypes from 'prop-types';
 import t from '../../locales/en/freelancerProfile.json';
+import { makeStyles } from '@material-ui/core/styles';
 
 
 const AvailableTimeRangeForm = ({ selectedRange, setSelectedRange }) => {
+  const classes = useStyles();
+
+  const updateTime = (name, date) => {
+    setSelectedRange(prevState => (
+      {
+        ...prevState,
+        [name]: date,
+      }
+    ));
+  };
 
   return (<Box>
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Grid container spacing={2}>
+      <Grid className={classes.pickerRow} container spacing={2}>
         <Grid item xs>
           <KeyboardDatePicker
             disableToolbar
@@ -22,18 +33,13 @@ const AvailableTimeRangeForm = ({ selectedRange, setSelectedRange }) => {
             id="start-date-range-picker"
             label={t['startDate']}
             value={selectedRange.startDate}
-            onChange={(date) => setSelectedRange(prevState => ({ ...prevState, startDate: date }))}
-            // minDate={
-            //   new Date(watchExperiences[index].startDate)
-            // }
-            // maxDate={Date.now()}
+            onChange={(date) => updateTime('startDate', date)}
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}
           />
         </Grid>
         <Grid item xs>
-
           <KeyboardDatePicker
             disableToolbar
             autoOk
@@ -43,13 +49,34 @@ const AvailableTimeRangeForm = ({ selectedRange, setSelectedRange }) => {
             id="end-date-range-picker"
             label={t['endDate']}
             value={selectedRange.endDate}
-            onChange={(date) => setSelectedRange(prevState => ({ ...prevState, endDate: date }))}
-            minDate={
-              new Date(selectedRange.startDate)
-            }
+            onChange={(date) => updateTime('endDate', date)}
+            minDate={selectedRange.startDate}
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}
+          />
+        </Grid>
+      </Grid>
+      <Grid className={classes.pickerRow} container spacing={2}>
+        <Grid item xs>
+          <KeyboardTimePicker
+            autoOk
+            variant="inline"
+            minutesStep={5}
+            label="start time"
+            value={selectedRange.startTime}
+            onChange={(date) => updateTime('startTime', date)}
+          />
+        </Grid>
+        <Grid item xs>
+          <KeyboardTimePicker
+            autoOk
+            variant="inline"
+            minutesStep={5}
+            label="end time"
+            minDate={selectedRange.startDate}
+            value={selectedRange.endTime}
+            onChange={(date) => updateTime('endTime', date)}
           />
         </Grid>
       </Grid>
@@ -66,5 +93,12 @@ AvailableTimeRangeForm.propTypes = {
   }),
   setSelectedRange: PropTypes.func,
 };
+
+
+const useStyles = makeStyles((theme) => ({
+  pickerRow: {
+    marginBottom: theme.spacing(8),
+  },
+}));
 
 export default AvailableTimeRangeForm;

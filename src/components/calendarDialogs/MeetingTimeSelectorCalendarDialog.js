@@ -43,72 +43,69 @@ const MeetingTimeSelectorCalendarDialog = ({ open, onClose, onSelectDate, availa
       TransitionComponent={Transition}
       maxWidth={'lg'}
       id={'calendar-dialog'}>
-
-      <Fragment>
-        <DialogTitle id='dialog-title'>
-          {'Please Pick Available Date to Schedule the Call'}
-        </DialogTitle>
-        <DialogContent>
-          <Grid container spacing={2} className={classes.dialogMargin}>
-            <Grid item xs={1}/>
-            <Grid item xs>
-              <CalendarView
-                availableDates={availableDates}
-                isInteractable
-                selectedDay={localState.selectedDay}
-                onDayClick={handleSelectDay}/>
+      <DialogTitle id='dialog-title'>
+        {'Please Pick Available Date to Schedule the Call'}
+      </DialogTitle>
+      <DialogContent>
+        <Grid container spacing={2} className={classes.dialogMargin}>
+          <Grid item xs={1}/>
+          <Grid item xs>
+            <CalendarView
+              availableDates={availableDates}
+              isInteractable
+              selectedDay={localState.selectedDay}
+              onDayClick={handleSelectDay}/>
+          </Grid>
+          <Grid container direction={'column'} justify={'space-between'} alignItems={'center'} xs={4}>
+            <Grid item>
+              {localState.selectedDay && (
+                <Fragment>
+                  <Box>
+                    <Typography variant='h6' align='center'>
+                      {`Your call will be in ${selectedDayFormatted}`}
+                    </Typography>
+                    <Typography variant='h6' align='center'>
+                      {selectedTimeText}
+                    </Typography>
+                  </Box>
+                  <Box mt={8}>
+                    <MeetingTimePicker
+                      startTime={moment(
+                        `${selectedDayFormatted} ${selectedDayTimeRange.from}`,
+                        'DD-MM-YYYY hh:mm',
+                      )}
+                      endTime={moment(
+                        `${selectedDayFormatted} ${selectedDayTimeRange.to}`,
+                        'DD-MM-YYYY hh:mm',
+                      )}
+                      selectedTime={moment(localState.selectedDay).toDate()}
+                      handleTimeChange={handleTimeChange}
+                    />
+                  </Box>
+                </Fragment>
+              )}
             </Grid>
-            <Grid container direction={'column'} justify={'space-between'} alignItems={'center'} xs={4}>
-              <Grid item>
-                {localState.selectedDay && (
-                  <Fragment>
-                    <Box>
-                      <Typography variant='h6' align='center'>
-                        {`Your call will be in ${selectedDayFormatted}`}
-                      </Typography>
-                      <Typography variant='h6' align='center'>
-                        {selectedTimeText}
-                      </Typography>
-                    </Box>
-                    <Box mt={8}>
-                      <MeetingTimePicker
-                        startTime={moment(
-                          `${selectedDayFormatted} ${selectedDayTimeRange.from}`,
-                          'DD-MM-YYYY hh:mm',
-                        )}
-                        endTime={moment(
-                          `${selectedDayFormatted} ${selectedDayTimeRange.to}`,
-                          'DD-MM-YYYY hh:mm',
-                        )}
-                        selectedTime={moment(localState.selectedDay).toDate()}
-                        handleTimeChange={handleTimeChange}
-                      />
-                    </Box>
-                  </Fragment>
-                )}
-              </Grid>
-              <Grid item justify={'space-evenly'} className={classes.buttonContainer}>
-                <Button
-                  variant="contained"
-                  size="large"
-                  className={classes.margin}
-                  onClick={() => onClose()}>
-                  Cancel
-                </Button>
-                <SubmitButton
-                  disabled={!localState.isUpdatedTime}
-                  onClick={() => onSelectDate(localState.selectedDay)}
-                  variant="contained"
-                  size="large"
-                  className={classes.margin}
-                  autoFocus
-                  buttonText={'Confirm'}
-                />
-              </Grid>
+            <Grid item justify={'space-evenly'} className={classes.buttonContainer}>
+              <Button
+                variant="contained"
+                size="large"
+                className={classes.margin}
+                onClick={() => onClose()}>
+                Cancel
+              </Button>
+              <SubmitButton
+                disabled={!localState.isUpdatedTime}
+                onClick={() => onSelectDate(localState.selectedDay)}
+                variant="contained"
+                size="large"
+                className={classes.margin}
+                autoFocus
+                buttonText={'Confirm'}
+              />
             </Grid>
           </Grid>
-        </DialogContent>
-      </Fragment>
+        </Grid>
+      </DialogContent>
     </Dialog>
   );
 };

@@ -41,7 +41,7 @@ const CalendarCard = ({ user }) => {
         onSubmit={() => {
           setIsCalendarDialog(false);
         }}
-        onClose={() => {
+        closeDialog={() => {
           setIsCalendarDialog(false);
         }}
       />

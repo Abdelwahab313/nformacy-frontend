@@ -20,6 +20,7 @@ import Grid from '@material-ui/core/Grid';
 import calendarStyles from './calendarStyles';
 import dateTimeParser, { formatDayAsKey } from '../../services/dateTimeParser';
 import { pink } from '../../styles/colors';
+import moment from 'moment';
 
 const DayScaleCell = (props) => (
   <MonthView.DayScaleCell
@@ -77,6 +78,7 @@ const CellBase = React.memo(
             <Grid
               item
               xs={3}
+              data-day={moment(startDate).format('DD-MM')}
               className={classNames({
                 dayText: true,
                 [classes.dayText]: true,

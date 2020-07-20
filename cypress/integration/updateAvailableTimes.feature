@@ -3,23 +3,23 @@ Feature: Update Calendar for available times for a freelancer
   Background:
     Given I log in
     And visit home page
+    And I click on calendar summary cards' button
 
-  @ignore
   Scenario: Open Calendar update dialog
-    When I click on calendar summary cards' button
     Then I should see a modal with calendar on the left
     And field to select the displayed time zones
     And selected by default the timezone of the user
-    And button for cancel
-#
-#  @ignore
-#  Scenario: Add available day
-#    When I click on a free day
-#    Then I should see on the left of the calendar a field to with the start/end date and start/end time fields
-#    And The start Day and end will both have the same day with the day selected
-#    When I fill the available time
-#    And click submit time
-#    Then I should see the selected day labeled as available day in the calendar
+    And button for close dialog
+
+
+  @focus
+  Scenario: Add available day
+    When I click on a free day
+    Then I should see on the left of the calendar a field with the start/end date and start/end time fields
+    And The start Day and end will both have the same day with the day selected
+    When I fill the available time
+    And click submit time
+    Then I should see the selected day labeled as available day in the calendar
 #
 #  @ignore
 #  Scenario: Add available day range
