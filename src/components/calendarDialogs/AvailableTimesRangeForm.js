@@ -60,6 +60,7 @@ const AvailableTimeRangeForm = ({ selectedRange, setSelectedRange }) => {
       <Grid className={classes.pickerRow} container spacing={2}>
         <Grid item xs>
           <KeyboardTimePicker
+            id="start-time-range-picker"
             autoOk
             variant="inline"
             minutesStep={5}
@@ -70,6 +71,7 @@ const AvailableTimeRangeForm = ({ selectedRange, setSelectedRange }) => {
         </Grid>
         <Grid item xs>
           <KeyboardTimePicker
+            id="end-time-range-picker"
             autoOk
             variant="inline"
             minutesStep={5}

@@ -37,7 +37,7 @@ const CalendarCard = ({ user }) => {
       </Grid>
       <AvailableTimesCalendarDialog
         open={isCalendarDialogOpen}
-        availableDates={availableDates}
+        userAvailableDates={availableDates}
         onSubmit={() => {
           setIsCalendarDialog(false);
         }}

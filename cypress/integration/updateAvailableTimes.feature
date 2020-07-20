@@ -11,8 +11,6 @@ Feature: Update Calendar for available times for a freelancer
     And selected by default the timezone of the user
     And button for close dialog
 
-
-  @focus
   Scenario: Add available day
     When I click on a free day
     Then I should see on the left of the calendar a field with the start/end date and start/end time fields

@@ -68,6 +68,7 @@ const CellBase = React.memo(
         style={isAvailableDay ? { backgroundColor: pink } : {}}
         onClick={dayClicked}
         tabIndex={0}
+        data-day={moment(startDate).format('DD-MM')}
         className={classNames({
           availableCell: isAvailableDay,
           [classes.cell]: true,
@@ -78,7 +79,6 @@ const CellBase = React.memo(
             <Grid
               item
               xs={3}
-              data-day={moment(startDate).format('DD-MM')}
               className={classNames({
                 dayText: true,
                 [classes.dayText]: true,

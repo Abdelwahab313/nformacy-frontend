@@ -1,8 +1,8 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { BACKEND_WEB_URL } from '../../../cypress/defualtTestValues';
 import QuestionsFetcher from '../../hooks/QuestionsFetcher';
 import { renderHook, act } from '@testing-library/react-hooks';
+import { API_BASE_URL } from '../../settings';
 
 const mock = new MockAdapter(axios);
 
@@ -14,7 +14,7 @@ describe('Fetch question', () => {
       today.getMonth(),
       today.getDate() + 10,
     );
-    mock.onGet(`${BACKEND_WEB_URL}/questions`).reply(200, [
+    mock.onGet(`${API_BASE_URL}/questions`).reply(200, [
       {
         referenceId: 2000100,
         title: 'test title',

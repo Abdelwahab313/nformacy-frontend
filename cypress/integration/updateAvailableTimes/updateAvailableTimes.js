@@ -1,5 +1,4 @@
-
-import {  When, Then } from 'cypress-cucumber-preprocessor/steps';
+import { When, Then } from 'cypress-cucumber-preprocessor/steps';
 
 
 When(/^I click on calendar summary cards' button$/, function() {
@@ -28,26 +27,28 @@ Then(/^button for close dialog$/, function() {
 
 When(/^I click on a free day$/, function() {
   // should get dynamic day
-  cy.get("#update-calendar-dialog div.dayText[data-day='04-07']").click();
+  cy.get('#update-calendar-dialog td[data-day=\'04-07\']').click();
 });
 
 Then(/^I should see on the left of the calendar a field with the start\/end date and start\/end time fields$/, function() {
   cy.get('#start-date-range-picker').should('be.visible');
-  cy.get('#start-date-range-picker').should('have.value', '04/07/2020');
-  cy.get('#end-date-range-picker').should('have.value', '04/07/2020');
-
-  // cy.get('')
+  cy.get('#end-date-range-picker').should('be.visible');
+  cy.get('#start-time-range-picker').should('be.visible');
+  cy.get('#end-time-range-picker').should('be.visible');
 });
 
 Then(/^The start Day and end will both have the same day with the day selected$/, function() {
+  cy.get('#start-date-range-picker').should('have.value', '04/07/2020');
+  cy.get('#end-date-range-picker').should('have.value', '04/07/2020');
 
 });
 When(/^I fill the available time$/, function() {
-
+  cy.get('#start-time-range-picker').should('have.value', '08:00 AM');
+  cy.get('#end-time-range-picker').should('have.value', '05:00 PM');
 });
 When(/^click submit time$/, function() {
-
+  cy.get('#confirm').click();
 });
 Then(/^I should see the selected day labeled as available day in the calendar$/, function() {
-
+  cy.get('#update-calendar-dialog td[data-day=\'04-07\']').should('have.class', 'availableCell');
 });

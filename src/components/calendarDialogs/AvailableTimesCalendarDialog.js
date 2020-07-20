@@ -12,14 +12,18 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import moment from 'moment';
+import { formatDayAsKey } from '../../services/dateTimeParser';
 
-const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, availableDates }) => {
+
+const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailableDates }) => {
   const classes = useStyles();
   const [timeZone, setTimeZone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
   const onChangeTimeZone = (timezone) => {
     console.log(timezone);
     setTimeZone(timezone.value);
   };
+
+  const [availableDates, setAvailableDates] = useState(userAvailableDates);
 
   const [selectedRange, setSelectedRange] = useState({
     startDate: '',
@@ -38,8 +42,27 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, availableDa
     }));
   };
 
-  const handleUpdateRangeClicked = () => {
+  const enumerateAvailableDays = (selectedRange) => {
+    const { startDate, endDate, startTime, endTime } = selectedRange;
+    const enumeratedDate = moment(startDate).clone(), dates = {};
+    while (enumeratedDate.isSameOrBefore(endDate)) {
+      let formattedDay = formatDayAsKey(enumeratedDate);
+      dates[formattedDay] = {
+        intervals:
+          {
+            from: startTime.format('X'),
+            to: endTime.format('X'),
+          },
+      };
+      enumeratedDate.add(1, 'days');
+    }
+    console.log('-----dates', dates);
+    return dates;
+  };
 
+  const handleUpdateRangeClicked = () => {
+    const selectedAvailableDays = enumerateAvailableDays(selectedRange);
+    setAvailableDates(prevState => ({ ...prevState, ...selectedAvailableDays }));
   };
 
   return (
@@ -94,10 +117,11 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, availableDa
                     Cancel
                   </Button>
                   <SubmitButton
+                    id={'confirm'}
                     onClick={handleUpdateRangeClicked}
                     size="large"
                     className={classes.margin}
-                    buttonText={'Confirm'}
+                    buttonText={t['confirm']}
                   />
                 </Grid>
               </Fragment>
