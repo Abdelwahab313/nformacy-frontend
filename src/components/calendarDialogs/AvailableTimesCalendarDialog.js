@@ -32,20 +32,32 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailab
     endTime: '',
   });
 
-  const handleDayClicked = ({ selectedDay }) => {
-    setSelectedRange((previousLocalState) => ({
-      ...previousLocalState,
-      startDate: selectedDay,
-      endDate: selectedDay,
-      startTime: moment(selectedDay).set('hour', 8),
-      endTime: moment(selectedDay).set('hour', 17),
-    }));
+  const handleDayClicked = ({ selectedDay, isAvailableDay }) => {
+    if (isAvailableDay) {
+      const availableDayObject = availableDates[formatDayAsKey(selectedDay)];
+
+      setSelectedRange((previousLocalState) => ({
+        ...previousLocalState,
+        startDate: selectedDay,
+        endDate: selectedDay,
+        startTime: moment(availableDayObject.intervals.from, 'HH:mm'),
+        endTime: moment(availableDayObject.intervals.to, 'HH:mm'),
+      }));
+    } else {
+      setSelectedRange((previousLocalState) => ({
+        ...previousLocalState,
+        startDate: selectedDay,
+        endDate: selectedDay,
+        startTime: moment(selectedDay).set('hour', 8),
+        endTime: moment(selectedDay).set('hour', 17),
+      }));
+    }
   };
 
 
   const handleDayDeleteAvailableDay = () => {
     const formattedSelectedDay = formatDayAsKey(selectedRange.startDate);
-    if (formattedSelectedDay in userAvailableDates) {
+    if (formattedSelectedDay in availableDates) {
       const updatedAvailableDates = { ...availableDates };
       delete updatedAvailableDates[formattedSelectedDay];
       setAvailableDates(updatedAvailableDates);
@@ -60,8 +72,8 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailab
       dates[formattedDay] = {
         intervals:
           {
-            from: moment(startTime).format('X'),
-            to: moment(endTime).format('X'),
+            from: moment(startTime).format('HH:mm'),
+            to: moment(endTime).format('HH:mm'),
           },
       };
       enumeratedDate.add(1, 'days');
@@ -120,12 +132,12 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailab
                 />
                 <Grid className={classes.deleteAvailableDayButton}>
                   <Button
-                    variant="outlined"
+                    variant="text"
                     color="primary"
                     size="large"
                     className={classes.margin}
                     onClick={handleDayDeleteAvailableDay}>
-                    I am not available
+                    I am Unavailable this day
                   </Button>
                 </Grid>
                 <Grid className={classes.buttonContainer}>

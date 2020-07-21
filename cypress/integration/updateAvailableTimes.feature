@@ -2,6 +2,7 @@ Feature: Update Calendar for available times for a freelancer
 
   Background:
     Given I log in
+    And I have day selected as available on my calendar
     And visit home page
     And I click on calendar summary cards' button
 
@@ -29,12 +30,11 @@ Feature: Update Calendar for available times for a freelancer
 
   @focus
   Scenario: update available day available time
-    Given I am a freelacer with day selected as available
     When I click on a day that already set as available
     Then I should the time range populated with the available time range
     When I update the time range
     And click submit time
-    Then I should see the selected dat as available day with the updated time
+    Then I should see the selected day as available day with the updated time
 
 #  @ignore
 #  Scenario: remove the day as not available

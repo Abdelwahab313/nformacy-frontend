@@ -76,7 +76,7 @@ const AvailableTimeRangeForm = ({ selectedRange, setSelectedRange }) => {
             variant="inline"
             minutesStep={5}
             label="end time"
-            minDate={selectedRange.startDate}
+            minTime={selectedRange.startTime}
             value={selectedRange.endTime}
             onChange={(date) => updateTime('endTime', date)}
           />

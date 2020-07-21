@@ -1,4 +1,4 @@
-import {Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import { createDayAvailableForUser } from '../../helperFunctions';
 
 
@@ -65,17 +65,26 @@ When(/^I click on a day that already set as available$/, function() {
 
 Then(/^I should the time range populated with the available time range$/, function() {
   cy.get('#start-date-range-picker').should('have.value', '28/07/2020');
-  cy.get('#start-time-range-picker').should('have.value', '05:00 PM');
-  cy.get('#end-time-range-picker').should('have.value', '09:00 PM');
+  cy.get('#start-time-range-picker').should('have.value', '10:00 AM');
+  cy.get('#end-time-range-picker').should('have.value', '04:00 PM');
 });
 
 When(/^I update the time range$/, function() {
-
+  cy.wrap('12:00 PM').as('updatedStartTime');
+  cy.wrap('06:00 PM').as('updatedEndTime');
+  cy.get('#start-time-range-picker').clear();
+  cy.get('#start-time-range-picker').type('12:00 PM');
+  cy.get('#end-time-range-picker').clear();
+  cy.get('#end-time-range-picker').type('06:00 PM');
 });
 
-Then(/^I should see the selected dat as available day with the updated time$/, function() {
-
+Then(/^I should see the selected day as available day with the updated time$/, function() {
+  cy.get('#update-calendar-dialog td[data-day=\'28-07\']')
+    .should('have.class', 'availableCell')
+    .click();
+  cy.get('#start-time-range-picker').should('have.value', this.updatedStartTime);
+  cy.get('#end-time-range-picker').should('have.value', this.updatedEndTime);
 });
-Given(/^I am a freelacer with day selected as available$/, function() {
-  createDayAvailableForUser()
+Given(/^I have day selected as available on my calendar$/, function() {
+  createDayAvailableForUser('20200728', '10:00', '16:00');
 });
