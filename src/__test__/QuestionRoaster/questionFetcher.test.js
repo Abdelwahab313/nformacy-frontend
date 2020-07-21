@@ -58,8 +58,22 @@ describe('Fetch question', () => {
         assignmentType: 'Question',
         endDate: endDate,
       },
+      {
+        referenceId: 2000103,
+        title: 'test title 4',
+        content: 'testContent 4',
+        field: [
+          {
+            value: 'formalEducation',
+            label: 'Formal Education',
+          },
+        ],
+        assignmentType: 'Question',
+        endDate: endDate,
+      },
     ]);
   });
+
   it('should fetch questions successfully', async () => {
     const { result, waitForNextUpdate } = renderHook(() => QuestionsFetcher());
 
@@ -67,7 +81,7 @@ describe('Fetch question', () => {
 
     await waitForNextUpdate();
 
-    expect(result.current.questions.length).toEqual(3);
+    expect(result.current.questions.length).toEqual(4);
   });
 
   it('should filter questions based on given key', async () => {
@@ -76,7 +90,7 @@ describe('Fetch question', () => {
     await act(async () => {
       await waitForNextUpdate();
 
-      result.current.filterQuestions(['finance']);
+      result.current.filterQuestions('finance');
 
       expect(result.current.questions.length).toEqual(1);
     });
@@ -88,21 +102,10 @@ describe('Fetch question', () => {
     await act(async () => {
       await waitForNextUpdate();
 
-      result.current.filterQuestions(['finance', 'formalEducation']);
+      result.current.filterQuestions('humanResource');
+      result.current.filterQuestions('formalEducation');
 
-      expect(result.current.questions.length).toEqual(2);
-    });
-  });
-
-  it('should not duplicate question if has multiple filter keys', async () => {
-    const { result, waitForNextUpdate } = renderHook(() => QuestionsFetcher());
-
-    await act(async () => {
-      await waitForNextUpdate();
-
-      result.current.filterQuestions(['finance', 'formalEducation']);
-
-      expect(result.current.questions.length).toEqual(2);
+      expect(result.current.questions.length).toEqual(1);
     });
   });
 
@@ -112,9 +115,55 @@ describe('Fetch question', () => {
     await act(async () => {
       await waitForNextUpdate();
 
-      result.current.filterQuestions(['all']);
+      result.current.filterQuestions('all');
 
-      expect(result.current.questions.length).toEqual(3);
+      expect(result.current.questions.length).toEqual(4);
+    });
+  });
+
+  it('should add key to filters and cause filtration to be invoked', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => QuestionsFetcher());
+
+    await act(async () => {
+      await waitForNextUpdate();
+
+      result.current.addFilter('finance');
+
+      expect(result.current.questions.length).toEqual(1);
+    });
+  });
+
+  it('should remove key from filters and cause filtration to be invoked', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => QuestionsFetcher());
+
+    await act(async () => {
+      await waitForNextUpdate();
+
+      result.current.setFilters(['humanResource', 'formalEducation']);
+      result.current.filterQuestions('formalEducation');
+      result.current.filterQuestions('humanResource');
+
+      expect(result.current.questions.length).toEqual(1);
+
+      result.current.removeFilter('humanResource');
+
+      expect(result.current.questions.length).toEqual(0);
+    });
+  });
+
+  it('should filter from previous filtered questions', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => QuestionsFetcher());
+
+    await act(async () => {
+      await waitForNextUpdate();
+
+      result.current.addFilter('formalEducation');
+
+      expect(result.current.questions.length).toEqual(1);
+
+      result.current.addFilter('humanResource');
+
+      expect(result.current.questions.length).toEqual(1);
     });
   });
 });

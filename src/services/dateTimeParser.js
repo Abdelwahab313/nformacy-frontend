@@ -17,4 +17,16 @@ export const formattedDate = (date) => {
 
 export const formatDayAsKey = (day) => moment(day).format('YYYYMMDD');
 
+export const formattedDateTime = (date) => {
+  const dateTimeFormat = new Intl.DateTimeFormat('en', {
+    year: 'numeric',
+    month: 'numeric',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
+  return dateTimeFormat.format(date);
+};
+
 export default { isSameDate };

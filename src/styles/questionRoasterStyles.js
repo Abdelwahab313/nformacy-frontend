@@ -31,10 +31,9 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   fieldNameFilterStyles: {
-    backgroundColor: pink,
-    color: white,
-    border: 'solid 1px' + white,
+    border: 'solid 1px',
     height: '40px',
+    margin: '2px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -54,6 +53,12 @@ export const useStyles = makeStyles((theme) => ({
   questionsCategoriesContainer: {
     marginTop: theme.spacing(3),
   },
+  questionContainer: {
+    flexDirection: 'column',
+    flexGrow: 1,
+    marginTop: theme.spacing(3),
+  },
+  assignmentTypeIcon: { fontSize: '50px' },
   questionFieldsStyles: {
     backgroundColor: lightGrey,
     border: 'solid 1px' + pink,
@@ -70,5 +75,5 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       fontSize: '4vw',
     },
-  }
+  },
 }));
