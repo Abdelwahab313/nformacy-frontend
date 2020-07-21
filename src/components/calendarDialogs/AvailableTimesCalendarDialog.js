@@ -32,7 +32,7 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailab
     endTime: '',
   });
 
-  const handleDayClicked = ({ selectedDay, }) => {
+  const handleDayClicked = ({ selectedDay }) => {
     setSelectedRange((previousLocalState) => ({
       ...previousLocalState,
       startDate: selectedDay,
@@ -40,6 +40,16 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailab
       startTime: moment(selectedDay).set('hour', 8),
       endTime: moment(selectedDay).set('hour', 17),
     }));
+  };
+
+
+  const handleDayDeleteAvailableDay = () => {
+    const formattedSelectedDay = formatDayAsKey(selectedRange.startDate);
+    if (formattedSelectedDay in userAvailableDates) {
+      const updatedAvailableDates = { ...availableDates };
+      delete updatedAvailableDates[formattedSelectedDay];
+      setAvailableDates(updatedAvailableDates);
+    }
   };
 
   const enumerateAvailableDays = (selectedRange) => {
@@ -108,6 +118,16 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailab
                   selectedRange={selectedRange}
                   setSelectedRange={setSelectedRange}
                 />
+                <Grid className={classes.deleteAvailableDayButton}>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    size="large"
+                    className={classes.margin}
+                    onClick={handleDayDeleteAvailableDay}>
+                    I am not available
+                  </Button>
+                </Grid>
                 <Grid className={classes.buttonContainer}>
                   <Button
                     variant="contained"
@@ -138,6 +158,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     alignSelf: 'flex-end',
     justifyContent: 'space-evenly',
+  },
+  deleteAvailableDayButton: {
+    alignSelf: 'flex-start',
   },
   margin: {
     margin: theme.spacing(1),
