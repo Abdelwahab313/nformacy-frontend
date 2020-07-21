@@ -65,8 +65,8 @@ When(/^I click on a day that already set as available$/, function() {
 
 Then(/^I should the time range populated with the available time range$/, function() {
   cy.get('#start-date-range-picker').should('have.value', '28/07/2020');
-  cy.get('#start-time-range-picker').should('have.value', '10:00 AM');
-  cy.get('#end-time-range-picker').should('have.value', '04:00 PM');
+  cy.get('#start-time-range-picker').should('have.value', '12:00 PM');
+  cy.get('#end-time-range-picker').should('have.value', '06:00 PM');
 });
 
 When(/^I update the time range$/, function() {
@@ -87,4 +87,56 @@ Then(/^I should see the selected day as available day with the updated time$/, f
 });
 Given(/^I have day selected as available on my calendar$/, function() {
   createDayAvailableForUser('20200728', '10:00', '16:00');
+});
+
+
+When(/^time zone is selected to be Africa\/cairo \+02:00$/, function() {
+  cy.get('#time-zone-picker').should('have.value', 'Africa/Cairo (GMT+02:00)');
+});
+
+When(/^I click on a day that is already available with hours 10:00 and 16:00$/, function() {
+  cy.get('#update-calendar-dialog td[data-day=\'28-07\']')
+    .should('have.class', 'availableCell')
+    .click();
+});
+
+Then(/^I should see the time 12:00 PM and 06:00 PM$/, function() {
+  cy.get('#start-time-range-picker').should('have.value', '12:00 PM');
+  cy.get('#end-time-range-picker').should('have.value', '06:00 PM');
+});
+
+When(/^I change time zone to be America\/New_York$/, function() {
+  cy.get('button[title="Open"]').click();
+  cy.get('#time-zone-picker-option-168').click();
+  cy.get('#time-zone-picker').should('have.value', 'America/New_York (GMT-04:00)');
+});
+
+Then(/^I should see the time 06:00 AM and 12:00 PM$/, function() {
+  cy.get('#update-calendar-dialog td[data-day=\'28-07\']')
+    .should('have.class', 'availableCell')
+    .click();
+  cy.get('#start-time-range-picker').should('have.value', '06:00 AM');
+  cy.get('#end-time-range-picker').should('have.value', '12:00 PM');
+});
+
+
+When(/^update the time range to be 09:00 to 15:00$/, function() {
+  cy.get('#start-time-range-picker').clear();
+  cy.get('#start-time-range-picker').type('09:00 AM');
+  cy.get('#end-time-range-picker').clear();
+  cy.get('#end-time-range-picker').type('03:00 PM');
+});
+
+When(/^click on the change time zone button to be Africa\/Cairo$/, function() {
+  cy.get('button[title="Open"]').click();
+  cy.get('#time-zone-picker-option-13').click();
+  cy.get('#time-zone-picker').should('have.value', 'Africa/Cairo (GMT+02:00)');
+});
+
+Then(/^I should see the time 03:00 PM and 09:00 PM$/, function() {
+  cy.get('#update-calendar-dialog td[data-day=\'28-07\']')
+    .should('have.class', 'availableCell')
+    .click();
+  cy.get('#start-time-range-picker').should('have.value', '03:00 PM');
+  cy.get('#end-time-range-picker').should('have.value', '09:00 PM');
 });

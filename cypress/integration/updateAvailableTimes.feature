@@ -28,7 +28,6 @@ Feature: Update Calendar for available times for a freelancer
 #    And click submit time
 #    Then I should see the selected range of days as available time
 
-  @focus
   Scenario: update available day available time
     When I click on a day that already set as available
     Then I should the time range populated with the available time range
@@ -49,12 +48,18 @@ Feature: Update Calendar for available times for a freelancer
 #    And close dialog
 #    Then Calendar at home page will be updated
 #
-#
-#  @ignore
-#  Scenario: time zone difference
-#    Given I open calendar dialog with time zone +02:00
-#    When I click on a day that not available
-#    And Update the time range to be 09:00 to 15:00
-#    And click submit
-#    And click on the change time zone button to be +05:00
-#    Then I should see the selected time range for the selected day to be 12:00 to 18:00
+
+  Scenario: view available days in different time zone
+    When time zone is selected to be Africa/cairo +02:00
+    When I click on a day that is already available with hours 10:00 and 16:00
+    Then I should see the time 12:00 PM and 06:00 PM
+    When I change time zone to be America/New_York
+    Then I should see the time 06:00 AM and 12:00 PM
+
+  Scenario: update days in different time zone
+    When I click on a day that is already available with hours 10:00 and 16:00
+    And I change time zone to be America/New_York
+    And update the time range to be 09:00 to 15:00
+    And click submit time
+    And click on the change time zone button to be Africa/Cairo
+    Then I should see the time 03:00 PM and 09:00 PM

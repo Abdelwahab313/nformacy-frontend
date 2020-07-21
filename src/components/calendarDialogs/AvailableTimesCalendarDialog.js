@@ -12,14 +12,14 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import moment from 'moment';
-import { formatDayAsKey } from '../../services/dateTimeParser';
-
+import { convertTimeToUTC, formatDayAsKey, formatTime, getTimeAtTimeZone } from '../../services/dateTimeParser';
 
 const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailableDates }) => {
   const classes = useStyles();
   const [timeZone, setTimeZone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
   const onChangeTimeZone = (timezone) => {
     console.log(timezone);
+    // check if the object not null
     setTimeZone(timezone.value);
   };
 
@@ -35,13 +35,12 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailab
   const handleDayClicked = ({ selectedDay, isAvailableDay }) => {
     if (isAvailableDay) {
       const availableDayObject = availableDates[formatDayAsKey(selectedDay)];
-
       setSelectedRange((previousLocalState) => ({
         ...previousLocalState,
         startDate: selectedDay,
         endDate: selectedDay,
-        startTime: moment(availableDayObject.intervals.from, 'HH:mm'),
-        endTime: moment(availableDayObject.intervals.to, 'HH:mm'),
+        startTime: getTimeAtTimeZone(availableDayObject.intervals.from, timeZone),
+        endTime: getTimeAtTimeZone(availableDayObject.intervals.to, timeZone),
       }));
     } else {
       setSelectedRange((previousLocalState) => ({
@@ -72,8 +71,8 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailab
       dates[formattedDay] = {
         intervals:
           {
-            from: moment(startTime).format('HH:mm'),
-            to: moment(endTime).format('HH:mm'),
+            from: convertTimeToUTC(formatTime(startTime), timeZone),
+            to: convertTimeToUTC(formatTime(endTime), timeZone),
           },
       };
       enumeratedDate.add(1, 'days');
