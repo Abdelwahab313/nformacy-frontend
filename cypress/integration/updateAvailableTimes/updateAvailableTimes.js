@@ -16,8 +16,8 @@ Then(/^field to select the displayed time zones$/, function() {
 });
 
 Then(/^selected by default the timezone of the user$/, function() {
-  const defaultTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const defaultTimeZoneLabel = defaultTimeZone === 'Africa/Cairo' ? 'Africa/Cairo (GMT+02:00)' : 'UTC (GMT+00:00)';
+  const isCairoTime = Intl.DateTimeFormat().resolvedOptions().timeZone === 'Africa/Cairo';
+  const defaultTimeZoneLabel = isCairoTime ? 'Africa/Cairo (GMT+02:00)' : 'UTC (GMT+00:00)';
   cy.get('#time-zone-picker').should('have.value', defaultTimeZoneLabel);
 });
 
@@ -66,10 +66,13 @@ When(/^I click on a day that already set as available$/, function() {
     .click();
 });
 
-Then(/^I should the time range populated with the available time range$/, function() {
+Then(/^I should see the time range populated with the available time range$/, function() {
   cy.get('#start-date-range-picker').should('have.value', '28/07/2020');
-  cy.get('#start-time-range-picker').should('have.value', '12:00 PM');
-  cy.get('#end-time-range-picker').should('have.value', '06:00 PM');
+  const isCairoTime = Intl.DateTimeFormat().resolvedOptions().timeZone === 'Africa/Cairo';
+  const startTime = isCairoTime ? '12:00 PM' : '10:00 AM';
+  const endTime = isCairoTime ? '06:00 PM' : '04:00 PM';
+  cy.get('#start-time-range-picker').should('have.value', startTime);
+  cy.get('#end-time-range-picker').should('have.value', endTime);
 });
 
 When(/^I update the time range$/, function() {
@@ -88,13 +91,9 @@ Then(/^I should see the selected day as available day with the updated time$/, f
   cy.get('#start-time-range-picker').should('have.value', this.updatedStartTime);
   cy.get('#end-time-range-picker').should('have.value', this.updatedEndTime);
 });
+
 Given(/^I have day selected as available on my calendar$/, function() {
   createDayAvailableForUser('20200728', '10:00', '16:00');
-});
-
-
-When(/^time zone is selected to be Africa\/cairo \+02:00$/, function() {
-  cy.get('#time-zone-picker').should('have.value', 'Africa/Cairo (GMT+02:00)');
 });
 
 When(/^I click on a day that is already available with hours 10:00 and 16:00$/, function() {
@@ -121,7 +120,6 @@ Then(/^I should see the time 06:00 AM and 12:00 PM$/, function() {
   cy.get('#start-time-range-picker').should('have.value', '06:00 AM');
   cy.get('#end-time-range-picker').should('have.value', '12:00 PM');
 });
-
 
 When(/^update the time range to be 09:00 to 15:00$/, function() {
   cy.get('#start-time-range-picker').clear();
