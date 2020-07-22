@@ -53,12 +53,21 @@ export const useStyles = makeStyles((theme) => ({
   questionsCategoriesContainer: {
     marginTop: theme.spacing(3),
   },
+  paper: {
+    padding: theme.spacing(3),
+    margin: theme.spacing(2),
+  },
   questionContainer: {
-    flexDirection: 'column',
-    flexGrow: 1,
     marginTop: theme.spacing(3),
   },
   assignmentTypeIcon: { fontSize: '50px' },
+  fieldContainer: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  flexContainer:{
+    display: 'flex',
+  },
   questionFieldsStyles: {
     backgroundColor: lightGrey,
     border: 'solid 1px' + pink,

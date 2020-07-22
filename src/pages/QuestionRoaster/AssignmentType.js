@@ -5,28 +5,28 @@ import HelpIcon from '@material-ui/icons/Help';
 import CallIcon from '@material-ui/icons/Call';
 import { useStyles } from '../../styles/questionRoasterStyles';
 
-const AssignmentType = ({ type }) => {
+const AssignmentType = ({ index, type }) => {
   const classes = useStyles();
 
   switch (type) {
     case 'Project':
       return (
         <Fragment>
-          <BusinessCenterIcon color={'primary'} className={classes.assignmentTypeIcon}  />
+          <BusinessCenterIcon id={`question-${index}-project`} color={'primary'} className={classes.assignmentTypeIcon}  />
           <Typography>Project</Typography>
         </Fragment>
       );
     case 'Question':
       return (
         <Fragment>
-          <HelpIcon color={'primary'} className={classes.assignmentTypeIcon}  />
+          <HelpIcon id={`question-${index}-question`} color={'primary'} className={classes.assignmentTypeIcon}  />
           <Typography>Question</Typography>
         </Fragment>
       );
     case 'Call':
       return (
         <Fragment>
-          <CallIcon color={'primary'} className={classes.assignmentTypeIcon} />
+          <CallIcon id={`question-${index}-call`} color={'primary'} className={classes.assignmentTypeIcon} />
           <Typography>Call</Typography>
         </Fragment>
       );

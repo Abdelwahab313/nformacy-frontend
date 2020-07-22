@@ -16,7 +16,7 @@ describe('Fetch question', () => {
     );
     mock.onGet(`${API_BASE_URL}/questions`).reply(200, [
       {
-        referenceId: 2000100,
+        referenceNumber: 2000100,
         title: 'test title',
         content: 'testContent',
         field: [
@@ -29,7 +29,7 @@ describe('Fetch question', () => {
         endDate: endDate,
       },
       {
-        referenceId: 2000101,
+        referenceNumber: 2000101,
         title: 'test title 2',
         content: 'testContent 2',
         field: [
@@ -46,7 +46,7 @@ describe('Fetch question', () => {
         endDate: endDate,
       },
       {
-        referenceId: 2000102,
+        referenceNumber: 2000102,
         title: 'test title 3',
         content: 'testContent 3',
         field: [
@@ -59,7 +59,7 @@ describe('Fetch question', () => {
         endDate: endDate,
       },
       {
-        referenceId: 2000103,
+        referenceNumber: 2000103,
         title: 'test title 4',
         content: 'testContent 4',
         field: [
@@ -147,7 +147,7 @@ describe('Fetch question', () => {
 
       result.current.removeFilter('humanResource');
 
-      expect(result.current.questions.length).toEqual(0);
+      expect(result.current.questions.length).toEqual(2);
     });
   });
 
@@ -159,11 +159,45 @@ describe('Fetch question', () => {
 
       result.current.addFilter('formalEducation');
 
-      expect(result.current.questions.length).toEqual(1);
+      expect(result.current.questions.length).toEqual(2);
 
       result.current.addFilter('humanResource');
 
       expect(result.current.questions.length).toEqual(1);
+    });
+  });
+
+  it('should filter from all questions on remove', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => QuestionsFetcher());
+
+    await act(async () => {
+      await waitForNextUpdate();
+
+      result.current.setFilters(['humanResource', 'formalEducation']);
+      result.current.filterQuestions('formalEducation');
+      result.current.filterQuestions('humanResource');
+
+      expect(result.current.questions.length).toEqual(1);
+
+      result.current.removeFilter('formalEducation');
+
+      expect(result.current.questions.length).toEqual(2);
+    });
+  });
+
+  it('should return all questions on remove last filter', async () => {
+    const { result, waitForNextUpdate } = renderHook(() => QuestionsFetcher());
+
+    await act(async () => {
+      await waitForNextUpdate();
+
+      result.current.addFilter('formalEducation');
+
+      expect(result.current.questions.length).toEqual(2);
+
+      result.current.removeFilter('formalEducation');
+
+      expect(result.current.questions.length).toEqual(4);
     });
   });
 });

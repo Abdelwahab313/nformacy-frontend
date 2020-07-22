@@ -24,10 +24,25 @@ const QuestionFetcher = () => {
   const removeFilter = (key) => {
     const tempFilters = filters.filter((filter) => filter !== key);
     setFilters(tempFilters);
-    const filteredQuestions = questions.filter(
-      (question) => !questionsHasField(question.field, key),
-    );
-    setQuestions(filteredQuestions);
+    const filteredQuestions = [];
+    tempFilters.forEach((filter) => {
+      allQuestions.current.forEach((question) => {
+        if (
+          questionsHasField(question.field, filter) &&
+          currentFilteredQuestionsHasNotKey(
+            filteredQuestions,
+            question.referenceNumber,
+          )
+        ) {
+          filteredQuestions.push(question);
+        }
+      });
+    });
+    if (tempFilters.length === 0) {
+      setQuestions(allQuestions.current);
+    } else {
+      setQuestions(filteredQuestions);
+    }
   };
 
   const questionsHasField = (toBeFiltered, key) => {
@@ -67,6 +82,6 @@ const QuestionFetcher = () => {
     setQuestions(filteredQuestions);
   };
 
-  return { questions, filterQuestions, addFilter, removeFilter, setFilters };
+  return { questions, filterQuestions, addFilter, filters, removeFilter, setFilters };
 };
 export default QuestionFetcher;
