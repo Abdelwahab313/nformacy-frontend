@@ -22,9 +22,9 @@ const SelectTimeZone = ({
                           ...rest
                         }) => {
 
-  const handleChange = React.useCallback((event, newValue) => {
+  const handleChange = React.useCallback((event, newTimeZone) => {
 
-      onChange && onChange(newValue);
+      !!newTimeZone && onChange && onChange(newTimeZone.value);
     },
     [onChange],
   );
@@ -35,7 +35,7 @@ const SelectTimeZone = ({
     if (defaultTimezoneName === undefined) {
       return undefined;
     }
-    console.log('this is a ', defaultTimezoneName )
+    console.log('this is a ', defaultTimezoneName);
     return options.find((option) => option.value === defaultTimezoneName);
   }, [options, defaultTimezoneName]);
 

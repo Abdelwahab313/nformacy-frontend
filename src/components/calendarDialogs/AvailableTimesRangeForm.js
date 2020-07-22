@@ -3,7 +3,6 @@ import Box from '@material-ui/core/Box';
 import { KeyboardDatePicker, KeyboardTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { Grid } from '@material-ui/core';
-import * as PropTypes from 'prop-types';
 import t from '../../locales/en/freelancerProfile.json';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -84,16 +83,6 @@ const AvailableTimeRangeForm = ({ selectedRange, setSelectedRange }) => {
       </Grid>
     </MuiPickersUtilsProvider>
   </Box>);
-};
-
-AvailableTimeRangeForm.propTypes = {
-  selectedRange: PropTypes.shape({
-    startDate: PropTypes.instanceOf(Date),
-    endDate: PropTypes.instanceOf(Date),
-    startTime: PropTypes.instanceOf(Date),
-    endTime: PropTypes.instanceOf(Date),
-  }),
-  setSelectedRange: PropTypes.func,
 };
 
 

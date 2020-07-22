@@ -18,7 +18,7 @@ import { withStyles } from '@material-ui/core/styles';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Grid from '@material-ui/core/Grid';
 import calendarStyles from './calendarStyles';
-import dateTimeParser, { formatDayAsKey } from '../../services/dateTimeParser';
+import { formatDayAsKey, isSameDate } from '../../services/dateTimeParser';
 import { pink } from '../../styles/colors';
 import moment from 'moment';
 
@@ -49,7 +49,7 @@ const DayScaleLayout = withStyles(calendarStyles, { name: 'TimeTable' })(DayScal
 const CellBase = React.memo(
   ({ classes, startDate, formatDate, otherMonth, availableDates, selectedDay, onDayClick }) => {
 
-    const isSelectedDay = dateTimeParser.isSameDate(startDate, selectedDay);
+    const isSelectedDay = isSameDate(startDate, selectedDay);
 
     const isAvailableDay = formatDayAsKey(startDate) in availableDates;
 

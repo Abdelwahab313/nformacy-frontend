@@ -12,25 +12,40 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import moment from 'moment';
-import { convertTimeToUTC, formatDayAsKey, formatTime, getTimeAtTimeZone } from '../../services/dateTimeParser';
+import {
+  convertTimeToUTC,
+  formatDayAsKey,
+  formatTime,
+  getTimeAtTimeZone,
+} from '../../services/dateTimeParser';
+import { updateProfile } from '../../apis/userAPI';
 
-const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailableDates }) => {
+const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
   const classes = useStyles();
-  const [timeZone, setTimeZone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
-  const onChangeTimeZone = (timezone) => {
-    console.log(timezone);
-    // check if the object not null
-    setTimeZone(timezone.value);
-  };
+  const user = JSON.parse(localStorage.getItem('user'));
 
-  const [availableDates, setAvailableDates] = useState(userAvailableDates);
+  const [availableDates, setAvailableDates] = useState(!!user.freeDates ? user.freeDates : {});
 
   const [selectedRange, setSelectedRange] = useState({
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     startDate: '',
     endDate: '',
     startTime: '',
     endTime: '',
   });
+
+  const onChangeTimeZone = (timezone) => {
+    console.log(timezone);
+    setSelectedRange((previousLocalState) => ({
+      ...previousLocalState,
+      timeZone: timezone,
+    }));
+    const { startDate } = selectedRange;
+    handleDayClicked({
+      selectedDay: startDate,
+      isAvailableDay: availableDates.hasOwnProperty(formatDayAsKey(startDate)),
+    });
+  };
 
   const handleDayClicked = ({ selectedDay, isAvailableDay }) => {
     if (isAvailableDay) {
@@ -39,8 +54,8 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailab
         ...previousLocalState,
         startDate: selectedDay,
         endDate: selectedDay,
-        startTime: getTimeAtTimeZone(availableDayObject.intervals.from, timeZone),
-        endTime: getTimeAtTimeZone(availableDayObject.intervals.to, timeZone),
+        startTime: getTimeAtTimeZone(availableDayObject.intervals.from, previousLocalState.timeZone),
+        endTime: getTimeAtTimeZone(availableDayObject.intervals.to, previousLocalState.timeZone),
       }));
     } else {
       setSelectedRange((previousLocalState) => ({
@@ -54,14 +69,23 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailab
   };
 
 
-  const handleDayDeleteAvailableDay = () => {
-    const formattedSelectedDay = formatDayAsKey(selectedRange.startDate);
-    if (formattedSelectedDay in availableDates) {
-      const updatedAvailableDates = { ...availableDates };
-      delete updatedAvailableDates[formattedSelectedDay];
-      setAvailableDates(updatedAvailableDates);
-    }
+  const handleDeleteAvailableDay = () => {
+    const updatedAvailableDates = { ...availableDates };
+    const selectedDays = Object.keys(enumerateAvailableDays(selectedRange));
+    selectedDays.forEach(formattedDay => {
+      if (formattedDay in updatedAvailableDates) {
+        delete updatedAvailableDates[formattedDay];
+      }
+    });
+    updateAvailableDays(updatedAvailableDates);
   };
+
+  const handleAddRangeClicked = () => {
+    const selectedAvailableDays = enumerateAvailableDays(selectedRange);
+    const newAvailableDays = { ...availableDates, ...selectedAvailableDays };
+    updateAvailableDays(newAvailableDays);
+  };
+
 
   const enumerateAvailableDays = (selectedRange) => {
     const { startDate, endDate, startTime, endTime } = selectedRange;
@@ -71,8 +95,8 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailab
       dates[formattedDay] = {
         intervals:
           {
-            from: convertTimeToUTC(formatTime(startTime), timeZone),
-            to: convertTimeToUTC(formatTime(endTime), timeZone),
+            from: convertTimeToUTC(formatTime(startTime), selectedRange.timeZone),
+            to: convertTimeToUTC(formatTime(endTime), selectedRange.timeZone),
           },
       };
       enumeratedDate.add(1, 'days');
@@ -81,9 +105,13 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailab
     return dates;
   };
 
-  const handleUpdateRangeClicked = () => {
-    const selectedAvailableDays = enumerateAvailableDays(selectedRange);
-    setAvailableDates(prevState => ({ ...prevState, ...selectedAvailableDays }));
+  const updateAvailableDays = (updatedAvailableDays) => {
+    updateProfile({ freeDates: updatedAvailableDays }, user.id).then(response => {
+      console.log('-=-=-=-=updatedDays', updatedAvailableDays);
+      // get rid of this user in localstorage
+      localStorage.setItem('user', JSON.stringify(response.data));
+      setAvailableDates({ ...updatedAvailableDays });
+    });
   };
 
   return (
@@ -117,7 +145,7 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailab
             />
             <Box mt={3}>
               <SelectTimeZone
-                timezoneName={timeZone}
+                timezoneName={selectedRange.timeZone}
                 onChange={onChangeTimeZone}/>
             </Box>
           </Grid>
@@ -129,13 +157,15 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailab
                   selectedRange={selectedRange}
                   setSelectedRange={setSelectedRange}
                 />
+
+
                 <Grid className={classes.deleteAvailableDayButton}>
                   <Button
                     variant="text"
                     color="primary"
                     size="large"
                     className={classes.margin}
-                    onClick={handleDayDeleteAvailableDay}>
+                    onClick={handleDeleteAvailableDay}>
                     I am Unavailable this day
                   </Button>
                 </Grid>
@@ -149,7 +179,7 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit, userAvailab
                   </Button>
                   <SubmitButton
                     id={'confirm'}
-                    onClick={handleUpdateRangeClicked}
+                    onClick={handleAddRangeClicked}
                     size="large"
                     className={classes.margin}
                     buttonText={t['confirm']}

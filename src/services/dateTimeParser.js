@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-const isSameDate = (date1, date2) => {
+export const isSameDate = (date1, date2) => {
   const startOfDay1 = moment(date1).startOf('day');
   const startOfDay2 = moment(date2).startOf('day');
   return startOfDay1.isSame(startOfDay2);
@@ -20,6 +20,7 @@ export const formatDayAsKey = (day) => moment(day).format('YYYYMMDD');
 export const formatTime = (time) => moment(time).format('HH:mm');
 
 export const getTimeAtTimeZone = (formattedTime, timeZone) => moment.utc(formattedTime, 'HH:mm').tz(timeZone).toDate().toLocaleString('en-US', { timeZone: timeZone })
+
 export const convertTimeToUTC = (formattedTime, timeZone) => moment.tz(formattedTime, 'HH:mm', timeZone).utc().format('HH:mm')
 
 export const formattedDateTime = (date) => {
@@ -33,5 +34,3 @@ export const formattedDateTime = (date) => {
   });
   return dateTimeFormat.format(date);
 };
-
-export default { isSameDate };

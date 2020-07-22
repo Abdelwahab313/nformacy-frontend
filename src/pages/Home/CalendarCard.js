@@ -11,7 +11,7 @@ import AvailableTimesCalendarDialog from '../../components/calendarDialogs/Avail
 const CalendarCard = ({ user }) => {
   const [isCalendarDialogOpen, setIsCalendarDialog] = useState(false);
   const classes = useStyles();
-  const availableDates = !!user.freeDates ? user.freeDates : [];
+  const availableDates = !!user.freeDates ? user.freeDates : {};
   const openCalendarDialog = () => {
     setIsCalendarDialog(true);
     console.log('clicked');
@@ -23,7 +23,6 @@ const CalendarCard = ({ user }) => {
         <CalendarView
           availableDates={availableDates}
         />
-
         <Box m={1}>
           <SubmitButton
             id={"open-update-calendar-dialog-btn"}
@@ -35,9 +34,9 @@ const CalendarCard = ({ user }) => {
             onClick={openCalendarDialog}/>
         </Box>
       </Grid>
+
       <AvailableTimesCalendarDialog
         open={isCalendarDialogOpen}
-        userAvailableDates={availableDates}
         onSubmit={() => {
           setIsCalendarDialog(false);
         }}
