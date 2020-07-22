@@ -13,7 +13,7 @@ const useFetchShowMeetingDetails = (meetingId) => {
       setErrorMessage('something went wrong');
     } else if (reason.response.status === 401) {
       setErrorMessage('Login session invalid, please log in again');
-      localStorage.removeItem('users');
+      localStorage.removeItem('user');
       authManager.logout();
     }
   }

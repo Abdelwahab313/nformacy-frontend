@@ -19,12 +19,13 @@ import {
   getTimeAtTimeZone,
 } from '../../services/dateTimeParser';
 import { updateProfile } from '../../apis/userAPI';
+import { useAuth } from '../../pages/auth/context/auth';
+import { updateUser } from '../../pages/auth/context/authActions';
 
 const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
   const classes = useStyles();
-  const user = JSON.parse(localStorage.getItem('user'));
-
-  const [availableDates, setAvailableDates] = useState(!!user.freeDates ? user.freeDates : {});
+  const [{ currentUser }, dispatch] = useAuth();
+  const [availableDates, setAvailableDates] = useState(!!currentUser.freeDates ? currentUser.freeDates : {});
 
   const [selectedRange, setSelectedRange] = useState({
     timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -106,10 +107,9 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
   };
 
   const updateAvailableDays = (updatedAvailableDays) => {
-    updateProfile({ freeDates: updatedAvailableDays }, user.id).then(response => {
+    updateProfile({ freeDates: updatedAvailableDays }, currentUser.id).then(response => {
       console.log('-=-=-=-=updatedDays', updatedAvailableDays);
-      // get rid of this user in localstorage
-      localStorage.setItem('user', JSON.stringify(response.data));
+      updateUser(dispatch, response.data);
       setAvailableDates({ ...updatedAvailableDays });
     });
   };

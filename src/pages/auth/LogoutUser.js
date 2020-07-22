@@ -1,23 +1,21 @@
-import { useAuth } from './auth';
+import { useAuth } from './context/auth';
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
-import { logout } from '../../apis/authAPI';
 import authManager from '../../services/authManager';
+import { logoutUser } from './context/authActions';
 
 const Logout = () => {
-  const { setLoggedInUser, setLoadedLocal } = useAuth();
+  const [_, dispatch] = useAuth();
   const [logoutSuccess, setLogoutSuccess] = useState(false);
 
   useEffect(() => {
     setLogoutSuccess(true);
-    localStorage.removeItem('users');
-    setLoadedLocal(false);
-    setLoggedInUser();
+    logoutUser(dispatch);
     authManager.logout();
   }, []);
 
   if (logoutSuccess) {
-    return <Redirect push to='/' />;
+    return <Redirect push to='/'/>;
   }
   return null;
 };

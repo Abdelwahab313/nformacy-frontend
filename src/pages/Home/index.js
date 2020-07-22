@@ -4,11 +4,13 @@ import { Box, Grid } from '@material-ui/core';
 import ProfileSummaryCard from './ProfileSummaryCard';
 import useStyles from './styles/HomePageStyles';
 import CalendarCard from './CalendarCard';
+import { useAuth } from '../auth/context/auth';
 
 const HomePage = () => {
   const classes = useStyles();
-  const user = JSON.parse(localStorage.getItem('user'));
-  console.log('---------------------------', user);
+  const [{ currentUser }] = useAuth();
+
+  console.log('---------------------------', currentUser);
 
 
   return (
@@ -16,7 +18,7 @@ const HomePage = () => {
       <Grid item lg={3} className={classes.sidebar}>
         <ProfileSummaryCard/>
 
-        <CalendarCard user={user}/>
+        <CalendarCard currentUser={currentUser}/>
       </Grid>
       <Grid item lg>
         <Box mt={8}>

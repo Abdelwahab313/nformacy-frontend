@@ -5,7 +5,7 @@ import preset from 'jss-preset-default';
 import rtl from 'jss-rtl';
 import { Route, Switch } from 'react-router-dom';
 import Login from '../pages/auth/LoginUser';
-import { AuthContext } from '../pages/auth/auth';
+import { AuthProvider } from '../pages/auth/context/auth';
 import PrivateRoute from './PrivateRoute';
 import Layout from './Layout';
 import Register from '../pages/Register/Register';
@@ -41,31 +41,12 @@ const theme = createMuiTheme({
 });
 
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState();
-  const [loadedLocal, setLoadedLocal] = useState(false);
-
-  const setLoggedUser = (data) => {
-    localStorage.setItem('user', JSON.stringify(data));
-    setLoggedInUser(data);
-  };
-
-  useEffect(() => {
-    const retrievedToken = authManager.retrieveUserToken();
-    const user = localStorage.getItem('user');
-    setLoggedInUser(user);
-    setLoadedLocal(true);
-  }, []);
+  const { user } = authManager.retrieveUserToken();
 
   return (
     <ThemeProvider theme={theme}>
       <StylesProvider jss={jss}>
-        <AuthContext.Provider
-          value={{
-            loggedInUser,
-            loadedLocal,
-            setLoggedInUser: setLoggedUser,
-            setLoadedLocal,
-          }}>
+        <AuthProvider initialValue={{ currentUser: user }}>
           <Switch>
             <Route path='/login' component={Login}/>
             <Route path='/signup' component={Register}/>
@@ -77,7 +58,7 @@ function App() {
             <PrivateRoute path='/user/success' component={Success}/>
             <PrivateRoute path='/' component={Layout}/>
           </Switch>
-        </AuthContext.Provider>
+        </AuthProvider>
       </StylesProvider>
     </ThemeProvider>
   );

@@ -8,11 +8,12 @@ import { useForm } from 'react-hook-form';
 import { login } from '../../apis/authAPI';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Redirect } from 'react-router';
-import { useAuth } from './auth';
+import { AuthActionTypes, useAuth } from './context/auth';
 import ErrorDialog from '../../components/errors/ErrorDialog';
 import { withNamespaces } from 'react-i18next';
 import authManager from '../../services/authManager';
 import { Grid } from '@material-ui/core';
+import { updateUser } from './context/authActions';
 
 const Login = ({ location, t }) => {
   const { register, handleSubmit, errors } = useForm();
@@ -21,7 +22,7 @@ const Login = ({ location, t }) => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [showError, setShowError] = useState(false);
-  const { setLoggedInUser, loadedLocal } = useAuth();
+  const [_, dispatch] = useAuth();
   const referer = location.state ? location.state.referer || '/' : '/';
 
   const onSubmit = (data) => {
@@ -30,10 +31,7 @@ const Login = ({ location, t }) => {
     login(data)
       .then((result) => {
         authManager.login(result.data.token);
-        return result;
-      })
-      .then((result) => {
-        setLoggedInUser(result.data.user);
+        updateUser(dispatch, result.data.user);
       })
       .then(() => {
         setLoginSuccess(true);
@@ -58,8 +56,8 @@ const Login = ({ location, t }) => {
   };
   const classes = useStyles();
 
-  const authToken = authManager.retrieveUserToken();
-  if (loginSuccess || (loadedLocal && authToken)) {
+  const { authToken } = authManager.retrieveUserToken();
+  if (loginSuccess || (authToken)) {
     if (referer.pathname === '/logout') {
       return <Redirect push to='/'/>;
     }
@@ -74,7 +72,7 @@ const Login = ({ location, t }) => {
   }
   return (
     <Grid container className={classes.logInPageContainer} alignContent={'center'}>
-      <Grid container alignContent='center' style={{height: 'fit-content', marginBottom: '50px'}}>
+      <Grid container alignContent='center' style={{ height: 'fit-content', marginBottom: '50px' }}>
         <Grid item xs={1}/>
         <Grid item xs={10}>
           <Typography className={classes.pageHeaderStyle}>

@@ -11,7 +11,7 @@ const useMeetingsFetcher = () => {
     if (reason.message === 'Network Error') {
       setErrorMessage('something went wrong');
     } else if (reason.response.status === 401) {
-      localStorage.removeItem('users');
+      localStorage.removeItem('user');
       authManager.logout();
     }
   }

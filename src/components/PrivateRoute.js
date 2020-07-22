@@ -3,7 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 import authManager from '../services/authManager';
 
 function PrivateRoute({ component: Component, provider: Provider, ...rest }) {
-  const authToken = authManager.retrieveUserToken();
+  const { authToken } = authManager.retrieveUserToken();
   if (!authToken) {
     return (
       <Route

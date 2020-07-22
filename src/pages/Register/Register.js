@@ -6,13 +6,14 @@ import { useForm } from 'react-hook-form';
 import { withNamespaces } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStyles } from '../../styles/formsStyles';
-import { signup } from '../../apis/userAPI';
-import { useAuth } from '../auth/auth';
+import { signup, updateProfile } from '../../apis/userAPI';
+import { AuthActionTypes, useAuth } from '../auth/context/auth';
 import { Redirect } from 'react-router';
 import authManager from '../../services/authManager';
 import { Grid } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import t from '../../locales/en/signUp.json';
+import { updateUser } from '../auth/context/authActions';
 
 const Register = () => {
   const {
@@ -28,7 +29,7 @@ const Register = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
   const [registerSucceeded, setRegisterSucceeded] = useState(false);
-  const { setLoggedInUser } = useAuth();
+  const [_, dispatch] = useAuth();
   const classes = useStyles();
 
   const repeatVal = (passwordRepeat) =>
@@ -38,12 +39,10 @@ const Register = () => {
     signup(data)
       .then((result) => {
         authManager.login(result.data.token);
-        setLoggedInUser(result.data.user);
-        return result;
-      })
-      .then((result) => {
-        setLoggedInUser(result.data.user);
+
+        updateUser(dispatch, result.data.user);
         setRegisterSucceeded(true);
+        return result;
       })
       .catch(({ response }) => {
         response.data.errors.forEach((error) => {

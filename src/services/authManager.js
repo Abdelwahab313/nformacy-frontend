@@ -3,14 +3,20 @@ import Axios from 'axios';
 class AuthManager {
   retrieveUserToken = () => {
     const loadedTokenString = localStorage.getItem('tokens');
-    let loadedToken = !!loadedTokenString
+    let authToken = !!loadedTokenString
       ? JSON.parse(loadedTokenString)
       : undefined;
-    this.setAuthorizationHeader(loadedToken);
-    return loadedToken;
+    this.setAuthorizationHeader(authToken);
+
+    const loadedUserString = localStorage.getItem('user');
+    const user = !!loadedUserString
+      ? JSON.parse(loadedUserString)
+      : undefined;
+
+    return { authToken, user };
   };
 
-  login = async (userToken) => {
+  login = (userToken) => {
     localStorage.setItem('tokens', JSON.stringify(userToken));
     this.setAuthorizationHeader(userToken);
   };
