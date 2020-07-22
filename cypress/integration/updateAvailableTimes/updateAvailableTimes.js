@@ -16,7 +16,9 @@ Then(/^field to select the displayed time zones$/, function() {
 });
 
 Then(/^selected by default the timezone of the user$/, function() {
-  cy.get('#time-zone-picker').should('have.value', 'Africa/Cairo (GMT+02:00)');
+  const defaultTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const defaultTimeZoneLabel = defaultTimeZone === 'Africa/Cairo' ? 'Africa/Cairo (GMT+02:00)' : 'UTC (GMT+00:00)';
+  cy.get('#time-zone-picker').should('have.value', defaultTimeZoneLabel);
 });
 
 Then(/^button for close dialog$/, function() {
