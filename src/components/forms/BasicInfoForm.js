@@ -4,12 +4,15 @@ import Button from '@material-ui/core/Button';
 import { FormContext, useForm } from 'react-hook-form';
 import { updateProfile, updateProfilePicture } from '../../apis/userAPI';
 import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
+import { updateUser } from '../../pages/auth/context/authActions';
+import { useAuth } from '../../pages/auth/context/auth';
 
 const BasicInfoForm = ({ user, closeDialog, setProfilePic }) => {
   const formMethod = useForm({
     defaultValues: { ...user.current },
   });
   const [avatar, setAvatar] = useState([]);
+  const [_, dispatch] = useAuth();
 
   const classes = useStyles();
   const onSubmitBasicInfo = (userData) => {
@@ -19,7 +22,7 @@ const BasicInfoForm = ({ user, closeDialog, setProfilePic }) => {
     };
     updateProfile(userToBeSubmitted, user.current.id)
       .then((response) => {
-        localStorage.setItem('user', JSON.stringify(response.data));
+        updateUser(dispatch, response.data);
       })
       .catch((error) => {
       });
@@ -30,7 +33,7 @@ const BasicInfoForm = ({ user, closeDialog, setProfilePic }) => {
 
       updateProfilePicture(formData, user.current.id)
         .then((response) => {
-          localStorage.setItem('user', JSON.stringify(response.data));
+          updateUser(dispatch, response.data);
           if (response.data.avatar) {
             setProfilePic(response.data.avatar);
           }

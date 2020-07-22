@@ -51,6 +51,7 @@ When(/^I fill the available time$/, function() {
 
 When(/^click submit time$/, function() {
   cy.get('#confirm').click();
+  cy.wait(500);
 });
 
 Then(/^I should see the selected day labeled as available day in the calendar$/, function() {

@@ -17,8 +17,8 @@ class AuthManager {
   };
 
   login = (userToken) => {
-    localStorage.setItem('tokens', JSON.stringify(userToken));
     this.setAuthorizationHeader(userToken);
+    localStorage.setItem('tokens', JSON.stringify(userToken));
   };
 
   logout = () => {

@@ -4,11 +4,14 @@ import { FormContext, useForm } from 'react-hook-form';
 import React, { useState } from 'react';
 import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
 import { updateProfile } from '../../apis/userAPI';
+import { updateUser } from '../../pages/auth/context/authActions';
+import { useAuth } from '../../pages/auth/context/auth';
 
 const WorkExperienceForm = ({ user, closeDialog }) => {
   const formMethods = useForm({
     defaultValues: { ...user.current },
   });
+  const [_, dispatch] = useAuth();
   const [deletedExperiences, setDeletedExperiences] = useState([]);
   const classes = useStyles();
 
@@ -22,7 +25,7 @@ const WorkExperienceForm = ({ user, closeDialog }) => {
     };
     updateProfile(userToBeSubmitted, user.current.id)
       .then((response) => {
-        localStorage.setItem('user', JSON.stringify(response.data));
+        updateUser(dispatch, response.data);
       })
       .catch((error) => {
       });

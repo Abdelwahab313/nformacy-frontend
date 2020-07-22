@@ -5,11 +5,14 @@ import { FormContext, useForm } from 'react-hook-form';
 import React, { useState } from 'react';
 import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
 import { updateProfile } from '../../apis/userAPI';
+import { useAuth } from '../../pages/auth/context/auth';
+import { updateUser } from '../../pages/auth/context/authActions';
 
 const EducationAndCertificationForm = ({ user, closeDialog }) => {
   const formMethods = useForm({
     defaultValues: { ...user.current },
   });
+  const [_, dispatch] = useAuth();
   const [deletedEducations, setDeletedEducations] = useState([]);
   const [deletedCertification, setDeletedCertifications] = useState([]);
   const classes = useStyles();
@@ -27,7 +30,7 @@ const EducationAndCertificationForm = ({ user, closeDialog }) => {
     };
     updateProfile(userToBeSubmitted, user.current.id)
       .then((response) => {
-        localStorage.setItem('user', JSON.stringify(response.data));
+        updateUser(dispatch, response.data);
       })
       .catch((error) => {
       });

@@ -11,11 +11,14 @@ import t from '../../locales/en/freelancerProfile.json';
 import Divider from '@material-ui/core/Divider';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
+import { updateUser } from '../../pages/auth/context/authActions';
+import { useAuth } from '../../pages/auth/context/auth';
 
 const SummaryForm = ({ user, closeDialog }) => {
   const formMethods = useForm({
     defaultValues: { ...user.current },
   });
+  const [_, dispatch] = useAuth();
   const classes = useStyles();
 
   const onSubmitSummary = (userData) => {
@@ -25,9 +28,10 @@ const SummaryForm = ({ user, closeDialog }) => {
     };
     updateProfile(userToBeSubmitted, user.current.id)
       .then((response) => {
-        localStorage.setItem('user', JSON.stringify(response.data));
+        updateUser(dispatch, response.data);
       })
-      .catch((error) => {});
+      .catch((error) => {
+      });
     user.current = { ...user.current, ...userData };
     closeDialog();
   };
@@ -39,7 +43,7 @@ const SummaryForm = ({ user, closeDialog }) => {
         noValidate
         onSubmit={formMethods.handleSubmit(onSubmitSummary)}>
         <Container style={sectionContainerStyles}>
-          <ReactTooltip globalEventOff={'click'} />
+          <ReactTooltip globalEventOff={'click'}/>
           <Grid container alignItems='center'>
             <Grid item xs>
               <Typography gutterBottom className={classes.sectionHeaderStyles}>
@@ -47,7 +51,7 @@ const SummaryForm = ({ user, closeDialog }) => {
               </Typography>
             </Grid>
           </Grid>
-          <Divider variant='middle' style={dividerStyle} />
+          <Divider variant='middle' style={dividerStyle}/>
           <Container maxWidth={false} className={classes.formControl}>
             <FormControl fullWidth className={classes.formControl}>
               <TextField

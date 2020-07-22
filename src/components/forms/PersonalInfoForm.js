@@ -4,11 +4,14 @@ import { FormContext, useForm } from 'react-hook-form';
 import React, { useRef } from 'react';
 import { nextButtonStyles, saveButtonStyle, useStyles } from '../../styles/formsStyles';
 import { updateProfile } from '../../apis/userAPI';
+import { updateUser } from '../../pages/auth/context/authActions';
+import { useAuth } from '../../pages/auth/context/auth';
 
 const PersonalInfoForm = ({ user, closeDialog }) => {
   const formMethods = useForm({
     defaultValues: { ...user.current },
   });
+  const [_, dispatch] = useAuth();
   const classes = useStyles();
 
   const onSubmitPersonalInfo = (userData) => {
@@ -18,7 +21,7 @@ const PersonalInfoForm = ({ user, closeDialog }) => {
     };
     updateProfile(userToBeSubmitted, user.current.id)
       .then((response) => {
-        localStorage.setItem('user', JSON.stringify(response.data));
+        updateUser(dispatch, response.data);
       })
       .catch((error) => {});
     user.current = { ...user.current, ...userData };

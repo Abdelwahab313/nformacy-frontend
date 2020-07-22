@@ -4,12 +4,15 @@ import { FormContext, useForm } from 'react-hook-form';
 import React, { useRef } from 'react';
 import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
 import { updateProfile } from '../../apis/userAPI';
+import { updateUser } from '../../pages/auth/context/authActions';
+import { useAuth } from '../../pages/auth/context/auth';
 
 const FieldsOfSpecializationForm = ({ user, closeDialog }) => {
   const formMethods = useForm({
     defaultValues: { ...user.current },
   });
   const classes = useStyles();
+  const [_, dispatch] = useAuth();
 
   const onSubmitFieldsOfSpecialization = (userData) => {
     const userToBeSubmitted = {
@@ -18,7 +21,7 @@ const FieldsOfSpecializationForm = ({ user, closeDialog }) => {
     };
     updateProfile(userToBeSubmitted, user.current.id)
       .then((response) => {
-        localStorage.setItem('user', JSON.stringify(response.data));
+        updateUser(dispatch, response.data);
       })
       .catch((error) => {});
     user.current = { ...user.current, ...userData };

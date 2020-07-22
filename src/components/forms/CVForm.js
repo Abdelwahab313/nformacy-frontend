@@ -4,9 +4,12 @@ import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
 import React, { useState } from 'react';
 import CV from './CV';
 import { updateProfile, uploadCV } from '../../apis/userAPI';
+import { useAuth } from '../../pages/auth/context/auth';
+import { updateUser } from '../../pages/auth/context/authActions';
 
 const CVForm = ({ user, setCVLink, closeDialog }) => {
   const classes = useStyles();
+  const [_, dispatch] = useAuth();
   const [cv, setCV] = useState();
 
   const onSubmitCV = (userData) => {
@@ -17,7 +20,7 @@ const CVForm = ({ user, setCVLink, closeDialog }) => {
     console.log(userData);
     updateProfile(userToBeSubmitted, user.current.id)
       .then((response) => {
-        localStorage.setItem('user', JSON.stringify(response.data));
+        updateUser(dispatch, response.data);
       })
       .catch((error) => {});
     if (cv?.length > 0) {
@@ -27,7 +30,7 @@ const CVForm = ({ user, setCVLink, closeDialog }) => {
 
       uploadCV(formData, user.current.id)
         .then((response) => {
-          localStorage.setItem('user', JSON.stringify(response.data));
+          updateUser(dispatch, response.data);
           setCVLink(response.data.cv);
         })
         .catch((error) => {});
