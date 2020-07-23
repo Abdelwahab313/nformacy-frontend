@@ -9,6 +9,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import VideoCallIcon from '@material-ui/icons/VideoCall';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import HelpIcon from '@material-ui/icons/Help';
 import { pink } from '../../styles/colors';
 
 const StyledMenu = withStyles({
@@ -69,6 +70,18 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
           <AccountBoxIcon color={'secondary'}/>
         </ListItemIcon>
         <StyledListText primary={'Profile'}/>
+      </MenuItem>
+
+      <MenuItem
+        id={'questionRoaster'}
+        key={'QuestionRoaster'}
+        onClick={() => handleClose()}
+        component={Link}
+        to={'/questions'}>
+        <ListItemIcon>
+          <HelpIcon color={'secondary'}/>
+        </ListItemIcon>
+        <StyledListText primary={'Question Roaster'}/>
       </MenuItem>
 
       <MenuItem
