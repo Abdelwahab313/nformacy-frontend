@@ -20,6 +20,7 @@ const CalendarCard = ({ currentUser }) => {
     <Card className={classes.card}>
       <Grid container alignItems={'center'} justify={'center'}>
         <CalendarView
+          isMinimized
           availableDates={availableDates}
         />
         <Box m={1}>

@@ -19,7 +19,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Grid from '@material-ui/core/Grid';
 import calendarStyles from './calendarStyles';
 import { formatDayAsKey, isSameDate } from '../../services/dateTimeParser';
-import { pink } from '../../styles/colors';
+import { AppointmentColors, pink } from '../../styles/colors';
 import moment from 'moment';
 
 const DayScaleCell = (props) => (
@@ -49,7 +49,7 @@ const DayScaleLayout = withStyles(calendarStyles, { name: 'TimeTable' })(DayScal
 const CellBase = React.memo(
   ({ classes, startDate, formatDate, otherMonth, availableDates, selectedDay, onDayClick }) => {
 
-    const isSelectedDay = isSameDate(startDate, selectedDay);
+    const isSelectedDay = !!selectedDay && isSameDate(startDate, selectedDay);
 
     const isAvailableDay = formatDayAsKey(startDate) in availableDates;
 
@@ -102,14 +102,17 @@ const CellBase = React.memo(
 );
 const TimeTableCell = withStyles(calendarStyles, { name: 'Cell' })(CellBase);
 
-const AppointmentContent = withStyles(calendarStyles, { name: 'AppointmentContent' })(({ classes, ...restProps }) => (
-  <Appointments.AppointmentContent {...restProps} className={classes.appointmentContent}/>
-));
+const AppointmentContent = withStyles(calendarStyles, { name: 'AppointmentContent' })(({ classes, isMinimized, ...restProps }) => {
+  if (isMinimized) return (<div/>);
+  return (
+    <Appointments.AppointmentContent {...restProps} className={classes.appointmentContent}/>
+  );
+});
 
-const Appointment = withStyles(calendarStyles, { name: 'Appointment' })(({ classes, ...restProps }) => (
+const Appointment = withStyles(calendarStyles, { name: 'Appointment' })(({ classes, isMinimized, ...restProps }) => (
   <Appointments.Appointment
     {...restProps}
-    className={classes.appointment}
+    className={classNames(classes.appointment, { [classes.minimizedAppointment]: isMinimized })}
   />
 ));
 
@@ -122,25 +125,26 @@ const appointments = [
     ownerId: 1,
   }, {
     id: 1,
-    title: 'Call with Medad Expert',
+    title: 'Meeting with Medad Expert',
     startDate: new Date(2020, 6, 9, 11, 0),
     endDate: new Date(2020, 6, 9, 12, 0),
-    ownerId: 3,
+    ownerId: 2,
   },
 ];
+
 export const owners = [
   {
-    text: 'Andrew Glover',
+    text: 'Call',
     id: 1,
-    color: '#7E57C2',
+    color: AppointmentColors.call,
   }, {
-    text: 'Arnie Schwartz',
+    text: 'Meeting',
     id: 2,
-    color: '#FF7043',
+    color: AppointmentColors.meeting,
   }, {
-    text: 'John Heart',
+    text: 'Assignment',
     id: 3,
-    color: '#E91E63',
+    color: AppointmentColors.assignment,
   },
 ];
 
@@ -151,7 +155,7 @@ const resources = [{
 }];
 
 
-const CalendarView = ({ availableDates, selectedDay, isInteractable, onDayClick, containerStyle }) => {
+const CalendarView = ({ availableDates, selectedDay, isInteractable, isMinimized, onDayClick, containerStyle }) => {
   return (
     <Paper id={'calendar-view'} className={containerStyle}>
       <Scheduler
@@ -171,8 +175,8 @@ const CalendarView = ({ availableDates, selectedDay, isInteractable, onDayClick,
           timeTableLayoutComponent={TimeTableLayout}
         />
         <Appointments
-          appointmentComponent={Appointment}
-          appointmentContentComponent={AppointmentContent}
+          appointmentComponent={(props) => (<Appointment {...props} isMinimized={isMinimized}/>)}
+          appointmentContentComponent={(props) => (<AppointmentContent {...props} isMinimized={isMinimized}/>)}
         />
         <Resources
           data={resources}

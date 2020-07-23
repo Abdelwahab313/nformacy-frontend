@@ -21,11 +21,14 @@ import {
 import { updateProfile } from '../../apis/userAPI';
 import { useAuth } from '../../pages/auth/context/auth';
 import { updateUser } from '../../pages/auth/context/authActions';
+import classNames from 'clsx';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
   const classes = useStyles();
   const [{ currentUser }, dispatch] = useAuth();
   const [availableDates, setAvailableDates] = useState(!!currentUser.freeDates ? currentUser.freeDates : {});
+  const [isLoading, setIsLoading] = useState(false);
 
   const [selectedRange, setSelectedRange] = useState({
     timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -78,7 +81,7 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
         delete updatedAvailableDates[formattedDay];
       }
     });
-    updateAvailableDays(updatedAvailableDates);
+    updateAvailableDays(updatedAvailableDates, cancelDateForm);
   };
 
   const handleAddRangeClicked = () => {
@@ -106,12 +109,20 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
     return dates;
   };
 
-  const updateAvailableDays = (updatedAvailableDays) => {
+  const updateAvailableDays = (updatedAvailableDays, onSuccess) => {
+    setIsLoading(true);
     updateProfile({ freeDates: updatedAvailableDays }, currentUser.id).then(response => {
       console.log('-=-=-=-=updatedDays', updatedAvailableDays);
       updateUser(dispatch, response.data);
       setAvailableDates({ ...updatedAvailableDays });
+      onSuccess && onSuccess();
+    }).finally(() => {
+      setIsLoading(false);
     });
+  };
+
+  const cancelDateForm = () => {
+    setSelectedRange(prevState => ({ ...prevState, startDate: '' }));
   };
 
   return (
@@ -151,41 +162,15 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
           </Grid>
 
           <Grid container direction={'column'} alignItems={'center'} xs={5}>
-            {!!selectedRange.startDate && (
-              <Fragment>
-                <AvailableTimeRangeForm
-                  selectedRange={selectedRange}
-                  setSelectedRange={setSelectedRange}
-                />
-
-
-                <Grid className={classes.deleteAvailableDayButton}>
-                  <Button
-                    variant="text"
-                    color="primary"
-                    size="large"
-                    className={classes.margin}
-                    onClick={handleDeleteAvailableDay}>
-                    I am Unavailable this day
-                  </Button>
-                </Grid>
-                <Grid className={classes.buttonContainer}>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    className={classes.margin}
-                    onClick={() => setSelectedRange(prevState => ({ ...prevState, startDate: '' }))}>
-                    Cancel
-                  </Button>
-                  <SubmitButton
-                    id={'confirm'}
-                    onClick={handleAddRangeClicked}
-                    size="large"
-                    className={classes.margin}
-                    buttonText={t['confirm']}
-                  />
-                </Grid>
-              </Fragment>
+            {!!isLoading && (<CircularProgress         variant="indeterminate" size={50} />)}
+            {!!selectedRange.startDate && !isLoading && (
+              <AvailableTimeRangeForm
+                selectedRange={selectedRange}
+                setSelectedRange={setSelectedRange}
+                handleAddRangeClicked={handleAddRangeClicked}
+                handleDeleteAvailableDay={handleDeleteAvailableDay}
+                cancelDateForm={cancelDateForm}
+              />
             )}
           </Grid>
         </Grid>

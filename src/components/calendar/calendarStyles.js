@@ -48,6 +48,9 @@ const calendarStyles = (theme) => ({
       opacity: 0.6,
     },
   },
+  minimizedAppointment: {
+    height: '10px'
+  },
   appointmentContent: {
     '&>div>div': {
       whiteSpace: 'normal !important',
