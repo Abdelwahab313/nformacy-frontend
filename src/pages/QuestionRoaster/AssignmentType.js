@@ -4,6 +4,7 @@ import React, { Fragment } from 'react';
 import HelpIcon from '@material-ui/icons/Help';
 import CallIcon from '@material-ui/icons/Call';
 import { useStyles } from '../../styles/questionRoasterStyles';
+import t from '../../locales/en/questionRoaster';
 
 const AssignmentType = ({ index, type }) => {
   const classes = useStyles();
@@ -13,21 +14,21 @@ const AssignmentType = ({ index, type }) => {
       return (
         <Fragment>
           <BusinessCenterIcon id={`question-${index}-project`} color={'primary'} className={classes.assignmentTypeIcon}  />
-          <Typography>Project</Typography>
+          <Typography>{t['project']}</Typography>
         </Fragment>
       );
     case 'Question':
       return (
         <Fragment>
           <HelpIcon id={`question-${index}-question`} color={'primary'} className={classes.assignmentTypeIcon}  />
-          <Typography>Question</Typography>
+          <Typography>{t['question']}</Typography>
         </Fragment>
       );
     case 'Call':
       return (
         <Fragment>
           <CallIcon id={`question-${index}-call`} color={'primary'} className={classes.assignmentTypeIcon} />
-          <Typography>Call</Typography>
+          <Typography>{t['call']}</Typography>
         </Fragment>
       );
     default:

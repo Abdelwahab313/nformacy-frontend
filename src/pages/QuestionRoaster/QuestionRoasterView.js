@@ -16,6 +16,8 @@ import Countdown from 'react-countdown';
 import { formattedDateTime } from '../../services/dateTimeParser';
 import AssignmentType from './AssignmentType';
 import { cloneDeep } from 'lodash';
+import { useHistory } from 'react-router';
+import t from '../../locales/en/questionRoaster';
 
 const StyledChip = withStyles({
   root: {
@@ -33,17 +35,25 @@ const QuestionRoasterView = () => {
   const [filterAllState, setFilterAllState] = useState(true);
 
   const classes = useStyles();
+  const history = useHistory();
+
+  function handleEditClick(questionReference) {
+    const selectedQuestion = questions.filter((question) => question.referenceNumber === questionReference);
+    history.push(`/question/answer/${questionReference}`, { selectedQuestion });
+  }
+
+  console.log('===============qe', questions);
 
   function counterRender(key) {
     return ({
-      total,
-      days,
-      hours,
-      minutes,
-      seconds,
-      milliseconds,
-      completed,
-    }) => {
+              total,
+              days,
+              hours,
+              minutes,
+              seconds,
+              milliseconds,
+              completed,
+            }) => {
       return (
         <Typography
           id={`question-${key}-closeDate`}
@@ -51,13 +61,13 @@ const QuestionRoasterView = () => {
           {completed
             ? 'Closed'
             : 'Available for: ' +
-              days +
-              ':' +
-              hours +
-              ':' +
-              minutes +
-              ':' +
-              seconds}
+            days +
+            ':' +
+            hours +
+            ':' +
+            minutes +
+            ':' +
+            seconds}
         </Typography>
       );
     };
@@ -80,7 +90,7 @@ const QuestionRoasterView = () => {
               type='submit'
               className={classes.iconButton}
               aria-label='search'>
-              <SearchIcon color={'primary'} />
+              <SearchIcon color={'primary'}/>
             </IconButton>
           </Paper>
         </Grid>
@@ -156,15 +166,14 @@ const QuestionRoasterView = () => {
                           <Typography
                             id={`question-${key}-referenceNumber`}
                             className={classes.questionFieldsStyles}>
-                            Reference # {question.referenceNumber}
+                            {t['referenceNumber'] + question.referenceNumber}
                           </Typography>
                         </Grid>
                         <Grid item xs={6}>
                           <Typography
                             id={`question-${key}-postDate`}
                             className={classes.questionFieldsStyles}>
-                            Post Date{' '}
-                            {formattedDateTime(new Date(question.createdAt))}
+                            {t['postDate'] + ' ' + formattedDateTime(new Date(question.createdAt))}
                           </Typography>
                         </Grid>
                       </Grid>
@@ -226,7 +235,8 @@ const QuestionRoasterView = () => {
                       style={{ display: 'flex', justifyContent: 'flex-end' }}>
                       <SubmitButton
                         id={`question-${key}-submit`}
-                        buttonText={'Answer'}
+                        onClick={() => handleEditClick(question.referenceNumber)}
+                        buttonText={t['answer']}
                         disabled={false}
                       />
                     </Grid>

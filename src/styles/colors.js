@@ -1,6 +1,6 @@
-export const pink = '#81277F';
-export const lightPink = 'rgba(129,39,127,0.50)';
-export const lighterPink = 'rgba(129,39,127,0.25)';
+export const pink = '#69255d';
+export const lightPink = 'rgba(105, 37, 93, 0.5)';
+export const lighterPink = 'rgba(105, 37, 93, 0.25)';
 const periWinkle = '#CED4EA';
 export const grey = '#7F7F7F';
 export const lightGrey = '#d1d0d0';
