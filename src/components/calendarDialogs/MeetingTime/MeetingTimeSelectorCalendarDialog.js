@@ -1,12 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import moment from 'moment';
 import { Box, Button, Dialog, DialogContent, DialogTitle, Grid, Typography } from '@material-ui/core';
-import CalendarView from '../calendar/CalendarView';
+import CalendarView from '../../calendar/CalendarView';
 import MeetingTimePicker from './MeetingTimePicker';
-import { formatDayAsKey } from '../../services/dateTimeParser';
-import Transition from '../animations/Transition';
+import { formatDayAsKey } from '../../../services/dateTimeParser';
+import Transition from '../../animations/Transition';
 import { makeStyles } from '@material-ui/core/styles';
-import SubmitButton from '../buttons/SubmitButton';
+import SubmitButton from '../../buttons/SubmitButton';
 
 const MeetingTimeSelectorCalendarDialog = ({ open, onClose, onSelectDate, availableDates }) => {
   const classes = useStyles();

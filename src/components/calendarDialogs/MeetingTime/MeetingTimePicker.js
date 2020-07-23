@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from '@material-ui/core';
-import { selectStyle } from '../../styles/formsStyles';
+import { selectStyle } from '../../../styles/formsStyles';
 import ReactSelectMaterialUi from 'react-select-material-ui';
 import Typography from '@material-ui/core/Typography';
 

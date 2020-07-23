@@ -3,14 +3,14 @@ import Box from '@material-ui/core/Box';
 import { KeyboardDatePicker, KeyboardTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { Button, Grid } from '@material-ui/core';
-import t from '../../locales/en/freelancerProfile.json';
+import t from '../../../locales/en/freelancerProfile.json';
 import { makeStyles } from '@material-ui/core/styles';
-import ErrorMessage from '../errors/ErrorMessage';
+import ErrorMessage from '../../errors/ErrorMessage';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
 import classNames from 'clsx';
-import SubmitButton from '../buttons/SubmitButton';
+import SubmitButton from '../../buttons/SubmitButton';
 
 
 const AvailableTimeRangeForm = ({ selectedRange, setSelectedRange, handleDeleteAvailableDay, cancelDateForm, handleAddRangeClicked }) => {

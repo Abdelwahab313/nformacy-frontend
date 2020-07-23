@@ -1,13 +1,13 @@
 import React, { Fragment, useState } from 'react';
 import { Button, Dialog, DialogContent, DialogTitle, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import CalendarView from '../calendar/CalendarView';
-import Transition from '../animations/Transition';
-import SubmitButton from '../buttons/SubmitButton';
-import SelectTimeZone from '../inputs/SelectTimeZone';
+import CalendarView from '../../calendar/CalendarView';
+import Transition from '../../animations/Transition';
+import SubmitButton from '../../buttons/SubmitButton';
+import SelectTimeZone from '../../inputs/SelectTimeZone';
 import Box from '@material-ui/core/Box';
 import AvailableTimeRangeForm from './AvailableTimesRangeForm';
-import t from '../../locales/en/freelancerProfile.json';
+import t from '../../../locales/en/freelancerProfile.json';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -17,11 +17,10 @@ import {
   formatDayAsKey,
   formatTime,
   getTimeAtTimeZone,
-} from '../../services/dateTimeParser';
-import { updateProfile } from '../../apis/userAPI';
-import { useAuth } from '../../pages/auth/context/auth';
-import { updateUser } from '../../pages/auth/context/authActions';
-import classNames from 'clsx';
+} from '../../../services/dateTimeParser';
+import { updateProfile } from '../../../apis/userAPI';
+import { useAuth } from '../../../pages/auth/context/auth';
+import { updateUser } from '../../../pages/auth/context/authActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
