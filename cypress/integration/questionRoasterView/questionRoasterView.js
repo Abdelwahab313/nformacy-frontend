@@ -48,6 +48,9 @@ Then(/^Each question should have answer button beneath it\.$/, function() {
   cy.get('#question-0-submit');
 });
 When(/^I click on a field from the filtering menu\.$/, function() {
+  cy.get('#question-0-title')
+    .invoke('text')
+    .should('not.be.empty');
   cy.get('#filters-0').click();
 });
 Then(/^I should only see questions that belongs to that field\.$/, function() {

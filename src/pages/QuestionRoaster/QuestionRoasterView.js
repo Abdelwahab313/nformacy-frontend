@@ -8,7 +8,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { fieldsOfExperience } from '../../constants/dropDownOptions';
 import Typography from '@material-ui/core/Typography';
 import SubmitButton from '../../components/buttons/SubmitButton';
-import QuestionFetcher from '../../hooks/QuestionsFetcher';
+import useQuestionFetcher from '../../hooks/useQuestionsFetcher';
 import Chip from '@material-ui/core/Chip';
 import { lightPink } from '../../styles/colors';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -18,6 +18,7 @@ import AssignmentType from './AssignmentType';
 import { cloneDeep } from 'lodash';
 import { useHistory } from 'react-router';
 import t from '../../locales/en/questionRoaster';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const StyledChip = withStyles({
   root: {
@@ -28,7 +29,7 @@ const StyledChip = withStyles({
 })(Chip);
 
 const QuestionRoasterView = () => {
-  const { questions, addFilter, removeFilter, filters } = QuestionFetcher();
+  const { questions, addFilter, removeFilter, filters, loading } = useQuestionFetcher();
   const [filtersState, setFilterState] = useState(
     Array.from({ length: fieldsOfExperience.length }).fill(false),
   );
@@ -71,6 +72,14 @@ const QuestionRoasterView = () => {
         </Typography>
       );
     };
+  }
+
+  if (loading) {
+    return (
+      <div id='progressBar' className={classes.progressContainer}>
+        <CircularProgress/>
+      </div>
+    );
   }
 
   return (

@@ -10,23 +10,23 @@ import { formattedDateTime } from '../../services/dateTimeParser';
 import TextField from '@material-ui/core/TextField';
 import SubmitButton from '../../components/buttons/SubmitButton';
 import t from '../../locales/en/questionRoaster';
+import { Editor } from '@tinymce/tinymce-react';
 
 const AnswerQuestion = () => {
-
   const classes = useStyles();
   const location = useLocation();
   const questionDetails = location.state.selectedQuestion[0];
 
   function counterRender(key) {
     return ({
-              total,
-              days,
-              hours,
-              minutes,
-              seconds,
-              milliseconds,
-              completed,
-            }) => {
+      total,
+      days,
+      hours,
+      minutes,
+      seconds,
+      milliseconds,
+      completed,
+    }) => {
       return (
         <Typography
           id={`question-${key}-closeDate`}
@@ -34,25 +34,27 @@ const AnswerQuestion = () => {
           {completed
             ? 'Closed'
             : 'Available for: ' +
-            days +
-            ':' +
-            hours +
-            ':' +
-            minutes +
-            ':' +
-            seconds}
+              days +
+              ':' +
+              hours +
+              ':' +
+              minutes +
+              ':' +
+              seconds}
         </Typography>
       );
     };
   }
 
   return (
-    <Grid container justify={'center'} alignContent={'center'} style={{ marginTop: '10px' }}>
+    <Grid
+      container
+      justify={'center'}
+      alignContent={'center'}
+      style={{ marginTop: '10px' }}>
       <Grid item xs={12} sm={10}>
         <Paper elevation={3} className={classes.paper}>
-          <Grid
-            container
-            className={classes.questionContainer}>
+          <Grid container className={classes.questionContainer}>
             <Grid item xs={6}>
               <Typography
                 id={`question-${questionDetails.referenceNumber}-title`}
@@ -103,7 +105,8 @@ const AnswerQuestion = () => {
                 </Grid>
                 {questionDetails.industry && (
                   <Grid item xs={3} className={classes.fieldContainer}>
-                    <Typography id={`question-${questionDetails.referenceNumber}-industry`}>
+                    <Typography
+                      id={`question-${questionDetails.referenceNumber}-industry`}>
                       {questionDetails.industry.label}
                     </Typography>
                   </Grid>
@@ -135,9 +138,7 @@ const AnswerQuestion = () => {
       </Grid>
       <Grid item xs={12} sm={10}>
         <Paper elevation={3} className={classes.paper}>
-          <Grid
-            container
-            className={classes.questionContainer}>
+          <Grid container className={classes.questionContainer}>
             <Grid item xs={6}>
               <Typography
                 id={`question-${questionDetails.referenceNumber}-title`}
@@ -154,33 +155,82 @@ const AnswerQuestion = () => {
               </Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography className={classes.questionFieldsStyles}>M Taison</Typography>
+              <Typography className={classes.questionFieldsStyles}>
+                M Taison
+              </Typography>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                style={{ height: '35px', marginBottom: '20px' }}
-                variant='outlined'
-                margin='normal'
-                fullWidth
-                id='answer'
-                name='answer'
-                placeholder='Answer'
+              <Editor
+                id='richContent'
+                initialValue='<p>This is the initial content of the editor</p>'
+                init={{
+                  height: 500,
+                  file_picker_types: 'image',
+                  plugins: [
+                    'advlist autolink lists link image imagetools charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount',
+                  ],
+                  toolbar:
+                    'undo redo link image | formatselect | bold italic backcolor | \
+                    alignleft aligncenter alignright alignjustify | \
+                    bullist numlist outdent indent | removeformat | help',
+                  file_picker_callback: function(cb, value, meta) {
+                    const input = document.createElement('input');
+                    input.setAttribute('type', 'file');
+                    input.setAttribute('accept', 'image/*');
+
+                    /*
+                      Note: In modern browsers input[type="file"] is functional without
+                      even adding it to the DOM, but that might not be the case in some older
+                      or quirky browsers like IE, so you might want to add it to the DOM
+                      just in case, and visually hide it. And do not forget do remove it
+                      once you do not need it anymore.
+                    */
+
+                    input.onchange = function() {
+                      const file = this.files[0];
+
+                      const reader = new FileReader();
+                      reader.onload = function() {
+                        /*
+                          Note: Now we need to register the blob in TinyMCEs image blob
+                          registry. In the next release this part hopefully won't be
+                          necessary, as we are looking to handle it internally.
+                        */
+                        // const id = 'blobid' + new Date().getTime();
+                        // const blobCache = this.editorUpload.blobCache;
+                        // const base64 = reader.result.split(',')[1];
+                        // const blobInfo = blobCache.create(id, file, base64);
+                        // blobCache.add(blobInfo);
+
+                        /* call the callback and populate the Title field with the file name */
+                        cb("https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png", { title: "test" });
+                      };
+                      reader.readAsDataURL(file);
+                    };
+
+                    input.click();
+                  },
+                }}
               />
             </Grid>
-            <Grid item xs={6}/>
+            <Grid item xs={6} />
             <Grid
               item
               xs={6}
-              style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                marginTop: '20px',
+              }}>
               <Button
-                variant="contained"
-                size='medium' style={{ marginRight: '10px' }}>
+                variant='contained'
+                size='medium'
+                style={{ marginRight: '10px' }}>
                 {t['saveAndCompleteLater']}
               </Button>
-              <SubmitButton
-                buttonText={t['submit']}
-                disabled={false}
-              />
+              <SubmitButton buttonText={t['submit']} disabled={false} />
             </Grid>
           </Grid>
         </Paper>

@@ -63,9 +63,9 @@ export const useStyles = makeStyles((theme) => ({
   assignmentTypeIcon: { fontSize: '50px' },
   fieldContainer: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
-  flexContainer:{
+  flexContainer: {
     display: 'flex',
   },
   questionFieldsStyles: {
@@ -84,5 +84,11 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       fontSize: '4vw',
     },
+  },
+  progressContainer: {
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
   },
 }));

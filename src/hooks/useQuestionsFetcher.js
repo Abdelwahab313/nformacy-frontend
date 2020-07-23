@@ -2,16 +2,20 @@ import { useEffect, useRef, useState } from 'react';
 import { fetchAllQuestions } from '../apis/questionsAPI';
 import { cloneDeep } from 'lodash';
 
-const QuestionFetcher = () => {
+const useQuestionFetcher = () => {
   const allQuestions = useRef([]);
+  const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState();
   const [filters, setFilters] = useState([]);
 
   useEffect(() => {
-    fetchAllQuestions().then((response) => {
-      setQuestions(response.data);
-      allQuestions.current = response.data;
-    });
+    setLoading(true);
+    fetchAllQuestions()
+      .then((response) => {
+        setQuestions(response.data);
+        allQuestions.current = response.data;
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   const addFilter = (key) => {
@@ -82,6 +86,14 @@ const QuestionFetcher = () => {
     setQuestions(filteredQuestions);
   };
 
-  return { questions, filterQuestions, addFilter, filters, removeFilter, setFilters };
+  return {
+    questions,
+    filterQuestions,
+    addFilter,
+    filters,
+    removeFilter,
+    setFilters,
+    loading,
+  };
 };
-export default QuestionFetcher;
+export default useQuestionFetcher;

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import QuestionsFetcher from '../../hooks/QuestionsFetcher';
+import QuestionsFetcher from '../../hooks/useQuestionsFetcher';
 import { renderHook, act } from '@testing-library/react-hooks';
 import { API_BASE_URL } from '../../settings';
 
