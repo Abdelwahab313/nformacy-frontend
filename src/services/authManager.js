@@ -7,12 +7,14 @@ class AuthManager {
       ? JSON.parse(loadedTokenString)
       : undefined;
     this.setAuthorizationHeader(authToken);
-
-    const loadedUserString = localStorage.getItem('user');
-    const user = !!loadedUserString
-      ? JSON.parse(loadedUserString)
-      : undefined;
-
+    let user = undefined;
+    try {
+      const loadedUserString = localStorage.getItem('user');
+      user = !!loadedUserString
+        ? JSON.parse(loadedUserString)
+        : undefined;
+    } catch (e) {
+    }
     return { authToken, user };
   };
 
