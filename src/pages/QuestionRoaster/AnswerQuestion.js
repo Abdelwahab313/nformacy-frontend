@@ -1,20 +1,39 @@
-import React from 'react';
+import React, { Fragment, useState } from 'react';
 import { useLocation } from 'react-router';
 import Paper from '@material-ui/core/Paper';
 import { Button, Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import { useStyles } from '../../styles/questionRoasterStyles';
+import { attachButtonStyle, attachContainerStyle, useStyles } from '../../styles/questionRoasterStyles';
 import { formattedDateTime } from '../../services/dateTimeParser';
 import SubmitButton from '../../components/buttons/SubmitButton';
 import t from '../../locales/en/questionRoaster';
 import { Editor } from '@tinymce/tinymce-react';
 import QuestionView from './QuestionView';
-import { uploadImage } from '../../apis/questionsAPI';
+import { uploadDocument, uploadImage } from '../../apis/questionsAPI';
+import ImageUploader from 'react-images-upload';
 
 const AnswerQuestion = () => {
   const classes = useStyles();
   const location = useLocation();
   const questionDetails = location.state.questionDetails;
+  const [attachmentFiles, setAttachmentFiles] = useState();
+
+  const onUploadAttachment = (attachmentFile) => {
+    setAttachmentFiles(attachmentFile);
+  };
+
+  const onSubmitAnswer = () => {
+    if (attachmentFiles?.length > 0) {
+      const file = attachmentFiles[0];
+      const formData = new FormData();
+      formData.append('document', file, attachmentFiles[0].name);
+
+      uploadDocument(questionDetails.id, formData)
+        .then(({data}) => {
+          setAttachmentFiles(data.document);
+        });
+    }
+  };
 
   return (
     <Grid
@@ -112,22 +131,34 @@ const AnswerQuestion = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={6} />
-            <Grid
-              item
-              xs={6}
-              style={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                marginTop: '20px',
-              }}>
+            <Grid item xs={6} style={{ justifyContent: 'flex-start' }} className={classes.answerButtonsContainer}>
+              <div className={classes.attachmentUploaderContainer}>
+                <ImageUploader
+                  label={false}
+                  fileContainerStyle={attachContainerStyle()}
+                  withIcon={false}
+                  withPreview={false}
+                  onChange={onUploadAttachment}
+                  accept='application/pdf'
+                  buttonStyles={attachButtonStyle()}
+                  buttonText={t['attach']}
+                  imgExtension={['.pdf']}
+                />
+                {attachmentFiles?.length > 0 && (
+                <Typography gutterBottom variant='subtitle2'>
+                  {attachmentFiles[0].name}
+                </Typography>
+                )}
+              </div>
+            </Grid>
+            <Grid item xs={6} style={{ justifyContent: 'flex-end' }} className={classes.answerButtonsContainer}>
               <Button
                 variant='contained'
                 size='medium'
-                style={{ marginRight: '10px' }}>
+                style={{ marginRight: '10px', height: '36px', alignSelf: 'center' }}>
                 {t['saveAndCompleteLater']}
               </Button>
-              <SubmitButton buttonText={t['submit']} disabled={false} />
+              <SubmitButton onClick={() => onSubmitAnswer()} buttonText={t['submit']} disabled={false} />
             </Grid>
           </Grid>
         </Paper>

@@ -19,3 +19,14 @@ export const uploadImage = (questionId, image) => {
     },
   }).then((response) => camelizeKeys(response));
 };
+
+export const uploadDocument = (questionId, document) => {
+  return axios({
+    method: 'post',
+    data: document,
+    url: `${API_BASE_URL}/questions/${questionId}/upload_document`,
+    headers: {
+      accept: 'application/json',
+    },
+  }).then((response) => camelizeKeys(response));
+};

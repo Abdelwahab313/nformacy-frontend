@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { grey, lightGrey, lightPink, pink, white } from './colors';
+import { lightGrey, lightPink, pink, white } from './colors';
 
 export const useStyles = makeStyles((theme) => ({
   bannerStyles: {
@@ -91,4 +91,35 @@ export const useStyles = makeStyles((theme) => ({
     top: '50%',
     transform: 'translate(-50%, -50%)',
   },
+  answerButtonsContainer: {
+    display: 'flex',
+    marginTop: '20px',
+  },
+  attachButtonStyle: {
+    backgroundColor: pink,
+    color: white,
+  },
+  attachmentUploaderContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    width: 'fit-content',
+  },
 }));
+export const attachButtonStyle = () => {
+  return {
+    backgroundColor: pink,
+    color: white,
+    alignSelf: 'center',
+    borderRadius: '4px',
+    height: '36px',
+    textTransform: 'uppercase',
+  };
+};
+export const attachContainerStyle = () => {
+  return {
+    boxShadow: 'none',
+    height: 'fit-content',
+    padding: 0,
+    margin: '0 10px 0 0',
+  };
+};
