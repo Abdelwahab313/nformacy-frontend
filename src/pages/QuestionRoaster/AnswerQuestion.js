@@ -9,6 +9,7 @@ import SubmitButton from '../../components/buttons/SubmitButton';
 import t from '../../locales/en/questionRoaster';
 import { Editor } from '@tinymce/tinymce-react';
 import QuestionView from './QuestionView';
+import { uploadImage } from '../../apis/questionsAPI';
 
 const AnswerQuestion = () => {
   const classes = useStyles();
@@ -22,7 +23,10 @@ const AnswerQuestion = () => {
       alignContent={'center'}
       style={{ marginTop: '10px' }}>
       <Grid item xs={12} sm={10}>
-        <QuestionView questionDetails={questionDetails} isSubmitVisible={false}/>
+        <QuestionView
+          questionDetails={questionDetails}
+          isSubmitVisible={false}
+        />
       </Grid>
       <Grid item xs={12} sm={10}>
         <Paper elevation={3} className={classes.paper}>
@@ -78,6 +82,8 @@ const AnswerQuestion = () => {
 
                     input.onchange = function() {
                       const file = this.files[0];
+                      const formData = new FormData();
+                      formData.append('image', file, this.files[0].name);
 
                       const reader = new FileReader();
                       reader.onload = function() {
@@ -91,9 +97,12 @@ const AnswerQuestion = () => {
                         // const base64 = reader.result.split(',')[1];
                         // const blobInfo = blobCache.create(id, file, base64);
                         // blobCache.add(blobInfo);
-
+                        uploadImage(questionDetails.id, formData).then(
+                          ({ data }) => {
+                            cb(data['imageUrl']);
+                          },
+                        );
                         /* call the callback and populate the Title field with the file name */
-                        cb('https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png', { title: 'test' });
                       };
                       reader.readAsDataURL(file);
                     };
@@ -103,7 +112,7 @@ const AnswerQuestion = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={6}/>
+            <Grid item xs={6} />
             <Grid
               item
               xs={6}
@@ -118,7 +127,7 @@ const AnswerQuestion = () => {
                 style={{ marginRight: '10px' }}>
                 {t['saveAndCompleteLater']}
               </Button>
-              <SubmitButton buttonText={t['submit']} disabled={false}/>
+              <SubmitButton buttonText={t['submit']} disabled={false} />
             </Grid>
           </Grid>
         </Paper>
