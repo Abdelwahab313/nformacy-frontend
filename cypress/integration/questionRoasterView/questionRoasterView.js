@@ -14,46 +14,46 @@ Then(
 Then(
   /^All the questions that are open with the following fields: Question title, Reference \#, post date, field, subfield, industry, Question content, assignment type, close date\.$/,
   function() {
-    cy.get('#question-0-title')
+    cy.get('#question-2000100-title')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-0-referenceNumber')
+    cy.get('#question-2000100-referenceNumber')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-0-postDate')
+    cy.get('#question-2000100-postDate')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-0-field-0')
+    cy.get('#question-2000100-field-0')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-0-subfield-0')
+    cy.get('#question-2000100-subfield-0')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-0-industry')
+    cy.get('#question-2000100-industry')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-0-content')
+    cy.get('#question-2000100-content')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-0-closeDate')
+    cy.get('#question-2000100-closeDate')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-0-question');
+    cy.get('#question-2000100-question');
   },
 );
 Then(/^Each question should have answer button beneath it\.$/, function() {
-  cy.get('#question-0-title')
+  cy.get('#question-2000100-title')
     .invoke('text')
     .should('not.be.empty');
-  cy.get('#question-0-submit');
+  cy.get('#question-2000100-submit');
 });
 When(/^I click on a field from the filtering menu\.$/, function() {
-  cy.get('#question-0-title')
+  cy.get('#question-2000100-title')
     .invoke('text')
     .should('not.be.empty');
   cy.get('#filters-0').click();
 });
 Then(/^I should only see questions that belongs to that field\.$/, function() {
-  cy.get('#question-0-field-0')
+  cy.get('#question-2000105-field-0')
     .should('have.text', 'Finance');
 });

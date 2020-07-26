@@ -13,21 +13,22 @@ const AssignmentType = ({ index, type }) => {
     case 'Project':
       return (
         <Fragment>
-          <BusinessCenterIcon id={`question-${index}-project`} color={'primary'} className={classes.assignmentTypeIcon}  />
+          <BusinessCenterIcon id={`question-${index}-project`} color={'primary'}
+                              className={classes.assignmentTypeIcon}/>
           <Typography>{t['project']}</Typography>
         </Fragment>
       );
     case 'Question':
       return (
         <Fragment>
-          <HelpIcon id={`question-${index}-question`} color={'primary'} className={classes.assignmentTypeIcon}  />
+          <HelpIcon id={`question-${index}-question`} color={'primary'} className={classes.assignmentTypeIcon}/>
           <Typography>{t['question']}</Typography>
         </Fragment>
       );
     case 'Call':
       return (
         <Fragment>
-          <CallIcon id={`question-${index}-call`} color={'primary'} className={classes.assignmentTypeIcon} />
+          <CallIcon id={`question-${index}-call`} color={'primary'} className={classes.assignmentTypeIcon}/>
           <Typography>{t['call']}</Typography>
         </Fragment>
       );
