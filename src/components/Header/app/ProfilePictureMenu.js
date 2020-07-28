@@ -10,7 +10,7 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import VideoCallIcon from '@material-ui/icons/VideoCall';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HelpIcon from '@material-ui/icons/Help';
-import { pink } from '../../styles/colors';
+import { pink } from 'styles/colors';
 
 const StyledMenu = withStyles({
   paper: {

@@ -9,6 +9,14 @@ export const fetchAllQuestions = () => {
   }).then((response) => camelizeKeys(response));
 };
 
+
+export const fetchQuestionDetails = (questionId) => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/questions/${questionId}`,
+  }).then((response) => camelizeKeys(response));
+};
+
 export const uploadImage = (questionId, image) => {
   return axios({
     method: 'post',

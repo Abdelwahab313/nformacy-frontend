@@ -1,0 +1,27 @@
+export const RoutesPaths = {
+  Admin: {
+    Login: '/admin/login',
+    Home: '/admin/',
+    Dashboard: '/admin/dashboard',
+    User: '/admin/user',
+    Questions: '/admin/questions',
+    QuestionsDetails: '/admin/questions/edit',
+    Typography: '/admin/typography',
+    Icons: '/admin/icons',
+    Notifications: '/admin/notifications',
+    Logout: '/admin/logout',
+  },
+  App: {
+    Login: '/login',
+    Signup: '/signup',
+    Logout: '/logout',
+    FreelancerProfile: '/user/profile',
+    FreelancerSuccess: '/user/success',
+    Home: '/',
+    Questions: '/questions',
+    AnswerQuestion: '/question/answer',
+    EditProfile: '/user/edit',
+    Meetings: '/meeting/list',
+    MeetingDetails: '/meeting/edit',
+  },
+};

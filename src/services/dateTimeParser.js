@@ -19,9 +19,9 @@ export const formatDayAsKey = (day) => moment(day).format('YYYYMMDD');
 
 export const formatTime = (time) => moment(time).format('HH:mm');
 
-export const getTimeAtTimeZone = (formattedTime, timeZone) => moment.utc(formattedTime, 'HH:mm').tz(timeZone).toDate().toLocaleString('en-US', { timeZone: timeZone })
+export const getTimeAtTimeZone = (formattedTime, timeZone) => moment.utc(formattedTime, 'HH:mm').tz(timeZone).toDate().toLocaleString('en-US', { timeZone: timeZone });
 
-export const convertTimeToUTC = (formattedTime, timeZone) => moment.tz(formattedTime, 'HH:mm', timeZone).utc().format('HH:mm')
+export const convertTimeToUTC = (formattedTime, timeZone) => moment.tz(formattedTime, 'HH:mm', timeZone).utc().format('HH:mm');
 
 export const formattedDateTime = (date) => {
   const dateTimeFormat = new Intl.DateTimeFormat('en', {
@@ -34,3 +34,5 @@ export const formattedDateTime = (date) => {
   });
   return dateTimeFormat.format(date);
 };
+
+export * from './humanizedTimeSpan';

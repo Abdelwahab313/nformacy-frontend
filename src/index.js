@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './i18n';
 import './index.css';
-import App from './components/App';
+import Main from 'layouts/Main';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 ReactDOM.render(
   <Router>
-    <App />
+    <Main />
   </Router>,
   document.getElementById('root'),
 );

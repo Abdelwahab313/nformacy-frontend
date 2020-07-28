@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
-import { useStyles } from '../../styles/formsStyles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { Grid } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
-import { login } from '../../apis/authAPI';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Redirect } from 'react-router';
-import { AuthActionTypes, useAuth } from './context/auth';
+import { Redirect, useLocation } from 'react-router';
+import { useAuth } from './context/auth';
 import ErrorDialog from '../../components/errors/ErrorDialog';
+import { useStyles } from 'styles/formsStyles';
+import { login } from 'apis/authAPI';
 import { withNamespaces } from 'react-i18next';
 import authManager from '../../services/authManager';
-import { Grid } from '@material-ui/core';
 import { updateUser } from './context/authActions';
+import { RoutesPaths } from 'constants/routesPath';
 
-const Login = ({ location, t }) => {
+const Login = ({ t }) => {
+  const classes = useStyles();
   const { register, handleSubmit, errors } = useForm();
   const [loginFailed, setLoginFailed] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
@@ -23,7 +25,10 @@ const Login = ({ location, t }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [showError, setShowError] = useState(false);
   const [_, dispatch] = useAuth();
-  const referer = location.state ? location.state.referer || '/' : '/';
+  const location = useLocation();
+  const isAdminLogin = location.pathname.indexOf('admin') > -1;
+  const postLoginRoute = isAdminLogin ? RoutesPaths.Admin.Home : RoutesPaths.App.Home;
+  const referer = location.state ? location.state.referer || postLoginRoute : postLoginRoute;
 
   const onSubmit = (data) => {
     setLoginFailed(false);
@@ -37,30 +42,33 @@ const Login = ({ location, t }) => {
         setLoginSuccess(true);
       })
       .catch((reason) => {
-        if (reason.message === 'Network Error') {
-          setErrorMessage(t('Network Error'));
-          setShowError(true);
-        } else if (
+        if (
           reason.response.data.error === 'invalid_credentials' ||
           reason.response.data.error === 'unauthorized'
         ) {
           setLoginFailed(true);
+        } else {
+          setErrorMessage(t('Network Error'));
+          setShowError(true);
         }
       })
       .finally(() => {
         setLoading(false);
       });
   };
+
   const handleTextChange = () => {
     setLoginFailed(false);
   };
-  const classes = useStyles();
 
+  console.log('post login route', isAdminLogin, postLoginRoute);
+  console.log('referer', referer);
   const { authToken } = authManager.retrieveUserToken();
   if (loginSuccess || (authToken)) {
-    if (referer.pathname === '/logout') {
-      return <Redirect push to='/'/>;
+    if (referer.pathname === RoutesPaths.App.Logout) {
+      return <Redirect push to={postLoginRoute}/>;
     }
+    console.log('go to referer block')
     return <Redirect push to={referer}/>;
   }
   if (loading) {
