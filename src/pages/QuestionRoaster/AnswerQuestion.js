@@ -1,9 +1,13 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router';
 import Paper from '@material-ui/core/Paper';
 import { Button, Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import { attachButtonStyle, attachContainerStyle, useStyles } from '../../styles/questionRoasterStyles';
+import {
+  attachButtonStyle,
+  attachContainerStyle,
+  useStyles,
+} from '../../styles/questionRoasterStyles';
 import { formattedDateTime } from '../../services/dateTimeParser';
 import SubmitButton from '../../components/buttons/SubmitButton';
 import t from '../../locales/en/questionRoaster';
@@ -11,12 +15,17 @@ import { Editor } from '@tinymce/tinymce-react';
 import QuestionView from './QuestionView';
 import { uploadDocument, uploadImage } from '../../apis/questionsAPI';
 import ImageUploader from 'react-images-upload';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 const AnswerQuestion = () => {
   const classes = useStyles();
   const location = useLocation();
   const questionDetails = location.state.questionDetails;
   const [attachmentFiles, setAttachmentFiles] = useState();
+  const [isSnackbarShown, setIsSnackbarShown] = useState(false);
+  const savedAnswer = localStorage.getItem(`answer${questionDetails?.id}`);
+  const [content, setContent] = useState(savedAnswer);
 
   const onUploadAttachment = (attachmentFile) => {
     setAttachmentFiles(attachmentFile);
@@ -28,10 +37,9 @@ const AnswerQuestion = () => {
       const formData = new FormData();
       formData.append('document', file, attachmentFiles[0].name);
 
-      uploadDocument(questionDetails.id, formData)
-        .then(({data}) => {
-          setAttachmentFiles(data.document);
-        });
+      uploadDocument(questionDetails.id, formData).then(({ data }) => {
+        setAttachmentFiles(data.document);
+      });
     }
   };
 
@@ -73,19 +81,20 @@ const AnswerQuestion = () => {
             <Grid item xs={12}>
               <Editor
                 id='richContent'
-                initialValue='<p>This is the initial content of the editor</p>'
+                onEditorChange={(content, _) => setContent(content)}
+                initialValue={savedAnswer}
                 init={{
                   height: 500,
                   file_picker_types: 'image',
                   plugins: [
                     'advlist autolink lists link image imagetools charmap print preview anchor',
-                    'searchreplace visualblocks code fullscreen',
-                    'insertdatetime media table paste code help wordcount',
+                    'searchreplace visualblocks fullscreen',
+                    'insertdatetime media table paste wordcount',
                   ],
                   toolbar:
                     'undo redo link image | formatselect | bold italic backcolor | \
                     alignleft aligncenter alignright alignjustify | \
-                    bullist numlist outdent indent | removeformat | help',
+                    bullist numlist outdent indent | removeformat',
                   file_picker_callback: function(cb, value, meta) {
                     const input = document.createElement('input');
                     input.setAttribute('type', 'file');
@@ -131,7 +140,11 @@ const AnswerQuestion = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={6} style={{ justifyContent: 'flex-start' }} className={classes.answerButtonsContainer}>
+            <Grid
+              item
+              xs={6}
+              style={{ justifyContent: 'flex-start' }}
+              className={classes.answerButtonsContainer}>
               <div className={classes.attachmentUploaderContainer}>
                 <ImageUploader
                   label={false}
@@ -144,23 +157,50 @@ const AnswerQuestion = () => {
                   buttonText={t['attach']}
                   imgExtension={['.pdf']}
                 />
-                {attachmentFiles?.length > 0 && (
-                <Typography gutterBottom variant='subtitle2'>
-                  {attachmentFiles[0].name}
-                </Typography>
-                )}
+                {attachmentFiles?.length > 0 &&
+                  attachmentFiles.map((attachment) => (
+                    <Typography gutterBottom variant='subtitle2'>
+                      {attachment.name}
+                    </Typography>
+                  ))}
               </div>
             </Grid>
-            <Grid item xs={6} style={{ justifyContent: 'flex-end' }} className={classes.answerButtonsContainer}>
+            <Grid
+              item
+              xs={6}
+              style={{ justifyContent: 'flex-end' }}
+              className={classes.answerButtonsContainer}>
               <Button
                 variant='contained'
                 size='medium'
-                style={{ marginRight: '10px', height: '36px', alignSelf: 'center' }}>
+                onClick={() => {
+                  localStorage.setItem(`answer${questionDetails.id}`, content ? content : '');
+                  setIsSnackbarShown(true);
+                }}
+                style={{
+                  marginRight: '10px',
+                  height: '36px',
+                  alignSelf: 'center',
+                }}>
                 {t['saveAndCompleteLater']}
               </Button>
-              <SubmitButton onClick={() => onSubmitAnswer()} buttonText={t['submit']} disabled={false} />
+              <SubmitButton
+                onClick={() => onSubmitAnswer()}
+                buttonText={t['submit']}
+                disabled={false}
+              />
             </Grid>
           </Grid>
+          <Snackbar
+            open={isSnackbarShown}
+            onClose={() => {
+              setIsSnackbarShown(false);
+              window.location.reload();
+            }}>
+            <Alert onClose={() => setIsSnackbarShown(false)} severity='success'>
+              <Typography>Your answer has been saved successfully</Typography>
+            </Alert>
+          </Snackbar>
         </Paper>
       </Grid>
     </Grid>
