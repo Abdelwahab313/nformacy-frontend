@@ -9,8 +9,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import StarsIcon from '@material-ui/icons/Stars';
-import ProfilePictureMenu from './ProfilePictureMenu';
-import useStyles from './styles/HeaderStyles';
+import ProfilePictureMenu from 'components/Header/app/ProfilePictureMenu';
+import useStyles from 'components/Header/app/styles/HeaderStyles';
 
 export default function MainHeader() {
   const classes = useStyles();

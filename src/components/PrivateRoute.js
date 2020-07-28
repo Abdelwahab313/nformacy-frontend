@@ -1,8 +1,14 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import authManager from '../services/authManager';
+import { useLocation } from 'react-router';
+import { RoutesPaths } from 'constants/routesPath';
 
 function PrivateRoute({ component: Component, provider: Provider, ...rest }) {
+  const location = useLocation();
+  const isAdminLogin = location.pathname.indexOf('admin') > -1;
+  const loginRoute = isAdminLogin ? RoutesPaths.Admin.Login : RoutesPaths.App.Login;
+
   const { authToken } = authManager.retrieveUserToken();
   if (!authToken) {
     return (
@@ -10,7 +16,7 @@ function PrivateRoute({ component: Component, provider: Provider, ...rest }) {
         {...rest}
         render={(props) => (
           <Redirect
-            to={{ pathname: '/login', state: { referer: props.location } }}
+            to={{ pathname: loginRoute, state: { referer: props.location } }}
           />
         )}
       />
