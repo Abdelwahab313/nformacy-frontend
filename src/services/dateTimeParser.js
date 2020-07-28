@@ -35,4 +35,16 @@ export const formattedDateTime = (date) => {
   return dateTimeFormat.format(date);
 };
 
+export const formattedDateTimeNoSeconds = (date) => {
+  const dateTimeFormat = new Intl.DateTimeFormat('en', {
+    year: 'numeric',
+    month: 'numeric',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  });
+  return dateTimeFormat.format(date);
+};
+
 export * from './humanizedTimeSpan';

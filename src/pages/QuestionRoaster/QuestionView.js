@@ -1,7 +1,7 @@
 import { Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import t from '../../locales/en/questionRoaster';
-import { formattedDateTime } from '../../services/dateTimeParser';
+import { formattedDateTimeNoSeconds } from '../../services/dateTimeParser';
 import Countdown from 'react-countdown';
 import AssignmentType from './AssignmentType';
 import Paper from '@material-ui/core/Paper';
@@ -80,7 +80,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
             id={`question-${questionDetails.referenceNumber}-postDate`}
             className={classes.questionFieldsStyles}>
             {t['postDate'] + ' '}
-            {formattedDateTime(new Date(questionDetails.createdAt))}
+            {formattedDateTimeNoSeconds(new Date(questionDetails.createdAt))}
           </Typography>
         </Grid>
         <Grid item xs={6}>
@@ -89,7 +89,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
               classes.flexContainer,
               classes.questionFieldsStyles,
             ]}>
-            <Grid item xs={6} className={classes.fieldContainer}>
+            <Grid item xs={9} className={classes.fieldContainer}>
               {questionDetails.field?.map((major, key) => (
                 <Grid container alignItems={'center'}>
                   <Grid
@@ -103,7 +103,8 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
                     <Grid container>
                       {fieldsOfExperience.find(experience => experience.value === major.value).subfields.filter(specificField => isMajorContainsSpecificField(specificField))?.map((field, key) => (
                         <Grid item key={key}>
-                          <Chip id={`questionSubFields-${key}`} color={'secondary'} style={{ margin: '5px' }} label={field.label}/>
+                          <Chip id={`questionSubFields-${key}`} color={'secondary'} style={{ margin: '5px' }}
+                                label={field.label}/>
                         </Grid>
                       ))}
                     </Grid>
