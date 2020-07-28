@@ -9,6 +9,9 @@ import React from 'react';
 import { useStyles } from '../../styles/questionRoasterStyles';
 import SubmitButton from '../../components/buttons/SubmitButton';
 import { useHistory } from 'react-router';
+import AlarmIcon from '@material-ui/icons/Alarm';
+import { fieldsOfExperience } from '../../constants/dropDownOptions';
+import Chip from '@material-ui/core/Chip';
 
 
 const QuestionView = ({ questionDetails, isSubmitVisible }) => {
@@ -19,6 +22,10 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   function handleEditClick(questionReference) {
     history.push(`/question/answer/${questionReference}`, { questionDetails });
   }
+
+  const isMajorContainsSpecificField = (subField) => {
+    return questionDetails.subfield.filter(specificField => specificField.value === subField.value).length > 0;
+  };
 
   function counterRender(key) {
     return ({
@@ -32,11 +39,13 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
             }) => {
       return (
         <Typography
+          style={{ display: 'flex', alignItems: 'center' }}
           id={`question-${key}-closeDate`}
           className={classes.questionFieldsStyles}>
+          <AlarmIcon color={'primary'}/>
           {completed
             ? 'Closed'
-            : 'Available for: ' +
+            : 'Question is Open till: ' +
             days +
             ':' +
             hours +
@@ -52,6 +61,13 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   return (
     <Paper elevation={3} className={classes.paper}>
       <Grid container className={classes.questionContainer}>
+        <Grid item xs={3}>
+          <Typography
+            id={`question-${questionDetails.referenceNumber}-referenceNumber`}
+            className={classes.questionFieldsStyles}>
+            {questionDetails.referenceNumber}
+          </Typography>
+        </Grid>
         <Grid item xs={6}>
           <Typography
             id={`question-${questionDetails.referenceNumber}-title`}
@@ -59,24 +75,13 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
             {questionDetails.title}
           </Typography>
         </Grid>
-        <Grid item xs={6}>
-          <Grid container>
-            <Grid item xs={6}>
-              <Typography
-                id={`question-${questionDetails.referenceNumber}-referenceNumber`}
-                className={classes.questionFieldsStyles}>
-                {t['referenceNumber'] + questionDetails.referenceNumber}
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography
-                id={`question-${questionDetails.referenceNumber}-postDate`}
-                className={classes.questionFieldsStyles}>
-                {t['postDate'] + ' '}
-                {formattedDateTime(new Date(questionDetails.createdAt))}
-              </Typography>
-            </Grid>
-          </Grid>
+        <Grid item xs={3}>
+          <Typography
+            id={`question-${questionDetails.referenceNumber}-postDate`}
+            className={classes.questionFieldsStyles}>
+            {t['postDate'] + ' '}
+            {formattedDateTime(new Date(questionDetails.createdAt))}
+          </Typography>
         </Grid>
         <Grid item xs={6}>
           <Grid
@@ -84,25 +89,32 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
               classes.flexContainer,
               classes.questionFieldsStyles,
             ]}>
-            <Grid item xs={3} className={classes.fieldContainer}>
-              {questionDetails.field?.map((field, fieldKey) => (
-                <Typography
-                  id={`question-${questionDetails.referenceNumber}-field-${fieldKey}`}>
-                  {field.label}
-                </Typography>
-              ))}
-            </Grid>
-            <Grid item xs={3} className={classes.fieldContainer}>
-              {questionDetails.subfield?.map((subfield, subFieldKey) => (
-                <Typography
-                  id={`question-${questionDetails.referenceNumber}-subfield-${subFieldKey}`}>
-                  {subfield.label}
-                </Typography>
+            <Grid item xs={6} className={classes.fieldContainer}>
+              {questionDetails.field?.map((major, key) => (
+                <Grid container alignItems={'center'}>
+                  <Grid
+                    item
+                    xs={6}
+                    id={`questionMajorFields-${key}`}
+                    key={key}>
+                    {major.label + ':'}
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Grid container>
+                      {fieldsOfExperience.find(experience => experience.value === major.value).subfields.filter(specificField => isMajorContainsSpecificField(specificField))?.map((field, key) => (
+                        <Grid item key={key}>
+                          <Chip id={`questionSubFields-${key}`} color={'secondary'} style={{ margin: '5px' }} label={field.label}/>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </Grid>
+                </Grid>
               ))}
             </Grid>
             {questionDetails.industry && (
               <Grid item xs={3} className={classes.fieldContainer}>
                 <Typography
+                  variant={'inherit'}
                   id={`question-${questionDetails.referenceNumber}-industry`}>
                   {questionDetails.industry.label}
                 </Typography>

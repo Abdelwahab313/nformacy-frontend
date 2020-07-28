@@ -23,10 +23,10 @@ Then(
     cy.get('#question-2000100-postDate')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-2000100-field-0')
+    cy.get('#questionMajorFields-0')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-2000100-subfield-0')
+    cy.get('#questionSubFields-0')
       .invoke('text')
       .should('not.be.empty');
     cy.get('#question-2000100-industry')
@@ -54,6 +54,6 @@ When(/^I click on a field from the filtering menu\.$/, function() {
   cy.get('#filters-0').click();
 });
 Then(/^I should only see questions that belongs to that field\.$/, function() {
-  cy.get('#question-2000105-field-0')
-    .should('have.text', 'Finance');
+  cy.get('#questionMajorFields-0')
+    .should('have.text', 'Finance:');
 });

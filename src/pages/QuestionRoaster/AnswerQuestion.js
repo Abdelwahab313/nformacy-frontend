@@ -3,11 +3,7 @@ import { useLocation } from 'react-router';
 import Paper from '@material-ui/core/Paper';
 import { Button, Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import {
-  attachButtonStyle,
-  attachContainerStyle,
-  useStyles,
-} from '../../styles/questionRoasterStyles';
+import { attachButtonStyle, attachContainerStyle, useStyles } from '../../styles/questionRoasterStyles';
 import { formattedDateTime } from '../../services/dateTimeParser';
 import SubmitButton from '../../components/buttons/SubmitButton';
 import t from '../../locales/en/questionRoaster';
@@ -158,11 +154,11 @@ const AnswerQuestion = () => {
                   imgExtension={['.pdf']}
                 />
                 {attachmentFiles?.length > 0 &&
-                  attachmentFiles.map((attachment) => (
-                    <Typography gutterBottom variant='subtitle2'>
-                      {attachment.name}
-                    </Typography>
-                  ))}
+                attachmentFiles.map((attachment) => (
+                  <Typography gutterBottom variant='subtitle2'>
+                    {attachment.name}
+                  </Typography>
+                ))}
               </div>
             </Grid>
             <Grid

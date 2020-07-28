@@ -74,6 +74,9 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: '5px',
     margin: theme.spacing(1),
     padding: theme.spacing(1),
+    minHeight: '36px',
+    display: 'flex',
+    alignItems: 'center',
     fontSize: '1.190vw',
     [theme.breakpoints.up('lg')]: {
       fontSize: '1.00vw',
