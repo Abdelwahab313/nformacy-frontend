@@ -31,14 +31,14 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   return (
     <Paper elevation={3} className={classes.paper}>
       <Grid container className={classes.questionContainer}>
-        <Grid item xs={3}>
+        <Grid item xs={2}>
           <Typography
             id={`question-${questionDetails.referenceNumber}-referenceNumber`}
             className={classes.questionFieldsStyles}>
             {questionDetails.referenceNumber}
           </Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={7}>
           <Typography
             id={`question-${questionDetails.referenceNumber}-title`}
             className={classes.questionFieldsStyles}>

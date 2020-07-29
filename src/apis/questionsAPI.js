@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_BASE_URL } from '../settings';
-import { camelizeKeys } from 'humps';
+import { camelizeKeys, decamelizeKeys } from 'humps';
 
 export const fetchAllQuestions = () => {
   return axios({
@@ -25,6 +25,14 @@ export const uploadImage = (questionId, image) => {
     headers: {
       accept: 'application/json',
     },
+  }).then((response) => camelizeKeys(response));
+};
+
+export const updateQuestion = (questionId, updatedQuestion) => {
+  return axios({
+    method: 'put',
+    url: `${API_BASE_URL}/questions/${questionId}`,
+    data: decamelizeKeys({ ...updatedQuestion }),
   }).then((response) => camelizeKeys(response));
 };
 

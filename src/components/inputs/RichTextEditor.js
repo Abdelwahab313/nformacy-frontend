@@ -6,6 +6,7 @@ const RichTextEditor = ({ initialContent, onContentChange, onImageUpload }) => {
   const handleEditorChange = (content, _) => {
     !!onContentChange && onContentChange(content);
   };
+  //TODO Handle remove image
   return (<Editor
     id='richContent'
     onEditorChange={handleEditorChange}

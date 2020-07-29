@@ -12,7 +12,7 @@ import CardBody from 'components/Card/CardBody.js';
 import CardFooter from 'components/Card/CardFooter.js';
 import { useLocation } from 'react-router';
 import useFetchData from 'hooks/useFetchData';
-import { fetchQuestionDetails, uploadImage } from 'apis/questionsAPI';
+import { fetchQuestionDetails, updateQuestion, uploadImage } from 'apis/questionsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import humanizedTimeSpan from 'services/humanizedTimeSpan';
 import MajorFieldSelect from 'components/inputs/MajorFieldSelect';
@@ -23,6 +23,7 @@ import TextField from '@material-ui/core/TextField';
 import QuestionCountDown from 'components/counters/QuestionCountDown';
 import InputLabel from '@material-ui/core/InputLabel';
 import RichTextEditor from 'components/inputs/RichTextEditor';
+import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
 
 
 const styles = (theme) => ({
@@ -59,6 +60,8 @@ const useStyles = makeStyles(styles);
 const QuestionDetails = () => {
   const classes = useStyles();
   const [questionDetails, setQuestionDetails] = useState({});
+  const [isLoadingForUpdating, setIsLoadingForUpdating] = useState(false);
+  const [isSnackbarShown, setIsSnackbarShown] = useState(false);
 
   const location = useLocation();
   const questionId = location.state.questionId;
@@ -90,6 +93,18 @@ const QuestionDetails = () => {
       <LoadingCircle/>
     );
   }
+
+  const onUpdateQuestionClicked = () => {
+    setIsLoadingForUpdating(true);
+    updateQuestion(questionDetails.id, questionDetails)
+      .then((response) => {
+        console.log('updated ....', response.data);
+        setIsSnackbarShown(true);
+      })
+      .catch((error) => {
+        console.log('failed -------', error);
+      }).finally(() => setIsLoadingForUpdating(false));
+  };
 
   return (
     <GridContainer>
@@ -124,6 +139,9 @@ const QuestionDetails = () => {
                   inputProps={{
                     value: questionDetails.title,
                     name: 'title',
+                    onChange: (e) => {
+                      onChangeQuestionField('title', e.target.value);
+                    },
                   }}
                 />
               </GridItem>
@@ -220,7 +238,24 @@ const QuestionDetails = () => {
             </GridContainer>
           </CardBody>
           <CardFooter className={classes.footerButtons}>
-            <Button color="primary">Update Question</Button>
+            <Button
+              style={{ marginRight: 16 }}
+              disabled={isLoadingForUpdating}
+              onClick={onUpdateQuestionClicked}
+              color="primary">
+              Update Question
+            </Button>
+            <Button
+              disabled={isLoadingForUpdating}
+              onClick={onUpdateQuestionClicked}
+              color="primary">
+              Deploy to question roaster
+            </Button>
+            <SuccessSnackBar
+              isSnackbarShown={isSnackbarShown}
+              closeSnackBar={() => setIsSnackbarShown(false)}
+              content={'Question Updated Successfully'}
+            />
           </CardFooter>
         </Card>
       </GridItem>

@@ -11,12 +11,14 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import EventIcon from '@material-ui/icons/Event';
 import IconButton from '@material-ui/core/IconButton';
-import MeetingTimeSelectorCalendarDialog from '../../components/calendarDialogs/MeetingTime/MeetingTimeSelectorCalendarDialog';
+import MeetingTimeSelectorCalendarDialog
+  from '../../components/calendarDialogs/MeetingTime/MeetingTimeSelectorCalendarDialog';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { useLocation } from 'react-router';
 import { scheduleMeeting } from '../../apis/meetingsAPI';
 import Typography from '@material-ui/core/Typography';
+import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -95,19 +97,14 @@ function ShortlistedFreelancersSection({ shortlistedFreelancers }) {
           </Fragment>
         ))}
       </List>
-      <Snackbar
-        open={isSnackbarShown}
-        autoHideDuration={1000}
-        onClose={() => {
+      <SuccessSnackBar
+        closeSnackBar={() => {
           setIsSnackbarShown(false);
           window.location.reload();
-        }}>
-        <Alert onClose={() => setIsSnackbarShown(false)} severity='success'>
-          <Typography>
-            {`Meeting has been scheduled successfully with ${selectedFreelancer.firstName} ${selectedFreelancer.lastName}`}
-          </Typography>
-        </Alert>
-      </Snackbar>
+        }}
+        isSnackbarShown={isSnackbarShown}
+        content={`Meeting has been scheduled successfully with ${selectedFreelancer.firstName} ${selectedFreelancer.lastName}`}
+      />
 
       <MeetingTimeSelectorCalendarDialog
         open={isCalendarOpened}
