@@ -557,11 +557,19 @@ const fieldsOfExperience = [
   },
 ];
 
+
+const questionTypesOfAssignment = [
+  { value: 'question', label: 'Advisory Question' },
+  { value: 'call', label: 'Advisory Call' },
+  { value: 'project', label: 'Project' },
+]
+
 export {
   gender,
   employmentStatus,
   assignmentLanguage,
   assignmentTypes,
+  questionTypesOfAssignment,
   industries,
   fieldsOfExperience,
 };

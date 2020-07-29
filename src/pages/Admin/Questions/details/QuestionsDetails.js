@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
 // core components
 import GridItem from 'components/Grid/GridItem.js';
 import GridContainer from 'components/Grid/GridContainer.js';
@@ -17,9 +16,15 @@ import { fetchQuestionDetails } from 'apis/questionsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { useForm } from 'react-hook-form';
 import humanizedTimeSpan from 'services/humanizedTimeSpan';
+import MajorFieldSelect from 'components/inputs/MajorFieldSelect';
+import SpecificFieldSelect from 'components/inputs/SpecificFieldSelect';
+import { industries, questionTypesOfAssignment } from 'constants/dropDownOptions';
+import AutoCompleteSelectField from 'components/CustomInput/AutoCompleteSelectField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
 
 
-const styles = {
+const styles = (theme) => ({
   cardTitleWhite: {
     color: '#FFFFFF',
     marginTop: '0px',
@@ -28,39 +33,51 @@ const styles = {
     marginBottom: '3px',
     textDecoration: 'none',
   },
-};
+  footerButtons: {
+    justifyContent: 'flex-end',
+    display: 'flex',
+  },
+  inputsRow: {
+    marginTop: theme.spacing(4),
+  },
+});
 
 const useStyles = makeStyles(styles);
 
 const QuestionDetails = () => {
   const classes = useStyles();
-  const { control, register, errors } = useForm({
-    defaultValues: {},
-  });
-  const [question, setQuestion] = useState({});
+  const [questionDetails, setQuestionDetails] = useState({});
+
   const location = useLocation();
   const questionId = location.state.questionId;
 
   const {
     isLoading,
-    fetchedData: questionDetails,
+    fetchedData: fetchedQuestion,
   } = useFetchData(() => fetchQuestionDetails(questionId));
 
-  //
-  // useEffect(() => {
-  //   if (!isLoading) {
-  //     setQuestion(questionDetails);
-  //   }
-  // }, [questionDetails]);
+  useEffect(() => {
+    console.log(isLoading)
+    setQuestionDetails(fetchedQuestion);
+  }, [fetchedQuestion]);
 
+  console.log('00000', questionDetails)
+
+  const onChangeQuestionField = (name, date) => {
+    console.log('-----', name, date)
+    setQuestionDetails(prevState => (
+      {
+        ...prevState,
+        [name]: date,
+      }
+    ));
+  };
 
   if (isLoading) {
     return (
       <LoadingCircle/>
     );
   }
-
-  console.log(questionDetails);
 
   return (
     <GridContainer>
@@ -71,7 +88,7 @@ const QuestionDetails = () => {
           </CardHeader>
           <CardBody>
             <GridContainer>
-              <GridItem xs={12} sm={12} md={3}>
+              <GridItem xs={12} sm={12} md={2}>
                 <CustomInput
                   labelText="Reference ID"
                   id="reference-id"
@@ -85,7 +102,7 @@ const QuestionDetails = () => {
                   }}
                 />
               </GridItem>
-              <GridItem xs={12} sm={12} md={6}>
+              <GridItem xs={12} sm={12} md={7}>
                 <CustomInput
                   labelText="Title"
                   id="title"
@@ -114,7 +131,59 @@ const QuestionDetails = () => {
               </GridItem>
             </GridContainer>
 
-            <GridContainer>
+            <GridContainer className={classes.inputsRow}>
+              <GridItem xs={12} sm={12} md={4}>
+                <MajorFieldSelect
+                  defaultValue={questionDetails.field}
+                />
+              </GridItem>
+              <GridItem xs={12} sm={12} md={4}>
+                <SpecificFieldSelect
+                  defaultValue={questionDetails.subfield}
+                  selectedMajorFields={questionDetails.field}
+                  handleSubFieldsChange={() => {
+                  }}
+                />
+              </GridItem>
+              <GridItem xs={12} sm={12} md={4}>
+                <Autocomplete
+                  id='industry'
+                  name='industry'
+                  options={industries}
+                  value={questionDetails.industry}
+                  getOptionLabel={(option) => option.label}
+                  getOptionSelected={(option, value) => {
+                    return option.value === value.value;
+                  }}
+                  onChange={(e,option) => onChangeQuestionField('industry', option)}
+                  blurOnSelect
+                  renderInput={(params) => <TextField {...params}  variant='outlined' label="Industry" />}
+                />
+              </GridItem>
+            </GridContainer>
+
+            <GridContainer className={classes.inputsRow}>
+              <GridItem xs={12} sm={12} md={4}>
+                <Autocomplete
+                  id='assignmentType'
+                  name='assignmentType'
+                  options={questionTypesOfAssignment}
+                  value={questionTypesOfAssignment.filter((option) => questionDetails.assignmentType === option.value)[0]}
+                  getOptionLabel={(option) => option.label}
+                  getOptionSelected={(option, value) => {
+                    return option.value === value.value;
+                  }}
+                  onChange={(e, option) => onChangeQuestionField('assignmentType', option.value)}
+                  blurOnSelect
+                  renderInput={(params) => <TextField {...params}  variant='outlined' label="Type of Assignment" />}
+                />
+              </GridItem>
+              <GridItem xs={12} sm={12} md={4}>
+
+              </GridItem>
+            </GridContainer>
+
+            <GridContainer className={classes.inputsRow}>
               <GridItem xs={12} sm={12} md={12}>
                 <CustomInput
                   labelText="Question Content"
@@ -132,7 +201,7 @@ const QuestionDetails = () => {
               </GridItem>
             </GridContainer>
           </CardBody>
-          <CardFooter>
+          <CardFooter className={classes.footerButtons}>
             <Button color="primary">Update Question</Button>
           </CardFooter>
         </Card>

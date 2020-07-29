@@ -10,7 +10,7 @@ const AssignmentType = ({ index, type }) => {
   const classes = useStyles();
 
   switch (type) {
-    case 'Project':
+    case 'project':
       return (
         <Fragment>
           <BusinessCenterIcon id={`question-${index}-project`} color={'primary'}
@@ -18,14 +18,14 @@ const AssignmentType = ({ index, type }) => {
           <Typography>{t['project']}</Typography>
         </Fragment>
       );
-    case 'Question':
+    case 'question':
       return (
         <Fragment>
           <HelpIcon id={`question-${index}-question`} color={'primary'} className={classes.assignmentTypeIcon}/>
           <Typography>{t['question']}</Typography>
         </Fragment>
       );
-    case 'Call':
+    case 'call':
       return (
         <Fragment>
           <CallIcon id={`question-${index}-call`} color={'primary'} className={classes.assignmentTypeIcon}/>
