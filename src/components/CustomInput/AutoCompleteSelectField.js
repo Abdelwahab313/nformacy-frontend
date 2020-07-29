@@ -28,7 +28,7 @@ const useSelectStyles = makeStyles(theme => ({
   },
 }));
 
-const AutoCompleteSelectField = ({ options, onChange, defaultValue, inputLabel, ...props }) => {
+const AutoCompleteSelectField = ({ options, onChange, value, inputLabel, ...props }) => {
   const selectClasses = useSelectStyles();
   const handleChange = (e, newList, reason) => {
     !!onChange && onChange(newList);
@@ -40,7 +40,7 @@ const AutoCompleteSelectField = ({ options, onChange, defaultValue, inputLabel, 
       multiple
       classes={selectClasses}
       options={options}
-      defaultValue={defaultValue}
+      value={value}
       disableCloseOnSelect
       getOptionLabel={(option) => option.label}
       getOptionSelected={(option, value) => {

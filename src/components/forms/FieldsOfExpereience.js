@@ -43,8 +43,8 @@ const FieldsOfExperience = () => {
           />
         </div>
         <MajorFieldSelect
-          handleMajorFieldsSelect={handleMajorFieldsSelect}
-          defaultValue={majorFieldsOfExperience}
+          handleOptionsChange={handleMajorFieldsSelect}
+          value={majorFieldsOfExperience}
         />
         <ErrorMessage errorField={errors.majorFieldsOfExperience}/>
       </Container>
@@ -61,8 +61,8 @@ const FieldsOfExperience = () => {
           />
         </div>
         <SpecificFieldSelect
-          defaultValue={specificFieldsOfExperience}
-          handleSubFieldsChange={handleSubFieldsChange}
+          value={specificFieldsOfExperience}
+          handleOptionsChange={handleSubFieldsChange}
           selectedMajorFields={majorFieldsOfExperience}
         />
         <ErrorMessage errorField={errors.specificFieldsOfExperience}/>

@@ -8,8 +8,9 @@ import {
 
 const customInputStyle = {
   disabled: {
+    color: '#000',
     "&:before": {
-      backgroundColor: "transparent !important"
+      backgroundColor: "transparent !important",
     }
   },
   underline: {
@@ -35,7 +36,7 @@ const customInputStyle = {
     ...defaultFont,
     color: grayColor[3] + " !important",
     fontWeight: "400",
-    fontSize: "14px",
+    fontSize: "1rem",
     lineHeight: "1.42857",
     letterSpacing: "unset"
   },

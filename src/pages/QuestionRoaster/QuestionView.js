@@ -1,17 +1,18 @@
-import { Grid } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
-import t from '../../locales/en/questionRoaster';
-import { formattedDateTimeNoSeconds } from '../../services/dateTimeParser';
-import Countdown from 'react-countdown';
+import React from 'react';
+
 import AssignmentType from './AssignmentType';
 import Paper from '@material-ui/core/Paper';
-import React from 'react';
-import { useStyles } from '../../styles/questionRoasterStyles';
-import SubmitButton from '../../components/buttons/SubmitButton';
-import { useHistory } from 'react-router';
-import AlarmIcon from '@material-ui/icons/Alarm';
-import { fieldsOfExperience } from '../../constants/dropDownOptions';
 import Chip from '@material-ui/core/Chip';
+import { Box, Grid } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+
+import { useStyles } from 'styles/questionRoasterStyles';
+import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
+import { useHistory } from 'react-router';
+import { fieldsOfExperience } from 'constants/dropDownOptions';
+import QuestionCountDown from 'components/counters/QuestionCountDown';
+import SubmitButton from 'components/buttons/SubmitButton';
+import t from '../../locales/en/questionRoaster';
 
 
 const QuestionView = ({ questionDetails, isSubmitVisible }) => {
@@ -26,37 +27,6 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   const isMajorContainsSpecificField = (subField) => {
     return questionDetails.subfield.filter(specificField => specificField.value === subField.value).length > 0;
   };
-
-  function counterRender(key) {
-    return ({
-              total,
-              days,
-              hours,
-              minutes,
-              seconds,
-              milliseconds,
-              completed,
-            }) => {
-      return (
-        <Typography
-          style={{ display: 'flex', alignItems: 'center' }}
-          id={`question-${key}-closeDate`}
-          className={classes.questionFieldsStyles}>
-          <AlarmIcon color={'primary'}/>
-          {completed
-            ? 'Closed'
-            : 'Question is Open till: ' +
-            days +
-            ':' +
-            hours +
-            ':' +
-            minutes +
-            ':' +
-            seconds}
-        </Typography>
-      );
-    };
-  }
 
   return (
     <Paper elevation={3} className={classes.paper}>
@@ -124,11 +94,13 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
           </Grid>
         </Grid>
         <Grid item xs={6}>
-          <Countdown
-            className={classes.questionFieldsStyles}
-            renderer={counterRender(questionDetails.referenceNumber)}
-            date={questionDetails.closeDate}
-          />
+          <Box>
+            <QuestionCountDown
+              date={questionDetails.closeDate}
+              id={`question-${questionDetails.referenceNumber}-closeDate`}
+              className={classes.questionFieldsStyles}
+            />
+          </Box>
         </Grid>
         <Grid item xs={12}>
           <Typography

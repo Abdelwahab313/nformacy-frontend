@@ -3,7 +3,7 @@ import t from 'locales/en/freelancerProfile.json';
 import AutoCompleteSelectField from 'components/CustomInput/AutoCompleteSelectField';
 import { fieldsOfExperience } from 'constants/dropDownOptions';
 
-const SpecificFieldSelect = ({ handleSubFieldsChange, defaultValue, selectedMajorFields, classes }) => {
+const SpecificFieldSelect = ({ handleOptionsChange, value, selectedMajorFields }) => {
 
   const availableSpecificFieldsOptions = useCallback(() => {
     if (!!selectedMajorFields && selectedMajorFields.length > 0) {
@@ -34,10 +34,10 @@ const SpecificFieldSelect = ({ handleSubFieldsChange, defaultValue, selectedMajo
     <AutoCompleteSelectField
       name='specificFieldsOfExperience'
       id='specificFieldsOfExperienceSelect'
-      onChange={handleSubFieldsChange}
+      onChange={handleOptionsChange}
       groupBy={(option) => option.majorField}
       options={availableSpecificFieldsOptions()}
-      defaultValue={defaultValue}
+      value={value}
       inputLabel={t['specificField']}
     />
   );

@@ -3,15 +3,15 @@ import t from 'locales/en/freelancerProfile.json';
 import AutoCompleteSelectField from 'components/CustomInput/AutoCompleteSelectField';
 import { fieldsOfExperience } from 'constants/dropDownOptions';
 
-const MajorFieldSelect = ({ handleMajorFieldsSelect, defaultValue }) => {
+const MajorFieldSelect = ({ handleOptionsChange, value }) => {
 
   return (
     <AutoCompleteSelectField
       id='majorFieldsOfExperienceSelect'
       name='majorFieldsOfExperience'
-      onChange={handleMajorFieldsSelect}
+      onChange={handleOptionsChange}
       options={fieldsOfExperience}
-      defaultValue={defaultValue}
+      value={value}
       inputLabel={t['majorFieldOfExperience']}
     />
   );

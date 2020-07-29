@@ -1,9 +1,9 @@
+import React, { Fragment } from 'react';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import Typography from '@material-ui/core/Typography';
-import React, { Fragment } from 'react';
 import HelpIcon from '@material-ui/icons/Help';
 import CallIcon from '@material-ui/icons/Call';
-import { useStyles } from '../../styles/questionRoasterStyles';
+import { useStyles } from 'styles/questionRoasterStyles';
 import t from '../../locales/en/questionRoaster';
 
 const AssignmentType = ({ index, type }) => {

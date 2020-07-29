@@ -12,16 +12,17 @@ import CardBody from 'components/Card/CardBody.js';
 import CardFooter from 'components/Card/CardFooter.js';
 import { useLocation } from 'react-router';
 import useFetchData from 'hooks/useFetchData';
-import { fetchQuestionDetails } from 'apis/questionsAPI';
+import { fetchQuestionDetails, uploadImage } from 'apis/questionsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
-import { useForm } from 'react-hook-form';
 import humanizedTimeSpan from 'services/humanizedTimeSpan';
 import MajorFieldSelect from 'components/inputs/MajorFieldSelect';
 import SpecificFieldSelect from 'components/inputs/SpecificFieldSelect';
 import { industries, questionTypesOfAssignment } from 'constants/dropDownOptions';
-import AutoCompleteSelectField from 'components/CustomInput/AutoCompleteSelectField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
+import QuestionCountDown from 'components/counters/QuestionCountDown';
+import InputLabel from '@material-ui/core/InputLabel';
+import RichTextEditor from 'components/inputs/RichTextEditor';
 
 
 const styles = (theme) => ({
@@ -40,6 +41,17 @@ const styles = (theme) => ({
   inputsRow: {
     marginTop: theme.spacing(4),
   },
+  contentTitle: {
+    color: '#AAAAAA',
+    marginBottom: theme.spacing(2),
+  },
+  countDownContainer: {
+    justifyContent: 'center',
+    flexGrow: 1,
+    alignItems: 'center',
+    display: 'flex',
+    borderBottom: '1px solid #d2d2d2',
+  },
 });
 
 const useStyles = makeStyles(styles);
@@ -57,14 +69,14 @@ const QuestionDetails = () => {
   } = useFetchData(() => fetchQuestionDetails(questionId));
 
   useEffect(() => {
-    console.log(isLoading)
+    console.log(isLoading);
     setQuestionDetails(fetchedQuestion);
   }, [fetchedQuestion]);
 
-  console.log('00000', questionDetails)
+  console.log('00000', questionDetails);
 
   const onChangeQuestionField = (name, date) => {
-    console.log('-----', name, date)
+    console.log('-----', name, date);
     setQuestionDetails(prevState => (
       {
         ...prevState,
@@ -134,15 +146,17 @@ const QuestionDetails = () => {
             <GridContainer className={classes.inputsRow}>
               <GridItem xs={12} sm={12} md={4}>
                 <MajorFieldSelect
-                  defaultValue={questionDetails.field}
+                  value={questionDetails.field}
+                  handleOptionsChange={(newOptions) => {
+                    onChangeQuestionField('field', newOptions);
+                  }}
                 />
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
                 <SpecificFieldSelect
-                  defaultValue={questionDetails.subfield}
+                  value={questionDetails.subfield}
                   selectedMajorFields={questionDetails.field}
-                  handleSubFieldsChange={() => {
-                  }}
+                  handleOptionsChange={(newOptions) => onChangeQuestionField('subfield', newOptions)}
                 />
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
@@ -155,10 +169,29 @@ const QuestionDetails = () => {
                   getOptionSelected={(option, value) => {
                     return option.value === value.value;
                   }}
-                  onChange={(e,option) => onChangeQuestionField('industry', option)}
+                  onChange={(e, option) => onChangeQuestionField('industry', option)}
                   blurOnSelect
-                  renderInput={(params) => <TextField {...params}  variant='outlined' label="Industry" />}
+                  renderInput={(params) => <TextField {...params} variant='outlined' label="Industry"/>}
                 />
+              </GridItem>
+            </GridContainer>
+
+            <GridContainer className={classes.inputsRow}>
+              <GridItem xs={12} sm={12} md={12}>
+                <InputLabel className={classes.contentTitle}>Question Content</InputLabel>
+
+                <RichTextEditor
+                  initialContent={questionDetails.content}
+                  onContentChange={(content) => onChangeQuestionField('content', content)}
+                  onImageUpload={(imageFormData, callback) => {
+                    uploadImage(questionDetails.id, imageFormData).then(
+                      ({ data }) => {
+                        callback(data['imageUrl']);
+                      },
+                    );
+                  }}
+                />
+
               </GridItem>
             </GridContainer>
 
@@ -175,28 +208,13 @@ const QuestionDetails = () => {
                   }}
                   onChange={(e, option) => onChangeQuestionField('assignmentType', option.value)}
                   blurOnSelect
-                  renderInput={(params) => <TextField {...params}  variant='outlined' label="Type of Assignment" />}
+                  renderInput={(params) => <TextField {...params} variant='outlined' label="Type of Assignment"/>}
                 />
               </GridItem>
-              <GridItem xs={12} sm={12} md={4}>
-
-              </GridItem>
-            </GridContainer>
-
-            <GridContainer className={classes.inputsRow}>
-              <GridItem xs={12} sm={12} md={12}>
-                <CustomInput
-                  labelText="Question Content"
-                  id="about-me"
-                  formControlProps={{
-                    fullWidth: true,
-                  }}
-                  inputProps={{
-                    multiline: true,
-                    value: questionDetails.content,
-                    name: 'content',
-                    rows: 5,
-                  }}
+              <GridItem xs={12} sm={12} md={4} className={classes.countDownContainer}>
+                <QuestionCountDown
+                  date={questionDetails.closeDate}
+                  id={'questionCountDown'}
                 />
               </GridItem>
             </GridContainer>
