@@ -13,6 +13,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { cloneDeep } from 'lodash';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import QuestionView from './QuestionView';
+import QuestionsFilter from 'pages/QuestionRoaster/QuestionsFilter';
 
 const StyledChip = withStyles({
   root: {
@@ -24,10 +25,10 @@ const StyledChip = withStyles({
 
 const QuestionRoasterView = () => {
   const { questions, addFilter, removeFilter, filters, loading } = useQuestionFetcher();
+  const [filterAllState, setFilterAllState] = useState(true);
   const [filtersState, setFilterState] = useState(
     Array.from({ length: fieldsOfExperience.length }).fill(false),
   );
-  const [filterAllState, setFilterAllState] = useState(true);
 
   const classes = useStyles();
 
@@ -60,57 +61,35 @@ const QuestionRoasterView = () => {
             </IconButton>
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={10}>
-          <Grid
-            id={'filters'}
-            container
-            justify={'center'}
-            className={classes.questionsCategoriesContainer}>
-            <StyledChip
-              label='All'
-              onClick={() => {
-                addFilter('all');
-                setFilterState(
-                  Array.from({ length: fieldsOfExperience.length }).fill(false),
-                );
-                setFilterAllState(true);
-              }}
-              color='primary'
-              variant={filterAllState ? 'default' : 'outlined'}
-              clickable={true}
-              className={classes.fieldNameFilterStyles}
-            />
-            {fieldsOfExperience.map((field, key) => {
-              return (
-                <StyledChip
-                  key={key}
-                  id={`filters-${key}`}
-                  label={field.label}
-                  onClick={() => {
-                    addFilter(field.value);
-                    const tempFilterState = cloneDeep(filtersState);
-                    tempFilterState[key] = true;
-                    setFilterState(tempFilterState);
-                    setFilterAllState(false);
-                  }}
-                  onDelete={() => {
-                    removeFilter(field.value);
-                    const tempFilterState = cloneDeep(filtersState);
-                    tempFilterState[key] = false;
-                    setFilterState(tempFilterState);
-                    if (filters.length === 1) {
-                      setFilterAllState(true);
-                    }
-                  }}
-                  color='primary'
-                  clickable={true}
-                  variant={filtersState[key] ? 'default' : 'outlined'}
-                  className={classes.fieldNameFilterStyles}
-                />
-              );
-            })}
-          </Grid>
-        </Grid>
+
+        <QuestionsFilter
+          filtersState={filtersState}
+          isAllClicked={filterAllState}
+          onClickAll={() => {
+            addFilter('all');
+            setFilterState(
+              Array.from({ length: fieldsOfExperience.length }).fill(false),
+            );
+            setFilterAllState(true);
+          }}
+          onClickFilter={(field, key) => {
+            addFilter(field.value);
+            const tempFilterState = cloneDeep(filtersState);
+            tempFilterState[key] = true;
+            setFilterState(tempFilterState);
+            setFilterAllState(false);
+          }}
+          onDeleteFilter={(field, key) => {
+            removeFilter(field.value);
+            const tempFilterState = cloneDeep(filtersState);
+            tempFilterState[key] = false;
+            setFilterState(tempFilterState);
+            if (filters.length === 1) {
+              setFilterAllState(true);
+            }
+          }}
+        />
+
         <Grid item xs={12} sm={10}>
           <Grid container>
             {questions?.map((question, key) => {
