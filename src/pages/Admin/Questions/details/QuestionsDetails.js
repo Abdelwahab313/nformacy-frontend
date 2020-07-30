@@ -24,6 +24,7 @@ import QuestionCountDown from 'components/counters/QuestionCountDown';
 import InputLabel from '@material-ui/core/InputLabel';
 import RichTextEditor from 'components/inputs/RichTextEditor';
 import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
+import SubmitButton from '../../../../components/buttons/SubmitButton';
 
 
 const styles = (theme) => ({
@@ -96,6 +97,19 @@ const QuestionDetails = () => {
 
   const onUpdateQuestionClicked = () => {
     setIsLoadingForUpdating(true);
+    updateQuestion(questionDetails.id, questionDetails)
+      .then((response) => {
+        console.log('updated ....', response.data);
+        setIsSnackbarShown(true);
+      })
+      .catch((error) => {
+        console.log('failed -------', error);
+      }).finally(() => setIsLoadingForUpdating(false));
+  };
+
+  const onDeployQuestionClicked = () => {
+    const updatedQuestionDetails = { ...questionDetails, isApproved: true };
+    setQuestionDetails(updatedQuestionDetails);
     updateQuestion(questionDetails.id, questionDetails)
       .then((response) => {
         console.log('updated ....', response.data);
@@ -235,6 +249,13 @@ const QuestionDetails = () => {
                   id={'questionCountDown'}
                 />
               </GridItem>
+              <GridItem xs={12} sm={12} md={4} className={classes.countDownContainer}>
+                <Button
+                  disabled={isLoadingForUpdating}
+                  color="primary">
+                  Assign freelancer
+                </Button>
+              </GridItem>
             </GridContainer>
           </CardBody>
           <CardFooter className={classes.footerButtons}>
@@ -247,7 +268,7 @@ const QuestionDetails = () => {
             </Button>
             <Button
               disabled={isLoadingForUpdating}
-              onClick={onUpdateQuestionClicked}
+              onClick={onDeployQuestionClicked}
               color="primary">
               Deploy to question roaster
             </Button>

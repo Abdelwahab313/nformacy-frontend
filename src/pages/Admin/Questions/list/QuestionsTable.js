@@ -12,20 +12,6 @@ import { Link } from 'react-router-dom';
 import { RoutesPaths } from 'constants/routesPath';
 
 
-const question = {
-  assignmentType: 'Question',
-  closeDate: '2020-08-01T14:34:54.043Z',
-  content: 'Plant a memory, plant a tree, do it today for tomorrow.',
-  createdAt: '2020-07-27T14:34:54.044Z',
-  field: [{}],
-  subfield: [{}],
-  id: 1,
-  industry: { value: 'consulting', label: 'Consulting' },
-  referenceNumber: 2000100,
-  title: 'Alden',
-};
-
-
 const columns = [
   {
     name: 'id',
@@ -96,6 +82,19 @@ const columns = [
         return value.map((val, key) => {
           return <Chip style={{ margin: 4 }} label={val.label} key={key.value}/>;
         });
+      },
+    },
+  },
+  {
+    name: 'isApproved',
+    label: 'Is Approved',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: (value) => {
+        return (
+          value.toString()
+        );
       },
     },
   },
