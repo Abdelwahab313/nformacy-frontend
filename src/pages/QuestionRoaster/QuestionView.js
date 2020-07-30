@@ -103,11 +103,11 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <Typography
+          <div
             id={`question-${questionDetails.referenceNumber}-content`}
-            className={classes.questionFieldsStyles}>
-            {questionDetails.content}
-          </Typography>
+            className={classes.questionContentField}
+            dangerouslySetInnerHTML={{ __html: questionDetails.content }}
+          />
         </Grid>
         <Grid item xs={6}>
           <AssignmentType

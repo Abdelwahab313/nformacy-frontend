@@ -3,24 +3,24 @@ import { useLocation } from 'react-router';
 import Paper from '@material-ui/core/Paper';
 import { Button, Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import { attachButtonStyle, attachContainerStyle, useStyles } from '../../styles/questionRoasterStyles';
-import { formattedDateTime } from '../../services/dateTimeParser';
-import SubmitButton from '../../components/buttons/SubmitButton';
-import t from '../../locales/en/questionRoaster';
-import { Editor } from '@tinymce/tinymce-react';
-import QuestionView from './QuestionView';
-import { uploadDocument, uploadImage } from '../../apis/questionsAPI';
 import ImageUploader from 'react-images-upload';
-import Snackbar from '@material-ui/core/Snackbar';
-import Alert from '@material-ui/lab/Alert';
+
+import SubmitButton from 'components/buttons/SubmitButton';
 import RichTextEditor from 'components/inputs/RichTextEditor';
+import QuestionView from './QuestionView';
+import { formattedDateTime } from 'services/dateTimeParser';
+import { submitAnswer, uploadDocument, uploadImage } from 'apis/questionsAPI';
+import { attachButtonStyle, attachContainerStyle, useStyles } from 'styles/questionRoasterStyles';
+import t from '../../locales/en/questionRoaster';
+import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
 
 const AnswerQuestion = () => {
   const classes = useStyles();
   const location = useLocation();
   const questionDetails = location.state.questionDetails;
+
   const [attachmentFiles, setAttachmentFiles] = useState();
-  const [isSnackbarShown, setIsSnackbarShown] = useState(false);
+  const [snackBarContent, setSnackBarContent] = useState('');
   const savedAnswer = localStorage.getItem(`answer${questionDetails?.id}`);
   const [content, setContent] = useState(savedAnswer);
 
@@ -28,16 +28,30 @@ const AnswerQuestion = () => {
     setAttachmentFiles(attachmentFile);
   };
 
-  const onSubmitAnswer = () => {
-    if (attachmentFiles?.length > 0) {
-      const file = attachmentFiles[0];
-      const formData = new FormData();
-      formData.append('document', file, attachmentFiles[0].name);
+  const uploadAttachmentPromise = () => {
+    return new Promise((resolve) => {
+      if (attachmentFiles?.length > 0) {
+        const file = attachmentFiles[0];
+        const formData = new FormData();
+        formData.append('document', file, attachmentFiles[0].name);
+        uploadDocument(questionDetails.id, formData).then((response) => {
+          resolve(response);
+        });
+      } else {
+        resolve();
+      }
+    });
 
-      uploadDocument(questionDetails.id, formData).then(({ data }) => {
-        setAttachmentFiles(data.document);
-      });
-    }
+  };
+
+  const onSubmitAnswer = () => {
+    Promise.all([
+      submitAnswer(questionDetails.id, { content: content }),
+      uploadAttachmentPromise(),
+    ]).then((responses) => {
+      setSnackBarContent('Your answer has been submitted successfully');
+      console.log('------ responses', responses);
+    });
   };
 
   return (
@@ -79,7 +93,7 @@ const AnswerQuestion = () => {
               <RichTextEditor
                 initialContent={savedAnswer}
                 onContentChange={(content) => setContent(content)}
-                onImageUpload ={(imageFormData, callback) => {
+                onImageUpload={(imageFormData, callback) => {
                   uploadImage(questionDetails.id, imageFormData).then(
                     ({ data }) => {
                       callback(data['imageUrl']);
@@ -95,7 +109,7 @@ const AnswerQuestion = () => {
               className={classes.answerButtonsContainer}>
               <div className={classes.attachmentUploaderContainer}>
                 <ImageUploader
-                  label={false}
+                  label={''}
                   fileContainerStyle={attachContainerStyle()}
                   withIcon={false}
                   withPreview={false}
@@ -106,8 +120,8 @@ const AnswerQuestion = () => {
                   imgExtension={['.pdf']}
                 />
                 {attachmentFiles?.length > 0 &&
-                attachmentFiles.map((attachment) => (
-                  <Typography gutterBottom variant='subtitle2'>
+                attachmentFiles.map((attachment, index) => (
+                  <Typography key={index} gutterBottom variant='subtitle2'>
                     {attachment.name}
                   </Typography>
                 ))}
@@ -123,7 +137,7 @@ const AnswerQuestion = () => {
                 size='medium'
                 onClick={() => {
                   localStorage.setItem(`answer${questionDetails.id}`, content ? content : '');
-                  setIsSnackbarShown(true);
+                  setSnackBarContent('Your answer has been saved successfully');
                 }}
                 style={{
                   marginRight: '10px',
@@ -139,16 +153,13 @@ const AnswerQuestion = () => {
               />
             </Grid>
           </Grid>
-          <Snackbar
-            open={isSnackbarShown}
-            onClose={() => {
-              setIsSnackbarShown(false);
-              window.location.reload();
-            }}>
-            <Alert onClose={() => setIsSnackbarShown(false)} severity='success'>
-              <Typography>Your answer has been saved successfully</Typography>
-            </Alert>
-          </Snackbar>
+          <SuccessSnackBar
+            content={snackBarContent}
+            isSnackbarShown={!!snackBarContent}
+            closeSnackBar={() => {
+              setSnackBarContent('');
+            }}
+          />
         </Paper>
       </Grid>
     </Grid>

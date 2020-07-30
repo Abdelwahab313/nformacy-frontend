@@ -28,6 +28,14 @@ export const uploadImage = (questionId, image) => {
   }).then((response) => camelizeKeys(response));
 };
 
+export const submitAnswer = (questionId, answer) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/questions/${questionId}/answer`,
+    data: decamelizeKeys({ ...answer }),
+  }).then((response) => camelizeKeys(response));
+};
+
 export const updateQuestion = (questionId, updatedQuestion) => {
   return axios({
     method: 'put',

@@ -68,12 +68,11 @@ export const useStyles = makeStyles((theme) => ({
   flexContainer: {
     display: 'flex',
   },
+  questionContentField: {
+    ...defaultFieldStyles(theme),
+  },
   questionFieldsStyles: {
-    backgroundColor: lightGrey,
-    border: 'solid 1px' + pink,
-    borderRadius: '5px',
-    margin: theme.spacing(1),
-    padding: theme.spacing(1),
+    ...defaultFieldStyles(theme),
     minHeight: '36px',
     display: 'flex',
     alignItems: 'center',
@@ -118,6 +117,16 @@ export const attachButtonStyle = () => {
     textTransform: 'uppercase',
   };
 };
+
+const defaultFieldStyles = (theme) => ({
+  backgroundColor: lightGrey,
+  border: 'solid 1px' + pink,
+  borderRadius: '5px',
+  minHeight: '36px',
+  margin: theme.spacing(1),
+  padding: theme.spacing(1),
+});
+
 export const attachContainerStyle = () => {
   return {
     boxShadow: 'none',
