@@ -90,7 +90,7 @@ describe('Fetch question', () => {
     await act(async () => {
       await waitForNextUpdate();
 
-      result.current.filterQuestions('finance');
+      result.current.filterQuestions('finance', ['finance']);
 
       expect(result.current.questions.length).toEqual(1);
     });
@@ -102,10 +102,9 @@ describe('Fetch question', () => {
     await act(async () => {
       await waitForNextUpdate();
 
-      result.current.filterQuestions('humanResource');
-      result.current.filterQuestions('formalEducation');
+      result.current.filterQuestions('formalEducation', ['humanResource', 'formalEducation']);
 
-      expect(result.current.questions.length).toEqual(1);
+      expect(result.current.questions.length).toEqual(3);
     });
   });
 
@@ -139,11 +138,12 @@ describe('Fetch question', () => {
     await act(async () => {
       await waitForNextUpdate();
 
-      result.current.setFilters(['humanResource', 'formalEducation']);
-      result.current.filterQuestions('formalEducation');
-      result.current.filterQuestions('humanResource');
+      const filters = ['humanResource', 'formalEducation'];
+      result.current.setFilters(filters);
+      result.current.filterQuestions('formalEducation', filters);
+      result.current.filterQuestions('humanResource', filters);
 
-      expect(result.current.questions.length).toEqual(1);
+      expect(result.current.questions.length).toEqual(3);
 
       result.current.removeFilter('humanResource');
 
@@ -163,7 +163,7 @@ describe('Fetch question', () => {
 
       result.current.addFilter('humanResource');
 
-      expect(result.current.questions.length).toEqual(1);
+      expect(result.current.questions.length).toEqual(3);
     });
   });
 
@@ -172,12 +172,12 @@ describe('Fetch question', () => {
 
     await act(async () => {
       await waitForNextUpdate();
+      const filters = ['humanResource', 'formalEducation'];
+      result.current.setFilters(filters);
+      result.current.filterQuestions('formalEducation', filters);
+      result.current.filterQuestions('humanResource', filters);
 
-      result.current.setFilters(['humanResource', 'formalEducation']);
-      result.current.filterQuestions('formalEducation');
-      result.current.filterQuestions('humanResource');
-
-      expect(result.current.questions.length).toEqual(1);
+      expect(result.current.questions.length).toEqual(3);
 
       result.current.removeFilter('formalEducation');
 

@@ -2,8 +2,8 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import { fieldsOfExperience } from 'constants/dropDownOptions';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { lightPink } from 'styles/colors';
 import Chip from '@material-ui/core/Chip';
+import { lightPink } from 'styles/colors';
 import { useStyles } from 'styles/questionRoasterStyles';
 
 
@@ -42,9 +42,9 @@ const QuestionsFilter = ({ isAllClicked, onClickAll, filtersState, onClickFilter
               onClick={() => {
                 onClickFilter(field, key);
               }}
-              onDelete={() => {
+              onDelete={filtersState[key] ? () => {
                 onDeleteFilter(field, key);
-              }}
+              } : null}
               color='primary'
               clickable={true}
               variant={filtersState[key] ? 'default' : 'outlined'}

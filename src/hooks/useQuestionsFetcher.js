@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { fetchAllQuestions } from '../apis/questionsAPI';
+import { fetchAllQuestions } from 'apis/questionsAPI';
 import { cloneDeep } from 'lodash';
 
 const useQuestionFetcher = () => {
@@ -22,31 +22,13 @@ const useQuestionFetcher = () => {
     const tempFilters = cloneDeep(filters);
     tempFilters.push(key);
     setFilters(tempFilters);
-    filterQuestions(key);
+    filterQuestions(key, tempFilters);
   };
 
   const removeFilter = (key) => {
     const tempFilters = filters.filter((filter) => filter !== key);
     setFilters(tempFilters);
-    const filteredQuestions = [];
-    tempFilters.forEach((filter) => {
-      allQuestions.current.forEach((question) => {
-        if (
-          questionsHasField(question.field, filter) &&
-          currentFilteredQuestionsHasNotKey(
-            filteredQuestions,
-            question.referenceNumber,
-          )
-        ) {
-          filteredQuestions.push(question);
-        }
-      });
-    });
-    if (tempFilters.length === 0) {
-      setQuestions(allQuestions.current);
-    } else {
-      setQuestions(filteredQuestions);
-    }
+    filterQuestions(key, tempFilters);
   };
 
   const questionsHasField = (toBeFiltered, key) => {
@@ -64,26 +46,32 @@ const useQuestionFetcher = () => {
     );
   };
 
-  const filterQuestions = (key, remove = false) => {
+  const filterQuestions = (key, filtersToBeApplied) => {
     if (key === 'all') {
       setQuestions(cloneDeep(allQuestions.current));
       setFilters([]);
       return;
     }
     const filteredQuestions = [];
-    const toBeFiltered = remove ? allQuestions.current : questions;
-    toBeFiltered.forEach((question) => {
-      if (
-        questionsHasField(question.field, key) &&
-        currentFilteredQuestionsHasNotKey(
-          filteredQuestions,
-          question.referenceNumber,
-        )
-      ) {
-        filteredQuestions.push(question);
-      }
+    const questionsToBeFiltered = allQuestions.current;
+    filtersToBeApplied.forEach((filter) => {
+      questionsToBeFiltered.forEach((question) => {
+        if (
+          questionsHasField(question.field, filter) &&
+          currentFilteredQuestionsHasNotKey(
+            filteredQuestions,
+            question.referenceNumber,
+          )
+        ) {
+          filteredQuestions.push(question);
+        }
+      });
     });
-    setQuestions(filteredQuestions);
+    if (filtersToBeApplied.length === 0) {
+      setQuestions(allQuestions.current);
+    } else {
+      setQuestions(filteredQuestions);
+    }
   };
 
   return {

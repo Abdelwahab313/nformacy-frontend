@@ -1,27 +1,16 @@
 import React, { useState } from 'react';
 import { Grid } from '@material-ui/core';
-import { useStyles } from '../../styles/questionRoasterStyles';
+import { useStyles } from 'styles/questionRoasterStyles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
-import { fieldsOfExperience } from '../../constants/dropDownOptions';
+import { fieldsOfExperience } from 'constants/dropDownOptions';
 import useQuestionFetcher from '../../hooks/useQuestionsFetcher';
-import Chip from '@material-ui/core/Chip';
-import { lightPink } from '../../styles/colors';
-import withStyles from '@material-ui/core/styles/withStyles';
 import { cloneDeep } from 'lodash';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import QuestionView from './QuestionView';
 import QuestionsFilter from 'pages/QuestionRoaster/QuestionsFilter';
-
-const StyledChip = withStyles({
-  root: {
-    '&:hover': {
-      backgroundColor: lightPink,
-    },
-  },
-})(Chip);
 
 const QuestionRoasterView = () => {
   const { questions, addFilter, removeFilter, filters, loading } = useQuestionFetcher();
