@@ -1,9 +1,5 @@
-import { When, Then } from 'cypress-cucumber-preprocessor/steps';
-import { BASE_URL } from '../../defualtTestValues';
+import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
-When(/^I go to question roaster$/, function() {
-  cy.visit(BASE_URL + '/questions');
-});
 Then(
   /^I should see search bar And a filtering menu for the fields$/,
   function() {

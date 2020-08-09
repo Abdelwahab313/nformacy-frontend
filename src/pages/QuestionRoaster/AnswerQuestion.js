@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import Paper from '@material-ui/core/Paper';
 import { Button, Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
@@ -12,15 +12,15 @@ import { formattedDateTime } from 'services/dateTimeParser';
 import { submitAnswer, uploadDocument, uploadImage } from 'apis/questionsAPI';
 import { attachButtonStyle, attachContainerStyle, useStyles } from 'styles/questionRoasterStyles';
 import t from '../../locales/en/questionRoaster';
-import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
 
 const AnswerQuestion = () => {
   const classes = useStyles();
   const location = useLocation();
+  let history = useHistory();
+
   const questionDetails = location.state.questionDetails;
 
   const [attachmentFiles, setAttachmentFiles] = useState();
-  const [snackBarContent, setSnackBarContent] = useState('');
   const savedAnswer = localStorage.getItem(`answer${questionDetails?.id}`);
   const [content, setContent] = useState(savedAnswer);
 
@@ -49,7 +49,7 @@ const AnswerQuestion = () => {
       submitAnswer(questionDetails.id, { content: content }),
       uploadAttachmentPromise(),
     ]).then((responses) => {
-      setSnackBarContent('Your answer has been submitted successfully');
+      history.push(`/`, { snackBarContent: 'Your answer has been submitted successfully' });
       console.log('------ responses', responses);
     });
   };
@@ -137,7 +137,6 @@ const AnswerQuestion = () => {
                 size='medium'
                 onClick={() => {
                   localStorage.setItem(`answer${questionDetails.id}`, content ? content : '');
-                  setSnackBarContent('Your answer has been saved successfully');
                 }}
                 style={{
                   marginRight: '10px',
@@ -153,13 +152,6 @@ const AnswerQuestion = () => {
               />
             </Grid>
           </Grid>
-          <SuccessSnackBar
-            content={snackBarContent}
-            isSnackbarShown={!!snackBarContent}
-            closeSnackBar={() => {
-              setSnackBarContent('');
-            }}
-          />
         </Paper>
       </Grid>
     </Grid>

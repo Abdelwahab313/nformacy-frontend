@@ -1,8 +1,6 @@
 import { BASE_URL } from '../../defualtTestValues';
 
-import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { signUpAndSetTokens } from '../../helperFunctions';
-import faker from 'faker';
+import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 When(/^I go to profile page$/, function() {
   cy.visit(BASE_URL + '/user/edit');

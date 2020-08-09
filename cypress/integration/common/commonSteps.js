@@ -1,4 +1,4 @@
-import { Then, Given } from 'cypress-cucumber-preprocessor/steps';
+import { Then, Given, When } from 'cypress-cucumber-preprocessor/steps';
 import { signUpAndSetTokens } from '../../helperFunctions';
 import faker from 'faker';
 import { BASE_URL } from '../../defualtTestValues';
@@ -27,4 +27,8 @@ Given(/^I log in$/, function() {
 
 Given(/^visit home page$/, function() {
   cy.visit(BASE_URL);
+});
+
+When(/^I go to question roaster$/, function() {
+  cy.visit(BASE_URL + '/questions');
 });
