@@ -285,6 +285,7 @@ const QuestionDetails = () => {
           </CardBody>
           <CardFooter className={classes.footerButtons}>
             <Button
+              id={'updateQuestion'}
               style={{ marginRight: 16 }}
               disabled={isLoadingForUpdating}
               onClick={onUpdateQuestionClicked}
