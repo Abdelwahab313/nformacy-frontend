@@ -13,6 +13,13 @@ Given(/^I am a freelancer$/, function() {
 
 });
 
+
+Given(/^i am an admin and Logged in$/, function() {
+  signUpAndSetTokens();
+});
+Given(/^i am in question roaster dashboard\.$/, function() {
+  cy.visit(`${BASE_URL}/admin/questions`);
+});
 Given(/^I log in$/, function() {
   signUpAndSetTokens();
   cy.wrap(faker.name.findName()).as('updatedFirstName');

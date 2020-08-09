@@ -38,7 +38,6 @@ Then(
     cy.get('#question-2000100-closeDate')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-2000100-question');
   },
 );
 Then(/^Each question should have answer button beneath it\.$/, function() {

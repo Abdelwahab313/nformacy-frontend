@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { fetchAllQuestions } from 'apis/questionsAPI';
+import { fetchOpenedQuestions } from 'apis/questionsAPI';
 import { cloneDeep } from 'lodash';
 
 const useQuestionFetcher = () => {
@@ -10,7 +10,7 @@ const useQuestionFetcher = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetchAllQuestions()
+    fetchOpenedQuestions()
       .then((response) => {
         setQuestions(response.data);
         allQuestions.current = response.data;

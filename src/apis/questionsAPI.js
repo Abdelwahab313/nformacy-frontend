@@ -2,13 +2,24 @@ import axios from 'axios';
 import { API_BASE_URL } from '../settings';
 import { camelizeKeys, decamelizeKeys } from 'humps';
 
-export const fetchAllQuestions = () => {
+export const fetchOpenedQuestions = () => {
   return axios({
     method: 'get',
     url: `${API_BASE_URL}/questions`,
   }).then((response) => camelizeKeys(response));
 };
 
+export const fetchAllQuestions = () => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/questions/all`,
+  })
+    .then((response) => camelizeKeys(response))
+    .then((response) => {
+      response.data.sort((a, b) => Number(a.isApproved) - Number(b.isApproved));
+      return response;
+    });
+};
 
 export const fetchQuestionDetails = (questionId) => {
   return axios({
@@ -41,6 +52,13 @@ export const updateQuestion = (questionId, updatedQuestion) => {
     method: 'put',
     url: `${API_BASE_URL}/questions/${questionId}`,
     data: decamelizeKeys({ ...updatedQuestion }),
+  }).then((response) => camelizeKeys(response));
+};
+
+export const approveQuestion = (questionId) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/questions/${questionId}/approve`,
   }).then((response) => camelizeKeys(response));
 };
 

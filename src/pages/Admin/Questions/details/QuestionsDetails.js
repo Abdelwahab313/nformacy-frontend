@@ -12,12 +12,19 @@ import CardBody from 'components/Card/CardBody.js';
 import CardFooter from 'components/Card/CardFooter.js';
 import { useLocation } from 'react-router';
 import useFetchData from 'hooks/useFetchData';
-import { fetchQuestionDetails, updateQuestion, uploadImage } from 'apis/questionsAPI';
+import {
+  fetchQuestionDetails,
+  updateQuestion,
+  uploadImage,
+} from 'apis/questionsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import humanizedTimeSpan from 'services/humanizedTimeSpan';
 import MajorFieldSelect from 'components/inputs/MajorFieldSelect';
 import SpecificFieldSelect from 'components/inputs/SpecificFieldSelect';
-import { industries, questionTypesOfAssignment } from 'constants/dropDownOptions';
+import {
+  industries,
+  questionTypesOfAssignment,
+} from 'constants/dropDownOptions';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import QuestionCountDown from 'components/counters/QuestionCountDown';
@@ -25,7 +32,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import RichTextEditor from 'components/inputs/RichTextEditor';
 import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
 import SubmitButton from '../../../../components/buttons/SubmitButton';
-
+import { approveQuestion } from '../../../../apis/questionsAPI';
 
 const styles = (theme) => ({
   cardTitleWhite: {
@@ -67,72 +74,58 @@ const QuestionDetails = () => {
   const location = useLocation();
   const questionId = location.state.questionId;
 
-  const {
-    isLoading,
-    fetchedData: fetchedQuestion,
-  } = useFetchData(() => fetchQuestionDetails(questionId));
+  const { isLoading, fetchedData: fetchedQuestion } = useFetchData(() =>
+    fetchQuestionDetails(questionId),
+  );
 
   useEffect(() => {
     console.log(isLoading);
     setQuestionDetails(fetchedQuestion);
   }, [fetchedQuestion]);
 
-  console.log('00000', questionDetails);
-
   const onChangeQuestionField = (name, date) => {
-    console.log('-----', name, date);
-    setQuestionDetails(prevState => (
-      {
-        ...prevState,
-        [name]: date,
-      }
-    ));
+    setQuestionDetails((prevState) => ({
+      ...prevState,
+      [name]: date,
+    }));
   };
 
   if (isLoading) {
-    return (
-      <LoadingCircle/>
-    );
+    return <LoadingCircle />;
   }
 
   const onUpdateQuestionClicked = () => {
     setIsLoadingForUpdating(true);
     updateQuestion(questionDetails.id, questionDetails)
       .then((response) => {
-        console.log('updated ....', response.data);
         setIsSnackbarShown(true);
       })
-      .catch((error) => {
-        console.log('failed -------', error);
-      }).finally(() => setIsLoadingForUpdating(false));
+      .catch((error) => {})
+      .finally(() => setIsLoadingForUpdating(false));
   };
 
   const onDeployQuestionClicked = () => {
-    const updatedQuestionDetails = { ...questionDetails, isApproved: true };
-    setQuestionDetails(updatedQuestionDetails);
-    updateQuestion(questionDetails.id, questionDetails)
+    approveQuestion(questionDetails.id)
       .then((response) => {
-        console.log('updated ....', response.data);
         setIsSnackbarShown(true);
       })
-      .catch((error) => {
-        console.log('failed -------', error);
-      }).finally(() => setIsLoadingForUpdating(false));
+      .catch((error) => {})
+      .finally(() => setIsLoadingForUpdating(false));
   };
 
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <Card>
-          <CardHeader color="primary">
+          <CardHeader color='primary'>
             <h4 className={classes.cardTitleWhite}>Edit Question</h4>
           </CardHeader>
           <CardBody>
             <GridContainer>
               <GridItem xs={12} sm={12} md={2}>
                 <CustomInput
-                  labelText="Reference ID"
-                  id="reference-id"
+                  labelText='Reference ID'
+                  id='reference-id'
                   formControlProps={{
                     fullWidth: true,
                   }}
@@ -145,8 +138,8 @@ const QuestionDetails = () => {
               </GridItem>
               <GridItem xs={12} sm={12} md={7}>
                 <CustomInput
-                  labelText="Title"
-                  id="title"
+                  labelText='Title'
+                  id='title'
                   formControlProps={{
                     fullWidth: true,
                   }}
@@ -161,8 +154,8 @@ const QuestionDetails = () => {
               </GridItem>
               <GridItem xs={12} sm={12} md={3}>
                 <CustomInput
-                  labelText="Post Date"
-                  id="post-date"
+                  labelText='Post Date'
+                  id='post-date'
                   formControlProps={{
                     fullWidth: true,
                   }}
@@ -188,7 +181,9 @@ const QuestionDetails = () => {
                 <SpecificFieldSelect
                   value={questionDetails.subfield}
                   selectedMajorFields={questionDetails.field}
-                  handleOptionsChange={(newOptions) => onChangeQuestionField('subfield', newOptions)}
+                  handleOptionsChange={(newOptions) =>
+                    onChangeQuestionField('subfield', newOptions)
+                  }
                 />
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
@@ -201,20 +196,32 @@ const QuestionDetails = () => {
                   getOptionSelected={(option, value) => {
                     return option.value === value.value;
                   }}
-                  onChange={(e, option) => onChangeQuestionField('industry', option)}
+                  onChange={(e, option) =>
+                    onChangeQuestionField('industry', option)
+                  }
                   blurOnSelect
-                  renderInput={(params) => <TextField {...params} variant='outlined' label="Industry"/>}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant='outlined'
+                      label='Industry'
+                    />
+                  )}
                 />
               </GridItem>
             </GridContainer>
 
             <GridContainer className={classes.inputsRow}>
               <GridItem xs={12} sm={12} md={12}>
-                <InputLabel className={classes.contentTitle}>Question Content</InputLabel>
+                <InputLabel className={classes.contentTitle}>
+                  Question Content
+                </InputLabel>
 
                 <RichTextEditor
                   initialContent={questionDetails.content}
-                  onContentChange={(content) => onChangeQuestionField('content', content)}
+                  onContentChange={(content) =>
+                    onChangeQuestionField('content', content)
+                  }
                   onImageUpload={(imageFormData, callback) => {
                     uploadImage(questionDetails.id, imageFormData).then(
                       ({ data }) => {
@@ -223,7 +230,6 @@ const QuestionDetails = () => {
                     );
                   }}
                 />
-
               </GridItem>
             </GridContainer>
 
@@ -233,26 +239,45 @@ const QuestionDetails = () => {
                   id='assignmentType'
                   name='assignmentType'
                   options={questionTypesOfAssignment}
-                  value={questionTypesOfAssignment.filter((option) => questionDetails.assignmentType === option.value)[0]}
+                  value={
+                    questionTypesOfAssignment.filter(
+                      (option) =>
+                        questionDetails.assignmentType === option.value,
+                    )[0]
+                  }
                   getOptionLabel={(option) => option.label}
                   getOptionSelected={(option, value) => {
                     return option.value === value.value;
                   }}
-                  onChange={(e, option) => onChangeQuestionField('assignmentType', option.value)}
+                  onChange={(e, option) =>
+                    onChangeQuestionField('assignmentType', option.value)
+                  }
                   blurOnSelect
-                  renderInput={(params) => <TextField {...params} variant='outlined' label="Type of Assignment"/>}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant='outlined'
+                      label='Type of Assignment'
+                    />
+                  )}
                 />
               </GridItem>
-              <GridItem xs={12} sm={12} md={4} className={classes.countDownContainer}>
+              <GridItem
+                xs={12}
+                sm={12}
+                md={4}
+                className={classes.countDownContainer}>
                 <QuestionCountDown
                   date={questionDetails.closeDate}
                   id={'questionCountDown'}
                 />
               </GridItem>
-              <GridItem xs={12} sm={12} md={4} className={classes.countDownContainer}>
-                <Button
-                  disabled={isLoadingForUpdating}
-                  color="primary">
+              <GridItem
+                xs={12}
+                sm={12}
+                md={4}
+                className={classes.countDownContainer}>
+                <Button disabled={isLoadingForUpdating} color='primary'>
                   Assign freelancer
                 </Button>
               </GridItem>
@@ -263,15 +288,18 @@ const QuestionDetails = () => {
               style={{ marginRight: 16 }}
               disabled={isLoadingForUpdating}
               onClick={onUpdateQuestionClicked}
-              color="primary">
+              color='primary'>
               Update Question
             </Button>
-            <Button
-              disabled={isLoadingForUpdating}
-              onClick={onDeployQuestionClicked}
-              color="primary">
-              Deploy to question roaster
-            </Button>
+            {questionDetails?.isApproved === false && (
+              <Button
+                id={'approveQuestion'}
+                disabled={isLoadingForUpdating}
+                onClick={onDeployQuestionClicked}
+                color='primary'>
+                Deploy to question roaster
+              </Button>
+            )}
             <SuccessSnackBar
               isSnackbarShown={isSnackbarShown}
               closeSnackBar={() => setIsSnackbarShown(false)}
