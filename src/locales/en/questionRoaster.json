@@ -7,5 +7,7 @@
   "project": "Project",
   "question": "Question",
   "call": "Call",
-  "attach": "Attach"
+  "attach": "Attach",
+  "field": "Fields: ",
+  "industry": "Industry: "
 }

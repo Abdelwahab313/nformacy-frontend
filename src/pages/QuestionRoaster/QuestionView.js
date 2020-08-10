@@ -3,7 +3,7 @@ import React from 'react';
 import AssignmentType from './AssignmentType';
 import Paper from '@material-ui/core/Paper';
 import Chip from '@material-ui/core/Chip';
-import { Box, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 
 import { useStyles } from 'styles/questionRoasterStyles';
@@ -53,13 +53,17 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
             {formattedDateTimeNoSeconds(new Date(questionDetails.createdAt))}
           </Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <Grid
             className={[
               classes.flexContainer,
               classes.questionFieldsStyles,
             ]}>
+            <Typography className={classes.questionFieldLabel}>
+              {t['field']}
+            </Typography>
             <Grid item xs={9} className={classes.fieldContainer}>
+
               {questionDetails.field?.map((major, key) => (
                 <Grid container alignItems={'center'}>
                   <Grid
@@ -73,7 +77,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
                     <Grid container>
                       {fieldsOfExperience.find(experience => experience.value === major.value).subfields.filter(specificField => isMajorContainsSpecificField(specificField))?.map((field, key) => (
                         <Grid item key={key}>
-                          <Chip id={`questionSubFields-${key}`} color={'secondary'} style={{ margin: '5px' }}
+                          <Chip id={`questionSubFields-${key}`} color={'secondary'} style={{ marginLeft: '5px', marginRight: '5px' }}
                                 label={field.label}/>
                         </Grid>
                       ))}
@@ -82,6 +86,13 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
                 </Grid>
               ))}
             </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={4}>
+          <Grid className={classes.questionFieldsStyles}>
+            <Typography className={classes.questionFieldLabel}>
+              {t['industry']}
+            </Typography>
             {questionDetails.industry && (
               <Grid item xs={3} className={classes.fieldContainer}>
                 <Typography
@@ -93,14 +104,12 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
             )}
           </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <Box>
-            <QuestionCountDown
-              date={questionDetails.closeDate}
-              id={`question-${questionDetails.referenceNumber}-closeDate`}
-              className={classes.questionFieldsStyles}
-            />
-          </Box>
+        <Grid item xs={4}>
+          <QuestionCountDown
+            date={questionDetails.closeDate}
+            id={`question-${questionDetails.referenceNumber}-closeDate`}
+            className={classes.questionFieldsStyles}
+          />
         </Grid>
         <Grid item xs={12}>
           <div

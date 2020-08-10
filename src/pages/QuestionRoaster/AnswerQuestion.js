@@ -12,6 +12,7 @@ import { formattedDateTime } from 'services/dateTimeParser';
 import { submitAnswer, uploadDocument, uploadImage } from 'apis/questionsAPI';
 import { attachButtonStyle, attachContainerStyle, useStyles } from 'styles/questionRoasterStyles';
 import t from '../../locales/en/questionRoaster';
+import { pink } from '../../styles/colors';
 
 const AnswerQuestion = () => {
   const classes = useStyles();
@@ -67,28 +68,8 @@ const AnswerQuestion = () => {
         />
       </Grid>
       <Grid item xs={12} sm={10}>
-        <Paper elevation={3} className={classes.paper}>
+        <Paper elevation={3} className={classes.paper} style={{border: `solid 1px ${pink}`}}>
           <Grid container className={classes.questionContainer}>
-            <Grid item xs={6}>
-              <Typography
-                id={`question-${questionDetails.referenceNumber}-title`}
-                className={classes.questionFieldsStyles}>
-                {t['referenceNumber'] + questionDetails.referenceNumber}
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography
-                id={`question-${questionDetails.referenceNumber}-postDate`}
-                className={classes.questionFieldsStyles}>
-                {t['postDate'] + ' '}
-                {formattedDateTime(new Date(questionDetails.createdAt))}
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography className={classes.questionFieldsStyles}>
-                M Taison
-              </Typography>
-            </Grid>
             <Grid item xs={12}>
               <RichTextEditor
                 initialContent={savedAnswer}

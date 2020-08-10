@@ -16,13 +16,13 @@ const QuestionCountDown = ({ date, className, id }) => {
             }) => {
       return (
         <Typography
-          style={{ display: 'flex', alignItems: 'center' }}
+          style={{ display: 'flex', alignItems: 'center', fontFamily: "'Orbitron', sans-serif", fontWeight: 'bold' }}
           id={id}
           className={className}>
-          <AlarmIcon color={'primary'}/>
+          <AlarmIcon fontSize={'large'} color={'primary'} style={{marginRight: '10px'}}/>
           {completed
             ? 'Closed'
-            : `Question is Open till ${days} days and ${hours}:${minutes}:${seconds}`}
+            : `${days}:${hours}:${minutes}:${seconds}`}
         </Typography>
       );
     };

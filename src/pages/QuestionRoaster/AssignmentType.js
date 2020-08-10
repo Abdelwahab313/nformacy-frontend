@@ -21,7 +21,11 @@ const AssignmentType = ({ index, type }) => {
     case 'question':
       return (
         <Fragment>
-          <HelpIcon id={`question-${index}-question`} color={'primary'} className={classes.assignmentTypeIcon}/>
+          <img
+            src={require('../../assets/image3.png')}
+            width={'50px'}
+            alt={'questionAssignmentType'}
+          />
           <Typography>{t['question']}</Typography>
         </Fragment>
       );

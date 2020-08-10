@@ -5,6 +5,13 @@ import './index.css';
 import Main from 'layouts/Main';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
+import WebFont from 'webfontloader';
+
+WebFont.load({
+  google: {
+    families: ['Orbitron', 'sans-serif']
+  }
+});
 
 ReactDOM.render(
   <Router>
