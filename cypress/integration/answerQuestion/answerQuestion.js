@@ -9,7 +9,7 @@ Then(/^I should see rich Text box for the answer content\.$/, function() {
 });
 When(/^i fill answer content\.$/, function() {
   cy.get('#richContent_ifr');
-  cy.wait(5000);
+  cy.wait(1000);
   cy.window()
     .then(win => {
       const editor = win.tinymce.editors['richContent'];
@@ -21,4 +21,16 @@ When(/^i click on post answer$/, function() {
 });
 Then(/^i should see snackbar shows that says your answer will be reviewed by admin\.$/, function() {
   cy.contains('Your answer has been submitted successfully');
+});
+When(/^i click attach file and choose a file.$/, function() {
+  cy.get('.chooseFileButton ').click();
+  const attachmentPath = 'Cheatsheet.pdf';
+  cy.get('input[type="file"]').attachFile(attachmentPath);
+});
+Then(/^the file i chose should be attached to the answer$/, function() {
+  cy.contains('Cheatsheet.pdf');
+});
+Then(/^the files i chose should be attached to the answer\.$/, function() {
+  cy.get('#attachment-0');
+  cy.get('#attachment-1');
 });

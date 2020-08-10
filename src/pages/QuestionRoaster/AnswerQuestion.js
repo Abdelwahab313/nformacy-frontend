@@ -120,11 +120,15 @@ const AnswerQuestion = () => {
                   imgExtension={['.pdf']}
                 />
                 {attachmentFiles?.length > 0 &&
-                attachmentFiles.map((attachment, index) => (
-                  <Typography key={index} gutterBottom variant='subtitle2'>
-                    {attachment.name}
-                  </Typography>
-                ))}
+                <Grid container alignItems={'center'} justify={'center'}>
+                  {attachmentFiles.map((attachment, index) => (
+                    <Grid item xs={12}>
+                      <Typography key={index} id={`attachment-${index}`} gutterBottom variant='subtitle2'>
+                        {attachment.name}
+                      </Typography>
+                    </Grid>
+                  ))}
+                </Grid> }
               </div>
             </Grid>
             <Grid
