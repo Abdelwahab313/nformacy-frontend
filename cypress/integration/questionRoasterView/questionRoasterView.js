@@ -25,9 +25,6 @@ Then(
     cy.get('#questionSubFields-0')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-2000100-industry')
-      .invoke('text')
-      .should('not.be.empty');
     cy.get('#question-2000100-content')
       .invoke('text')
       .should('not.be.empty');
