@@ -8,7 +8,6 @@ import ImageUploader from 'react-images-upload';
 import SubmitButton from 'components/buttons/SubmitButton';
 import RichTextEditor from 'components/inputs/RichTextEditor';
 import QuestionView from './QuestionView';
-import { formattedDateTime } from 'services/dateTimeParser';
 import { submitAnswer, uploadDocument, uploadImage } from 'apis/questionsAPI';
 import { attachButtonStyle, attachContainerStyle, useStyles } from 'styles/questionRoasterStyles';
 import t from '../../locales/en/questionRoaster';
@@ -50,7 +49,7 @@ const AnswerQuestion = () => {
       submitAnswer(questionDetails.id, { content: content }),
       uploadAttachmentPromise(),
     ]).then((responses) => {
-      history.push(`/`, { snackBarContent: 'Your answer has been submitted successfully' });
+      history.push(`/answer/success`);
       console.log('------ responses', responses);
     });
   };
@@ -68,7 +67,7 @@ const AnswerQuestion = () => {
         />
       </Grid>
       <Grid item xs={12} sm={10}>
-        <Paper elevation={3} className={classes.paper} style={{border: `solid 1px ${pink}`}}>
+        <Paper elevation={3} className={classes.paper} style={{ border: `solid 1px ${pink}` }}>
           <Grid container className={classes.questionContainer}>
             <Grid item xs={12}>
               <RichTextEditor
@@ -109,7 +108,7 @@ const AnswerQuestion = () => {
                       </Typography>
                     </Grid>
                   ))}
-                </Grid> }
+                </Grid>}
               </div>
             </Grid>
             <Grid

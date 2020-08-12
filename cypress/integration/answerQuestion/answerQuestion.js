@@ -19,9 +19,6 @@ When(/^i fill answer content\.$/, function() {
 When(/^i click on post answer$/, function() {
   cy.get('#submitButton').click();
 });
-Then(/^i should see snackbar shows that says your answer will be reviewed by admin\.$/, function() {
-  cy.contains('Your answer has been submitted successfully');
-});
 When(/^i click attach file and choose a file.$/, function() {
   cy.get('.chooseFileButton ').click();
   const attachmentPath = 'Cheatsheet.pdf';
@@ -33,4 +30,9 @@ Then(/^the file i chose should be attached to the answer$/, function() {
 Then(/^the files i chose should be attached to the answer\.$/, function() {
   cy.get('#attachment-0');
   cy.get('#attachment-1');
+});
+Then(/^I should be redirected success page that contais thank you note and two buttons to redirect to home or roaster$/, function() {
+  cy.get('#thankYouNote').should('have.text', 'Thank you for your answer');
+  cy.get('#redirectToQuestionRoaster');
+  cy.get('#redirectToHome');
 });

@@ -5,10 +5,6 @@ import Grow from '@material-ui/core/Grow';
 import WorkExperience from '../../components/forms/WorkExperience';
 import Education from '../../components/forms/Education';
 import Certification from '../../components/forms/Certification';
-import ImageUploader from 'react-images-upload';
-import { useFormContext } from 'react-hook-form';
-import Typography from '@material-ui/core/Typography';
-import t from '../../locales/en/freelancerProfile.json';
 import { useStyles } from '../../styles/formsStyles';
 import Paper from '@material-ui/core/Paper';
 import CV from '../../components/forms/CV';
@@ -43,16 +39,16 @@ const StepThree = () => {
             xs={12}
             md={6}>
             <Paper className={classes.paperSection} elevation={5}>
-              <CV />
+              <CV/>
             </Paper>
             <Paper className={classes.paperSection} elevation={5}>
-              <WorkExperience />
+              <WorkExperience/>
             </Paper>
             <Paper className={classes.paperSection} elevation={5}>
-              <Education />
+              <Education/>
             </Paper>
             <Paper className={classes.paperSection} elevation={5}>
-              <Certification />
+              <Certification/>
             </Paper>
           </Grid>
         </Grow>

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import AssignmentType from './AssignmentType';
 import Paper from '@material-ui/core/Paper';
 import Chip from '@material-ui/core/Chip';

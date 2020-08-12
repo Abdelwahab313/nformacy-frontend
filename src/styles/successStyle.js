@@ -41,4 +41,11 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '4vw',
     },
   },
+  navButtonsContainer: {
+    textAlign: 'center',
+  },
+  navButtons: {
+    margin: '10px',
+    cursor: 'pointer',
+  },
 }));

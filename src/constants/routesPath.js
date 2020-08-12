@@ -17,6 +17,7 @@ export const RoutesPaths = {
     Logout: '/logout',
     FreelancerProfile: '/user/profile',
     FreelancerSuccess: '/user/success',
+    SubmitAnswerNote: '/answer/success',
     Home: '/',
     Questions: '/questions',
     AnswerQuestion: '/question/answer',

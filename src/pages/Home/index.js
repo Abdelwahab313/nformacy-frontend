@@ -11,10 +11,6 @@ import { useLocation } from 'react-router';
 const HomePage = () => {
   const classes = useStyles();
   const [{ currentUser }] = useAuth();
-  const location = useLocation();
-
-  const [snackBarContent, setSnackbarContent] = useState(location.state ? location.state.snackBarContent : undefined);
-
 
   return (
     <Grid container>
@@ -32,13 +28,6 @@ const HomePage = () => {
       </Grid>
       <Grid item lg={3}>
       </Grid>
-      <SuccessSnackBar
-        content={snackBarContent}
-        isSnackbarShown={!!snackBarContent}
-        closeSnackBar={() =>{
-          setSnackbarContent('')
-        }}
-      />
     </Grid>
   );
 };

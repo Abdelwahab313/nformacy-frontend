@@ -10,8 +10,7 @@ Feature: freelancer answer a question
     Then I should see rich Text box for the answer content.
     When i fill answer content.
     And i click on post answer
-    Then i should see snackbar shows that says your answer will be reviewed by admin.
-    And then should be redirected to homepage
+    Then I should be redirected success page that contais thank you note and two buttons to redirect to home or roaster
 
   Scenario: attach file.
     When i click attach file and choose a file.

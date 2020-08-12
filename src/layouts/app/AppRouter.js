@@ -10,6 +10,7 @@ import EditProfile from 'pages/Profile/Profile';
 import MeetingsPage from 'pages/Meeting';
 import MeetingDetailsPage from 'pages/Meeting/MeetingDetailsPage';
 import { RoutesPaths } from 'constants/routesPath';
+import PostSubmissionNote from '../../pages/QuestionRoaster/PostSubmissionNote';
 
 const AppRouter = () => {
   return <Switch>
@@ -27,13 +28,15 @@ const AppRouter = () => {
       path={RoutesPaths.App.EditProfile}
       component={EditProfile}/>
     <PrivateRoute
-      exact path={RoutesPaths.App.Meetings}
+      path={RoutesPaths.App.Meetings}
       component={MeetingsPage}/>
     <PrivateRoute
-      exact
       path={RoutesPaths.App.MeetingDetails}
       component={MeetingDetailsPage}
     />
+    <PrivateRoute
+      path={RoutesPaths.App.SubmitAnswerNote}
+      component={PostSubmissionNote}/>
   </Switch>;
 };
 
