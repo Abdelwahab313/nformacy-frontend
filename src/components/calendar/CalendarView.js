@@ -1,7 +1,7 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import TableCell from '@material-ui/core/TableCell';
-import { ViewState } from '@devexpress/dx-react-scheduler';
+import { AllDayPanel, ViewState } from '@devexpress/dx-react-scheduler';
 import classNames from 'clsx';
 import {
   AppointmentForm,
@@ -30,25 +30,29 @@ const DayScaleCell = (props) => (
 );
 
 const TimeTableLayoutBase = ({ classes, ...props }) => (
-  <MonthView.TimeTableLayout
-    {...props}
-    className={classes.table}
-  />
+  <MonthView.TimeTableLayout {...props} className={classes.table} />
 );
-const TimeTableLayout = withStyles(calendarStyles, { name: 'TimeTable' })(TimeTableLayoutBase);
+const TimeTableLayout = withStyles(calendarStyles, { name: 'TimeTable' })(
+  TimeTableLayoutBase,
+);
 
 const DayScaleLayoutBase = ({ classes, ...props }) => (
-  <MonthView.DayScaleLayout
-    {...props}
-    className={classes.table}
-  />
+  <MonthView.DayScaleLayout {...props} className={classes.table} />
 );
-const DayScaleLayout = withStyles(calendarStyles, { name: 'TimeTable' })(DayScaleLayoutBase);
-
+const DayScaleLayout = withStyles(calendarStyles, { name: 'TimeTable' })(
+  DayScaleLayoutBase,
+);
 
 const CellBase = React.memo(
-  ({ classes, startDate, formatDate, otherMonth, availableDates, selectedDay, onDayClick }) => {
-
+  ({
+    classes,
+    startDate,
+    formatDate,
+    otherMonth,
+    availableDates,
+    selectedDay,
+    onDayClick,
+  }) => {
     const isSelectedDay = !!selectedDay && isSameDate(startDate, selectedDay);
 
     const isAvailableDay = formatDayAsKey(startDate) in availableDates;
@@ -102,17 +106,26 @@ const CellBase = React.memo(
 );
 const TimeTableCell = withStyles(calendarStyles, { name: 'Cell' })(CellBase);
 
-const AppointmentContent = withStyles(calendarStyles, { name: 'AppointmentContent' })(({ classes, isMinimized, ...restProps }) => {
-  if (isMinimized) return (<div/>);
+const AppointmentContent = withStyles(calendarStyles, {
+  name: 'AppointmentContent',
+})(({ classes, isMinimized, ...restProps }) => {
+  if (isMinimized) return <div />;
   return (
-    <Appointments.AppointmentContent {...restProps} className={classes.appointmentContent}/>
+    <Appointments.AppointmentContent
+      {...restProps}
+      className={classes.appointmentContent}
+    />
   );
 });
 
-const Appointment = withStyles(calendarStyles, { name: 'Appointment' })(({ classes, isMinimized, ...restProps }) => (
+const Appointment = withStyles(calendarStyles, {
+  name: 'Appointment',
+})(({ classes, isMinimized, ...restProps }) => (
   <Appointments.Appointment
     {...restProps}
-    className={classNames(classes.appointment, { [classes.minimizedAppointment]: isMinimized })}
+    className={classNames(classes.appointment, {
+      [classes.minimizedAppointment]: isMinimized,
+    })}
   />
 ));
 
@@ -123,11 +136,12 @@ const appointments = [
     startDate: new Date(2020, 6, 23, 9, 30),
     endDate: new Date(2020, 6, 23, 11, 30),
     ownerId: 1,
-  }, {
+  },
+  {
     id: 1,
     title: 'Meeting with Medad Expert',
-    startDate: new Date(2020, 6, 9, 11, 0),
-    endDate: new Date(2020, 6, 9, 12, 0),
+    startDate: new Date(2020, 6, 23, 11, 0),
+    endDate: new Date(2020, 6, 23, 12, 0),
     ownerId: 2,
   },
 ];
@@ -137,61 +151,73 @@ export const owners = [
     text: 'Call',
     id: 1,
     color: AppointmentColors.call,
-  }, {
+  },
+  {
     text: 'Meeting',
     id: 2,
     color: AppointmentColors.meeting,
-  }, {
+  },
+  {
     text: 'Assignment',
     id: 3,
     color: AppointmentColors.assignment,
   },
 ];
 
-const resources = [{
-  fieldName: 'ownerId',
-  title: 'Owners',
-  instances: owners,
-}];
+const resources = [
+  {
+    fieldName: 'ownerId',
+    title: 'Owners',
+    instances: owners,
+  },
+];
 
-
-const CalendarView = ({ availableDates, selectedDay, isInteractable, isMinimized, onDayClick, containerStyle }) => {
+const CalendarView = ({
+  availableDates,
+  selectedDay,
+  isInteractable,
+  isMinimized,
+  onDayClick,
+  containerStyle,
+}) => {
   return (
     <Paper id={'calendar-view'} className={containerStyle}>
-      <Scheduler
-        data={isInteractable ? [] : appointments}
-      >
-        <ViewState defaultCurrentDate={Date.now()}/>
+      <Scheduler data={isInteractable ? [] : availableDates}>
+        <ViewState defaultCurrentDate={Date.now()} />
         <MonthView
-          timeTableCellComponent={(props) => (<TimeTableCell
-            {...props}
-            availableDates={availableDates}
-            selectedDay={selectedDay}
-            isInteractable={isInteractable}
-            onDayClick={onDayClick}
-          />)}
+          timeTableCellComponent={(props) => (
+            <TimeTableCell
+              {...props}
+              availableDates={availableDates}
+              selectedDay={selectedDay}
+              isInteractable={isInteractable}
+              onDayClick={onDayClick}
+            />
+          )}
           dayScaleCellComponent={DayScaleCell}
           dayScaleLayoutComponent={DayScaleLayout}
           timeTableLayoutComponent={TimeTableLayout}
         />
         <Appointments
-          appointmentComponent={(props) => (<Appointment {...props} isMinimized={isMinimized}/>)}
-          appointmentContentComponent={(props) => (<AppointmentContent {...props} isMinimized={isMinimized}/>)}
+          appointmentComponent={(props) => (
+            <Appointment {...props} isMinimized={isMinimized} />
+          )}
+          appointmentContentComponent={(props) => (
+            <AppointmentContent {...props} isMinimized={isMinimized} />
+          )}
         />
-        <Resources
-          data={resources}
-        />
+        <AllDayPanel />
+        <Resources data={resources} />
 
-        <Toolbar/>
-        <DateNavigator/>
-        <TodayButton/>
+        <Toolbar />
+        <DateNavigator />
+        <TodayButton />
         <AppointmentTooltip
           showCloseButton
           // showDeleteButton
           // showOpenButton
         />
-        <AppointmentForm/>
-
+        <AppointmentForm />
       </Scheduler>
     </Paper>
   );
