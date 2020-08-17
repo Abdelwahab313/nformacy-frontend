@@ -90,14 +90,12 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
 
   const handleAddRangeClicked = () => {
     const selectedAvailableDays = getAddedDate(selectedRange);
-    debugger;
     const newAvailableDays = [...availableDates, selectedAvailableDays];
     updateAvailableDays(newAvailableDays);
   };
 
   const getAddedDate = (selectedRange) => {
     let { startDate, endDate, startTime, endTime } = selectedRange;
-    debugger;
     const addedDateId =
       availableDates.length === 0
         ? 0
@@ -136,11 +134,9 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
     }));
   };
   const updateAvailableDays = (updatedAvailableDays, onSuccess) => {
-    debugger;
     setIsLoading(true);
     updateProfile({ freeDates: updatedAvailableDays }, currentUser.id)
       .then((response) => {
-        debugger;
         const userData = {
           ...response.data,
           ...adaptDates(response.data.freeDates),

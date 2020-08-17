@@ -66,7 +66,6 @@ const ResourceEditor = (props) => {
 
 const LabelEditor = (props) => {
   // eslint-disable-next-line react/destructuring-assignment
-  debugger;
   const excludeFields = [
     'Title',
     'More Information',
@@ -171,9 +170,11 @@ const AppointmentContent = withStyles(calendarStyles, {
 
 const Appointment = withStyles(calendarStyles, {
   name: 'Appointment',
-})(({ classes, isMinimized, ...restProps }) => (
+})(({ classes, isMinimized, data, ...restProps }) => (
   <Appointments.Appointment
     {...restProps}
+    data-title={data?.title}
+    data-date={data?.startDate}
     className={classNames(classes.appointment, {
       [classes.minimizedAppointment]: isMinimized,
     })}
@@ -232,7 +233,6 @@ const CalendarView = ({
       allAvailableDates.push(toBeChanged);
       onUpdateAvailableDays(allAvailableDates, () => {});
     } else {
-      debugger;
       const allAvailableDates = availableDates.filter(
         (date) => date.id !== deleted,
       );

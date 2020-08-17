@@ -22,7 +22,7 @@ Feature: Update Calendar for available times for a freelancer
     Then I should see the selected day labeled as available day in the calendar
 
 #  @ignore
-#  Scenario: Add available day range
+#  Scenario: edit available day range
 #    When When I click on a day that not available
 #    And Select edit day to be week after start day
 #    And fill the time range
@@ -30,8 +30,10 @@ Feature: Update Calendar for available times for a freelancer
 #    Then I should see the selected range of days as available time
 
   Scenario: update available day available time
-    When I click on a day that already set as available
-    Then I should see the time range populated with the available time range
+    When I click on a free day
+    Then Click add available time
+    And click submit time
+    Then Click add available time
     When I update the time range
     And click submit time
     Then I should see the selected day as available day with the updated time
@@ -39,28 +41,22 @@ Feature: Update Calendar for available times for a freelancer
 #  @ignore
 #  Scenario: remove the day as not available
 #    When I click on a day that already set as available
-#    And I click the not available this day button
+#    And I click the delete this day button
 #    And click submit time
 #    Then I should see the selected day as default view without available time label
 #
-#  @ignore
-#  Scenario: close the calendar and see calendar at home updated
-#    When I fill the available day And click update
-#    And close dialog
-#    Then Calendar at home page will be updated
+
+#  Scenario: view available days in different time zone
+#    When click on the change time zone button to be Africa/Cairo
+#    When I click on a day that is already available
+#    Then I should see the time 12:00 PM and 06:00 PM
+#    When I change time zone to be America/New_York
+#    Then I should see the time 06:00 AM and 12:00 PM
 #
-
-  Scenario: view available days in different time zone
-    When click on the change time zone button to be Africa/Cairo
-    When I click on a day that is already available with hours 10:00 and 16:00
-    Then I should see the time 12:00 PM and 06:00 PM
-    When I change time zone to be America/New_York
-    Then I should see the time 06:00 AM and 12:00 PM
-
-  Scenario: update days in different time zone
-    When I click on a day that is already available with hours 10:00 and 16:00
-    And I change time zone to be America/New_York
-    And update the time range to be 09:00 to 15:00
-    And click submit time
-    And click on the change time zone button to be Africa/Cairo
-    Then I should see the time 03:00 PM and 09:00 PM
+#  Scenario: update days in different time zone
+#    When I click on a day that is already available
+#    And I change time zone to be America/New_York
+#    And update the time range to be 09:00 to 15:00
+#    And click submit time
+#    And click on the change time zone button to be Africa/Cairo
+#    Then I should see the time 03:00 PM and 09:00 PM
