@@ -31,6 +31,7 @@ import QuestionList from 'pages/Admin/Questions/list/QuestionList';
 import Dashboard from 'pages/Admin/Dashboard/Dashboard';
 import Logout from 'pages/auth/LogoutUser';
 import QuestionDetails from 'pages/Admin/Questions/details/QuestionsDetails';
+import PostQuestion from '../../pages/QuestionRoaster/PostQuestion';
 
 const adminRoutes = [
   {
@@ -46,6 +47,14 @@ const adminRoutes = [
     name: 'Questions',
     icon: QuestionAnswerIcon,
     component: QuestionList,
+    hasDashboardLink: true,
+    layout: '/admin',
+  },
+  {
+    path: RoutesPaths.Admin.PostQuestion,
+    name: 'Post Question',
+    icon: QuestionAnswerIcon,
+    component: PostQuestion,
     hasDashboardLink: true,
     layout: '/admin',
   },

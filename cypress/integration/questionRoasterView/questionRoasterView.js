@@ -49,3 +49,6 @@ Then(/^I should only see questions that belongs to that field\.$/, function() {
   cy.get('#questionMajorFields-0')
     .should('have.text', 'Finance:');
 });
+When(/^I fill all the question details$/, function() {
+  cy.get('#question-title-field').type('test question title')
+});

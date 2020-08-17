@@ -34,7 +34,9 @@ Given(/^visit home page$/, function() {
 When(/^I go to question roaster$/, function() {
   cy.visit(BASE_URL + '/questions');
 });
-
+Given(/^I am on the dashboard$/, function() {
+  cy.visit(BASE_URL + '/admin/dashboard');
+});
 Then(/^i click on answer button of specific question$/, function() {
   cy.get('#question-2000100-submit').click();
 });

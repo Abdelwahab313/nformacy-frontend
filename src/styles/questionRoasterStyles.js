@@ -119,6 +119,18 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     width: 'fit-content',
   },
+  pageHeaderStyle: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    backgroundColor: pink,
+    color: white,
+    marginBottom: theme.spacing(5),
+    borderRadius: '5px'
+  },
+  headerTextStyles: {
+    padding: theme.spacing(1),
+  },
 }));
 export const attachButtonStyle = () => {
   return {

@@ -10,6 +10,7 @@ export const RoutesPaths = {
     Icons: '/admin/icons',
     Notifications: '/admin/notifications',
     Logout: '/admin/logout',
+    PostQuestion: '/admin/postQuestion',
   },
   App: {
     Login: '/login',
