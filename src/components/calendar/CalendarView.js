@@ -1,7 +1,12 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import TableCell from '@material-ui/core/TableCell';
-import { AllDayPanel, ViewState } from '@devexpress/dx-react-scheduler';
+import {
+  AllDayPanel,
+  EditingState,
+  IntegratedEditing,
+  ViewState,
+} from '@devexpress/dx-react-scheduler';
 import classNames from 'clsx';
 import {
   AppointmentForm,
@@ -28,6 +33,52 @@ const DayScaleCell = (props) => (
     style={{ textAlign: 'center', fontWeight: 'bold' }}
   />
 );
+
+const TextEditor = (props) => {
+  // eslint-disable-next-line react/destructuring-assignment
+  const excludeFields = [
+    'titleTextEditor',
+    'multilineTextEditor',
+    'numberEditor',
+  ];
+  if (excludeFields.includes(props.type)) {
+    return null;
+  }
+  return <AppointmentForm.TextEditor {...props} />;
+};
+
+const BooleanEditor = (props) => {
+  // eslint-disable-next-line react/destructuring-assignment
+  const excludeFields = ['All Day', 'Repeat'];
+  if (excludeFields.includes(props.label)) {
+    return null;
+  }
+  return <AppointmentForm.BooleanEditor {...props} />;
+};
+
+const ResourceEditor = (props) => {
+  // eslint-disable-next-line react/destructuring-assignment
+  if (props.resource.title === 'Owners') {
+    return null;
+  }
+  return <AppointmentForm.Select {...props} />;
+};
+
+const LabelEditor = (props) => {
+  // eslint-disable-next-line react/destructuring-assignment
+  debugger;
+  const excludeFields = [
+    'Title',
+    'More Information',
+    'Owners',
+    'Repeat',
+    'End Repeat',
+  ];
+  if (excludeFields.includes(props.text)) {
+    return null;
+  }
+  return <AppointmentForm.Label {...props} />;
+};
 
 const TimeTableLayoutBase = ({ classes, ...props }) => (
   <MonthView.TimeTableLayout {...props} className={classes.table} />
@@ -129,23 +180,6 @@ const Appointment = withStyles(calendarStyles, {
   />
 ));
 
-const appointments = [
-  {
-    id: 0,
-    title: 'Call with Consultant',
-    startDate: new Date(2020, 6, 23, 9, 30),
-    endDate: new Date(2020, 6, 23, 11, 30),
-    ownerId: 1,
-  },
-  {
-    id: 1,
-    title: 'Meeting with Medad Expert',
-    startDate: new Date(2020, 6, 23, 11, 0),
-    endDate: new Date(2020, 6, 23, 12, 0),
-    ownerId: 2,
-  },
-];
-
 export const owners = [
   {
     text: 'Call',
@@ -171,7 +205,6 @@ const resources = [
     instances: owners,
   },
 ];
-
 const CalendarView = ({
   availableDates,
   selectedDay,
@@ -179,7 +212,33 @@ const CalendarView = ({
   isMinimized,
   onDayClick,
   containerStyle,
+  onUpdateAvailableDays,
+  isEditable,
 }) => {
+  const onEditEvent = ({ added, changed, deleted }) => {
+    if (added) {
+    } else if (changed) {
+      const toBeChangedId = Number(Object.keys(changed)[0]);
+      let toBeChanged = availableDates.find(
+        (date) => date.id === toBeChangedId,
+      );
+      toBeChanged = { ...toBeChanged, ...Object.values(changed)[0] };
+      const startTime = moment(toBeChanged.startDate).format('HH:mm');
+      const endTime = moment(toBeChanged.endDate).format('HH:mm');
+      toBeChanged.title = `${startTime} - ${endTime}`;
+      const allAvailableDates = availableDates.filter(
+        (date) => date.id !== toBeChangedId,
+      );
+      allAvailableDates.push(toBeChanged);
+      onUpdateAvailableDays(allAvailableDates, () => {});
+    } else {
+      debugger;
+      const allAvailableDates = availableDates.filter(
+        (date) => date.id !== deleted,
+      );
+      onUpdateAvailableDays(allAvailableDates, () => {});
+    }
+  };
   return (
     <Paper id={'calendar-view'} className={containerStyle}>
       <Scheduler data={isInteractable ? [] : availableDates}>
@@ -208,16 +267,21 @@ const CalendarView = ({
         />
         <AllDayPanel />
         <Resources data={resources} />
-
+        <EditingState onCommitChanges={onEditEvent} />
+        <IntegratedEditing />
         <Toolbar />
         <DateNavigator />
         <TodayButton />
-        <AppointmentTooltip
-          showCloseButton
-          // showDeleteButton
-          // showOpenButton
+        {isEditable && (
+          <AppointmentTooltip showOpenButton showCloseButton showDeleteButton />
+        )}
+        {!isEditable && <AppointmentTooltip showCloseButton />}
+        <AppointmentForm
+          textEditorComponent={TextEditor}
+          booleanEditorComponent={BooleanEditor}
+          resourceEditorComponent={ResourceEditor}
+          labelComponent={LabelEditor}
         />
-        <AppointmentForm />
       </Scheduler>
     </Paper>
   );

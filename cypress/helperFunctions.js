@@ -41,27 +41,21 @@ export const signUpAndSetTokens = (role = 'freelancer') => {
   });
 };
 
-export const createDayAvailableForUser = (dayFormatted, startTime, endTime) => {
+export const createDayAvailableForUser = (dayFormatted, startDate, endDate) => {
   const currentUser = JSON.parse(localStorage.getItem('user'));
   const token = JSON.parse(localStorage.getItem('tokens'));
   cy.request({
-      method: 'PUT',
-      url: `${BACKEND_WEB_URL}/users/${currentUser.id}`,
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-      body: {
-        'free_dates': {
-          [dayFormatted]: {
-            intervals: {
-              from: startTime,
-              to: endTime,
-            },
-          },
-        },
-      },
+    method: 'PUT',
+    url: `${BACKEND_WEB_URL}/users/${currentUser.id}`,
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
-  ).then((response) => {
+    body: {
+      free_dates: [
+        { id: 0, title: dayFormatted, startDate: startDate, endDate: endDate },
+      ],
+    },
+  }).then((response) => {
     cy.setLocalStorage('user', JSON.stringify(camelizeKeys(response.body)));
 
     cy.wrap(response.body.user).as('user');

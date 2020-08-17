@@ -1,7 +1,6 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import { createDayAvailableForUser } from '../../helperFunctions';
 
-
 When(/^I click on calendar summary cards' button$/, function() {
   cy.get('#open-update-calendar-dialog-btn').click();
 });
@@ -16,8 +15,11 @@ Then(/^field to select the displayed time zones$/, function() {
 });
 
 Then(/^selected by default the timezone of the user$/, function() {
-  const isCairoTime = Intl.DateTimeFormat().resolvedOptions().timeZone === 'Africa/Cairo';
-  const defaultTimeZoneLabel = isCairoTime ? 'Africa/Cairo (GMT+02:00)' : 'UTC (GMT+00:00)';
+  const isCairoTime =
+    Intl.DateTimeFormat().resolvedOptions().timeZone === 'Africa/Cairo';
+  const defaultTimeZoneLabel = isCairoTime
+    ? 'Africa/Cairo (GMT+02:00)'
+    : 'UTC (GMT+00:00)';
   cy.get('#time-zone-picker').should('have.value', defaultTimeZoneLabel);
 });
 
@@ -27,24 +29,28 @@ Then(/^button for close dialog$/, function() {
   cy.get('#update-calendar-dialog').should('not.be.visible');
 });
 
-
 When(/^I click on a free day$/, function() {
   // should get dynamic day
-  cy.get('#update-calendar-dialog td[data-day=\'04-08\']').click();
+  cy.get("#update-calendar-dialog td[data-day='04-08']").click();
 });
 
-Then(/^I should see on the left of the calendar a field with the start\/end date and start\/end time fields$/, function() {
-  cy.get('#start-date-range-picker').should('be.visible');
-  cy.get('#end-date-range-picker').should('be.visible');
-  cy.get('#start-time-range-picker').should('be.visible');
-  cy.get('#end-time-range-picker').should('be.visible');
-});
+Then(
+  /^I should see on the left of the calendar a field with the start\/end date and start\/end time fields$/,
+  function() {
+    cy.get('#start-date-range-picker').should('be.visible');
+    cy.get('#end-date-range-picker').should('be.visible');
+    cy.get('#start-time-range-picker').should('be.visible');
+    cy.get('#end-time-range-picker').should('be.visible');
+  },
+);
 
-Then(/^The start Day and end will both have the same day with the day selected$/, function() {
-  cy.get('#start-date-range-picker').should('have.value', '04/08/2020');
-  cy.get('#end-date-range-picker').should('have.value', '04/08/2020');
-
-});
+Then(
+  /^The start Day and end will both have the same day with the day selected$/,
+  function() {
+    cy.get('#start-date-range-picker').should('have.value', '04/08/2020');
+    cy.get('#end-date-range-picker').should('have.value', '04/08/2020');
+  },
+);
 
 When(/^I fill the available time$/, function() {
   cy.get('#start-time-range-picker').should('have.value', '08:00 AM');
@@ -56,24 +62,34 @@ When(/^click submit time$/, function() {
   cy.wait(500);
 });
 
-Then(/^I should see the selected day labeled as available day in the calendar$/, function() {
-  cy.get('#update-calendar-dialog td[data-day=\'04-08\']').should('have.class', 'availableCell');
-});
+Then(
+  /^I should see the selected day labeled as available day in the calendar$/,
+  function() {
+    cy.get('.AppointmentsContainer-container-98').last().contains('08:00 - 17:00');
+    cy.get('.AppointmentsContainer-container-98')
+      .last()
+      .click({ force: true });
+  },
+);
 
 When(/^I click on a day that already set as available$/, function() {
-  cy.get('#update-calendar-dialog td[data-day=\'28-08\']')
+  cy.get("#update-calendar-dialog td[data-day='28-08']")
     .should('have.class', 'availableCell')
     .click();
 });
 
-Then(/^I should see the time range populated with the available time range$/, function() {
-  cy.get('#start-date-range-picker').should('have.value', '28/08/2020');
-  const isCairoTime = Intl.DateTimeFormat().resolvedOptions().timeZone === 'Africa/Cairo';
-  const startTime = isCairoTime ? '12:00 PM' : '10:00 AM';
-  const endTime = isCairoTime ? '06:00 PM' : '04:00 PM';
-  cy.get('#start-time-range-picker').should('have.value', startTime);
-  cy.get('#end-time-range-picker').should('have.value', endTime);
-});
+Then(
+  /^I should see the time range populated with the available time range$/,
+  function() {
+    cy.get('#start-date-range-picker').should('have.value', '28/08/2020');
+    const isCairoTime =
+      Intl.DateTimeFormat().resolvedOptions().timeZone === 'Africa/Cairo';
+    const startTime = isCairoTime ? '12:00 PM' : '10:00 AM';
+    const endTime = isCairoTime ? '06:00 PM' : '04:00 PM';
+    cy.get('#start-time-range-picker').should('have.value', startTime);
+    cy.get('#end-time-range-picker').should('have.value', endTime);
+  },
+);
 
 When(/^I update the time range$/, function() {
   cy.wrap('12:00 PM').as('updatedStartTime');
@@ -84,23 +100,36 @@ When(/^I update the time range$/, function() {
   cy.get('#end-time-range-picker').type('06:00 PM');
 });
 
-Then(/^I should see the selected day as available day with the updated time$/, function() {
-  cy.get('#update-calendar-dialog td[data-day=\'28-08\']')
-    .should('have.class', 'availableCell')
-    .click();
-  cy.get('#start-time-range-picker').should('have.value', this.updatedStartTime);
-  cy.get('#end-time-range-picker').should('have.value', this.updatedEndTime);
-});
+Then(
+  /^I should see the selected day as available day with the updated time$/,
+  function() {
+    cy.get("#update-calendar-dialog td[data-day='28-08']")
+      .should('have.class', 'availableCell')
+      .click();
+    cy.get('#start-time-range-picker').should(
+      'have.value',
+      this.updatedStartTime,
+    );
+    cy.get('#end-time-range-picker').should('have.value', this.updatedEndTime);
+  },
+);
 
 Given(/^I have day selected as available on my calendar$/, function() {
-  createDayAvailableForUser('20200828', '10:00', '16:00');
+  createDayAvailableForUser(
+    '10:00 : 16:00',
+    '2020-08-28 10:00',
+    '2020-08-28 16:00',
+  );
 });
 
-When(/^I click on a day that is already available with hours 10:00 and 16:00$/, function() {
-  cy.get('#update-calendar-dialog td[data-day=\'28-08\']')
-    .should('have.class', 'availableCell')
-    .click();
-});
+When(
+  /^I click on a day that is already available with hours 10:00 and 16:00$/,
+  function() {
+    cy.get("#update-calendar-dialog td[data-day='28-08']")
+      .should('have.class', 'availableCell')
+      .click();
+  },
+);
 
 Then(/^I should see the time 12:00 PM and 06:00 PM$/, function() {
   cy.get('#start-time-range-picker').should('have.value', '12:00 PM');
@@ -110,11 +139,14 @@ Then(/^I should see the time 12:00 PM and 06:00 PM$/, function() {
 When(/^I change time zone to be America\/New_York$/, function() {
   cy.get('button[title="Open"]').click();
   cy.get('#time-zone-picker-option-168').click();
-  cy.get('#time-zone-picker').should('have.value', 'America/New_York (GMT-04:00)');
+  cy.get('#time-zone-picker').should(
+    'have.value',
+    'America/New_York (GMT-04:00)',
+  );
 });
 
 Then(/^I should see the time 06:00 AM and 12:00 PM$/, function() {
-  cy.get('#update-calendar-dialog td[data-day=\'28-08\']')
+  cy.get("#update-calendar-dialog td[data-day='28-08']")
     .should('have.class', 'availableCell')
     .click();
   cy.get('#start-time-range-picker').should('have.value', '06:00 AM');
@@ -135,9 +167,12 @@ When(/^click on the change time zone button to be Africa\/Cairo$/, function() {
 });
 
 Then(/^I should see the time 03:00 PM and 09:00 PM$/, function() {
-  cy.get('#update-calendar-dialog td[data-day=\'28-08\']')
+  cy.get("#update-calendar-dialog td[data-day='28-08']")
     .should('have.class', 'availableCell')
     .click();
   cy.get('#start-time-range-picker').should('have.value', '03:00 PM');
   cy.get('#end-time-range-picker').should('have.value', '09:00 PM');
+});
+When(/^Click add available time$/, function() {
+  cy.get('#addAvailableTime').click();
 });

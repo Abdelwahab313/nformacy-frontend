@@ -11,7 +11,7 @@ import AvailableTimesCalendarDialog from '../../components/calendarDialogs/Avail
 const CalendarCard = ({ currentUser }) => {
   const [isCalendarDialogOpen, setIsCalendarDialog] = useState(false);
   const classes = useStyles();
-  const availableDates = !!currentUser.freeDates ? currentUser.freeDates : {};
+  const availableDates = !!currentUser.freeDates ? currentUser.freeDates : [];
   const openCalendarDialog = () => {
     setIsCalendarDialog(true);
   };
@@ -19,19 +19,17 @@ const CalendarCard = ({ currentUser }) => {
   return (
     <Card className={classes.card}>
       <Grid container alignItems={'center'} justify={'center'}>
-        <CalendarView
-          isMinimized
-          availableDates={availableDates}
-        />
+        <CalendarView isMinimized availableDates={availableDates} />
         <Box m={1}>
           <SubmitButton
             id={'open-update-calendar-dialog-btn'}
             buttonText={
-              (<Typography align={'center'} variant="body2">
+              <Typography align={'center'} variant='body2'>
                 Update your Available Times
-              </Typography>)
+              </Typography>
             }
-            onClick={openCalendarDialog}/>
+            onClick={openCalendarDialog}
+          />
         </Box>
       </Grid>
 

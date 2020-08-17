@@ -1,28 +1,32 @@
 import React, { Fragment, useState } from 'react';
 import Box from '@material-ui/core/Box';
-import { KeyboardDatePicker, KeyboardTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import {
+  KeyboardDatePicker,
+  KeyboardTimePicker,
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { Button, Grid } from '@material-ui/core';
 import t from '../../../locales/en/freelancerProfile.json';
 import { makeStyles } from '@material-ui/core/styles';
-import ErrorMessage from '../../errors/ErrorMessage';
-import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
-import classNames from 'clsx';
+import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import SubmitButton from '../../buttons/SubmitButton';
 
-
-const AvailableTimeRangeForm = ({ selectedRange, setSelectedRange, handleDeleteAvailableDay, cancelDateForm, handleAddRangeClicked }) => {
+const AvailableTimeRangeForm = ({
+  selectedRange,
+  setSelectedRange,
+  cancelDateForm,
+  handleAddRangeClicked,
+}) => {
   const classes = useStyles();
   const [errors, setErrors] = useState({ endTime: '' });
   const updateTime = (name, date) => {
-    setSelectedRange(prevState => (
-      {
-        ...prevState,
-        [name]: date,
-      }
-    ));
+    setSelectedRange((prevState) => ({
+      ...prevState,
+      [name]: date,
+    }));
   };
 
   const handleEndTime = (date) => {
@@ -43,10 +47,10 @@ const AvailableTimeRangeForm = ({ selectedRange, setSelectedRange, handleDeleteA
               <KeyboardDatePicker
                 disableToolbar
                 autoOk
-                variant="inline"
-                format="dd/MM/yyyy"
-                margin="normal"
-                id="start-date-range-picker"
+                variant='inline'
+                format='dd/MM/yyyy'
+                margin='normal'
+                id='start-date-range-picker'
                 label={t['startDate']}
                 value={selectedRange.startDate}
                 onChange={(date) => updateTime('startDate', date)}
@@ -59,10 +63,10 @@ const AvailableTimeRangeForm = ({ selectedRange, setSelectedRange, handleDeleteA
               <KeyboardDatePicker
                 disableToolbar
                 autoOk
-                variant="inline"
-                format="dd/MM/yyyy"
-                margin="normal"
-                id="end-date-range-picker"
+                variant='inline'
+                format='dd/MM/yyyy'
+                margin='normal'
+                id='end-date-range-picker'
                 label={t['endDate']}
                 value={selectedRange.endDate}
                 onChange={(date) => updateTime('endDate', date)}
@@ -76,33 +80,37 @@ const AvailableTimeRangeForm = ({ selectedRange, setSelectedRange, handleDeleteA
           <Grid className={classes.pickerRow} container spacing={2}>
             <Grid item xs>
               <KeyboardTimePicker
-                id="start-time-range-picker"
+                id='start-time-range-picker'
                 autoOk
-                variant="inline"
+                variant='inline'
                 minutesStep={5}
-                label="start time"
+                label='Start time'
+                keyboardIcon={<AccessAlarmIcon />}
                 value={selectedRange.startTime}
                 onChange={(date) => updateTime('startTime', date)}
               />
             </Grid>
             <Grid item xs>
               <KeyboardTimePicker
-                id="end-time-range-picker"
+                id='end-time-range-picker'
                 autoOk
-                variant="inline"
+                keyboardIcon={<AccessAlarmIcon />}
+                variant='inline'
                 minutesStep={5}
-                label="end time"
+                label='End time'
                 minDate={selectedRange.startTime}
                 value={selectedRange.endTime}
                 onChange={handleEndTime}
               />
-              {!!errors.endTime && (<Typography
-                variant={'body2'}
-                style={{
-                  color: 'red',
-                }}>
-                {errors.endTime}
-              </Typography>)}
+              {!!errors.endTime && (
+                <Typography
+                  variant={'body2'}
+                  style={{
+                    color: 'red',
+                  }}>
+                  {errors.endTime}
+                </Typography>
+              )}
             </Grid>
           </Grid>
         </MuiPickersUtilsProvider>
@@ -110,16 +118,8 @@ const AvailableTimeRangeForm = ({ selectedRange, setSelectedRange, handleDeleteA
 
       <Grid className={classes.buttonContainer}>
         <Button
-          variant="text"
-          color="primary"
-          size="large"
-          className={classNames(classes.margin, classes.deleteAvailableDayButton)}
-          onClick={handleDeleteAvailableDay}>
-          I am Unavailable
-        </Button>
-        <Button
-          variant="contained"
-          size="large"
+          variant='contained'
+          size='large'
           className={classes.margin}
           onClick={cancelDateForm}>
           Cancel
@@ -127,7 +127,7 @@ const AvailableTimeRangeForm = ({ selectedRange, setSelectedRange, handleDeleteA
         <SubmitButton
           id={'confirm'}
           onClick={handleAddRangeClicked}
-          size="large"
+          size='large'
           className={classes.margin}
           buttonText={t['confirm']}
         />
@@ -135,7 +135,6 @@ const AvailableTimeRangeForm = ({ selectedRange, setSelectedRange, handleDeleteA
     </Fragment>
   );
 };
-
 
 const useStyles = makeStyles((theme) => ({
   pickerRow: {

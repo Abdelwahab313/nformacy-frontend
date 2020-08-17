@@ -88,17 +88,6 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
     }
   };
 
-  const handleDeleteAvailableDay = () => {
-    const updatedAvailableDates = { ...availableDates };
-    const selectedDays = Object.keys(getAddedDate(selectedRange));
-    selectedDays.forEach((formattedDay) => {
-      if (formattedDay in updatedAvailableDates) {
-        delete updatedAvailableDates[formattedDay];
-      }
-    });
-    updateAvailableDays(updatedAvailableDates, cancelDateForm);
-  };
-
   const handleAddRangeClicked = () => {
     const selectedAvailableDays = getAddedDate(selectedRange);
     debugger;
@@ -108,10 +97,11 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
 
   const getAddedDate = (selectedRange) => {
     let { startDate, endDate, startTime, endTime } = selectedRange;
+    debugger;
     const addedDateId =
-      currentUser.freeDates.length === 0
+      availableDates.length === 0
         ? 0
-        : currentUser.freeDates[currentUser.freeDates.length - 1].id;
+        : availableDates[availableDates.length - 1].id + 1;
     startDate = moment(startDate);
     endDate = moment(endDate);
     startTime = moment(startTime);
@@ -146,6 +136,7 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
     }));
   };
   const updateAvailableDays = (updatedAvailableDays, onSuccess) => {
+    debugger;
     setIsLoading(true);
     updateProfile({ freeDates: updatedAvailableDays }, currentUser.id)
       .then((response) => {
@@ -155,7 +146,7 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
           ...adaptDates(response.data.freeDates),
         };
         updateUser(dispatch, userData);
-        setAvailableDates([ ...updatedAvailableDays ]);
+        setAvailableDates([...updatedAvailableDays]);
         onSuccess && onSuccess();
       })
       .finally(() => {
@@ -185,12 +176,13 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
             <Typography variant={'h6'}>{t['updateCalendarTitle']}</Typography>
 
             <Button
+              id={'addAvailableTime'}
               variant='contained'
               color='primary'
               onClick={handleOnBookNowClicked}
               className={classes.timeOption}
               startIcon={<AccessAlarmIcon />}>
-              Add/Update available time
+              Add available time
             </Button>
             {timeSlotVisible && (
               <Button
@@ -222,7 +214,9 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
           <Grid item xs>
             <CalendarView
               onDayClick={handleDayClicked}
+              onUpdateAvailableDays={updateAvailableDays}
               containerStyle={classes.cardBorder}
+              isEditable={true}
               availableDates={availableDates}
             />
             <Box mt={3}>
@@ -242,7 +236,6 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
                 selectedRange={selectedRange}
                 setSelectedRange={setSelectedRange}
                 handleAddRangeClicked={handleAddRangeClicked}
-                handleDeleteAvailableDay={handleDeleteAvailableDay}
                 cancelDateForm={cancelDateForm}
               />
             )}

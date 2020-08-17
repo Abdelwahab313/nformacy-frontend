@@ -14,6 +14,7 @@ Feature: Update Calendar for available times for a freelancer
 
   Scenario: Add available day
     When I click on a free day
+    And Click add available time
     Then I should see on the left of the calendar a field with the start/end date and start/end time fields
     And The start Day and end will both have the same day with the day selected
     When I fill the available time
@@ -63,24 +64,3 @@ Feature: Update Calendar for available times for a freelancer
     And click submit time
     And click on the change time zone button to be Africa/Cairo
     Then I should see the time 03:00 PM and 09:00 PM
-
-
-  Scenario: Add multiple time slots as events
-    When I click on a day
-    Then A plus sign should appear to allow me to add a new time slot as event
-    When I click on the plus sign button
-    Then A dialog for adding time slot should appear.
-    When I select a time
-    And Click save.
-    Then A new event should be added to that day.
-
-  Scenario: Display available days as events instead of background colored cells
-    When I click on a day
-    And Select the time that i am available in
-    Then The time i chose should appear as an event ticked over that day.
-
-  Scenario: Edit form only available after clicking on Book now button.
-    When I click on a day
-    Then Book now button should appear
-    When I click on Book now
-    Then The form for booking should appear.
