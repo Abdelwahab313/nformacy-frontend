@@ -167,3 +167,10 @@ Then(/^I should see the time 03:00 PM and 09:00 PM$/, function() {
 When(/^Click add available time$/, function() {
   cy.get('#addAvailableTime').click();
 });
+When(/^When I click on a day that not available$/, function() {
+  cy.get("#update-calendar-dialog td[data-day='20-08']").click();
+});
+When(/^fill the available date range to be after a week$/, function() {
+  cy.get('#end-date-range-picker').clear();
+  cy.get('#end-date-range-picker').type('27/08/2020');
+});

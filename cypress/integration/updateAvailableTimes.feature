@@ -1,7 +1,7 @@
 Feature: Update Calendar for available times for a freelancer
 
   Background:
-    Given I log in
+    Given I log in as a freelancer
     And I have day selected as available on my calendar
     And visit home page
     And I click on calendar summary cards' button
@@ -21,12 +21,11 @@ Feature: Update Calendar for available times for a freelancer
     And click submit time
     Then I should see the selected day labeled as available day in the calendar
 
-#  @ignore
-#  Scenario: edit available day range
-#    When When I click on a day that not available
-#    And Select edit day to be week after start day
-#    And fill the time range
-#    And click submit time
+  Scenario: edit available day range
+    When When I click on a day that not available
+    And Click add available time
+    And fill the available date range to be after a week
+    And click submit time
 #    Then I should see the selected range of days as available time
 
   Scenario: update available day available time
@@ -38,13 +37,11 @@ Feature: Update Calendar for available times for a freelancer
     And click submit time
     Then I should see the selected day as available day with the updated time
 
-#  @ignore
 #  Scenario: remove the day as not available
 #    When I click on a day that already set as available
 #    And I click the delete this day button
 #    And click submit time
 #    Then I should see the selected day as default view without available time label
-#
 
 #  Scenario: view available days in different time zone
 #    When click on the change time zone button to be Africa/Cairo
