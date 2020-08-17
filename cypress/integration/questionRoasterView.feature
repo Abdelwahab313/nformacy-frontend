@@ -1,8 +1,8 @@
 Feature: Question Roaster View
-  As a user i should be able to see all questions.
+  As a freelancer i should be able to see all questions.
 
   Background:
-    Given I log in
+    Given I log in as a freelancer
     When I go to question roaster
 
   Scenario: view all questions

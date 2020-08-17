@@ -81,7 +81,7 @@ export default function Sidebar(props) {
     </div>
   );
   return (
-    <div>
+    <div id={props.id}>
       <Hidden mdUp implementation="css">
         <Drawer
           variant="temporary"

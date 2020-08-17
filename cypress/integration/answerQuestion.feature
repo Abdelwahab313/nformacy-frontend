@@ -2,7 +2,7 @@ Feature: freelancer answer a question
   as a freelancer i should be able to answer a question
 
   Background:
-    Given I log in
+    Given I log in as a freelancer
     And I go to question roaster
     Then i click on answer button of specific question
 

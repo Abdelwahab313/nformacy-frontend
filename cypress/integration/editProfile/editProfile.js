@@ -2,9 +2,6 @@ import { BASE_URL } from '../../defualtTestValues';
 
 import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
-When(/^I go to profile page$/, function() {
-  cy.visit(BASE_URL + '/user/edit');
-});
 When(/^I fill my updated data$/, function() {
   cy.get('#add-work-experience').click();
   cy.get('#work-experience-title-0').clear();
@@ -32,10 +29,6 @@ When(/^press submit$/, function() {
   cy.get('#saveFieldsOfSpecialization').click();
 
 });
-Then(/^then should see my updated basic info$/, function() {
-  cy.get('#firstNameValue').contains('test first name');
-  cy.get('#linkedInProfileUrlValue').contains('linkedin.com');
-});
 When(/^I Upload an image$/, function() {
   cy.get('.chooseFileButton ').click();
   const profilePicturePath = 'download.png';
@@ -43,9 +36,7 @@ When(/^I Upload an image$/, function() {
 });
 Then(/^I should see the image i uploaded$/, function() {
 });
-When(/^I click on edit basic info$/, function() {
-  cy.get('#editBasicInfo ').click();
-});
+
 Then(/^I should see edit basic info dialog$/, function() {
 
 });
@@ -67,21 +58,6 @@ Then(/^I should see basic info section$/, function() {
 });
 Then(/^I should see personal info section$/, function() {
   cy.get('#personalInfo ');
-});
-When(/^I fill my updated basic Info data$/, function() {
-  cy.get('#editBasicInfoForm').should('be.visible');
-  cy.get('input[name="firstName"]').clear();
-  cy.get('input[name="firstName"]').type('test first name');
-  cy.get('input[name="lastName"]').clear();
-  cy.get('input[name="lastName"]').type('test last name');
-  cy.get('input[name="email"]').clear();
-  cy.get('input[name="email"]').type('test@test.com');
-  cy.get('input[name="linkedInProfileUrl"]').clear();
-  cy.get('input[name="linkedInProfileUrl"]').type('linkedin.com');
-});
-When(/^press save basic info$/, function() {
-  cy.get('#saveBasicInfo').click();
-  cy.get('#editBasicInfoForm').should('not.be.visible');
 });
 When(/^I click on edit personal info$/, function() {
   cy.get('#editPersonalInfo ').click();

@@ -59,6 +59,7 @@ export default function AdminLayout({ ...rest }) {
   return (
     <div className={classes.wrapper}>
       <Sidebar
+        id={'adminSidebar'}
         routes={adminRoutes.filter((route) => (!!route.hasDashboardLink))}
         logoText={'Medad'}
         logo={logo}
