@@ -26,7 +26,9 @@ Feature: Update Calendar for available times for a freelancer
     And Click add available time
     And fill the available date range to be after a week
     And click submit time
-#    Then I should see the selected range of days as available time
+    And click on the free date slot and edit the available date range
+    Then I should see the available date slot range with the updated range
+
 
   Scenario: update available day available time
     When I click on a free day

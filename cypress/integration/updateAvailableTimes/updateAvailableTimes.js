@@ -1,4 +1,4 @@
-import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { createDayAvailableForUser } from '../../helperFunctions';
 
 When(/^I click on calendar summary cards' button$/, function() {
@@ -31,7 +31,7 @@ Then(/^button for close dialog$/, function() {
 
 When(/^I click on a free day$/, function() {
   // should get dynamic day
-  cy.get("#update-calendar-dialog td[data-day='30-08']").click();
+  cy.get('#update-calendar-dialog td[data-day=\'30-08\']').click();
 });
 
 Then(
@@ -74,8 +74,8 @@ Then(
 
 When(/^I click on a day that already set as available$/, function() {
   cy.contains('08:00 - 17:00');
-  cy.get("#update-calendar-dialog [data-date='Tue Aug 04 2020 08:00:00 GMT+0200 (Eastern European Standard Time)']");
-  cy.get("#update-calendar-dialog td[data-day='04-08']").click();
+  cy.get('#update-calendar-dialog [data-date=\'Tue Aug 04 2020 08:00:00 GMT+0200 (Eastern European Standard Time)\']');
+  cy.get('#update-calendar-dialog td[data-day=\'04-08\']').click();
 });
 
 Then(
@@ -103,7 +103,7 @@ When(/^I update the time range$/, function() {
 Then(
   /^I should see the selected day as available day with the updated time$/,
   function() {
-    cy.get("#update-calendar-dialog [data-date='Sun Aug 30 2020 12:00:00 GMT+0200 (Eastern European Standard Time)']");
+    cy.get('#update-calendar-dialog [data-date=\'Sun Aug 30 2020 12:00:00 GMT+0200 (Eastern European Standard Time)\']');
   },
 );
 
@@ -118,7 +118,7 @@ Given(/^I have day selected as available on my calendar$/, function() {
 When(
   /^I click on a day that is already available$/,
   function() {
-    cy.get("#update-calendar-dialog td[data-day='30-08']").click();
+    cy.get('#update-calendar-dialog td[data-day=\'30-08\']').click();
   },
 );
 
@@ -137,7 +137,7 @@ When(/^I change time zone to be America\/New_York$/, function() {
 });
 
 Then(/^I should see the time 06:00 AM and 12:00 PM$/, function() {
-  cy.get("#update-calendar-dialog td[data-day='28-08']")
+  cy.get('#update-calendar-dialog td[data-day=\'28-08\']')
     .should('have.class', 'availableCell')
     .click();
   cy.get('#start-time-range-picker').should('have.value', '06:00 AM');
@@ -158,7 +158,7 @@ When(/^click on the change time zone button to be Africa\/Cairo$/, function() {
 });
 
 Then(/^I should see the time 03:00 PM and 09:00 PM$/, function() {
-  cy.get("#update-calendar-dialog td[data-day='28-08']")
+  cy.get('#update-calendar-dialog td[data-day=\'28-08\']')
     .should('have.class', 'availableCell')
     .click();
   cy.get('#start-time-range-picker').should('have.value', '03:00 PM');
@@ -168,9 +168,21 @@ When(/^Click add available time$/, function() {
   cy.get('#addAvailableTime').click();
 });
 When(/^When I click on a day that not available$/, function() {
-  cy.get("#update-calendar-dialog td[data-day='20-08']").click();
+  cy.get('#update-calendar-dialog td[data-day=\'20-08\']').click();
 });
 When(/^fill the available date range to be after a week$/, function() {
   cy.get('#end-date-range-picker').clear();
   cy.get('#end-date-range-picker').type('27/08/2020');
+});
+Then(/^click on the free date slot and edit the available date range$/, function() {
+  cy.get('#update-calendar-dialog [data-title="08:00 - 17:00"]').first().click();
+  cy.contains('20-27 August');
+  cy.get('#edit-1').click();
+  cy.get('[value="20/08/2020 08:00 AM"]').clear();
+  cy.get('.MuiInputBase-input.MuiFilledInput-input.MuiInputBase-inputHiddenLabel.MuiFilledInput-inputHiddenLabel.MuiInputBase-inputAdornedEnd.MuiFilledInput-inputAdornedEnd').first().type('22/08/2020 08:00 AM');
+  cy.get('.MuiButtonBase-root.MuiButton-root.MuiButton-text.memo-button-238').click();
+});
+Then(/^I should see the available date slot range with the updated range$/, function() {
+  cy.get('#update-calendar-dialog [data-date="Sat Aug 22 2020 08:00:00 GMT+0200 (Eastern European Standard Time)"]').first().click();
+  cy.contains('22-27 August');
 });

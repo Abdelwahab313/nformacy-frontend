@@ -21,6 +21,9 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { withStyles } from '@material-ui/core/styles';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
 import calendarStyles from './calendarStyles';
 import { formatDayAsKey, isSameDate } from '../../services/dateTimeParser';
@@ -78,6 +81,61 @@ const LabelEditor = (props) => {
   }
   return <AppointmentForm.Label {...props} />;
 };
+
+const style = ({ palette }) => ({
+  icon: {
+    color: palette.action.active,
+  },
+  textCenter: {
+    textAlign: 'center',
+  },
+  firstRoom: {
+    background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/Lobby-4.jpg)',
+  },
+  secondRoom: {
+    background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-4.jpg)',
+  },
+  thirdRoom: {
+    background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-0.jpg)',
+  },
+  header: {
+    height: '260px',
+    backgroundSize: 'cover',
+  },
+  commandButton: {
+    backgroundColor: 'rgba(255,255,255,0.65)',
+  },
+});
+
+const Header = withStyles(style, { name: 'Header' })(({
+                                                        children, appointmentData, classes, ...restProps
+                                                      }) => (
+  <AppointmentTooltip.Header
+    {...restProps}
+    appointmentData={appointmentData}
+  >
+    <IconButton
+      /* eslint-disable-next-line no-alert */
+      onClick={() => {
+        restProps.onOpenButtonClick();
+        restProps.onHide();
+      }
+      }
+      className={classes.commandButton}
+      id={`edit-${appointmentData.id}`}
+    >
+      <EditIcon />
+    </IconButton>
+    <IconButton
+      /* eslint-disable-next-line no-alert */
+      onClick={restProps.onDeleteButtonClick}
+      className={classes.commandButton}
+      id={`delete-${appointmentData.id}`}
+    >
+      <DeleteIcon />
+    </IconButton>
+  </AppointmentTooltip.Header>
+));
 
 const TimeTableLayoutBase = ({ classes, ...props }) => (
   <MonthView.TimeTableLayout {...props} className={classes.table} />
@@ -262,7 +320,7 @@ const CalendarView = ({
             <Appointment {...props} isMinimized={isMinimized} />
           )}
           appointmentContentComponent={(props) => (
-            <AppointmentContent {...props} isMinimized={isMinimized} />
+            <AppointmentContent data-date={props.data.startDate} {...props} isMinimized={isMinimized} />
           )}
         />
         <AllDayPanel />
@@ -273,7 +331,7 @@ const CalendarView = ({
         <DateNavigator />
         <TodayButton />
         {isEditable && (
-          <AppointmentTooltip showOpenButton showCloseButton showDeleteButton />
+          <AppointmentTooltip headerComponent={Header} showCloseButton />
         )}
         {!isEditable && <AppointmentTooltip showCloseButton />}
         <AppointmentForm
