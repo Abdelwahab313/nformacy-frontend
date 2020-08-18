@@ -170,11 +170,11 @@ const AppointmentContent = withStyles(calendarStyles, {
 
 const Appointment = withStyles(calendarStyles, {
   name: 'Appointment',
-})(({ classes, isMinimized, data, ...restProps }) => (
+})(({ classes, isMinimized, ...restProps }) => (
   <Appointments.Appointment
     {...restProps}
-    data-title={data?.title}
-    data-date={data?.startDate}
+    data-title={restProps.data?.title}
+    data-date={restProps.data?.startDate}
     className={classNames(classes.appointment, {
       [classes.minimizedAppointment]: isMinimized,
     })}
