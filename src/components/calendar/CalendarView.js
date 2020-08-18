@@ -117,6 +117,7 @@ const Header = withStyles(style, { name: 'Header' })(({
     <IconButton
       /* eslint-disable-next-line no-alert */
       onClick={() => {
+        debugger;
         restProps.onOpenButtonClick();
         restProps.onHide();
       }

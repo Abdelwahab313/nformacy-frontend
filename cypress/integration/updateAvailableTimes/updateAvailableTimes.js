@@ -186,3 +186,9 @@ Then(/^I should see the available date slot range with the updated range$/, func
   cy.get('#update-calendar-dialog [data-date="Sat Aug 22 2020 08:00:00 GMT+0200 (Eastern European Standard Time)"]').first().click();
   cy.contains('22-27 August');
 });
+When(/^I click on a available day$/, function() {
+  cy.get('#update-calendar-dialog [data-date=\'Sun Aug 30 2020 08:00:00 GMT+0200 (Eastern European Standard Time)\']').first().click();
+});
+When(/^I click the delete this day button$/, function() {
+  cy.get('#delete-1').click();
+});

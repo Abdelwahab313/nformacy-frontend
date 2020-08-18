@@ -39,23 +39,12 @@ Feature: Update Calendar for available times for a freelancer
     And click submit time
     Then I should see the selected day as available day with the updated time
 
-#  Scenario: remove the day as not available
-#    When I click on a day that already set as available
-#    And I click the delete this day button
-#    And click submit time
-#    Then I should see the selected day as default view without available time label
-
-#  Scenario: view available days in different time zone
-#    When click on the change time zone button to be Africa/Cairo
-#    When I click on a day that is already available
-#    Then I should see the time 12:00 PM and 06:00 PM
-#    When I change time zone to be America/New_York
-#    Then I should see the time 06:00 AM and 12:00 PM
-#
-#  Scenario: update days in different time zone
-#    When I click on a day that is already available
-#    And I change time zone to be America/New_York
-#    And update the time range to be 09:00 to 15:00
-#    And click submit time
-#    And click on the change time zone button to be Africa/Cairo
-#    Then I should see the time 03:00 PM and 09:00 PM
+  Scenario: remove the day as not available
+    When I click on a free day
+    And Click add available time
+    Then I should see on the left of the calendar a field with the start/end date and start/end time fields
+    And The start Day and end will both have the same day with the day selected
+    When I fill the available time
+    And click submit time
+    When I click on a available day
+    And I click the delete this day button
