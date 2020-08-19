@@ -77,3 +77,13 @@ When(/^i edit question title$/, function() {
 When(/^i click update question$/, function() {
   cy.get('#updateQuestion').click();
 });
+
+When(/^i fill answer content\.$/, function() {
+  cy.get('#richContent_ifr');
+  cy.wait(1000);
+  cy.window()
+    .then(win => {
+      const editor = win.tinymce.editors['richContent'];
+      editor.setContent('<p>Test content</p>');
+    });
+});

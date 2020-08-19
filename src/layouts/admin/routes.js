@@ -31,7 +31,7 @@ import QuestionList from 'pages/Admin/Questions/list/QuestionList';
 import Dashboard from 'pages/Admin/Dashboard/Dashboard';
 import Logout from 'pages/auth/LogoutUser';
 import QuestionDetails from 'pages/Admin/Questions/details/QuestionsDetails';
-import PostQuestion from '../../pages/QuestionRoaster/PostQuestion';
+import PostQuestion from '../../pages/Admin/Questions/PostQuestion';
 
 const adminRoutes = [
   {

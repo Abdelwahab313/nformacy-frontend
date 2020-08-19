@@ -14,7 +14,7 @@ import LoadingCircle from 'components/progress/LoadingCircle';
 import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
 import { approveQuestion } from '../../../../apis/questionsAPI';
 import QuestionForm from '../QuestionForm';
-import { useStyles } from '../../../../styles/questionFormStyles';
+import { useStyles } from '../../../../styles/Admin/questionFormStyles';
 
 
 const QuestionDetails = () => {
@@ -68,7 +68,8 @@ const QuestionDetails = () => {
           <CardHeader color='primary'>
             <h4 className={classes.cardTitleWhite}>Edit Question</h4>
           </CardHeader>
-          <QuestionForm questionDetails={questionDetails} setQuestionDetails={setQuestionDetails} isLoadingForUpdating={isLoadingForUpdating} />
+          <QuestionForm questionDetails={questionDetails} setQuestionDetails={setQuestionDetails}
+                        isLoadingForUpdating={isLoadingForUpdating} isOnEditQuestion={true}/>
           <CardFooter className={classes.footerButtons}>
             <Button
               id={'updateQuestion'}

@@ -1,14 +1,5 @@
 import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
-When(/^i fill answer content\.$/, function() {
-  cy.get('#richContent_ifr');
-  cy.wait(1000);
-  cy.window()
-    .then(win => {
-      const editor = win.tinymce.editors['richContent'];
-      editor.setContent('<p>Test content</p>');
-    });
-});
 When(/^i click on post answer$/, function() {
   cy.get('#submitButton').click();
 });

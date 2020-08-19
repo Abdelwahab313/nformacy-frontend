@@ -14,9 +14,9 @@ import QuestionCountDown from '../../../components/counters/QuestionCountDown';
 import Button from '@material-ui/core/Button';
 import humanizedTimeSpan from '../../../services/humanizedTimeSpan';
 import { uploadImage } from '../../../apis/questionsAPI';
-import { useStyles } from '../../../styles/questionFormStyles';
+import { useStyles } from '../../../styles/Admin/questionFormStyles';
 
-const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdating }) => {
+const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdating, isOnEditQuestion }) => {
 
   const classes = useStyles();
 
@@ -32,7 +32,7 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
   return (
     <CardBody>
       <GridContainer>
-        <GridItem xs={12} sm={12} md={2}>
+        {isOnEditQuestion && <GridItem xs={12} sm={12} md={2}>
           <CustomInput
             labelText='Reference ID'
             id='reference-id'
@@ -45,8 +45,8 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
               disabled: true,
             }}
           />
-        </GridItem>
-        <GridItem xs={12} sm={12} md={7}>
+        </GridItem>}
+        <GridItem xs={12} sm={12} md={isOnEditQuestion? 7 : 12}>
           <CustomInput
             labelText='Title'
             id='title'
@@ -62,7 +62,7 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
             }}
           />
         </GridItem>
-        <GridItem xs={12} sm={12} md={3}>
+        {isOnEditQuestion && <GridItem xs={12} sm={12} md={3}>
           <CustomInput
             labelText='Post Date'
             id='post-date'
@@ -75,7 +75,7 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
               disabled: true,
             }}
           />
-        </GridItem>
+        </GridItem>}
       </GridContainer>
 
       <GridContainer className={classes.inputsRow}>
