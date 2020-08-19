@@ -82,6 +82,7 @@ const AvailableTimeRangeForm = ({
               <KeyboardTimePicker
                 id='start-time-range-picker'
                 autoOk
+                ampm={false}
                 variant='inline'
                 minutesStep={5}
                 label='Start time'
@@ -94,6 +95,7 @@ const AvailableTimeRangeForm = ({
               <KeyboardTimePicker
                 id='end-time-range-picker'
                 autoOk
+                ampm={false}
                 keyboardIcon={<AccessAlarmIcon />}
                 variant='inline'
                 minutesStep={5}

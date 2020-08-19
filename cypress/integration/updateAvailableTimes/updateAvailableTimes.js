@@ -53,8 +53,8 @@ Then(
 );
 
 When(/^I fill the available time$/, function() {
-  cy.get('#start-time-range-picker').should('have.value', '08:00 AM');
-  cy.get('#end-time-range-picker').should('have.value', '05:00 PM');
+  cy.get('#start-time-range-picker').should('have.value', '08:00');
+  cy.get('#end-time-range-picker').should('have.value', '17:00');
 });
 
 When(/^click submit time$/, function() {

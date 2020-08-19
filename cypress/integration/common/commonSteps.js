@@ -1,21 +1,20 @@
 import { Then, Given, When } from 'cypress-cucumber-preprocessor/steps';
-import { signUpAndSetTokens } from '../../helperFunctions';
+import {
+  loginAsAdmin,
+  loginAsAnAdvisor,
+  signUpAndSetTokens,
+} from '../../helperFunctions';
 import faker from 'faker';
 import { BASE_URL } from '../../defualtTestValues';
-
 
 Then(/^then should be redirected to homepage$/, function() {
   cy.get('#header');
 });
 
-
-Given(/^I am a freelancer$/, function() {
-
-});
-
+Given(/^I am a freelancer$/, function() {});
 
 Given(/^i am an admin and Logged in$/, function() {
-  signUpAndSetTokens();
+  loginAsAdmin();
 });
 Given(/^i am in question roaster dashboard\.$/, function() {
   cy.visit(`${BASE_URL}/admin/questions`);
@@ -25,8 +24,7 @@ Given(/^I log in as a freelancer$/, function() {
   cy.wrap(faker.name.findName()).as('updatedFirstName');
 });
 Given(/^I login in as an advisor$/, function() {
-  signUpAndSetTokens('advisor');
-  cy.wrap(faker.name.findName()).as('updatedFirstName');
+  loginAsAnAdvisor();
 });
 
 Given(/^visit home page$/, function() {
@@ -69,25 +67,11 @@ Then(/^then should see my updated basic info$/, function() {
   cy.get('#firstNameValue').contains('test first name');
   cy.get('#linkedInProfileUrlValue').contains('linkedin.com');
 });
-When(/^i chose a question\.$/, function() {
-  cy.get('.MuiTableBody-root')
-    .first()
-    .find('#editSummary')
-    .click();
-});
+
 When(/^i edit question title$/, function() {
   cy.get('#title').clear();
   cy.get('#title').type('updatedTitle');
 });
 When(/^i click update question$/, function() {
   cy.get('#updateQuestion').click();
-});
-Then(/^the edit should be saved successfully$/, function() {
-  cy.visit(`${BASE_URL}/admin/questions`);
-  cy.get('.MuiTableBody-root')
-    .first()
-    .find('[data-testid="MuiDataTableBodyCell-2-0"]').should(
-    'have.text',
-    'updatedTitle',
-  );
 });

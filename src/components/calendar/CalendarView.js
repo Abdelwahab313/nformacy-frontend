@@ -50,6 +50,10 @@ const TextEditor = (props) => {
   return <AppointmentForm.TextEditor {...props} />;
 };
 
+const DateEditor = (props) => {
+  return <AppointmentForm.DateEditor {...props}  ampm={false} />;
+};
+
 const BooleanEditor = (props) => {
   // eslint-disable-next-line react/destructuring-assignment
   const excludeFields = ['All Day', 'Repeat'];
@@ -337,6 +341,7 @@ const CalendarView = ({
         {!isEditable && <AppointmentTooltip showCloseButton />}
         <AppointmentForm
           textEditorComponent={TextEditor}
+          dateEditorComponent={DateEditor}
           booleanEditorComponent={BooleanEditor}
           resourceEditorComponent={ResourceEditor}
           labelComponent={LabelEditor}

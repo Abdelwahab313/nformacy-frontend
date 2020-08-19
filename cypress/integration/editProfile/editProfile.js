@@ -85,14 +85,14 @@ When(/^I click on edit fields of specializations$/, function() {
 When(/^I fill my updated fields of specializations data$/, function() {
   cy.get('#fieldsOfSpecializationDialog').should('be.visible');
   cy.get('#majorFieldsOfExperienceSelect').click();
-  cy.get('#majorFieldsOfExperienceSelect-option-2').click();
+  cy.get('#majorFieldsOfExperienceSelect-option-3').click();
   cy.get('#majorFieldsOfExperienceSelect').click();
   cy.get('#specificFieldsOfExperienceSelect').click();
   cy.get('#specificFieldsOfExperienceSelect-option-2').click();
-  cy.get('#specificFieldsOfExperienceSelect').click();
-  cy.get('#industriesOfExperience').click();
+  cy.get('#fieldsOfSpecializationTitle').click();
+  cy.get('#react-select-2-input').clear();
   cy.get('#react-select-2-option-29').click();
-  cy.get('#assignmentLanguage').click();
+  cy.get('#react-select-3-input').clear();
   cy.get('#react-select-3-option-3').click();
   cy.get('[name="moreThanOneMonth"]').click();
 });

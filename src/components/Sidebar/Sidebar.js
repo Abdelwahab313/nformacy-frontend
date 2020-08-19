@@ -10,23 +10,32 @@ import Hidden from '@material-ui/core/Hidden';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Icon from '@material-ui/core/Icon';
 // core components
 import AdminNavbarLinks from 'components/Header/admin/AdminNavbarLinks.js';
+import { PermissibleRender } from '@brainhubeu/react-permissible';
 
 import styles from 'assets/jss/material-dashboard-react/components/sidebarStyle.js';
+import authManager from '../../services/authManager';
 
 const useStyles = makeStyles(styles);
 
 export default function Sidebar(props) {
   const classes = useStyles();
-
+  const { user } = authManager.retrieveUserToken();
+  const navBarPermissions = user.permissions.map((perm) => perm.split(':')[0]);
+  debugger;
   // verifies if routeName is the one active (in browser input)
   function activeRoute(routeName) {
     return window.location.href.indexOf(routeName) > -1;
   }
 
   const { color, logo, image, logoText, routes } = props;
+  const getSingularName = (string) => {
+    if (string.endsWith('s')) {
+      return string.slice(0, string.length - 1);
+    }
+    return string;
+  };
   let links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
@@ -40,27 +49,31 @@ export default function Sidebar(props) {
           [' ' + classes.whiteFont]: activeRoute(itemPath),
         });
         return (
-          <NavLink
-            to={itemPath}
-            className={classes.item}
-            activeClassName="active"
-            key={key}
-          >
-            <ListItem button className={classes.itemLink + listItemClasses}>
-              <prop.icon
-                className={classNames(classes.itemIcon, whiteFontClasses, {
-                  [classes.itemIconRTL]: props.rtlActive,
-                })}
-              />
-              <ListItemText
-                primary={prop.name}
-                className={classNames(classes.itemText, whiteFontClasses, {
-                  [classes.itemTextRTL]: props.rtlActive,
-                })}
-                disableTypography={true}
-              />
-            </ListItem>
-          </NavLink>
+          <PermissibleRender
+            oneperm={true}
+            userPermissions={navBarPermissions}
+            requiredPermissions={[getSingularName(prop.name), 'all']}>
+            <NavLink
+              to={itemPath}
+              className={classes.item}
+              activeClassName='active'
+              key={key}>
+              <ListItem button className={classes.itemLink + listItemClasses}>
+                <prop.icon
+                  className={classNames(classes.itemIcon, whiteFontClasses, {
+                    [classes.itemIconRTL]: props.rtlActive,
+                  })}
+                />
+                <ListItemText
+                  primary={prop.name}
+                  className={classNames(classes.itemText, whiteFontClasses, {
+                    [classes.itemTextRTL]: props.rtlActive,
+                  })}
+                  disableTypography={true}
+                />
+              </ListItem>
+            </NavLink>
+          </PermissibleRender>
         );
       })}
     </List>
@@ -68,13 +81,12 @@ export default function Sidebar(props) {
   let brand = (
     <div className={classes.logo}>
       <a
-        href=""
+        href=''
         className={classNames(classes.logoLink, {
           [classes.logoLinkRTL]: props.rtlActive,
-        })}
-      >
+        })}>
         <div className={classes.logoImage}>
-          <img src={logo} alt="logo" className={classes.img}/>
+          <img src={logo} alt='logo' className={classes.img} />
         </div>
         {logoText}
       </a>
@@ -82,9 +94,9 @@ export default function Sidebar(props) {
   );
   return (
     <div id={props.id}>
-      <Hidden mdUp implementation="css">
+      <Hidden mdUp implementation='css'>
         <Drawer
-          variant="temporary"
+          variant='temporary'
           anchor={props.rtlActive ? 'left' : 'right'}
           open={props.open}
           classes={{
@@ -95,11 +107,10 @@ export default function Sidebar(props) {
           onClose={props.handleDrawerToggle}
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
-          }}
-        >
+          }}>
           {brand}
           <div className={classes.sidebarWrapper}>
-            <AdminNavbarLinks/>
+            <AdminNavbarLinks />
             {links}
           </div>
           {image !== undefined ? (
@@ -110,17 +121,16 @@ export default function Sidebar(props) {
           ) : null}
         </Drawer>
       </Hidden>
-      <Hidden smDown implementation="css">
+      <Hidden smDown implementation='css'>
         <Drawer
           anchor={props.rtlActive ? 'right' : 'left'}
-          variant="permanent"
+          variant='permanent'
           open
           classes={{
             paper: classNames(classes.drawerPaper, {
               [classes.drawerPaperRTL]: props.rtlActive,
             }),
-          }}
-        >
+          }}>
           {brand}
           <div className={classes.sidebarWrapper}>{links}</div>
           {image !== undefined ? (

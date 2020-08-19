@@ -4,7 +4,7 @@ Feature: Edit Question
   Scenario: Admin edit a question
     Given i am an admin and Logged in
     And i am in question roaster dashboard.
-    When i chose a question.
+    When i chose second question.
     And  i edit question title
     And  i click update question
-    Then the edit should be saved successfully
+    Then the edit should be saved successfull to second question

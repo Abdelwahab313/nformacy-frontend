@@ -22,7 +22,7 @@ function FieldsOfSpecialization() {
     <Container style={sectionContainerStyles}>
       <Grid container alignItems='center'>
         <Grid item xs>
-          <Typography gutterBottom className={classes.sectionHeaderStyles}>
+          <Typography id={'fieldsOfSpecializationTitle'} gutterBottom className={classes.sectionHeaderStyles}>
             {t['fieldsOfSpecialization']}
           </Typography>
         </Grid>
