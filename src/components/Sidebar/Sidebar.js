@@ -23,7 +23,6 @@ export default function Sidebar(props) {
   const classes = useStyles();
   const { user } = authManager.retrieveUserToken();
   const navBarPermissions = user.permissions.map((perm) => perm.split(':')[0]);
-  debugger;
   // verifies if routeName is the one active (in browser input)
   function activeRoute(routeName) {
     return window.location.href.indexOf(routeName) > -1;

@@ -2,7 +2,7 @@ Feature: Admin post question
   as Admin i should be able to post question to the roaster
 
   Background:
-    Given I login in as an advisor
+    Given i am an admin and Logged in
     And I am on the dashboard
 
   Scenario: view all questions

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -8,23 +8,60 @@ import GridItem from '../../../components/Grid/GridItem';
 import CustomInput from '../../../components/CustomInput/CustomInput';
 import MajorFieldSelect from '../../../components/inputs/MajorFieldSelect';
 import SpecificFieldSelect from '../../../components/inputs/SpecificFieldSelect';
-import RichTextEditor from '../../../components/inputs/RichTextEditor';
 import { industries, questionTypesOfAssignment } from '../../../constants/dropDownOptions';
 import QuestionCountDown from '../../../components/counters/QuestionCountDown';
 import Button from '@material-ui/core/Button';
 import humanizedTimeSpan from '../../../services/humanizedTimeSpan';
-import { uploadImage } from '../../../apis/questionsAPI';
 import { useStyles } from '../../../styles/Admin/questionFormStyles';
+import RichTextEditorForm from '../../../components/forms/RichTextEditorForm';
+import { submitQuestion, uploadDocument } from '../../../apis/questionsAPI';
+import { useHistory } from 'react-router';
 
 const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdating, isOnEditQuestion }) => {
 
   const classes = useStyles();
+  const [attachmentFiles, setAttachmentFiles] = useState();
+  const savedQuestion = localStorage.getItem(`question${questionDetails?.id}`);
+  const [content, setContent] = useState(savedQuestion);
+  let history = useHistory();
+  console.log('000000000000000', questionDetails);
+
+  const onUploadAttachment = (attachmentFile) => {
+    setAttachmentFiles(attachmentFile);
+  };
+
+  const uploadAttachmentPromise = () => {
+    return new Promise((resolve) => {
+      if (attachmentFiles?.length > 0) {
+        const file = attachmentFiles[0];
+        const formData = new FormData();
+        formData.append('document', file, attachmentFiles[0].name);
+        uploadDocument(questionDetails.id, formData).then((response) => {
+          resolve(response);
+        });
+      } else {
+        resolve();
+      }
+    });
+
+  };
 
   const onChangeQuestionField = (name, date) => {
     setQuestionDetails((prevState) => ({
       ...prevState,
       [name]: date,
     }));
+  };
+
+  const onSubmitQuestion = () => {
+    console.log('-----------------------------====',questionDetails)
+    Promise.all([
+      submitQuestion({...questionDetails, content}),
+      uploadAttachmentPromise(),
+    ]).then((responses) => {
+      history.push(`/admin/dashboard`);
+      console.log('------ responses', responses);
+    });
   };
 
   console.log('---------------------', questionDetails);
@@ -46,7 +83,7 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
             }}
           />
         </GridItem>}
-        <GridItem xs={12} sm={12} md={isOnEditQuestion? 7 : 12}>
+        <GridItem xs={12} sm={12} md={isOnEditQuestion ? 7 : 12}>
           <CustomInput
             labelText='Title'
             id='title'
@@ -72,7 +109,7 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
             inputProps={{
               value: humanizedTimeSpan(questionDetails.createdAt),
               name: 'createdAt',
-              disabled: true,
+              disabled: false,
             }}
           />
         </GridItem>}
@@ -120,29 +157,6 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
           />
         </GridItem>
       </GridContainer>
-
-      <GridContainer className={classes.inputsRow}>
-        <GridItem xs={12} sm={12} md={12}>
-          <InputLabel className={classes.contentTitle}>
-            Question Content
-          </InputLabel>
-
-          <RichTextEditor
-            initialContent={questionDetails.content}
-            onContentChange={(content) =>
-              onChangeQuestionField('content', content)
-            }
-            onImageUpload={(imageFormData, callback) => {
-              uploadImage(questionDetails.id, imageFormData).then(
-                ({ data }) => {
-                  callback(data['imageUrl']);
-                },
-              );
-            }}
-          />
-        </GridItem>
-      </GridContainer>
-
       <GridContainer className={classes.inputsRow}>
         <GridItem xs={12} sm={12} md={4}>
           <Autocomplete
@@ -177,9 +191,22 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
           sm={12}
           md={4}
           className={classes.countDownContainer}>
-          <QuestionCountDown
-            date={questionDetails.closeDate}
-            id={'questionCountDown'}
+          <CustomInput
+            labelText='Close Date (In Hours)'
+            id='closeDate'
+            formControlProps={{
+              style:{
+                margin: 0
+              },
+              fullWidth: true,
+            }}
+            inputProps={{
+              value: questionDetails.closeDate,
+              name: 'closeDate',
+              onChange: (e) => {
+                onChangeQuestionField('closeDate', e.target.value);
+              },
+            }}
           />
         </GridItem>
         <GridItem
@@ -190,6 +217,21 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
           <Button disabled={isLoadingForUpdating} color='primary'>
             Assign freelancer
           </Button>
+        </GridItem>
+      </GridContainer>
+      <GridContainer className={classes.inputsRow}>
+        <GridItem xs={12} sm={12} md={12}>
+          <InputLabel className={classes.contentTitle}>
+            Question Content
+          </InputLabel>
+          <RichTextEditorForm questionDetails={questionDetails}
+                              onSubmit={onSubmitQuestion}
+                              submitButtonText={'Send to adviser'}
+                              onUploadAttachment={onUploadAttachment}
+                              attachmentFiles={attachmentFiles}
+                              content={content}
+                              setContent={setContent}
+                              savedAnswer={savedQuestion}/>
         </GridItem>
       </GridContainer>
     </CardBody>

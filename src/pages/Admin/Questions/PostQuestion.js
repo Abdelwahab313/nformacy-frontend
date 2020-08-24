@@ -21,10 +21,6 @@ const [questionDetails, setQuestionDetails] = useState([]);
         </div>
         <QuestionForm questionDetails={questionDetails} setQuestionDetails={setQuestionDetails} isLoadingForUpdating={false} isOnEditQuestion={false} />
       </Grid>
-      <Grid item xs={6}/>
-      <Grid item xs={6} className={classes.buttonsContainerStyles}>
-        <SubmitButton buttonText={'Send to Adviser'} disabled={false} id={'send-to-adviser-button'} />
-      </Grid>
     </Grid>
   )
 };

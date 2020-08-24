@@ -47,6 +47,14 @@ export const submitAnswer = (questionId, answer) => {
   }).then((response) => camelizeKeys(response));
 };
 
+export const submitQuestion = (question) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/questions/`,
+    data: decamelizeKeys({ ...question }),
+  }).then((response) => camelizeKeys(response));
+};
+
 export const updateQuestion = (questionId, updatedQuestion) => {
   return axios({
     method: 'put',

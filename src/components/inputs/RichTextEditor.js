@@ -5,7 +5,6 @@ import React from 'react';
 const RichTextEditor = ({ initialContent, onContentChange, onImageUpload }) => {
   const handleEditorChange = (content, _) => {
     !!onContentChange && onContentChange(content);
-    debugger;
   };
   //TODO Handle remove image
   return (<Editor

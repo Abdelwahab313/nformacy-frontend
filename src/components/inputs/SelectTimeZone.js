@@ -26,7 +26,6 @@ const SelectTimeZone = ({ onChange, defaultTimezoneName, ...rest }) => {
       if (!newTimeZone) {
         onChange && onChange(defaultTimezoneName);
         timeZone = options.find((option) => option.value === defaultTimezoneName);
-        debugger;
       } else {
         !!newTimeZone && onChange && onChange(newTimeZone.value);
         timeZone = newTimeZone;

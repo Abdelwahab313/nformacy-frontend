@@ -3,7 +3,7 @@ import { Given, When } from 'cypress-cucumber-preprocessor/steps';
 Given(/^on Post question page$/, function() {
   cy.contains('Post Question').click();
   cy.get('#post-question-page-header').should('have.text', 'Add Question');
-  cy.get('#send-to-adviser-button');
+  // cy.get('#send-to-adviser-button');
 });
 When(/^I fill all the question details$/, function() {
   cy.get('#title').type('test question title');
