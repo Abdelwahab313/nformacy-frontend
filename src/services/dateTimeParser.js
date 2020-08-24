@@ -20,6 +20,7 @@ export const formatDayAsKey = (day) => moment(day).format('YYYYMMDD');
 export const formatTime = (time) => moment(time).format('HH:mm');
 
 export const getTimeAtTimeZone = (formattedTime, timeZone) => moment.utc(formattedTime, 'HH:mm').tz(timeZone).toDate().toLocaleString('en-US', { timeZone: timeZone });
+export const getDateTimeAtTimeZone = (formattedTime, timeZone) => moment.utc(formattedTime).tz(timeZone);
 
 export const convertTimeToUTC = (formattedTime, timeZone) => moment.tz(formattedTime, 'HH:mm', timeZone).utc().format('HH:mm');
 

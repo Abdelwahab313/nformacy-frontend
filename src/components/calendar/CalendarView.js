@@ -51,7 +51,7 @@ const TextEditor = (props) => {
 };
 
 const DateEditor = (props) => {
-  return <AppointmentForm.DateEditor {...props}  ampm={false} />;
+  return <AppointmentForm.DateEditor {...props}  ampm={false} format={'DD/MM/YYYY HH:mm'} />;
 };
 
 const BooleanEditor = (props) => {

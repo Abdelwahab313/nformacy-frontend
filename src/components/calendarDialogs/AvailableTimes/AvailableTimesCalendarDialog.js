@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   Button,
   Dialog,
@@ -20,6 +20,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import moment from 'moment';
 import {
   formatDayAsKey,
+  getDateTimeAtTimeZone,
   getTimeAtTimeZone,
 } from '../../../services/dateTimeParser';
 import { updateProfile } from '../../../apis/userAPI';
@@ -37,24 +38,54 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [timeSlotVisible, setTimeSlotVisible] = useState(false);
   const [bookFormVisible, setBookFormVisible] = useState(false);
+  const defaultTimeZone = useMemo(
+    () => Intl.DateTimeFormat().resolvedOptions().timeZone,
+    [],
+  );
   const [selectedRange, setSelectedRange] = useState({
-    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    timeZone: defaultTimeZone,
     startDate: '',
     endDate: '',
     startTime: '',
     endTime: '',
   });
 
+  function getTimeSlotAtTimeZone(availableDate, timezone) {
+    const startDate = moment(availableDate.startDate);
+    const endDate = moment(availableDate.endDate);
+
+    const convertedStartDateTime = getDateTimeAtTimeZone(startDate, timezone);
+    const convertedEndDateTime = getDateTimeAtTimeZone(endDate, timezone);
+    const startTimeString = convertedStartDateTime.format('HH:mm');
+    const endTimeString = convertedEndDateTime.format('HH:mm');
+
+    return {
+      id: availableDate.id,
+      title: `${startTimeString} - ${endTimeString}`,
+      startDate: new Date(
+        convertedStartDateTime.year(),
+        convertedStartDateTime.month(),
+        convertedStartDateTime.date(),
+        convertedStartDateTime.hour(),
+        convertedStartDateTime.minutes(),
+      ),
+      endDate: new Date(
+        convertedEndDateTime.year(),
+        convertedEndDateTime.month(),
+        convertedEndDateTime.date(),
+        convertedEndDateTime.hour(),
+        convertedEndDateTime.minutes(),
+      ),
+    };
+  }
+
   const onChangeTimeZone = (timezone) => {
-    setSelectedRange((previousLocalState) => ({
-      ...previousLocalState,
-      timeZone: timezone,
-    }));
-    const { startDate } = selectedRange;
-    handleDayClicked({
-      selectedDay: startDate,
-      isAvailableDay: availableDates.hasOwnProperty(formatDayAsKey(startDate)),
-    });
+    if (currentUser.freeDates) {
+      const availableDatesTZ = currentUser.freeDates.map((availableDate) =>
+        getTimeSlotAtTimeZone(availableDate, timezone),
+      );
+      setAvailableDates(availableDatesTZ);
+    }
   };
 
   const handleDayClicked = ({ selectedDay, isAvailableDay }) => {
@@ -217,6 +248,7 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
             />
             <Box mt={3}>
               <SelectTimeZone
+                defaultTimezoneName={defaultTimeZone}
                 timezoneName={selectedRange.timeZone}
                 onChange={onChangeTimeZone}
               />
