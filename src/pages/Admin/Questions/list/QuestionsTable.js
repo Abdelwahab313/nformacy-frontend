@@ -7,7 +7,6 @@ import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import humanizedTimeSpan from 'services/humanizedTimeSpan';
 import { Link } from 'react-router-dom';
 import { RoutesPaths } from 'constants/routesPath';
 
@@ -60,14 +59,14 @@ const columns = [
     },
   },
   {
-    name: 'closeDate',
-    label: 'Close Date',
+    name: 'closeIn',
+    label: 'Close In',
     options: {
       filter: true,
       sort: false,
       customBodyRender: (value) => {
         return (
-          humanizedTimeSpan(value)
+         value
         );
       },
     },
@@ -82,19 +81,6 @@ const columns = [
         return value.map((val, key) => {
           return <Chip style={{ margin: 4 }} label={val.label} key={key.value}/>;
         });
-      },
-    },
-  },
-  {
-    name: 'isApproved',
-    label: 'Is Approved',
-    options: {
-      filter: true,
-      sort: true,
-      customBodyRender: (value) => {
-        return (
-          value.toString()
-        );
       },
     },
   },

@@ -15,4 +15,9 @@ When(/^I fill all the question details$/, function() {
   cy.get('#industry-option-0').click();
   cy.get('#assignmentType').click();
   cy.get('#assignmentType-option-0').click();
+  cy.get('#closeIn').type('13');
+});
+When(/^Press send to adviser$/, function() {
+  cy.get('#submitButton').click();
+  cy.contains('Dashboard');
 });

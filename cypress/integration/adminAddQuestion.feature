@@ -9,5 +9,5 @@ Feature: Admin post question
     Given on Post question page
     When I fill all the question details
     When i fill answer content.
-#    And Press send to adviser
+    And Press send to adviser
 #    Then I should see snackbar with message "Your question is Sent to the adviser"

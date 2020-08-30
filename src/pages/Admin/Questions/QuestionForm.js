@@ -21,7 +21,7 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
 
   const classes = useStyles();
   const [attachmentFiles, setAttachmentFiles] = useState();
-  const savedQuestion = localStorage.getItem(`question${questionDetails?.id}`);
+  const savedQuestion = localStorage.getItem(`question${questionDetails?.id}`) || questionDetails.content;
   const [content, setContent] = useState(savedQuestion);
   let history = useHistory();
   console.log('000000000000000', questionDetails);
@@ -193,7 +193,7 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
           className={classes.countDownContainer}>
           <CustomInput
             labelText='Close Date (In Hours)'
-            id='closeDate'
+            id='closeIn'
             formControlProps={{
               style:{
                 margin: 0
@@ -201,10 +201,10 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
               fullWidth: true,
             }}
             inputProps={{
-              value: questionDetails.closeDate,
-              name: 'closeDate',
+              value: questionDetails.closeIn,
+              name: 'closeIn',
               onChange: (e) => {
-                onChangeQuestionField('closeDate', e.target.value);
+                onChangeQuestionField('closeIn', e.target.value);
               },
             }}
           />

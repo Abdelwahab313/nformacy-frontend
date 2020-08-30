@@ -11,6 +11,7 @@ import { fetchAllQuestions } from '../../../../apis/questionsAPI';
 
 export default function TableList() {
   const { fetchedData: questions } = useFetchData(() => fetchAllQuestions());
+  console.log('7777777777777777777777777777777777', questions)
 
   return (
     <GridContainer>

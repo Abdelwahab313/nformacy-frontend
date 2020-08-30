@@ -14,11 +14,7 @@ export const fetchAllQuestions = () => {
     method: 'get',
     url: `${API_BASE_URL}/questions/all`,
   })
-    .then((response) => camelizeKeys(response))
-    .then((response) => {
-      response.data.sort((a, b) => Number(a.isApproved) - Number(b.isApproved));
-      return response;
-    });
+    .then((response) => camelizeKeys(response));
 };
 
 export const fetchQuestionDetails = (questionId) => {
