@@ -1,4 +1,4 @@
-import { Given, When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
 Given(/^on Post question page$/, function() {
   cy.contains('Post Question').click();
@@ -16,8 +16,12 @@ When(/^I fill all the question details$/, function() {
   cy.get('#assignmentType').click();
   cy.get('#assignmentType-option-0').click();
   cy.get('#closeIn').type('13');
+  cy.get('#reviewAndEditTime').type('10');
 });
 When(/^Press send to adviser$/, function() {
   cy.get('#submitButton').click();
+});
+Then(/^I should see snackbar with message$/, function() {
   cy.contains('Dashboard');
+  cy.contains('Question Sent to Adviser');
 });

@@ -9,7 +9,6 @@ import CustomInput from '../../../components/CustomInput/CustomInput';
 import MajorFieldSelect from '../../../components/inputs/MajorFieldSelect';
 import SpecificFieldSelect from '../../../components/inputs/SpecificFieldSelect';
 import { industries, questionTypesOfAssignment } from '../../../constants/dropDownOptions';
-import QuestionCountDown from '../../../components/counters/QuestionCountDown';
 import Button from '@material-ui/core/Button';
 import humanizedTimeSpan from '../../../services/humanizedTimeSpan';
 import { useStyles } from '../../../styles/Admin/questionFormStyles';
@@ -17,7 +16,7 @@ import RichTextEditorForm from '../../../components/forms/RichTextEditorForm';
 import { submitQuestion, uploadDocument } from '../../../apis/questionsAPI';
 import { useHistory } from 'react-router';
 
-const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdating, isOnEditQuestion }) => {
+const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdating, isOnEditQuestion, setIsSnackbarShown }) => {
 
   const classes = useStyles();
   const [attachmentFiles, setAttachmentFiles] = useState();
@@ -54,14 +53,15 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
   };
 
   const onSubmitQuestion = () => {
-    console.log('-----------------------------====',questionDetails)
+    console.log('-----------------------------====', questionDetails);
     Promise.all([
-      submitQuestion({...questionDetails, content}),
+      submitQuestion({ ...questionDetails, content }),
       uploadAttachmentPromise(),
     ]).then((responses) => {
       history.push(`/admin/dashboard`);
       console.log('------ responses', responses);
     });
+    setIsSnackbarShown(true);
   };
 
   console.log('---------------------', questionDetails);
@@ -189,14 +189,14 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
         <GridItem
           xs={12}
           sm={12}
-          md={4}
+          md={2}
           className={classes.countDownContainer}>
           <CustomInput
-            labelText='Close Date (In Hours)'
+            labelText='Closing Answers (In Hours)'
             id='closeIn'
             formControlProps={{
-              style:{
-                margin: 0
+              style: {
+                margin: 0,
               },
               fullWidth: true,
             }}
@@ -205,6 +205,29 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
               name: 'closeIn',
               onChange: (e) => {
                 onChangeQuestionField('closeIn', e.target.value);
+              },
+            }}
+          />
+        </GridItem>
+        <GridItem
+          xs={12}
+          sm={12}
+          md={2}
+          className={classes.countDownContainer}>
+          <CustomInput
+            labelText='Review and Edit (In Hours)'
+            id='reviewAndEditTime'
+            formControlProps={{
+              style: {
+                margin: 0,
+              },
+              fullWidth: true,
+            }}
+            inputProps={{
+              value: questionDetails.reviewAndEditTime,
+              name: 'reviewAndEditTime',
+              onChange: (e) => {
+                onChangeQuestionField('reviewAndEditTime', e.target.value);
               },
             }}
           />

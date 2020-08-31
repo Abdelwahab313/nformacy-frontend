@@ -27,4 +27,16 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     borderBottom: '1px solid #d2d2d2',
   },
+  fieldLabelStyles: {
+    fontSize: '1.190vw',
+    [theme.breakpoints.up('lg')]: {
+      fontSize: '1.00vw',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2.604vw',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '4vw',
+    },
+  }
 }));

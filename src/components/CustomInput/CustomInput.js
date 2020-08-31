@@ -22,6 +22,7 @@ export default function CustomInput(props) {
     id,
     labelProps,
     inputProps,
+    labelCustomClass,
     error,
     success
   } = props;
@@ -45,7 +46,8 @@ export default function CustomInput(props) {
     >
       {labelText !== undefined ? (
         <InputLabel
-          className={classes.labelRoot + labelClasses}
+          color={'primary'}
+          className={classes.labelRoot + labelClasses + labelCustomClass || ""}
           htmlFor={id}
           {...labelProps}
         >
@@ -53,6 +55,7 @@ export default function CustomInput(props) {
         </InputLabel>
       ) : null}
       <Input
+        color={'primary'}
         classes={{
           root: marginTop,
           disabled: classes.disabled,
