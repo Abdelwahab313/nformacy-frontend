@@ -31,7 +31,7 @@ Then(/^button for close dialog$/, function() {
 
 When(/^I click on a free day$/, function() {
   // should get dynamic day
-  cy.get("#update-calendar-dialog td[data-day='30-08']").click();
+  cy.get("#update-calendar-dialog td[data-day='30-09']").click();
 });
 
 Then(
@@ -47,8 +47,8 @@ Then(
 Then(
   /^The start Day and end will both have the same day with the day selected$/,
   function() {
-    cy.get('#start-date-range-picker').should('have.value', '30/08/2020');
-    cy.get('#end-date-range-picker').should('have.value', '30/08/2020');
+    cy.get('#start-date-range-picker').should('have.value', '30/09/2020');
+    cy.get('#end-date-range-picker').should('have.value', '30/09/2020');
   },
 );
 
@@ -77,7 +77,7 @@ Then(
 When(/^I click on a day that already set as available$/, function() {
   cy.contains('08:00 - 17:00');
   cy.get(
-    "#update-calendar-dialog [data-date='Tue Aug 04 2020 08:00:00 GMT+0200 (Eastern European Standard Time)']",
+    "#update-calendar-dialog [data-date='Tue Sep 04 2020 08:00:00 GMT+0200 (Eastern European Standard Time)']",
   );
   cy.get("#update-calendar-dialog td[data-day='04-08']").click();
 });
@@ -96,19 +96,19 @@ Then(
 );
 
 When(/^I update the time range$/, function() {
-  cy.wrap('12:00 PM').as('updatedStartTime');
-  cy.wrap('06:00 PM').as('updatedEndTime');
+  cy.wrap('12:00').as('updatedStartTime');
+  cy.wrap('18:00').as('updatedEndTime');
   cy.get('#start-time-range-picker').clear();
-  cy.get('#start-time-range-picker').type('12:00 PM');
+  cy.get('#start-time-range-picker').type('12:00');
   cy.get('#end-time-range-picker').clear();
-  cy.get('#end-time-range-picker').type('06:00 PM');
+  cy.get('#end-time-range-picker').type('18:00');
 });
 
 Then(
   /^I should see the selected day as available day with the updated time$/,
   function() {
     cy.get(
-      "#update-calendar-dialog [data-date='Sun Aug 30 2020 12:00:00 GMT+0200 (Eastern European Standard Time)']",
+      "#update-calendar-dialog [data-date='Wed Sep 30 2020 12:00:00 GMT+0200 (Eastern European Standard Time)']",
     );
   },
 );
@@ -116,18 +116,18 @@ Then(
 Given(/^I have day selected as available on my calendar$/, function() {
   createDayAvailableForUser(
     '10:00 : 16:00',
-    '2020-08-28 10:00',
-    '2020-08-28 16:00',
+    '2020-09-28 10:00',
+    '2020-09-28 16:00',
   );
 });
 
 When(/^I click on a day that is already available$/, function() {
-  cy.get("#update-calendar-dialog td[data-day='30-08']").click();
+  cy.get("#update-calendar-dialog td[data-day='30-09']").click();
 });
 
 Then(/^I should see the time 12:00 PM and 06:00 PM$/, function() {
-  cy.get('value=["12:00 PM"]');
-  cy.get('#end-time-range-picker').should('have.value', '06:00 PM');
+  cy.get('value=["12:00"]');
+  cy.get('#end-time-range-picker').should('have.value', '18:00');
 });
 
 When(/^I change time zone to be America\/New_York$/, function() {
@@ -140,11 +140,11 @@ When(/^I change time zone to be America\/New_York$/, function() {
 });
 
 Then(/^I should see the time 06:00 AM and 12:00 PM$/, function() {
-  cy.get("#update-calendar-dialog td[data-day='28-08']")
+  cy.get("#update-calendar-dialog td[data-day='28-09']")
     .should('have.class', 'availableCell')
     .click();
-  cy.get('#start-time-range-picker').should('have.value', '06:00 AM');
-  cy.get('#end-time-range-picker').should('have.value', '12:00 PM');
+  cy.get('#start-time-range-picker').should('have.value', '06:00');
+  cy.get('#end-time-range-picker').should('have.value', '12:00');
 });
 
 When(/^update the time range to be 09:00 to 15:00$/, function() {
@@ -172,11 +172,11 @@ When(/^Click add available time$/, function() {
   cy.get('#addAvailableTime').click();
 });
 When(/^When I click on a day that not available$/, function() {
-  cy.get("#update-calendar-dialog td[data-day='20-08']").click();
+  cy.get("#update-calendar-dialog td[data-day='20-09']").click();
 });
 When(/^fill the available date range to be after a week$/, function() {
   cy.get('#end-date-range-picker').clear();
-  cy.get('#end-date-range-picker').type('27/08/2020');
+  cy.get('#end-date-range-picker').type('27/09/2020');
 });
 Then(
   /^click on the free date slot and edit the available date range$/,
@@ -184,16 +184,16 @@ Then(
     cy.get('#update-calendar-dialog [data-title="08:00 - 17:00"]')
       .first()
       .click();
-    cy.contains('20-27 August');
+    cy.contains('20-27 September');
     cy.get('#edit-1').click();
-    cy.get('[value="20/08/2020 08:00"]').clear();
+    cy.get('[value="20/09/2020 08:00"]').clear();
     cy.get(
       '.MuiInputBase-input.MuiFilledInput-input.MuiInputBase-inputHiddenLabel.MuiFilledInput-inputHiddenLabel.MuiInputBase-inputAdornedEnd.MuiFilledInput-inputAdornedEnd',
     )
       .first()
-      .type('22/08/2020 08:00');
+      .type('22/09/2020 08:00');
     cy.get(
-      '.MuiButtonBase-root.MuiButton-root.MuiButton-text.memo-button-238',
+      '.MuiButtonBase-root.MuiButton-root.MuiButton-text.memo-button-242',
     ).click();
   },
 );
@@ -201,16 +201,16 @@ Then(
   /^I should see the available date slot range with the updated range$/,
   function() {
     cy.get(
-      '#update-calendar-dialog [data-date="Sat Aug 22 2020 08:00:00 GMT+0200 (Eastern European Standard Time)"]',
+      '#update-calendar-dialog [data-date="Tue Sep 22 2020 08:00:00 GMT+0200 (Eastern European Standard Time)"]',
     )
       .first()
       .click();
-    cy.contains('22-27 August');
+    cy.contains('22-27 September');
   },
 );
 When(/^I click on a available day$/, function() {
   cy.get(
-    "#update-calendar-dialog [data-date='Sun Aug 30 2020 08:00:00 GMT+0200 (Eastern European Standard Time)']",
+    "#update-calendar-dialog [data-date='Wed Sep 30 2020 08:00:00 GMT+0200 (Eastern European Standard Time)']",
   )
     .first()
     .click();
@@ -224,10 +224,10 @@ When(/^time zone is selected to be Africa\/cairo \+02:00$/, function() {
 When(
   /^I have an event that is already available with hours 08:00 and 17:00$/,
   function() {
-    cy.get("#update-calendar-dialog td[data-day='30-08']").click();
+    cy.get("#update-calendar-dialog td[data-day='30-09']").click();
     cy.get('#addAvailableTime').click();
-    cy.get('#start-date-range-picker').type('22/08/2020');
-    cy.get('#end-date-range-picker').type('22/08/2020');
+    cy.get('#start-date-range-picker').type('22/09/2020');
+    cy.get('#end-date-range-picker').type('22/09/2020');
     cy.get('#confirm').click();
     cy.wait(500);
     cy.get('#update-calendar-dialog [data-title="08:00 - 17:00"]')
@@ -256,10 +256,10 @@ When(/^I change time zone to be Pacific\/Chatham$/, function() {
     'Pacific/Chatham (GMT+12:45)',
   );
 });
-Then(/^I should see the time of that event to be changed to 18:45 and 03:45 30-08 31-08$/, function() {
+Then(/^I should see the time of that event to be changed to 18:45 and 03:45 30-09 31-09$/, function() {
 
   cy.get('#update-calendar-dialog [data-title="18:45 - 03:45"]')
     .first()
     .click();
-  cy.contains('30-31 August');
+  cy.contains('30-31 September');
 });

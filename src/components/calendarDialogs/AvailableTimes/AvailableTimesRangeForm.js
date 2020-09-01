@@ -1,10 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import Box from '@material-ui/core/Box';
-import {
-  KeyboardDatePicker,
-  KeyboardTimePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
+import { KeyboardDatePicker, KeyboardTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { Button, Grid } from '@material-ui/core';
 import t from '../../../locales/en/freelancerProfile.json';
@@ -13,13 +9,14 @@ import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import SubmitButton from '../../buttons/SubmitButton';
+import TextField from '@material-ui/core/TextField';
 
 const AvailableTimeRangeForm = ({
-  selectedRange,
-  setSelectedRange,
-  cancelDateForm,
-  handleAddRangeClicked,
-}) => {
+                                  selectedRange,
+                                  setSelectedRange,
+                                  cancelDateForm,
+                                  handleAddRangeClicked,
+                                }) => {
   const classes = useStyles();
   const [errors, setErrors] = useState({ endTime: '' });
   const updateTime = (name, date) => {
@@ -31,13 +28,15 @@ const AvailableTimeRangeForm = ({
 
   const handleEndTime = (date) => {
     setErrors({ endTime: '' });
-    const isValidEndTime = moment(selectedRange.startTime).isBefore(date);
+    debugger;
+    const isValidEndTime = selectedRange.startTime.isBefore(date);
     if (isValidEndTime) {
       updateTime('endTime', date);
     } else {
       setErrors({ endTime: 'End time should be after start time' });
     }
   };
+  console.log('666666', selectedRange);
   return (
     <Fragment>
       <Box>
@@ -79,31 +78,47 @@ const AvailableTimeRangeForm = ({
           </Grid>
           <Grid className={classes.pickerRow} container spacing={2}>
             <Grid item xs>
-              <KeyboardTimePicker
-                id='start-time-range-picker'
-                autoOk
-                ampm={false}
-                variant='inline'
-                minutesStep={5}
-                label='Start time'
-                keyboardIcon={<AccessAlarmIcon />}
-                value={selectedRange.startTime}
-                onChange={(date) => updateTime('startTime', date)}
-              />
+              <form className={classes.container}>
+                <TextField
+                  id="start-time-range-picker"
+                  label='Start time'
+                  type="time"
+                  defaultValue={moment(selectedRange?.startTime).format('HH:mm')}
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  inputProps={{
+                    step: 300, // 5 min
+                  }}
+                  onChange={(e) => {
+                    const time = new moment(e.target.value, 'HH:mm');
+                    updateTime('startTime', time);
+                  }}
+                />
+              </form>
             </Grid>
             <Grid item xs>
-              <KeyboardTimePicker
-                id='end-time-range-picker'
-                autoOk
-                ampm={false}
-                keyboardIcon={<AccessAlarmIcon />}
-                variant='inline'
-                minutesStep={5}
-                label='End time'
-                minDate={selectedRange.startTime}
-                value={selectedRange.endTime}
-                onChange={handleEndTime}
-              />
+              <form className={classes.container}>
+                <TextField
+                  id="end-time-range-picker"
+                  label='End time'
+                  type="time"
+                  defaultValue={moment(selectedRange?.endTime).format('HH:mm')}
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  inputProps={{
+                    step: 300, // 5 min
+                  }}
+                  onChange={(e)=> {
+                    const time = new moment(e.target.value, 'HH:mm');
+                    console.log('888888888', time);
+                    handleEndTime(time)
+                  }}
+                />
+              </form>
               {!!errors.endTime && (
                 <Typography
                   variant={'body2'}
@@ -152,6 +167,15 @@ const useStyles = makeStyles((theme) => ({
   },
   margin: {
     margin: theme.spacing(1),
+  },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
   },
 }));
 

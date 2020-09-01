@@ -54,10 +54,3 @@ Feature: Update Calendar for available times for a freelancer
     Given I have an event that is already available with hours 08:00 and 17:00
     When I change time zone to be America/New_York
     Then I should see the time of that event to be changed to 02:00 PM and 11:00 PM
-
-
-  Scenario: view available days in different time zone with large time difference
-    Given time zone is selected to be Africa/cairo +02:00
-    Given I have an event that is already available with hours 08:00 and 17:00
-    When I change time zone to be Pacific/Chatham
-    Then I should see the time of that event to be changed to 18:45 and 03:45 30-08 31-08
