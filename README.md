@@ -19,6 +19,27 @@ run command
 
 `$docker run -v ${PWD}:/app -v /app/node_modules -p 80:3000 --rm dashboard:dev`
 
+## Deployment
+
+
+* `ssh root@68.183.110.10`
+
+###### Backend
+* `cd Application/medad-backend`
+* `git pull`
+* `make destroy`
+* `make build-no-cache`
+* `make up-detach`
+* `make db-refresh`
+
+###### Frontend
+* `cd Application/medad-frontend`
+* `git pull`
+* `docker stop dashboard`
+* `make deploy-prod`
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
