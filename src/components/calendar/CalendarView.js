@@ -29,6 +29,9 @@ import calendarStyles from './calendarStyles';
 import { formatDayAsKey, isSameDate } from '../../services/dateTimeParser';
 import { AppointmentColors, pink } from '../../styles/colors';
 import moment from 'moment';
+import DatePicker  from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+import TextField from '@material-ui/core/TextField';
 
 const DayScaleCell = (props) => (
   <MonthView.DayScaleCell
@@ -51,7 +54,15 @@ const TextEditor = (props) => {
 };
 
 const DateEditor = (props) => {
-  return <AppointmentForm.DateEditor {...props}  ampm={false} format={'DD/MM/YYYY HH:mm'} />;
+  return <DatePicker
+    selected={new Date(props.value)}
+    onChange={props.onValueChange}
+    showTimeSelect
+    timeFormat="HH:mm"
+    dateFormat='yyyy-MM-dd HH:mm'
+    customInput={<TextField variant='outlined'/>}
+    timeIntervals={15}
+  />;
 };
 
 const BooleanEditor = (props) => {

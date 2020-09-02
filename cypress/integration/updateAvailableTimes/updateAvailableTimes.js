@@ -186,12 +186,12 @@ Then(
       .click();
     cy.contains('20-27 September');
     cy.get('#edit-1').click();
-    cy.get('[value="20/09/2020 08:00"]').clear();
+    cy.get('[value="2020-09-20 08:00"]').clear();
     cy.get(
-      '.MuiInputBase-input.MuiFilledInput-input.MuiInputBase-inputHiddenLabel.MuiFilledInput-inputHiddenLabel.MuiInputBase-inputAdornedEnd.MuiFilledInput-inputAdornedEnd',
+      '.MuiInputBase-input.MuiOutlinedInput-input',
     )
       .first()
-      .type('22/09/2020 08:00');
+      .type('2020-09-22 08:00');
     cy.get(
       '.MuiButtonBase-root.MuiButton-root.MuiButton-text.memo-button-242',
     ).click();
@@ -200,6 +200,7 @@ Then(
 Then(
   /^I should see the available date slot range with the updated range$/,
   function() {
+    // cy.wait(500);
     cy.get(
       '#update-calendar-dialog [data-date="Tue Sep 22 2020 08:00:00 GMT+0200 (Eastern European Standard Time)"]',
     )
