@@ -32,12 +32,14 @@ const QuestionDetails = () => {
 
   useEffect(() => {
     console.log(isLoading);
-    setQuestionDetails(fetchedQuestion);
+    if (!!fetchedQuestion && !!fetchedQuestion.id) {
+      setQuestionDetails(fetchedQuestion);
+    }
   }, [fetchedQuestion]);
 
 
   if (isLoading) {
-    return <LoadingCircle/>;
+    return <LoadingCircle />;
   }
 
   const onUpdateQuestionClicked = () => {
@@ -68,8 +70,13 @@ const QuestionDetails = () => {
           <CardHeader color='primary'>
             <h4 className={classes.cardTitleWhite}>Edit Question</h4>
           </CardHeader>
-          <QuestionForm questionDetails={questionDetails} setQuestionDetails={setQuestionDetails}
-                        isLoadingForUpdating={isLoadingForUpdating} isOnEditQuestion={true}/>
+          <QuestionForm
+            questionDetails={questionDetails}
+            setQuestionDetails={setQuestionDetails}
+            isLoadingForUpdating={isLoadingForUpdating}
+            isOnEditQuestion={true}
+            setIsSnackbarShown={setIsSnackbarShown}
+             />
           <CardFooter className={classes.footerButtons}>
             <Button
               id={'updateQuestion'}

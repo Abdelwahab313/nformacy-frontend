@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -17,37 +17,63 @@ import Button from '@material-ui/core/Button';
 import humanizedTimeSpan from '../../../services/humanizedTimeSpan';
 import { useStyles } from '../../../styles/Admin/questionFormStyles';
 import RichTextEditorForm from '../../../components/forms/RichTextEditorForm';
-import { submitQuestion, uploadDocument } from '../../../apis/questionsAPI';
+import {
+  submitQuestion,
+  uploadQuestionDocument,
+} from '../../../apis/questionsAPI';
 import { useHistory } from 'react-router';
+
+import { Grid } from '@material-ui/core';
+import { useStyles as useRoasterStyle } from '../../../styles/questionRoasterStyles';
+import t from '../../../locales/en/questionRoaster.json';
+import SubmitButton from '../../../components/buttons/SubmitButton';
+import AttachmentUploader from '../../../components/forms/AttachmentUploader';
 import DropdownSelectField from 'components/CustomInput/DropdownSelectField';
 
 const QuestionForm = ({
-  questionDetails,
-  setQuestionDetails,
   isLoadingForUpdating,
   isOnEditQuestion,
-  setIsSnackbarShown,
+  questionDetails,
+  setQuestionDetails,
+  setIsSnackbarShown
 }) => {
   const classes = useStyles();
-  const [attachmentFiles, setAttachmentFiles] = useState();
-  const savedQuestion =
-    localStorage.getItem(`question${questionDetails?.id}`) ||
-    questionDetails.content;
-  const [content, setContent] = useState(savedQuestion);
+  const questionRoasterClasses = useRoasterStyle();
+  const [attachmentFiles, setAttachmentFiles] = useState([]);
+  const [content, setContent] = useState(
+    questionDetails ? questionDetails.content : '',
+  );
+
   let history = useHistory();
-  console.log('000000000000000', questionDetails);
+  const mediaId = useRef(questionDetails?.mediaId);
+
+  const saveAndCompleteLater = (mediaId) => {
+    const questionToBeSaved = JSON.stringify({
+      ...questionDetails,
+      content,
+      mediaId,
+    });
+    localStorage.setItem(`newQuestion`, questionToBeSaved);
+  };
 
   const onUploadAttachment = (attachmentFile) => {
     setAttachmentFiles(attachmentFile);
   };
 
-  const uploadAttachmentPromise = () => {
+  const onDeleteAttachment = (attachmentIndex) => {
+    const newAttachments = [...attachmentFiles];
+    newAttachments.splice(attachmentIndex, 1);
+    setAttachmentFiles(newAttachments);
+  };
+
+  const uploadAttachmentPromise = (questionId) => {
     return new Promise((resolve) => {
       if (attachmentFiles?.length > 0) {
-        const file = attachmentFiles[0];
         const formData = new FormData();
-        formData.append('document', file, attachmentFiles[0].name);
-        uploadDocument(questionDetails.id, formData).then((response) => {
+        for (const file of attachmentFiles) {
+          formData.append('document[]', file, file.name);
+        }
+        uploadQuestionDocument(questionId, formData).then((response) => {
           resolve(response);
         });
       } else {
@@ -56,26 +82,27 @@ const QuestionForm = ({
     });
   };
 
-  const onChangeQuestionField = (name, date) => {
+  const onChangeQuestionField = (name, data) => {
+    console.log("question details", name, data)
     setQuestionDetails((prevState) => ({
       ...prevState,
-      [name]: date,
+      [name]: data,
     }));
   };
 
   const onSubmitQuestion = () => {
-    console.log('-----------------------------====', questionDetails);
-    Promise.all([
-      submitQuestion({ ...questionDetails, content }),
-      uploadAttachmentPromise(),
-    ]).then((responses) => {
-      history.push(`/admin/dashboard`);
-      console.log('------ responses', responses);
-    });
+    console.log("Submitted question", questionDetails)
+    submitQuestion({ ...questionDetails, content, media_id: mediaId.current })
+      .then(({ data }) => {
+        if (data.id) {
+          uploadAttachmentPromise(data.id);
+        }
+      })
+      .then((response) => {
+        history.push(`/admin/dashboard`);
+      });
     setIsSnackbarShown(true);
   };
-
-  console.log('---------------------', questionDetails);
 
   return (
     <CardBody>
@@ -183,8 +210,8 @@ const QuestionForm = ({
             labelText='Closing Answers (In Hours)'
             id='closeIn'
             formControlProps={{
-              style: {
-                margin: 0,
+              style:{
+                margin: 0
               },
               fullWidth: true,
             }}
@@ -243,16 +270,51 @@ const QuestionForm = ({
           <InputLabel className={classes.contentTitle}>
             Question Content
           </InputLabel>
-          <RichTextEditorForm
-            questionDetails={questionDetails}
-            onSubmit={onSubmitQuestion}
-            submitButtonText={'Send to adviser'}
-            onUploadAttachment={onUploadAttachment}
-            attachmentFiles={attachmentFiles}
-            content={content}
-            setContent={setContent}
-            savedAnswer={savedQuestion}
-          />
+          <Grid container className={questionRoasterClasses.questionContainer}>
+            <Grid item xs={12}>
+              <RichTextEditorForm
+                initialContent={content}
+                onContentUpdate={setContent}
+                mediaId={mediaId}
+              />
+            </Grid>
+            <Grid
+              item
+              xs={6}
+              style={{ justifyContent: 'flex-start' }}
+              className={questionRoasterClasses.answerButtonsContainer}>
+              <AttachmentUploader
+                containerClassName={
+                  questionRoasterClasses.attachmentUploaderContainer
+                }
+                attachmentFiles={attachmentFiles}
+                onUploadAttachment={onUploadAttachment}
+                onDeleteAttachment={onDeleteAttachment}
+              />
+            </Grid>
+            <Grid
+              item
+              xs={6}
+              style={{ justifyContent: 'flex-end' }}
+              className={questionRoasterClasses.answerButtonsContainer}>
+              <Button
+                variant='contained'
+                size='medium'
+                onClick={() => saveAndCompleteLater(mediaId.current)}
+                style={{
+                  marginRight: '10px',
+                  height: '36px',
+                  alignSelf: 'center',
+                }}>
+                {t['saveAndCompleteLater']}
+              </Button>
+              <SubmitButton
+                onClick={onSubmitQuestion}
+                buttonText={'Send to advisor'}
+                disabled={false}
+              />
+            </Grid>
+          </Grid>
         </GridItem>
       </GridContainer>
     </CardBody>

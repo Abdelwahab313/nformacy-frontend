@@ -28,7 +28,7 @@ export const uploadImage = (questionId, image) => {
   return axios({
     method: 'post',
     data: image,
-    url: `${API_BASE_URL}/questions/${questionId}/upload_image`,
+    url: `${API_BASE_URL}/rich_text_media/upload_image`,
     headers: {
       accept: 'application/json',
     },
@@ -66,11 +66,22 @@ export const approveQuestion = (questionId) => {
   }).then((response) => camelizeKeys(response));
 };
 
-export const uploadDocument = (questionId, document) => {
+export const uploadQuestionDocument = (questionId, document) => {
   return axios({
     method: 'post',
     data: document,
     url: `${API_BASE_URL}/questions/${questionId}/upload_document`,
+    headers: {
+      accept: 'application/json',
+    },
+  }).then((response) => camelizeKeys(response));
+};
+
+export const uploadAnswerDocument = (answerId, document) => {
+  return axios({
+    method: 'post',
+    data: document,
+    url: `${API_BASE_URL}/questions/answer/${answerId}/upload_document`,
     headers: {
       accept: 'application/json',
     },
