@@ -1,6 +1,10 @@
 import React, { Fragment, useState } from 'react';
 import Box from '@material-ui/core/Box';
-import { KeyboardDatePicker, KeyboardTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import {
+  KeyboardDatePicker,
+  KeyboardTimePicker,
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { Button, Grid } from '@material-ui/core';
 import t from '../../../locales/en/freelancerProfile.json';
@@ -12,11 +16,11 @@ import SubmitButton from '../../buttons/SubmitButton';
 import TextField from '@material-ui/core/TextField';
 
 const AvailableTimeRangeForm = ({
-                                  selectedRange,
-                                  setSelectedRange,
-                                  cancelDateForm,
-                                  handleAddRangeClicked,
-                                }) => {
+  selectedRange,
+  setSelectedRange,
+  cancelDateForm,
+  handleAddRangeClicked,
+}) => {
   const classes = useStyles();
   const [errors, setErrors] = useState({ endTime: '' });
   const updateTime = (name, date) => {
@@ -80,10 +84,12 @@ const AvailableTimeRangeForm = ({
             <Grid item xs>
               <form className={classes.container}>
                 <TextField
-                  id="start-time-range-picker"
+                  id='start-time-range-picker'
                   label='Start time'
-                  type="time"
-                  defaultValue={moment(selectedRange?.startTime).format('HH:mm')}
+                  type='time'
+                  defaultValue={moment(selectedRange?.startTime).format(
+                    'HH:mm',
+                  )}
                   className={classes.textField}
                   InputLabelProps={{
                     shrink: true,
@@ -101,9 +107,9 @@ const AvailableTimeRangeForm = ({
             <Grid item xs>
               <form className={classes.container}>
                 <TextField
-                  id="end-time-range-picker"
+                  id='end-time-range-picker'
                   label='End time'
-                  type="time"
+                  type='time'
                   defaultValue={moment(selectedRange?.endTime).format('HH:mm')}
                   className={classes.textField}
                   InputLabelProps={{
@@ -112,10 +118,10 @@ const AvailableTimeRangeForm = ({
                   inputProps={{
                     step: 300, // 5 min
                   }}
-                  onChange={(e)=> {
+                  onChange={(e) => {
                     const time = new moment(e.target.value, 'HH:mm');
                     console.log('888888888', time);
-                    handleEndTime(time)
+                    handleEndTime(time);
                   }}
                 />
               </form>

@@ -8,19 +8,31 @@ import GridItem from '../../../components/Grid/GridItem';
 import CustomInput from '../../../components/CustomInput/CustomInput';
 import MajorFieldSelect from '../../../components/inputs/MajorFieldSelect';
 import SpecificFieldSelect from '../../../components/inputs/SpecificFieldSelect';
-import { industries, questionTypesOfAssignment } from '../../../constants/dropDownOptions';
+import {
+  industries,
+  questionTypesOfAssignment,
+  advisersList,
+} from '../../../constants/dropDownOptions';
 import Button from '@material-ui/core/Button';
 import humanizedTimeSpan from '../../../services/humanizedTimeSpan';
 import { useStyles } from '../../../styles/Admin/questionFormStyles';
 import RichTextEditorForm from '../../../components/forms/RichTextEditorForm';
 import { submitQuestion, uploadDocument } from '../../../apis/questionsAPI';
 import { useHistory } from 'react-router';
+import DropdownSelectField from 'components/CustomInput/DropdownSelectField';
 
-const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdating, isOnEditQuestion, setIsSnackbarShown }) => {
-
+const QuestionForm = ({
+  questionDetails,
+  setQuestionDetails,
+  isLoadingForUpdating,
+  isOnEditQuestion,
+  setIsSnackbarShown,
+}) => {
   const classes = useStyles();
   const [attachmentFiles, setAttachmentFiles] = useState();
-  const savedQuestion = localStorage.getItem(`question${questionDetails?.id}`) || questionDetails.content;
+  const savedQuestion =
+    localStorage.getItem(`question${questionDetails?.id}`) ||
+    questionDetails.content;
   const [content, setContent] = useState(savedQuestion);
   let history = useHistory();
   console.log('000000000000000', questionDetails);
@@ -42,7 +54,6 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
         resolve();
       }
     });
-
   };
 
   const onChangeQuestionField = (name, date) => {
@@ -69,20 +80,22 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
   return (
     <CardBody>
       <GridContainer>
-        {isOnEditQuestion && <GridItem xs={12} sm={12} md={2}>
-          <CustomInput
-            labelText='Reference ID'
-            id='reference-id'
-            formControlProps={{
-              fullWidth: true,
-            }}
-            inputProps={{
-              value: questionDetails.referenceNumber,
-              name: 'referenceNumber',
-              disabled: true,
-            }}
-          />
-        </GridItem>}
+        {isOnEditQuestion && (
+          <GridItem xs={12} sm={12} md={2}>
+            <CustomInput
+              labelText='Reference ID'
+              id='reference-id'
+              formControlProps={{
+                fullWidth: true,
+              }}
+              inputProps={{
+                value: questionDetails.referenceNumber,
+                name: 'referenceNumber',
+                disabled: true,
+              }}
+            />
+          </GridItem>
+        )}
         <GridItem xs={12} sm={12} md={isOnEditQuestion ? 7 : 12}>
           <CustomInput
             labelText='Title'
@@ -99,20 +112,22 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
             }}
           />
         </GridItem>
-        {isOnEditQuestion && <GridItem xs={12} sm={12} md={3}>
-          <CustomInput
-            labelText='Post Date'
-            id='post-date'
-            formControlProps={{
-              fullWidth: true,
-            }}
-            inputProps={{
-              value: humanizedTimeSpan(questionDetails.createdAt),
-              name: 'createdAt',
-              disabled: false,
-            }}
-          />
-        </GridItem>}
+        {isOnEditQuestion && (
+          <GridItem xs={12} sm={12} md={3}>
+            <CustomInput
+              labelText='Post Date'
+              id='post-date'
+              formControlProps={{
+                fullWidth: true,
+              }}
+              inputProps={{
+                value: humanizedTimeSpan(questionDetails.createdAt),
+                name: 'createdAt',
+                disabled: false,
+              }}
+            />
+          </GridItem>
+        )}
       </GridContainer>
 
       <GridContainer className={classes.inputsRow}>
@@ -134,63 +149,36 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
           />
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
-          <Autocomplete
-            id='industry'
-            name='industry'
-            options={industries}
-            value={questionDetails.industry}
-            getOptionLabel={(option) => option.label}
-            getOptionSelected={(option, value) => {
-              return option.value === value.value;
-            }}
-            onChange={(e, option) =>
+          <DropdownSelectField
+            fieldId='industry'
+            fieldName='industry'
+            fieldOptions={industries}
+            fieldValue={questionDetails.industry}
+            onFieldChange={(e, option) =>
               onChangeQuestionField('industry', option)
             }
-            blurOnSelect
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                variant='outlined'
-                label='Industry'
-              />
-            )}
+            fieldLabel='Industry'
           />
         </GridItem>
       </GridContainer>
       <GridContainer className={classes.inputsRow}>
         <GridItem xs={12} sm={12} md={4}>
-          <Autocomplete
-            id='assignmentType'
-            name='assignmentType'
-            options={questionTypesOfAssignment}
-            value={
+          <DropdownSelectField
+            fieldId='assignmentType'
+            fieldName='AssignmentType'
+            fieldOptions={questionTypesOfAssignment}
+            fieldValue={
               questionTypesOfAssignment.filter(
-                (option) =>
-                  questionDetails.assignmentType === option.value,
+                (option) => questionDetails.assignmentType === option.value,
               )[0]
             }
-            getOptionLabel={(option) => option.label}
-            getOptionSelected={(option, value) => {
-              return option.value === value.value;
-            }}
-            onChange={(e, option) =>
+            onFieldChange={(e, option) =>
               onChangeQuestionField('assignmentType', option.value)
             }
-            blurOnSelect
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                variant='outlined'
-                label='Type of Assignment'
-              />
-            )}
+            fieldLabel='Type of Assignment'
           />
         </GridItem>
-        <GridItem
-          xs={12}
-          sm={12}
-          md={2}
-          className={classes.countDownContainer}>
+        <GridItem xs={12} sm={12} md={2} className={classes.countDownContainer}>
           <CustomInput
             labelText='Closing Answers (In Hours)'
             id='closeIn'
@@ -209,11 +197,7 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
             }}
           />
         </GridItem>
-        <GridItem
-          xs={12}
-          sm={12}
-          md={2}
-          className={classes.countDownContainer}>
+        <GridItem xs={12} sm={12} md={2} className={classes.countDownContainer}>
           <CustomInput
             labelText='Review and Edit (In Hours)'
             id='reviewAndEditTime'
@@ -232,14 +216,26 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
             }}
           />
         </GridItem>
-        <GridItem
-          xs={12}
-          sm={12}
-          md={4}
-          className={classes.countDownContainer}>
-          <Button disabled={isLoadingForUpdating} color='primary'>
-            Assign freelancer
-          </Button>
+        <GridItem xs={12} sm={12} md={4}>
+          <DropdownSelectField
+            fieldId='assignAdviser'
+            fieldName='AssignAdviser'
+            fieldOptions={advisersList}
+            fieldValue={
+              advisersList[0]
+              // advisersList.filter(
+              //   (option) => questionDetails.assignmentType === option.value,
+              // )[0]
+            }
+            onFieldChange={
+              () => {
+                console.log('hi from dropdown');
+              }
+              // (e, option) =>
+              // onChangeQuestionField('assignmentType', option.value)
+            }
+            fieldLabel='Assign Adviser'
+          />
         </GridItem>
       </GridContainer>
       <GridContainer className={classes.inputsRow}>
@@ -247,14 +243,16 @@ const QuestionForm = ({ questionDetails, setQuestionDetails, isLoadingForUpdatin
           <InputLabel className={classes.contentTitle}>
             Question Content
           </InputLabel>
-          <RichTextEditorForm questionDetails={questionDetails}
-                              onSubmit={onSubmitQuestion}
-                              submitButtonText={'Send to adviser'}
-                              onUploadAttachment={onUploadAttachment}
-                              attachmentFiles={attachmentFiles}
-                              content={content}
-                              setContent={setContent}
-                              savedAnswer={savedQuestion}/>
+          <RichTextEditorForm
+            questionDetails={questionDetails}
+            onSubmit={onSubmitQuestion}
+            submitButtonText={'Send to adviser'}
+            onUploadAttachment={onUploadAttachment}
+            attachmentFiles={attachmentFiles}
+            content={content}
+            setContent={setContent}
+            savedAnswer={savedQuestion}
+          />
         </GridItem>
       </GridContainer>
     </CardBody>

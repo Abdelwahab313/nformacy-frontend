@@ -17,6 +17,8 @@ When(/^I fill all the question details$/, function() {
   cy.get('#assignmentType-option-0').click();
   cy.get('#closeIn').type('13');
   cy.get('#reviewAndEditTime').type('10');
+  cy.get('#assignAdviser').click();
+  cy.get('#assignAdviser-option-1').click();
 });
 When(/^Press send to adviser$/, function() {
   cy.get('#submitButton').click();
