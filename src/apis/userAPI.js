@@ -47,4 +47,18 @@ const uploadCV = (cv, userId) => {
     },
   }).then((response) => camelizeKeys(response));
 };
-export { signup, updateProfile, updateProfilePicture, uploadCV, activateFreelancer };
+
+const fetchAdvisersList = () => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/users/list_advisers`,
+  }).then((response) => camelizeKeys(response));
+};
+export {
+  signup,
+  updateProfile,
+  updateProfilePicture,
+  uploadCV,
+  activateFreelancer,
+  fetchAdvisersList,
+};

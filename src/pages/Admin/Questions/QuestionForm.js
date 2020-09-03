@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -13,7 +13,6 @@ import {
   questionTypesOfAssignment,
   advisersList,
 } from '../../../constants/dropDownOptions';
-import Button from '@material-ui/core/Button';
 import humanizedTimeSpan from '../../../services/humanizedTimeSpan';
 import { useStyles } from '../../../styles/Admin/questionFormStyles';
 import RichTextEditorForm from '../../../components/forms/RichTextEditorForm';
@@ -29,6 +28,8 @@ import t from '../../../locales/en/questionRoaster.json';
 import SubmitButton from '../../../components/buttons/SubmitButton';
 import AttachmentUploader from '../../../components/forms/AttachmentUploader';
 import DropdownSelectField from 'components/CustomInput/DropdownSelectField';
+import { fetchAdvisersList } from '../../../apis/userAPI';
+import useFetchData from 'hooks/useFetchData';
 
 const QuestionForm = ({
   isLoadingForUpdating,
@@ -55,6 +56,18 @@ const QuestionForm = ({
     });
     localStorage.setItem(`newQuestion`, questionToBeSaved);
   };
+
+  // const { fetchData, setAdvisersList } = useFetchData(fetchAdvisersList);
+  // console.log(`======================${fetchData}=============`);
+
+  const [advisersList, setAdvisersList] = useState([]);
+
+  useEffect(() => {
+    fetchAdvisersList().then((response) => {
+      setAdvisersList(response.data);
+    });
+  }, []);
+  console.log('=====Here======', advisersList);
 
   const onUploadAttachment = (attachmentFile) => {
     setAttachmentFiles(attachmentFile);
@@ -244,16 +257,11 @@ const QuestionForm = ({
           />
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
-          <DropdownSelectField
+          {/* <DropdownSelectField
             fieldId='assignAdviser'
             fieldName='AssignAdviser'
-            fieldOptions={advisersList}
-            fieldValue={
-              advisersList[0]
-              // advisersList.filter(
-              //   (option) => questionDetails.assignmentType === option.value,
-              // )[0]
-            }
+            fieldOptions={fetchData.map((adviser) => adviser.name)}
+            // fieldValue={}
             onFieldChange={
               () => {
                 console.log('hi from dropdown');
@@ -262,7 +270,7 @@ const QuestionForm = ({
               // onChangeQuestionField('assignmentType', option.value)
             }
             fieldLabel='Assign Adviser'
-          />
+          /> */}
         </GridItem>
       </GridContainer>
       <GridContainer className={classes.inputsRow}>
