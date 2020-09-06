@@ -45,6 +45,7 @@ const Register = () => {
         return result;
       })
       .catch(({ response }) => {
+        console.log('-------', response);
         response.data.errors.forEach((error) => {
           if (error.includes('Email')) {
             setError('email', 'Already exists', 'This email address is taken');

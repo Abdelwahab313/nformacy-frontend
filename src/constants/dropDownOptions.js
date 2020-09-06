@@ -562,12 +562,6 @@ const questionTypesOfAssignment = [
   { value: 'project', label: 'Project' },
 ];
 
-const advisersList = [
-  { value: 'hesham', label: 'Hesham' },
-  { value: 'abdo', label: 'Abdo' },
-  { value: 'sife', label: 'Sife' },
-];
-
 export {
   gender,
   employmentStatus,
@@ -576,5 +570,4 @@ export {
   questionTypesOfAssignment,
   industries,
   fieldsOfExperience,
-  advisersList,
 };
