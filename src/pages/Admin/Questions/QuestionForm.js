@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
 import CardBody from '../../../components/Card/CardBody';
 import GridContainer from '../../../components/Grid/GridContainer';
@@ -25,8 +25,8 @@ import t from '../../../locales/en/questionRoaster.json';
 import SubmitButton from '../../../components/buttons/SubmitButton';
 import AttachmentUploader from '../../../components/forms/AttachmentUploader';
 import DropdownSelectField from 'components/CustomInput/DropdownSelectField';
-import { fetchAdvisersList } from '../../../apis/userAPI';
 import Button from '@material-ui/core/Button';
+import AssignedAdvisersSelect from './AssignedAdvisersSelect';
 
 const QuestionForm = ({
   isLoadingForUpdating,
@@ -53,21 +53,6 @@ const QuestionForm = ({
     });
     localStorage.setItem('newQuestion', questionToBeSaved);
   };
-
-  const [fetchedAdvisersList, setFetchedAdvisersList] = useState([]);
-
-  useEffect(() => {
-    fetchAdvisersList().then((response) => {
-      setFetchedAdvisersList(response.data);
-    });
-  }, []);
-
-  const adviserListOptions = fetchedAdvisersList.map((adviser) => {
-    return {
-      value: adviser.id,
-      label: adviser.firstName + ' ' + adviser.lastName,
-    };
-  });
 
   const onUploadAttachment = (attachmentFile) => {
     setAttachmentFiles(attachmentFile);
@@ -255,23 +240,12 @@ const QuestionForm = ({
           />
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
-          <DropdownSelectField
-            fieldId='assignAdviser'
-            fieldName='AssignAdviser'
-            fieldOptions={adviserListOptions}
-            fieldValue={
-              adviserListOptions.length > 0
-                ? adviserListOptions.filter(
-                    (option) =>
-                      option.value === questionDetails.assignedAdviserId,
-                  )[0]
-                : {}
-            }
-            onFieldChange={(e, option) => {
-              onChangeQuestionField('assignedAdviserId', option.value);
-            }}
-            fieldLabel='Assign Adviser'
-          />
+
+          <AssignedAdvisersSelect
+           questionDetails={questionDetails}
+            onChangeQuestionField={onChangeQuestionField}
+             />
+          
         </GridItem>
       </GridContainer>
       <GridContainer className={classes.inputsRow}>
