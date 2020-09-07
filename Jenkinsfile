@@ -66,6 +66,7 @@ pipeline {
                 )
             }
             dir("${env.BackendPath}") {
+              sh 'make sandbox-build'
               sh 'make sandbox-up'
               // wait for docker to setup
               sh './wait-for-it.sh localhost:3001 -- echo "Sandbox is up"'
