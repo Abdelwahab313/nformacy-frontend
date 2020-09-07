@@ -54,14 +54,20 @@ const QuestionForm = ({
     localStorage.setItem('newQuestion', questionToBeSaved);
   };
 
-  const [advisersList, setAdvisersList] = useState([]);
+  const [fetchedAdvisersList, setFetchedAdvisersList] = useState([]);
 
   useEffect(() => {
     fetchAdvisersList().then((response) => {
-      setAdvisersList(response.data);
+      setFetchedAdvisersList(response.data);
     });
   }, []);
-  console.log('=====Advisers list======', advisersList);
+
+  const adviserListOptions = fetchedAdvisersList.map((adviser) => {
+    return {
+      value: adviser.id,
+      label: adviser.firstName + ' ' + adviser.lastName,
+    };
+  });
 
   const onUploadAttachment = (attachmentFile) => {
     setAttachmentFiles(attachmentFile);
@@ -108,23 +114,6 @@ const QuestionForm = ({
       });
     setIsSnackbarShown(true);
   };
-
-  const adviserListDropdownOptions = advisersList.map((adviser) => {
-    return {
-      value: adviser.id,
-      label: adviser.firstName + ' ' + adviser.lastName,
-    };
-  });
-
-  function getCallbackfn(option) {
-    console.log('===========the option obj', option);
-    console.log('===========question d. obj', questionDetails);
-    console.log(
-      'comparison=======',
-      option.value === questionDetails.assignedAdviserId,
-    );
-    return option.value === questionDetails.assignedAdviserId;
-  }
 
   return (
     <CardBody>
@@ -269,14 +258,16 @@ const QuestionForm = ({
           <DropdownSelectField
             fieldId='assignAdviser'
             fieldName='AssignAdviser'
-            fieldOptions={adviserListDropdownOptions}
+            fieldOptions={adviserListOptions}
             fieldValue={
-              adviserListDropdownOptions.length > 0
-                ? adviserListDropdownOptions.filter(getCallbackfn)[0]
+              adviserListOptions.length > 0
+                ? adviserListOptions.filter(
+                    (option) =>
+                      option.value === questionDetails.assignedAdviserId,
+                  )[0]
                 : {}
             }
             onFieldChange={(e, option) => {
-              console.log('-=-=-=-=-=-=-=-=-=', option);
               onChangeQuestionField('assignedAdviserId', option.value);
             }}
             fieldLabel='Assign Adviser'
