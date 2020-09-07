@@ -18,9 +18,9 @@ export default function DropdownSelectField({
         options={fieldOptions}
         value={fieldValue}
         getOptionLabel={(option) => option.label}
-        getOptionSelected={(option, value) => {
-          return option.value === value.value;
-        }}
+        // getOptionSelected={(option, value) => {
+        //   return option.value === value.value;
+        // }}
         onChange={onFieldChange}
         blurOnSelect
         renderInput={(params) => (

@@ -6,11 +6,17 @@ import GridItem from '../../../components/Grid/GridItem';
 import CustomInput from '../../../components/CustomInput/CustomInput';
 import MajorFieldSelect from '../../../components/inputs/MajorFieldSelect';
 import SpecificFieldSelect from '../../../components/inputs/SpecificFieldSelect';
-import { industries, questionTypesOfAssignment } from '../../../constants/dropDownOptions';
+import {
+  industries,
+  questionTypesOfAssignment,
+} from '../../../constants/dropDownOptions';
 import humanizedTimeSpan from '../../../services/humanizedTimeSpan';
 import { useStyles } from '../../../styles/Admin/questionFormStyles';
 import RichTextEditorForm from '../../../components/forms/RichTextEditorForm';
-import { submitQuestion, uploadQuestionDocument } from '../../../apis/questionsAPI';
+import {
+  submitQuestion,
+  uploadQuestionDocument,
+} from '../../../apis/questionsAPI';
 import { useHistory } from 'react-router';
 
 import { Grid } from '@material-ui/core';
@@ -23,12 +29,12 @@ import { fetchAdvisersList } from '../../../apis/userAPI';
 import Button from '@material-ui/core/Button';
 
 const QuestionForm = ({
-
-                        isLoadingForUpdating,
-                        isOnEditQuestion, questionDetails,
-                        setQuestionDetails,
-                        setIsSnackbarShown,
-                      }) => {
+  isLoadingForUpdating,
+  isOnEditQuestion,
+  questionDetails,
+  setQuestionDetails,
+  setIsSnackbarShown,
+}) => {
   const classes = useStyles();
   const questionRoasterClasses = useRoasterStyle();
   const [attachmentFiles, setAttachmentFiles] = useState([]);
@@ -45,9 +51,8 @@ const QuestionForm = ({
       content,
       mediaId,
     });
-    localStorage.setItem(`newQuestion`, questionToBeSaved);
+    localStorage.setItem('newQuestion', questionToBeSaved);
   };
-
 
   const [advisersList, setAdvisersList] = useState([]);
 
@@ -56,7 +61,7 @@ const QuestionForm = ({
       setAdvisersList(response.data);
     });
   }, []);
-  console.log('=====Here======', advisersList);
+  console.log('=====Advisers list======', advisersList);
 
   const onUploadAttachment = (attachmentFile) => {
     setAttachmentFiles(attachmentFile);
@@ -99,32 +104,27 @@ const QuestionForm = ({
         }
       })
       .then((response) => {
-        history.push(`/admin/dashboard`);
+        history.push('/admin/dashboard');
       });
     setIsSnackbarShown(true);
   };
 
-
   const adviserListDropdownOptions = advisersList.map((adviser) => {
-    return ({ value: adviser.id, label: adviser.firstName + ' ' + adviser.lastName });
+    return {
+      value: adviser.id,
+      label: adviser.firstName + ' ' + adviser.lastName,
+    };
   });
+
   function getCallbackfn(option) {
-    console.log('6666', option[0]);
-    console.log('9999', questionDetails.assignedAdviserId);
-    return option[0].value === questionDetails.assignedAdviserId;
+    console.log('===========the option obj', option);
+    console.log('===========question d. obj', questionDetails);
+    console.log(
+      'comparison=======',
+      option.value === questionDetails.assignedAdviserId,
+    );
+    return option.value === questionDetails.assignedAdviserId;
   }
-
-  const adviserObject = async () => {
-    console.log('ayNela');
-    const options = await getCallbackfn(adviserListDropdownOptions);
-    console.log('ayOption', options);
-    const ay7aga = adviserListDropdownOptions.filter(options);
-    console.log('ay7aga', ay7aga);
-    return ay7aga;
-  };
-
-  console.log('list', adviserListDropdownOptions.filter(getCallbackfn)[0]);
-  console.log('----', questionDetails);
 
   return (
     <CardBody>
@@ -270,9 +270,14 @@ const QuestionForm = ({
             fieldId='assignAdviser'
             fieldName='AssignAdviser'
             fieldOptions={adviserListDropdownOptions}
-            fieldValue={adviserObject()}
+            fieldValue={
+              adviserListDropdownOptions.length > 0
+                ? adviserListDropdownOptions.filter(getCallbackfn)[0]
+                : {}
+            }
             onFieldChange={(e, option) => {
-              onChangeQuestionField('assignedAdviserId', option);
+              console.log('-=-=-=-=-=-=-=-=-=', option);
+              onChangeQuestionField('assignedAdviserId', option.value);
             }}
             fieldLabel='Assign Adviser'
           />
