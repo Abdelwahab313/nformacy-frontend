@@ -106,8 +106,25 @@ const QuestionForm = ({
 
 
   const adviserListDropdownOptions = advisersList.map((adviser) => {
-    return ({ value: adviser.firstName, label: adviser.firstName + ' ' + adviser.lastName });
+    return ({ value: adviser.id, label: adviser.firstName + ' ' + adviser.lastName });
   });
+  function getCallbackfn(option) {
+    console.log('6666', option[0]);
+    console.log('9999', questionDetails.assignedAdviserId);
+    return option[0].value === questionDetails.assignedAdviserId;
+  }
+
+  const adviserObject = async () => {
+    console.log('ayNela');
+    const options = await getCallbackfn(adviserListDropdownOptions);
+    console.log('ayOption', options);
+    const ay7aga = adviserListDropdownOptions.filter(options);
+    console.log('ay7aga', ay7aga);
+    return ay7aga;
+  };
+
+  console.log('list', adviserListDropdownOptions.filter(getCallbackfn)[0]);
+  console.log('----', questionDetails);
 
   return (
     <CardBody>
@@ -212,7 +229,7 @@ const QuestionForm = ({
         </GridItem>
         <GridItem xs={12} sm={12} md={2} className={classes.countDownContainer}>
           <CustomInput
-            labelText='Closing Answers (In Hours)'
+            labelText='Closing Answers for Freelancers (In Hours)'
             id='closeIn'
             formControlProps={{
               style: {
@@ -231,7 +248,7 @@ const QuestionForm = ({
         </GridItem>
         <GridItem xs={12} sm={12} md={2} className={classes.countDownContainer}>
           <CustomInput
-            labelText='Review and Edit (In Hours)'
+            labelText='Rating Time for Adviser (In Hours)'
             id='reviewAndEditTime'
             formControlProps={{
               style: {
@@ -253,11 +270,10 @@ const QuestionForm = ({
             fieldId='assignAdviser'
             fieldName='AssignAdviser'
             fieldOptions={adviserListDropdownOptions}
-            fieldValue={''}
-            onFieldChange={() => {
-              console.log('hi from dropdown');
-            }
-            }
+            fieldValue={adviserObject()}
+            onFieldChange={(e, option) => {
+              onChangeQuestionField('assignedAdviserId', option);
+            }}
             fieldLabel='Assign Adviser'
           />
         </GridItem>
