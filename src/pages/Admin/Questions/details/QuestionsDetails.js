@@ -16,7 +16,6 @@ import { approveQuestion } from '../../../../apis/questionsAPI';
 import QuestionForm from '../QuestionForm';
 import { useStyles } from '../../../../styles/Admin/questionFormStyles';
 
-
 const QuestionDetails = () => {
   const classes = useStyles();
   const [questionDetails, setQuestionDetails] = useState({});
@@ -37,7 +36,6 @@ const QuestionDetails = () => {
     }
   }, [fetchedQuestion]);
 
-
   if (isLoading) {
     return <LoadingCircle />;
   }
@@ -48,8 +46,7 @@ const QuestionDetails = () => {
       .then((response) => {
         setIsSnackbarShown(true);
       })
-      .catch((error) => {
-      })
+      .catch((error) => {})
       .finally(() => setIsLoadingForUpdating(false));
   };
 
@@ -58,8 +55,7 @@ const QuestionDetails = () => {
       .then((response) => {
         setIsSnackbarShown(true);
       })
-      .catch((error) => {
-      })
+      .catch((error) => {})
       .finally(() => setIsLoadingForUpdating(false));
   };
 
@@ -76,16 +72,8 @@ const QuestionDetails = () => {
             isLoadingForUpdating={isLoadingForUpdating}
             isOnEditQuestion={true}
             setIsSnackbarShown={setIsSnackbarShown}
-             />
+          />
           <CardFooter className={classes.footerButtons}>
-            <Button
-              id={'updateQuestion'}
-              style={{ marginRight: 16 }}
-              disabled={isLoadingForUpdating}
-              onClick={onUpdateQuestionClicked}
-              color='primary'>
-              Update Question
-            </Button>
             {questionDetails?.isApproved === false && (
               <Button
                 id={'approveQuestion'}

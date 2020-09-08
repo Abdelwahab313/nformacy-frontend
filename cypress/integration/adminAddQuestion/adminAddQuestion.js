@@ -20,8 +20,8 @@ When(/^I fill all the question details$/, function() {
   cy.get('#assignAdviser').click();
   cy.get('#assignAdviser-option-0').click();
 });
-When(/^Press send to adviser$/, function() {
-  cy.get('#submitButton').click();
+When(/^i click apply changes$/, function() {
+  cy.get('#applyChangesButton').click();
 });
 Then(/^I should see snackbar with message$/, function() {
   cy.contains('Dashboard');

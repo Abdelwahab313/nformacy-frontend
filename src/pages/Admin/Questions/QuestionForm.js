@@ -15,6 +15,7 @@ import { useStyles } from '../../../styles/Admin/questionFormStyles';
 import RichTextEditorForm from '../../../components/forms/RichTextEditorForm';
 import {
   submitQuestion,
+  updateQuestion,
   uploadQuestionDocument,
 } from '../../../apis/questionsAPI';
 import { useHistory } from 'react-router';
@@ -34,6 +35,7 @@ const QuestionForm = ({
   questionDetails,
   setQuestionDetails,
   setIsSnackbarShown,
+  isNewQuestion,
 }) => {
   const classes = useStyles();
   const questionRoasterClasses = useRoasterStyle();
@@ -88,16 +90,32 @@ const QuestionForm = ({
   };
 
   const onSubmitQuestion = () => {
-    submitQuestion({ ...questionDetails, content, media_id: richTextMediaId.current })
-      .then(({ data }) => {
-        if (data.id) {
-          uploadAttachmentPromise(data.id);
-        }
+    console.log('============im in on submit===========');
+    if (isNewQuestion) {
+      submitQuestion({
+        ...questionDetails,
+        content,
+        richTextMediaId: richTextMediaId.current,
       })
-      .then((response) => {
+        .then(({ data }) => {
+          if (data.id) {
+            uploadAttachmentPromise(data.id);
+          }
+        })
+        .then((response) => {
+          history.push('/admin/dashboard');
+        });
+      setIsSnackbarShown(true);
+    } else {
+      updateQuestion(questionDetails.id, {
+        ...questionDetails,
+        content,
+        richTextMediaId: richTextMediaId.current,
+      }).then((response) => {
         history.push('/admin/dashboard');
       });
-    setIsSnackbarShown(true);
+      setIsSnackbarShown(true);
+    }
   };
 
   return (
@@ -240,12 +258,10 @@ const QuestionForm = ({
           />
         </GridItem>
         <GridItem xs={12} sm={12} md={4}>
-
           <AssignedAdvisersSelect
-           questionDetails={questionDetails}
+            questionDetails={questionDetails}
             onChangeQuestionField={onChangeQuestionField}
-             />
-          
+          />
         </GridItem>
       </GridContainer>
       <GridContainer className={classes.inputsRow}>
@@ -292,6 +308,7 @@ const QuestionForm = ({
                 {t['saveAndCompleteLater']}
               </Button>
               <SubmitButton
+                id='applyChangesButton'
                 onClick={onSubmitQuestion}
                 buttonText={'Send to advisor'}
                 disabled={false}

@@ -9,5 +9,5 @@ Feature: Admin post question
     Given on Post question page
     When I fill all the question details
     When i fill answer content.
-    And Press send to adviser
+    And i click apply changes
     Then I should see snackbar with message

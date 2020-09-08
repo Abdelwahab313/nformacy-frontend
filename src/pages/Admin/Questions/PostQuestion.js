@@ -26,6 +26,7 @@ const PostQuestion = () => {
           isLoadingForUpdating={false}
           isOnEditQuestion={false}
           setIsSnackbarShown={setIsSnackbarShown}
+          isNewQuestion={true}
         />
       </Grid>
       <SuccessSnackBar
