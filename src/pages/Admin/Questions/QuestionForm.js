@@ -203,7 +203,7 @@ const QuestionForm = ({
         </GridItem>
       </GridContainer>
       <GridContainer className={classes.inputsRow}>
-        <GridItem xs={12} sm={12} md={4}>
+        <GridItem xs={12} sm={12} md={3}>
           <DropdownSelectField
             fieldId='assignmentType'
             fieldName='AssignmentType'
@@ -219,9 +219,9 @@ const QuestionForm = ({
             fieldLabel='Type of Assignment'
           />
         </GridItem>
-        <GridItem xs={12} sm={12} md={2} className={classes.countDownContainer}>
+        <GridItem xs={12} sm={12} md={3} className={classes.countDownContainer}>
           <CustomInput
-            labelText='Closing Answers for Freelancers (In Hours)'
+            labelText='Closing Answer for Freelancers (In Hours)'
             id='closeIn'
             formControlProps={{
               style: {
@@ -238,7 +238,7 @@ const QuestionForm = ({
             }}
           />
         </GridItem>
-        <GridItem xs={12} sm={12} md={2} className={classes.countDownContainer}>
+        <GridItem xs={12} sm={12} md={3} className={classes.countDownContainer}>
           <CustomInput
             labelText='Rating Time for Adviser (In Hours)'
             id='reviewAndEditTime'
@@ -257,7 +257,7 @@ const QuestionForm = ({
             }}
           />
         </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
+        <GridItem xs={12} sm={12} md={3}>
           <AssignedAdvisersSelect
             questionDetails={questionDetails}
             onChangeQuestionField={onChangeQuestionField}
@@ -296,21 +296,23 @@ const QuestionForm = ({
               xs={6}
               style={{ justifyContent: 'flex-end' }}
               className={questionRoasterClasses.answerButtonsContainer}>
-              <Button
-                variant='contained'
-                size='medium'
-                onClick={() => saveAndCompleteLater(richTextMediaId.current)}
-                style={{
-                  marginRight: '10px',
-                  height: '36px',
-                  alignSelf: 'center',
-                }}>
-                {t['saveAndCompleteLater']}
-              </Button>
+              {isNewQuestion && (
+                <Button
+                  variant='contained'
+                  size='medium'
+                  onClick={() => saveAndCompleteLater(richTextMediaId.current)}
+                  style={{
+                    marginRight: '10px',
+                    height: '36px',
+                    alignSelf: 'center',
+                  }}>
+                  {t['saveAndCompleteLater']}
+                </Button>
+              )}
               <SubmitButton
                 id='applyChangesButton'
                 onClick={onSubmitQuestion}
-                buttonText={'Send to advisor'}
+                buttonText={isNewQuestion ? 'Send to advisor' : 'Apply Changes'}
                 disabled={false}
               />
             </Grid>
