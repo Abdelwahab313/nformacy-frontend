@@ -3,10 +3,8 @@ import {
   attachContainerStyle,
 } from '../../styles/questionRoasterStyles';
 import t from '../../locales/en/questionRoaster.json';
-import FileUpload  from '../inputs/FileUpload';
-import { Grid } from '@material-ui/core';
+import FileUpload from '../inputs/FileUpload';
 import React from 'react';
-import Chip from '@material-ui/core/Chip';
 
 const AttachmentUploader = ({
   containerClassName,
@@ -15,9 +13,6 @@ const AttachmentUploader = ({
   onDeleteAttachment,
 }) => {
 
-  const removeFile = (file) => {
-
-  }
   return (
     <div className={containerClassName}>
       <FileUpload
@@ -27,26 +22,11 @@ const AttachmentUploader = ({
         withPreview={false}
         onChange={onUploadAttachment}
         withPreview
-        accept='application/pdf'
+        accept=".doc,.docx,.xml,image/*,video/*,.pdf,.csv"
         buttonStyles={attachButtonStyle()}
         buttonText={t['attach']}
         imgExtension={['.pdf']}
       />
-      {/* {attachmentFiles?.length > 0 && (
-        <Grid container alignItems={'center'} justify={'center'}>
-          {attachmentFiles.map((attachment, index) => (
-            <Grid item xs={12}>
-              <Chip
-                key={index}
-                id={`attachment-${index}`}
-                label={attachment.name}
-                onDelete={() => onDeleteAttachment(index)}
-                color='secondary'
-              />
-            </Grid>
-          ))}
-        </Grid>
-      )} */}
     </div>
   );
 };

@@ -43,13 +43,13 @@ const QuestionForm = ({
   );
 
   let history = useHistory();
-  const mediaId = useRef(questionDetails?.mediaId);
+  const richTextMediaId = useRef(questionDetails?.richTextMediaId);
 
-  const saveAndCompleteLater = (mediaId) => {
+  const saveAndCompleteLater = (richTextMediaId) => {
     const questionToBeSaved = JSON.stringify({
       ...questionDetails,
       content,
-      mediaId,
+      richTextMediaId,
     });
     localStorage.setItem('newQuestion', questionToBeSaved);
   };
@@ -88,7 +88,7 @@ const QuestionForm = ({
   };
 
   const onSubmitQuestion = () => {
-    submitQuestion({ ...questionDetails, content, media_id: mediaId.current })
+    submitQuestion({ ...questionDetails, content, media_id: richTextMediaId.current })
       .then(({ data }) => {
         if (data.id) {
           uploadAttachmentPromise(data.id);
@@ -258,7 +258,7 @@ const QuestionForm = ({
               <RichTextEditorForm
                 initialContent={content}
                 onContentUpdate={setContent}
-                mediaId={mediaId}
+                richTextMediaId={richTextMediaId}
               />
             </Grid>
             <Grid
@@ -283,7 +283,7 @@ const QuestionForm = ({
               <Button
                 variant='contained'
                 size='medium'
-                onClick={() => saveAndCompleteLater(mediaId.current)}
+                onClick={() => saveAndCompleteLater(richTextMediaId.current)}
                 style={{
                   marginRight: '10px',
                   height: '36px',

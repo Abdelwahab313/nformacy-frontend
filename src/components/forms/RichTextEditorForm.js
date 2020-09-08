@@ -2,14 +2,14 @@ import React from 'react';
 import RichTextEditor from '../inputs/RichTextEditor';
 import { uploadImage } from '../../apis/questionsAPI';
 
-const RichTextEditorForm = ({ mediaId, initialContent, onContentUpdate }) => {
+const RichTextEditorForm = ({ richTextMediaId, initialContent, onContentUpdate }) => {
   const uploadRichTextImage = (imageFormData, callback) => {
-    if (mediaId.current) {
-      imageFormData.append('media_id', mediaId.current);
+    if (richTextMediaId.current) {
+      imageFormData.append('rich_text_media_id', richTextMediaId.current);
     }
-    uploadImage(mediaId.current, imageFormData).then(({ data }) => {
+    uploadImage(richTextMediaId.current, imageFormData).then(({ data }) => {
       callback(data['imageUrl']);
-      mediaId.current = data['mediaId'];
+      richTextMediaId.current = data['richTextMediaId'];
     });
   };
 

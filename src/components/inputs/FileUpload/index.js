@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FlipMove from 'react-flip-move';
-import { Chip, Grid } from '@material-ui/core';
+import { Chip, Grid, IconButton, Link } from '@material-ui/core';
+
+import DownloadIcon from '@material-ui/icons/CloudDownload';
 
 import './index.css';
 import UploadIcon from './UploadIcon.svg';
@@ -72,13 +74,13 @@ class FileUploadComponent extends React.Component {
         name: file.name,
       };
       // Check for file extension
-      if (!this.hasExtension(file.name)) {
-        fileError = Object.assign(fileError, {
-          type: ERROR.NOT_SUPPORTED_EXTENSION
-        });
-        fileErrors.push(fileError);
-        continue;
-      }
+      // if (!this.hasExtension(file.name)) {
+      //   fileError = Object.assign(fileError, {
+      //     type: ERROR.NOT_SUPPORTED_EXTENSION
+      //   });
+      //   fileErrors.push(fileError);
+      //   continue;
+      // }
       // Check for file size
       if (file.size > this.props.maxFileSize) {
         fileError = Object.assign(fileError, {
@@ -194,10 +196,10 @@ class FileUploadComponent extends React.Component {
         <Grid item xs={12}>
           <Chip
             key={index}
+            icon={<IconButton onClick={()=>console.log('ss')}><DownloadIcon /></IconButton>}
             id={`attachment-${index}`}
             label={file.name}
             onDelete={() => this.removeFile(file)}
-            color='secondary'
           />
         </Grid>
       );
