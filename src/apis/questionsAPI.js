@@ -24,7 +24,7 @@ export const fetchQuestionDetails = (questionId) => {
   }).then((response) => camelizeKeys(response));
 };
 
-export const uploadImage = (questionId, image) => {
+export const uploadImage = (image) => {
   return axios({
     method: 'post',
     data: image,
@@ -66,24 +66,21 @@ export const approveQuestion = (questionId) => {
   }).then((response) => camelizeKeys(response));
 };
 
-export const uploadQuestionDocument = (questionId, document) => {
+export const uploadAttachment = (attachment) => {
   return axios({
     method: 'post',
-    data: document,
-    url: `${API_BASE_URL}/questions/${questionId}/upload_document`,
+    data: attachment,
+    url: `${API_BASE_URL}/attachments_groups/upload_attachment`,
     headers: {
       accept: 'application/json',
     },
   }).then((response) => camelizeKeys(response));
 };
 
-export const uploadAnswerDocument = (answerId, document) => {
+export const removeAttachment = (attachmentId) => {
   return axios({
     method: 'post',
-    data: document,
-    url: `${API_BASE_URL}/questions/answer/${answerId}/upload_document`,
-    headers: {
-      accept: 'application/json',
-    },
+    url: `${API_BASE_URL}/attachments_groups/remove_attachment`,
+    data: decamelizeKeys({ attachmentId }),
   }).then((response) => camelizeKeys(response));
-};
+}

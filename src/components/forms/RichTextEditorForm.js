@@ -7,7 +7,7 @@ const RichTextEditorForm = ({ richTextMediaId, initialContent, onContentUpdate }
     if (richTextMediaId.current) {
       imageFormData.append('rich_text_media_id', richTextMediaId.current);
     }
-    uploadImage(richTextMediaId.current, imageFormData).then(({ data }) => {
+    uploadImage(imageFormData).then(({ data }) => {
       callback(data['imageUrl']);
       richTextMediaId.current = data['richTextMediaId'];
     });

@@ -62,7 +62,7 @@ class FileUploadComponent extends React.Component {
    Handle file validation
    */
   onDropFile(e) {
-    console.log('-------------', e.target.files);
+    console.log('------------- target files', e.target.files);
     const files = e.target.files;
     const allFilePromises = [];
     const fileErrors = [];
@@ -97,10 +97,8 @@ class FileUploadComponent extends React.Component {
       fileErrors
     });
 
-    const { singleImage } = this.props;
-
     Promise.all(allFilePromises).then(newFilesData => {
-      const files = singleImage ? [] : this.state.files.slice();
+      const files =  [];
 
       newFilesData.forEach(newFileData => {
         files.push(newFileData.file);
@@ -129,18 +127,6 @@ class FileUploadComponent extends React.Component {
       };
 
       reader.readAsDataURL(file);
-    });
-  }
-
-  /*
-   Remove the image from state
-   */
-  removeFile(fileName) {
-    const removeIndex = this.state.files.findIndex(e => e === fileName);
-    const filteredFiles = this.state.files.filter((e, index) => index !== removeIndex);
-
-    this.setState({  files: filteredFiles }, () => {
-      this.props.onChange(this.state.files);
     });
   }
 
@@ -177,36 +163,6 @@ class FileUploadComponent extends React.Component {
   }
 
   /*
-   Render preview images
-   */
-  renderPreview() {
-    return (
-      <Grid container column alignItems={'center'} justify={'center'}>
-        <FlipMove enterAnimation="fade" leaveAnimation="fade" style={styles}>
-          {this.renderPreviewFiles()}
-        </FlipMove>
-      </Grid>
-    );
-  }
-
-  renderPreviewFiles() {
-    return this.state.files.map((file, index) => {
-      console.log('picture', file)
-      return (
-        <Grid item xs={12}>
-          <Chip
-            key={index}
-            icon={<IconButton onClick={()=>console.log('ss')}><DownloadIcon /></IconButton>}
-            id={`attachment-${index}`}
-            label={file.name}
-            onDelete={() => this.removeFile(file)}
-          />
-        </Grid>
-      );
-    });
-  }
-
-  /*
    On button click, trigger input file to open
    */
   triggerFileUpload() {
@@ -214,8 +170,6 @@ class FileUploadComponent extends React.Component {
   }
 
   render() {
-
-    console.log('----------render')
     return (
       <div className={"fileUploader " + this.props.className} style={this.props.style}>
         <div className="fileContainer" style={this.props.fileContainerStyle}>
@@ -236,12 +190,11 @@ class FileUploadComponent extends React.Component {
             type="file"
             ref={input => this.inputElement = input}
             name={this.props.name}
-            multiple={!this.props.singleImage}
+            multiple={false}
             onChange={this.onDropFile}
             onClick={this.onUploadClick}
             accept={this.props.accept}
           />
-          {this.props.withPreview ? this.renderPreview() : null}
         </div>
       </div>
     )

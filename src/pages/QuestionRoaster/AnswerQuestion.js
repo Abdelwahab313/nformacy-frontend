@@ -9,7 +9,7 @@ import {
   useStyles as useRoasterStyle,
   useStyles,
 } from '../../styles/questionRoasterStyles';
-import { submitAnswer, uploadAnswerDocument } from '../../apis/questionsAPI';
+import { submitAnswer, uploadAnswerAttachment } from '../../apis/questionsAPI';
 import AttachmentUploader from '../../components/forms/AttachmentUploader';
 import Button from '@material-ui/core/Button';
 import t from '../../locales/en/questionRoaster.json';
@@ -17,22 +17,25 @@ import SubmitButton from '../../components/buttons/SubmitButton';
 
 const AnswerQuestion = () => {
   const classes = useStyles();
+  const questionRoasterClasses = useRoasterStyle();
+  
   const location = useLocation();
   let history = useHistory();
-  const questionRoasterClasses = useRoasterStyle();
-
   const questionDetails = location.state.questionDetails;
-  const [attachmentFiles, setAttachmentFiles] = useState();
+  
   const savedAnswer = JSON.parse(
     localStorage.getItem(`answer${questionDetails?.id}`),
   );
+  const [answer, setAnswer] = useState(!!savedAnswer ? savedAnswer : {});
   const [content, setContent] = useState(savedAnswer?.content);
-  const mediaId = useRef(savedAnswer?.mediaId);
+  const [attachmentsGroupsId, setAttachmentsGroupsId] = useState(savedAnswer?.attachmentsGroupsId);
+  const richTextMediaId = useRef(savedAnswer?.richTextMediaId);
 
   const saveAndCompleteLater = () => {
     const answerToBeSaved = JSON.stringify({
       content,
-      mediaId,
+      richTextMediaId,
+      attachmentsGroupsId,
     });
     localStorage.setItem(`answer${questionDetails?.id}`, answerToBeSaved);
   };
@@ -40,37 +43,13 @@ const AnswerQuestion = () => {
   const onSubmitAnswer = () => {
     submitAnswer(questionDetails.id, {
       content: content,
-      media_id: mediaId.current,
+      attachmentsGroupsId,
+      richTextMediaId: richTextMediaId.current,
     })
-      .then(({ data }) => {
-        if (data.id) {
-          uploadAttachmentPromise(data.id);
-        }
-      })
       .then((responses) => {
         history.push(`/answer/success`);
         console.log('------ responses', responses);
       });
-  };
-
-  const onUploadAttachment = (attachmentFile) => {
-    setAttachmentFiles(attachmentFile);
-  };
-
-  const uploadAttachmentPromise = (answerId) => {
-    return new Promise((resolve) => {
-      if (attachmentFiles?.length > 0) {
-        const formData = new FormData();
-        for (const file of attachmentFiles) {
-          formData.append('document[]', file, file.name);
-        }
-        uploadAnswerDocument(answerId, formData).then((response) => {
-          resolve(response);
-        });
-      } else {
-        resolve();
-      }
-    });
   };
 
   return (
@@ -95,7 +74,7 @@ const AnswerQuestion = () => {
               <RichTextEditorForm
                 initialContent={content || ''}
                 onContentUpdate={setContent}
-                mediaId={mediaId}
+                richTextMediaId={richTextMediaId}
               />
             </Grid>
             <Grid
@@ -107,8 +86,9 @@ const AnswerQuestion = () => {
                 containerClassName={
                   questionRoasterClasses.attachmentUploaderContainer
                 }
-                attachmentFiles={attachmentFiles}
-                onUploadAttachment={onUploadAttachment}
+                attachments={answer.attachments}
+                attachmentsGroupsId={attachmentsGroupsId}
+                setAttachmentsGroupsId={setAttachmentsGroupsId}
               />
             </Grid>
             <Grid
@@ -119,7 +99,7 @@ const AnswerQuestion = () => {
               <Button
                 variant='contained'
                 size='medium'
-                onClick={() => saveAndCompleteLater(mediaId.current)}
+                onClick={() => saveAndCompleteLater(richTextMediaId.current)}
                 style={{
                   marginRight: '10px',
                   height: '36px',

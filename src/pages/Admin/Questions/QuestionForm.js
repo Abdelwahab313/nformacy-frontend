@@ -16,7 +16,7 @@ import RichTextEditorForm from '../../../components/forms/RichTextEditorForm';
 import {
   submitQuestion,
   updateQuestion,
-  uploadQuestionDocument,
+  uploadAttachment,
 } from '../../../apis/questionsAPI';
 import { useHistory } from 'react-router';
 
@@ -39,10 +39,11 @@ const QuestionForm = ({
 }) => {
   const classes = useStyles();
   const questionRoasterClasses = useRoasterStyle();
-  const [attachmentFiles, setAttachmentFiles] = useState([]);
   const [content, setContent] = useState(
     questionDetails ? questionDetails.content : '',
   );
+  const [attachmentsGroupsId, setAttachmentsGroupsId] = useState(questionDetails.attachmentsGroupsId);
+
 
   let history = useHistory();
   const richTextMediaId = useRef(questionDetails?.richTextMediaId);
@@ -52,34 +53,9 @@ const QuestionForm = ({
       ...questionDetails,
       content,
       richTextMediaId,
+      attachmentsGroupsId
     });
     localStorage.setItem('newQuestion', questionToBeSaved);
-  };
-
-  const onUploadAttachment = (attachmentFile) => {
-    setAttachmentFiles(attachmentFile);
-  };
-
-  const onDeleteAttachment = (attachmentIndex) => {
-    const newAttachments = [...attachmentFiles];
-    newAttachments.splice(attachmentIndex, 1);
-    setAttachmentFiles(newAttachments);
-  };
-
-  const uploadAttachmentPromise = (questionId) => {
-    return new Promise((resolve) => {
-      if (attachmentFiles?.length > 0) {
-        const formData = new FormData();
-        for (const file of attachmentFiles) {
-          formData.append('document[]', file, file.name);
-        }
-        uploadQuestionDocument(questionId, formData).then((response) => {
-          resolve(response);
-        });
-      } else {
-        resolve();
-      }
-    });
   };
 
   const onChangeQuestionField = (name, data) => {
@@ -90,18 +66,13 @@ const QuestionForm = ({
   };
 
   const onSubmitQuestion = () => {
-    console.log('============im in on submit===========');
     if (isNewQuestion) {
       submitQuestion({
         ...questionDetails,
         content,
+        attachmentsGroupsId,
         richTextMediaId: richTextMediaId.current,
       })
-        .then(({ data }) => {
-          if (data.id) {
-            uploadAttachmentPromise(data.id);
-          }
-        })
         .then((response) => {
           history.push('/admin/dashboard');
         });
@@ -110,10 +81,12 @@ const QuestionForm = ({
       updateQuestion(questionDetails.id, {
         ...questionDetails,
         content,
+        attachmentsGroupsId,
         richTextMediaId: richTextMediaId.current,
-      }).then((response) => {
-        history.push('/admin/dashboard');
-      });
+      })
+        .then((response) => {
+          history.push('/admin/dashboard');
+        });
       setIsSnackbarShown(true);
     }
   };
@@ -286,9 +259,9 @@ const QuestionForm = ({
                 containerClassName={
                   questionRoasterClasses.attachmentUploaderContainer
                 }
-                attachmentFiles={attachmentFiles}
-                onUploadAttachment={onUploadAttachment}
-                onDeleteAttachment={onDeleteAttachment}
+                attachments={questionDetails.attachments}
+                attachmentsGroupsId={attachmentsGroupsId}
+                setAttachmentsGroupsId={setAttachmentsGroupsId}
               />
             </Grid>
             <Grid
