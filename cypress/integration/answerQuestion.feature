@@ -18,5 +18,6 @@ Feature: freelancer answer a question
 
   Scenario:  attach multiple files.
     When i click attach file and choose a file.
-    And i click attach file and choose a file.
+    Then the file i chose should be attached to the answer
+    When i click attach file and choose a file.
     Then the files i chose should be attached to the answer.

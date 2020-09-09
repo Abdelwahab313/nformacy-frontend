@@ -16,7 +16,6 @@ import RichTextEditorForm from '../../../components/forms/RichTextEditorForm';
 import {
   submitQuestion,
   updateQuestion,
-  uploadAttachment,
 } from '../../../apis/questionsAPI';
 import { useHistory } from 'react-router';
 
@@ -30,8 +29,6 @@ import Button from '@material-ui/core/Button';
 import AssignedAdvisersSelect from './AssignedAdvisersSelect';
 
 const QuestionForm = ({
-  isLoadingForUpdating,
-  isOnEditQuestion,
   questionDetails,
   setQuestionDetails,
   setIsSnackbarShown,
@@ -94,7 +91,7 @@ const QuestionForm = ({
   return (
     <CardBody>
       <GridContainer>
-        {isOnEditQuestion && (
+        {!isNewQuestion && (
           <GridItem xs={12} sm={12} md={2}>
             <CustomInput
               labelText='Reference ID'
@@ -110,7 +107,7 @@ const QuestionForm = ({
             />
           </GridItem>
         )}
-        <GridItem xs={12} sm={12} md={isOnEditQuestion ? 7 : 12}>
+        <GridItem xs={12} sm={12} md={!isNewQuestion ? 7 : 12}>
           <CustomInput
             labelText='Title'
             id='title'
@@ -126,7 +123,7 @@ const QuestionForm = ({
             }}
           />
         </GridItem>
-        {isOnEditQuestion && (
+        {!isNewQuestion && (
           <GridItem xs={12} sm={12} md={3}>
             <CustomInput
               labelText='Post Date'

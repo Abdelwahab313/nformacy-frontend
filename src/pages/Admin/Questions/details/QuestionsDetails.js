@@ -9,7 +9,7 @@ import CardHeader from 'components/Card/CardHeader.js';
 import CardFooter from 'components/Card/CardFooter.js';
 import { useLocation } from 'react-router';
 import useFetchData from 'hooks/useFetchData';
-import { fetchQuestionDetails, updateQuestion } from 'apis/questionsAPI';
+import { fetchQuestionDetails } from 'apis/questionsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
 import { approveQuestion } from '../../../../apis/questionsAPI';
@@ -40,17 +40,8 @@ const QuestionDetails = () => {
     return <LoadingCircle />;
   }
 
-  const onUpdateQuestionClicked = () => {
-    setIsLoadingForUpdating(true);
-    updateQuestion(questionDetails.id, questionDetails)
-      .then((response) => {
-        setIsSnackbarShown(true);
-      })
-      .catch((error) => {})
-      .finally(() => setIsLoadingForUpdating(false));
-  };
-
   const onDeployQuestionClicked = () => {
+    setIsLoadingForUpdating(true)
     approveQuestion(questionDetails.id)
       .then((response) => {
         setIsSnackbarShown(true);
@@ -70,8 +61,8 @@ const QuestionDetails = () => {
             questionDetails={questionDetails}
             setQuestionDetails={setQuestionDetails}
             isLoadingForUpdating={isLoadingForUpdating}
-            isOnEditQuestion={true}
             setIsSnackbarShown={setIsSnackbarShown}
+            isNewQuestion={false}
           />
           <CardFooter className={classes.footerButtons}>
             {questionDetails?.isApproved === false && (

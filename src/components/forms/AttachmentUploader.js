@@ -67,7 +67,7 @@ const AttachmentUploader = ({
     return attachmentFiles.map((file, index) => {
       console.log('picture', file)
       return (
-        <Grid item xs={12}>
+        <Grid key={index} item xs={12}>
           <Chip
             key={index}
             icon={<IconButton onClick={() => window.open(file.url)}><DownloadIcon /></IconButton>}
@@ -82,7 +82,7 @@ const AttachmentUploader = ({
 
   return (
     <div className={containerClassName}>
-      <Grid container direction="column" alignItems={'flex-start'} justify={'center'}>
+      <Grid container direction="column" alignItems={'flex-start'}>
         <FileUpload
           label={''}
           fileContainerStyle={attachContainerStyle()}

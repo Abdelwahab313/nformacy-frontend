@@ -98,7 +98,7 @@ class FileUploadComponent extends React.Component {
     });
 
     Promise.all(allFilePromises).then(newFilesData => {
-      const files =  [];
+      const files = [];
 
       newFilesData.forEach(newFileData => {
         files.push(newFileData.file);
@@ -171,31 +171,27 @@ class FileUploadComponent extends React.Component {
 
   render() {
     return (
-      <div className={"fileUploader " + this.props.className} style={this.props.style}>
-        <div className="fileContainer" style={this.props.fileContainerStyle}>
-          {this.renderIcon()}
-          {this.renderLabel()}
-          <div className="errorsContainer">
-            {this.renderErrors()}
-          </div>
-          <button
-            type={this.props.buttonType}
-            className={"chooseFileButton " + this.props.buttonClassName}
-            style={this.props.buttonStyles}
-            onClick={this.triggerFileUpload}
-          >
-            {this.props.buttonText}
-          </button>
-          <input
-            type="file"
-            ref={input => this.inputElement = input}
-            name={this.props.name}
-            multiple={false}
-            onChange={this.onDropFile}
-            onClick={this.onUploadClick}
-            accept={this.props.accept}
-          />
+      <div className="fileContainer" style={this.props.fileContainerStyle}>
+        <div className="errorsContainer">
+          {this.renderErrors()}
         </div>
+        <button
+          type={this.props.buttonType}
+          className={"chooseFileButton " + this.props.buttonClassName}
+          style={this.props.buttonStyles}
+          onClick={this.triggerFileUpload}
+        >
+          {this.props.buttonText}
+        </button>
+        <input
+          type="file"
+          ref={input => this.inputElement = input}
+          name={this.props.name}
+          multiple={false}
+          onChange={this.onDropFile}
+          onClick={this.onUploadClick}
+          accept={this.props.accept}
+        />
       </div>
     )
   }

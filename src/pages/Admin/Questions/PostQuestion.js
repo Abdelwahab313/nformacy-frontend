@@ -3,7 +3,6 @@ import { Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../../../styles/Admin/postQuestionStyles';
 import QuestionForm from './QuestionForm';
-import SubmitButton from '../../../components/buttons/SubmitButton';
 import SuccessSnackBar from '../../../components/Snackbar/SuccessSnackBar';
 
 const PostQuestion = () => {
@@ -23,8 +22,6 @@ const PostQuestion = () => {
         <QuestionForm
           questionDetails={questionDetails} 
           setQuestionDetails={setQuestionDetails}
-          isLoadingForUpdating={false}
-          isOnEditQuestion={false}
           setIsSnackbarShown={setIsSnackbarShown}
           isNewQuestion={true}
         />
