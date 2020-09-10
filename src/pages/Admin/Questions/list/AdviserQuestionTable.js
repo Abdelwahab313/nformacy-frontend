@@ -35,6 +35,15 @@ const columns = [
     options: {
       filter: true,
       sort: true,
+      customBodyRender: (value, tableMeta) => {
+        return (<Link to={{
+          pathname: RoutesPaths.Admin.QuestionsDetails,
+          state: { questionId: tableMeta.rowData[0] },
+        }}>
+        <TextCroppedWithTooltip text={value} />
+        </Link>
+        );
+      },
     },
   },
   {
