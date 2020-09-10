@@ -1,17 +1,15 @@
 import React from 'react';
-
 import MUIDataTable from 'mui-datatables';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
-
 import { Link } from 'react-router-dom';
 import { RoutesPaths } from 'constants/routesPath';
 
+import { fetchQuestionsOfAdviser } from '../../../../apis/questionsAPI';
 import useFetchData from 'hooks/useFetchData';
-import { fetchAllQuestions } from '../../../../apis/questionsAPI';
 
 const columns = [
   {
@@ -145,10 +143,11 @@ const ActionRow = ({ itemId }) => {
   );
 };
 
-const QuestionsTable = () => {
-  console.log('=============== hi from admin list ===========');
-
-  const { fetchedData: questions } = useFetchData(() => fetchAllQuestions());
+const AdviserQuestionTable = ({ currentUser }) => {
+  console.log('=============== hi from adviser list ===========');
+  const { fetchedData: questions } = useFetchData(() =>
+    fetchQuestionsOfAdviser(currentUser.id),
+  );
   console.log('=========the obj of ques', questions);
 
   const tableOptions = {
@@ -162,7 +161,7 @@ const QuestionsTable = () => {
 
   return (
     <MUIDataTable
-      title={'Questions List'}
+      title={'Adviser Questions List'}
       data={questions}
       columns={columns}
       options={tableOptions}
@@ -170,4 +169,4 @@ const QuestionsTable = () => {
   );
 };
 
-export default QuestionsTable;
+export default AdviserQuestionTable;

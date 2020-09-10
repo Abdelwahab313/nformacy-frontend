@@ -9,6 +9,15 @@ export const fetchOpenedQuestions = () => {
   }).then((response) => camelizeKeys(response));
 };
 
+export const fetchQuestionsOfAdviser = (adviserId) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/questions/adviser_questions`,
+    data: decamelizeKeys({adviserId}),
+  })
+    .then((response) => camelizeKeys(response));
+};
+
 export const fetchAllQuestions = () => {
   return axios({
     method: 'get',
@@ -16,6 +25,7 @@ export const fetchAllQuestions = () => {
   })
     .then((response) => camelizeKeys(response));
 };
+
 
 export const fetchQuestionDetails = (questionId) => {
   return axios({
