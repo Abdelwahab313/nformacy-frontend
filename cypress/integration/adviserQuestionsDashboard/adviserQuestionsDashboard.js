@@ -19,3 +19,15 @@ And(/^I click on question title$/, function() {
 And(/^I should see question details$/, function() {
   cy.contains('Edit Question');
 });
+
+And(/^I should see Action Needed column$/, function() {
+  cy.contains('Action Needed');
+});
+
+And(/^I should see By Time column$/, function() {
+  cy.contains('By Time');
+});
+
+And(/^I should see Alarm column$/, function() {
+  cy.contains('Alarm');
+});

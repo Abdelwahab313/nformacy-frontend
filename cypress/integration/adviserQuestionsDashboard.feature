@@ -6,8 +6,12 @@ Feature: Adviser questions dashboard
     And I have questions assigned to me
     And I am on the questions dashboard
 
+  Scenario: view questions dashboard
+    Then I should see Action Needed column
+    And  I should see By Time column
+    And  I should see Alarm column
+
   Scenario: view questions assigned to adviser
-    When I am on adviser question list
     Then I should see the questions assigned to me
     When I click on question title
     Then I should see question details

@@ -13,10 +13,7 @@ import {
 import humanizedTimeSpan from '../../../services/humanizedTimeSpan';
 import { useStyles } from '../../../styles/Admin/questionFormStyles';
 import RichTextEditorForm from '../../../components/forms/RichTextEditorForm';
-import {
-  submitQuestion,
-  updateQuestion,
-} from '../../../apis/questionsAPI';
+import { submitQuestion, updateQuestion } from '../../../apis/questionsAPI';
 import { useHistory } from 'react-router';
 
 import { Grid } from '@material-ui/core';
@@ -39,8 +36,9 @@ const QuestionForm = ({
   const [content, setContent] = useState(
     questionDetails ? questionDetails.content : '',
   );
-  const [attachmentsGroupsId, setAttachmentsGroupsId] = useState(questionDetails.attachmentsGroupsId);
-
+  const [attachmentsGroupsId, setAttachmentsGroupsId] = useState(
+    questionDetails.attachmentsGroupsId,
+  );
 
   let history = useHistory();
   const richTextMediaId = useRef(questionDetails?.richTextMediaId);
@@ -50,7 +48,7 @@ const QuestionForm = ({
       ...questionDetails,
       content,
       richTextMediaId,
-      attachmentsGroupsId
+      attachmentsGroupsId,
     });
     localStorage.setItem('newQuestion', questionToBeSaved);
   };
@@ -69,10 +67,9 @@ const QuestionForm = ({
         content,
         attachmentsGroupsId,
         richTextMediaId: richTextMediaId.current,
-      })
-        .then((response) => {
-          history.push('/admin/dashboard');
-        });
+      }).then((response) => {
+        history.push('/admin/dashboard');
+      });
       setIsSnackbarShown(true);
     } else {
       updateQuestion(questionDetails.id, {
@@ -80,10 +77,9 @@ const QuestionForm = ({
         content,
         attachmentsGroupsId,
         richTextMediaId: richTextMediaId.current,
-      })
-        .then((response) => {
-          history.push('/admin/dashboard');
-        });
+      }).then((response) => {
+        history.push('/admin/dashboard');
+      });
       setIsSnackbarShown(true);
     }
   };
@@ -192,7 +188,7 @@ const QuestionForm = ({
         <GridItem xs={12} sm={12} md={3} className={classes.countDownContainer}>
           <CustomInput
             labelText='Closing Answer for Freelancers (In Hours)'
-            id='closeIn'
+            id='hoursToCloseAnswers'
             formControlProps={{
               style: {
                 margin: 0,
@@ -200,10 +196,10 @@ const QuestionForm = ({
               fullWidth: true,
             }}
             inputProps={{
-              value: questionDetails.closeIn,
-              name: 'closeIn',
+              value: questionDetails.hoursToCloseAnswers,
+              name: 'hoursToCloseAnswers',
               onChange: (e) => {
-                onChangeQuestionField('closeIn', e.target.value);
+                onChangeQuestionField('hoursToCloseAnswers', e.target.value);
               },
             }}
           />
@@ -211,7 +207,7 @@ const QuestionForm = ({
         <GridItem xs={12} sm={12} md={3} className={classes.countDownContainer}>
           <CustomInput
             labelText='Rating Time for Adviser (In Hours)'
-            id='reviewAndEditTime'
+            id='hoursToReviewAndEdit'
             formControlProps={{
               style: {
                 margin: 0,
@@ -219,10 +215,10 @@ const QuestionForm = ({
               fullWidth: true,
             }}
             inputProps={{
-              value: questionDetails.reviewAndEditTime,
-              name: 'reviewAndEditTime',
+              value: questionDetails.hoursToReviewAndEdit,
+              name: 'hoursToReviewAndEdit',
               onChange: (e) => {
-                onChangeQuestionField('reviewAndEditTime', e.target.value);
+                onChangeQuestionField('hoursToReviewAndEdit', e.target.value);
               },
             }}
           />

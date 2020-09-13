@@ -28,7 +28,7 @@ Then(
     cy.get('#question-2000100-content')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-2000100-closeDate')
+    cy.get('#question-2000100-currentActionTime')
       .invoke('text')
       .should('not.be.empty');
   },
@@ -46,9 +46,8 @@ When(/^I click on a field from the filtering menu\.$/, function() {
   cy.get('#filters-0').click();
 });
 Then(/^I should only see questions that belongs to that field\.$/, function() {
-  cy.get('#questionMajorFields-0')
-    .should('have.text', 'Finance:');
+  cy.get('#questionMajorFields-0').should('have.text', 'Finance:');
 });
 When(/^I fill all the question details$/, function() {
-  cy.get('#question-title-field').type('test question title')
+  cy.get('#question-title-field').type('test question title');
 });

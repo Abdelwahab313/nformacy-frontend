@@ -36,64 +36,21 @@ const columns = [
       filter: true,
       sort: true,
       customBodyRender: (value, tableMeta) => {
-        return (<Link to={{
-          pathname: RoutesPaths.Admin.QuestionsDetails,
-          state: { questionId: tableMeta.rowData[0] },
-        }}>
-        <TextCroppedWithTooltip text={value} />
-        </Link>
+        return (
+          <Link
+            to={{
+              pathname: RoutesPaths.Admin.QuestionsDetails,
+              state: { questionId: tableMeta.rowData[0] },
+            }}>
+            <TextCroppedWithTooltip text={value} />
+          </Link>
         );
       },
     },
   },
   {
-    name: 'content',
-    label: 'Content',
-    options: {
-      filter: false,
-      sort: false,
-      customBodyRender: (value) => {
-        return <TextCroppedWithTooltip text={value} />;
-      },
-    },
-  },
-  {
-    name: 'assignmentType',
-    label: 'Assignment Type',
-    options: {
-      filter: true,
-      sort: false,
-    },
-  },
-  {
-    name: 'closeIn',
-    label: 'Close In',
-    options: {
-      filter: true,
-      sort: false,
-      customBodyRender: (value) => {
-        return value;
-      },
-    },
-  },
-  {
-    name: 'field',
-    label: 'Fields',
-    options: {
-      filter: true,
-      filterType: 'multiselect',
-      customBodyRender: (value) => {
-        return value.map((val, key) => {
-          return (
-            <Chip style={{ margin: 4 }} label={val.label} key={key.value} />
-          );
-        });
-      },
-    },
-  },
-  {
     name: 'state',
-    label: 'Status',
+    label: 'Action Needed',
     options: {
       filter: false,
       sort: false,
@@ -109,13 +66,24 @@ const columns = [
     },
   },
   {
-    name: 'Options',
+    name: 'hoursToCloseAnswers',
+    label: 'By Time',
     options: {
-      filter: false,
+      filter: true,
       sort: false,
-      empty: true,
-      customBodyRender: (value, tableMeta) => {
-        return <ActionRow itemId={tableMeta.rowData[0]} />;
+      customBodyRender: (value) => {
+        return value;
+      },
+    },
+  },
+  {
+    name: 'hoursToCloseAnswers',
+    label: 'Alarm',
+    options: {
+      filter: true,
+      sort: false,
+      customBodyRender: (value) => {
+        return value;
       },
     },
   },
@@ -129,7 +97,6 @@ const TextCroppedWithTooltip = ({ text }) => {
         style={{
           overflow: 'hidden',
           textOverflow: 'ellipsis',
-          width: '11rem',
         }}>
         {text}
       </Typography>

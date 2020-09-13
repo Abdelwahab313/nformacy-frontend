@@ -37,16 +37,16 @@ const columns = [
     options: {
       filter: true,
       sort: true,
-    },
-  },
-  {
-    name: 'content',
-    label: 'Content',
-    options: {
-      filter: false,
-      sort: false,
-      customBodyRender: (value) => {
-        return <TextCroppedWithTooltip text={value} />;
+      customBodyRender: (value, tableMeta) => {
+        return (
+          <Link
+            to={{
+              pathname: RoutesPaths.Admin.QuestionsDetails,
+              state: { questionId: tableMeta.rowData[0] },
+            }}>
+            <TextCroppedWithTooltip text={value} />
+          </Link>
+        );
       },
     },
   },
@@ -59,7 +59,7 @@ const columns = [
     },
   },
   {
-    name: 'closeIn',
+    name: 'hoursToCloseAnswers',
     label: 'Close In',
     options: {
       filter: true,
@@ -122,7 +122,6 @@ const TextCroppedWithTooltip = ({ text }) => {
         style={{
           overflow: 'hidden',
           textOverflow: 'ellipsis',
-          width: '11rem',
         }}>
         {text}
       </Typography>

@@ -10,9 +10,7 @@ Then(/^I can only see questions in navbar$/, function() {
   cy.get('#adminSidebar').should('not.contain', 'Calls')
 });
 When(/^i chose first question\.$/, function() {
-  cy.get('#MUIDataTableBodyRow-0')
-    .find('#editSummary')
-    .click();
+  cy.get("td[data-testid='MuiDataTableBodyCell-2-0']").click();
 });
 
 Then(/^the edit should be saved successfully to first question$/, function() {

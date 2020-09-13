@@ -13,9 +13,7 @@ import QuestionCountDown from 'components/counters/QuestionCountDown';
 import SubmitButton from 'components/buttons/SubmitButton';
 import t from '../../locales/en/questionRoaster';
 
-
 const QuestionView = ({ questionDetails, isSubmitVisible }) => {
-
   const classes = useStyles();
   const history = useHistory();
 
@@ -24,7 +22,11 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   }
 
   const isMajorContainsSpecificField = (subField) => {
-    return questionDetails.subfield.filter(specificField => specificField.value === subField.value).length > 0;
+    return (
+      questionDetails.subfield.filter(
+        (specificField) => specificField.value === subField.value,
+      ).length > 0
+    );
   };
 
   return (
@@ -46,33 +48,33 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
         </Grid>
         <Grid item xs={6}>
           <Grid
-            className={[
-              classes.flexContainer,
-              classes.questionFieldsStyles,
-            ]}>
+            className={[classes.flexContainer, classes.questionFieldsStyles]}>
             <Typography className={classes.questionFieldLabel}>
               {t['field']}
             </Typography>
             <Grid item xs={9} className={classes.fieldContainer}>
-
               {questionDetails.field?.map((major, key) => (
                 <Grid container alignItems={'center'}>
-                  <Grid
-                    item
-                    xs={6}
-                    id={`questionMajorFields-${key}`}
-                    key={key}>
+                  <Grid item xs={6} id={`questionMajorFields-${key}`} key={key}>
                     {major.label + ':'}
                   </Grid>
                   <Grid item xs={6}>
                     <Grid container>
-                      {fieldsOfExperience.find(experience => experience.value === major.value).subfields.filter(specificField => isMajorContainsSpecificField(specificField))?.map((field, key) => (
-                        <Grid item key={key}>
-                          <Chip id={`questionSubFields-${key}`} color={'secondary'}
-                                style={{ marginLeft: '5px', marginRight: '5px' }}
-                                label={field.label}/>
-                        </Grid>
-                      ))}
+                      {fieldsOfExperience
+                        .find((experience) => experience.value === major.value)
+                        .subfields.filter((specificField) =>
+                          isMajorContainsSpecificField(specificField),
+                        )
+                        ?.map((field, key) => (
+                          <Grid item key={key}>
+                            <Chip
+                              id={`questionSubFields-${key}`}
+                              color={'secondary'}
+                              style={{ marginLeft: '5px', marginRight: '5px' }}
+                              label={field.label}
+                            />
+                          </Grid>
+                        ))}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -90,8 +92,8 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
         </Grid>
         <Grid item xs={3}>
           <QuestionCountDown
-            date={questionDetails.closeDate}
-            id={`question-${questionDetails.referenceNumber}-closeDate`}
+            date={questionDetails.currentActionTime}
+            id={`question-${questionDetails.referenceNumber}-currentActionTime`}
             className={classes.questionFieldsStyles}
           />
         </Grid>
@@ -108,17 +110,19 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
             type={questionDetails.assignmentType}
           />
         </Grid>
-        {isSubmitVisible && <Grid
-          item
-          xs={6}
-          style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <SubmitButton
-            id={`question-${questionDetails.referenceNumber}-submit`}
-            onClick={() => handleEditClick(questionDetails.referenceNumber)}
-            buttonText={t['answer']}
-            disabled={false}
-          />
-        </Grid>}
+        {isSubmitVisible && (
+          <Grid
+            item
+            xs={6}
+            style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <SubmitButton
+              id={`question-${questionDetails.referenceNumber}-submit`}
+              onClick={() => handleEditClick(questionDetails.referenceNumber)}
+              buttonText={t['answer']}
+              disabled={false}
+            />
+          </Grid>
+        )}
       </Grid>
     </Paper>
   );
