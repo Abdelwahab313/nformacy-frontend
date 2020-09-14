@@ -61,6 +61,14 @@ export const submitQuestion = (question) => {
   }).then((response) => camelizeKeys(response));
 };
 
+export const saveDraftQuestion = (question) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/questions/save`,
+    data: decamelizeKeys({ ...question }),
+  }).then((response) => camelizeKeys(response));
+};
+
 export const updateQuestion = (questionId, updatedQuestion) => {
   return axios({
     method: 'put',

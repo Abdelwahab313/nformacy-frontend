@@ -13,7 +13,11 @@ import {
 import humanizedTimeSpan from '../../../services/humanizedTimeSpan';
 import { useStyles } from '../../../styles/Admin/questionFormStyles';
 import RichTextEditorForm from '../../../components/forms/RichTextEditorForm';
-import { submitQuestion, updateQuestion } from '../../../apis/questionsAPI';
+import {
+  saveDraftQuestion,
+  submitQuestion,
+  updateQuestion,
+} from '../../../apis/questionsAPI';
 import { useHistory } from 'react-router';
 
 import { Grid } from '@material-ui/core';
@@ -29,6 +33,7 @@ const QuestionForm = ({
   questionDetails,
   setQuestionDetails,
   setIsSnackbarShown,
+  setSnackbarMessage,
   isNewQuestion,
 }) => {
   const classes = useStyles();
@@ -43,14 +48,17 @@ const QuestionForm = ({
   let history = useHistory();
   const richTextMediaId = useRef(questionDetails?.richTextMediaId);
 
-  const saveAndCompleteLater = (richTextMediaId) => {
-    const questionToBeSaved = JSON.stringify({
+  const saveAndCompleteLater = () => {
+    saveDraftQuestion({
       ...questionDetails,
       content,
-      richTextMediaId,
       attachmentsGroupsId,
+      richTextMediaId: richTextMediaId.current,
+    }).then(() => {
+      history.push('/admin/questions');
     });
-    localStorage.setItem('newQuestion', questionToBeSaved);
+    setIsSnackbarShown(true);
+    setSnackbarMessage('Your question is saved successfully');
   };
 
   const onChangeQuestionField = (name, data) => {
@@ -70,7 +78,6 @@ const QuestionForm = ({
       }).then((response) => {
         history.push('/admin/dashboard');
       });
-      setIsSnackbarShown(true);
     } else {
       updateQuestion(questionDetails.id, {
         ...questionDetails,
@@ -80,8 +87,9 @@ const QuestionForm = ({
       }).then((response) => {
         history.push('/admin/dashboard');
       });
-      setIsSnackbarShown(true);
     }
+    setIsSnackbarShown(true);
+    setSnackbarMessage('Question Sent to Adviser');
   };
 
   return (
@@ -264,9 +272,10 @@ const QuestionForm = ({
               className={questionRoasterClasses.answerButtonsContainer}>
               {isNewQuestion && (
                 <Button
+                  id='saveAndCompleteLaterButton'
                   variant='contained'
                   size='medium'
-                  onClick={() => saveAndCompleteLater(richTextMediaId.current)}
+                  onClick={() => saveAndCompleteLater()}
                   style={{
                     marginRight: '10px',
                     height: '36px',

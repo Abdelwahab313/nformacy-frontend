@@ -12,6 +12,7 @@ const PostQuestion = () => {
     savedQuestion || {},
   );
   const [isSnackbarShown, setIsSnackbarShown] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   return (
     <Grid container justify={'center'}>
@@ -20,14 +21,15 @@ const PostQuestion = () => {
           <Typography id={'post-question-page-header'}>Add Question</Typography>
         </div>
         <QuestionForm
-          questionDetails={questionDetails} 
+          questionDetails={questionDetails}
           setQuestionDetails={setQuestionDetails}
           setIsSnackbarShown={setIsSnackbarShown}
+          setSnackbarMessage={setSnackbarMessage}
           isNewQuestion={true}
         />
       </Grid>
       <SuccessSnackBar
-        content={'Question Sent to Adviser'}
+        content={snackbarMessage}
         isSnackbarShown={isSnackbarShown}
         closeSnackBar={() => {
           setIsSnackbarShown(false);

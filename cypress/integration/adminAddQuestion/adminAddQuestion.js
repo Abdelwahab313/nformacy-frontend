@@ -1,6 +1,6 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
-Given(/^on Post question page$/, function() {
+Given(/^I am on Post question page$/, function() {
   cy.contains('Post Question').click();
   cy.get('#post-question-page-header').should('have.text', 'Add Question');
   // cy.get('#send-to-adviser-button');
@@ -19,11 +19,39 @@ When(/^I fill all the question details$/, function() {
   cy.get('#hoursToReviewAndEdit').type('10');
   cy.get('#assignAdviser').click();
   cy.get('#assignAdviser-option-0').click();
+  cy.get('#richContent_ifr');
+  cy.wait(1000);
+  cy.window().then((win) => {
+    const editor = win.tinymce.editors['richContent'];
+    editor.setContent('<p>Test content</p>');
+  });
 });
-When(/^i click apply changes$/, function() {
+When(/^i click "Send to adviser"$/, function() {
   cy.get('#applyChangesButton').click();
 });
-Then(/^I should see snackbar with message$/, function() {
-  cy.contains('Dashboard');
-  cy.contains('Question Sent to Adviser');
+Then(
+  /^I should see snackbar with message "Question Sent to Adviser"$/,
+  function() {
+    cy.contains('Dashboard');
+    cy.contains('Question Sent to Adviser');
+  },
+);
+When(/^I click "([^"]*)"$/, function() {
+  cy.get('#saveAndCompleteLaterButton').click();
 });
+Then(
+  /^I should be redirected to questions page and see snackbar with message "([^"]*)"$/,
+  function() {
+    cy.contains('Your question is saved successfully');
+    cy.get('#questionsList');
+  },
+);
+When(/^i chose a question with status pending assignment\.$/, function() {
+  cy.get('#pagination-rows').click();
+  cy.get("#pagination-menu-list").children().last().click();
+  cy.get("a[data-status='pending_assignment']")
+    .last()
+    .click();
+});
+Then(/^i should be in the saved question post form\.$/, function() {});
+Then(/^all saved information should be visible$/, function() {});

@@ -108,7 +108,7 @@ const columns = [
       sort: false,
       empty: true,
       customBodyRender: (value, tableMeta) => {
-        return <ActionRow itemId={tableMeta.rowData[0]} />;
+        return <ActionRow itemId={tableMeta.rowData[0]}  status={tableMeta.rowData[6]}/>;
       },
     },
   },
@@ -129,11 +129,12 @@ const TextCroppedWithTooltip = ({ text }) => {
   );
 };
 
-const ActionRow = ({ itemId }) => {
+const ActionRow = ({ itemId, status }) => {
   return (
     <IconButton
       aria-label='edit'
       id='editSummary'
+      data-status={status}
       component={Link}
       to={{
         pathname: RoutesPaths.Admin.QuestionsDetails,

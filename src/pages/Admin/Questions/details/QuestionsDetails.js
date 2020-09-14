@@ -21,6 +21,7 @@ const QuestionDetails = () => {
   const [questionDetails, setQuestionDetails] = useState({});
   const [isLoadingForUpdating, setIsLoadingForUpdating] = useState(false);
   const [isSnackbarShown, setIsSnackbarShown] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   const location = useLocation();
   const questionId = location.state.questionId;
@@ -62,6 +63,7 @@ const QuestionDetails = () => {
             setQuestionDetails={setQuestionDetails}
             isLoadingForUpdating={isLoadingForUpdating}
             setIsSnackbarShown={setIsSnackbarShown}
+            setSnackbarMessage={setSnackbarMessage}
             isNewQuestion={false}
           />
           <CardFooter className={classes.footerButtons}>
@@ -77,7 +79,7 @@ const QuestionDetails = () => {
             <SuccessSnackBar
               isSnackbarShown={isSnackbarShown}
               closeSnackBar={() => setIsSnackbarShown(false)}
-              content={'Question Updated Successfully'}
+              content={snackbarMessage}
             />
           </CardFooter>
         </Card>
