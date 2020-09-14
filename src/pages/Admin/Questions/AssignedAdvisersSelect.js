@@ -33,7 +33,7 @@ const AssignedAdvisersSelect = ({questionDetails, onChangeQuestionField}) => {
               )[0]
             : {}
         }
-        onFieldChange={(e, option) => {
+        onFieldChange={(option) => {
           onChangeQuestionField('assignedAdviserId', option.value);
         }}
         fieldLabel='Assign Adviser'

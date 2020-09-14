@@ -36,6 +36,12 @@ export const formattedDateTime = (date) => {
   return dateTimeFormat.format(date);
 };
 
+export const getRemainingHoursFromDate = (dateInUTC) => {
+  const timeDiff = moment.utc(dateInUTC).diff(moment());
+  const hours =  moment.duration(timeDiff).asHours();
+  return hours;
+}
+
 export const formattedDateTimeNoSeconds = (date) => {
   const dateTimeFormat = new Intl.DateTimeFormat('en', {
     year: 'numeric',

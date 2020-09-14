@@ -25,5 +25,3 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 import 'cypress-file-upload';
 import "cypress-localstorage-commands"
-import '@testing-library/cypress/add-commands'
-

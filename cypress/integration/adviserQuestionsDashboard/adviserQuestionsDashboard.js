@@ -1,7 +1,22 @@
 import { Given, When, Then, And } from 'cypress-cucumber-preprocessor/steps';
+import { getFakeQuestion } from '../../factories/questionFactory';
+
+
+const getDateAfterHours = (hours) => {
+  let d = new Date()
+  d.setHours(d.getHours() + hours);
+  console.log( d.toGMTString())
+  return d.toGMTString();
+}
 
 Given(/^I have questions assigned to me$/, function() {
-  //TODO creat question from database (for now test will pass if you run adminAddQuestion TEST BEFORE IT)
+  cy.server()
+  cy.route("POST", "/questions/adviser_questions", [getFakeQuestion({current_action_time: getDateAfterHours(12)})]).as("questions");
+});
+
+And(/^I have a question assigned to me with By time less than half$/, function() {
+  cy.server()
+  cy.route("POST", "/questions/adviser_questions", [getFakeQuestion({current_action_time: getDateAfterHours(5)})]).as("questions");
 });
 
 And(/^I am on adviser question list$/, function() {
@@ -10,6 +25,16 @@ And(/^I am on adviser question list$/, function() {
 
 And(/^I should see the questions assigned to me$/, function() {
   cy.get('#MUIDataTableBodyRow-0');
+  cy.get('td[data-testid="MuiDataTableBodyCell-3-0"] span').contains('pending adviser acceptance');
+
+  cy.get('td[data-testid="MuiDataTableBodyCell-4-0"] p').contains('0:');
+  cy.get('td[data-testid="MuiDataTableBodyCell-5-0"] div').should('be.empty');
+
+});
+
+And(/^I should see alarm beside question row$/, function() {
+  cy.get('#MUIDataTableBodyRow-0');
+  cy.get('td[data-testid="MuiDataTableBodyCell-5-0"] div').contains('50% of the Remaining time to accept has passed');
 });
 
 And(/^I click on question title$/, function() {

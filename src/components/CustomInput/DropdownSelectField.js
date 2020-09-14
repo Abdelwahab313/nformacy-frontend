@@ -21,7 +21,7 @@ export default function DropdownSelectField({
         // getOptionSelected={(option, value) => {
         //   return option.value === value.value;
         // }}
-        onChange={onFieldChange}
+        onChange={(e, option) => (!!option && onFieldChange(option))}
         blurOnSelect
         renderInput={(params) => (
           <TextField {...params} variant='outlined' label={fieldLabel} />

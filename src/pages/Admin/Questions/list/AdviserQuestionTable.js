@@ -10,6 +10,8 @@ import { RoutesPaths } from 'constants/routesPath';
 
 import { fetchQuestionsOfAdviser } from '../../../../apis/questionsAPI';
 import useFetchData from 'hooks/useFetchData';
+import QuestionCountDown from 'components/counters/QuestionCountDown';
+import { getRemainingHoursFromDate } from 'services/dateTimeParser';
 
 const columns = [
   {
@@ -62,28 +64,27 @@ const columns = [
           />
         );
       },
-      // customBodyRender: (value) => value.split('_').join(' '),
     },
   },
   {
-    name: 'hoursToCloseAnswers',
+    name: 'currentActionTime',
     label: 'By Time',
     options: {
       filter: true,
       sort: false,
       customBodyRender: (value) => {
-        return value;
+        return <QuestionCountDown date={value} />;
       },
     },
   },
   {
-    name: 'hoursToCloseAnswers',
+    name: 'currentActionTime',
     label: 'Alarm',
     options: {
       filter: true,
       sort: false,
       customBodyRender: (value) => {
-        return value;
+        return getRemainingHoursFromDate(value) < 6 ? '50% of the Remaining time to accept has passed' : '';
       },
     },
   },
@@ -104,26 +105,12 @@ const TextCroppedWithTooltip = ({ text }) => {
   );
 };
 
-const ActionRow = ({ itemId }) => {
-  return (
-    <IconButton
-      aria-label='edit'
-      id='editSummary'
-      component={Link}
-      to={{
-        pathname: RoutesPaths.Admin.QuestionsDetails,
-        state: { questionId: itemId },
-      }}>
-      <EditIcon color={'primary'} />
-    </IconButton>
-  );
-};
-
 const AdviserQuestionTable = ({ currentUser }) => {
   console.log('=============== hi from adviser list ===========');
   const { fetchedData: questions } = useFetchData(() =>
     fetchQuestionsOfAdviser(currentUser.id),
   );
+
   console.log('=========the obj of ques', questions);
 
   const tableOptions = {

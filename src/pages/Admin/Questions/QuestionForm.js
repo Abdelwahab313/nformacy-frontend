@@ -180,7 +180,7 @@ const QuestionForm = ({
             fieldName='industry'
             fieldOptions={industries}
             fieldValue={questionDetails.industry}
-            onFieldChange={(e, option) =>
+            onFieldChange={(option) =>
               onChangeQuestionField('industry', option)
             }
             fieldLabel='Industry'
@@ -198,7 +198,7 @@ const QuestionForm = ({
                 (option) => questionDetails.assignmentType === option.value,
               )[0]
             }
-            onFieldChange={(e, option) =>
+            onFieldChange={(option) =>
               onChangeQuestionField('assignmentType', option.value)
             }
             fieldLabel='Type of Assignment'
