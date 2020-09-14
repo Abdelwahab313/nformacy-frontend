@@ -76,7 +76,7 @@ const columns = [
       filter: true,
       filterType: 'multiselect',
       customBodyRender: (value) => {
-        return value.map((val, key) => {
+        return value?.map((val, key) => {
           return (
             <Chip style={{ margin: 4 }} label={val.label} key={key.value} />
           );

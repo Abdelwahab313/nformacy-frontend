@@ -34,6 +34,7 @@ const QuestionForm = ({
   setQuestionDetails,
   setIsSnackbarShown,
   setSnackbarMessage,
+  setIsError,
   isNewQuestion,
 }) => {
   const classes = useStyles();
@@ -69,27 +70,37 @@ const QuestionForm = ({
   };
 
   const onSubmitQuestion = () => {
-    if (isNewQuestion) {
-      submitQuestion({
-        ...questionDetails,
-        content,
-        attachmentsGroupsId,
-        richTextMediaId: richTextMediaId.current,
-      }).then((response) => {
-        history.push('/admin/dashboard');
-      });
+    if (
+      !questionDetails.assignedAdviserId ||
+      questionDetails.assignedAdviserId === ''
+    ) {
+      setSnackbarMessage('You have to assign an adviser to send to.');
+      setIsError(true);
+      setIsSnackbarShown(true);
     } else {
-      updateQuestion(questionDetails.id, {
-        ...questionDetails,
-        content,
-        attachmentsGroupsId,
-        richTextMediaId: richTextMediaId.current,
-      }).then((response) => {
-        history.push('/admin/dashboard');
-      });
+      setIsError(false);
+      if (isNewQuestion) {
+        submitQuestion({
+          ...questionDetails,
+          content,
+          attachmentsGroupsId,
+          richTextMediaId: richTextMediaId.current,
+        }).then((response) => {
+          history.push('/admin/dashboard');
+        });
+      } else {
+        updateQuestion(questionDetails.id, {
+          ...questionDetails,
+          content,
+          attachmentsGroupsId,
+          richTextMediaId: richTextMediaId.current,
+        }).then((response) => {
+          history.push('/admin/dashboard');
+        });
+      }
+      setIsSnackbarShown(true);
+      setSnackbarMessage('Question Sent to Adviser');
     }
-    setIsSnackbarShown(true);
-    setSnackbarMessage('Question Sent to Adviser');
   };
 
   return (

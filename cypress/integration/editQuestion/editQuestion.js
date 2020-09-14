@@ -16,3 +16,7 @@ Then(/^the edit should be saved successfull to second question$/, function() {
     'updatedTitle',
   );
 });
+When(/^i assign an adviser$/, function() {
+  cy.get('#assignAdviser').click();
+  cy.get('#assignAdviser-option-0').click();
+});
