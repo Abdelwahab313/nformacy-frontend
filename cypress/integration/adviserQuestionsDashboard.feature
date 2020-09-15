@@ -3,28 +3,37 @@ Feature: Adviser questions dashboard
 
   Background:
     Given I login in as an advisor
-    And I have questions assigned to me
-    And I am on the questions dashboard
 
   Scenario: view questions dashboard table view
+      Then I have a question assigned to me with By time less than "100" percent
+      And I am on the questions dashboard
     Then I should see Action Needed column
     And  I should see By Time column
     And  I should see Alarm column
 
   Scenario: view question assigned to adviser entry
-    Then I should see the questions assigned to me
+    Given I have a question assigned to me with By time less than "100" percent
+    And  I am on the questions dashboard
+    And  I should see alarm with "green" circle
     When I click on question title
     Then I should see question details
 
 
-  Scenario: question should show alarm when by time is at its half
-     Given I have a question assigned to me with By time less than half
+  Scenario: question should show yellow alarm when by time is less than half
+     Given I have a question assigned to me with By time less than "50" percent
      When I am on the questions dashboard
-     Then I should see alarm beside question row
+     And  I should see alarm with "yellow" circle
 
-  # alarm shape and flag message
-  # alarm is shown after 1/2 time or specific 
-  # Scenario: question should be shown as close after By time
+  Scenario: question should show orange alarm when by time is less than quarter
+     Given I have a question assigned to me with By time less than "25" percent
+     When I am on the questions dashboard
+     And  I should see alarm with "orange" circle
+
+  Scenario: question should show red alarm when by time is less than 10 percent
+    Given I have a question assigned to me with By time less than "10" percent
+    When I am on the questions dashboard
+    And  I should see alarm with "red" circle
+
   
   # Scenario: Accept question assigned to adviser
   #   Given I have question with status pending adviser acceptance

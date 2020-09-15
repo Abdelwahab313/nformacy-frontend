@@ -1,5 +1,5 @@
 **Note: Before running locally do the following command in order for the prehook to work**
-### `export BACKEND_PATH="/meddad"`
+### `export zBACKEND_PATH="/
 
 ## For running the application in docker
 

@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Link } from 'react-router-dom';
 import { RoutesPaths } from 'constants/routesPath';
+import styled from 'styled-components';
 
 import { fetchQuestionsOfAdviser } from '../../../../apis/questionsAPI';
 import useFetchData from 'hooks/useFetchData';
@@ -85,11 +86,41 @@ const columns = [
       filter: true,
       sort: false,
       customBodyRender: (value) => {
-        return getRemainingHoursFromDate(value) < 6 ? '50% of the Remaining time to accept has passed' : '';
+        return (
+          <QuestionRemainingTimeAlarm
+            remainingTime={value}
+            totalActionHours={12}
+          />
+        );
       },
     },
   },
 ];
+
+const Circle = styled.div`
+  width: 1.5em;
+  height: 1.5em;
+  background-color: ${(props) => props.color};
+  border-radius: 1em;
+`;
+const QuestionRemainingTimeAlarm = ({ remainingTime, totalActionHours }) => {
+  const remainingHours = getRemainingHoursFromDate(remainingTime);
+  const remainingHoursPercent = (remainingHours / totalActionHours) * 100;
+  let color;
+  if (remainingHoursPercent >= 50) {
+    color = 'green';
+  } else if (remainingHoursPercent < 50 && remainingHoursPercent >= 25) {
+    color = 'yellow';
+  } else if (remainingHoursPercent < 25 && remainingHoursPercent >= 10) {
+    color = 'orange';
+  } else if (remainingHoursPercent < 10 && remainingHoursPercent > 0) {
+    color = 'red';
+  } else {
+    color = '';
+  }
+
+  return <Circle className={color} color={color} />;
+};
 
 const TextCroppedWithTooltip = ({ text }) => {
   return (

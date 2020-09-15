@@ -48,6 +48,7 @@ Then(
   },
 );
 When(/^i chose a question with status draft\.$/, function() {
+  cy.wait(1000);
   cy.get('#pagination-rows').click();
   cy.get('#pagination-menu-list')
     .children()
