@@ -8,7 +8,7 @@ const getDateAfterHours = (hours) => {
   return d.toGMTString();
 };
 
-And(
+Given(
   `I have a question assigned to me with By time less than {string} percent`,
   (percent) => {
     let hours = (parseInt(percent) * 12) / 100;
@@ -19,8 +19,20 @@ And(
   },
 );
 
+Given (/^I have a question assigned to me with finished By time$/, function() {
+  cy.server();
+  cy.route('GET', '/questions/adviser_questions', [
+    getFakeQuestion({ title: "removed question"}),
+  ]).as('questions');
+});
+
 And(/^I am on adviser question list$/, function() {
   cy.contains('Adviser Questions List');
+});
+
+And(/^I should not see the question$/, function() {
+  cy.wait('@questions');
+  cy.contains('Sorry, no matching records found');
 });
 
 And(/^I should see the questions assigned to me$/, function() {

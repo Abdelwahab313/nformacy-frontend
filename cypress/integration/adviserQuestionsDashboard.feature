@@ -5,8 +5,8 @@ Feature: Adviser questions dashboard
     Given I login in as an advisor
 
   Scenario: view questions dashboard table view
-      Then I have a question assigned to me with By time less than "100" percent
-      And I am on the questions dashboard
+    Then I have a question assigned to me with By time less than "100" percent
+    And I am on the questions dashboard
     Then I should see Action Needed column
     And  I should see By Time column
     And  I should see Alarm column
@@ -33,6 +33,11 @@ Feature: Adviser questions dashboard
     Given I have a question assigned to me with By time less than "10" percent
     When I am on the questions dashboard
     And  I should see alarm with "red" circle
+
+  Scenario: question should removed when by time is finished
+    Given I have a question assigned to me with finished By time
+    When  I am on the questions dashboard
+    And   I should not see the question
 
   
   # Scenario: Accept question assigned to adviser

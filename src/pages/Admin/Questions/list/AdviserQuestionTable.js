@@ -1,17 +1,14 @@
 import React from 'react';
 import MUIDataTable from 'mui-datatables';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Link } from 'react-router-dom';
 import { RoutesPaths } from 'constants/routesPath';
-import styled from 'styled-components';
-
 import { fetchQuestionsOfAdviser } from '../../../../apis/questionsAPI';
 import useFetchData from 'hooks/useFetchData';
 import QuestionCountDown from 'components/counters/QuestionCountDown';
+import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
 import { getRemainingHoursFromDate } from 'services/dateTimeParser';
 
 const columns = [
@@ -99,31 +96,6 @@ const columns = [
   },
 ];
 
-const Circle = styled.div`
-  width: 1.5em;
-  height: 1.5em;
-  background-color: ${(props) => props.color};
-  border-radius: 1em;
-`;
-const QuestionRemainingTimeAlarm = ({ remainingTime, totalActionHours }) => {
-  const remainingHours = getRemainingHoursFromDate(remainingTime);
-  const remainingHoursPercent = (remainingHours / totalActionHours) * 100;
-  let color;
-  if (remainingHoursPercent >= 50) {
-    color = 'green';
-  } else if (remainingHoursPercent < 50 && remainingHoursPercent >= 25) {
-    color = 'yellow';
-  } else if (remainingHoursPercent < 25 && remainingHoursPercent >= 10) {
-    color = 'orange';
-  } else if (remainingHoursPercent < 10 && remainingHoursPercent > 0) {
-    color = 'red';
-  } else {
-    color = '';
-  }
-
-  return <Circle className={color} color={color} />;
-};
-
 const TextCroppedWithTooltip = ({ text }) => {
   return (
     <Tooltip title={<Typography variant={'body2'}>{text}</Typography>} arrow>
@@ -139,13 +111,15 @@ const TextCroppedWithTooltip = ({ text }) => {
   );
 };
 
-const AdviserQuestionTable = ( ) => {
+const AdviserQuestionTable = () => {
   console.log('=============== hi from adviser list ===========');
-  const { fetchedData: questions } = useFetchData(() =>
+  const { fetchedData: fetchedQuestions } = useFetchData(() =>
     fetchQuestionsOfAdviser(),
   );
 
-  console.log('=========the obj of ques', questions);
+  const questions = fetchedQuestions.filter(
+    (question) => getRemainingHoursFromDate(question.currentActionTime) > 0,
+  );
 
   const tableOptions = {
     filterType: 'checkbox',
