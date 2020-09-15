@@ -59,6 +59,7 @@ const columns = [
       customBodyRender: (value) => {
         return (
           <Chip
+            data-status={value}
             style={({ margin: 3 }, { backgroundColor: '#cec8ef' })}
             label={value.split('_').join(' ')}
           />
@@ -105,10 +106,10 @@ const TextCroppedWithTooltip = ({ text }) => {
   );
 };
 
-const AdviserQuestionTable = ({ currentUser }) => {
+const AdviserQuestionTable = ( ) => {
   console.log('=============== hi from adviser list ===========');
   const { fetchedData: questions } = useFetchData(() =>
-    fetchQuestionsOfAdviser(currentUser.id),
+    fetchQuestionsOfAdviser(),
   );
 
   console.log('=========the obj of ques', questions);

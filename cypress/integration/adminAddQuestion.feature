@@ -24,8 +24,16 @@ Feature: Admin post question
     Given I am on Post question page
     When I fill all the question details
     And I click "Save and complete later"
-    And i am in question roaster dashboard.
     When i chose a question with status draft.
     Then i should be in the saved question post form.
     And all saved information should be visible
+
+
+  Scenario: Admin draft question not visible for adviser
+    Given I am on Post question page
+    When I fill question details with specific data
+    And I click "Save and complete later"
+    When I login in as an advisor
+    And i am in question roaster dashboard.
+    Then i should not see the draft question i posted as admin
 

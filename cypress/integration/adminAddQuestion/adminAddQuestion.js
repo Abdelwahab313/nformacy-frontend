@@ -1,4 +1,5 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
+import faker from 'faker';
 
 Given(/^I am on Post question page$/, function() {
   cy.contains('Post Question').click();
@@ -48,7 +49,10 @@ Then(
 );
 When(/^i chose a question with status draft\.$/, function() {
   cy.get('#pagination-rows').click();
-  cy.get("#pagination-menu-list").children().last().click();
+  cy.get('#pagination-menu-list')
+    .children()
+    .last()
+    .click();
   cy.get("a[data-status='draft']")
     .last()
     .click();
@@ -57,8 +61,43 @@ Then(/^i should be in the saved question post form\.$/, function() {});
 Then(/^all saved information should be visible$/, function() {});
 Then(/^the question status should be pending adviser acceptance$/, function() {
   cy.get('#pagination-rows').click();
-  cy.get("#pagination-menu-list").children().last().click();
+  cy.get('#pagination-menu-list')
+    .children()
+    .last()
+    .click();
   cy.get("a[data-status='draft']")
     .last()
     .click();
+});
+When(/^I fill question details with specific data$/, function() {
+  const givenTitle = faker.name.findName();
+  cy.wrap(givenTitle).as('questionTitle');
+  cy.get('#title').type(givenTitle);
+  cy.get('#majorFieldsOfExperienceSelect').click();
+  cy.get('#majorFieldsOfExperienceSelect-option-2').click();
+  cy.get('#specificFieldsOfExperienceSelect').click();
+  cy.get('#specificFieldsOfExperienceSelect-option-2').click();
+  cy.get('#industry').click();
+  cy.get('#industry-option-0').click();
+  cy.get('#assignmentType').click();
+  cy.get('#assignmentType-option-0').click();
+  cy.get('#hoursToCloseAnswers').type('13');
+  cy.get('#hoursToReviewAndEdit').type('10');
+  cy.get('#assignAdviser').click();
+  cy.get('#assignAdviser-option-0').click();
+  cy.get('#richContent_ifr');
+  cy.wait(1000);
+  cy.window().then((win) => {
+    const editor = win.tinymce.editors['richContent'];
+    editor.setContent('<p>Test content</p>');
+  });
+});
+Then(/^i should not see the draft question i posted as admin$/, function() {
+  cy.wait(1000);
+  cy.get('#pagination-rows').click();
+  cy.get('#pagination-menu-list')
+    .children()
+    .last()
+    .click();
+  cy.contains(this.questionTitle).should('not.exist');
 });

@@ -22,7 +22,7 @@ export default function TableList() {
         <Card plain>
           <CardBody id="questionsList">
             {isAdviser(currentUser) ? (
-              <AdviserQuestionTable currentUser={currentUser} />
+              <AdviserQuestionTable  />
             ) : (
               <QuestionsTable />
             )}
