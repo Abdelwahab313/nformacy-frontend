@@ -42,8 +42,8 @@ When(/^I click "([^"]*)"$/, function() {
 });
 Then(
   /^I should be redirected to questions page and see snackbar with message "([^"]*)"$/,
-  function() {
-    cy.contains('Your question is saved successfully');
+  function(term) {
+    cy.contains(term);
     cy.get('#questionsList');
   },
 );

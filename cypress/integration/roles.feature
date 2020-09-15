@@ -18,16 +18,6 @@ Feature: System roles
   # Cash points
   # Comment in the public forum
 
-  Scenario: user with advisor role should advisor privileges
-    When I login in as an advisor
-    # Accept assignments
-    # Edit and review questions
-    And i am in question roaster dashboard.
-    Then I can only see questions in navbar
-    When i chose first question.
-    And  i edit question title
-    And  i click apply changes
-    Then the edit should be saved successfully to first question
 # Rate the consultants answers
 # Short list consultants
 # Quality sampling freelancers work

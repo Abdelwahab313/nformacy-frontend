@@ -14,6 +14,7 @@ import humanizedTimeSpan from '../../../services/humanizedTimeSpan';
 import { useStyles } from '../../../styles/Admin/questionFormStyles';
 import RichTextEditorForm from '../../../components/forms/RichTextEditorForm';
 import {
+  acceptAssignment, rejectAssignment,
   saveDraftQuestion,
   submitQuestion,
   updateQuestion,
@@ -28,6 +29,8 @@ import AttachmentUploader from '../../../components/forms/AttachmentUploader';
 import DropdownSelectField from 'components/CustomInput/DropdownSelectField';
 import Button from '@material-ui/core/Button';
 import AssignedAdvisersSelect from './AssignedAdvisersSelect';
+import CardFooter from '../../../components/Card/CardFooter';
+import RegularButton from '../../../components/CustomButtons/Button';
 
 const QuestionForm = ({
   questionDetails,
@@ -67,6 +70,22 @@ const QuestionForm = ({
       ...prevState,
       [name]: data,
     }));
+  };
+
+  const onAcceptAssignment = () => {
+    acceptAssignment(questionDetails.id).then((response) => {
+      setQuestionDetails(response.data);
+      setIsError(false);
+      setSnackbarMessage('Question has been accepted successfully');
+      setIsSnackbarShown(true);
+    });
+  };
+
+  const onRejectAssignment = () => {
+    rejectAssignment(questionDetails.id).then((response) => {
+      setQuestionDetails(response.data);
+      history.push('/admin/questions');
+    });
   };
 
   const onSubmitQuestion = () => {
@@ -262,20 +281,22 @@ const QuestionForm = ({
                 richTextMediaId={richTextMediaId}
               />
             </Grid>
-            <Grid
-              item
-              xs={6}
-              style={{ justifyContent: 'flex-start' }}
-              className={questionRoasterClasses.answerButtonsContainer}>
-              <AttachmentUploader
-                containerClassName={
-                  questionRoasterClasses.attachmentUploaderContainer
-                }
-                attachments={questionDetails.attachments}
-                attachmentsGroupsId={attachmentsGroupsId}
-                setAttachmentsGroupsId={setAttachmentsGroupsId}
-              />
-            </Grid>
+            {questionDetails?.state !== 'pending_adviser_acceptance' && (
+              <Grid
+                item
+                xs={6}
+                style={{ justifyContent: 'flex-start' }}
+                className={questionRoasterClasses.answerButtonsContainer}>
+                <AttachmentUploader
+                  containerClassName={
+                    questionRoasterClasses.attachmentUploaderContainer
+                  }
+                  attachments={questionDetails.attachments}
+                  attachmentsGroupsId={attachmentsGroupsId}
+                  setAttachmentsGroupsId={setAttachmentsGroupsId}
+                />
+              </Grid>
+            )}
             <Grid
               item
               xs={6}
@@ -295,13 +316,34 @@ const QuestionForm = ({
                   {t['saveAndCompleteLater']}
                 </Button>
               )}
-              <SubmitButton
-                id='applyChangesButton'
-                onClick={onSubmitQuestion}
-                buttonText={isNewQuestion ? 'Send to advisor' : 'Apply Changes'}
-                disabled={false}
-              />
+              {questionDetails?.state !== 'pending_adviser_acceptance' && (
+                <SubmitButton
+                  id='applyChangesButton'
+                  onClick={onSubmitQuestion}
+                  buttonText={
+                    isNewQuestion ? 'Send to advisor' : 'Apply Changes'
+                  }
+                  disabled={false}
+                />
+              )}
             </Grid>
+            {questionDetails?.state === 'pending_adviser_acceptance' && (
+              <Grid
+                container
+                direction='row-reverse'
+                justify='space-between'
+                alignItems='flex-end'>
+                <RegularButton
+                  id={'acceptButton'}
+                  color='success'
+                  onClick={onAcceptAssignment}>
+                  Accept
+                </RegularButton>
+                <RegularButton id={'rejectButton'} color='danger' onClick={onRejectAssignment}>
+                  Reject
+                </RegularButton>
+              </Grid>
+            )}
           </Grid>
         </GridItem>
       </GridContainer>

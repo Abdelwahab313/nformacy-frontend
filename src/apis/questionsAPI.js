@@ -76,6 +76,20 @@ export const updateQuestion = (questionId, updatedQuestion) => {
   }).then((response) => camelizeKeys(response));
 };
 
+export const acceptAssignment = (questionId) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/questions/${questionId}/accept_assignment`,
+  }).then((response) => camelizeKeys(response));
+};
+
+export const rejectAssignment = (questionId) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/questions/${questionId}/reject_assignment`,
+  }).then((response) => camelizeKeys(response));
+};
+
 export const approveQuestion = (questionId) => {
   return axios({
     method: 'post',

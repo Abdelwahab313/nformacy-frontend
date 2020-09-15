@@ -69,7 +69,7 @@ const QuestionDetails = () => {
             isNewQuestion={false}
           />
           <CardFooter className={classes.footerButtons}>
-            {questionDetails?.isApproved === false && (
+            {questionDetails.state === 'pending_deployment_to_roaster' && (
               <Button
                 id={'approveQuestion'}
                 disabled={isLoadingForUpdating}

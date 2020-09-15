@@ -41,6 +41,7 @@ const columns = [
       customBodyRender: (value, tableMeta) => {
         return (
           <Link
+            data-link={tableMeta.rowData[1]}
             to={{
               pathname: RoutesPaths.Admin.QuestionsDetails,
               state: { questionId: tableMeta.rowData[0] },
@@ -57,10 +58,11 @@ const columns = [
     options: {
       filter: false,
       sort: false,
-      customBodyRender: (value) => {
+      customBodyRender: (value, tableMeta) => {
         return (
           <Chip
             data-status={value}
+            data-reference={tableMeta.rowData[1]}
             style={({ margin: 3 }, { backgroundColor: '#cec8ef' })}
             label={value.split('_').join(' ')}
           />
