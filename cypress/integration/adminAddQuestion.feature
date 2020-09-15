@@ -10,6 +10,8 @@ Feature: Admin post question
     When I fill all the question details
     And i click "Send to adviser"
     Then I should see snackbar with message "Question Sent to Adviser"
+    When i am in question roaster dashboard.
+    Then the question status should be pending adviser acceptance
 
   Scenario: Admin save question and complete later
     Given I am on Post question page
@@ -23,7 +25,7 @@ Feature: Admin post question
     When I fill all the question details
     And I click "Save and complete later"
     And i am in question roaster dashboard.
-    When i chose a question with status pending assignment.
+    When i chose a question with status draft.
     Then i should be in the saved question post form.
     And all saved information should be visible
 

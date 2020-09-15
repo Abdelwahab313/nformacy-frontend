@@ -11,12 +11,12 @@ const getDateAfterHours = (hours) => {
 
 Given(/^I have questions assigned to me$/, function() {
   cy.server()
-  cy.route("POST", "/questions/adviser_questions", [getFakeQuestion({current_action_time: getDateAfterHours(12)})]).as("questions");
+  cy.route("GET", "/questions/adviser_questions", [getFakeQuestion({current_action_time: getDateAfterHours(12)})]).as("questions");
 });
 
 And(/^I have a question assigned to me with By time less than half$/, function() {
   cy.server()
-  cy.route("POST", "/questions/adviser_questions", [getFakeQuestion({current_action_time: getDateAfterHours(5)})]).as("questions");
+  cy.route("GET", "/questions/adviser_questions", [getFakeQuestion({current_action_time: getDateAfterHours(5)})]).as("questions");
 });
 
 And(/^I am on adviser question list$/, function() {

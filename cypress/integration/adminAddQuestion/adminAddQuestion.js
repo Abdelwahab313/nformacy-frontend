@@ -46,12 +46,19 @@ Then(
     cy.get('#questionsList');
   },
 );
-When(/^i chose a question with status pending assignment\.$/, function() {
+When(/^i chose a question with status draft\.$/, function() {
   cy.get('#pagination-rows').click();
   cy.get("#pagination-menu-list").children().last().click();
-  cy.get("a[data-status='pending_assignment']")
+  cy.get("a[data-status='draft']")
     .last()
     .click();
 });
 Then(/^i should be in the saved question post form\.$/, function() {});
 Then(/^all saved information should be visible$/, function() {});
+Then(/^the question status should be pending adviser acceptance$/, function() {
+  cy.get('#pagination-rows').click();
+  cy.get("#pagination-menu-list").children().last().click();
+  cy.get("a[data-status='draft']")
+    .last()
+    .click();
+});
