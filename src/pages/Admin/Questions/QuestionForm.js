@@ -50,6 +50,11 @@ const QuestionForm = ({
   let history = useHistory();
   const richTextMediaId = useRef(questionDetails?.richTextMediaId);
 
+
+  const isAdmin = (user) => {
+    return user.roles.some((role) => role.name === 'admin');
+  };
+
   const saveAndCompleteLater = () => {
     saveDraftQuestion({
       ...questionDetails,
@@ -92,6 +97,14 @@ const QuestionForm = ({
       questionDetails.assignedAdviserId === ''
     ) {
       setSnackbarMessage('You have to assign an adviser to send to.');
+      setIsError(true);
+      setIsSnackbarShown(true);
+    } else if (isAdmin(currentUser) && questionDetails.assignedAdviserId && !questionDetails.hoursToReviewAndEdit) {
+      setSnackbarMessage('You have to set how many hours the adviser has to review and edit.');
+      setIsError(true);
+      setIsSnackbarShown(true);
+    }  else if (isAdmin(currentUser) && questionDetails.assignedAdviserId && !questionDetails.hoursToCloseAnswers) {
+      setSnackbarMessage('You have to set how many hours to close answers window for freelancers.');
       setIsError(true);
       setIsSnackbarShown(true);
     } else {
@@ -234,6 +247,7 @@ const QuestionForm = ({
             inputProps={{
               value: questionDetails.hoursToCloseAnswers,
               name: 'hoursToCloseAnswers',
+              type: 'number',
               onChange: (e) => {
                 onChangeQuestionField('hoursToCloseAnswers', e.target.value);
               },
@@ -253,6 +267,7 @@ const QuestionForm = ({
             inputProps={{
               value: questionDetails.hoursToReviewAndEdit,
               name: 'hoursToReviewAndEdit',
+              type: 'number',
               onChange: (e) => {
                 onChangeQuestionField('hoursToReviewAndEdit', e.target.value);
               },

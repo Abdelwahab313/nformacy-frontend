@@ -19,4 +19,6 @@ Then(/^the edit should be saved successfull to second question$/, function() {
 When(/^i assign an adviser$/, function() {
   cy.get('#assignAdviser').click();
   cy.get('#assignAdviser-option-0').click();
+  cy.get('#hoursToReviewAndEdit').type(5);
+  cy.get('#hoursToCloseAnswers').type(7);
 });
