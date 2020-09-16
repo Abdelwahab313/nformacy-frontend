@@ -11,6 +11,7 @@ When(
         'toBeAcceptedOrRejected',
       );
       cy.get(`a[data-link='${toBeAcceptedOrRejectedReference}']`).parent().parent().click();
+      
     });
   },
 );
@@ -24,7 +25,7 @@ Then(/^I should see apply changes button and attachment button appear$/, functio
 Then(
   /^i should see accepted question status to be review and edit$/,
   function() {
-    cy.get(`div[data-reference='${this.toBeAcceptedOrRejected}']`).then((element => {
+    cy.get(`.state[data-reference='${this.toBeAcceptedOrRejected}']`).then((element => {
       expect(element[0].innerText, 'review_and_edit')
     }))
   },
@@ -32,6 +33,15 @@ Then(
 When(/^i click reject$/, function() {
   cy.get('#rejectButton').click()
 });
+
 Then(/^i should not see rejected question question status to be review and edit$/, function() {
-  cy.get(`div[data-reference='${this.toBeAcceptedOrRejected}']`).should('not.exist')
+  cy.get(`.state[data-reference='${this.toBeAcceptedOrRejected}']`).should('not.exist')
+});
+
+Then(/^I should see accepted question with by time around review and edit time assigned in question$/, function() {
+  cy.get(`.currentActionTime[data-reference='${this.toBeAcceptedOrRejected}']`).contains('0:23:59');
+});
+
+Then(/^I should see what is the time of review and edit assigned$/, function() {
+  cy.get('#hoursToReviewAndEdit').should('have.value', '24');
 });

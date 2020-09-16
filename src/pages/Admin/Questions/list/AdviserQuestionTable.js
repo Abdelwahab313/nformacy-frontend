@@ -59,6 +59,7 @@ const columns = [
         return (
           <Chip
             data-status={value}
+            className={'state'}
             data-reference={tableMeta.rowData[1]}
             style={({ margin: 3 }, { backgroundColor: '#cec8ef' })}
             label={value.split('_').join(' ')}
@@ -73,8 +74,11 @@ const columns = [
     options: {
       filter: true,
       sort: false,
-      customBodyRender: (value) => {
-        return <QuestionCountDown date={value} />;
+      customBodyRender: (currentActionTime, tableMeta) => {
+        return <QuestionCountDown
+        className={'currentActionTime'} 
+        data-reference={tableMeta.rowData[1]}
+        date={currentActionTime} />;
       },
     },
   },
@@ -84,14 +88,23 @@ const columns = [
     options: {
       filter: true,
       sort: false,
-      customBodyRender: (value) => {
+      customBodyRender: (currentActionTime, tableMeta) => {
         return (
           <QuestionRemainingTimeAlarm
-            remainingTime={value}
-            totalActionHours={12}
+            remainingTime={currentActionTime}
+            totalActionHours={tableMeta.rowData[3] === "review_and_edit" ? tableMeta.rowData[5] : 12 }
           />
         );
       },
+    },
+  },
+  {
+    name: 'hoursToReviewAndEdit',
+    label: '',
+    options: {
+      display: false,
+      filter: false,
+      sort: false,
     },
   },
 ];
@@ -120,6 +133,7 @@ const AdviserQuestionTable = () => {
   const questions = fetchedQuestions.filter(
     (question) => getRemainingHoursFromDate(question.currentActionTime) > 0,
   );
+
 
   const tableOptions = {
     filterType: 'checkbox',
