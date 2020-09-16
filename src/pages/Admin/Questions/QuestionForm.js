@@ -6,15 +6,13 @@ import GridItem from '../../../components/Grid/GridItem';
 import CustomInput from '../../../components/CustomInput/CustomInput';
 import MajorFieldSelect from '../../../components/inputs/MajorFieldSelect';
 import SpecificFieldSelect from '../../../components/inputs/SpecificFieldSelect';
-import {
-  industries,
-  questionTypesOfAssignment,
-} from '../../../constants/dropDownOptions';
+import { industries, questionTypesOfAssignment } from '../../../constants/dropDownOptions';
 import humanizedTimeSpan from '../../../services/humanizedTimeSpan';
 import { useStyles } from '../../../styles/Admin/questionFormStyles';
 import RichTextEditorForm from '../../../components/forms/RichTextEditorForm';
 import {
-  acceptAssignment, rejectAssignment,
+  acceptAssignment,
+  rejectAssignment,
   saveDraftQuestion,
   submitQuestion,
   updateQuestion,
@@ -29,8 +27,8 @@ import AttachmentUploader from '../../../components/forms/AttachmentUploader';
 import DropdownSelectField from 'components/CustomInput/DropdownSelectField';
 import Button from '@material-ui/core/Button';
 import AssignedAdvisersSelect from './AssignedAdvisersSelect';
-import CardFooter from '../../../components/Card/CardFooter';
 import RegularButton from '../../../components/CustomButtons/Button';
+import { useAuth } from '../../auth/context/auth';
 
 const QuestionForm = ({
   questionDetails,
@@ -48,7 +46,7 @@ const QuestionForm = ({
   const [attachmentsGroupsId, setAttachmentsGroupsId] = useState(
     questionDetails.attachmentsGroupsId,
   );
-
+  const [{ currentUser }] = useAuth();
   let history = useHistory();
   const richTextMediaId = useRef(questionDetails?.richTextMediaId);
 
@@ -281,7 +279,7 @@ const QuestionForm = ({
                 richTextMediaId={richTextMediaId}
               />
             </Grid>
-            {questionDetails?.state !== 'pending_adviser_acceptance' && (
+            {!(questionDetails?.state === 'pending_adviser_acceptance' && currentUser?.id === questionDetails?.assignedAdviserId) && (
               <Grid
                 item
                 xs={6}
@@ -316,7 +314,7 @@ const QuestionForm = ({
                   {t['saveAndCompleteLater']}
                 </Button>
               )}
-              {questionDetails?.state !== 'pending_adviser_acceptance' && (
+              {!(questionDetails?.state === 'pending_adviser_acceptance' && currentUser?.id === questionDetails?.assignedAdviserId) && (
                 <SubmitButton
                   id='applyChangesButton'
                   onClick={onSubmitQuestion}
@@ -327,7 +325,7 @@ const QuestionForm = ({
                 />
               )}
             </Grid>
-            {questionDetails?.state === 'pending_adviser_acceptance' && (
+            {questionDetails?.state === 'pending_adviser_acceptance' && currentUser?.id === questionDetails?.assignedAdviserId && (
               <Grid
                 container
                 direction='row-reverse'
