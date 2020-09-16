@@ -6,7 +6,10 @@ import GridItem from '../../../components/Grid/GridItem';
 import CustomInput from '../../../components/CustomInput/CustomInput';
 import MajorFieldSelect from '../../../components/inputs/MajorFieldSelect';
 import SpecificFieldSelect from '../../../components/inputs/SpecificFieldSelect';
-import { industries, questionTypesOfAssignment } from '../../../constants/dropDownOptions';
+import {
+  industries,
+  questionTypesOfAssignment,
+} from '../../../constants/dropDownOptions';
 import humanizedTimeSpan from '../../../services/humanizedTimeSpan';
 import { useStyles } from '../../../styles/Admin/questionFormStyles';
 import RichTextEditorForm from '../../../components/forms/RichTextEditorForm';
@@ -27,7 +30,7 @@ import AttachmentUploader from '../../../components/forms/AttachmentUploader';
 import DropdownSelectField from 'components/CustomInput/DropdownSelectField';
 import Button from '@material-ui/core/Button';
 import AssignedAdvisersSelect from './AssignedAdvisersSelect';
-import RegularButton from '../../../components/CustomButtons/Button';
+import RegularButton from '../../../components/buttons/RegularButton';
 import { useAuth } from '../../auth/context/auth';
 
 const QuestionForm = ({
@@ -49,7 +52,6 @@ const QuestionForm = ({
   const [{ currentUser }] = useAuth();
   let history = useHistory();
   const richTextMediaId = useRef(questionDetails?.richTextMediaId);
-
 
   const isAdmin = (user) => {
     return user.roles.some((role) => role.name === 'admin');
@@ -99,12 +101,24 @@ const QuestionForm = ({
       setSnackbarMessage('You have to assign an adviser to send to.');
       setIsError(true);
       setIsSnackbarShown(true);
-    } else if (isAdmin(currentUser) && questionDetails.assignedAdviserId && !questionDetails.hoursToReviewAndEdit) {
-      setSnackbarMessage('You have to set how many hours the adviser has to review and edit.');
+    } else if (
+      isAdmin(currentUser) &&
+      questionDetails.assignedAdviserId &&
+      !questionDetails.hoursToReviewAndEdit
+    ) {
+      setSnackbarMessage(
+        'You have to set how many hours the adviser has to review and edit.',
+      );
       setIsError(true);
       setIsSnackbarShown(true);
-    }  else if (isAdmin(currentUser) && questionDetails.assignedAdviserId && !questionDetails.hoursToCloseAnswers) {
-      setSnackbarMessage('You have to set how many hours to close answers window for freelancers.');
+    } else if (
+      isAdmin(currentUser) &&
+      questionDetails.assignedAdviserId &&
+      !questionDetails.hoursToCloseAnswers
+    ) {
+      setSnackbarMessage(
+        'You have to set how many hours to close answers window for freelancers.',
+      );
       setIsError(true);
       setIsSnackbarShown(true);
     } else {
@@ -179,7 +193,7 @@ const QuestionForm = ({
               inputProps={{
                 value: humanizedTimeSpan(questionDetails.createdAt),
                 name: 'createdAt',
-                disabled: false,
+                disabled: true,
               }}
             />
           </GridItem>
@@ -236,7 +250,7 @@ const QuestionForm = ({
         </GridItem>
         <GridItem xs={12} sm={12} md={3} className={classes.countDownContainer}>
           <CustomInput
-            labelText='Closing Answer for Freelancers (In Hours)'
+            labelText='Time for Freelancers to Answer (In Hours)'
             id='hoursToCloseAnswers'
             formControlProps={{
               style: {
@@ -249,6 +263,7 @@ const QuestionForm = ({
               name: 'hoursToCloseAnswers',
               type: 'number',
               onChange: (e) => {
+                console.log('the value=========', e.target.value);
                 onChangeQuestionField('hoursToCloseAnswers', e.target.value);
               },
             }}
@@ -256,7 +271,7 @@ const QuestionForm = ({
         </GridItem>
         <GridItem xs={12} sm={12} md={3} className={classes.countDownContainer}>
           <CustomInput
-            labelText='Rating Time for Adviser (In Hours)'
+            labelText='Time for Adviser to Review (In Hours)'
             id='hoursToReviewAndEdit'
             formControlProps={{
               style: {
@@ -269,6 +284,7 @@ const QuestionForm = ({
               name: 'hoursToReviewAndEdit',
               type: 'number',
               onChange: (e) => {
+                console.log('the value 2=========', e.target.value);
                 onChangeQuestionField('hoursToReviewAndEdit', e.target.value);
               },
             }}
@@ -294,7 +310,10 @@ const QuestionForm = ({
                 richTextMediaId={richTextMediaId}
               />
             </Grid>
-            {!(questionDetails?.state === 'pending_adviser_acceptance' && currentUser?.id === questionDetails?.assignedAdviserId) && (
+            {!(
+              questionDetails?.state === 'pending_adviser_acceptance' &&
+              currentUser?.id === questionDetails?.assignedAdviserId
+            ) && (
               <Grid
                 item
                 xs={6}
@@ -329,7 +348,10 @@ const QuestionForm = ({
                   {t['saveAndCompleteLater']}
                 </Button>
               )}
-              {!(questionDetails?.state === 'pending_adviser_acceptance' && currentUser?.id === questionDetails?.assignedAdviserId) && (
+              {!(
+                questionDetails?.state === 'pending_adviser_acceptance' &&
+                currentUser?.id === questionDetails?.assignedAdviserId
+              ) && (
                 <SubmitButton
                   id='applyChangesButton'
                   onClick={onSubmitQuestion}
@@ -340,23 +362,29 @@ const QuestionForm = ({
                 />
               )}
             </Grid>
-            {questionDetails?.state === 'pending_adviser_acceptance' && currentUser?.id === questionDetails?.assignedAdviserId && (
-              <Grid
-                container
-                direction='row-reverse'
-                justify='space-between'
-                alignItems='flex-end'>
-                <RegularButton
-                  id={'acceptButton'}
-                  color='success'
-                  onClick={onAcceptAssignment}>
-                  Accept
-                </RegularButton>
-                <RegularButton id={'rejectButton'} color='danger' onClick={onRejectAssignment}>
-                  Reject
-                </RegularButton>
-              </Grid>
-            )}
+            {questionDetails?.state === 'pending_adviser_acceptance' &&
+              currentUser?.id === questionDetails?.assignedAdviserId && (
+                <Grid
+                  container
+                  direction='row-reverse'
+                  alignItems='flex-end'>
+                  <RegularButton
+                    id={'acceptButton'}
+                    color='success'
+                    onClick={onAcceptAssignment}
+                    style={{
+                    marginLeft: '10px',
+                  }}>
+                    Accept
+                  </RegularButton>
+                  <RegularButton
+                    id={'rejectButton'}
+                    color='danger'
+                    onClick={onRejectAssignment}>
+                    Reject
+                  </RegularButton>
+                </Grid>
+              )}
           </Grid>
         </GridItem>
       </GridContainer>

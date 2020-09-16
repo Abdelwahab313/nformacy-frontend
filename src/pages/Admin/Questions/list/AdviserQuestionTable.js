@@ -92,7 +92,7 @@ const columns = [
         return (
           <QuestionRemainingTimeAlarm
             remainingTime={currentActionTime}
-            totalActionHours={tableMeta.rowData[3] === "review_and_edit" ? tableMeta.rowData[5] : 12 }
+            totalActionHours={tableMeta.rowData[3] === 'review_and_edit' ? tableMeta.rowData[5] : 12 }
           />
         );
       },

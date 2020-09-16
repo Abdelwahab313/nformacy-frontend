@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 // core components
 import GridItem from 'components/Grid/GridItem.js';
 import GridContainer from 'components/Grid/GridContainer.js';
-import Button from 'components/CustomButtons/Button.js';
+import Button from 'components/buttons/RegularButton.js';
 import Card from 'components/Card/Card.js';
 import CardHeader from 'components/Card/CardHeader.js';
 import CardFooter from 'components/Card/CardFooter.js';
