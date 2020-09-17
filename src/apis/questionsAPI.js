@@ -97,6 +97,13 @@ export const approveQuestion = (questionId) => {
   }).then((response) => camelizeKeys(response));
 };
 
+export const sendToAdmin = (questionId) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/questions/${questionId}/review`,
+  }).then((response) => camelizeKeys(response));
+};
+
 export const uploadAttachment = (attachment) => {
   return axios({
     method: 'post',

@@ -1,5 +1,5 @@
-Feature: Edit Question
-  As an admin or advisor i should be able to edit a question
+Feature: Admin Edit Question
+  As an admin i should be able to edit a question
 
   Scenario: Admin edit a question
     Given i am an admin and Logged in

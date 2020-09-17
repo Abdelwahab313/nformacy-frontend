@@ -12,9 +12,14 @@ import useFetchData from 'hooks/useFetchData';
 import { fetchQuestionDetails } from 'apis/questionsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
-import { approveQuestion } from '../../../../apis/questionsAPI';
+import { approveQuestion, sendToAdmin } from '../../../../apis/questionsAPI';
 import QuestionForm from '../QuestionForm';
 import { useStyles } from '../../../../styles/Admin/questionFormStyles';
+import { useAuth } from '../../../auth/context/auth';
+
+const isAdviser = (user) => {
+  return user.roles.some((role) => role.name === 'adviser');
+};
 
 const QuestionDetails = () => {
   const classes = useStyles();
@@ -24,6 +29,7 @@ const QuestionDetails = () => {
   const [isError, setIsError] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   let history = useHistory();
+  const [{ currentUser }] = useAuth();
 
   const location = useLocation();
   const questionId = location.state.questionId;
@@ -44,8 +50,18 @@ const QuestionDetails = () => {
   }
 
   const onDeployQuestionClicked = () => {
-    setIsLoadingForUpdating(true)
+    setIsLoadingForUpdating(true);
     approveQuestion(questionDetails.id)
+      .then((response) => {
+        history.push('/admin/questions');
+      })
+      .catch((error) => {})
+      .finally(() => setIsLoadingForUpdating(false));
+  };
+
+  const onSendToAdminClicked = () => {
+    setIsLoadingForUpdating(true);
+    sendToAdmin(questionDetails.id)
       .then((response) => {
         history.push('/admin/questions');
       })
@@ -79,6 +95,16 @@ const QuestionDetails = () => {
                 Deploy to question roaster
               </Button>
             )}
+            {isAdviser(currentUser) &&
+              questionDetails.state === 'review_and_edit' && (
+                <Button
+                  id={'sendToAdminButton'}
+                  disabled={isLoadingForUpdating}
+                  onClick={onSendToAdminClicked}
+                  color='primary'>
+                  Send to admin for deployment
+                </Button>
+              )}
             <SuccessSnackBar
               isError={isError}
               isSnackbarShown={isSnackbarShown}
