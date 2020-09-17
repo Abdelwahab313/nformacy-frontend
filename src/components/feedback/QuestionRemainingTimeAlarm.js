@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { getRemainingHoursFromDate } from 'services/dateTimeParser';
 
-
 const Circle = styled.div`
   width: 1.5em;
   height: 1.5em;

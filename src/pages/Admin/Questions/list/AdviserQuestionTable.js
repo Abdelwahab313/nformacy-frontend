@@ -57,6 +57,11 @@ const columns = [
       sort: false,
       customBodyRender: (value, tableMeta) => {
         return (
+          <Link
+            to={{
+              pathname: RoutesPaths.Admin.QuestionsDetails,
+              state: { questionId: tableMeta.rowData[0] },
+            }}>
           <Chip
             data-status={value}
             className={'state'}
@@ -64,6 +69,7 @@ const columns = [
             style={({ margin: 3 }, { backgroundColor: '#cec8ef' })}
             label={value.split('_').join(' ')}
           />
+          </Link>
         );
       },
     },
@@ -89,10 +95,11 @@ const columns = [
       filter: true,
       sort: false,
       customBodyRender: (currentActionTime, tableMeta) => {
+        console.log('=====table meta ======',tableMeta);
         return (
           <QuestionRemainingTimeAlarm
             remainingTime={currentActionTime}
-            totalActionHours={tableMeta.rowData[3] === 'review_and_edit' ? tableMeta.rowData[5] : 12 }
+            totalActionHours={tableMeta.rowData[3] === 'review_and_edit' ? tableMeta.rowData[6] : 12 }
           />
         );
       },
