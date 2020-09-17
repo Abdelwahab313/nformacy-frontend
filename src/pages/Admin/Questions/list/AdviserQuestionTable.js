@@ -100,7 +100,9 @@ const columns = [
           <QuestionRemainingTimeAlarm
             remainingTime={currentActionTime}
             totalActionHours={tableMeta.rowData[3] === 'review_and_edit' ? tableMeta.rowData[6] : 12 }
-          />
+            className={'alarm'} 
+            data-reference={tableMeta.rowData[1]}
+            />
         );
       },
     },

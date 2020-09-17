@@ -42,6 +42,10 @@ Then(/^I should see accepted question with by time around review and edit time a
   cy.get(`.currentActionTime[data-reference='${this.toBeAcceptedOrRejected}']`).contains('0:23:59');
 });
 
+Then(/^I should see alarm updated with new action time for review and edit$/, function() {
+  cy.get(`div[data-reference='${this.toBeAcceptedOrRejected}']`).should('have.class', 'green');
+});
+
 Then(/^I should see what is the time of review and edit assigned$/, function() {
   cy.get('#reviewAndEditTime').should('exist');
 });
