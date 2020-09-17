@@ -93,7 +93,7 @@ export const rejectAssignment = (questionId) => {
 export const approveQuestion = (questionId) => {
   return axios({
     method: 'post',
-    url: `${API_BASE_URL}/questions/${questionId}/approve`,
+    url: `${API_BASE_URL}/questions/${questionId}/deploy`,
   }).then((response) => camelizeKeys(response));
 };
 

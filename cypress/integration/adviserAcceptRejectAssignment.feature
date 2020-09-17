@@ -21,8 +21,8 @@ Feature: Adviser accept or reject assignment
 
   Scenario: should see by time updated with review and edit time assigned in question i accepted
     When i select a question with status pending assigment acceptance
-    And  I should see what is the time of review and edit assigned
     And  i click accept
+    Then  I should see what is the time of review and edit assigned
     When i am in question roaster dashboard.
     Then i should see accepted question status to be review and edit
     Then I should see accepted question with by time around review and edit time assigned in question

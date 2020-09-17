@@ -7,7 +7,7 @@ import Button from 'components/buttons/RegularButton.js';
 import Card from 'components/Card/Card.js';
 import CardHeader from 'components/Card/CardHeader.js';
 import CardFooter from 'components/Card/CardFooter.js';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import useFetchData from 'hooks/useFetchData';
 import { fetchQuestionDetails } from 'apis/questionsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
@@ -23,6 +23,7 @@ const QuestionDetails = () => {
   const [isSnackbarShown, setIsSnackbarShown] = useState(false);
   const [isError, setIsError] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  let history = useHistory();
 
   const location = useLocation();
   const questionId = location.state.questionId;
@@ -46,7 +47,7 @@ const QuestionDetails = () => {
     setIsLoadingForUpdating(true)
     approveQuestion(questionDetails.id)
       .then((response) => {
-        setIsSnackbarShown(true);
+        history.push('/admin/questions');
       })
       .catch((error) => {})
       .finally(() => setIsLoadingForUpdating(false));

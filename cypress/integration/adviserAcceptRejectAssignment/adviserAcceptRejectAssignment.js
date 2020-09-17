@@ -11,7 +11,7 @@ When(
         'toBeAcceptedOrRejected',
       );
       cy.get(`a[data-link='${toBeAcceptedOrRejectedReference}']`).parent().parent().click();
-      
+
     });
   },
 );
@@ -43,5 +43,5 @@ Then(/^I should see accepted question with by time around review and edit time a
 });
 
 Then(/^I should see what is the time of review and edit assigned$/, function() {
-  cy.get('#hoursToReviewAndEdit').should('have.value', '24');
+  cy.get('#reviewAndEditTime').should('exist');
 });

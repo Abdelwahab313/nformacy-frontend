@@ -40,6 +40,8 @@ const columns = [
       customBodyRender: (value, tableMeta) => {
         return (
           <Link
+            data-status={tableMeta.rowData[6]}
+            data-reference={tableMeta.rowData[1]}
             to={{
               pathname: RoutesPaths.Admin.QuestionsDetails,
               state: { questionId: tableMeta.rowData[0] },

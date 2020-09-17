@@ -16,6 +16,9 @@ export const useStyles = makeStyles((theme) => ({
   inputsRow: {
     marginTop: theme.spacing(4),
   },
+  countDown: {
+    marginLeft: theme.spacing(2),
+  },
   contentTitle: {
     color: '#AAAAAA',
     marginBottom: theme.spacing(2),
