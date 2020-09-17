@@ -12,6 +12,7 @@ import { RoutesPaths } from 'constants/routesPath';
 
 import useFetchData from 'hooks/useFetchData';
 import { fetchAllQuestions } from '../../../../apis/questionsAPI';
+import { withStyles } from '@material-ui/core/styles';
 
 const columns = [
   {
@@ -42,6 +43,7 @@ const columns = [
           <Link
             data-status={tableMeta.rowData[6]}
             data-reference={tableMeta.rowData[1]}
+            style={{ textDecoration: 'none'}}
             to={{
               pathname: RoutesPaths.Admin.QuestionsDetails,
               state: { questionId: tableMeta.rowData[0] },
@@ -92,15 +94,23 @@ const columns = [
     options: {
       filter: false,
       sort: false,
-      customBodyRender: (value) => {
+      customBodyRender: (value, tableMeta) => {
         return (
-          <Chip
-            style={({ margin: 3 }, { backgroundColor: '#cec8ef' })}
+          <Link
+          style={{ textDecoration: 'none'}}
+          to={{
+            pathname: RoutesPaths.Admin.QuestionsDetails,
+            state: { questionId: tableMeta.rowData[0] },
+          }}>
+          <StyledStatusChip
+            data-status={value}
+            className={'state'}
+            data-reference={tableMeta.rowData[1]}
             label={value.split('_').join(' ')}
           />
+          </Link>
         );
       },
-      // customBodyRender: (value) => value.split('_').join(' '),
     },
   },
   {
@@ -115,6 +125,15 @@ const columns = [
     },
   },
 ];
+
+const StyledStatusChip = withStyles({
+  root: {
+   margin: 3, 
+   backgroundColor: '#cec8ef'
+  },
+  label: {
+    fontSize: '1rem',  },
+})(Chip);
 
 const TextCroppedWithTooltip = ({ text }) => {
   return (

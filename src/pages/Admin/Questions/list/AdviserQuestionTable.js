@@ -10,6 +10,7 @@ import useFetchData from 'hooks/useFetchData';
 import QuestionCountDown from 'components/counters/QuestionCountDown';
 import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
 import { getRemainingHoursFromDate } from 'services/dateTimeParser';
+import { withStyles } from '@material-ui/core/styles';
 
 const columns = [
   {
@@ -39,6 +40,7 @@ const columns = [
         return (
           <Link
             data-link={tableMeta.rowData[1]}
+            style={{ textDecoration: 'none'}}
             to={{
               pathname: RoutesPaths.Admin.QuestionsDetails,
               state: { questionId: tableMeta.rowData[0] },
@@ -58,15 +60,15 @@ const columns = [
       customBodyRender: (value, tableMeta) => {
         return (
           <Link
+            style={{ textDecoration: 'none'}}
             to={{
               pathname: RoutesPaths.Admin.QuestionsDetails,
               state: { questionId: tableMeta.rowData[0] },
             }}>
-          <Chip
+          <StyledStatusChip
             data-status={value}
             className={'state'}
             data-reference={tableMeta.rowData[1]}
-            style={({ margin: 3 }, { backgroundColor: '#cec8ef' })}
             label={value.split('_').join(' ')}
           />
           </Link>
@@ -117,6 +119,15 @@ const columns = [
     },
   },
 ];
+
+const StyledStatusChip = withStyles({
+  root: {
+   margin: 3, 
+   backgroundColor: '#cec8ef'
+  },
+  label: {
+    fontSize: '1rem',  },
+})(Chip);
 
 const TextCroppedWithTooltip = ({ text }) => {
   return (
