@@ -92,8 +92,7 @@ pipeline {
           // wait for npm start to
           sh './wait-for-it.sh localhost:5001 -- echo "Sandbox is up"'
         }
-        echo "Running build ${env.BUILD_ID}"
-        sh 'npm run cy:run'
+        sh 'npm run cy:ci'
       }
     }
 

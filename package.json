@@ -7,7 +7,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --passWithNoTests",
     "cy:run": "cypress run -e 'TAGS=not @ignore or not @slow-test'",
-    "cy:all": "cypress run -e 'TAGS=not @ignore'",
+    "cy:ci": "TZ=Africa/Cairo cypress run -e 'TAGS=not @ignore'",
     "cy:start": "REACT_APP_ENV=e2e PORT=5001 react-scripts start",
     "e2e": "./run-e2e-tests.sh $BACKEND_PATH",
     "cy:run:debug": "cypress run --browser chrome",
