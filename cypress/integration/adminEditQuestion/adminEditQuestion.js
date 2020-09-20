@@ -2,8 +2,8 @@ import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { BASE_URL } from '../../defualtTestValues';
 
 When(/^i chose second question\.$/, function() {
-  cy.get('#MUIDataTableBodyRow-1')
-    .find('#editSummary')
+  cy.get('*[data-testid="MuiDataTableBodyCell-2-1"] a')
+  .parent().parent()
     .click();
 });
 

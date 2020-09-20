@@ -15,7 +15,7 @@ When(/^i chose a question with status review_and_edit\.$/, function() {
     cy.wrap(toBeSendToAdmin).as(
       'toBeSendToAdmin',
     );
-    cy.get(`a[data-link='${toBeSendToAdmin}']`).parent().parent().click();
+    cy.get(`a[data-reference='${toBeSendToAdmin}']`).parent().parent().click();
   });
 });
 When(/^i click send to admin for deployment$/, function() {
@@ -28,7 +28,7 @@ Then(/^the question i sent should not be visible in questions dashboard$/, funct
     .children()
     .last()
     .click();
-  cy.get(`a[data-link='${this.toBeSendToAdmin}']`).should('not.exist')
+  cy.get(`a[data-reference='${this.toBeSendToAdmin}']`).should('not.exist')
 });
 Then(/^the edit should be saved successful to selected question$/, function() {
   cy.visit(`${BASE_URL}/admin/questions`);
@@ -38,5 +38,5 @@ Then(/^the edit should be saved successful to selected question$/, function() {
     .children()
     .last()
     .click();
-  cy.get(`a[data-link='${this.toBeSendToAdmin}']`).should('exist')
+  cy.get(`a[data-reference='${this.toBeSendToAdmin}']`).should('exist')
 });

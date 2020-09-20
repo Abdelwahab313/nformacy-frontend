@@ -44,7 +44,7 @@ And(/^I should see the questions assigned to me$/, function() {
 });
 
 And(`I should see alarm with {string} circle`, (color) => {
-  cy.get('td[data-testid="MuiDataTableBodyCell-5-0"] div').should(
+  cy.get('td[data-testid="MuiDataTableBodyCell-7-0"] div').should(
     'have.class',
     color,
   );
@@ -66,7 +66,7 @@ And(/^I should see question details$/, function() {
 });
 
 And(/^I should see Action Needed column$/, function() {
-  cy.contains('Action Needed');
+  cy.contains('Status/Action');
 });
 
 And(/^I should see By Time column$/, function() {

@@ -10,7 +10,7 @@ When(
       cy.wrap(toBeAcceptedOrRejectedReference).as(
         'toBeAcceptedOrRejected',
       );
-      cy.get(`a[data-link='${toBeAcceptedOrRejectedReference}']`).parent().parent().click();
+      cy.get(`a[data-reference='${toBeAcceptedOrRejectedReference}']`).parent().parent().click();
 
     });
   },

@@ -54,7 +54,7 @@ When(/^i chose a question with status draft\.$/, function() {
     .children()
     .last()
     .click();
-  cy.get("a[data-status='draft']")
+  cy.get(".state[data-status='draft']")
     .last()
     .click();
 });
@@ -66,7 +66,7 @@ Then(/^the question status should be pending adviser acceptance$/, function() {
     .children()
     .last()
     .click();
-  cy.get("a[data-status='draft']")
+  cy.get(".state[data-status='draft']")
     .last()
     .click();
 });

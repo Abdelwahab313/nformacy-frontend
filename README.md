@@ -30,7 +30,7 @@ run command
 * `make destroy`
 * `make build-no-cache`
 * `make up-detach`
-* `make db-refresh`
+* `make db-reset`
 
 ###### Frontend
 * `cd Application/medad-frontend`

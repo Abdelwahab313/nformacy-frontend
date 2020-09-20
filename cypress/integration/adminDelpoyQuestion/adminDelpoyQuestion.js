@@ -7,7 +7,7 @@ When(/^I select a question with status pending deployment to question roaster$/,
     .children()
     .last()
     .click();
-  cy.get("a[data-status='pending_deployment_to_roaster']").then(function(
+  cy.get(".state[data-status='pending_deployment_to_roaster']").then(function(
     element,
   ) {
     const toBeDeployedReference = element[0].attributes['data-reference'].value;
