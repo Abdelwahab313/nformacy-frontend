@@ -6,7 +6,7 @@ Feature: Adviser Edit and Review Question
     And i am in question roaster dashboard.
     When i chose a question with status review_and_edit.
     And  i edit question title
-    And  i click apply changes
+    And  i click save and complete later
     Then the edit should be saved successful to selected question
 
   Scenario: Adviser send question to admin

@@ -27,10 +27,12 @@ import AttachmentUploader from '../../../components/forms/AttachmentUploader';
 import DropdownSelectField from 'components/CustomInput/DropdownSelectField';
 import Button from '@material-ui/core/Button';
 import AssignedAdvisersSelect from './AssignedAdvisersSelect';
-import RegularButton from '../../../components/buttons/RegularButton';
 import { useAuth } from '../../auth/context/auth';
 import QuestionCountDown from '../../../components/counters/QuestionCountDown';
 import Typography from '@material-ui/core/Typography';
+import AcceptAndRejectActionButtons from './details/subComponents/AcceptAndRejectActionButtons';
+import ActionButtonsContainer from './details/subComponents/ActionButtonsContainer';
+import {sendToAdmin } from 'apis/questionsAPI';
 
 
 const QuestionForm = ({
@@ -63,6 +65,21 @@ const QuestionForm = ({
     return user.roles.some((role) => role.name === 'adviser');
   };
 
+  const onAcceptAssignment = () => {
+    acceptAssignment(questionDetails.id).then((response) => {
+      setQuestionDetails(response.data);
+      setIsError(false);
+      setSnackbarMessage('Question has been accepted successfully');
+      setIsSnackbarShown(true);
+    });
+  };
+
+  const onRejectAssignment = () => {
+    rejectAssignment(questionDetails.id).then((response) => {
+      setQuestionDetails(response.data);
+      history.push('/admin/questions');
+    });
+  };
 
   const saveAndCompleteLater = () => {
     saveDraftQuestion({
@@ -84,20 +101,11 @@ const QuestionForm = ({
     }));
   };
 
-  const onAcceptAssignment = () => {
-    acceptAssignment(questionDetails.id).then((response) => {
-      setQuestionDetails(response.data);
-      setIsError(false);
-      setSnackbarMessage('Question has been accepted successfully');
-      setIsSnackbarShown(true);
-    });
-  };
-
-  const onRejectAssignment = () => {
-    rejectAssignment(questionDetails.id).then((response) => {
-      setQuestionDetails(response.data);
-      history.push('/admin/questions');
-    });
+  const onSendToAdminClicked = () => {
+    sendToAdmin(questionDetails.id)
+      .then((response) => {
+        history.push('/admin/questions');
+      });
   };
 
   const onSubmitQuestion = () => {
@@ -153,10 +161,7 @@ const QuestionForm = ({
       setSnackbarMessage('Question Sent to Adviser');
     }
   };
-  console.log("isAdviser", isAdviser(currentUser))
-  console.log("state", questionDetails.state)
-  console.log("isReviewAndEdit",  questionDetails.state === 'review_and_edit')
-  console.log("hoursToReviewAndEdit",  questionDetails?.hoursToReviewAndEdit)
+
   return (
     <CardBody>
       <GridContainer>
@@ -372,58 +377,21 @@ const QuestionForm = ({
                 />
               </Grid>
             )}
-            <Grid
-              item
-              xs={6}
-              style={{ justifyContent: 'flex-end' }}
-              className={questionRoasterClasses.answerButtonsContainer}>
-              {isNewQuestion && (
-                <Button
-                  id='saveAndCompleteLaterButton'
-                  variant='contained'
-                  size='medium'
-                  onClick={() => saveAndCompleteLater()}
-                  style={{
-                    marginRight: '10px',
-                    height: '36px',
-                    alignSelf: 'center',
-                  }}>
-                  {t['saveAndCompleteLater']}
-                </Button>
-              )}
-              {!(
-                questionDetails?.state === 'pending_adviser_acceptance' &&
-                currentUser?.id === questionDetails?.assignedAdviserId
-              ) && (
-                <SubmitButton
-                  id='applyChangesButton'
-                  onClick={onSubmitQuestion}
-                  buttonText={
-                    isNewQuestion ? 'Send to advisor' : 'Apply Changes'
-                  }
-                  disabled={false}
-                />
-              )}
-            </Grid>
+            <ActionButtonsContainer
+              questionDetails={questionDetails} 
+              isNewQuestion={isNewQuestion}
+              currentUser={currentUser}
+              saveAndCompleteLater={saveAndCompleteLater}
+              onSubmitQuestion={onSubmitQuestion}
+              questionRoasterClasses={questionRoasterClasses}
+              onSendToAdminClicked={onSendToAdminClicked}
+              />
             {questionDetails?.state === 'pending_adviser_acceptance' &&
               currentUser?.id === questionDetails?.assignedAdviserId && (
-                <Grid container direction='row-reverse' alignItems='flex-end'>
-                  <RegularButton
-                    id={'acceptButton'}
-                    color='success'
-                    onClick={onAcceptAssignment}
-                    style={{
-                      marginLeft: '10px',
-                    }}>
-                    Accept
-                  </RegularButton>
-                  <RegularButton
-                    id={'rejectButton'}
-                    color='danger'
-                    onClick={onRejectAssignment}>
-                    Reject
-                  </RegularButton>
-                </Grid>
+            <AcceptAndRejectActionButtons
+              onRejectAssignment={onRejectAssignment}
+              onAcceptAssignment={onAcceptAssignment}
+            />
               )}
           </Grid>
         </GridItem>

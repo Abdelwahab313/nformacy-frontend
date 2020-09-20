@@ -40,3 +40,7 @@ Then(/^the edit should be saved successful to selected question$/, function() {
     .click();
   cy.get(`a[data-reference='${this.toBeSendToAdmin}']`).should('exist')
 });
+
+When(/^i click save and complete later$/, function() {
+  cy.get('#saveAndCompleteLaterButton').click();
+});

@@ -12,7 +12,7 @@ import useFetchData from 'hooks/useFetchData';
 import { fetchQuestionDetails } from 'apis/questionsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
-import { approveQuestion, sendToAdmin } from '../../../../apis/questionsAPI';
+import { approveQuestion } from '../../../../apis/questionsAPI';
 import QuestionForm from '../QuestionForm';
 import { useStyles } from '../../../../styles/Admin/questionFormStyles';
 import { useAuth } from '../../../auth/context/auth';
@@ -59,16 +59,6 @@ const QuestionDetails = () => {
       .finally(() => setIsLoadingForUpdating(false));
   };
 
-  const onSendToAdminClicked = () => {
-    setIsLoadingForUpdating(true);
-    sendToAdmin(questionDetails.id)
-      .then((response) => {
-        history.push('/admin/questions');
-      })
-      .catch((error) => {})
-      .finally(() => setIsLoadingForUpdating(false));
-  };
-
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
@@ -95,16 +85,6 @@ const QuestionDetails = () => {
                 Deploy to question roaster
               </Button>
             )}
-            {isAdviser(currentUser) &&
-              questionDetails.state === 'review_and_edit' && (
-                <Button
-                  id={'sendToAdminButton'}
-                  disabled={isLoadingForUpdating}
-                  onClick={onSendToAdminClicked}
-                  color='primary'>
-                  Send to admin for deployment
-                </Button>
-              )}
             <SuccessSnackBar
               isError={isError}
               isSnackbarShown={isSnackbarShown}
