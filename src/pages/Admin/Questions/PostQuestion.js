@@ -7,8 +7,7 @@ import SuccessSnackBar from '../../../components/Snackbar/SuccessSnackBar';
 
 const PostQuestion = () => {
   const classes = useStyles();
-  const savedQuestion = JSON.parse(localStorage.getItem('newQuestion'));
-  const [questionDetails, setQuestionDetails] = useState(savedQuestion || {});
+  const [questionDetails, setQuestionDetails] = useState({});
   const [isSnackbarShown, setIsSnackbarShown] = useState(false);
   const [isError, setIsError] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');

@@ -28,15 +28,12 @@ export default function TableList() {
     (question) => getRemainingHoursFromDate(question.currentActionTime) > 0,
   ) : fetchedQuestions;
 
-  console.log('======current user=======', currentUser);
-  console.log('============is adviser======', isAdviser(currentUser));
-  
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
           <CardBody id="questionsList">
-              <QuestionsTable questions={questions} isAdviser={isAdviser} />
+              <QuestionsTable questions={questions} isAdviser={isAdviser(currentUser)} />
           </CardBody>
         </Card>
       </GridItem>

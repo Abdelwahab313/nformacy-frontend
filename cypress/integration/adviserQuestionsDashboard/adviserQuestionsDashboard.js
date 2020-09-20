@@ -44,7 +44,7 @@ And(/^I should see the questions assigned to me$/, function() {
 });
 
 And(`I should see alarm with {string} circle`, (color) => {
-  cy.get('td[data-testid="MuiDataTableBodyCell-7-0"] div').should(
+  cy.get('td[data-testid="MuiDataTableBodyCell-8-0"] div').should(
     'have.class',
     color,
   );

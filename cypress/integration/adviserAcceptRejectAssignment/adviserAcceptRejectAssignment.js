@@ -39,7 +39,7 @@ Then(/^i should not see rejected question question status to be review and edit$
 });
 
 Then(/^I should see accepted question with by time around review and edit time assigned in question$/, function() {
-  cy.get(`.currentActionTime[data-reference='${this.toBeAcceptedOrRejected}']`).contains('0:23:59');
+  cy.get(`.currentActionTime[data-reference='${this.toBeAcceptedOrRejected}']`).contains('23:59');
 });
 
 Then(/^I should see alarm updated with new action time for review and edit$/, function() {

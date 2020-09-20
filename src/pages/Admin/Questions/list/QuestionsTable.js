@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import { RoutesPaths } from 'constants/routesPath';
 import QuestionCountDown from 'components/counters/QuestionCountDown';
 import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
+import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 
 const getColumnsFor = (isAdviser) => {
   const columns = [
@@ -80,6 +81,16 @@ const getColumnsFor = (isAdviser) => {
       },
     },
     {
+      name: 'createdAt',
+      label: 'Posted At',
+      options: {
+        filter: false,
+        customBodyRender: (value) => {
+          return formattedDateTimeNoSeconds(new Date(value));
+        },
+      },
+    },
+    {
       name: 'state',
       label: 'Status/Action',
       options: {
@@ -109,7 +120,16 @@ const getColumnsFor = (isAdviser) => {
       options: {
         filter: false,
         sort: true,
-        customHeadLabelRender: ()=>(<Grid><AlarmIcon fontSize={'small'} color={'primary'} style={{marginRight: '10px'}}/>By Time</Grid>),
+        customHeadLabelRender: () => (
+          <Grid>
+            <AlarmIcon
+              fontSize={'small'}
+              color={'primary'}
+              style={{ marginRight: '10px' }}
+            />
+            By Time
+          </Grid>
+        ),
         customBodyRender: (currentActionTime, tableMeta) => {
           return (
             <QuestionCountDown
@@ -154,17 +174,6 @@ const getColumnsFor = (isAdviser) => {
         sort: false,
       },
     },
-    // {
-    //   name: 'Options',
-    //   options: {
-    //     filter: false,
-    //     sort: false,
-    //     empty: true,
-    //     customBodyRender: (value, tableMeta) => {
-    //       return <ActionRow itemId={tableMeta.rowData[0]}  status={tableMeta.rowData[6]}/>;
-    //     },
-    //   },
-    // },
   ];
 
   return columns;
@@ -194,22 +203,6 @@ const TextCroppedWithTooltip = ({ text }) => {
     </Tooltip>
   );
 };
-
-// const ActionRow = ({ itemId, status }) => {
-//   return (
-//     <IconButton
-//       aria-label='edit'
-//       id='editSummary'
-//       data-status={status}
-//       component={Link}
-//       to={{
-//         pathname: RoutesPaths.Admin.QuestionsDetails,
-//         state: { questionId: itemId },
-//       }}>
-//       <EditIcon color={'primary'} />
-//     </IconButton>
-//   );
-// };
 
 const QuestionsTable = ({ questions, isAdviser }) => {
   const tableOptions = {
