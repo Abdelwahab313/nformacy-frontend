@@ -5,6 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
+import AlarmIcon from '@material-ui/icons/Alarm';
+import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
 
 import { RoutesPaths } from 'constants/routesPath';
@@ -104,13 +106,14 @@ const getColumnsFor = (isAdviser) => {
     },
     {
       name: 'currentActionTime',
-      label: 'By Time',
       options: {
         filter: false,
         sort: true,
+        customHeadLabelRender: ()=>(<Grid><AlarmIcon fontSize={'small'} color={'primary'} style={{marginRight: '10px'}}/>By Time</Grid>),
         customBodyRender: (currentActionTime, tableMeta) => {
           return (
             <QuestionCountDown
+              showIcon={false}
               className={'currentActionTime'}
               data-reference={tableMeta.rowData[1]}
               date={currentActionTime}
