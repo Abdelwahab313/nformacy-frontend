@@ -2,7 +2,7 @@ import PersonalInfo from './PersonalInfo';
 import Button from '@material-ui/core/Button';
 import { FormContext, useForm } from 'react-hook-form';
 import React, { useRef } from 'react';
-import { nextButtonStyles, saveButtonStyle, useStyles } from '../../styles/formsStyles';
+import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
 import { updateProfile } from '../../apis/userAPI';
 import { updateUser } from '../../pages/auth/context/authActions';
 import { useAuth } from '../../pages/auth/context/auth';

@@ -2,7 +2,6 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import t from '../../../../../locales/en/questionRoaster.json';
 import SubmitButton from 'components/buttons/SubmitButton';
-import Button from '@material-ui/core/Button';
 
 const isAdviser = (user) => {
   return user.roles.some((role) => role.name === 'adviser');
@@ -24,18 +23,14 @@ const ActionButtonsContainer = ({
         xs={6}
         style={{ justifyContent: 'flex-end' }}
         className={questionRoasterClasses.answerButtonsContainer}>
-        <Button
+        <SubmitButton
           id='saveAndCompleteLaterButton'
-          variant='contained'
-          size='medium'
           onClick={() => saveAndCompleteLater()}
+          buttonText={t['saveAndCompleteLater']}
           style={{
             marginRight: '10px',
-            height: '36px',
-            alignSelf: 'center',
-          }}>
-          {t['saveAndCompleteLater']}
-        </Button>
+          }}
+        />
         <SubmitButton
           id={'sendToAdminButton'}
           onClick={onSendToAdminClicked}
@@ -52,18 +47,14 @@ const ActionButtonsContainer = ({
       style={{ justifyContent: 'flex-end' }}
       className={questionRoasterClasses.answerButtonsContainer}>
       {isNewQuestion && (
-        <Button
-          id='saveAndCompleteLaterButton'
-          variant='contained'
-          size='medium'
-          onClick={() => saveAndCompleteLater()}
-          style={{
-            marginRight: '10px',
-            height: '36px',
-            alignSelf: 'center',
-          }}>
-          {t['saveAndCompleteLater']}
-        </Button>
+        <SubmitButton
+        id='saveAndCompleteLaterButton'
+        onClick={() => saveAndCompleteLater()}
+        buttonText={t['saveAndCompleteLater']}
+        style={{
+          marginRight: '10px',
+        }}
+      />
       )}
       {!(
         questionDetails?.state === 'pending_adviser_acceptance' &&

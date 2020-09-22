@@ -14,7 +14,15 @@ import QuestionCountDown from 'components/counters/QuestionCountDown';
 import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 import { questionStatusActions } from 'constants/questionStatus';
+import { questionTypesOfAssignment } from 'constants/dropDownOptions';
 
+const defaultColumnOption = {
+  customHeadLabelRender: ({label}) => (
+    <Grid style={{ fontWeight: 'bold'}}>
+      {label}
+    </Grid>
+  ),
+};
 const getColumnsFor = (isAdviser) => {
   const columns = [
     {
@@ -30,6 +38,7 @@ const getColumnsFor = (isAdviser) => {
       name: 'referenceNumber',
       label: 'Reference',
       options: {
+        ...defaultColumnOption,
         filter: false,
         sort: true,
       },
@@ -38,7 +47,8 @@ const getColumnsFor = (isAdviser) => {
       name: 'title',
       label: 'Title',
       options: {
-        filter: true,
+        ...defaultColumnOption,
+        filter: false,
         sort: true,
         customBodyRender: (value, tableMeta) => {
           return (
@@ -60,15 +70,21 @@ const getColumnsFor = (isAdviser) => {
       name: 'assignmentType',
       label: 'Assignment Type',
       options: {
+        ...defaultColumnOption,
         display: !isAdviser,
         filter: true,
         sort: true,
+        customBodyRender: (value) => {
+          const assignmentLabel = questionTypesOfAssignment.filter((assignmentOption)=> (assignmentOption.value === value))[0].label
+          return assignmentLabel;
+        },
       },
     },
     {
       name: 'field',
       label: 'Fields',
       options: {
+        ...defaultColumnOption,
         display: !isAdviser,
         filter: false,
         filterType: 'multiselect',
@@ -85,6 +101,7 @@ const getColumnsFor = (isAdviser) => {
       name: 'createdAt',
       label: 'Posted At',
       options: {
+        ...defaultColumnOption,
         filter: false,
         customBodyRender: (value) => {
           return formattedDateTimeNoSeconds(new Date(value));
@@ -95,10 +112,11 @@ const getColumnsFor = (isAdviser) => {
       name: 'state',
       label: 'Status',
       options: {
+        ...defaultColumnOption,
         filter: true,
         sort: true,
         customBodyRender: (value) => {
-          return value.split('_').join(' ');
+          return questionStatusActions[value].displayString;
         },
       },
     },
@@ -106,8 +124,9 @@ const getColumnsFor = (isAdviser) => {
       name: 'state',
       label: 'Action Needed',
       options: {
+        ...defaultColumnOption,
         filter: true,
-        sort: true,
+        sort: false,
         customBodyRender: (value, tableMeta) => {
           const actionNeeded =
             questionStatusActions[value][isAdviser ? 'adviser' : 'admin'];
@@ -139,7 +158,7 @@ const getColumnsFor = (isAdviser) => {
         filter: false,
         sort: true,
         customHeadLabelRender: () => (
-          <Grid>
+          <Grid style={{ fontWeight: 'bold'}}>
             <AlarmIcon
               fontSize={'small'}
               color={'primary'}
@@ -166,6 +185,7 @@ const getColumnsFor = (isAdviser) => {
       options: {
         filter: false,
         sort: true,
+        ...defaultColumnOption,
         customBodyRender: (currentActionTime, tableMeta) => {
           console.log('=====table meta ======', tableMeta);
           return (
@@ -188,6 +208,7 @@ const getColumnsFor = (isAdviser) => {
       label: '',
       options: {
         display: false,
+        ...defaultColumnOption,
         filter: false,
         sort: false,
       },
@@ -203,13 +224,13 @@ const StyledStatusChip = withStyles({
     backgroundColor: '#cec8ef',
   },
   label: {
-    fontSize: '1rem',
+    fontSize: '0.8rem',
   },
 })(Chip);
 
 const TextCroppedWithTooltip = ({ text }) => {
   return (
-    <Tooltip title={<Typography variant={'body2'}>{text}</Typography>} arrow>
+    <Tooltip title={<Typography variant={'caption'}>{text}</Typography>} arrow>
       <Typography
         noWrap
         style={{

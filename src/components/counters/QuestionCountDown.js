@@ -17,6 +17,7 @@ const QuestionCountDown = ({ date, className, id, showIcon=true, ...props}) => {
               const remainingTimeFormatted = !!days ? `${days} days ${hours}:${minutes}:${seconds}` : `${hours}:${minutes}:${seconds}`
       return (
         <Typography
+        variant={'caption'}
           style={{ display: 'flex', alignItems: 'center', fontFamily: "'Orbitron', sans-serif", fontWeight: 'bold' }}
           id={id}
           className={className}
