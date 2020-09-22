@@ -13,6 +13,7 @@ import { RoutesPaths } from 'constants/routesPath';
 import QuestionCountDown from 'components/counters/QuestionCountDown';
 import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
+import { questionStatusActions } from 'constants/questionStatus';
 
 const getColumnsFor = (isAdviser) => {
   const columns = [
@@ -92,11 +93,28 @@ const getColumnsFor = (isAdviser) => {
     },
     {
       name: 'state',
-      label: 'Status/Action',
+      label: 'Status',
+      options: {
+        filter: true,
+        sort: true,
+        customBodyRender: (value) => {
+          return value.split('_').join(' ');
+        },
+      },
+    },
+    {
+      name: 'state',
+      label: 'Action Needed',
       options: {
         filter: true,
         sort: true,
         customBodyRender: (value, tableMeta) => {
+          const actionNeeded =
+            questionStatusActions[value][isAdviser ? 'adviser' : 'admin'];
+
+          if (!actionNeeded) {
+            return '';
+          }
           return (
             <Link
               style={{ textDecoration: 'none' }}
@@ -108,7 +126,7 @@ const getColumnsFor = (isAdviser) => {
                 data-status={value}
                 className={'state'}
                 data-reference={tableMeta.rowData[1]}
-                label={value.split('_').join(' ')}
+                label={actionNeeded}
               />
             </Link>
           );

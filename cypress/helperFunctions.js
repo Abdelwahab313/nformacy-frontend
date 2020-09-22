@@ -11,7 +11,8 @@ import {
   ADMIN_PASSWORD,
 } from './defualtTestValues';
 import faker from 'faker';
-import { camelizeKeys } from 'humps';
+import { camelizeKeys, decamelizeKeys } from 'humps';
+import { getFakeQuestion } from './factories/questionFactory';
 
 export const login = (email = USER_NAME, password = PASSWORD) => {
   cy.visit(BASE_URL);
@@ -20,17 +21,24 @@ export const login = (email = USER_NAME, password = PASSWORD) => {
   cy.get('#login').click();
   cy.get('#header');
 };
+
 export const logout = () => {
   cy.clearLocalStorage();
 };
 
-export const createRequestWithToke = (callbackFunction) => {
-  cy.request('POST', `${BACKEND_WEB_URL}/user/login`, {
-    email: USER_NAME,
-    password: PASSWORD,
-  }).then((response) => {
-    callbackFunction(response.body.token.access_token);
-  });
+export const requestWithTokenAsAdmin = (callbackFunction) => {
+  const existingAdminToken = Cypress.env('adminTokens');
+  if (!!existingAdminToken) {
+    callbackFunction(existingAdminToken);
+  } else {
+    cy.request('POST', `${BACKEND_WEB_URL}/auth/login`, {
+      email: ADMIN_USERNAME,
+      password: ADMIN_PASSWORD,
+    }).then((response) => {
+      Cypress.env('adminTokens', response.body.token);
+      callbackFunction(response.body.token);
+    });
+  }
 };
 
 export const signUpAndSetTokens = () => {
@@ -70,6 +78,22 @@ export const loginAsAdmin = () => {
       cy.setLocalStorage('user', JSON.stringify(response.body.user));
       cy.wrap(response.body.user).as('user');
     });
+};
+
+export const createQuestion = (question = {}) => {
+  const { id, ...newQuestionParams } = getFakeQuestion(question);
+  requestWithTokenAsAdmin((token) => {
+    cy.request({
+      method: 'POST',
+      url: `${BACKEND_WEB_URL}/questions/`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: decamelizeKeys(newQuestionParams),
+    }).then((response) => {
+      Cypress.env('createdQuestion', camelizeKeys(response.body));
+    });
+  });
 };
 
 export const createDayAvailableForUser = (dayFormatted, startDate, endDate) => {

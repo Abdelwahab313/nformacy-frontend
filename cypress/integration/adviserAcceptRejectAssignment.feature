@@ -4,6 +4,7 @@ Feature: Adviser accept or reject assignment
 
   Background:
     Given I login in as an advisor
+    And I have a question with pending assignment state
     And i am in question roaster dashboard.
 
   Scenario: Accept assignment request

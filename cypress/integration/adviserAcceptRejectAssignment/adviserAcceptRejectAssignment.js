@@ -1,4 +1,5 @@
 import { When, Then } from 'cypress-cucumber-preprocessor/steps';
+import { createQuestion } from '../../helperFunctions';
 
 When(
   /^i select a question with status pending assigment acceptance$/,
@@ -19,6 +20,11 @@ When(
 When(/^i click accept$/, function() {
   cy.get('#acceptButton').click();
 });
+
+When(/^I have a question with pending assignment state$/, function() {
+  createQuestion();
+});
+
 Then(
   /^I should see send to admin button, save and complete later button and attachment button appear$/,
   function() {
@@ -50,9 +56,14 @@ Then(
   },
 );
 
-Then(/^I should see accepted question with by time around review and edit time assigned in question$/, function() {
-  cy.get(`.currentActionTime[data-reference='${this.toBeAcceptedOrRejected}']`).contains('23:59');
-});
+Then(
+  /^I should see accepted question with by time around review and edit time assigned in question$/,
+  function() {
+    cy.get(
+      `.currentActionTime[data-reference='${this.toBeAcceptedOrRejected}']`,
+    ).contains('23:59');
+  },
+);
 
 Then(
   /^I should see alarm updated with new action time for review and edit$/,
