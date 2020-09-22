@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { pink } from '../colors';
 
 export const useStyles = makeStyles((theme) => ({
   cardTitleWhite: {
@@ -41,5 +42,19 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       fontSize: '4vw',
     },
-  }
+  },
+  answerContainerStyles: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    padding: theme.spacing(2),
+  },
+  answerFieldStyle: {
+    border: `1px solid ${pink}`,
+    borderRadius: '5px',
+    padding: theme.spacing(1),
+  },
+  answerRowStyles: {
+    margin: '15px 0',
+  },
 }));

@@ -16,6 +16,7 @@ import { approveQuestion } from '../../../../apis/questionsAPI';
 import QuestionForm from '../QuestionForm';
 import { useStyles } from '../../../../styles/Admin/questionFormStyles';
 import { useAuth } from '../../../auth/context/auth';
+import AnswerView from '../AnswerView';
 
 const isAdviser = (user) => {
   return user.roles.some((role) => role.name === 'adviser');
@@ -46,7 +47,7 @@ const QuestionDetails = () => {
   }, [fetchedQuestion]);
 
   if (isLoading) {
-    return <LoadingCircle />;
+    return <LoadingCircle/>;
   }
 
   const onDeployQuestionClicked = () => {
@@ -55,12 +56,13 @@ const QuestionDetails = () => {
       .then((response) => {
         history.push('/admin/questions');
       })
-      .catch((error) => {})
+      .catch((error) => {
+      })
       .finally(() => setIsLoadingForUpdating(false));
   };
 
   return (
-    <GridContainer>
+    <GridContainer justifyContent={'center'}>
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color='primary'>
@@ -93,6 +95,9 @@ const QuestionDetails = () => {
             />
           </CardFooter>
         </Card>
+      </GridItem>
+      <GridItem xs={12}>
+        <AnswerView/>
       </GridItem>
     </GridContainer>
   );
