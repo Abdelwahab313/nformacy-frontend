@@ -18,7 +18,7 @@ import { questionTypesOfAssignment } from 'constants/dropDownOptions';
 
 const defaultColumnOption = {
   customHeadLabelRender: ({label}) => (
-    <Grid style={{ fontWeight: 'bold'}}>
+    <Grid style={{ fontWeight: 'bold', whiteSpace:'nowrap'}}>
       {label}
     </Grid>
   ),
@@ -91,7 +91,7 @@ const getColumnsFor = (isAdviser) => {
         customBodyRender: (value) => {
           return value?.map((val, key) => {
             return (
-              <Chip style={{ margin: 4 }} label={val.label} key={key.value} />
+              <Chip style={{ margin: 2 }} label={val.label} key={key.value} />
             );
           });
         },
@@ -158,11 +158,11 @@ const getColumnsFor = (isAdviser) => {
         filter: false,
         sort: true,
         customHeadLabelRender: () => (
-          <Grid style={{ fontWeight: 'bold'}}>
+          <Grid style={{ fontWeight: 'bold', whiteSpace:'nowrap' }}>
             <AlarmIcon
               fontSize={'small'}
               color={'primary'}
-              style={{ marginRight: '10px' }}
+              style={{ marginRight: '0.1rem', }}
             />
             By Time
           </Grid>
@@ -220,7 +220,7 @@ const getColumnsFor = (isAdviser) => {
 
 const StyledStatusChip = withStyles({
   root: {
-    margin: 3,
+    margin: 1,
     backgroundColor: '#cec8ef',
   },
   label: {
@@ -233,6 +233,7 @@ const TextCroppedWithTooltip = ({ text }) => {
     <Tooltip title={<Typography variant={'caption'}>{text}</Typography>} arrow>
       <Typography
         noWrap
+        variant={'body2'}
         style={{
           overflow: 'hidden',
           textOverflow: 'ellipsis',
