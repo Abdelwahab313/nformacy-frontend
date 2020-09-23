@@ -7,34 +7,47 @@ import GridItem from '../../../components/Grid/GridItem';
 import { useStyles } from '../../../styles/Admin/questionFormStyles';
 import Grid from '@material-ui/core/Grid';
 
+function createMarkup(html) {
+  return { __html: html };
+}
+
 const AnswerView = ({ answers }) => {
   const classes = useStyles();
 
-  return  answers?.map((answer) => (
-    <Paper key={answer.referenceNumber} id={answer.referenceNumber} elevation={2} className={classes.answerContainerStyles}>
+  return answers?.map((answer) => (
+    <Paper
+      key={answer.referenceNumber}
+      id={answer.referenceNumber}
+      elevation={2}
+      className={classes.answerContainerStyles}>
       <GridContainer>
         <GridItem xs={4} className={classes.answerRowStyles}>
-          <Grid container alignContent='row' className={classes.answerFieldStyle}>
+          <Grid
+            container
+            alignContent='row'
+            className={classes.answerFieldStyle}>
             <Typography className={classes.answerFieldLabel}>
               Answer reference number:
             </Typography>
-            <Typography>
-              {answer.referenceNumber}
-            </Typography>
+            <Typography>{answer.referenceNumber}</Typography>
           </Grid>
         </GridItem>
         <GridItem xs={4} className={classes.answerRowStyles}>
-          <Grid container alignContent='row' className={classes.answerFieldStyle}>
+          <Grid
+            container
+            alignContent='row'
+            className={classes.answerFieldStyle}>
             <Typography className={classes.answerFieldLabel}>
               Freelancer short name:
             </Typography>
-            <Typography>
-              {answer.userName}
-            </Typography>
+            <Typography>{answer.userName}</Typography>
           </Grid>
         </GridItem>
         <GridItem xs={4} className={classes.answerRowStyles}>
-          <Grid container alignContent='row' className={classes.answerFieldStyle}>
+          <Grid
+            container
+            alignContent='row'
+            className={classes.answerFieldStyle}>
             <Typography className={classes.answerFieldLabel}>
               Answer post date:
             </Typography>
@@ -44,10 +57,10 @@ const AnswerView = ({ answers }) => {
           </Grid>
         </GridItem>
         <GridItem xs={12} className={classes.answerRowStyles}>
-          <Typography
-            className={classes.answerFieldStyle}>
-            {answer.content}
-          </Typography>
+          <Grid
+            item
+            dangerouslySetInnerHTML={createMarkup(answer.content)}
+            className={classes.answerContent}></Grid>
         </GridItem>
         <GridItem xs={12} className={classes.answerRowStyles}>
           {answer.attachments?.map((attachment) => (
@@ -64,7 +77,6 @@ const AnswerView = ({ answers }) => {
       </GridContainer>
     </Paper>
   ));
-
 };
 
 export default AnswerView;

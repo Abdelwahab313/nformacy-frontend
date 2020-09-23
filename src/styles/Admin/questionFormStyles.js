@@ -57,6 +57,11 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: '5px',
     padding: theme.spacing(1),
   },
+  answerContent: {
+    border: `1px solid ${pink}`,
+    borderRadius: '5px',
+    padding: theme.spacing(2),
+  },
   answerFieldLabel: {
     marginRight: theme.spacing(2),
     color: theme.palette.primary.main
