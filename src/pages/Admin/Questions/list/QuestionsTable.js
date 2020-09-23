@@ -75,7 +75,9 @@ const getColumnsFor = (isAdviser) => {
         filter: true,
         sort: true,
         customBodyRender: (value) => {
-          const assignmentLabel = questionTypesOfAssignment.filter((assignmentOption)=> (assignmentOption.value === value))[0].label
+          const assignmentLabel = questionTypesOfAssignment.filter(
+            (assignmentOption) => assignmentOption.value === value,
+          )[0].label;
           return assignmentLabel;
         },
       },
@@ -168,14 +170,14 @@ const getColumnsFor = (isAdviser) => {
           </Grid>
         ),
         customBodyRender: (currentActionTime, tableMeta) => {
-          return (
+          return currentActionTime ? (
             <QuestionCountDown
               showIcon={false}
               className={'currentActionTime'}
               data-reference={tableMeta.rowData[1]}
               date={currentActionTime}
             />
-          );
+          ) : null;
         },
       },
     },
@@ -187,7 +189,6 @@ const getColumnsFor = (isAdviser) => {
         sort: true,
         ...defaultColumnOption,
         customBodyRender: (currentActionTime, tableMeta) => {
-          console.log('=====table meta ======', tableMeta);
           return (
             <QuestionRemainingTimeAlarm
               remainingTime={currentActionTime}
