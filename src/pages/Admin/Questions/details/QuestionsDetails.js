@@ -47,7 +47,7 @@ const QuestionDetails = () => {
   }, [fetchedQuestion]);
 
   if (isLoading) {
-    return <LoadingCircle/>;
+    return <LoadingCircle />;
   }
 
   const onDeployQuestionClicked = () => {
@@ -56,8 +56,7 @@ const QuestionDetails = () => {
       .then((response) => {
         history.push('/admin/questions');
       })
-      .catch((error) => {
-      })
+      .catch((error) => {})
       .finally(() => setIsLoadingForUpdating(false));
   };
 
@@ -96,9 +95,11 @@ const QuestionDetails = () => {
           </CardFooter>
         </Card>
       </GridItem>
-      <GridItem xs={12}>
-        <AnswerView/>
-      </GridItem>
+      {questionDetails.answers && (
+        <GridItem xs={12}>
+          <AnswerView answers={questionDetails.answers} />
+        </GridItem>
+      )}
     </GridContainer>
   );
 };

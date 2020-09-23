@@ -47,14 +47,24 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    borderRadius: 10,
+    border: `1px solid ${theme.palette.primary.main}`,
     padding: theme.spacing(2),
+    marginTop: theme.spacing(4)
   },
   answerFieldStyle: {
     border: `1px solid ${pink}`,
     borderRadius: '5px',
     padding: theme.spacing(1),
   },
+  answerFieldLabel: {
+    marginRight: theme.spacing(2),
+    color: theme.palette.primary.main
+  },
   answerRowStyles: {
     margin: '15px 0',
   },
+  answerAttachment: {
+    margin: theme.spacing(1)
+  }
 }));
