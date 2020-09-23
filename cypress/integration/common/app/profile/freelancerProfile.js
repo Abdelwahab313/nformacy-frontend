@@ -1,4 +1,4 @@
-import { BASE_URL } from '../../defualtTestValues';
+import { BASE_URL } from '../../../../defualtTestValues';
 
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import faker from 'faker';

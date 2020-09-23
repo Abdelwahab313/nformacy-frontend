@@ -1,4 +1,4 @@
-import { BASE_URL } from '../../defualtTestValues';
+import { BASE_URL } from '../../../../defualtTestValues';
 
 import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
@@ -134,4 +134,35 @@ When(/^press save cv$/, function() {
 });
 Then(/^then should see my cv$/, function() {
 
+});
+
+
+When(/^I fill my updated basic Info data$/, function() {
+  cy.get('#editBasicInfoForm').should('be.visible');
+  cy.get('input[name="firstName"]').clear();
+  cy.get('input[name="firstName"]').type('test first name');
+  cy.get('input[name="lastName"]').clear();
+  cy.get('input[name="lastName"]').type('test last name');
+  cy.get('input[name="email"]').clear();
+  cy.get('input[name="email"]').type('test@test.com');
+  cy.get('input[name="linkedInProfileUrl"]').clear();
+  cy.get('input[name="linkedInProfileUrl"]').type('linkedin.com');
+});
+
+
+
+When(/^I go to profile page$/, function() {
+  cy.visit(BASE_URL + '/user/edit');
+});
+When(/^I click on edit basic info$/, function() {
+  cy.get('#editBasicInfo ').click();
+});
+
+When(/^press save basic info$/, function() {
+  cy.get('#saveBasicInfo').click();
+  cy.get('#editBasicInfoForm').should('not.be.visible');
+});
+Then(/^then should see my updated basic info$/, function() {
+  cy.get('#firstNameValue').contains('test first name');
+  cy.get('#linkedInProfileUrlValue').contains('linkedin.com');
 });

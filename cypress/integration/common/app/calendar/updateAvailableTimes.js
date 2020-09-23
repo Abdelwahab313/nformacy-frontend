@@ -1,5 +1,5 @@
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { createDayAvailableForUser } from '../../helperFunctions';
+import { createDayAvailableForUser } from '../../../../helperFunctions';
 
 When(/^I click on calendar summary cards' button$/, function() {
   cy.get('#open-update-calendar-dialog-btn').click();

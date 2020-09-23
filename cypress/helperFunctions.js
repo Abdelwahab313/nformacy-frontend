@@ -168,3 +168,11 @@ export const createDayAvailableForUser = (dayFormatted, startDate, endDate) => {
     cy.wrap(response.body.user).as('user');
   });
 };
+
+
+export const getDateAfterHours = (hours) => {
+  let d = new Date();
+  d.setHours(d.getHours() + hours);
+  console.log(d.toGMTString());
+  return d.toGMTString();
+};

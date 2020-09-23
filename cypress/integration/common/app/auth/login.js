@@ -1,4 +1,4 @@
-import { BASE_URL, FREELANCER_PASSWORD, FREELANCER_USERNAME } from '../../defualtTestValues';
+import { BASE_URL, FREELANCER_PASSWORD, FREELANCER_USERNAME } from '../../../../defualtTestValues';
 
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
@@ -13,4 +13,9 @@ When(/^I type my email and password$/, () => {
 
 When(/^press login$/, function() {
   cy.get('#login').click();
+});
+
+
+Then(/^then should be redirected to homepage$/, function() {
+  cy.get('#header');
 });

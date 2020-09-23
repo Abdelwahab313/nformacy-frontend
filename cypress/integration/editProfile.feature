@@ -40,7 +40,7 @@ Feature: Edit profile
     And press save summary info
     Then then should see my updated summary
 
-  Scenario: Successfully edit summary
+  Scenario: Successfully edit cv
     Given I log in as a freelancer
     When I go to profile page
     And I click on update cv
