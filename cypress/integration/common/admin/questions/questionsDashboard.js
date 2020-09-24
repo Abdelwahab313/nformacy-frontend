@@ -1,6 +1,6 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import { BASE_URL } from '../../../../defualtTestValues';
-import { createQuestion, getDateAfterHours, getFromLocalStorage } from '../../../../helperFunctions';
+import { createQuestion, getDateAfterHours, getFromLocalStorage, createQuestionWithReviewStatus } from '../../../../helperFunctions';
 import { getFakeQuestion } from '../../../../factories/questionFactory';
 
 
@@ -34,16 +34,20 @@ And(/^I should see Alarm column$/, function() {
 });
 
 Given(/^I have a question with a status Review$/, function() {
-  createQuestion({state: "review_and_edit", current_action_time: getDateAfterHours(10)  });
+  createQuestionWithReviewStatus({state: "review_and_edit", current_action_time: getDateAfterHours(10)  });
 
 });
 
 When(/^I click on that question's By Time$/, function() {
   const referenceNumber = getFromLocalStorage('createdQuestion').referenceNumber
-  console.log('-----1-1-------1',referenceNumber);
-  cy.get(`tr[row-reference="${referenceNumber}"] span`).contains('11:59');
-
+  cy.get(`tr[row-reference="${referenceNumber}"] .by-time`).contains('9:59');
+  cy.get(`tr[row-reference="${referenceNumber}"] .currentActionTime`).click();
 });
+
+When(/^"Extend Time" dialog should be displayed$/, function() {
+  cy.get('#extend-time-dialog').contains('Extend Time');
+});
+
 
 And(`I should see alarm with {string} circle`, (color) => {
   cy.get('td[data-testid="MuiDataTableBodyCell-9-0"] div').should(

@@ -110,7 +110,19 @@ export const createQuestionWithReviewStatus = (question = {}) => {
       },
       body: decamelizeKeys(newQuestionParams),
     }).then((response) => {
-      setToLocalStorage('createdQuestion', camelizeKeys(response.body));
+      console.log('aaaaaa01012012-------');
+      const createdQuestion = camelizeKeys(response.body);
+      cy.request({
+        method: 'PUT',
+        url: `${BACKEND_WEB_URL}/questions/${createdQuestion.id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: decamelizeKeys(newQuestionParams),
+      }).then((response) => {
+        console.log('response-----put', response);
+        setToLocalStorage('createdQuestion', camelizeKeys(response.body));
+      })
     });
   });
 };

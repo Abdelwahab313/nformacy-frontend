@@ -10,17 +10,15 @@ import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
 
 import { RoutesPaths } from 'constants/routesPath';
-import QuestionCountDown from 'components/counters/QuestionCountDown';
 import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 import { questionStatusActions } from 'constants/questionStatus';
 import { questionTypesOfAssignment } from 'constants/dropDownOptions';
+import ByTimeField from './subComponents/ByTimeField';
 
 const defaultColumnOption = {
-  customHeadLabelRender: ({label}) => (
-    <Grid style={{ fontWeight: 'bold', whiteSpace:'nowrap'}}>
-      {label}
-    </Grid>
+  customHeadLabelRender: ({ label }) => (
+    <Grid style={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}>{label}</Grid>
   ),
 };
 const getColumnsFor = (isAdviser) => {
@@ -160,22 +158,20 @@ const getColumnsFor = (isAdviser) => {
         filter: false,
         sort: true,
         customHeadLabelRender: () => (
-          <Grid style={{ fontWeight: 'bold', whiteSpace:'nowrap' }}>
+          <Grid style={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}>
             <AlarmIcon
               fontSize={'small'}
               color={'primary'}
-              style={{ marginRight: '0.1rem', }}
+              style={{ marginRight: '0.1rem' }}
             />
             By Time
           </Grid>
         ),
         customBodyRender: (currentActionTime, tableMeta) => {
           return currentActionTime ? (
-            <QuestionCountDown
-              showIcon={false}
-              className={'currentActionTime'}
-              data-reference={tableMeta.rowData[1]}
-              date={currentActionTime}
+            <ByTimeField
+              currentActionTime={currentActionTime}
+              referenceId={tableMeta.rowData[1]}
             />
           ) : null;
         },
@@ -254,7 +250,7 @@ const QuestionsTable = ({ questions, isAdviser }) => {
     download: false,
     print: false,
     rowsPerPage: process.env.REACT_APP_ENV === 'e2e' ? 100 : 10,
-    setRowProps: (row)=> ({"row-reference": row[1]})
+    setRowProps: (row) => ({ 'row-reference': row[1] }),
   };
 
   return (
