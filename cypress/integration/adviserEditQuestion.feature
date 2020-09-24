@@ -3,7 +3,7 @@ Feature: Adviser Edit and Review Question
 
   Scenario: Adviser edit a question without sending to admin
     Given I login in as an advisor
-    And i am in question roaster dashboard.
+    And I am on questions dashboard.
     When i chose a question with status review_and_edit.
     And  i edit question title
     And  i click save and complete later
@@ -11,7 +11,7 @@ Feature: Adviser Edit and Review Question
 
   Scenario: Adviser send question to admin
     Given I login in as an advisor
-    And i am in question roaster dashboard.
+    And I am on questions dashboard.
     When i chose a question with status review_and_edit.
     And  i click send to admin for deployment
     Then the question i sent should not be visible in questions dashboard

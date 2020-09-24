@@ -2,7 +2,7 @@ Feature: Admin post question
 as Admin i should be able to post question to the roaster
 
   Background:
-    Given i am an admin and Logged in
+    Given I am an admin and Logged in
     And I am on the questions dashboard
 
   Scenario: Admin deploy question to question roaster.

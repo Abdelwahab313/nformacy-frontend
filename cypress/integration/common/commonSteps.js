@@ -9,11 +9,11 @@ import { BASE_URL } from '../../defualtTestValues';
 
 Given(/^I am a freelancer$/, function() {});
 
-Given(/^i am in question roaster dashboard\.$/, function() {
+Given(/^I am on questions dashboard\.$/, function() {
   cy.visit(`${BASE_URL}/admin/questions`);
 });
 
-Given(/^i am an admin and Logged in$/, function() {
+Given(/^I am an admin and Logged in$/, function() {
   loginAsAdmin();
 });
 

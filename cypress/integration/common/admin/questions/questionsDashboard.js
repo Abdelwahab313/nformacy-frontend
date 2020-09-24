@@ -1,6 +1,6 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import { BASE_URL } from '../../../../defualtTestValues';
-import { createQuestion, getDateAfterHours } from '../../../../helperFunctions';
+import { createQuestion, getDateAfterHours, getFromLocalStorage } from '../../../../helperFunctions';
 import { getFakeQuestion } from '../../../../factories/questionFactory';
 
 
@@ -8,7 +8,6 @@ Given(/^I am on Post question page$/, function() {
   cy.contains('Post Question').click();
   cy.get('#post-question-page-header').should('have.text', 'Add Question');
 });
-
 
 And(/^I am on adviser question list$/, function() {
   cy.contains('Adviser Questions List');
@@ -34,13 +33,16 @@ And(/^I should see Alarm column$/, function() {
   cy.contains('Alarm');
 });
 
+Given(/^I have a question with a status Review$/, function() {
+  createQuestion({state: "review_and_edit", current_action_time: getDateAfterHours(10)  });
 
-And(/^I should see the questions assigned to me$/, function() {
-  cy.get('#MUIDataTableBodyRow-0');
-  cy.get('td[data-testid="MuiDataTableBodyCell-3-0"] span').contains(
-    'pending adviser acceptance',
-  );
-  cy.get('td[data-testid="MuiDataTableBodyCell-4-0"] p').contains('0:11:59');
+});
+
+When(/^I click on that question's By Time$/, function() {
+  const referenceNumber = getFromLocalStorage('createdQuestion').referenceNumber
+  console.log('-----1-1-------1',referenceNumber);
+  cy.get(`tr[row-reference="${referenceNumber}"] span`).contains('11:59');
+
 });
 
 And(`I should see alarm with {string} circle`, (color) => {
@@ -235,10 +237,10 @@ When(/^I have a question with pending assignment state$/, function() {
   createQuestion();
 });
 
-
 Then(
   /^i should see accepted question status to be review and edit$/,
   function() {
+    // @TODO this is a false green test
     cy.get(`.state[data-reference='${this.toBeAcceptedOrRejected}']`).then(
       (element) => {
         expect(element[0].innerText, 'review_and_edit');

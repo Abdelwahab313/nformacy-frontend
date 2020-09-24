@@ -253,6 +253,8 @@ const QuestionsTable = ({ questions, isAdviser }) => {
     fixedHeader: true,
     download: false,
     print: false,
+    rowsPerPage: process.env.REACT_APP_ENV === 'e2e' ? 100 : 10,
+    setRowProps: (row)=> ({"row-reference": row[1]})
   };
 
   return (

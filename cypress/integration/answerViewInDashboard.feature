@@ -5,7 +5,7 @@ Feature: View answers
     And There is a question with answers
 
   Scenario: Admin view all answers
-    Given i am an admin and Logged in
+    Given I am an admin and Logged in
     When  I am on the questions dashboard
     And Click on created question.
     Then I should be able to see all answers

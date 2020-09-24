@@ -2,7 +2,7 @@ Feature: Admin post question
   as Admin i should be able to post question to the roaster
 
   Background:
-    Given i am an admin and Logged in
+    Given I am an admin and Logged in
     And I am on the dashboard
 
   Scenario: admin send question to adviser
@@ -10,7 +10,7 @@ Feature: Admin post question
     When I fill all the question details
     And i click "Send to adviser"
     Then I should see snackbar with message "Question Sent to Adviser"
-    When i am in question roaster dashboard.
+    When I am on questions dashboard.
     Then the question status should be pending adviser acceptance
 
   Scenario: Admin save question and complete later
@@ -34,6 +34,6 @@ Feature: Admin post question
     When I fill question details with specific data
     And I click "Save and complete later"
     When I login in as an advisor
-    And i am in question roaster dashboard.
+    And I am on questions dashboard.
     Then i should not see the draft question i posted as admin
 

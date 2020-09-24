@@ -97,6 +97,25 @@ export const createQuestion = (question = {}) => {
     });
   });
 };
+
+
+export const createQuestionWithReviewStatus = (question = {}) => {
+  const { id, ...newQuestionParams } = getFakeQuestion(question);
+  requestWithTokenAsAdmin((token) => {
+    cy.request({
+      method: 'POST',
+      url: `${BACKEND_WEB_URL}/questions/`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: decamelizeKeys(newQuestionParams),
+    }).then((response) => {
+      setToLocalStorage('createdQuestion', camelizeKeys(response.body));
+    });
+  });
+};
+
+
 export const getFromLocalStorage = (key) => {
   return JSON.parse(localStorage.getItem(key));
 };
