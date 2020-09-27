@@ -15,13 +15,29 @@ import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 import { questionStatusActions } from 'constants/questionStatus';
 import { questionTypesOfAssignment } from 'constants/dropDownOptions';
 import ByTimeField from './subComponents/ByTimeField';
+import { useStyles } from '../../../../styles/Admin/questionTableStyles';
 
-const defaultColumnOption = {
-  customHeadLabelRender: ({ label }) => (
-    <Grid style={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}>{label}</Grid>
-  ),
-};
-const getColumnsFor = (isAdviser) => {
+
+const getColumnsFor = (isAdviser, classes) => {
+
+  const TextCroppedWithTooltip = ({ text }) => {
+    return (
+      <Tooltip title={<Typography variant={'caption'}>{text}</Typography>} arrow>
+        <Typography
+          noWrap
+          variant={'body2'}
+          className={classes.tooltip}>
+          {text}
+        </Typography>
+      </Tooltip>
+    );
+  };
+
+  const defaultColumnOption = {
+    customHeadLabelRender: ({ label }) => (
+      <Grid className={classes.columnHeader}>{label}</Grid>
+    ),
+  };
   const columns = [
     {
       name: 'id',
@@ -53,7 +69,7 @@ const getColumnsFor = (isAdviser) => {
             <Link
               data-status={tableMeta.rowData[6]}
               data-reference={tableMeta.rowData[1]}
-              style={{ textDecoration: 'none' }}
+              className={classes.link}
               to={{
                 pathname: RoutesPaths.Admin.QuestionsDetails,
                 state: { questionId: tableMeta.rowData[0] },
@@ -91,9 +107,7 @@ const getColumnsFor = (isAdviser) => {
         customBodyRender: (value) => {
           return value?.map((val, key) => {
             return (
-              <div key={key.value}>
-                <Chip style={{ margin: 2 }} label={val.label} />
-              </div>
+              <Chip className={classes.field} label={val.label} key={key.value} />
             );
           });
         },
@@ -107,6 +121,24 @@ const getColumnsFor = (isAdviser) => {
         filter: false,
         customBodyRender: (value) => {
           return formattedDateTimeNoSeconds(new Date(value));
+        },
+      },
+    },
+    {
+      name: 'answersCount',
+      label: 'Answers',
+      options: {
+        ...defaultColumnOption,
+        filter: false,
+        customBodyRender: (value) => {
+          return (
+            <Typography
+              className={classes.answersCount}
+              variant='body1'
+              gutterBottom>
+              {value}
+            </Typography>
+          );
         },
       },
     },
@@ -138,7 +170,7 @@ const getColumnsFor = (isAdviser) => {
           }
           return (
             <Link
-              style={{ textDecoration: 'none' }}
+              className={classes.link}
               to={{
                 pathname: RoutesPaths.Admin.QuestionsDetails,
                 state: { questionId: tableMeta.rowData[0] },
@@ -160,11 +192,11 @@ const getColumnsFor = (isAdviser) => {
         filter: false,
         sort: true,
         customHeadLabelRender: () => (
-          <Grid style={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}>
+          <Grid className={classes.currentActionTimeContainer}>
             <AlarmIcon
               fontSize={'small'}
               color={'primary'}
-              style={{ marginRight: '0.1rem' }}
+              className={classes.currentActionTime}
             />
             By Time
           </Grid>
@@ -228,23 +260,10 @@ const StyledStatusChip = withStyles({
   },
 })(Chip);
 
-const TextCroppedWithTooltip = ({ text }) => {
-  return (
-    <Tooltip title={<Typography variant={'caption'}>{text}</Typography>} arrow>
-      <Typography
-        noWrap
-        variant={'body2'}
-        style={{
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-        }}>
-        {text}
-      </Typography>
-    </Tooltip>
-  );
-};
 
 const QuestionsTable = ({ questions, isAdviser }) => {
+  const classes = useStyles();
+
   const tableOptions = {
     filterType: 'checkbox',
     selectableRows: 'none',
@@ -260,7 +279,7 @@ const QuestionsTable = ({ questions, isAdviser }) => {
     <MUIDataTable
       title={'Questions List'}
       data={questions}
-      columns={getColumnsFor(isAdviser)}
+      columns={getColumnsFor(isAdviser, classes)}
       options={tableOptions}
     />
   );

@@ -20,6 +20,7 @@
     "react/jsx-uses-vars": "error",
     "no-unused-vars": "off",
     "no-console": 2,
+    "no-debugger": 2,
     "semi": ["warn", "always"],
     "quotes": ["warn", "single"],
     "unused-imports/no-unused-imports": "error",

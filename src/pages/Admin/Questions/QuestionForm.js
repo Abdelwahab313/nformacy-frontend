@@ -108,7 +108,7 @@ const QuestionForm = ({
 
   const onSendToAdminClicked = () => {
     sendToAdmin(questionDetails.id)
-      .then((response) => {
+      .then(() => {
         history.push('/admin/questions');
       });
   };
@@ -149,7 +149,7 @@ const QuestionForm = ({
           content,
           attachmentsGroupsId,
           richTextMediaId: richTextMediaId.current,
-        }).then((response) => {
+        }).then(() => {
           history.push('/admin/dashboard');
         });
       } else {
@@ -158,7 +158,7 @@ const QuestionForm = ({
           content,
           attachmentsGroupsId,
           richTextMediaId: richTextMediaId.current,
-        }).then((response) => {
+        }).then(() => {
           history.push('/admin/dashboard');
         });
       }
@@ -336,10 +336,7 @@ const QuestionForm = ({
           <GridItem xs={12} sm={12} md={3}>
             <Typography
               noWrap
-              style={{
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-              }}>
+              className={classes.currentActionTime}>
             </Typography>
             <QuestionCountDown
               id={'reviewAndEditTime'}
@@ -363,7 +360,7 @@ const QuestionForm = ({
             {(!(
               questionDetails?.state === 'pending_adviser_acceptance' &&
               currentUser?.id === questionDetails?.assignedAdviserId
-            ) ||
+            ) &&
               !(
                 authManager.isAdviser() &&
                 noActionStates.includes(questionDetails.state)
@@ -371,8 +368,7 @@ const QuestionForm = ({
               <Grid
                 item
                 xs={6}
-                style={{ justifyContent: 'flex-start' }}
-                className={questionRoasterClasses.answerButtonsContainer}>
+                className={[questionRoasterClasses.answerButtonsContainer, classes.attachmentContainer]}>
                 <AttachmentUploader
                   containerClassName={
                     questionRoasterClasses.attachmentUploaderContainer

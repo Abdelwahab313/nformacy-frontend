@@ -16,7 +16,7 @@ import { getFakeAnswer } from './factories/answerFactory';
 
 export const login = (email = USER_NAME, password = PASSWORD) => {
   cy.visit(BASE_URL);
-  cy.get('#email').type(userName);
+  cy.get('#email').type(email);
   cy.get('#password').type(password);
   cy.get('#login').click();
   cy.get('#header');
@@ -83,7 +83,8 @@ export const loginAsAdmin = () => {
 };
 
 export const createQuestion = (question = {}) => {
-  const { id, ...newQuestionParams } = getFakeQuestion(question);
+  const newQuestionParams = getFakeQuestion(question);
+  delete newQuestionParams.id;
   requestWithTokenAsAdmin((token) => {
     cy.request({
       method: 'POST',
@@ -99,7 +100,8 @@ export const createQuestion = (question = {}) => {
 };
 
 export const createQuestionWithState = (question = {}) => {
-  const { id, ...newQuestionParams } = getFakeQuestion(question);
+  const newQuestionParams = getFakeQuestion(question);
+  delete newQuestionParams.id;
   requestWithTokenAsAdmin((token) => {
     cy.request({
       method: 'POST',
@@ -109,7 +111,6 @@ export const createQuestionWithState = (question = {}) => {
       },
       body: decamelizeKeys(newQuestionParams),
     }).then((response) => {
-      console.log('aaaaaa01012012-------');
       const createdQuestion = camelizeKeys(response.body);
       cy.request({
         method: 'PUT',
@@ -119,9 +120,8 @@ export const createQuestionWithState = (question = {}) => {
         },
         body: decamelizeKeys(newQuestionParams),
       }).then((response) => {
-        console.log('response-----put', response);
         setToLocalStorage('createdQuestion', camelizeKeys(response.body));
-      })
+      });
     });
   });
 };
@@ -137,7 +137,8 @@ export const clearLocalStorage = () => {
 };
 
 const createAnswer = (questionId, answer = {}) => {
-  const { id, ...newAnswerParams } = getFakeAnswer(answer);
+  const newAnswerParams = getFakeAnswer(answer);
+  delete newAnswerParams.id;
   return requestWithTokenAsAdmin((token) => {
     return cy
       .request({
@@ -155,11 +156,12 @@ const createAnswer = (questionId, answer = {}) => {
 };
 
 export const createQuestionWithAnswers = () => {
-  const { id, ...newQuestionParams } = getFakeQuestion();
+  const newQuestionParams  = getFakeQuestion({ state: 'freelancer_answers' });
+  delete newQuestionParams.id;
   requestWithTokenAsAdmin((token) => {
     cy.request({
       method: 'POST',
-      url: `${BACKEND_WEB_URL}/questions/`,
+      url: `${BACKEND_WEB_URL}/questions/save`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -203,6 +205,5 @@ export const createDayAvailableForUser = (dayFormatted, startDate, endDate) => {
 export const getDateAfterHours = (hours) => {
   let d = new Date();
   d.setHours(d.getHours() + hours);
-  console.log(d.toGMTString());
   return d.toGMTString();
 };

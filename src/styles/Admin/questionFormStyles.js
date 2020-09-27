@@ -20,6 +20,11 @@ export const useStyles = makeStyles((theme) => ({
   countDown: {
     marginLeft: theme.spacing(2),
   },
+  currentActionTime: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+  attachmentContainer: { justifyContent: 'flex-start' },
   contentTitle: {
     color: '#AAAAAA',
     marginBottom: theme.spacing(2),

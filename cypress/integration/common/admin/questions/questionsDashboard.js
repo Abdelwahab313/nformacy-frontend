@@ -7,6 +7,7 @@ import {
   getFromLocalStorage,
 } from '../../../../helperFunctions';
 import { getFakeQuestion } from '../../../../factories/questionFactory';
+import moment from 'moment';
 
 Given(/^I am on Post question page$/, function() {
   cy.contains('Post Question').click();
@@ -54,7 +55,7 @@ When(/^"Extend Time" dialog should be displayed$/, function() {
 });
 
 And('I should see alarm with {string} circle', (color) => {
-  cy.get('td[data-testid="MuiDataTableBodyCell-9-0"] div').should(
+  cy.get('td[data-testid="MuiDataTableBodyCell-10-0"] div').should(
     'have.class',
     color,
   );
@@ -116,7 +117,7 @@ Given(
 Given(/^I have a question assigned to me with finished By time$/, function() {
   cy.server();
   cy.route('GET', '/questions/adviser_questions', [
-    getFakeQuestion({ title: 'removed question' }),
+    getFakeQuestion({ title: 'removed question', current_action_time:  moment().subtract(5, 'days'),}),
   ]).as('questions');
 });
 

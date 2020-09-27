@@ -45,7 +45,7 @@ const AnswerView = ({ answers, setRating }) => {
             <Typography className={classes.answerFieldLabel}>
               Freelancer reference number:
             </Typography>
-            <Typography>{answer.userName}</Typography>
+            <Typography>{answer.userReferenceNumber}</Typography>
           </Grid>
         </GridItem>
         <GridItem xs={3} className={classes.answerRowStyles}>
