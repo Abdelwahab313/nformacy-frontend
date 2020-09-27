@@ -91,7 +91,9 @@ const getColumnsFor = (isAdviser) => {
         customBodyRender: (value) => {
           return value?.map((val, key) => {
             return (
-              <Chip style={{ margin: 2 }} label={val.label} key={key.value} />
+              <div key={key.value}>
+                <Chip style={{ margin: 2 }} label={val.label} />
+              </div>
             );
           });
         },

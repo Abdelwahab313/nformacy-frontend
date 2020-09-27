@@ -18,17 +18,19 @@ import SubmitButton from '../../components/buttons/SubmitButton';
 const AnswerQuestion = () => {
   const classes = useStyles();
   const questionRoasterClasses = useRoasterStyle();
-  
+
   const location = useLocation();
   let history = useHistory();
   const questionDetails = location.state.questionDetails;
-  
+
   const savedAnswer = JSON.parse(
     localStorage.getItem(`answer${questionDetails?.id}`),
   );
   const [answer, setAnswer] = useState(!!savedAnswer ? savedAnswer : {});
   const [content, setContent] = useState(savedAnswer?.content);
-  const [attachmentsGroupsId, setAttachmentsGroupsId] = useState(savedAnswer?.attachmentsGroupsId);
+  const [attachmentsGroupsId, setAttachmentsGroupsId] = useState(
+    savedAnswer?.attachmentsGroupsId,
+  );
   const richTextMediaId = useRef(savedAnswer?.richTextMediaId);
 
   const saveAndCompleteLater = () => {
@@ -45,11 +47,10 @@ const AnswerQuestion = () => {
       content: content,
       attachmentsGroupsId,
       richTextMediaId: richTextMediaId.current,
-    })
-      .then((responses) => {
-        history.push(`/answer/success`);
-        console.log('------ responses', responses);
-      });
+    }).then((responses) => {
+      history.push(`/answer/success`);
+      console.log('------ responses', responses);
+    });
   };
 
   return (
@@ -96,17 +97,14 @@ const AnswerQuestion = () => {
               xs={6}
               style={{ justifyContent: 'flex-end' }}
               className={questionRoasterClasses.answerButtonsContainer}>
-              <Button
-                variant='contained'
-                size='medium'
+              <SubmitButton
+                id='saveAndCompleteLaterButton'
                 onClick={() => saveAndCompleteLater(richTextMediaId.current)}
+                buttonText={t['saveAndCompleteLater']}
                 style={{
                   marginRight: '10px',
-                  height: '36px',
-                  alignSelf: 'center',
-                }}>
-                {t['saveAndCompleteLater']}
-              </Button>
+                }}
+              />
               <SubmitButton
                 onClick={onSubmitAnswer}
                 buttonText={'Submit'}

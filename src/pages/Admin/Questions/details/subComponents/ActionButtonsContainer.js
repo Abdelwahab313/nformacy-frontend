@@ -31,7 +31,7 @@ const ActionButtonsContainer = ({
         <SubmitButton
           id={'sendToAdminButton'}
           onClick={onSendToAdminClicked}
-          buttonText={'Send to admin for deployment'}
+          buttonText={'Send for deployment'}
         />
       </Grid>
     );
