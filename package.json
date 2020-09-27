@@ -116,7 +116,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run e2e"
+      "pre-commit": "lint-staged && npm run e2e"
     }
   },
   "lint-staged": {
