@@ -12,6 +12,7 @@ import { fieldsOfExperience } from 'constants/dropDownOptions';
 import QuestionCountDown from 'components/counters/QuestionCountDown';
 import SubmitButton from 'components/buttons/SubmitButton';
 import t from '../../locales/en/questionRoaster';
+import createMarkup from '../../services/markup';
 
 const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   const classes = useStyles();
@@ -70,7 +71,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
                             <Chip
                               id={`questionSubFields-${key}`}
                               color={'secondary'}
-                              style={{ marginLeft: '5px', marginRight: '5px' }}
+                              className={classes.subFieldChip}
                               label={field.label}
                             />
                           </Grid>
@@ -101,7 +102,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
           <div
             id={`question-${questionDetails.referenceNumber}-content`}
             className={classes.questionContentField}
-            dangerouslySetInnerHTML={{ __html: questionDetails.content }}
+            dangerouslySetInnerHTML={createMarkup(questionDetails.content)}
           />
         </Grid>
         <Grid item xs={6}>
@@ -114,7 +115,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
           <Grid
             item
             xs={6}
-            style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            className={classes.answerButtonContainer}>
             <SubmitButton
               id={`question-${questionDetails.referenceNumber}-submit`}
               onClick={() => handleEditClick(questionDetails.referenceNumber)}

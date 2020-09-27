@@ -103,7 +103,6 @@ class FileUploadComponent extends React.Component {
       newFilesData.forEach(newFileData => {
         files.push(newFileData.file);
       });
-      console.log('component update', this.state.files)
       this.setState({ files: files });
     });
   }

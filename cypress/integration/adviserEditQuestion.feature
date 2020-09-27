@@ -14,4 +14,4 @@ Feature: Adviser Edit and Review Question
     And I am on questions dashboard.
     When i chose a question with status review_and_edit.
     And  i click send to admin for deployment
-    Then the question i sent should not be visible in questions dashboard
+    Then the question i sent should be be visible in questions dashboard with state pending_deployment_to_roaster

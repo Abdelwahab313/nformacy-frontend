@@ -40,7 +40,6 @@ const AvailableTimeRangeForm = ({
       setErrors({ endTime: 'End time should be after start time' });
     }
   };
-  console.log('666666', selectedRange);
   return (
     <Fragment>
       <Box>

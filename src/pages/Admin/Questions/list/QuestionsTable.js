@@ -75,7 +75,7 @@ const getColumnsFor = (isAdviser) => {
         customBodyRender: (value) => {
           const assignmentLabel = questionTypesOfAssignment.filter(
             (assignmentOption) => assignmentOption.value === value,
-          )[0].label;
+          )[0]?.label;
           return assignmentLabel;
         },
       },

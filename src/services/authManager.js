@@ -18,13 +18,38 @@ class AuthManager {
     return { authToken, user };
   };
 
+  isAdmin = () => {
+    let user;
+    try {
+      const loadedUserString = localStorage.getItem('user');
+      user = !!loadedUserString
+        ? JSON.parse(loadedUserString)
+        : undefined;
+      return user.roles.some((role) => role.name === 'admin');
+    } catch (e) {
+      return false
+    }
+  };
+
+  isAdviser = () => {
+    let user;
+    try {
+      const loadedUserString = localStorage.getItem('user');
+      user = !!loadedUserString
+        ? JSON.parse(loadedUserString)
+        : undefined;
+      return user.roles.some((role) => role.name === 'adviser');
+    } catch (e) {
+      return false
+    }
+  };
+
   login = (userToken) => {
     this.setAuthorizationHeader(userToken);
     localStorage.setItem('tokens', JSON.stringify(userToken));
   };
 
   logout = () => {
-    console.log('logout -------------');
     this.setAuthorizationHeader();
     return localStorage.setItem('tokens', '');
   };

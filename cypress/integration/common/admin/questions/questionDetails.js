@@ -24,11 +24,9 @@ When(/^I fill all the question details$/, function() {
   });
 });
 
-
 And(/^I should see question details$/, function() {
   cy.contains('Edit Question');
 });
-
 
 When(/^i edit question title$/, function() {
   cy.get('#title').clear();
@@ -91,17 +89,15 @@ Then(
 );
 
 When(/^i click accept$/, function() {
-    cy.get('#acceptButton').click();
-  });
-  
+  cy.get('#acceptButton').click();
+});
 
 When(/^i assign an adviser$/, function() {
-    cy.get('#assignAdviser').click();
-    cy.get('#assignAdviser-option-0').click();
-    cy.get('#hoursToReviewAndEdit').type(5);
-    cy.get('#hoursToCloseAnswers').type(7);
-  });
-  
+  cy.get('#assignAdviser').click();
+  cy.get('#assignAdviser-option-0').click();
+  cy.get('#hoursToReviewAndEdit').type(5);
+  cy.get('#hoursToCloseAnswers').type(7);
+});
 
 Then(
   /^I should see send to admin button, save and complete later button and attachment button appear$/,
@@ -116,16 +112,23 @@ When(/^i click reject$/, function() {
   cy.get('#rejectButton').click();
 });
 
-
 Then(/^I should see what is the time of review and edit assigned$/, function() {
   cy.get('#reviewAndEditTime').should('exist');
 });
 
-
 When(/^i click send to admin for deployment$/, function() {
-  cy.get('#sendToAdminButton').click()
+  cy.get('#sendToAdminButton').click();
 });
 
 When(/^i click save and complete later$/, function() {
   cy.get('#saveAndCompleteLaterButton').click();
+});
+Then(/^I should see the question form with no action buttons$/, function() {
+  cy.wait(1000);
+  cy.get('#saveAndCompleteLaterButton').should('not.exist');
+  cy.get('#sendToAdminButton').should('not.exist');
+  cy.get('#applyChangesButton').should('not.exist');
+  cy.get('#acceptButton').should('not.exist');
+  cy.get('#rejectButton').should('not.exist');
+  cy.get('#approveQuestion').should('not.exist');
 });

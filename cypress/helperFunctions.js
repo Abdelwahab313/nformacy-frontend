@@ -98,13 +98,12 @@ export const createQuestion = (question = {}) => {
   });
 };
 
-
-export const createQuestionWithReviewStatus = (question = {}) => {
+export const createQuestionWithState = (question = {}) => {
   const { id, ...newQuestionParams } = getFakeQuestion(question);
   requestWithTokenAsAdmin((token) => {
     cy.request({
       method: 'POST',
-      url: `${BACKEND_WEB_URL}/questions/`,
+      url: `${BACKEND_WEB_URL}/questions/save`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -127,7 +126,6 @@ export const createQuestionWithReviewStatus = (question = {}) => {
   });
 };
 
-
 export const getFromLocalStorage = (key) => {
   return JSON.parse(localStorage.getItem(key));
 };
@@ -141,16 +139,18 @@ export const clearLocalStorage = () => {
 const createAnswer = (questionId, answer = {}) => {
   const { id, ...newAnswerParams } = getFakeAnswer(answer);
   return requestWithTokenAsAdmin((token) => {
-    return cy.request({
-      method: 'POST',
-      url: `${BACKEND_WEB_URL}/questions/${questionId}/answer`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: decamelizeKeys(newAnswerParams),
-    }).then((response) => {
-      return response.body;
-    });
+    return cy
+      .request({
+        method: 'POST',
+        url: `${BACKEND_WEB_URL}/questions/${questionId}/answer`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: decamelizeKeys(newAnswerParams),
+      })
+      .then((response) => {
+        return response.body;
+      });
   });
 };
 
@@ -199,7 +199,6 @@ export const createDayAvailableForUser = (dayFormatted, startDate, endDate) => {
     cy.wrap(response.body.user).as('user');
   });
 };
-
 
 export const getDateAfterHours = (hours) => {
   let d = new Date();

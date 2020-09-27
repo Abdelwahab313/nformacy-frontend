@@ -2,10 +2,7 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import t from '../../../../../locales/en/questionRoaster.json';
 import SubmitButton from 'components/buttons/SubmitButton';
-
-const isAdviser = (user) => {
-  return user.roles.some((role) => role.name === 'adviser');
-};
+import authManager from '../../../../../services/authManager';
 
 const ActionButtonsContainer = ({
   questionDetails,
@@ -16,7 +13,7 @@ const ActionButtonsContainer = ({
   questionRoasterClasses,
   onSendToAdminClicked,
 }) => {
-  if (isAdviser(currentUser) && questionDetails.state === 'review_and_edit') {
+  if (authManager.isAdviser() && questionDetails.state === 'review_and_edit') {
     return (
       <Grid
         item
@@ -48,13 +45,13 @@ const ActionButtonsContainer = ({
       className={questionRoasterClasses.answerButtonsContainer}>
       {isNewQuestion && (
         <SubmitButton
-        id='saveAndCompleteLaterButton'
-        onClick={() => saveAndCompleteLater()}
-        buttonText={t['saveAndCompleteLater']}
-        style={{
-          marginRight: '10px',
-        }}
-      />
+          id='saveAndCompleteLaterButton'
+          onClick={() => saveAndCompleteLater()}
+          buttonText={t['saveAndCompleteLater']}
+          style={{
+            marginRight: '10px',
+          }}
+        />
       )}
       {!(
         questionDetails?.state === 'pending_adviser_acceptance' &&

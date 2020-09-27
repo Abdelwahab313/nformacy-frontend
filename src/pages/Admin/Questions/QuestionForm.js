@@ -6,7 +6,10 @@ import GridItem from '../../../components/Grid/GridItem';
 import CustomInput from '../../../components/CustomInput/CustomInput';
 import MajorFieldSelect from '../../../components/inputs/MajorFieldSelect';
 import SpecificFieldSelect from '../../../components/inputs/SpecificFieldSelect';
-import { industries, questionTypesOfAssignment } from '../../../constants/dropDownOptions';
+import {
+  industries,
+  questionTypesOfAssignment,
+} from '../../../constants/dropDownOptions';
 import humanizedTimeSpan from '../../../services/humanizedTimeSpan';
 import { useStyles } from '../../../styles/Admin/questionFormStyles';
 import RichTextEditorForm from '../../../components/forms/RichTextEditorForm';
@@ -21,28 +24,32 @@ import { useHistory } from 'react-router';
 
 import { Grid } from '@material-ui/core';
 import { useStyles as useRoasterStyle } from '../../../styles/questionRoasterStyles';
-import t from '../../../locales/en/questionRoaster.json';
-import SubmitButton from '../../../components/buttons/SubmitButton';
 import AttachmentUploader from '../../../components/forms/AttachmentUploader';
 import DropdownSelectField from 'components/CustomInput/DropdownSelectField';
-import Button from '@material-ui/core/Button';
 import AssignedAdvisersSelect from './AssignedAdvisersSelect';
 import { useAuth } from '../../auth/context/auth';
 import QuestionCountDown from '../../../components/counters/QuestionCountDown';
 import Typography from '@material-ui/core/Typography';
 import AcceptAndRejectActionButtons from './details/subComponents/AcceptAndRejectActionButtons';
 import ActionButtonsContainer from './details/subComponents/ActionButtonsContainer';
-import {sendToAdmin } from 'apis/questionsAPI';
+import { sendToAdmin } from 'apis/questionsAPI';
+import authManager from '../../../services/authManager';
 
+const noActionStates = [
+  'pending_deployment_to_roaster',
+  'freelancer_answers',
+  'answers_rating',
+  'closed',
+];
 
 const QuestionForm = ({
-  questionDetails,
-  setQuestionDetails,
-  setIsSnackbarShown,
-  setSnackbarMessage,
-  setIsError,
-  isNewQuestion,
-}) => {
+                        questionDetails,
+                        setQuestionDetails,
+                        setIsSnackbarShown,
+                        setSnackbarMessage,
+                        setIsError,
+                        isNewQuestion,
+                      }) => {
   const classes = useStyles();
   const questionRoasterClasses = useRoasterStyle();
   const [content, setContent] = useState(
@@ -55,19 +62,17 @@ const QuestionForm = ({
   let history = useHistory();
   const richTextMediaId = useRef(questionDetails?.richTextMediaId);
 
-
-  const isAdmin = (user) => {
-    return user.roles.some((role) => role.name === 'admin');
-  };
-
-
-  const isAdviser = (user) => {
-    return user.roles.some((role) => role.name === 'adviser');
-  };
-
   const onAcceptAssignment = () => {
     acceptAssignment(questionDetails.id).then((response) => {
-      setQuestionDetails(response.data);
+      setQuestionDetails({
+        ...response.data,
+        content,
+        createdAt: humanizedTimeSpan(questionDetails.createdAt),
+        title: questionDetails.title,
+        field: questionDetails.field,
+        subfield: questionDetails.subfield,
+        industry: questionDetails.industry,
+      });
       setIsError(false);
       setSnackbarMessage('Question has been accepted successfully');
       setIsSnackbarShown(true);
@@ -117,7 +122,7 @@ const QuestionForm = ({
       setIsError(true);
       setIsSnackbarShown(true);
     } else if (
-      isAdmin(currentUser) &&
+      authManager.isAdmin() &&
       questionDetails.assignedAdviserId &&
       !questionDetails.hoursToReviewAndEdit
     ) {
@@ -127,7 +132,7 @@ const QuestionForm = ({
       setIsError(true);
       setIsSnackbarShown(true);
     } else if (
-      isAdmin(currentUser) &&
+      authManager.isAdmin() &&
       questionDetails.assignedAdviserId &&
       !questionDetails.hoursToCloseAnswers
     ) {
@@ -246,7 +251,7 @@ const QuestionForm = ({
           />
         </GridItem>
       </GridContainer>
-      {isAdmin(currentUser) && (
+      {authManager.isAdmin() && (
         <GridContainer className={classes.inputsRow}>
           <GridItem xs={12} sm={12} md={3}>
             <DropdownSelectField
@@ -283,7 +288,6 @@ const QuestionForm = ({
                 name: 'hoursToCloseAnswers',
                 type: 'number',
                 onChange: (e) => {
-                  console.log('the value=========', e.target.value);
                   onChangeQuestionField('hoursToCloseAnswers', e.target.value);
                 },
               }}
@@ -308,7 +312,6 @@ const QuestionForm = ({
                 name: 'hoursToReviewAndEdit',
                 type: 'number',
                 onChange: (e) => {
-                  console.log('the value 2=========', e.target.value);
                   onChangeQuestionField('hoursToReviewAndEdit', e.target.value);
                 },
               }}
@@ -322,13 +325,12 @@ const QuestionForm = ({
           </GridItem>
         </GridContainer>
       )}
-      {isAdviser(currentUser) && questionDetails.state === 'review_and_edit' && (
+      {authManager.isAdviser() && questionDetails.state === 'review_and_edit' && (
         <GridContainer className={classes.inputsRow} alignItems={'center'}>
           <InputLabel
             className={classes.countDown}
             color={'primary'}
-            htmlFor={'reviewAndEditTime'}
-          >
+            htmlFor={'reviewAndEditTime'}>
             Remaining time to review and Edit:
           </InputLabel>
           <GridItem xs={12} sm={12} md={3}>
@@ -341,10 +343,10 @@ const QuestionForm = ({
             </Typography>
             <QuestionCountDown
               id={'reviewAndEditTime'}
-              date={questionDetails?.currentActionTime} />
+              date={questionDetails?.currentActionTime}/>
           </GridItem>
         </GridContainer>
-        )}
+      )}
       <GridContainer className={classes.inputsRow}>
         <GridItem xs={12} sm={12} md={12}>
           <InputLabel className={classes.contentTitle}>
@@ -358,10 +360,14 @@ const QuestionForm = ({
                 richTextMediaId={richTextMediaId}
               />
             </Grid>
-            {!(
+            {(!(
               questionDetails?.state === 'pending_adviser_acceptance' &&
               currentUser?.id === questionDetails?.assignedAdviserId
-            ) && (
+            ) ||
+              !(
+                authManager.isAdviser() &&
+                noActionStates.includes(questionDetails.state)
+              )) && (
               <Grid
                 item
                 xs={6}
@@ -377,21 +383,26 @@ const QuestionForm = ({
                 />
               </Grid>
             )}
-            <ActionButtonsContainer
-              questionDetails={questionDetails} 
-              isNewQuestion={isNewQuestion}
-              currentUser={currentUser}
-              saveAndCompleteLater={saveAndCompleteLater}
-              onSubmitQuestion={onSubmitQuestion}
-              questionRoasterClasses={questionRoasterClasses}
-              onSendToAdminClicked={onSendToAdminClicked}
+            {!(
+              authManager.isAdviser() &&
+              noActionStates.includes(questionDetails.state)
+            ) && (
+              <ActionButtonsContainer
+                questionDetails={questionDetails}
+                isNewQuestion={isNewQuestion}
+                currentUser={currentUser}
+                saveAndCompleteLater={saveAndCompleteLater}
+                onSubmitQuestion={onSubmitQuestion}
+                questionRoasterClasses={questionRoasterClasses}
+                onSendToAdminClicked={onSendToAdminClicked}
               />
+            )}
             {questionDetails?.state === 'pending_adviser_acceptance' &&
               currentUser?.id === questionDetails?.assignedAdviserId && (
-            <AcceptAndRejectActionButtons
-              onRejectAssignment={onRejectAssignment}
-              onAcceptAssignment={onAcceptAssignment}
-            />
+                <AcceptAndRejectActionButtons
+                  onRejectAssignment={onRejectAssignment}
+                  onAcceptAssignment={onAcceptAssignment}
+                />
               )}
           </Grid>
         </GridItem>

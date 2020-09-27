@@ -40,5 +40,10 @@ Feature: Adviser questions dashboard
     And   I should not see the question
 
 
-
+  Scenario: Question in pending deployment to question roaster visible without action to adviser.
+    And I have a question assigned to me with pending deployment to question roaster state.
+    And I am on the questions dashboard
+    Then The question should be visible with no action.
+    When I click on the question.
+    Then I should see the question form with no action buttons
 

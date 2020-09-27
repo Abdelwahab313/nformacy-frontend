@@ -14,10 +14,20 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react"],
+  "plugins": ["react", "unused-imports", "eslint-plugin-no-inline-styles"],
   "rules": {
-    "semi": ["error", "always"],
-    "quotes": ["error", "single"]
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "no-unused-vars": "off",
+    "no-console": 2,
+    "semi": ["warn", "always"],
+    "quotes": ["warn", "single"],
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "error",
+      { "vars": "all"}
+    ],
+    "no-inline-styles/no-inline-styles": 2
   },
   "parser": "babel-eslint"
 }

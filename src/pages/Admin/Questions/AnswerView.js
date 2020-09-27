@@ -6,22 +6,27 @@ import GridContainer from '../../../components/Grid/GridContainer';
 import GridItem from '../../../components/Grid/GridItem';
 import { useStyles } from '../../../styles/Admin/questionFormStyles';
 import Grid from '@material-ui/core/Grid';
+import Rating from '@material-ui/lab/Rating';
+import { rateAnswer } from '../../../apis/answersAPI';
+import authManager from '../../../services/authManager';
+import createMarkup from '../../../services/markup';
 
-function createMarkup(html) {
-  return { __html: html };
-}
-
-const AnswerView = ({ answers }) => {
+const AnswerView = ({ answers, setRating }) => {
   const classes = useStyles();
 
-  return answers?.map((answer) => (
+  const onChangeRating = (index, newValue) => {
+    setRating(index, newValue);
+    rateAnswer(answers[index].id, newValue);
+  };
+
+  return answers?.map((answer, index) => (
     <Paper
       key={answer.referenceNumber}
       id={answer.referenceNumber}
       elevation={2}
       className={classes.answerContainerStyles}>
       <GridContainer>
-        <GridItem xs={4} className={classes.answerRowStyles}>
+        <GridItem xs={3} className={classes.answerRowStyles}>
           <Grid
             container
             alignContent='row'
@@ -32,7 +37,18 @@ const AnswerView = ({ answers }) => {
             <Typography>{answer.referenceNumber}</Typography>
           </Grid>
         </GridItem>
-        <GridItem xs={4} className={classes.answerRowStyles}>
+        <GridItem xs={3} className={classes.answerRowStyles}>
+          <Grid
+            container
+            alignContent='row'
+            className={classes.answerFieldStyle}>
+            <Typography className={classes.answerFieldLabel}>
+              Freelancer reference number:
+            </Typography>
+            <Typography>{answer.userName}</Typography>
+          </Grid>
+        </GridItem>
+        <GridItem xs={3} className={classes.answerRowStyles}>
           <Grid
             container
             alignContent='row'
@@ -43,7 +59,7 @@ const AnswerView = ({ answers }) => {
             <Typography>{answer.userName}</Typography>
           </Grid>
         </GridItem>
-        <GridItem xs={4} className={classes.answerRowStyles}>
+        <GridItem xs={3} className={classes.answerRowStyles}>
           <Grid
             container
             alignContent='row'
@@ -73,6 +89,16 @@ const AnswerView = ({ answers }) => {
               }}
             />
           ))}
+        </GridItem>
+        <GridItem xs={2} className={classes.answerRowStyles}>
+          <Rating
+            name={`rateAnswer-${index}`}
+            readOnly={!authManager.isAdviser()}
+            value={answer.rating}
+            onChange={(event, newValue) => {
+              onChangeRating(index, newValue);
+            }}
+          />
         </GridItem>
       </GridContainer>
     </Paper>

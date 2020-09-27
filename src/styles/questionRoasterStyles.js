@@ -100,6 +100,7 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '4vw',
     },
   },
+  subFieldChip: { marginLeft: '5px', marginRight: '5px' },
   progressContainer: {
     position: 'absolute',
     left: '50%',
@@ -110,6 +111,7 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     marginTop: '20px',
   },
+  answerButtonContainer: { display: 'flex', justifyContent: 'flex-end' },
   attachButtonStyle: {
     backgroundColor: pink,
     color: white,

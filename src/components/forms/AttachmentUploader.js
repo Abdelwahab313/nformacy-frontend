@@ -28,8 +28,6 @@ const AttachmentUploader = ({
 }) => {
   const [attachmentFiles, setAttachmentFiles] = useState(attachments);
 
-  console.log('------ attachments', attachments);
-  console.log('------ attachments', attachmentFiles);
 
   const onUploadAttachment = (attachmentFile) => {
     const fileBlob = new Blob(attachmentFile);

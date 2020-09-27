@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 // @material-ui/core components
 // core components
 import GridItem from 'components/Grid/GridItem.js';
@@ -17,10 +17,7 @@ import QuestionForm from '../QuestionForm';
 import { useStyles } from '../../../../styles/Admin/questionFormStyles';
 import { useAuth } from '../../../auth/context/auth';
 import AnswerView from '../AnswerView';
-
-const isAdviser = (user) => {
-  return user.roles.some((role) => role.name === 'adviser');
-};
+import authManager from '../../../../services/authManager';
 
 const QuestionDetails = () => {
   const classes = useStyles();
@@ -30,7 +27,6 @@ const QuestionDetails = () => {
   const [isError, setIsError] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   let history = useHistory();
-  const [{ currentUser }] = useAuth();
 
   const location = useLocation();
   const questionId = location.state.questionId;
@@ -38,6 +34,12 @@ const QuestionDetails = () => {
   const { isLoading, fetchedData: fetchedQuestion } = useFetchData(() =>
     fetchQuestionDetails(questionId),
   );
+
+  const setRating = useCallback((answerIndex, rating) => {
+    const newQuestionDetails = { ...questionDetails };
+    newQuestionDetails.answers[answerIndex].rating = rating;
+    setQuestionDetails(newQuestionDetails);
+  }, [questionDetails, setQuestionDetails]);
 
   useEffect(() => {
     console.log(isLoading);
@@ -47,7 +49,7 @@ const QuestionDetails = () => {
   }, [fetchedQuestion]);
 
   if (isLoading) {
-    return <LoadingCircle />;
+    return <LoadingCircle/>;
   }
 
   const onDeployQuestionClicked = () => {
@@ -56,7 +58,8 @@ const QuestionDetails = () => {
       .then((response) => {
         history.push('/admin/questions');
       })
-      .catch((error) => {})
+      .catch((error) => {
+      })
       .finally(() => setIsLoadingForUpdating(false));
   };
 
@@ -77,7 +80,7 @@ const QuestionDetails = () => {
             isNewQuestion={false}
           />
           <CardFooter className={classes.footerButtons}>
-            {questionDetails.state === 'pending_deployment_to_roaster' && (
+            { authManager.isAdmin() && questionDetails.state === 'pending_deployment_to_roaster' && (
               <Button
                 id={'approveQuestion'}
                 disabled={isLoadingForUpdating}
@@ -97,7 +100,7 @@ const QuestionDetails = () => {
       </GridItem>
       {questionDetails.answers && (
         <GridItem xs={12}>
-          <AnswerView answers={questionDetails.answers} />
+          <AnswerView answers={questionDetails.answers} setRating={setRating}/>
         </GridItem>
       )}
     </GridContainer>

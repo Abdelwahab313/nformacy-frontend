@@ -10,11 +10,6 @@ Given(/^There is a question with answers$/, function() {
 });
 When(/^Click on created question\.$/, function() {
   cy.wait(1000);
-  cy.get('#pagination-rows').click();
-  cy.get('#pagination-menu-list')
-    .children()
-    .last()
-    .click();
   cy.get(
     `a[data-reference='${
       getFromLocalStorage('createdQuestion').referenceNumber
