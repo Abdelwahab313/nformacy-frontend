@@ -13,4 +13,7 @@ export const useStyles = makeStyles((theme) => ({
   buttonsContainerStyles: {
     textAlign: 'end'
   },
+  postQuestionButton: {
+    marginLeft: theme.spacing(2)
+  }
 }));

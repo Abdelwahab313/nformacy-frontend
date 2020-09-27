@@ -55,7 +55,7 @@ const adminRoutes = [
     name: 'Post Question',
     icon: QuestionAnswerIcon,
     component: PostQuestion,
-    hasDashboardLink: true,
+    hasDashboardLink: false,
     layout: '/admin',
   },
   {

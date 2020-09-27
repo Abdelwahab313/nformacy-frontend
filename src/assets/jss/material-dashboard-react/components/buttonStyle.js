@@ -30,7 +30,7 @@ const buttonStyle = {
     position: "relative",
     padding: "12px 30px",
     margin: ".3125rem 1px",
-    fontSize: "12px",
+    fontSize: "1.1rem",
     fontWeight: "400",
     textTransform: "uppercase",
     letterSpacing: "0",

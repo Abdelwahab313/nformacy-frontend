@@ -10,7 +10,7 @@ import { getFakeQuestion } from '../../../../factories/questionFactory';
 import moment from 'moment';
 
 Given(/^I am on Post question page$/, function() {
-  cy.contains('Post Question').click();
+  cy.get('#postQuestionButton').click();
   cy.get('#post-question-page-header').should('have.text', 'Add Question');
 });
 

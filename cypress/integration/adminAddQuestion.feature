@@ -3,7 +3,7 @@ Feature: Admin post question
 
   Background:
     Given I am an admin and Logged in
-    And I am on the dashboard
+    And I am on the questions dashboard
 
   Scenario: admin send question to adviser
     Given I am on Post question page
