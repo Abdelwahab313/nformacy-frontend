@@ -1,8 +1,12 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import { BASE_URL } from '../../../../defualtTestValues';
-import { createQuestion, getDateAfterHours, getFromLocalStorage, createQuestionWithReviewStatus } from '../../../../helperFunctions';
+import {
+  createQuestion,
+  getDateAfterHours,
+  getFromLocalStorage,
+  createQuestionWithReviewStatus,
+} from '../../../../helperFunctions';
 import { getFakeQuestion } from '../../../../factories/questionFactory';
-
 
 Given(/^I am on Post question page$/, function() {
   cy.contains('Post Question').click();
@@ -13,12 +17,10 @@ And(/^I am on adviser question list$/, function() {
   cy.contains('Adviser Questions List');
 });
 
-
 And(/^I should not see the question$/, function() {
   cy.wait('@questions');
   cy.contains('Sorry, no matching records found');
 });
-
 
 And(/^I should see Action Needed column$/, function() {
   cy.contains('Status');
@@ -34,12 +36,15 @@ And(/^I should see Alarm column$/, function() {
 });
 
 Given(/^I have a question with a status Review$/, function() {
-  createQuestionWithReviewStatus({state: "review_and_edit", current_action_time: getDateAfterHours(10)  });
-
+  createQuestionWithReviewStatus({
+    state: 'review_and_edit',
+    current_action_time: getDateAfterHours(10),
+  });
 });
 
 When(/^I click on that question's By Time$/, function() {
-  const referenceNumber = getFromLocalStorage('createdQuestion').referenceNumber
+  const referenceNumber = getFromLocalStorage('createdQuestion')
+    .referenceNumber;
   cy.get(`tr[row-reference="${referenceNumber}"] .by-time`).contains('9:59');
   cy.get(`tr[row-reference="${referenceNumber}"] .currentActionTime`).click();
 });
@@ -47,7 +52,6 @@ When(/^I click on that question's By Time$/, function() {
 When(/^"Extend Time" dialog should be displayed$/, function() {
   cy.get('#extend-time-dialog').contains('Extend Time');
 });
-
 
 And(`I should see alarm with {string} circle`, (color) => {
   cy.get('td[data-testid="MuiDataTableBodyCell-9-0"] div').should(
@@ -66,8 +70,6 @@ And(/^I should see alarm beside question row$/, function() {
 And(/^I click on question title$/, function() {
   cy.get("td[data-testid='MuiDataTableBodyCell-2-0']").click();
 });
-
-
 
 When(/^i chose a question with status draft\.$/, function() {
   cy.wait(1000);
@@ -88,28 +90,28 @@ When(/^i chose a question with status review_and_edit\.$/, function() {
     .children()
     .last()
     .click();
-  cy.get("div[data-status='review_and_edit']").then(function(
-    element,
-  ) {
+  cy.get("div[data-status='review_and_edit']").then(function(element) {
     const toBeSendToAdmin = element[0].attributes['data-reference'].value;
-    cy.wrap(toBeSendToAdmin).as(
-      'toBeSendToAdmin',
-    );
-    cy.get(`a[data-reference='${toBeSendToAdmin}']`).parent().parent().click();
+    cy.wrap(toBeSendToAdmin).as('toBeSendToAdmin');
+    cy.get(`a[data-reference='${toBeSendToAdmin}']`)
+      .parent()
+      .parent()
+      .click();
   });
 });
 
-
-Then(/^the question i sent should not be visible in questions dashboard$/, function() {
-  cy.wait(1000);
-  cy.get('#pagination-rows').click();
-  cy.get('#pagination-menu-list')
-    .children()
-    .last()
-    .click();
-  cy.get(`a[data-reference='${this.toBeSendToAdmin}']`).should('not.exist')
-});
-
+Then(
+  /^the question i sent should not be visible in questions dashboard$/,
+  function() {
+    cy.wait(1000);
+    cy.get('#pagination-rows').click();
+    cy.get('#pagination-menu-list')
+      .children()
+      .last()
+      .click();
+    cy.get(`a[data-reference='${this.toBeSendToAdmin}']`).should('not.exist');
+  },
+);
 
 Then(/^the edit should be saved successful to selected question$/, function() {
   cy.visit(`${BASE_URL}/admin/questions`);
@@ -119,9 +121,8 @@ Then(/^the edit should be saved successful to selected question$/, function() {
     .children()
     .last()
     .click();
-  cy.get(`a[data-reference='${this.toBeSendToAdmin}']`).should('exist')
+  cy.get(`a[data-reference='${this.toBeSendToAdmin}']`).should('exist');
 });
-
 
 Given(
   `I have a question assigned to me with By time less than {string} percent`,
@@ -134,18 +135,15 @@ Given(
   },
 );
 
-
-
-Given (/^I have a question assigned to me with finished By time$/, function() {
+Given(/^I have a question assigned to me with finished By time$/, function() {
   cy.server();
   cy.route('GET', '/questions/adviser_questions', [
-    getFakeQuestion({ title: "removed question"}),
+    getFakeQuestion({ title: 'removed question' }),
   ]).as('questions');
 });
 
 Then(/^i should be in the saved question post form\.$/, function() {});
 Then(/^all saved information should be visible$/, function() {});
-
 
 Then(/^the question status should be pending adviser acceptance$/, function() {
   cy.get('#pagination-rows').click();
@@ -158,39 +156,47 @@ Then(/^the question status should be pending adviser acceptance$/, function() {
     .click();
 });
 
-When(/^I select a question with status pending deployment to question roaster$/, function() {
-  cy.wait(1000);
-  cy.get('#pagination-rows').click();
-  cy.get('#pagination-menu-list')
-    .children()
-    .last()
-    .click();
-  cy.get(".state[data-status='pending_deployment_to_roaster']").then(function(
-    element,
-  ) {
-    const toBeDeployedReference = element[0].attributes['data-reference'].value;
-    cy.wrap(toBeDeployedReference).as(
-      'toBeDeployed',
-    );
-    cy.get(`a[data-reference='${toBeDeployedReference}']`).parent().parent().click();
-  });
-});
+When(
+  /^I select a question with status pending deployment to question roaster$/,
+  function() {
+    cy.wait(1000);
+    cy.get('#pagination-rows').click();
+    cy.get('#pagination-menu-list')
+      .children()
+      .last()
+      .click();
+    cy.get(".state[data-status='pending_deployment_to_roaster']").then(function(
+      element,
+    ) {
+      const toBeDeployedReference =
+        element[0].attributes['data-reference'].value;
+      cy.wrap(toBeDeployedReference).as('toBeDeployed');
+      cy.get(`a[data-reference='${toBeDeployedReference}']`)
+        .parent()
+        .parent()
+        .click();
+    });
+  },
+);
 
 Then(/^I should be redirected to questions dashboard$/, function() {
   cy.get('#questionsList').should('exist');
 });
 
-Then(/^I should see deployed question status to be freelancer answers$/, function() {
-  cy.wait(1000);
-  cy.get('#pagination-rows').click();
-  cy.get('#pagination-menu-list')
-    .children()
-    .last()
-    .click();
-  cy.get(`a[data-reference='${this.toBeDeployed}']`).then(function (element){
-    expect(element[0].attributes['data-status'].value, 'freelancer_answers')
-  })
-});
+Then(
+  /^I should see deployed question status to be freelancer answers$/,
+  function() {
+    cy.wait(1000);
+    cy.get('#pagination-rows').click();
+    cy.get('#pagination-menu-list')
+      .children()
+      .last()
+      .click();
+    cy.get(`a[data-reference='${this.toBeDeployed}']`).then(function(element) {
+      expect(element[0].attributes['data-status'].value, 'freelancer_answers');
+    });
+  },
+);
 
 Then(/^i should not see the draft question i posted as admin$/, function() {
   cy.wait(1000);
@@ -204,19 +210,17 @@ Then(/^i should not see the draft question i posted as admin$/, function() {
 
 When(/^i chose second question\.$/, function() {
   cy.get('*[data-testid="MuiDataTableBodyCell-2-1"] a')
-  .parent().parent()
+    .parent()
+    .parent()
     .click();
 });
-
 
 Then(/^the edit should be saved successfull to second question$/, function() {
   cy.visit(`${BASE_URL}/admin/questions`);
   cy.get('.MuiTableBody-root')
     .first()
-    .find('[data-testid="MuiDataTableBodyCell-2-1"]').should(
-    'have.text',
-    'updatedTitle',
-  );
+    .find('[data-testid="MuiDataTableBodyCell-2-1"]')
+    .should('have.text', 'updatedTitle');
 });
 
 When(
@@ -236,7 +240,6 @@ When(
   },
 );
 
-
 When(/^I have a question with pending assignment state$/, function() {
   createQuestion();
 });
@@ -252,7 +255,6 @@ Then(
     );
   },
 );
-
 
 Then(
   /^i should not see rejected question question status to be review and edit$/,
@@ -281,3 +283,16 @@ Then(
     );
   },
 );
+
+Then(/^I fill the extended time field$/, function() {
+  cy.get(`#extendTimeInput`).type(6)
+});
+
+Then(/^I click submit$/, function() {
+  cy.get(`#submitExtendedTime`).click()
+});
+
+Then(`Success message with {string} should be displayed`, (message) => {
+  cy.contains(message);
+});
+

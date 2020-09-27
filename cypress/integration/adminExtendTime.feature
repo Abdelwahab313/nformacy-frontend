@@ -9,7 +9,7 @@ As an Admin I should be able to extend the remaining time for a question to comp
     And I am on the questions dashboard
     And I click on that question's By Time
     Then "Extend Time" dialog should be displayed
-    # When I fill the time field
-    # And Click submit
-    # Then Success message with "Successfully updated question time" should be displayed
+    When I fill the extended time field
+    And I click submit
+    Then Success message with "Successfully updated question time" should be displayed
     # And By Time should be updated
