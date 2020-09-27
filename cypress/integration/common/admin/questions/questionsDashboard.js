@@ -263,14 +263,21 @@ When(/^I click on the question\.$/, function() {
 });
 
 Then(/^I fill the extended time field$/, function() {
-  cy.get(`#extendTimeInput`).type(6);
+  cy.get('#extendTimeInput').type(6);
 });
 
 Then(/^I click submit$/, function() {
-  cy.get(`#submitExtendedTime`).click();
+  cy.get('#submitExtendedTime').click();
 });
 
-Then(`Success message with {string} should be displayed`, (message) => {
-  cy.contains(message);
-});
+// Then(`Success message with {string} should be displayed`, (message) => {
+//   cy.contains(message);
+// });
 
+Then(/^By Time should be updated$/, function() {
+  cy.server();
+  cy.route('GET', '/questions/all').as('questions');
+  cy.wait('@questions');
+  const referenceNumber = getFromLocalStorage('createdQuestion').referenceNumber;
+  cy.get(`tr[row-reference="${referenceNumber}"] .by-time`).contains('15:59');
+});

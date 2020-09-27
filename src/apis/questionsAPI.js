@@ -13,18 +13,15 @@ export const fetchQuestionsOfAdviser = () => {
   return axios({
     method: 'get',
     url: `${API_BASE_URL}/questions/adviser_questions`,
-  })
-    .then((response) => camelizeKeys(response));
+  }).then((response) => camelizeKeys(response));
 };
 
 export const fetchAllQuestions = () => {
   return axios({
     method: 'get',
     url: `${API_BASE_URL}/questions/all`,
-  })
-    .then((response) => camelizeKeys(response));
+  }).then((response) => camelizeKeys(response));
 };
-
 
 export const fetchQuestionDetails = (questionId) => {
   return axios({
@@ -121,4 +118,12 @@ export const removeAttachment = (attachmentId) => {
     url: `${API_BASE_URL}/attachments_groups/remove_attachment`,
     data: decamelizeKeys({ attachmentId }),
   }).then((response) => camelizeKeys(response));
-}
+};
+
+export const extendTime = (questionId, addedTime) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/questions/${questionId}/extend_time`,
+    data: decamelizeKeys({ addedTime }),
+  }).then((response) => camelizeKeys(response));
+};

@@ -7,7 +7,6 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
-  Snackbar,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import Transition from 'components/animations/Transition';
@@ -15,8 +14,9 @@ import QuestionCountDown from 'components/counters/QuestionCountDown';
 import CustomInput from 'components/CustomInput/CustomInput';
 import SubmitButton from 'components/buttons/SubmitButton';
 import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
+import {extendTime} from 'apis/questionsAPI'
 
-const ByTimeField = ({ currentActionTime, referenceId }) => {
+const ByTimeField = ({ currentActionTime, referenceId, questionId }) => {
   const [isDialogOpend, setIsDialogOpened] = useState(false);
   const [extendedTime, setIsExtendedTime] = useState();
   const [isError, setIsError] = useState(false);
@@ -25,19 +25,25 @@ const ByTimeField = ({ currentActionTime, referenceId }) => {
   const closeDialog = () => {
     setIsDialogOpened(false);
   };
-  const submitExtendedTime = () => {
-    console.log('=====submiting time=====', extendedTime);
-    // submiting time to backend
-    setSnackbarMessage('Successfully updated question time');
-    setIsDialogOpened(false);
+  const submitExtendedTime = (questionId, extendedTime) => {
+    setIsError(false);
+    if(extendedTime > 0) {
+      extendTime(questionId, extendedTime).then(
+        () => {
+          setIsDialogOpened(false);
+          setSnackbarMessage('Successfully updated question time');
+        }
+      ).then(() => {window.location.reload(true)} )
+    } else {
+      setSnackbarMessage('Please enter a valied time to extend');
+      setIsError(true);
+    }
   };
   return (
     <Fragment>
       <button
-        id={'hamada'}
         className={'by-time'}
         onClick={() => {
-          console.log('isClicked');
           setIsDialogOpened(true);
         }}>
         <QuestionCountDown
@@ -86,7 +92,6 @@ const ByTimeField = ({ currentActionTime, referenceId }) => {
                 name: 'extendedTime',
                 type: 'number',
                 onChange: (e) => {
-                  console.log('the value=========', e.target.value);
                   setIsExtendedTime(e.target.value);
                 },
               }}
@@ -112,7 +117,7 @@ const ByTimeField = ({ currentActionTime, referenceId }) => {
             />
             <SubmitButton
               id={'submitExtendedTime'}
-              onClick={() => submitExtendedTime()}
+              onClick={() => submitExtendedTime(questionId, extendedTime)}
               buttonText={'Submit'}
             />
           </Grid>

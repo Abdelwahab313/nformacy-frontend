@@ -174,6 +174,7 @@ const getColumnsFor = (isAdviser) => {
             <ByTimeField
               currentActionTime={currentActionTime}
               referenceId={tableMeta.rowData[1]}
+              questionId={tableMeta.rowData[0]}
             />
           ) : null;
         },
@@ -251,7 +252,7 @@ const QuestionsTable = ({ questions, isAdviser }) => {
     fixedHeader: true,
     download: false,
     print: false,
-    rowsPerPage: process.env.REACT_APP_ENV === 'e2e' ? 100 : 10,
+    rowsPerPage: process.env.REACT_APP_ENV === 'e2e' ? 200 : 10,
     setRowProps: (row) => ({ 'row-reference': row[1] }),
   };
 

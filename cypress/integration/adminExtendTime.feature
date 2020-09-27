@@ -11,5 +11,5 @@ As an Admin I should be able to extend the remaining time for a question to comp
     Then "Extend Time" dialog should be displayed
     When I fill the extended time field
     And I click submit
-    Then Success message with "Successfully updated question time" should be displayed
-    # And By Time should be updated
+    # Then Success message with "Successfully updated question time" should be displayed
+    And By Time should be updated
