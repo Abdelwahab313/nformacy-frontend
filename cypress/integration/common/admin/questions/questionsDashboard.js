@@ -43,15 +43,33 @@ Given(/^I have a question with a status Review$/, function() {
   });
 });
 
+Given(/^I have a question with status pending deployment$/, function() {
+  createQuestionWithState({
+    state: 'pending_deployment_to_roaster',
+    current_action_time: '',
+  });
+});
+
+And(/^By Time Field is not visible$/, function() {
+  const referenceNumber = getFromLocalStorage('createdQuestion')
+  .referenceNumber;
+  cy.get(`tr[row-reference="${referenceNumber}"] .by-time`).should('not.exist');
+});
+
+When(/^"Extend Time" dialog should be displayed$/, function() {
+  cy.get('#extend-time-dialog').contains('Extend Time');
+});
+
+When(/^"Extend Time" dialog should not be displayed$/, function() {
+  cy.get('#extend-time-dialog').should('not.exist');
+});
+
+
 When(/^I click on that question's By Time$/, function() {
   const referenceNumber = getFromLocalStorage('createdQuestion')
     .referenceNumber;
   cy.get(`tr[row-reference="${referenceNumber}"] .by-time`).contains('9:59');
   cy.get(`tr[row-reference="${referenceNumber}"] .currentActionTime`).click();
-});
-
-When(/^"Extend Time" dialog should be displayed$/, function() {
-  cy.get('#extend-time-dialog').contains('Extend Time');
 });
 
 And('I should see alarm with {string} circle', (color) => {

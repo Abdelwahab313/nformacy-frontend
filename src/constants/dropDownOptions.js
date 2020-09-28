@@ -557,8 +557,8 @@ const fieldsOfExperience = [
 ];
 
 const questionTypesOfAssignment = [
-  { value: 'question', label: 'Advisory Question' },
-  { value: 'call', label: 'Advisory Call' },
+  { value: 'question', label: 'Question' },
+  { value: 'call', label: 'Call' },
   { value: 'project', label: 'Project' },
 ];
 

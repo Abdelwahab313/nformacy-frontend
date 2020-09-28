@@ -15,6 +15,7 @@ import CustomInput from 'components/CustomInput/CustomInput';
 import SubmitButton from 'components/buttons/SubmitButton';
 import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
 import {extendTime} from 'apis/questionsAPI'
+import authManager from 'services/authManager';
 
 const ByTimeField = ({ currentActionTime, referenceId, questionId }) => {
   const [isDialogOpend, setIsDialogOpened] = useState(false);
@@ -22,6 +23,7 @@ const ByTimeField = ({ currentActionTime, referenceId, questionId }) => {
   const [isError, setIsError] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
 
+  
   const closeDialog = () => {
     setIsDialogOpened(false);
   };
@@ -39,12 +41,13 @@ const ByTimeField = ({ currentActionTime, referenceId, questionId }) => {
       setIsError(true);
     }
   };
+  
   return (
     <Fragment>
       <button
         className={'by-time'}
         onClick={() => {
-          setIsDialogOpened(true);
+          !authManager.isAdviser() && setIsDialogOpened(true);
         }}>
         <QuestionCountDown
           showIcon={false}
