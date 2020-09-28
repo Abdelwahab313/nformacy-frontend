@@ -28,7 +28,7 @@
       "error",
       { "vars": "all"}
     ],
-    "no-inline-styles/no-inline-styles": ["warn", "always"]
+    "no-inline-styles/no-inline-styles":  2
   },
   "parser": "babel-eslint"
 }

@@ -10,5 +10,8 @@ export const useStyles = makeStyles( () => ({
   tooltip: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+  },
+  nowrapText: {
+    whiteSpace: 'nowrap',
   }
 }));

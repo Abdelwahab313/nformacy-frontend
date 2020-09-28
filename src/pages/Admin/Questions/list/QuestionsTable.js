@@ -17,16 +17,13 @@ import { questionTypesOfAssignment } from 'constants/dropDownOptions';
 import ByTimeField from './subComponents/ByTimeField';
 import { useStyles } from '../../../../styles/Admin/questionTableStyles';
 
-
 const getColumnsFor = (isAdviser, classes) => {
-
   const TextCroppedWithTooltip = ({ text }) => {
     return (
-      <Tooltip title={<Typography variant={'caption'}>{text}</Typography>} arrow>
-        <Typography
-          noWrap
-          variant={'body2'}
-          className={classes.tooltip}>
+      <Tooltip
+        title={<Typography variant={'caption'}>{text}</Typography>}
+        arrow>
+        <Typography noWrap variant={'body2'} className={classes.tooltip}>
           {text}
         </Typography>
       </Tooltip>
@@ -38,6 +35,7 @@ const getColumnsFor = (isAdviser, classes) => {
       <Grid className={classes.columnHeader}>{label}</Grid>
     ),
   };
+
   const columns = [
     {
       name: 'id',
@@ -82,7 +80,7 @@ const getColumnsFor = (isAdviser, classes) => {
     },
     {
       name: 'assignmentType',
-      label: 'Assignment Type',
+      label: 'Type',
       options: {
         ...defaultColumnOption,
         display: !isAdviser,
@@ -107,7 +105,13 @@ const getColumnsFor = (isAdviser, classes) => {
         customBodyRender: (value) => {
           return value?.map((val, key) => {
             return (
-              <Chip className={classes.field} label={val.label} key={key.value} />
+              <div>
+                <Chip
+                  className={classes.field}
+                  label={val.label}
+                  key={key.value}
+                />
+              </div>
             );
           });
         },
@@ -120,7 +124,14 @@ const getColumnsFor = (isAdviser, classes) => {
         ...defaultColumnOption,
         filter: false,
         customBodyRender: (value) => {
-          return formattedDateTimeNoSeconds(new Date(value));
+          return (
+            <Typography
+              className={classes.nowrapText}
+              variant='body2'
+              gutterBottom>
+              {formattedDateTimeNoSeconds(new Date(value))}
+            </Typography>
+          );
         },
       },
     },
@@ -259,7 +270,6 @@ const StyledStatusChip = withStyles({
     fontSize: '0.8rem',
   },
 })(Chip);
-
 
 const QuestionsTable = ({ questions, isAdviser }) => {
   const classes = useStyles();

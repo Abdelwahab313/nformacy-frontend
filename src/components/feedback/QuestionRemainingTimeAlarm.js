@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { getRemainingHoursFromDate } from 'services/dateTimeParser';
 import classNames from 'clsx';
-import { dateTimePickerDefaultProps } from '@material-ui/pickers/constants/prop-types';
 
 
 const Circle = styled.div`
