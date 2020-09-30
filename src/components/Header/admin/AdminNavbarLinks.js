@@ -22,6 +22,8 @@ import styles from 'assets/jss/material-dashboard-react/components/headerLinksSt
 import { Link } from 'react-router-dom';
 import { RoutesPaths } from 'constants/routesPath';
 import { Notifications } from './Notifications';
+import { ActionCableProvider } from 'use-action-cable';
+import { CHANNEL_URL } from '../../../settings';
 
 const useStyles = makeStyles(styles);
 
@@ -69,7 +71,9 @@ export default function AdminNavbarLinks() {
           <p className={classes.linkText}>Dashboard</p>
         </Hidden>
       </Button>
-      <Notifications />
+      <ActionCableProvider url={CHANNEL_URL}>
+        <Notifications />
+      </ActionCableProvider>
       <div className={classes.manager}>
         <Button
           color={window.innerWidth > 959 ? 'transparent' : 'white'}

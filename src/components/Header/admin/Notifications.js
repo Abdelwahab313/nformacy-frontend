@@ -39,7 +39,7 @@ export const Notifications = () => {
         onClick={openNotification}
         className={classes.buttonLink}>
         <NotificationsIcon className={classes.icons} />
-        {notificationsUnopened && (
+        {notifications.length > 0 && notificationsUnopened && (
           <span id='notificationsCount' className={classes.notifications}>
             {notifications.length}
           </span>

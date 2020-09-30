@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useActionCable } from 'use-action-cable';
 
 const notificationsDummy = [
   'Mike John responded to your email',
@@ -9,12 +10,22 @@ const notificationsDummy = [
 ];
 
 const useNotification = () => {
-  const [notifications, ] = useState(notificationsDummy);
+  const [notifications, setNotifications] = useState(notificationsDummy);
   const [notificationsUnopened, setNotificationsUnOpened] = useState(true);
   const [notificationMenuOpened, setNotificationMenuOpened] = React.useState(
     null,
   );
+  const addNotification = notification => {
+    setNotifications([notification, ...notifications])
+  }
+  const notificationsHandler = {
+    received(data){
+      addNotification(data);
+    }
+  }
+  const channelParams = {channel: "notification"};
 
+  useActionCable(channelParams, notificationsHandler)
   const openNotification = (event) => {
     if (
       notificationMenuOpened &&
@@ -35,6 +46,7 @@ const useNotification = () => {
     notificationsUnopened,
     notificationMenuOpened,
     openNotification,
+    addNotification,
     closeNotification,
   };
 };
