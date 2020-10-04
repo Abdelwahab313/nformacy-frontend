@@ -169,7 +169,7 @@ export const createQuestionWithAnswers = () => {
     }).then((response) => {
       setToLocalStorage('createdQuestion', camelizeKeys(response.body));
       createAnswer(response.body.id).then((answer) =>
-        setToLocalStorage('pendingAnswer', camelizeKeys(answer)),
+        setToLocalStorage('pendingAnswer', camelizeKeys(answer))
       );
       createAnswer(response.body.id, { state: 'accepted' }).then((answer) =>
         setToLocalStorage('acceptedAnswer', camelizeKeys(answer)),

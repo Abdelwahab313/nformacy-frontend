@@ -33,12 +33,13 @@ Then(/^I should be able to see all accepted answers$/, function() {
   cy.get(`#${getFromLocalStorage('pendingAnswer').referenceNumber}`).should(
     'not.exist',
   );
+  cy.get(
+    `#${getFromLocalStorage('rejectedAnswer').referenceNumber}`,
+  ).should('not.exist',
+  );
   cy.get(`#${getFromLocalStorage('acceptedAnswer').referenceNumber}`).should(
     'exist',
   );
-  cy.get(
-    `#${getFromLocalStorage('rejectedAnswer').referenceNumber}`,
-  ).should('not.exist');
 });
 Then(/^I rate accepted answer$/, function() {
   cy.get('label[for="rateAnswer-0-3"]').click();

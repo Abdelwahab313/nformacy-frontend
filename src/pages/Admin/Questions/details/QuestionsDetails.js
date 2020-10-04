@@ -15,7 +15,6 @@ import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
 import { approveQuestion } from '../../../../apis/questionsAPI';
 import QuestionForm from '../QuestionForm';
 import { useStyles } from '../../../../styles/Admin/questionFormStyles';
-import { useAuth } from '../../../auth/context/auth';
 import AnswerView from '../AnswerView';
 import authManager from '../../../../services/authManager';
 
@@ -42,7 +41,6 @@ const QuestionDetails = () => {
   }, [questionDetails, setQuestionDetails]);
 
   useEffect(() => {
-    console.log(isLoading);
     if (!!fetchedQuestion && !!fetchedQuestion.id) {
       setQuestionDetails(fetchedQuestion);
     }
@@ -55,10 +53,10 @@ const QuestionDetails = () => {
   const onDeployQuestionClicked = () => {
     setIsLoadingForUpdating(true);
     approveQuestion(questionDetails.id)
-      .then((response) => {
+      .then(() => {
         history.push('/admin/questions');
       })
-      .catch((error) => {
+      .catch(() => {
       })
       .finally(() => setIsLoadingForUpdating(false));
   };
@@ -100,7 +98,15 @@ const QuestionDetails = () => {
       </GridItem>
       {questionDetails.answers && (
         <GridItem xs={12}>
-          <AnswerView answers={questionDetails.answers} setRating={setRating}/>
+          {questionDetails.answers?.map((answer, index) => (
+            <div id={answer.referenceNumber} key={`answer-${index}`}>
+            <AnswerView
+            answer={answer}
+            index={index}
+            setRating={setRating}
+            />
+            </div>
+          ))}
         </GridItem>
       )}
     </GridContainer>

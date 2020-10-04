@@ -29,7 +29,7 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: 'Arial',
+    fontFamily: 'SF UI Display',
   },
 });
 

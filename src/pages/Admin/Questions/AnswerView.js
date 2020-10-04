@@ -1,7 +1,6 @@
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
-import Paper from '@material-ui/core/Paper';
-import React from 'react';
+import React, { Fragment } from 'react';
 import GridContainer from '../../../components/Grid/GridContainer';
 import GridItem from '../../../components/Grid/GridItem';
 import { useStyles } from '../../../styles/Admin/questionFormStyles';
@@ -10,66 +9,75 @@ import Rating from '@material-ui/lab/Rating';
 import { rateAnswer } from '../../../apis/answersAPI';
 import authManager from '../../../services/authManager';
 import createMarkup from '../../../services/markup';
+import AcceptAndRejectActionButtons from './details/subComponents/AcceptAndRejectActionButtons';
+import Tooltip from '@material-ui/core/Tooltip';
+import Divider from '@material-ui/core/Divider';
 
-const AnswerView = ({ answers, setRating }) => {
+
+const AnswerView = ({ answer, index, setRating }) => {
   const classes = useStyles();
 
-  const onChangeRating = (index, newValue) => {
-    setRating(index, newValue);
-    rateAnswer(answers[index].id, newValue);
-  };
+const onChangeRating = (index, newValue) => {
+  setRating(index, newValue);
+  rateAnswer(answer.id, newValue);
+};
 
-  return answers?.map((answer, index) => (
-    <Paper
-      key={answer.referenceNumber}
-      id={answer.referenceNumber}
-      elevation={2}
-      className={classes.answerContainerStyles}>
+const onAcceptAnswer = () => {
+}
+
+const onRejectAnswer = () => {
+}
+
+  return (
+    <Fragment>
       <GridContainer>
-        <GridItem xs={3} className={classes.answerRowStyles}>
+      <GridItem xs={12} className={classes.answerRowStyles}>
+      {!authManager.isAdviser() &&
+            <Rating
+            name={`rateAnswer-${index}`}
+            readOnly={true}
+            value={answer.rating}
+            onChange={(event, newValue) => {
+              onChangeRating(index, newValue);
+            }}
+          />
+      }
+        </GridItem>
+        <GridItem xs={2} className={classes.answerRowStyles}>
+        {!authManager.isAdviser() &&
           <Grid
+            id={answer.referenceNumber}
             container
             alignContent='row'
             className={classes.answerFieldStyle}>
             <Typography className={classes.answerFieldLabel}>
-              Answer reference number:
+              # Answer:
             </Typography>
-            <Typography>{answer.referenceNumber}</Typography>
+             <Typography> {answer.referenceNumber} </Typography>
+          </Grid>
+        }
+        </GridItem>
+        <GridItem xs={10} className={classes.answerRowStyles}>
+          <Grid
+            container
+            alignContent='row'
+            className={classes.answerFieldStyle}>
+              <Typography>
+                {new Date(answer.createdAt).toLocaleString()}
+              </Typography>          
           </Grid>
         </GridItem>
-        <GridItem xs={3} className={classes.answerRowStyles}>
+        <GridItem xs={12} className={classes.answerRowStyles}>
           <Grid
             container
             alignContent='row'
             className={classes.answerFieldStyle}>
             <Typography className={classes.answerFieldLabel}>
-              Freelancer reference number:
+              Consultant:
             </Typography>
-            <Typography>{answer.userReferenceNumber}</Typography>
-          </Grid>
-        </GridItem>
-        <GridItem xs={3} className={classes.answerRowStyles}>
-          <Grid
-            container
-            alignContent='row'
-            className={classes.answerFieldStyle}>
-            <Typography className={classes.answerFieldLabel}>
-              Freelancer short name:
-            </Typography>
-            <Typography>{answer.userName}</Typography>
-          </Grid>
-        </GridItem>
-        <GridItem xs={3} className={classes.answerRowStyles}>
-          <Grid
-            container
-            alignContent='row'
-            className={classes.answerFieldStyle}>
-            <Typography className={classes.answerFieldLabel}>
-              Answer post date:
-            </Typography>
-            <Typography>
-              {new Date(answer.createdAt).toLocaleString()}
-            </Typography>
+            <Tooltip title={`# ${answer.userReferenceNumber}`} >
+              <Typography>{answer.userName}</Typography>
+            </Tooltip>
           </Grid>
         </GridItem>
         <GridItem xs={12} className={classes.answerRowStyles}>
@@ -91,18 +99,29 @@ const AnswerView = ({ answers, setRating }) => {
           ))}
         </GridItem>
         <GridItem xs={2} className={classes.answerRowStyles}>
-          <Rating
+        {authManager.isAdviser() &&
+            <Rating
             name={`rateAnswer-${index}`}
-            readOnly={!authManager.isAdviser()}
+            readOnly={false}
             value={answer.rating}
             onChange={(event, newValue) => {
               onChangeRating(index, newValue);
             }}
           />
+        }
+        </GridItem>
+        <GridItem xs={10}>
+        {!authManager.isAdviser() &&
+          <AcceptAndRejectActionButtons>
+          onAcceptAssignment={onAcceptAnswer}
+          onRejectAssignment={onRejectAnswer}
+          </AcceptAndRejectActionButtons>
+        }
         </GridItem>
       </GridContainer>
-    </Paper>
-  ));
+      <Divider variant="middle" className={classes.divider}/>
+    </Fragment>
+  );
 };
 
 export default AnswerView;

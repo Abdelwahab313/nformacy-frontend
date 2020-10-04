@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { pink } from '../colors';
 
 export const useStyles = makeStyles((theme) => ({
   cardTitleWhite: {
@@ -52,29 +51,27 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    borderRadius: 10,
-    border: `1px solid ${theme.palette.primary.main}`,
+    // borderRadius: 10,
+    // border: `1px solid ${theme.palette.primary.main}`,
     padding: theme.spacing(2),
     marginTop: theme.spacing(4)
   },
-  answerFieldStyle: {
-    border: `1px solid ${pink}`,
-    borderRadius: '5px',
-    padding: theme.spacing(1),
-  },
   answerContent: {
-    border: `1px solid ${pink}`,
-    borderRadius: '5px',
-    padding: theme.spacing(2),
+    fontSize: "1.042vw",
+    color: "grey",
   },
   answerFieldLabel: {
     marginRight: theme.spacing(2),
     color: theme.palette.primary.main
   },
   answerRowStyles: {
-    margin: '15px 0',
+    margin: '5px 0',
   },
   answerAttachment: {
     margin: theme.spacing(1)
+  },
+
+  divider: {
+    margin: `${theme.spacing(3)}px 0`    
   }
 }));

@@ -6,6 +6,7 @@ Feature: Adviser notifications
     And I am on the questions dashboard
     And I have zero notification
 
+@liveNotification
   Scenario: Receive notification when admin send a question to review and edit
     When Admin send a question to me to review.
     Then I should receive a notification about the assignment in the notifications section in the navbar and the notification counter increase by 1.
