@@ -21,4 +21,18 @@ Then(
     cy.get('#notificationsCount').should('be.visible');
   },
 );
-Then(/^A toast should be displayed with the notification\.$/, function() {});
+
+Then(/^A toast should be displayed with the notification\.$/, function() {
+  cy.get('.Toastify__toast-body').contains('pending_adviser_acceptance');
+});
+
+When(/^I click on notifications menu\.$/, function() {
+  cy.get('#notificationsButton').click();
+});
+
+Then(/^i should see the newly received notification\.$/, function() {
+  cy.get('#notification-menu-list-grow')
+    .find('li')
+    .first()
+    .contains('pending_adviser_acceptance');
+});

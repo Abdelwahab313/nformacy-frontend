@@ -16,6 +16,8 @@ import styles from 'assets/jss/material-dashboard-react/layouts/adminStyle.js';
 import bgImage from 'assets/img/sidebar-2.jpg';
 import logo from 'assets/img/reactlogo.png';
 import AdminRouter from 'layouts/admin/AdminRouter';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 let ps;
 
@@ -78,6 +80,7 @@ export default function AdminLayout({ ...rest }) {
         <div className={classes.content}>
           <div className={classes.container}>
             <AdminRouter />
+            <ToastContainer position='bottom-left' hideProgressBar/>
           </div>
         </div>
       </div>

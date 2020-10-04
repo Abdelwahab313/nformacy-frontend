@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import useActionCable from '../hooks/useActionCable';
 import { NOTIFICATION_CHANNEL_IDENTIFIER } from '../settings';
+import { toast } from 'react-toastify';
 
 const useNotification = () => {
   const notificationsReceived = useRef([]);
@@ -23,6 +24,7 @@ const useNotification = () => {
     () => ({
       received(data) {
         addNotification(data);
+        toast(data['message_key']);
       },
     }),
     [addNotification],

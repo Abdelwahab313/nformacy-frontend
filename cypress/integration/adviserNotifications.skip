@@ -11,3 +11,5 @@ Feature: Adviser notifications
     When Admin send a question to me to review.
     Then I should receive a notification about the assignment in the notifications section in the navbar and the notification counter increase by 1.
     And A toast should be displayed with the notification.
+    When I click on notifications menu.
+    Then i should see the newly received notification.
