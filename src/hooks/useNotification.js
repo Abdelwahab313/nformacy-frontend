@@ -1,45 +1,55 @@
-import React, { useState } from 'react';
-import { useActionCable } from 'use-action-cable';
-
-const notificationsDummy = [
-  'Mike John responded to your email',
-  'You have 5 new tasks',
-  'You"re now friend with Andrew',
-  'Another Notification',
-  'Another One',
-];
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import useActionCable from '../hooks/useActionCable';
+import { NOTIFICATION_CHANNEL_IDENTIFIER } from '../settings';
 
 const useNotification = () => {
-  const [notifications, setNotifications] = useState(notificationsDummy);
+  const notificationsReceived = useRef([]);
+  const [notifications, setNotifications] = useState([]);
   const [notificationsUnopened, setNotificationsUnOpened] = useState(true);
   const [notificationMenuOpened, setNotificationMenuOpened] = React.useState(
     null,
   );
-  const addNotification = notification => {
-    setNotifications([notification, ...notifications])
-  }
-  const notificationsHandler = {
-    received(data){
-      addNotification(data);
-    }
-  }
-  const channelParams = {channel: "notification"};
 
-  useActionCable(channelParams, notificationsHandler)
+  const addNotification = (notification) => {
+    notificationsReceived.current = [
+      notification['message_key'],
+      ...notificationsReceived.current,
+    ];
+    setNotifications(notificationsReceived.current);
+    setNotificationsUnOpened(true);
+  };
+
+  const notificationsHandler = useMemo(
+    () => ({
+      received(data) {
+        addNotification(data);
+      },
+    }),
+    [addNotification],
+  );
+
+  const channelParams = useMemo(
+    () => ({ channel: NOTIFICATION_CHANNEL_IDENTIFIER }),
+    [],
+  );
+
+  useActionCable(channelParams, notificationsHandler);
+
   const openNotification = (event) => {
     if (
       notificationMenuOpened &&
       notificationMenuOpened.contains(event.target)
     ) {
       setNotificationMenuOpened(null);
-    } else {
+    } else if (notifications.length > 0) {
       setNotificationMenuOpened(event.currentTarget);
     }
-  };
-  const closeNotification = () => {
-    setNotificationMenuOpened(null);
     setNotificationsUnOpened(false);
   };
+
+  const closeNotification = useCallback(() => {
+    setNotificationMenuOpened(null);
+  }, [setNotificationMenuOpened]);
 
   return {
     notifications,

@@ -1,5 +1,6 @@
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { createDayAvailableForUser } from '../../../../helperFunctions';
+import moment from 'moment';
 
 When(/^I click on calendar summary cards' button$/, function() {
   cy.get('#open-update-calendar-dialog-btn').click();
@@ -31,7 +32,9 @@ Then(/^button for close dialog$/, function() {
 
 When(/^I click on a free day$/, function() {
   // should get dynamic day
-  cy.get("#update-calendar-dialog td[data-day='30-09']").click();
+  cy.get(
+    `#update-calendar-dialog td[data-day='30-${moment().format('MM')}']`,
+  ).click();
 });
 
 Then(
@@ -47,8 +50,14 @@ Then(
 Then(
   /^The start Day and end will both have the same day with the day selected$/,
   function() {
-    cy.get('#start-date-range-picker').should('have.value', '30/09/2020');
-    cy.get('#end-date-range-picker').should('have.value', '30/09/2020');
+    cy.get('#start-date-range-picker').should(
+      'have.value',
+      `30/${moment().format('MM')}/${moment().format('Y')}`,
+    );
+    cy.get('#end-date-range-picker').should(
+      'have.value',
+      `30/${moment().format('MM')}/${moment().format('Y')}`,
+    );
   },
 );
 
@@ -77,15 +86,24 @@ Then(
 When(/^I click on a day that already set as available$/, function() {
   cy.contains('08:00 - 17:00');
   cy.get(
-    "#update-calendar-dialog [data-date='Tue Sep 04 2020 08:00:00 GMT+0200 (Eastern European Standard Time)']",
+    `#update-calendar-dialog [data-date='Tue ${moment().format(
+      'MMM',
+    )} 04 ${moment().format(
+      'Y',
+    )} 08:00:00 GMT+0200 (Eastern European Standard Time)']`,
   );
-  cy.get("#update-calendar-dialog td[data-day='04-08']").click();
+  cy.get(
+    `#update-calendar-dialog td[data-day='04-${moment().format('MM')}']`,
+  ).click();
 });
 
 Then(
   /^I should see the time range populated with the available time range$/,
   function() {
-    cy.get('#start-date-range-picker').should('have.value', '04/08/2020');
+    cy.get('#start-date-range-picker').should(
+      'have.value',
+      `04/${moment().format('MM')}/${moment().format('Y')}`,
+    );
     const isCairoTime =
       Intl.DateTimeFormat().resolvedOptions().timeZone === 'Africa/Cairo';
     const startTime = isCairoTime ? '12:00 PM' : '10:00 AM';
@@ -108,7 +126,11 @@ Then(
   /^I should see the selected day as available day with the updated time$/,
   function() {
     cy.get(
-      "#update-calendar-dialog [data-date='Wed Sep 30 2020 12:00:00 GMT+0200 (Eastern European Standard Time)']",
+      `#update-calendar-dialog [data-date='${moment(
+        `${moment().format('Y')}-${moment().format('MM')}-30`,
+      ).format('ddd')} ${moment().format('MMM')} 30 ${moment().format(
+        'Y',
+      )} 12:00:00 GMT+0200 (Eastern European Standard Time)']`,
     );
   },
 );
@@ -116,13 +138,15 @@ Then(
 Given(/^I have day selected as available on my calendar$/, function() {
   createDayAvailableForUser(
     '10:00 : 16:00',
-    '2020-09-28 10:00',
-    '2020-09-28 16:00',
+    `${moment().format('Y')}-${moment().format('MM')}-28 10:00`,
+    `${moment().format('Y')}-${moment().format('MM')}-28 16:00`,
   );
 });
 
 When(/^I click on a day that is already available$/, function() {
-  cy.get("#update-calendar-dialog td[data-day='30-09']").click();
+  cy.get(
+    `#update-calendar-dialog td[data-day='30-${moment().format('MM')}']`,
+  ).click();
 });
 
 Then(/^I should see the time 12:00 PM and 06:00 PM$/, function() {
@@ -140,7 +164,7 @@ When(/^I change time zone to be America\/New_York$/, function() {
 });
 
 Then(/^I should see the time 06:00 AM and 12:00 PM$/, function() {
-  cy.get("#update-calendar-dialog td[data-day='28-09']")
+  cy.get(`#update-calendar-dialog td[data-day='28-${moment().format('MM')}']`)
     .should('have.class', 'availableCell')
     .click();
   cy.get('#start-time-range-picker').should('have.value', '06:00');
@@ -172,11 +196,15 @@ When(/^Click add available time$/, function() {
   cy.get('#addAvailableTime').click();
 });
 When(/^When I click on a day that not available$/, function() {
-  cy.get("#update-calendar-dialog td[data-day='20-09']").click();
+  cy.get(
+    `#update-calendar-dialog td[data-day='20-${moment().format('MM')}']`,
+  ).click();
 });
 When(/^fill the available date range to be after a week$/, function() {
   cy.get('#end-date-range-picker').clear();
-  cy.get('#end-date-range-picker').type('27/09/2020');
+  cy.get('#end-date-range-picker').type(
+    `27/${moment().format('MM')}/${moment().format('Y')}`,
+  );
 });
 Then(
   /^click on the free date slot and edit the available date range$/,
@@ -184,14 +212,14 @@ Then(
     cy.get('#update-calendar-dialog [data-title="08:00 - 17:00"]')
       .first()
       .click();
-    cy.contains('20-27 September');
+    cy.contains(`20-27 ${moment().format('MMMM')}`);
     cy.get('#edit-1').click();
-    cy.get('[value="2020-09-20 08:00"]').clear();
     cy.get(
-      '.MuiInputBase-input.MuiOutlinedInput-input',
-    )
+      `[value="${moment().format('Y')}-${moment().format('MM')}-20 08:00"]`,
+    ).clear();
+    cy.get('.MuiInputBase-input.MuiOutlinedInput-input')
       .first()
-      .type('2020-09-22 08:00');
+      .type(`${moment().format('Y')}-${moment().format('MM')}-22 08:00`);
     cy.get(
       '.MuiButtonBase-root.MuiButton-root.MuiButton-text.memo-button-242',
     ).click();
@@ -202,16 +230,24 @@ Then(
   function() {
     // cy.wait(500);
     cy.get(
-      '#update-calendar-dialog [data-date="Tue Sep 22 2020 08:00:00 GMT+0200 (Eastern European Standard Time)"]',
+      `#update-calendar-dialog [data-date="${moment(
+        `${moment().format('Y')}-${moment().format('MM')}-22`,
+      ).format('ddd')} ${moment().format('MMM')} 22 ${moment().format(
+        'Y',
+      )} 08:00:00 GMT+0200 (Eastern European Standard Time)"]`,
     )
       .first()
       .click();
-    cy.contains('22-27 September');
+    cy.contains(`22-27 ${moment().format('MMMM')}`);
   },
 );
 When(/^I click on a available day$/, function() {
   cy.get(
-    "#update-calendar-dialog [data-date='Wed Sep 30 2020 08:00:00 GMT+0200 (Eastern European Standard Time)']",
+    `#update-calendar-dialog [data-date='${moment(
+      `${moment().format('Y')}-${moment().format('MM')}-30`,
+    ).format('ddd')} ${moment().format('MMM')} 30 ${moment().format(
+      'Y',
+    )} 08:00:00 GMT+0200 (Eastern European Standard Time)']`,
   )
     .first()
     .click();
@@ -225,10 +261,16 @@ When(/^time zone is selected to be Africa\/cairo \+02:00$/, function() {
 When(
   /^I have an event that is already available with hours 08:00 and 17:00$/,
   function() {
-    cy.get("#update-calendar-dialog td[data-day='30-09']").click();
+    cy.get(
+      `#update-calendar-dialog td[data-day='30-${moment().format('MM')}']`,
+    ).click();
     cy.get('#addAvailableTime').click();
-    cy.get('#start-date-range-picker').type('22/09/2020');
-    cy.get('#end-date-range-picker').type('22/09/2020');
+    cy.get('#start-date-range-picker').type(
+      `22/${moment().format('MM')}/${moment().format('Y')}`,
+    );
+    cy.get('#end-date-range-picker').type(
+      `22/${moment().format('MM')}/${moment().format('Y')}`,
+    );
     cy.get('#confirm').click();
     cy.wait(500);
     cy.get('#update-calendar-dialog [data-title="08:00 - 17:00"]')
@@ -243,7 +285,7 @@ Then(/^I should see the time 12:00 PM and 06:00 PM$/, function() {
 });
 
 Then(/^I should see the time 06:00 AM and 12:00 PM$/, function() {
-  cy.get("#update-calendar-dialog td[data-day='28-07']")
+  cy.get(`#update-calendar-dialog td[data-day='28-${moment().format('MM')}']`)
     .should('have.class', 'availableCell')
     .click();
   cy.get('#start-time-range-picker').should('have.value', '06:00 AM');
@@ -257,10 +299,12 @@ When(/^I change time zone to be Pacific\/Chatham$/, function() {
     'Pacific/Chatham (GMT+12:45)',
   );
 });
-Then(/^I should see the time of that event to be changed to 18:45 and 03:45 30-09 31-09$/, function() {
-
-  cy.get('#update-calendar-dialog [data-title="18:45 - 03:45"]')
-    .first()
-    .click();
-  cy.contains('30-31 September');
-});
+Then(
+  /^I should see the time of that event to be changed to 18:45 and 03:45 30-09 31-09$/,
+  function() {
+    cy.get('#update-calendar-dialog [data-title="18:45 - 03:45"]')
+      .first()
+      .click();
+    cy.contains(`30-31 ${moment().format('MMMM')}`);
+  },
+);

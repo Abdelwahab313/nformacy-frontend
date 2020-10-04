@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 // creates a beautiful scrollbar
 import PerfectScrollbar from 'perfect-scrollbar';
 import 'perfect-scrollbar/css/perfect-scrollbar.css';
@@ -29,15 +29,15 @@ export default function AdminLayout({ ...rest }) {
   // states and functions
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const handleDrawerToggle = () => {
+  const handleDrawerToggle = useCallback(() => {
     setMobileOpen(!mobileOpen);
-  };
+  }, [setMobileOpen]);
 
-  const resizeFunction = () => {
+  const resizeFunction = useCallback(() => {
     if (window.innerWidth >= 960) {
       setMobileOpen(false);
     }
-  };
+  }, [setMobileOpen]);
   // initialize and destroy the PerfectScrollbar plugin
   React.useEffect(() => {
     if (navigator.platform.indexOf('Win') > -1) {
@@ -60,7 +60,7 @@ export default function AdminLayout({ ...rest }) {
     <div className={classes.wrapper}>
       <Sidebar
         id={'adminSidebar'}
-        routes={adminRoutes.filter((route) => (!!route.hasDashboardLink))}
+        routes={adminRoutes.filter((route) => !!route.hasDashboardLink)}
         logoText={'Medad'}
         logo={logo}
         image={bgImage}
@@ -77,7 +77,7 @@ export default function AdminLayout({ ...rest }) {
         />
         <div className={classes.content}>
           <div className={classes.container}>
-            <AdminRouter/>
+            <AdminRouter />
           </div>
         </div>
       </div>

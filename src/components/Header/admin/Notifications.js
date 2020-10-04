@@ -24,7 +24,6 @@ export const Notifications = () => {
     openNotification,
     closeNotification,
   } = useNotification();
-
   return (
     <div className={classes.manager}>
       <Button

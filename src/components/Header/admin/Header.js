@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 // @material-ui/core components
@@ -19,41 +19,43 @@ const useStyles = makeStyles(styles);
 
 const Header = (props) => {
   const classes = useStyles();
-
-  function makeBrand() {
-    var name;
-    props.routes.map(prop => {
+  const makeBrand = useCallback(() => {
+    let name;
+    props.routes.map((prop) => {
       if (window.location.href.indexOf(prop.path) !== -1) {
         name = prop.name;
       }
       return null;
     });
     return name;
-  }
+  }, []);
 
-  const { color } = props;
-  const appBarClasses = classNames({
-    [' ' + classes[color]]: color,
-  });
+  const { color } = useMemo(() => props, [props]);
+  const appBarClasses = useMemo(
+    () =>
+      classNames({
+        [' ' + classes[color]]: color,
+      }),
+    [],
+  );
   return (
     <AppBar className={classes.appBar + appBarClasses}>
       <Toolbar className={classes.container}>
         <div className={classes.flex}>
           {/* Here we create navbar brand, based on route name */}
-          <Button color="transparent" href="#" className={classes.title}>
+          <Button color='transparent' href='#' className={classes.title}>
             {makeBrand()}
           </Button>
         </div>
-        <Hidden smDown implementation="css">
-          <AdminNavbarLinks/>
+        <Hidden smDown implementation='css'>
+          <AdminNavbarLinks />
         </Hidden>
-        <Hidden mdUp implementation="css">
+        <Hidden mdUp implementation='css'>
           <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={props.handleDrawerToggle}
-          >
-            <Menu/>
+            color='inherit'
+            aria-label='open drawer'
+            onClick={props.handleDrawerToggle}>
+            <Menu />
           </IconButton>
         </Hidden>
       </Toolbar>

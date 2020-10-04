@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import classNames from 'classnames';
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,7 +22,7 @@ import styles from 'assets/jss/material-dashboard-react/components/headerLinksSt
 import { Link } from 'react-router-dom';
 import { RoutesPaths } from 'constants/routesPath';
 import { Notifications } from './Notifications';
-import { ActionCableProvider } from 'use-action-cable';
+import { ActionCableProvider } from '../../../hooks/useActionCable';
 import { CHANNEL_URL } from '../../../settings';
 
 const useStyles = makeStyles(styles);
@@ -30,17 +30,19 @@ const useStyles = makeStyles(styles);
 export default function AdminNavbarLinks() {
   const classes = useStyles();
   const [openProfile, setOpenProfile] = React.useState(null);
-
-  const handleClickProfile = event => {
-    if (openProfile && openProfile.contains(event.target)) {
-      setOpenProfile(null);
-    } else {
-      setOpenProfile(event.currentTarget);
-    }
-  };
-  const handleCloseProfile = () => {
+  const handleClickProfile = useCallback(
+    (event) => {
+      if (openProfile && openProfile.contains(event.target)) {
+        setOpenProfile(null);
+      } else {
+        setOpenProfile(event.currentTarget);
+      }
+    },
+    [setOpenProfile],
+  );
+  const handleCloseProfile = useCallback(() => {
     setOpenProfile(null);
-  };
+  }, [setOpenProfile]);
   return (
     <div>
       <div className={classes.searchWrapper}>
@@ -55,19 +57,18 @@ export default function AdminNavbarLinks() {
             },
           }}
         />
-        <Button color="white" aria-label="edit" justIcon round>
-          <Search/>
+        <Button color='white' aria-label='edit' justIcon round>
+          <Search />
         </Button>
       </div>
       <Button
         color={window.innerWidth > 959 ? 'transparent' : 'white'}
         justIcon={window.innerWidth > 959}
         simple={!(window.innerWidth > 959)}
-        aria-label="Dashboard"
-        className={classes.buttonLink}
-      >
-        <Dashboard className={classes.icons}/>
-        <Hidden mdUp implementation="css">
+        aria-label='Dashboard'
+        className={classes.buttonLink}>
+        <Dashboard className={classes.icons} />
+        <Hidden mdUp implementation='css'>
           <p className={classes.linkText}>Dashboard</p>
         </Hidden>
       </Button>
@@ -80,12 +81,11 @@ export default function AdminNavbarLinks() {
           justIcon={window.innerWidth > 959}
           simple={!(window.innerWidth > 959)}
           aria-owns={openProfile ? 'profile-menu-list-grow' : null}
-          aria-haspopup="true"
+          aria-haspopup='true'
           onClick={handleClickProfile}
-          className={classes.buttonLink}
-        >
-          <Person className={classes.icons}/>
-          <Hidden mdUp implementation="css">
+          className={classes.buttonLink}>
+          <Person className={classes.icons} />
+          <Hidden mdUp implementation='css'>
             <p className={classes.linkText}>Profile</p>
           </Hidden>
         </Button>
@@ -98,39 +98,34 @@ export default function AdminNavbarLinks() {
             classNames({ [classes.popperClose]: !openProfile }) +
             ' ' +
             classes.popperNav
-          }
-        >
+          }>
           {({ TransitionProps, placement }) => (
             <Grow
               {...TransitionProps}
-              id="profile-menu-list-grow"
+              id='profile-menu-list-grow'
               style={{
                 transformOrigin:
                   placement === 'bottom' ? 'center top' : 'center bottom',
-              }}
-            >
+              }}>
               <Paper>
                 <ClickAwayListener onClickAway={handleCloseProfile}>
-                  <MenuList role="menu">
+                  <MenuList role='menu'>
                     <MenuItem
                       onClick={handleCloseProfile}
-                      className={classes.dropdownItem}
-                    >
+                      className={classes.dropdownItem}>
                       Profile
                     </MenuItem>
                     <MenuItem
                       onClick={handleCloseProfile}
-                      className={classes.dropdownItem}
-                    >
+                      className={classes.dropdownItem}>
                       Settings
                     </MenuItem>
-                    <Divider light/>
+                    <Divider light />
                     <MenuItem
                       component={Link}
                       to={RoutesPaths.Admin.Logout}
                       onClick={handleCloseProfile}
-                      className={classes.dropdownItem}
-                    >
+                      className={classes.dropdownItem}>
                       Logout
                     </MenuItem>
                   </MenuList>
