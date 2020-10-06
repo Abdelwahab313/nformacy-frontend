@@ -82,20 +82,22 @@ export const loginAsAdmin = () => {
     });
 };
 
-export const createQuestion = (question = {}) => {
-  const newQuestionParams = getFakeQuestion(question);
-  delete newQuestionParams.id;
+export const createQuestion = (question = {}, n = 1) => {
   requestWithTokenAsAdmin((token) => {
-    cy.request({
-      method: 'POST',
-      url: `${BACKEND_WEB_URL}/questions/`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: decamelizeKeys(newQuestionParams),
-    }).then((response) => {
-      setToLocalStorage('createdQuestion', camelizeKeys(response.body));
-    });
+    for (let i = 0; i < n; i++) {
+      const newQuestionParams = getFakeQuestion(question);
+      delete newQuestionParams.id;
+      cy.request({
+        method: 'POST',
+        url: `${BACKEND_WEB_URL}/questions/`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: decamelizeKeys(newQuestionParams),
+      }).then((response) => {
+        setToLocalStorage('createdQuestion', camelizeKeys(response.body));
+      });
+    }
   });
 };
 
@@ -156,7 +158,7 @@ const createAnswer = (questionId, answer = {}) => {
 };
 
 export const createQuestionWithAnswers = () => {
-  const newQuestionParams  = getFakeQuestion({ state: 'freelancer_answers' });
+  const newQuestionParams = getFakeQuestion({ state: 'freelancer_answers' });
   delete newQuestionParams.id;
   requestWithTokenAsAdmin((token) => {
     cy.request({

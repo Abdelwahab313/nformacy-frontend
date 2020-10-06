@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import MenuList from '@material-ui/core/MenuList';
 import MenuItem from '@material-ui/core/MenuItem';
-import useNotification from '../../../hooks/useNotification';
+import useNotification from '../../../hooks/notifications/useNotification';
 
 const useStyles = makeStyles(styles);
 
@@ -19,9 +19,10 @@ export const Notifications = () => {
   const classes = useStyles();
   const {
     notifications,
-    notificationsUnopened,
-    notificationMenuOpened,
-    openNotification,
+    unread,
+    unreadCount,
+    menuOpened,
+    toggleMenu,
     closeNotification,
   } = useNotification();
   return (
@@ -31,16 +32,14 @@ export const Notifications = () => {
         color={window.innerWidth > 959 ? 'transparent' : 'white'}
         justIcon={window.innerWidth > 959}
         simple={!(window.innerWidth > 959)}
-        aria-owns={
-          notificationMenuOpened ? 'notification-menu-list-grow' : null
-        }
+        aria-owns={menuOpened ? 'notification-menu-list-grow' : null}
         aria-haspopup='true'
-        onClick={openNotification}
+        onClick={toggleMenu}
         className={classes.buttonLink}>
         <NotificationsIcon className={classes.icons} />
-        {notifications.length > 0 && notificationsUnopened && (
+        {unread && (
           <span id='notificationsCount' className={classes.notifications}>
-            {notifications.length}
+            {unreadCount}
           </span>
         )}
         <Hidden mdUp implementation='css'>
@@ -50,12 +49,12 @@ export const Notifications = () => {
         </Hidden>
       </Button>
       <Poppers
-        open={Boolean(notificationMenuOpened)}
-        anchorEl={notificationMenuOpened}
+        open={Boolean(menuOpened)}
+        anchorEl={menuOpened}
         transition
         disablePortal
         className={
-          classNames({ [classes.popperClose]: !notificationMenuOpened }) +
+          classNames({ [classes.popperClose]: !menuOpened }) +
           ' ' +
           classes.popperNav
         }>
@@ -73,9 +72,10 @@ export const Notifications = () => {
                   {notifications.map((notification, key) => (
                     <MenuItem
                       key={key}
+                      data-target-id={notification.targetId}
                       onClick={closeNotification}
                       className={classes.dropdownItem}>
-                      {notification}
+                      {notification.messageKey}
                     </MenuItem>
                   ))}
                 </MenuList>

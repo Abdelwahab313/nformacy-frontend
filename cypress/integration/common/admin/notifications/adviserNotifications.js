@@ -1,6 +1,9 @@
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import faker from 'faker';
-import { createQuestion } from '../../../../helperFunctions';
+import {
+  createQuestion,
+  getFromLocalStorage,
+} from '../../../../helperFunctions';
 
 Given(/^I have zero notification$/, function() {
   cy.get('#notificationsButton').click();
@@ -30,9 +33,39 @@ When(/^I click on notifications menu\.$/, function() {
   cy.get('#notificationsButton').click();
 });
 
-Then(/^i should see the newly received notification\.$/, function() {
+Then(/^I should see the newly received notification\.$/, function() {
   cy.get('#notification-menu-list-grow')
     .find('li')
     .first()
     .contains('pending_adviser_acceptance');
+});
+Given(/^I have (\d+) notifications\.$/, function(counts) {
+  createQuestion({}, counts);
+});
+Then(/^I should see the recent (\d+)\.$/, function(count) {
+  cy.get('#notification-menu-list-grow')
+    .find('li')
+    .its('length') // calls 'length' property returning that value
+    .should('eq', count);
+  cy.get('#notification-menu-list-grow')
+    .find('li')
+    .first()
+    .contains('pending_adviser_acceptance');
+});
+Then(
+  /^The newly sent notification should replace the oldest one\.$/,
+  function() {
+    const sentQuestionId = getFromLocalStorage('createdQuestion').id;
+    cy.get('#notification-menu-list-grow')
+      .find('li')
+      .first()
+      .should('have.attr', 'data-target-id', sentQuestionId.toString());
+    cy.get('#notification-menu-list-grow')
+      .find('li')
+      .its('length') // calls 'length' property returning that value
+      .should('eq', 10);
+  },
+);
+Then(/^I should see toast notification with the newly received notification$/, function() {
+  cy.get('.Toastify__toast').should('be.visible')
 });
