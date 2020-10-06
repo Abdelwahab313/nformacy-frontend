@@ -27,7 +27,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
 import calendarStyles from './calendarStyles';
 import { formatDayAsKey, isSameDate } from '../../services/dateTimeParser';
-import { AppointmentColors, pink } from '../../styles/colors';
+import { AppointmentColors, darkBlue } from '../../styles/colors';
 import moment from 'moment';
 import DatePicker  from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
@@ -192,7 +192,7 @@ const CellBase = React.memo(
 
     return (
       <TableCell
-        style={isAvailableDay ? { backgroundColor: pink } : {}}
+        style={isAvailableDay ? { backgroundColor: darkBlue } : {}}
         onClick={dayClicked}
         tabIndex={0}
         data-day={moment(startDate).format('DD-MM')}

@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { lightGrey, lightPink, pink, white } from './colors';
+import { lightGrey, lightPink, darkBlue, white } from './colors';
 
 export const useStyles = makeStyles((theme) => ({
   bannerStyles: {
@@ -17,7 +17,7 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     width: 400,
-    border: 'solid 1px' + pink,
+    border: 'solid 1px' + darkBlue,
   },
   searchInput: {
     marginLeft: theme.spacing(1),
@@ -113,7 +113,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   answerButtonContainer: { display: 'flex', justifyContent: 'flex-end' },
   attachButtonStyle: {
-    backgroundColor: pink,
+    backgroundColor: darkBlue,
     color: white,
   },
   attachmentUploaderContainer: {
@@ -125,7 +125,7 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     width: '100%',
-    backgroundColor: pink,
+    backgroundColor: darkBlue,
     color: white,
     marginBottom: theme.spacing(5),
     borderRadius: '5px'
@@ -136,7 +136,7 @@ export const useStyles = makeStyles((theme) => ({
 }));
 export const attachButtonStyle = () => {
   return {
-    backgroundColor: pink,
+    backgroundColor: darkBlue,
     color: white,
     alignSelf: 'center',
     borderRadius: '4px',
@@ -147,7 +147,7 @@ export const attachButtonStyle = () => {
 
 const defaultFieldStyles = (theme) => ({
   backgroundColor: lightGrey,
-  border: 'solid 1px' + pink,
+  border: 'solid 1px' + darkBlue,
   borderRadius: '5px',
   minHeight: '36px',
   margin: theme.spacing(1),

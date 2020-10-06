@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { grey, lighterPink, lightGrey, lightPink, pink, white } from './colors';
+import { grey, lighterPink, lightGrey, lightPink, darkBlue, white } from './colors';
 
 export const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -24,7 +24,7 @@ export const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   coloredBorder: {
-    borderColor: pink,
+    borderColor: darkBlue,
   },
   paperSection: {
     marginTop: theme.spacing(5),
@@ -108,7 +108,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   signupLink: {
     margin: theme.spacing(1),
-    color: pink,
+    color: darkBlue,
   },
   hintContainer: {
     borderRadius: '5%',
@@ -128,7 +128,7 @@ export const useStyles = makeStyles((theme) => ({
 
   textField: {
     borderWidth: '1px',
-    borderColor: `${pink} !important`,
+    borderColor: `${darkBlue} !important`,
   },
   fieldLabelStylesDesktop: {
     fontSize: '1.190vw',
@@ -337,8 +337,8 @@ export const useStyles = makeStyles((theme) => ({
   },
   headerWithBackground: {
     padding: theme.spacing(3),
-    backgroundColor: pink,
-    border: `1px solid ${pink}`,
+    backgroundColor: darkBlue,
+    border: `1px solid ${darkBlue}`,
     borderRadius: '16px',
     width: 'fit-content',
     height: 'fit-content',
@@ -353,17 +353,17 @@ export const selectStyle = {
   control: (provided) => ({
     ...provided,
     borderRadius: 5,
-    borderBottom: `solid 1px ${pink}`,
+    borderBottom: `solid 1px ${darkBlue}`,
     borderWidth: 1,
-    borderColor: pink,
-    '&:hover': { color: pink },
+    borderColor: darkBlue,
+    '&:hover': { color: darkBlue },
   }),
   indicatorSeparator: (provided) => ({
     borderLeft: 0,
   }),
   dropdownIndicator: (provided) => ({
-    color: pink,
-    '&:hover': { color: pink },
+    color: darkBlue,
+    '&:hover': { color: darkBlue },
   }),
   singleValue: (provided) => ({
     ...provided,
@@ -384,7 +384,7 @@ export const selectStyle = {
 export const multiSelectStyles = {
   searchBox: {
     // To change search box element look
-    borderColor: pink,
+    borderColor: darkBlue,
     padding: '4px 8px',
     minHeight: '60px',
     display: 'flex',
@@ -428,7 +428,7 @@ export const radioStyle = makeStyles({
     },
   },
   checkedIcon: {
-    backgroundColor: pink,
+    backgroundColor: darkBlue,
     backgroundImage:
       'linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))',
     borderRadius: 50,
@@ -445,7 +445,7 @@ export const radioStyle = makeStyles({
   },
 });
 export const checkboxStyle = {
-  color: pink,
+  color: darkBlue,
 };
 
 export const dividerStyle = {
@@ -461,7 +461,7 @@ export const stepIndicatorStyles = {
 
 export const nextButtonStyles = (disabled) => {
   return {
-    backgroundColor: disabled ? lighterPink : pink,
+    backgroundColor: disabled ? lighterPink : darkBlue,
     color: white,
     alignSelf: 'center',
   };
@@ -490,13 +490,13 @@ export const navigationButtonsContainer = {
 };
 
 export const iconStyle = {
-  fill: pink,
+  fill: darkBlue,
   alignSelf: 'center',
 };
 
 export const dateInputStyle = {
   borderBottom: '0',
-  border: `solid 1px ${pink}`,
+  border: `solid 1px ${darkBlue}`,
   padding: '5px',
   borderRadius: '5%',
 };

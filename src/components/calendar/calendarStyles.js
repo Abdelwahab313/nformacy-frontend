@@ -3,7 +3,7 @@ import {
   fade,
   lighten,
 } from '@material-ui/core/styles/colorManipulator';
-import { pink } from '../../styles/colors';
+import { darkBlue } from '../../styles/colors';
 
 const getBorder = (theme) =>
   `1px solid ${

@@ -4,7 +4,7 @@ import { selectCheckBox } from 'styles/formsStyles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { pink } from 'styles/colors';
+import { darkBlue } from 'styles/colors';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 
@@ -14,16 +14,16 @@ const checkedIcon = <CheckBoxIcon fontSize='small'/>;
 const useSelectStyles = makeStyles(theme => ({
   inputRoot: {
     '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: pink,
+      borderColor: darkBlue,
     },
     popupIndicatorOpen: {
-      backgroundColor: pink,
+      backgroundColor: darkBlue,
     },
     '&:hover .MuiOutlinedInput-notchedOutline': {
-      borderColor: pink,
+      borderColor: darkBlue,
     },
     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-      borderColor: pink,
+      borderColor: darkBlue,
     },
   },
 }));

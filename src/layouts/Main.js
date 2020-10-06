@@ -5,7 +5,7 @@ import preset from 'jss-preset-default';
 import rtl from 'jss-rtl';
 import { AuthProvider } from 'pages/auth/context/auth';
 import authManager from 'services/authManager';
-import { grey, lighterPink, lightGrey, lightPink, pink, white } from 'styles/colors';
+import { grey, lighterPink, lightGrey, lightPink, darkBlue, white } from 'styles/colors';
 import MainRouter from 'layouts/MainRouter';
 
 const presets = preset().plugins;
@@ -18,7 +18,7 @@ const theme = createMuiTheme({
     primary: {
       lighter: lighterPink,
       light: lightPink,
-      main: pink,
+      main: darkBlue,
     },
     secondary: {
       main: white,

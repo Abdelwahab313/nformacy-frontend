@@ -20,7 +20,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import countryList from 'react-select-country-list';
 import 'react-phone-input-2/lib/bootstrap.css';
 import PhoneInput from 'react-phone-input-2';
-import { pink } from '../../styles/colors';
+import { darkBlue } from '../../styles/colors';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -75,7 +75,7 @@ const PersonalInfo = () => {
                 <Hidden mdDown>
                   <div className={classes.maleFemaleIcon}>
                     <IconTint
-                      color={pink}
+                      color={darkBlue}
                       src={require('../../assets/maleFemale.png')}
                     />
                   </div>
@@ -144,7 +144,7 @@ const PersonalInfo = () => {
           as={
             <PhoneInput
               preferredCountries={['jo', 'eg']}
-              inputStyle={{ width: '100%', borderColor: pink }}
+              inputStyle={{ width: '100%', borderColor: darkBlue }}
               inputProps={{
                 id: 'mobile_number',
                 name: 'mobile_number',

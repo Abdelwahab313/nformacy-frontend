@@ -8,7 +8,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import SettingsIcon from '@material-ui/icons/Settings';
 import StepConnector from '@material-ui/core/StepConnector';
-import { lighterPink, lightPink, pink } from '../../styles/colors';
+import { lighterPink, lightPink, darkBlue } from '../../styles/colors';
 import t from '../../locales/en/freelancerProfile.json';
 
 const ColorlibConnector = withStyles({
@@ -17,12 +17,12 @@ const ColorlibConnector = withStyles({
   },
   active: {
     '& $line': {
-      backgroundColor: pink,
+      backgroundColor: darkBlue,
     },
   },
   completed: {
     '& $line': {
-      backgroundColor: pink,
+      backgroundColor: darkBlue,
     },
   },
   line: {
@@ -46,11 +46,11 @@ const useColorlibStepIconStyles = makeStyles({
     alignItems: 'center',
   },
   active: {
-    backgroundColor: pink,
+    backgroundColor: darkBlue,
     boxShadow: '0 8px 20px 0 rgba(0,0,0,.25)',
   },
   completed: {
-    backgroundColor: pink,
+    backgroundColor: darkBlue,
   },
 });
 

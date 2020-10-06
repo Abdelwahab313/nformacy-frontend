@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
-import { lighterPink, pink, white } from 'styles/colors';
+import { lighterPink, darkBlue, white } from 'styles/colors';
 
 
 const buttonStyles = (disabled) => {
   return {
-    backgroundColor: disabled ? lighterPink : pink,
+    backgroundColor: disabled ? lighterPink : darkBlue,
     color: white,
   };
 };

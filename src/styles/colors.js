@@ -1,4 +1,8 @@
-export const pink = '#69255d';
+export const darkBlue = '#125773';
+export const mediumTurquoise = '#33CCCC';
+export const darkOrange = '#E7923D';
+export const westSide = '#E7923D';
+export const black = '#0D0D0D';
 export const lightPink = 'rgba(105, 37, 93, 0.5)';
 export const lighterPink = 'rgba(105, 37, 93, 0.25)';
 const periWinkle = '#CED4EA';

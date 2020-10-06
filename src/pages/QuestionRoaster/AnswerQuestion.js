@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router';
 import Paper from '@material-ui/core/Paper';
 import { Grid } from '@material-ui/core';
 import QuestionView from './QuestionView';
-import { pink } from '../../styles/colors';
+import { darkBlue } from '../../styles/colors';
 import RichTextEditorForm from '../../components/forms/RichTextEditorForm';
 import {
   useStyles as useRoasterStyle,
@@ -69,7 +69,7 @@ const AnswerQuestion = () => {
         <Paper
           elevation={3}
           className={classes.paper}
-          style={{ border: `solid 1px ${pink}` }}>
+          style={{ border: `solid 1px ${darkBlue}` }}>
           <Grid container className={questionRoasterClasses.questionContainer}>
             <Grid item xs={12}>
               <RichTextEditorForm
