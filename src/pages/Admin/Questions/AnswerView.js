@@ -13,7 +13,9 @@ import AcceptAndRejectActionButtons from './details/subComponents/AcceptAndRejec
 import Tooltip from '@material-ui/core/Tooltip';
 import Divider from '@material-ui/core/Divider';
 import { useState } from 'react'
-import RegularButton from 'components/buttons/RegularButton';
+import SubmitButton from 'components/buttons/SubmitButton';
+import t from '../../../locales/en/answersView.json';
+
 
 const AnswerView = ({ answer, index, setRating }) => {
   const classes = useStyles();
@@ -47,6 +49,7 @@ const onRollback = () => {
 
   return (
     <Fragment>
+      <div className={answerState === 'rejected'? classes.rejectedAnswer : ''} >
       <GridContainer>
       <GridItem xs={12} className={classes.answerRowStyles}>
       {!authManager.isAdviser() &&
@@ -92,7 +95,8 @@ const onRollback = () => {
             <Typography className={classes.answerFieldLabel}>
               Consultant:
             </Typography>
-            <Tooltip title={`# ${answer.userReferenceNumber}`} >
+            <Tooltip 
+            title={`# ${answer.userReferenceNumber}`}>
               <Typography>{answer.userName}</Typography>
             </Tooltip>
           </Grid>
@@ -146,19 +150,20 @@ const onRollback = () => {
         </GridItem>
         <Grid container direction='row-reverse' alignItems='flex-end'>
         {authManager.isAdmin() && answerState != "pending" &&
-          <RegularButton
+          <SubmitButton
           id={`rollback-${answer.referenceNumber}`}
-          color='primary'
           className={classes.rollbackButton}
-          onClick={onRollback}>
-          Rollback
-          </RegularButton>
+          onClick={() => onRollback()}
+          buttonText={t['rollback']}
+          />
         }
         </Grid>
       </GridContainer>
       <Divider variant="middle" className={classes.divider}/>
+      </div>
     </Fragment>
   );
 };
 
 export default AnswerView;
+

@@ -17,7 +17,6 @@ As an Admin I should be able to extend the remaining time for a question to comp
     And I am on the questions dashboard
     Then By Time Field is not visible
     
-  @focus
   Scenario: Adviser should not extend time
     Given I login in as an advisor
     Given I have a question with a status Review

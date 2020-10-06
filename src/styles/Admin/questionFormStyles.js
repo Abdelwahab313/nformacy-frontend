@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { overlayColor } from 'styles/colors';
 
 export const useStyles = makeStyles((theme) => ({
   cardTitleWhite: {
@@ -78,5 +79,14 @@ export const useStyles = makeStyles((theme) => ({
   rollbackButton: {
     fontSize: '0.972vw',
     height: "40px",
+    borderRadius: '9px',
+    marginRight: '20px',
 },
+rejectedAnswer: {
+  width: "100%",
+  height: "100%",
+  backgroundColor: overlayColor,
+  opacity: "95%",
+  padding: "0 10px"
+}
 }));
