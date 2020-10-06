@@ -10,7 +10,7 @@ Feature: Admin post question
     When I fill all the question details
     And i click "Send to adviser"
     Then I should see snackbar with message "Question Sent to Adviser"
-    When I am on questions dashboard.
+    When I am on the questions dashboard
     Then the question status should be pending adviser acceptance
 
   Scenario: Admin save question and complete later
@@ -34,6 +34,6 @@ Feature: Admin post question
     When I fill question details with specific data
     And I click "Save and complete later"
     When I login in as an advisor
-    And I am on questions dashboard.
+    And I am on the questions dashboard
     Then i should not see the draft question i posted as admin
 

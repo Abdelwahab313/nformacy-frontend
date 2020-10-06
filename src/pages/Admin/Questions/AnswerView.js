@@ -6,26 +6,43 @@ import GridItem from '../../../components/Grid/GridItem';
 import { useStyles } from '../../../styles/Admin/questionFormStyles';
 import Grid from '@material-ui/core/Grid';
 import Rating from '@material-ui/lab/Rating';
-import { rateAnswer } from '../../../apis/answersAPI';
+import { acceptAnswer, rejectAnswer, rollbackAnswer, rateAnswer } from '../../../apis/answersAPI';
 import authManager from '../../../services/authManager';
 import createMarkup from '../../../services/markup';
 import AcceptAndRejectActionButtons from './details/subComponents/AcceptAndRejectActionButtons';
 import Tooltip from '@material-ui/core/Tooltip';
 import Divider from '@material-ui/core/Divider';
-
+import { useState } from 'react'
+import RegularButton from 'components/buttons/RegularButton';
 
 const AnswerView = ({ answer, index, setRating }) => {
   const classes = useStyles();
 
+const [answerState, setAnswerState] = useState(answer.state)
 const onChangeRating = (index, newValue) => {
   setRating(index, newValue);
   rateAnswer(answer.id, newValue);
 };
 
 const onAcceptAnswer = () => {
+  acceptAnswer(answer.id)
+  .then((response) => {
+    setAnswerState(response.data.state)
+  })
 }
 
 const onRejectAnswer = () => {
+  rejectAnswer(answer.id)
+  .then((response) => {
+    setAnswerState(response.data.state)
+  })
+}
+
+const onRollback = () => {
+  rollbackAnswer(answer.id)
+  .then((response) => {
+    setAnswerState(response.data.state)
+  })
 }
 
   return (
@@ -44,7 +61,7 @@ const onRejectAnswer = () => {
       }
         </GridItem>
         <GridItem xs={2} className={classes.answerRowStyles}>
-        {!authManager.isAdviser() &&
+        {authManager.isAdmin() &&
           <Grid
             id={answer.referenceNumber}
             container
@@ -111,13 +128,33 @@ const onRejectAnswer = () => {
         }
         </GridItem>
         <GridItem xs={10}>
-        {!authManager.isAdviser() &&
-          <AcceptAndRejectActionButtons>
-          onAcceptAssignment={onAcceptAnswer}
-          onRejectAssignment={onRejectAnswer}
-          </AcceptAndRejectActionButtons>
+        {authManager.isAdmin() && answerState == "pending" &&
+          <AcceptAndRejectActionButtons
+          acceptButtonProps={
+            {
+              id: `accept-${answer.referenceNumber}`,
+              onClick: onAcceptAnswer
+            }
+          }
+          rejectButtonProps={
+            {
+              id: `reject-${answer.referenceNumber}`,
+              onClick: onRejectAnswer
+            }
+          }/>
         }
         </GridItem>
+        <Grid container direction='row-reverse' alignItems='flex-end'>
+        {authManager.isAdmin() && answerState != "pending" &&
+          <RegularButton
+          id={`rollback-${answer.referenceNumber}`}
+          color='primary'
+          className={classes.rollbackButton}
+          onClick={onRollback}>
+          Rollback
+          </RegularButton>
+        }
+        </Grid>
       </GridContainer>
       <Divider variant="middle" className={classes.divider}/>
     </Fragment>

@@ -9,3 +9,24 @@ export const rateAnswer = (answerId, rating) => {
     data: decamelizeKeys({ rating }),
   }).then((response) => camelizeKeys(response));
 };
+
+export const acceptAnswer = (answerId) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/answers/${answerId}/accept`,
+  }).then((response) => camelizeKeys(response));
+};
+
+export const rejectAnswer = (answerId) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/answers/${answerId}/reject`,
+  }).then((response) => camelizeKeys(response));
+};
+
+export const rollbackAnswer = (answerId) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/answers/${answerId}/rollback`,
+  }).then((response) => camelizeKeys(response));
+};

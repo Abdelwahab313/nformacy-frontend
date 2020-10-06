@@ -5,24 +5,22 @@ import { useStyles } from './AcceptAndRejectActionButtonsStyles';
 
 
 
-const AcceptAndRejectActionButtons = ({onRejectAssignment, onAcceptAssignment}) => {
+const AcceptAndRejectActionButtons = ({ acceptButtonProps, rejectButtonProps}) => {
 
   const classes = useStyles();
 
     return(
         <Grid container direction='row-reverse' alignItems='flex-end'>
           <RegularButton
-            id={'acceptButton'}
             className={classes.acceptButton}
             color='success'
-            onClick={onAcceptAssignment}>
+            {... acceptButtonProps}>
             Accept
           </RegularButton>
           <RegularButton
-            id={'rejectButton'}
             className={classes.rejectButton}
             color='danger'
-            onClick={onRejectAssignment}>
+            {... rejectButtonProps}>
             Reject
           </RegularButton>
         </Grid>

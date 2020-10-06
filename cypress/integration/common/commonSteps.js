@@ -1,4 +1,4 @@
-import { Then, Given, When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, When } from 'cypress-cucumber-preprocessor/steps';
 import {
   loginAsAdmin,
   loginAsAnAdvisor,
@@ -9,8 +9,8 @@ import { BASE_URL } from '../../defualtTestValues';
 
 Given(/^I am a freelancer$/, function() {});
 
-Given(/^I am on questions dashboard\.$/, function() {
-  cy.visit(`${BASE_URL}/admin/questions`);
+Given(/^I am on the questions dashboard$/, function() {
+  cy.visit(BASE_URL + '/admin/questions');
 });
 
 Given(/^I am an admin and Logged in$/, function() {
@@ -37,6 +37,3 @@ Given(/^I am on the dashboard$/, function() {
   cy.visit(BASE_URL + '/admin/dashboard');
 });
 
-Given(/^I am on the questions dashboard$/, function() {
-  cy.visit(BASE_URL + '/admin/questions');
-});

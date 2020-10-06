@@ -73,5 +73,10 @@ export const useStyles = makeStyles((theme) => ({
 
   divider: {
     margin: `${theme.spacing(3)}px 0`    
-  }
+  },
+
+  rollbackButton: {
+    fontSize: '0.972vw',
+    height: "40px",
+},
 }));

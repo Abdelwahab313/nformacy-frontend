@@ -396,8 +396,18 @@ const QuestionForm = ({
             {questionDetails?.state === 'pending_adviser_acceptance' &&
               currentUser?.id === questionDetails?.assignedAdviserId && (
                 <AcceptAndRejectActionButtons
-                  onRejectAssignment={onRejectAssignment}
-                  onAcceptAssignment={onAcceptAssignment}
+                acceptButtonProps={
+                  {
+                    id: 'acceptButton',
+                    onClick: onAcceptAssignment
+                  }
+                }
+                rejectButtonProps={
+                  {
+                    id: 'rejectButton',
+                    onClick: onRejectAssignment
+                  }
+                }
                 />
               )}
           </Grid>
