@@ -1,33 +1,23 @@
 import { useMemo } from 'react';
 import useActionCable from '../../hooks/useActionCable';
 import { NOTIFICATION_CHANNEL_IDENTIFIER } from '../../settings';
-import {
-  notificationActions,
-  useNotificationsContext,
-} from './context';
-import { AuthActionTypes, useAuth } from '../../pages/auth/context/auth';
+import { notificationActions, useNotificationsContext } from './context';
+import { useAuth } from '../../pages/auth/context/auth';
 
 const useNotification = () => {
   const [
     { notifications, menuOpened, unread, unreadCount },
     dispatch,
   ] = useNotificationsContext();
-  const [{ currentUser }, dispatchUser] = useAuth();
+  const [{ currentUser }] = useAuth();
 
   const notificationsHandler = {
     received(data) {
       dispatch({
         type: notificationActions.notificationReceived,
         payload: {
-          ...data,
-          updateUserInLocalStorage: (updatedNotifications) =>
-            dispatchUser({
-              type: AuthActionTypes.UPDATE_CURRENT_USER,
-              payload: {
-                ...currentUser,
-                ...updatedNotifications,
-              },
-            }),
+          notification: data,
+          currentUser
         },
       });
     },

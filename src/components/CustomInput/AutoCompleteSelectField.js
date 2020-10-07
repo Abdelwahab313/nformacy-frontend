@@ -8,10 +8,10 @@ import { darkBlue } from 'styles/colors';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 
-const icon = <CheckBoxOutlineBlankIcon fontSize='small'/>;
-const checkedIcon = <CheckBoxIcon fontSize='small'/>;
+const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
+const checkedIcon = <CheckBoxIcon fontSize='small' />;
 
-const useSelectStyles = makeStyles(theme => ({
+const useSelectStyles = makeStyles(() => ({
   inputRoot: {
     '& .MuiOutlinedInput-notchedOutline': {
       borderColor: darkBlue,
@@ -28,9 +28,15 @@ const useSelectStyles = makeStyles(theme => ({
   },
 }));
 
-const AutoCompleteSelectField = ({ options, onChange, value, inputLabel, ...props }) => {
+const AutoCompleteSelectField = ({
+  options,
+  onChange,
+  value = [],
+  inputLabel,
+  ...props
+}) => {
   const selectClasses = useSelectStyles();
-  const handleChange = (e, newList, reason) => {
+  const handleChange = (e, newList) => {
     !!onChange && onChange(newList);
   };
 
@@ -59,11 +65,7 @@ const AutoCompleteSelectField = ({ options, onChange, value, inputLabel, ...prop
         </React.Fragment>
       )}
       renderInput={(params) => (
-        <TextField
-          {...params}
-          variant='outlined'
-          label={inputLabel}
-        />
+        <TextField {...params} variant='outlined' label={inputLabel} />
       )}
       {...props}
     />

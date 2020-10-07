@@ -15,6 +15,7 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands';
+import { BACKEND_PORT } from '../defualtTestValues';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
@@ -30,9 +31,6 @@ import './commands';
 //     .should('eq', 0);
 
 // });
+const waitForLocalhost = require('wait-for-localhost');
 
-// before(() => {
-//   const CURRENT_WORKING="/Users/devsquads/projects/medad/medad_frontend"
-//   const SERVER_PATH="/Users/devsquads/projects/medad/medad-server"
-//   cy.exec(`cd ${SERVER_PATH} && make sandbox-drop sandbox-setup && cd ${CURRENT_WORKING}`)
-// })
+before(() => waitForLocalhost({ port: BACKEND_PORT }));

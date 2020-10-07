@@ -16,8 +16,8 @@ export default function DropdownSelectField({
         id={fieldId}
         name={fieldName}
         options={fieldOptions}
-        value={fieldValue}
-        getOptionLabel={(option) => option.label}
+        value={fieldValue || ''}
+        getOptionLabel={(option) => option.label || ''}
         // getOptionSelected={(option, value) => {
         //   return option.value === value.value;
         // }}

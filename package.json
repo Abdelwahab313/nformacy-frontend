@@ -5,11 +5,14 @@
   "scripts": {
     "start": "PORT=5000 react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --passWithNoTests",
+    "test": "react-scripts test",
+    "test:nowatch": "CI=true react-scripts test",
     "cy:run": "cypress run -e 'TAGS=not @ignore or not @slow-test or not @liveNotification'",
     "cy:ci": "TZ=Africa/Cairo cypress run -e 'TAGS=not @ignore'",
     "cy:start": "REACT_APP_ENV=e2e PORT=5001 react-scripts start",
+    "stop:test": "./stop_server.sh 5001",
     "e2e": "./run-e2e-tests.sh $BACKEND_PATH",
+    "e2e:force": "./run-e2e-tests.sh $BACKEND_PATH force",
     "cy:run:debug": "cypress run --browser chrome",
     "cy:verify": "cypress verify",
     "cy:info": "cypress info",
@@ -116,14 +119,16 @@
     "mutationobserver-shim": "^0.3.3",
     "pm2": "^4.2.0",
     "prettier": "^1.18.2",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "wait-for-localhost": "^3.3.0"
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm run e2e"
+      "pre-commit": "lint-staged && npm run e2e",
+      "post-commit": "npm run stop:test"
     }
   },
   "lint-staged": {

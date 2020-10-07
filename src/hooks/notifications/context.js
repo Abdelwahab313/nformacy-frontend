@@ -63,10 +63,18 @@ function Notification(notification) {
   };
 }
 
+const updateUserInLocalStorage = (currentUser, updatedFields) => {
+  localStorage.setItem(
+    'user',
+    JSON.stringify({ ...currentUser, ...updatedFields }),
+  );
+};
+
 const NotificationsReducer = (state, action) => {
   switch (action.type) {
     case notificationActions.notificationReceived:
-      const receivedNotification = Notification(action.payload);
+      const currentUser = action.payload.currentUser;
+      const receivedNotification = Notification(action.payload.notification);
       showToast(receivedNotification.messageKey, {
         toastId: receivedNotification.notificationId,
       });
@@ -77,13 +85,10 @@ const NotificationsReducer = (state, action) => {
         draftState.notifications.unshift(receivedNotification);
         draftState.unread = true;
         draftState.unreadCount = state.unreadCount + 1;
-        const updateUser = action.payload.updateUserInLocalStorage;
-        if (updateUser) {
-          updateUser({
-            unreadNotifications: draftState.unreadCount,
-            notifications: current(draftState.notifications),
-          });
-        }
+        updateUserInLocalStorage(currentUser, {
+          unreadNotifications: draftState.unreadCount,
+          notifications: current(draftState.notifications),
+        });
       });
     case notificationActions.menuToggled:
       return produce(state, (draftState) => {

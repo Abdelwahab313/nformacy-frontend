@@ -55,7 +55,7 @@ describe('NotificationsProvider', () => {
       act(() =>
         dispatchToTestComponent({
           type: notificationActions.notificationReceived,
-          payload: NotificationMessage(),
+          payload: { notification: NotificationMessage() },
         }),
       );
 
@@ -70,7 +70,7 @@ describe('NotificationsProvider', () => {
       act(() =>
         dispatchToTestComponent({
           type: notificationActions.notificationReceived,
-          payload: NotificationMessage(),
+          payload: { notification: NotificationMessage() },
         }),
       );
 

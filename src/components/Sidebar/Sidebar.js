@@ -49,14 +49,14 @@ export default function Sidebar(props) {
         });
         return (
           <PermissibleRender
+            key={key}
             oneperm={true}
             userPermissions={navBarPermissions}
             requiredPermissions={[getSingularName(prop.name), 'all']}>
             <NavLink
               to={itemPath}
               className={classes.item}
-              activeClassName='active'
-              key={key}>
+              activeClassName='active'>
               <ListItem button className={classes.itemLink + listItemClasses}>
                 <prop.icon
                   className={classNames(classes.itemIcon, whiteFontClasses, {

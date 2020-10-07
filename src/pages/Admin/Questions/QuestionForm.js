@@ -43,13 +43,13 @@ const noActionStates = [
 ];
 
 const QuestionForm = ({
-                        questionDetails,
-                        setQuestionDetails,
-                        setIsSnackbarShown,
-                        setSnackbarMessage,
-                        setIsError,
-                        isNewQuestion,
-                      }) => {
+  questionDetails,
+  setQuestionDetails,
+  setIsSnackbarShown,
+  setSnackbarMessage,
+  setIsError,
+  isNewQuestion,
+}) => {
   const classes = useStyles();
   const questionRoasterClasses = useRoasterStyle();
   const [content, setContent] = useState(
@@ -107,10 +107,9 @@ const QuestionForm = ({
   };
 
   const onSendToAdminClicked = () => {
-    sendToAdmin(questionDetails.id)
-      .then(() => {
-        history.push('/admin/questions');
-      });
+    sendToAdmin(questionDetails.id).then(() => {
+      history.push('/admin/questions');
+    });
   };
 
   const onSubmitQuestion = () => {
@@ -336,11 +335,11 @@ const QuestionForm = ({
           <GridItem xs={12} sm={12} md={3}>
             <Typography
               noWrap
-              className={classes.currentActionTime}>
-            </Typography>
+              className={classes.currentActionTime}></Typography>
             <QuestionCountDown
               id={'reviewAndEditTime'}
-              date={questionDetails?.currentActionTime}/>
+              date={questionDetails?.currentActionTime}
+            />
           </GridItem>
         </GridContainer>
       )}
@@ -357,28 +356,28 @@ const QuestionForm = ({
                 richTextMediaId={richTextMediaId}
               />
             </Grid>
-            {(!(
+            {!(
               questionDetails?.state === 'pending_adviser_acceptance' &&
               currentUser?.id === questionDetails?.assignedAdviserId
             ) &&
               !(
                 authManager.isAdviser() &&
                 noActionStates.includes(questionDetails.state)
-              )) && (
-              <Grid
-                item
-                xs={6}
-                className={[questionRoasterClasses.answerButtonsContainer, classes.attachmentContainer]}>
-                <AttachmentUploader
-                  containerClassName={
-                    questionRoasterClasses.attachmentUploaderContainer
-                  }
-                  attachments={questionDetails.attachments}
-                  attachmentsGroupsId={attachmentsGroupsId}
-                  setAttachmentsGroupsId={setAttachmentsGroupsId}
-                />
-              </Grid>
-            )}
+              ) && (
+                <Grid
+                  item
+                  xs={6}
+                  className={`${questionRoasterClasses.answerButtonsContainer} ${classes.attachmentContainer}`}>
+                  <AttachmentUploader
+                    containerClassName={
+                      questionRoasterClasses.attachmentUploaderContainer
+                    }
+                    attachments={questionDetails.attachments}
+                    attachmentsGroupsId={attachmentsGroupsId}
+                    setAttachmentsGroupsId={setAttachmentsGroupsId}
+                  />
+                </Grid>
+              )}
             {!(
               authManager.isAdviser() &&
               noActionStates.includes(questionDetails.state)
@@ -396,18 +395,14 @@ const QuestionForm = ({
             {questionDetails?.state === 'pending_adviser_acceptance' &&
               currentUser?.id === questionDetails?.assignedAdviserId && (
                 <AcceptAndRejectActionButtons
-                acceptButtonProps={
-                  {
+                  acceptButtonProps={{
                     id: 'acceptButton',
-                    onClick: onAcceptAssignment
-                  }
-                }
-                rejectButtonProps={
-                  {
+                    onClick: onAcceptAssignment,
+                  }}
+                  rejectButtonProps={{
                     id: 'rejectButton',
-                    onClick: onRejectAssignment
-                  }
-                }
+                    onClick: onRejectAssignment,
+                  }}
                 />
               )}
           </Grid>

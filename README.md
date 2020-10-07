@@ -1,6 +1,5 @@
-**Note: Before running locally do the following command in order for the prehook to work**
-### `export BACKEND_PATH="/"`
-
+####Note: Before running locally do the following command in order for the prehook to work**
+##### `export BACKEND_PATH="your/local/path/to/medad_backend"`
 ## For running the application in docker
 
 ### `Build and run docker image in production mode`

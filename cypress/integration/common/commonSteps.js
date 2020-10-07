@@ -33,13 +33,7 @@ Given(/^visit home page$/, function() {
 When(/^I go to question roaster$/, function() {
   cy.visit(BASE_URL + '/questions');
 });
-Given(/^I am on the dashboard$/, function() {
-  cy.visit(BASE_URL + '/admin/dashboard');
-});
 
-Given(/^I am on the questions dashboard$/, function() {
-  cy.visit(BASE_URL + '/admin/questions');
-});
 Given(/^I Logout from admin dashboard\.$/, function() {
   cy.visit(BASE_URL + '/admin/logout');
 });
