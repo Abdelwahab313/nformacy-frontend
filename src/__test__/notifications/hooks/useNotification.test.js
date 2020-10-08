@@ -13,13 +13,17 @@ import {
 import { NotificationsProvider } from '../../../hooks/notifications/context';
 import { AuthProvider } from '../../../pages/auth/context/auth';
 import * as toastManager from 'react-toastify';
-
+import { createMemoryHistory } from 'history';
+import { Router } from 'react-router';
+import getPathForNotification from '../../../services/notificationPathResolver';
+import { RoutesPaths } from '../../../constants/routesPath';
 const createMessage = (notification = null) => {
   const sampleNotification = {
     id: 1,
     messageKey: 'test',
     readAt: Date.now(),
     createdAt: Date.now(),
+    type: 'QuestionNotification',
   };
   const toBeSentMessage = notification || sampleNotification;
   return JSON.stringify({
@@ -87,6 +91,9 @@ describe('Notifications', () => {
           JSON.stringify(result.current.notifications[0].createdAt),
         ).toEqual(JSON.stringify(mockedNotification.created_at));
         expect(result.current.notifications[0].readAt).toBeNull();
+        expect(result.current.notifications[0].type).toEqual(
+          'QuestionNotification',
+        );
         testDone();
       });
     });
@@ -316,6 +323,43 @@ describe('Notifications', () => {
       act(() => result.current.toggleMenu({ target: 'a' }));
 
       expect(result.current.menuOpened).toEqual(null);
+    });
+
+    it('should return path for notification of type QuestionNotification with required param for the path', () => {
+      const notification = { targetId: 1, type: 'QuestionNotification' };
+
+      const redirectionPath = getPathForNotification(notification);
+
+      const expectedPath = {
+        path: RoutesPaths.Admin.QuestionsDetails,
+        params: { questionId: notification.targetId },
+      };
+      expect(JSON.stringify(redirectionPath)).toEqual(
+        JSON.stringify(expectedPath),
+      );
+    });
+
+    it('navigateToNotification should close menu and navigate to notification target and decrease unread count', () => {
+      const history = createMemoryHistory();
+      const pushSpy = jest.spyOn(history, 'push');
+      const notification = { targetId: 1, type: 'QuestionNotification' };
+
+      wrapper = ({ children }) => (
+        <Router history={history}>
+          <AuthProvider>
+            <NotificationsProvider>{children}</NotificationsProvider>
+          </AuthProvider>
+        </Router>
+      );
+      const { result } = renderHook(() => useNotification(), {
+        wrapper,
+      });
+
+      act(() => result.current.navigateToNotification(notification));
+
+      expect(pushSpy).toHaveBeenCalledWith('/admin/questions/edit', {
+        questionId: 1,
+      });
     });
   });
 });

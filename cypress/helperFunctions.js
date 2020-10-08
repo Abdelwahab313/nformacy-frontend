@@ -2,7 +2,7 @@ import {
   ADMIN_PASSWORD,
   ADMIN_USERNAME,
   ADVISER_PASSWORD,
-  ADVISER_USERNAME,
+  ADVISER_USERNAME, ADVISER_WITH_NO_NOTIFICATION,
   BACKEND_WEB_URL,
   BASE_URL,
   FREELANCER_PASSWORD,
@@ -56,9 +56,9 @@ export const signUpAndSetTokens = () => {
     });
 };
 
-export const loginAsAnAdvisor = () => {
+export const loginAsAnAdvisor = (noNotification=false) => {
   cy.request('POST', `${BACKEND_WEB_URL}/auth/login`, {
-    email: ADVISER_USERNAME,
+    email: noNotification ? ADVISER_WITH_NO_NOTIFICATION : ADVISER_USERNAME,
     password: ADVISER_PASSWORD,
   })
     .then((response) => camelizeKeys(response))

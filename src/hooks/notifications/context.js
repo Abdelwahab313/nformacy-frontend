@@ -59,6 +59,7 @@ function Notification(notification) {
     targetId: notification.target_id,
     messageKey: notification.message_key,
     createdAt: notification.created_at,
+    type: notification.type,
     readAt: null,
   };
 }

@@ -21,7 +21,7 @@ import Button from 'components/buttons/RegularButton.js';
 import styles from 'assets/jss/material-dashboard-react/components/headerLinksStyle.js';
 import { Link } from 'react-router-dom';
 import { RoutesPaths } from 'constants/routesPath';
-import { Notifications } from './Notifications';
+import Notifications from './notifications';
 import { NotificationsProvider } from '../../../hooks/notifications/context';
 import { useAuth } from '../../../pages/auth/context/auth';
 

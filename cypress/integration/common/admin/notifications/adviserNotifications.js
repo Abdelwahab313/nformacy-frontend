@@ -43,10 +43,11 @@ Given(/^I have (\d+) notifications\.$/, function(counts) {
   createQuestion({}, counts);
 });
 Then(/^I should see the recent (\d+)\.$/, function(count) {
+  const countWithSeeMore = count + 1;
   cy.get('#notification-menu-list-grow')
     .find('li')
     .its('length') // calls 'length' property returning that value
-    .should('eq', count);
+    .should('eq', countWithSeeMore);
   cy.get('#notification-menu-list-grow')
     .find('li')
     .first()
@@ -63,9 +64,38 @@ Then(
     cy.get('#notification-menu-list-grow')
       .find('li')
       .its('length') // calls 'length' property returning that value
-      .should('eq', 10);
+      .should('eq', 11);
   },
 );
-Then(/^I should see toast notification with the newly received notification$/, function() {
-  cy.get('.Toastify__toast').should('be.visible')
+Then(
+  /^I should see toast notification with the newly received notification$/,
+  function() {
+    cy.get('.Toastify__toast').should('be.visible');
+  },
+);
+Then(/^I should see "([^"]*)"\.$/, function(message) {
+  cy.get('#notification-menu-list-grow')
+    .find('li')
+    .first()
+    .should('contain.text', message);
 });
+Then(/^I should see "([^"]*)" in the end of the menu\.$/, function(message) {
+  cy.get('#notification-menu-list-grow')
+    .find('li')
+    .last()
+    .should('contain.text', message);
+});
+When(/^I click on the newly received notification\.$/, function() {
+  cy.get('#notification-menu-list-grow')
+    .find('li')
+    .first()
+    .click();
+});
+When(
+  /^I be redirected to the question details page related to the notification$/,
+  function() {
+    const sentQuestionTitle = getFromLocalStorage('createdQuestion').title;
+    cy.get('#title').should('contain.value', sentQuestionTitle);
+  },
+);
+When(/^unread notifications count decrease by (\d+)\.$/, function() {});

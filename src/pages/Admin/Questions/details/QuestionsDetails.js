@@ -30,15 +30,18 @@ const QuestionDetails = () => {
   const location = useLocation();
   const questionId = location.state.questionId;
 
-  const { isLoading, fetchedData: fetchedQuestion } = useFetchData(() =>
+  let { isLoading, fetchedData: fetchedQuestion, refresh } = useFetchData(() =>
     fetchQuestionDetails(questionId),
   );
 
-  const setRating = useCallback((answerIndex, rating) => {
-    const newQuestionDetails = { ...questionDetails };
-    newQuestionDetails.answers[answerIndex].rating = rating;
-    setQuestionDetails(newQuestionDetails);
-  }, [questionDetails, setQuestionDetails]);
+  const setRating = useCallback(
+    (answerIndex, rating) => {
+      const newQuestionDetails = { ...questionDetails };
+      newQuestionDetails.answers[answerIndex].rating = rating;
+      setQuestionDetails(newQuestionDetails);
+    },
+    [questionDetails, setQuestionDetails],
+  );
 
   useEffect(() => {
     if (!!fetchedQuestion && !!fetchedQuestion.id) {
@@ -46,8 +49,13 @@ const QuestionDetails = () => {
     }
   }, [fetchedQuestion]);
 
+  useEffect(() => {
+    if (!!questionId) {
+      refresh(() => fetchQuestionDetails(questionId));
+    }
+  }, [questionId]);
   if (isLoading) {
-    return <LoadingCircle/>;
+    return <LoadingCircle />;
   }
 
   const onDeployQuestionClicked = () => {
@@ -56,8 +64,7 @@ const QuestionDetails = () => {
       .then(() => {
         history.push('/admin/questions');
       })
-      .catch(() => {
-      })
+      .catch(() => {})
       .finally(() => setIsLoadingForUpdating(false));
   };
 
@@ -78,15 +85,16 @@ const QuestionDetails = () => {
             isNewQuestion={false}
           />
           <CardFooter className={classes.footerButtons}>
-            { authManager.isAdmin() && questionDetails.state === 'pending_deployment_to_roaster' && (
-              <Button
-                id={'approveQuestion'}
-                disabled={isLoadingForUpdating}
-                onClick={onDeployQuestionClicked}
-                color='primary'>
-                Deploy to question roaster
-              </Button>
-            )}
+            {authManager.isAdmin() &&
+              questionDetails.state === 'pending_deployment_to_roaster' && (
+                <Button
+                  id={'approveQuestion'}
+                  disabled={isLoadingForUpdating}
+                  onClick={onDeployQuestionClicked}
+                  color='primary'>
+                  Deploy to question roaster
+                </Button>
+              )}
             <SuccessSnackBar
               isError={isError}
               isSnackbarShown={isSnackbarShown}
@@ -100,11 +108,7 @@ const QuestionDetails = () => {
         <GridItem xs={12}>
           {questionDetails.answers?.map((answer, index) => (
             <div id={answer.referenceNumber} key={`answer-${index}`}>
-            <AnswerView
-            answer={answer}
-            index={index}
-            setRating={setRating}
-            />
+              <AnswerView answer={answer} index={index} setRating={setRating} />
             </div>
           ))}
         </GridItem>

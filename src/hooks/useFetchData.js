@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import authManager from 'services/authManager';
 
 const useFetchData = (fetchApi) => {
@@ -18,7 +18,7 @@ const useFetchData = (fetchApi) => {
 
   function getData() {
     if (!fetchApi) {
-      return console.error('should pass a callback to hook');
+      throw Error('should pass a callback to hook');
     }
     setLoading(true);
     return fetchApi()
@@ -36,8 +36,7 @@ const useFetchData = (fetchApi) => {
         if (Array.isArray(res.data)) {
           const sortedData = res.data.sort(compare);
           setFetchedData(sortedData);
-        }
-        else setFetchedData(res.data)
+        } else setFetchedData(res.data);
       })
       .catch((reason) => {
         handleApiErrors(reason);
@@ -51,11 +50,19 @@ const useFetchData = (fetchApi) => {
     getData();
   }, [setLoading]);
 
+  const refresh = (fetchApi) => {
+    setLoading(true);
+    fetchApi()
+      .then((res) => setFetchedData(res.data))
+      .catch((reason) => handleApiErrors(reason))
+      .finally(() => setLoading(false));
+  };
 
   return {
     isLoading,
     fetchedData,
     errorMessage,
+    refresh,
   };
 };
 

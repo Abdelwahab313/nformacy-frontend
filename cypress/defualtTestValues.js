@@ -1,11 +1,12 @@
 /// <reference types="Cypress" />
 export const BASE_URL = 'http://localhost:5001';
-export const BACKEND_PORT = 3001
+export const BACKEND_PORT = 3001;
 export const BACKEND_WEB_URL = `http://127.0.0.1:${BACKEND_PORT}`;
 export const USER_NAME = 'testuser';
 export const PASSWORD = 'testpassword';
 export const ADVISER_USERNAME = 'adviser@test.com';
 export const ADVISER_PASSWORD = 'test1234';
+export const ADVISER_WITH_NO_NOTIFICATION = 'notifications@adviser.com';
 export const FREELANCER_USERNAME = 'freelancer@test.com';
 export const FREELANCER_PASSWORD = 'test1234';
 export const ADMIN_USERNAME = 'admin@test.com';
