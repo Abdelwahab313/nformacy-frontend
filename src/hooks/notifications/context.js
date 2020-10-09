@@ -2,8 +2,8 @@ import React, { useContext, useReducer } from 'react';
 import { ActionCableProvider } from '../useActionCable';
 import { CHANNEL_URL } from '../../settings';
 import { produce, current } from 'immer';
-import { toast as showToast } from 'react-toastify';
 import authManager from '../../services/authManager';
+import showToast from '../../services/toastNotification';
 
 const defaultStates = {
   notifications: [],
@@ -73,9 +73,10 @@ const NotificationsReducer = (state, action) => {
     case notificationActions.notificationReceived:
       const currentUser = action.payload.currentUser;
       const receivedNotification = Notification(action.payload.notification);
-      showToast(receivedNotification.messageKey, {
-        toastId: receivedNotification.notificationId,
-      });
+      showToast(
+        receivedNotification.messageKey,
+        receivedNotification.notificationId,
+      );
       return produce(state, (draftState) => {
         const alreadyReceived = state.notifications.find(
           (notify) =>

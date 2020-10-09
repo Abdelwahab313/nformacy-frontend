@@ -18,7 +18,7 @@ import logo from 'assets/img/reactlogo.png';
 import AdminRouter from 'layouts/admin/AdminRouter';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import '../../styles/toastNotifications.css';
 let ps;
 
 const useStyles = makeStyles(styles);
@@ -80,7 +80,7 @@ export default function AdminLayout({ ...rest }) {
         <div className={classes.content}>
           <div className={classes.container}>
             <AdminRouter />
-            <ToastContainer position='bottom-left' hideProgressBar/>
+            <ToastContainer position='bottom-left' />
           </div>
         </div>
       </div>
