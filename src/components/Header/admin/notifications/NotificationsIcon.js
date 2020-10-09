@@ -30,7 +30,7 @@ const NotificationsIcon = () => {
       onClick={toggleMenu}
       className={classes.buttonLink}>
       <Icon className={classes.icons} />
-      {unread && (
+      {unread && unreadCount > 0 && (
         <span id='notificationsCount' className={classes.notifications}>
           {unreadCount}
         </span>

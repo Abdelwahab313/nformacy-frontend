@@ -4,19 +4,34 @@ import MenuItem from '@material-ui/core/MenuItem';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import styles from '../../../../assets/jss/material-dashboard-react/components/headerLinksStyle';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import {
+  notificationActions,
+  useNotificationsContext,
+} from '../../../../hooks/notifications/context';
+import { useAuth } from '../../../../pages/auth/context/auth';
 
 const useStyles = makeStyles(styles);
 
 const NotificationsBody = () => {
   const classes = useStyles();
-  const { notifications, navigateToNotification } = useNotification();
+  const [{ currentUser }] = useAuth();
+  const [, dispatch] = useNotificationsContext();
+  const { notifications } = useNotification();
 
   return notifications.map((notification, key) => (
     <MenuItem
       key={key}
       data-target-id={notification.targetId}
-      onClick={() => navigateToNotification(notification)}
-      className={notification.readAt ? classes.dropdownItem : classes.unreadItem }>
+      onClick={() =>
+        dispatch({
+          type: notificationActions.notificationVisited,
+          payload: { notification: notification, currentUser },
+        })
+      }
+      className={
+        notification.readAt ? classes.dropdownItem : classes.unreadItem
+      }>
       {notification.messageKey}
     </MenuItem>
   ));
@@ -24,10 +39,10 @@ const NotificationsBody = () => {
 
 const NotificationsHeader = () => {
   const classes = useStyles();
-  const { closeNotification, unreadCount } = useNotification();
+  const { closeNotification, notifications } = useNotification();
   return (
     <>
-      {unreadCount === 0 && (
+      {notifications.length === 0 && (
         <MenuItem
           onClick={closeNotification}
           className={classes.noHoverMenuItem}>
@@ -54,12 +69,16 @@ const NotificationsFooter = () => {
 };
 
 const NotificationList = () => {
+  const { closeNotification } = useNotification();
+
   return (
-    <MenuList role='menu'>
-      <NotificationsHeader />
-      <NotificationsBody />
-      <NotificationsFooter />
-    </MenuList>
+    <ClickAwayListener onClickAway={closeNotification}>
+      <MenuList role='menu'>
+        <NotificationsHeader />
+        <NotificationsBody />
+        <NotificationsFooter />
+      </MenuList>
+    </ClickAwayListener>
   );
 };
 

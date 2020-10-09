@@ -4,17 +4,18 @@ import './i18n';
 import './index.css';
 import Main from 'layouts/Main';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router';
 import WebFont from 'webfontloader';
+import history from './services/navigation';
 
 WebFont.load({
   google: {
-    families: ['Orbitron', 'sans-serif']
-  }
+    families: ['Orbitron', 'sans-serif'],
+  },
 });
 
 ReactDOM.render(
-  <Router>
+  <Router history={history}>
     <Main />
   </Router>,
   document.getElementById('root'),

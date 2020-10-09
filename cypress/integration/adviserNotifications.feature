@@ -2,7 +2,8 @@ Feature: Adviser notifications
   As an adviser i should receive a notification for actions related to me
 
   Background:
-    Given I login in as an advisor
+    Given Previous interactions are cleared from localstorage
+    And I login in as an advisor
     And I am on the questions dashboard
     And I have zero notification
 
@@ -50,8 +51,17 @@ Feature: Adviser notifications
 
   Scenario: Click on notification from notifications menu in navbar
     When Admin send a question to me to review.
+    And I keep track of current notifications count
     And I click on notifications menu.
     And I click on the newly received notification.
-    And I be redirected to the question details page related to the notification
+    Then I should be redirected to the question details page related to the notification
+    And Notification menu should be closed
+    And unread notifications count decrease by 1.
+
+  Scenario: Click on toast notification
+    When Admin send a question to me to review.
+    And I keep track of current notifications count
+    And I click on the toast.
+    Then I should be redirected to the question details page related to the notification
     And Notification menu should be closed
     And unread notifications count decrease by 1.

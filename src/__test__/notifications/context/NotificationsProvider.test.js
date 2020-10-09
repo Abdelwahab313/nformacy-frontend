@@ -3,20 +3,28 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import { AuthProvider } from '../../../pages/auth/context/auth';
 import useNotification from '../../../hooks/notifications/useNotification';
 import {
+  notificationActions,
   NotificationsProvider,
   useNotificationsContext,
-  notificationActions,
 } from '../../../hooks/notifications/context';
 import { NotificationMessage } from '../../factory/notification';
+import { Router } from 'react-router';
+import { Server } from 'mock-socket';
+import { CHANNEL_URL } from '../../../settings';
+import MockAdapter from 'axios-mock-adapter';
+import axios from 'axios';
+import history from '../../../services/navigation';
 
 const TestComponent = () => {
   const [
-    { notifications, unread, unreadCount },
+    { notifications, unread, unreadCount, menuOpened },
     dispatch,
   ] = useNotificationsContext();
 
-  return { dispatch, notifications, unread, unreadCount };
+  return { dispatch, notifications, unread, unreadCount, menuOpened };
 };
+
+const mock = new MockAdapter(axios);
 
 describe('NotificationsProvider', () => {
   describe('Provider with default Values', () => {
@@ -101,7 +109,22 @@ describe('NotificationsProvider', () => {
 
     it('should decrease unread count and mark the passed in notification as read', () => {
       const newNotification = NotificationMessage();
+      const notification = {
+        notificationId: newNotification.notification_id,
+        targetId: 1,
+        readAt: Date.now(),
+        type: 'QuestionNotification',
+      };
       const mockedDate = 1602184753309;
+      const readAtTimeStamp = 4132987932;
+      const notificationAfterRead = {
+        notificationId: 1,
+        targetId: 1,
+        type: 'QuestionNotification',
+        readAt: readAtTimeStamp,
+      };
+      mock.onPost().reply(201, notificationAfterRead);
+
       Date.now = jest.fn(() => mockedDate);
       act(() =>
         dispatchToTestComponent({
@@ -113,7 +136,7 @@ describe('NotificationsProvider', () => {
       act(() =>
         dispatchToTestComponent({
           type: notificationActions.notificationVisited,
-          payload: { notificationId: newNotification.notification_id },
+          payload: { notification: notification },
         }),
       );
 
@@ -126,8 +149,22 @@ describe('NotificationsProvider', () => {
       ).toBe(mockedDate);
     });
 
-    it('should set notifications as unread', () => {
+    it('should set notifications as read', () => {
       const newNotification = NotificationMessage();
+      const notification = {
+        notificationId: newNotification.notification_id,
+        targetId: 1,
+        readAt: Date.now(),
+        type: 'QuestionNotification',
+      };
+      const readAtTimeStamp = 4132987932;
+      const notificationAfterRead = {
+        notificationId: notification.notificationId,
+        targetId: 1,
+        type: 'QuestionNotification',
+        readAt: readAtTimeStamp,
+      };
+      mock.onPost().reply(201, notificationAfterRead);
       act(() =>
         dispatchToTestComponent({
           type: notificationActions.notificationReceived,
@@ -145,7 +182,7 @@ describe('NotificationsProvider', () => {
       act(() =>
         dispatchToTestComponent({
           type: notificationActions.notificationVisited,
-          payload: { notificationId: newNotification.notification_id },
+          payload: { notification: notification },
         }),
       );
 
@@ -154,7 +191,246 @@ describe('NotificationsProvider', () => {
     });
   });
 
-  it('should raise an error if consumer is not wrapped in NotificationsProvider', async () => {
+  describe('Navigation to specific notification', () => {
+    let wrapper, mockServer, unMountRenderedHook, unMountSharedHook;
+
+    beforeEach(() => {
+      mockServer = new Server(CHANNEL_URL);
+      wrapper = ({ children }) => (
+        <AuthProvider>
+          <NotificationsProvider>{children}</NotificationsProvider>
+        </AuthProvider>
+      );
+
+      const rendered = renderHook(() => useNotification(), {
+        wrapper,
+      });
+      const testComponent = renderHook(() => TestComponent(), {
+        wrapper,
+      });
+      unMountRenderedHook = rendered.unmount;
+      unMountSharedHook = testComponent.unmount;
+    });
+
+    function cleanHookAndSocket() {
+      mockServer.stop();
+      unMountSharedHook();
+      unMountRenderedHook();
+    }
+
+    afterEach(() => {
+      cleanHookAndSocket();
+      localStorage.clear();
+    });
+
+    it('navigates to notification target', () => {
+      const pushSpy = jest.spyOn(history, 'push');
+      const notification = {
+        notificationId: 1,
+        targetId: 1,
+        readAt: null,
+        type: 'QuestionNotification',
+      };
+      const readAtTimeStamp = 4132987932;
+      const notificationAfterRead = {
+        notificationId: 1,
+        targetId: 1,
+        type: 'QuestionNotification',
+        readAt: readAtTimeStamp,
+      };
+      mock.onPost().reply(201, notificationAfterRead);
+      wrapper = ({ children }) => (
+        <Router history={history}>
+          <AuthProvider>
+            <NotificationsProvider initialNotifications={[notification]}>
+              {children}
+            </NotificationsProvider>
+          </AuthProvider>
+        </Router>
+      );
+      const { result } = renderHook(() => TestComponent(), {
+        wrapper,
+      });
+
+      act(() =>
+        result.current.dispatch({
+          type: notificationActions.notificationVisited,
+          payload: { notification: notification },
+        }),
+      );
+
+      expect(pushSpy).toHaveBeenCalledWith('/admin/questions/edit', {
+        questionId: 1,
+      });
+    });
+
+    it('marks notification as read', () => {
+      const notification = {
+        notificationId: 1,
+        targetId: 1,
+        readAt: null,
+        type: 'QuestionNotification',
+      };
+      const readNotification = {
+        notificationId: 1,
+        targetId: 1,
+        readAt: Date.now(),
+        type: 'QuestionNotification',
+      };
+      const readAtTimeStamp = 4132987932;
+      const notificationAfterRead = {
+        notificationId: 1,
+        targetId: 1,
+        type: 'QuestionNotification',
+        readAt: readAtTimeStamp,
+      };
+      wrapper = ({ children }) => (
+        <Router history={history}>
+          <AuthProvider>
+            <NotificationsProvider
+              initialNotifications={[notification, readNotification]}
+              unreadCount={1}>
+              {children}
+            </NotificationsProvider>
+          </AuthProvider>
+        </Router>
+      );
+      const { result } = renderHook(() => TestComponent(), {
+        wrapper,
+      });
+
+      act(() =>
+        result.current.dispatch({
+          type: notificationActions.notificationVisited,
+          payload: { notification: notificationAfterRead },
+        }),
+      );
+
+      expect(result.current.unreadCount).toEqual(0);
+    });
+
+    it('close navigation menu', () => {
+      const notification = {
+        notificationId: 1,
+        targetId: 1,
+        readAt: null,
+        type: 'QuestionNotification',
+      };
+      const readAtTimeStamp = 4132987932;
+      const notificationAfterRead = {
+        notificationId: 1,
+        targetId: 1,
+        type: 'QuestionNotification',
+        readAt: readAtTimeStamp,
+      };
+      mock.onPost().reply(201, notificationAfterRead);
+      wrapper = ({ children }) => (
+        <Router history={history}>
+          <AuthProvider>
+            <NotificationsProvider initialNotifications={[notification]}>
+              {children}
+            </NotificationsProvider>
+          </AuthProvider>
+        </Router>
+      );
+      const { result } = renderHook(() => TestComponent(), {
+        wrapper,
+      });
+
+
+      act(() =>
+        result.current.dispatch({
+          type: notificationActions.notificationVisited,
+          payload: { notification: notification },
+        }),
+      );
+
+      expect(result.current.menuOpened).toBe(null);
+    });
+
+    it('should not do any thing to the notification if its already read', () => {
+      const notification = {
+        notificationId: 1,
+        targetId: 1,
+        readAt: null,
+        type: 'QuestionNotification',
+      };
+      wrapper = ({ children }) => (
+        <Router history={history}>
+          <AuthProvider>
+            <NotificationsProvider initialNotifications={[notification]}>
+              {children}
+            </NotificationsProvider>
+          </AuthProvider>
+        </Router>
+      );
+      const { result } = renderHook(() => TestComponent(), {
+        wrapper,
+      });
+
+      act(() =>
+        result.current.dispatch({
+          type: notificationActions.menuToggled,
+          payload: { currentTarget: '' },
+        }),
+      );
+      act(() =>
+        result.current.dispatch({
+          type: notificationActions.notificationVisited,
+          payload: { notification: notification },
+        }),
+      );
+
+      expect(result.current.menuOpened).toBe(null);
+    });
+
+    it('navigateToNotification should update localStorage with the readNotification.', (done) => {
+      const notification = {
+        notificationId: 1,
+        targetId: 1,
+        readAt: null,
+        type: 'QuestionNotification',
+      };
+      const readAtTimeStamp = 4132987932;
+      const notificationAfterRead = {
+        notificationId: 1,
+        targetId: 1,
+        type: 'QuestionNotification',
+        readAt: readAtTimeStamp,
+      };
+      mock.onPost().reply(201, notificationAfterRead);
+      wrapper = ({ children }) => (
+        <Router history={history}>
+          <AuthProvider>
+            <NotificationsProvider
+              initialNotifications={[notification]}
+              unreadCount={2}>
+              {children}
+            </NotificationsProvider>
+          </AuthProvider>
+        </Router>
+      );
+      const { result } = renderHook(() => TestComponent(), {
+        wrapper,
+      });
+
+      act(() =>
+        result.current.dispatch({
+          type: notificationActions.notificationVisited,
+          payload: { notification: notification },
+        }),
+      );
+
+      setTimeout(() => {
+        const loadedUser = JSON.parse(localStorage.getItem('user'));
+        expect(loadedUser.unreadNotifications).toEqual(1);
+        expect(loadedUser.notifications[0].readAt).toEqual(readAtTimeStamp);
+        done();
+      }, 500);
+    });
+  });
+
+  it('should raise an error if consumer is not wrapped in NotificationsProvider', () => {
     const wrapper = ({ children }) => <AuthProvider>{children}</AuthProvider>;
     const { result } = renderHook(() => useNotification(), {
       wrapper,

@@ -1,6 +1,7 @@
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import faker from 'faker';
 import {
+  clearLocalStorage,
   createQuestion,
   getFromLocalStorage,
   setToLocalStorage,
@@ -87,16 +88,13 @@ Then(/^I should see "([^"]*)" in the end of the menu\.$/, function(message) {
     .should('contain.text', message);
 });
 When(/^I click on the newly received notification\.$/, function() {
-  cy.get('#notificationsCount').then((element) => {
-    setToLocalStorage('notificationsCountBeforeClick', element.text().trim());
-    cy.get('#notification-menu-list-grow')
-      .find('li')
-      .first()
-      .click();
-  });
+  cy.get('#notification-menu-list-grow')
+    .find('li')
+    .first()
+    .click();
 });
 When(
-  /^I be redirected to the question details page related to the notification$/,
+  /^I should be redirected to the question details page related to the notification$/,
   function() {
     const sentQuestionTitle = getFromLocalStorage('createdQuestion').title;
     cy.get('#title').should('contain.value', sentQuestionTitle);
@@ -105,16 +103,27 @@ When(
 When(/^Notification menu should be closed$/, function() {
   cy.get('#notification-menu-list-grow').should('not.be.visible');
 });
+When(/^I click on the toast\.$/, function() {
+  cy.get('.Toastify__toast-body').click();
+});
+
 When(/^unread notifications count decrease by (\d+)\.$/, function(number) {
   const notificationsCountBeforeClick = Number(
     getFromLocalStorage('notificationsCountBeforeClick'),
   );
   cy.get('#notificationsCount').should('be.visible');
-  cy.get('#notificationsCount').should(
-    'have.text',
-    (notificationsCountBeforeClick - number).toString(),
-  );
+  cy.get('#notificationsCount').then((element) => {
+    expect([
+      (notificationsCountBeforeClick - number).toString(),
+      notificationsCountBeforeClick.toString(),
+    ]).to.include(element.text().trim());
+  });
 });
-When(/^I click on the toast\.$/, function() {
-  cy.get('.Toastify__toast-body').click();
+When(/^I keep track of current notifications count$/, function() {
+  cy.get('#notificationsCount').then((element) => {
+    setToLocalStorage('notificationsCountBeforeClick', element.text().trim());
+  });
+});
+Given(/^Previous interactions are cleared from localstorage$/, function() {
+  clearLocalStorage();
 });
