@@ -8,6 +8,7 @@ export const lighterPink = 'rgba(105, 37, 93, 0.25)';
 export const periWinkle = '#CED4EA';
 export const grey = '#7F7F7F';
 export const lightGrey = '#d1d0d0';
+export const lighterGrey = '#F7F7F7';
 export const overlayColor = '#DDD'
 export const turquoise = '#33CCCC';
 export const twilight = '#E4C9E4';

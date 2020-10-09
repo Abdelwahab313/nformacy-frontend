@@ -44,6 +44,13 @@ class AuthManager {
     }
   };
 
+  updateUserInLocalStorage = (currentUser, updatedFields) => {
+    localStorage.setItem(
+      'user',
+      JSON.stringify({ ...currentUser, ...updatedFields }),
+    );
+  };
+
   login = (userToken) => {
     this.setAuthorizationHeader(userToken);
     localStorage.setItem('tokens', JSON.stringify(userToken));

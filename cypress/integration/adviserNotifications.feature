@@ -20,6 +20,7 @@ Feature: Adviser notifications
     And I am on the questions dashboard
     When I click on notifications menu.
     Then I should see "No notifications to be displayed".
+    And I Logout from admin dashboard.
 
   Scenario: Notifications does not exceed 10 notifications new one replaces oldest notification
     Given I have 15 notifications.
@@ -47,10 +48,10 @@ Feature: Adviser notifications
     Then I should see the newly received notification.
     And I should see toast notification with the newly received notification
 
-  @focus
   Scenario: Click on notification from notifications menu in navbar
     When Admin send a question to me to review.
     And I click on notifications menu.
     And I click on the newly received notification.
     And I be redirected to the question details page related to the notification
+    And Notification menu should be closed
     And unread notifications count decrease by 1.

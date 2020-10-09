@@ -3,6 +3,7 @@ import faker from 'faker';
 import {
   createQuestion,
   getFromLocalStorage,
+  setToLocalStorage,
 } from '../../../../helperFunctions';
 
 Given(/^I have zero notification$/, function() {
@@ -86,10 +87,13 @@ Then(/^I should see "([^"]*)" in the end of the menu\.$/, function(message) {
     .should('contain.text', message);
 });
 When(/^I click on the newly received notification\.$/, function() {
-  cy.get('#notification-menu-list-grow')
-    .find('li')
-    .first()
-    .click();
+  cy.get('#notificationsCount').then((element) => {
+    setToLocalStorage('notificationsCountBeforeClick', element.text().trim());
+    cy.get('#notification-menu-list-grow')
+      .find('li')
+      .first()
+      .click();
+  });
 });
 When(
   /^I be redirected to the question details page related to the notification$/,
@@ -98,4 +102,19 @@ When(
     cy.get('#title').should('contain.value', sentQuestionTitle);
   },
 );
-When(/^unread notifications count decrease by (\d+)\.$/, function() {});
+When(/^Notification menu should be closed$/, function() {
+  cy.get('#notification-menu-list-grow').should('not.be.visible');
+});
+When(/^unread notifications count decrease by (\d+)\.$/, function(number) {
+  const notificationsCountBeforeClick = Number(
+    getFromLocalStorage('notificationsCountBeforeClick'),
+  );
+  cy.get('#notificationsCount').should('be.visible');
+  cy.get('#notificationsCount').should(
+    'have.text',
+    (notificationsCountBeforeClick - number).toString(),
+  );
+});
+When(/^I click on the toast\.$/, function() {
+  cy.get('.Toastify__toast-body').click();
+});

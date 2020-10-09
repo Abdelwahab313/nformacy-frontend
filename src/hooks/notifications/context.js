@@ -3,6 +3,7 @@ import { ActionCableProvider } from '../useActionCable';
 import { CHANNEL_URL } from '../../settings';
 import { produce, current } from 'immer';
 import { toast as showToast } from 'react-toastify';
+import authManager from '../../services/authManager';
 
 const defaultStates = {
   notifications: [],
@@ -15,6 +16,7 @@ const NotificationsContext = React.createContext();
 
 export const notificationActions = {
   notificationReceived: 'notificationReceived',
+  notificationVisited: 'notificationVisited',
   menuToggled: 'menuToggled',
   menuClosed: 'menuClosed',
 };
@@ -64,12 +66,7 @@ function Notification(notification) {
   };
 }
 
-const updateUserInLocalStorage = (currentUser, updatedFields) => {
-  localStorage.setItem(
-    'user',
-    JSON.stringify({ ...currentUser, ...updatedFields }),
-  );
-};
+const isNullOrUndefined = (value) => value == undefined;
 
 const NotificationsReducer = (state, action) => {
   switch (action.type) {
@@ -80,13 +77,18 @@ const NotificationsReducer = (state, action) => {
         toastId: receivedNotification.notificationId,
       });
       return produce(state, (draftState) => {
+        const alreadyReceived = state.notifications.find(
+          (notify) =>
+            notify.notificationId === receivedNotification.notificationId,
+        );
+        draftState.unread = true;
+        if (alreadyReceived) return draftState;
         if (draftState.notifications.length === MAX_NOTIFICATIONS) {
           draftState.notifications.pop();
         }
         draftState.notifications.unshift(receivedNotification);
-        draftState.unread = true;
         draftState.unreadCount = state.unreadCount + 1;
-        updateUserInLocalStorage(currentUser, {
+        authManager.updateUserInLocalStorage(currentUser, {
           unreadNotifications: draftState.unreadCount,
           notifications: current(draftState.notifications),
         });
@@ -103,6 +105,18 @@ const NotificationsReducer = (state, action) => {
     case notificationActions.menuClosed:
       return produce(state, (draftState) => {
         draftState.menuOpened = null;
+      });
+    case notificationActions.notificationVisited:
+      return produce(state, (draftState) => {
+        const toBeRead = draftState.notifications.find(
+          (notification) =>
+            notification.notificationId === action.payload.notificationId,
+        );
+        if (isNullOrUndefined(toBeRead.readAt)) {
+          draftState.unreadCount = state.unreadCount - 1;
+          toBeRead.readAt = Date.now();
+        }
+        draftState.unread = true;
       });
     default:
       throw Error(

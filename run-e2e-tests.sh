@@ -53,14 +53,14 @@ else
   if [[ "${force}" == true ]]; then
     echo -e "${GREEN}Running e2e tests.${NC} ${RED}[All e2e tests since force parameter is passed to the script]${NC}"
   else
-    echo -e "${GREEN}Running e2e tests.${NC} ${YELLOW}[Created and updates e2e files not old ones]${NC}"
+    echo -e "${GREEN}Running e2e tests.${NC} ${YELLOW}[Only Created and updated e2e files since that last commit]${NC}"
   fi
   echo -e "${YELLOW}Stopping Backend server...${NC}"
-  make sandbox-down &>/dev/null || { echo -e "${RED}Wrong backend path supplied!${NC}"; exit 1;}
+  make sandbox-down &>/dev/null || { echo -e "${RED}Something went wrong while trying to shutdown backend container!${NC}"; exit 1;}
   echo -e "${YELLOW}Resetting Backend server...${NC}"
-  make sandbox-reset &>/dev/null || { echo -e "${RED}Wrong backend path supplied!${NC}"; exit 1;}
+  make sandbox-reset &>/dev/null || { echo -e "${RED}Something went wrong while trying to reset backend container!${NC}"; exit 1;}
   echo -e "${YELLOW}Starting Backend server...${NC}"
-  make sandbox-up &>/dev/null || { echo -e "${RED}Wrong backend path supplied!${NC}"; exit 1;}
+  make sandbox-up &>/dev/null || { echo -e "${RED}Something went wrong while trying to start backend container!${NC}"; exit 1;}
 
   cd - &>/dev/null
 

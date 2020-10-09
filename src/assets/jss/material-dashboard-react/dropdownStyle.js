@@ -1,20 +1,21 @@
 import {
+  blackColor,
+  defaultFont,
+  grayColor,
+  hexToRgb,
+  primaryBoxShadow,
   primaryColor,
   whiteColor,
-  primaryBoxShadow,
-  defaultFont,
-  blackColor,
-  grayColor,
-  hexToRgb
 } from 'assets/jss/material-dashboard-react.js';
+import { overlayColor } from '../../../styles/colors';
 
-const dropdownStyle = theme => ({
+const dropdownStyle = (theme) => ({
   buttonLink: {
     [theme.breakpoints.down('md')]: {
       display: 'flex',
       marginLeft: '30px',
-      width: 'auto'
-    }
+      width: 'auto',
+    },
   },
   links: {
     width: '20px',
@@ -25,16 +26,16 @@ const dropdownStyle = theme => ({
       width: '30px',
       height: '30px',
       color: grayColor[9],
-      marginRight: '15px'
-    }
+      marginRight: '15px',
+    },
   },
   linkText: {
     zIndex: '4',
     ...defaultFont,
-    fontSize: '14px'
+    fontSize: '14px',
   },
   popperClose: {
-    pointerEvents: 'none'
+    pointerEvents: 'none',
   },
   popperResponsive: {
     [theme.breakpoints.down('md')]: {
@@ -47,8 +48,8 @@ const dropdownStyle = theme => ({
       border: '0',
       WebkitBoxShadow: 'none',
       boxShadow: 'none',
-      color: 'black'
-    }
+      color: 'black',
+    },
   },
   popperNav: {
     [theme.breakpoints.down('sm')]: {
@@ -72,11 +73,11 @@ const dropdownStyle = theme => ({
           padding: '10px 15px !important',
           '&:hover': {
             backgroundColor: 'hsla(0,0%,78%,.2)',
-            boxShadow: 'none'
-          }
-        }
-      }
-    }
+            boxShadow: 'none',
+          },
+        },
+      },
+    },
   },
   dropdown: {
     borderRadius: '3px',
@@ -92,7 +93,7 @@ const dropdownStyle = theme => ({
     listStyle: 'none',
     backgroundColor: whiteColor,
     WebkitBackgroundClip: 'padding-box',
-    backgroundClip: 'padding-box'
+    backgroundClip: 'padding-box',
   },
   dropdownItem: {
     ...defaultFont,
@@ -116,8 +117,34 @@ const dropdownStyle = theme => ({
     '&:hover': {
       backgroundColor: primaryColor[0],
       color: whiteColor,
-      ...primaryBoxShadow
-    }
+      ...primaryBoxShadow,
+    },
+  },
+  unreadItem: {
+    ...defaultFont,
+    backgroundColor: 'rgba(' + hexToRgb(overlayColor) + ', 0.50)',
+    fontSize: '13px',
+    padding: '10px 20px',
+    margin: '0 5px',
+    borderRadius: '2px',
+    WebkitTransition: 'all 150ms linear',
+    MozTransition: 'all 150ms linear',
+    OTransition: 'all 150ms linear',
+    MsTransition: 'all 150ms linear',
+    transition: 'all 150ms linear',
+    display: 'block',
+    clear: 'both',
+    fontWeight: '400',
+    lineHeight: '1.42857143',
+    color: grayColor[8],
+    whiteSpace: 'nowrap',
+    height: 'unset',
+    minHeight: 'unset',
+    '&:hover': {
+      backgroundColor: primaryColor[0],
+      color: whiteColor,
+      ...primaryBoxShadow,
+    },
   },
   noHoverMenuItem: {
     fontSize: '13px',
@@ -139,9 +166,8 @@ const dropdownStyle = theme => ({
     minHeight: 'unset',
     '&:hover': {
       backgroundColor: 'transparent',
-    }
-  }
-
+    },
+  },
 });
 
 export default dropdownStyle;

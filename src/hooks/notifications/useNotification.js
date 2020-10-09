@@ -5,6 +5,10 @@ import { notificationActions, useNotificationsContext } from './context';
 import { useAuth } from '../../pages/auth/context/auth';
 import { useHistory } from 'react-router';
 import getPathForNotification from '../../services/notificationPathResolver';
+import { useMutation } from 'react-query';
+import { markNotificationRead } from '../../apis/notifications';
+import authManager from '../../services/authManager';
+import { cloneDeep } from 'lodash';
 
 const useNotification = () => {
   const [
@@ -13,7 +17,7 @@ const useNotification = () => {
   ] = useNotificationsContext();
   const history = useHistory();
   const [{ currentUser }] = useAuth();
-
+  const [markAsRead] = useMutation(markNotificationRead, {});
   const notificationsHandler = {
     received(data) {
       dispatch({
@@ -40,10 +44,28 @@ const useNotification = () => {
   const closeNotification = () => {
     dispatch({ type: notificationActions.menuClosed });
   };
-
   const navigateToNotification = (notification) => {
     const resolvedNotification = getPathForNotification(notification);
     history.push(resolvedNotification.path, resolvedNotification.params);
+    closeNotification();
+    dispatch({
+      type: notificationActions.notificationVisited,
+      payload: { notificationId: notification.notificationId },
+    });
+    return markAsRead(notification.notificationId).then(({ data }) => {
+      let toBeRead = cloneDeep(
+        notifications.find(
+          (notify) => notify.notificationId === notification.notificationId,
+        ),
+      );
+      toBeRead.readAt = data.readAt;
+      authManager.updateUserInLocalStorage(currentUser, {
+        unreadNotifications: unreadCount + 1,
+        notifications: notifications.map((notify) =>
+          notify.notificationId === data.notificationId ? toBeRead : notify,
+        ),
+      });
+    });
   };
   return {
     notifications,

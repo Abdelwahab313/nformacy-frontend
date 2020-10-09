@@ -10,9 +10,12 @@ import {
 import { NotificationMessage } from '../../factory/notification';
 
 const TestComponent = () => {
-  const [{ notifications, unread }, dispatch] = useNotificationsContext();
+  const [
+    { notifications, unread, unreadCount },
+    dispatch,
+  ] = useNotificationsContext();
 
-  return { dispatch, notifications, unread };
+  return { dispatch, notifications, unread, unreadCount };
 };
 
 describe('NotificationsProvider', () => {
@@ -62,8 +65,27 @@ describe('NotificationsProvider', () => {
       expect(testComponentResult.current.notifications.length).toEqual(1);
     });
 
-    it('should set notifications empty array array as initial value if none given', () => {
-      expect(result.current.notifications.length).toEqual(0);
+    it('should not add a notification to notifications if its already in the state', () => {
+      const sameNotification = NotificationMessage();
+      const notifications = [
+        { notificationId: sameNotification.notification_id },
+      ];
+      const wrapper = ({ children }) => (
+        <NotificationsProvider initialNotifications={notifications}>
+          {children}
+        </NotificationsProvider>
+      );
+      const { result } = renderHook(() => TestComponent(), {
+        wrapper,
+      });
+      act(() =>
+        result.current.dispatch({
+          type: notificationActions.notificationReceived,
+          payload: { notification: sameNotification },
+        }),
+      );
+
+      expect(result.current.notifications.length).toEqual(1);
     });
 
     it('Should set notifications as unread when it dispatch receivedNotification action', () => {
@@ -74,6 +96,60 @@ describe('NotificationsProvider', () => {
         }),
       );
 
+      expect(testComponentResult.current.unread).toBe(true);
+    });
+
+    it('should decrease unread count and mark the passed in notification as read', () => {
+      const newNotification = NotificationMessage();
+      const mockedDate = 1602184753309;
+      Date.now = jest.fn(() => mockedDate);
+      act(() =>
+        dispatchToTestComponent({
+          type: notificationActions.notificationReceived,
+          payload: { notification: newNotification },
+        }),
+      );
+
+      act(() =>
+        dispatchToTestComponent({
+          type: notificationActions.notificationVisited,
+          payload: { notificationId: newNotification.notification_id },
+        }),
+      );
+
+      expect(testComponentResult.current.unreadCount).toBe(0);
+      expect(
+        testComponentResult.current.notifications.find(
+          (notification) =>
+            notification.notificationId === newNotification.notification_id,
+        ).readAt,
+      ).toBe(mockedDate);
+    });
+
+    it('should set notifications as unread', () => {
+      const newNotification = NotificationMessage();
+      act(() =>
+        dispatchToTestComponent({
+          type: notificationActions.notificationReceived,
+          payload: { notification: newNotification },
+        }),
+      );
+
+      act(() =>
+        dispatchToTestComponent({
+          type: notificationActions.menuToggled,
+          payload: { currentTarget: 'Meh' },
+        }),
+      );
+
+      act(() =>
+        dispatchToTestComponent({
+          type: notificationActions.notificationVisited,
+          payload: { notificationId: newNotification.notification_id },
+        }),
+      );
+
+      expect(testComponentResult.current.unreadCount).toBe(0);
       expect(testComponentResult.current.unread).toBe(true);
     });
   });

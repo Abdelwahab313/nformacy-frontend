@@ -1,12 +1,24 @@
 import React from 'react';
-import { createMuiTheme, StylesProvider, ThemeProvider } from '@material-ui/core/styles';
+import {
+  createMuiTheme,
+  StylesProvider,
+  ThemeProvider,
+} from '@material-ui/core/styles';
 import { create } from 'jss';
 import preset from 'jss-preset-default';
 import rtl from 'jss-rtl';
 import { AuthProvider } from 'pages/auth/context/auth';
 import authManager from 'services/authManager';
-import { grey, lighterPink, lightGrey, lightPink, darkBlue, white } from 'styles/colors';
+import {
+  grey,
+  lighterPink,
+  lightGrey,
+  lightPink,
+  darkBlue,
+  white,
+} from 'styles/colors';
 import MainRouter from 'layouts/MainRouter';
+import { QueryCache, ReactQueryCacheProvider } from 'react-query';
 
 const presets = preset().plugins;
 
@@ -32,6 +44,7 @@ const theme = createMuiTheme({
     fontFamily: 'SF UI Display',
   },
 });
+const queryCache = new QueryCache();
 
 function Main() {
   const { user } = authManager.retrieveUserToken();
@@ -40,7 +53,9 @@ function Main() {
     <ThemeProvider theme={theme}>
       <StylesProvider jss={jss}>
         <AuthProvider initialValue={{ currentUser: user }}>
-          <MainRouter/>
+          <ReactQueryCacheProvider queryCache={queryCache}>
+            <MainRouter />
+          </ReactQueryCacheProvider>
         </AuthProvider>
       </StylesProvider>
     </ThemeProvider>

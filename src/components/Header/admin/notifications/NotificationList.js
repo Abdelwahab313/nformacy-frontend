@@ -16,7 +16,7 @@ const NotificationsBody = () => {
       key={key}
       data-target-id={notification.targetId}
       onClick={() => navigateToNotification(notification)}
-      className={classes.dropdownItem}>
+      className={notification.readAt ? classes.dropdownItem : classes.unreadItem }>
       {notification.messageKey}
     </MenuItem>
   ));

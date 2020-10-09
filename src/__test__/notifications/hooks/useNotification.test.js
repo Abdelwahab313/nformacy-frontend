@@ -1,15 +1,9 @@
 import React from 'react';
 import { act, renderHook } from '@testing-library/react-hooks';
 import useNotification from '../../../hooks/notifications/useNotification';
-import {
-  CHANNEL_URL,
-  NOTIFICATION_CHANNEL_IDENTIFIER,
-} from '../../../settings';
+import { CHANNEL_URL, NOTIFICATION_CHANNEL_IDENTIFIER } from '../../../settings';
 import { Server } from 'mock-socket';
-import {
-  NotificationMessage,
-  UserNotification,
-} from '../../factory/notification';
+import { NotificationMessage, UserNotification } from '../../factory/notification';
 import { NotificationsProvider } from '../../../hooks/notifications/context';
 import { AuthProvider } from '../../../pages/auth/context/auth';
 import * as toastManager from 'react-toastify';
@@ -17,6 +11,9 @@ import { createMemoryHistory } from 'history';
 import { Router } from 'react-router';
 import getPathForNotification from '../../../services/notificationPathResolver';
 import { RoutesPaths } from '../../../constants/routesPath';
+import MockAdapter from 'axios-mock-adapter';
+import axios from 'axios';
+
 const createMessage = (notification = null) => {
   const sampleNotification = {
     id: 1,
@@ -31,6 +28,7 @@ const createMessage = (notification = null) => {
     message: toBeSentMessage,
   });
 };
+const mock = new MockAdapter(axios);
 
 const createUserNotification = (numberOfNotifications, read = false) => {
   const notifications = [];
@@ -140,7 +138,7 @@ describe('Notifications', () => {
 
       mockServer.on('connection', (socket) => {
         act(() => {
-          socket.send(createMessage(1, 'test'));
+          socket.send(createMessage(2, 'test'));
         });
         expect(result.current.unread).toEqual(true);
         testDone();
@@ -339,15 +337,29 @@ describe('Notifications', () => {
       );
     });
 
-    it('navigateToNotification should close menu and navigate to notification target and decrease unread count', () => {
+    it('navigateToNotification should close menu and navigate to notification target and decrease unread count', async () => {
       const history = createMemoryHistory();
       const pushSpy = jest.spyOn(history, 'push');
-      const notification = { targetId: 1, type: 'QuestionNotification' };
-
+      const notification = {
+        notificationId: 1,
+        targetId: 1,
+        readAt: null,
+        type: 'QuestionNotification',
+      };
+      const readAtTimeStamp = 4132987932;
+      const notificationAfterRead = {
+        notificationId: 1,
+        targetId: 1,
+        type: 'QuestionNotification',
+        readAt: readAtTimeStamp,
+      };
+      mock.onPost().reply(201, notificationAfterRead);
       wrapper = ({ children }) => (
         <Router history={history}>
           <AuthProvider>
-            <NotificationsProvider>{children}</NotificationsProvider>
+            <NotificationsProvider initialNotifications={[notification]}>
+              {children}
+            </NotificationsProvider>
           </AuthProvider>
         </Router>
       );
@@ -355,11 +367,94 @@ describe('Notifications', () => {
         wrapper,
       });
 
-      act(() => result.current.navigateToNotification(notification));
+      await act(() => result.current.navigateToNotification(notification));
 
       expect(pushSpy).toHaveBeenCalledWith('/admin/questions/edit', {
         questionId: 1,
       });
+    });
+
+    it('navigateToNotification should not do any things to the notification if its already read.', async () => {
+      cleanHookAndSocket();
+      const history = createMemoryHistory();
+      const unread = 5;
+      const allNotifications = createUserNotification(unread);
+      const readNotification = {
+        notificationId: 1,
+        targetId: 1,
+        type: 'QuestionNotification',
+        readAt: Date.now(),
+      };
+      allNotifications.push(readNotification);
+      mockServer = new Server(CHANNEL_URL);
+      const readAtTimeStamp = 4132987932;
+      const notificationAfterRead = {
+        notificationId: 1,
+        targetId: 1,
+        type: 'QuestionNotification',
+        readAt: readAtTimeStamp,
+      };
+      mock.onPost().reply(201, notificationAfterRead);
+      wrapper = ({ children }) => (
+        <Router history={history}>
+          <AuthProvider>
+            <NotificationsProvider
+              initialNotifications={allNotifications}
+              unreadCount={unread}>
+              {children}
+            </NotificationsProvider>
+          </AuthProvider>
+        </Router>
+      );
+      const { result } = renderHook(() => useNotification(), {
+        wrapper,
+      });
+
+      await act(() => result.current.navigateToNotification(readNotification));
+
+      expect(result.current.unreadCount).toEqual(5);
+    });
+
+    it('navigateToNotification should update localStorage with the readNotification.', async (done) => {
+      cleanHookAndSocket();
+      localStorage.clear();
+      const notification = {
+        notificationId: 1,
+        targetId: 1,
+        readAt: null,
+        type: 'QuestionNotification',
+      };
+      const readAtTimeStamp = 4132987932;
+      const notificationAfterRead = {
+        notificationId: 1,
+        targetId: 1,
+        type: 'QuestionNotification',
+        readAt: readAtTimeStamp,
+      };
+      mock.onPost().reply(201, notificationAfterRead);
+      mockServer = new Server(CHANNEL_URL);
+      const history = createMemoryHistory();
+      wrapper = ({ children }) => (
+        <Router history={history}>
+          <AuthProvider>
+            <NotificationsProvider initialNotifications={[notification]}>
+              {children}
+            </NotificationsProvider>
+          </AuthProvider>
+        </Router>
+      );
+      const { result } = renderHook(() => useNotification(), {
+        wrapper,
+      });
+
+      await act(() => result.current.navigateToNotification(notification));
+
+      setTimeout(() => {
+        const loadedUser = JSON.parse(localStorage.getItem('user'));
+        expect(loadedUser.unreadNotifications).toEqual(1);
+        expect(loadedUser.notifications[0].readAt).toEqual(readAtTimeStamp);
+        done();
+      }, 500);
     });
   });
 });
