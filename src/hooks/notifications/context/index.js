@@ -1,7 +1,14 @@
 import React, { useContext, useReducer } from 'react';
-import { ActionCableProvider } from '../../useActionCable';
+import { ActionCableProvider } from '../useActionCable';
 import { CHANNEL_URL } from '../../../settings';
-import { clearToast, closeMenu, receiveNotification, toggleMenu, visitNotification } from './actions';
+import {
+  clearToast,
+  closeMenu,
+  loadNotifications,
+  receiveNotification,
+  toggleMenu,
+  visitNotification,
+} from './actions';
 
 const defaultStates = {
   notifications: [],
@@ -13,6 +20,7 @@ const defaultStates = {
 const NotificationsContext = React.createContext();
 
 export const notificationActions = {
+  notificationsLoaded: 'notificationsLoaded',
   notificationReceived: 'notificationReceived',
   notificationVisited: 'notificationVisited',
   menuToggled: 'menuToggled',
@@ -33,17 +41,12 @@ const initContext = (initialValue) => {
   return initialValue || defaultStates;
 };
 
-export const NotificationsProvider = ({
-  children,
-  initialNotifications = [],
-  unreadCount = 0,
-}) => {
+export const NotificationsProvider = ({ children }) => {
   const { Provider } = NotificationsContext;
   const initialState = {
     ...defaultStates,
-    notifications: initialNotifications,
-    unread: unreadCount > 0,
-    unreadCount,
+    notifications: [],
+    unreadCount: 0,
   };
   return (
     <Provider
@@ -55,6 +58,8 @@ export const NotificationsProvider = ({
 
 const NotificationsReducer = (state, action) => {
   switch (action.type) {
+    case notificationActions.notificationsLoaded:
+      return loadNotifications(state, action);
     case notificationActions.notificationReceived:
       return receiveNotification(action, state);
     case notificationActions.menuToggled:

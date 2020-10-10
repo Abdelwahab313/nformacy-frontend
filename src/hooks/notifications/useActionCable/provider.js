@@ -5,7 +5,7 @@ import ActionCable from 'action-cable-react-jwt';
 // ActionCableHooks
 import { ActionCableContext } from './context';
 
-import AuthManager from '../../services/authManager';
+import AuthManager from '../../../services/authManager';
 
 const propTypes = {
   url: PropTypes.string,

@@ -1,28 +1,25 @@
 import { notificationActions, useNotificationsContext } from './context';
-import { useAuth } from '../../pages/auth/context/auth';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
-const useToastListener = () => {
+const useToastListener = (onToastClick) => {
   const [
     { showToast, toastToBeDisplayed },
     dispatch,
   ] = useNotificationsContext();
-  const [{ currentUser }] = useAuth();
 
+  const visitNotification = () => {
+    onToastClick(toastToBeDisplayed);
+  };
   useEffect(() => {
     if (showToast) {
       toast(toastToBeDisplayed.messageKey, {
         toastId: toastToBeDisplayed.notificationId,
-        onClick: () => {
-          dispatch({
-            type: notificationActions.notificationVisited,
-            payload: { notification: toastToBeDisplayed, currentUser },
-          });
-        },
+        onClick: visitNotification,
       });
       dispatch({ type: notificationActions.toastCleared });
     }
+    return () => dispatch({ type: notificationActions.toastCleared });
   }, [showToast]);
 };
 

@@ -7,6 +7,7 @@ export const PASSWORD = 'testpassword';
 export const ADVISER_USERNAME = 'adviser@test.com';
 export const ADVISER_PASSWORD = 'test1234';
 export const ADVISER_WITH_NO_NOTIFICATION = 'notifications@adviser.com';
+export const ADVISER_WITH_OLD_NOTIFICATION = 'oldNotifications@adviser.com';
 export const FREELANCER_USERNAME = 'freelancer@test.com';
 export const FREELANCER_PASSWORD = 'test1234';
 export const ADMIN_USERNAME = 'admin@test.com';

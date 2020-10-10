@@ -5,7 +5,6 @@ Feature: Adviser notifications
     Given Previous interactions are cleared from localstorage
     And I login in as an advisor
     And I am on the questions dashboard
-    And I have zero notification
 
   Scenario: Show recent 10 notifications history in the menu bar upon login
     Given I have 15 notifications.
@@ -65,3 +64,10 @@ Feature: Adviser notifications
     Then I should be redirected to the question details page related to the notification
     And Notification menu should be closed
     And unread notifications count decrease by 1.
+
+  Scenario: Show see "see more notifications" if i have old unread unread notifications
+    Given I Logout from admin dashboard.
+    And I Login with adviser that have old unread notifications
+    And I am on the questions dashboard
+    When I click on notifications menu.
+    Then I should see "See more..." in the end of the menu.

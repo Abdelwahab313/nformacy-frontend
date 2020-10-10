@@ -13,18 +13,3 @@ export const NotificationMessage = (notification = {}, read = false) => {
     ...notification,
   };
 };
-
-export const UserNotification = (notification = {}, read = false) => {
-  const createdAtInRecentDays = 7;
-  const readAtInRecentDays = 1;
-  return {
-    id: faker.random.uuid(),
-    params: {
-      targetId: faker.random.uuid(),
-      messageKey: faker.lorem.sentence(),
-    },
-    createdAt: faker.date.recent(createdAtInRecentDays),
-    readAt: read ? faker.date.recent(readAtInRecentDays) : undefined,
-    ...notification,
-  };
-};

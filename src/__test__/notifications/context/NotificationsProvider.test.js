@@ -14,8 +14,9 @@ import { CHANNEL_URL } from '../../../settings';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import history from '../../../services/navigation';
+import faker from 'faker';
 
-const TestComponent = () => {
+export const TestComponent = () => {
   const [
     { notifications, unread, unreadCount, menuOpened },
     dispatch,
@@ -57,7 +58,7 @@ describe('NotificationsProvider', () => {
     });
 
     it('should be used within NotificationsProvider and provides initial value for notifications', () => {
-      expect(result.current.notifications).toEqual([]);
+      expect(testComponentResult.current.notifications).toEqual([]);
     });
 
     it('should add a notification to notifications state once dispatching receivedNotification action', () => {
@@ -106,124 +107,10 @@ describe('NotificationsProvider', () => {
 
       expect(testComponentResult.current.unread).toBe(true);
     });
-
-    it('should decrease unread count and mark the passed in notification as read', () => {
-      const newNotification = NotificationMessage();
-      const notification = {
-        notificationId: newNotification.notification_id,
-        targetId: 1,
-        readAt: Date.now(),
-        type: 'QuestionNotification',
-      };
-      const mockedDate = 1602184753309;
-      const readAtTimeStamp = 4132987932;
-      const notificationAfterRead = {
-        notificationId: 1,
-        targetId: 1,
-        type: 'QuestionNotification',
-        readAt: readAtTimeStamp,
-      };
-      mock.onPost().reply(201, notificationAfterRead);
-
-      Date.now = jest.fn(() => mockedDate);
-      act(() =>
-        dispatchToTestComponent({
-          type: notificationActions.notificationReceived,
-          payload: { notification: newNotification },
-        }),
-      );
-
-      act(() =>
-        dispatchToTestComponent({
-          type: notificationActions.notificationVisited,
-          payload: { notification: notification },
-        }),
-      );
-
-      expect(testComponentResult.current.unreadCount).toBe(0);
-      expect(
-        testComponentResult.current.notifications.find(
-          (notification) =>
-            notification.notificationId === newNotification.notification_id,
-        ).readAt,
-      ).toBe(mockedDate);
-    });
-
-    it('should set notifications as read', () => {
-      const newNotification = NotificationMessage();
-      const notification = {
-        notificationId: newNotification.notification_id,
-        targetId: 1,
-        readAt: Date.now(),
-        type: 'QuestionNotification',
-      };
-      const readAtTimeStamp = 4132987932;
-      const notificationAfterRead = {
-        notificationId: notification.notificationId,
-        targetId: 1,
-        type: 'QuestionNotification',
-        readAt: readAtTimeStamp,
-      };
-      mock.onPost().reply(201, notificationAfterRead);
-      act(() =>
-        dispatchToTestComponent({
-          type: notificationActions.notificationReceived,
-          payload: { notification: newNotification },
-        }),
-      );
-
-      act(() =>
-        dispatchToTestComponent({
-          type: notificationActions.menuToggled,
-          payload: { currentTarget: 'Meh' },
-        }),
-      );
-
-      act(() =>
-        dispatchToTestComponent({
-          type: notificationActions.notificationVisited,
-          payload: { notification: notification },
-        }),
-      );
-
-      expect(testComponentResult.current.unreadCount).toBe(0);
-      expect(testComponentResult.current.unread).toBe(true);
-    });
   });
 
   describe('Navigation to specific notification', () => {
-    let wrapper, mockServer, unMountRenderedHook, unMountSharedHook;
-
-    beforeEach(() => {
-      mockServer = new Server(CHANNEL_URL);
-      wrapper = ({ children }) => (
-        <AuthProvider>
-          <NotificationsProvider>{children}</NotificationsProvider>
-        </AuthProvider>
-      );
-
-      const rendered = renderHook(() => useNotification(), {
-        wrapper,
-      });
-      const testComponent = renderHook(() => TestComponent(), {
-        wrapper,
-      });
-      unMountRenderedHook = rendered.unmount;
-      unMountSharedHook = testComponent.unmount;
-    });
-
-    function cleanHookAndSocket() {
-      mockServer.stop();
-      unMountSharedHook();
-      unMountRenderedHook();
-    }
-
-    afterEach(() => {
-      cleanHookAndSocket();
-      localStorage.clear();
-    });
-
-    it('navigates to notification target', () => {
+    it('navigates to notification target', async () => {
       const pushSpy = jest.spyOn(history, 'push');
       const notification = {
         notificationId: 1,
@@ -239,32 +126,36 @@ describe('NotificationsProvider', () => {
         readAt: readAtTimeStamp,
       };
       mock.onPost().reply(201, notificationAfterRead);
-      wrapper = ({ children }) => (
-        <Router history={history}>
+      const recentNotificationsResponse = {
+        notifications: [notification],
+        unreadNotifications: 1,
+      };
+      mock.onGet().reply(200, recentNotificationsResponse);
+
+      await act(async () => {
+        const wrapper = ({ children }) => (
           <AuthProvider>
-            <NotificationsProvider initialNotifications={[notification]}>
-              {children}
-            </NotificationsProvider>
+            <NotificationsProvider>{children}</NotificationsProvider>
           </AuthProvider>
-        </Router>
-      );
-      const { result } = renderHook(() => TestComponent(), {
-        wrapper,
+        );
+        const { result, waitForNextUpdate, waitForValueToChange } = renderHook(
+          () => useNotification(),
+          {
+            wrapper,
+          },
+        );
+        await waitForNextUpdate();
+        await waitForValueToChange(() => result.current.notifications);
+
+        result.current.visitNotification(notification);
+        await waitForNextUpdate();
       });
-
-      act(() =>
-        result.current.dispatch({
-          type: notificationActions.notificationVisited,
-          payload: { notification: notification },
-        }),
-      );
-
       expect(pushSpy).toHaveBeenCalledWith('/admin/questions/edit', {
         questionId: 1,
       });
     });
 
-    it('marks notification as read', () => {
+    it('marks notification as read', async () => {
       const notification = {
         notificationId: 1,
         targetId: 1,
@@ -284,7 +175,7 @@ describe('NotificationsProvider', () => {
         type: 'QuestionNotification',
         readAt: readAtTimeStamp,
       };
-      wrapper = ({ children }) => (
+      const wrapper = ({ children }) => (
         <Router history={history}>
           <AuthProvider>
             <NotificationsProvider
@@ -324,38 +215,7 @@ describe('NotificationsProvider', () => {
         readAt: readAtTimeStamp,
       };
       mock.onPost().reply(201, notificationAfterRead);
-      wrapper = ({ children }) => (
-        <Router history={history}>
-          <AuthProvider>
-            <NotificationsProvider initialNotifications={[notification]}>
-              {children}
-            </NotificationsProvider>
-          </AuthProvider>
-        </Router>
-      );
-      const { result } = renderHook(() => TestComponent(), {
-        wrapper,
-      });
-
-
-      act(() =>
-        result.current.dispatch({
-          type: notificationActions.notificationVisited,
-          payload: { notification: notification },
-        }),
-      );
-
-      expect(result.current.menuOpened).toBe(null);
-    });
-
-    it('should not do any thing to the notification if its already read', () => {
-      const notification = {
-        notificationId: 1,
-        targetId: 1,
-        readAt: null,
-        type: 'QuestionNotification',
-      };
-      wrapper = ({ children }) => (
+      const wrapper = ({ children }) => (
         <Router history={history}>
           <AuthProvider>
             <NotificationsProvider initialNotifications={[notification]}>
@@ -370,63 +230,12 @@ describe('NotificationsProvider', () => {
 
       act(() =>
         result.current.dispatch({
-          type: notificationActions.menuToggled,
-          payload: { currentTarget: '' },
-        }),
-      );
-      act(() =>
-        result.current.dispatch({
           type: notificationActions.notificationVisited,
           payload: { notification: notification },
         }),
       );
 
       expect(result.current.menuOpened).toBe(null);
-    });
-
-    it('navigateToNotification should update localStorage with the readNotification.', (done) => {
-      const notification = {
-        notificationId: 1,
-        targetId: 1,
-        readAt: null,
-        type: 'QuestionNotification',
-      };
-      const readAtTimeStamp = 4132987932;
-      const notificationAfterRead = {
-        notificationId: 1,
-        targetId: 1,
-        type: 'QuestionNotification',
-        readAt: readAtTimeStamp,
-      };
-      mock.onPost().reply(201, notificationAfterRead);
-      wrapper = ({ children }) => (
-        <Router history={history}>
-          <AuthProvider>
-            <NotificationsProvider
-              initialNotifications={[notification]}
-              unreadCount={2}>
-              {children}
-            </NotificationsProvider>
-          </AuthProvider>
-        </Router>
-      );
-      const { result } = renderHook(() => TestComponent(), {
-        wrapper,
-      });
-
-      act(() =>
-        result.current.dispatch({
-          type: notificationActions.notificationVisited,
-          payload: { notification: notification },
-        }),
-      );
-
-      setTimeout(() => {
-        const loadedUser = JSON.parse(localStorage.getItem('user'));
-        expect(loadedUser.unreadNotifications).toEqual(1);
-        expect(loadedUser.notifications[0].readAt).toEqual(readAtTimeStamp);
-        done();
-      }, 500);
     });
   });
 
@@ -445,19 +254,5 @@ describe('NotificationsProvider', () => {
         ),
       );
     }
-  });
-
-  it('should set notifications to the given notifications array as initial value', () => {
-    const notifications = [1, 2, 3];
-    const wrapper = ({ children }) => (
-      <NotificationsProvider initialNotifications={notifications}>
-        {children}
-      </NotificationsProvider>
-    );
-    const { result } = renderHook(() => TestComponent(), {
-      wrapper,
-    });
-
-    expect(result.current.notifications.length).toEqual(3);
   });
 });

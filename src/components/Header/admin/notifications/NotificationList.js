@@ -1,34 +1,26 @@
 import useNotification from '../../../../hooks/notifications/useNotification';
 import MenuList from '@material-ui/core/MenuList';
 import MenuItem from '@material-ui/core/MenuItem';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import styles from '../../../../assets/jss/material-dashboard-react/components/headerLinksStyle';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import {
-  notificationActions,
-  useNotificationsContext,
-} from '../../../../hooks/notifications/context';
-import { useAuth } from '../../../../pages/auth/context/auth';
+import { useNotificationsContext } from '../../../../hooks/notifications/context';
 
 const useStyles = makeStyles(styles);
 
 const NotificationsBody = () => {
   const classes = useStyles();
-  const [{ currentUser }] = useAuth();
-  const [, dispatch] = useNotificationsContext();
-  const { notifications } = useNotification();
+  const [{ notifications }] = useNotificationsContext();
+  const { visitNotification } = useNotification();
 
-  return notifications.map((notification, key) => (
+  if (!notifications) return null;
+
+  return notifications?.map((notification, key) => (
     <MenuItem
       key={key}
       data-target-id={notification.targetId}
-      onClick={() =>
-        dispatch({
-          type: notificationActions.notificationVisited,
-          payload: { notification: notification, currentUser },
-        })
-      }
+      onClick={() => visitNotification(notification)}
       className={
         notification.readAt ? classes.dropdownItem : classes.unreadItem
       }>
@@ -39,10 +31,12 @@ const NotificationsBody = () => {
 
 const NotificationsHeader = () => {
   const classes = useStyles();
-  const { closeNotification, notifications } = useNotification();
+  const [{ notifications }] = useNotificationsContext();
+  const { closeNotification } = useNotification();
+  if (!notifications) return null;
   return (
     <>
-      {notifications.length === 0 && (
+      {notifications?.length === 0 && (
         <MenuItem
           onClick={closeNotification}
           className={classes.noHoverMenuItem}>
@@ -55,11 +49,17 @@ const NotificationsHeader = () => {
 
 const NotificationsFooter = () => {
   const classes = useStyles();
-
-  const { closeNotification, unreadCount } = useNotification();
+  const [{ unreadCount, notifications }] = useNotificationsContext();
+  const oldUnreadNotifications = useMemo(
+    () =>
+      notifications?.every((notification) => notification.readAt) &&
+      unreadCount > 0,
+    [unreadCount, notifications],
+  );
+  const { closeNotification } = useNotification();
   return (
     <>
-      {unreadCount > 10 && (
+      {(unreadCount > 10 || oldUnreadNotifications) && (
         <MenuItem onClick={closeNotification} className={classes.dropdownItem}>
           See more...
         </MenuItem>

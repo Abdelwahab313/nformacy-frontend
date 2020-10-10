@@ -6,18 +6,14 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import styles from '../../../../assets/jss/material-dashboard-react/components/headerLinksStyle';
 import { notificationsListId } from './index';
+import { useNotificationsContext } from '../../../../hooks/notifications/context';
 
 const useStyles = makeStyles(styles);
 
 const NotificationsIcon = () => {
   const classes = useStyles();
-  const {
-    menuOpened,
-    unread,
-    unreadCount,
-    closeNotification,
-    toggleMenu,
-  } = useNotification();
+  const { closeNotification, toggleMenu } = useNotification();
+  const [{ menuOpened, unread, unreadCount }] = useNotificationsContext();
 
   return (
     <Button

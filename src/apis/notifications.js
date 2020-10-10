@@ -8,3 +8,12 @@ export const markNotificationRead = (notificationId) => {
     url: `${API_BASE_URL}/notifications/${notificationId}/read`,
   }).then((response) => camelizeKeys(response));
 };
+
+
+export const fetchRecentNotifications = () => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/notifications/recent`,
+  }).then((response) => camelizeKeys(response));
+};
+

@@ -1,9 +1,9 @@
 import { renderHook } from '@testing-library/react-hooks';
 import React, { useContext } from 'react';
-import { ActionCableContext } from '../../../../hooks/useActionCable/context';
+import { ActionCableContext } from '../../../../hooks/notifications/useActionCable/context';
 import LocalStorageMock from '../../../localStorage';
 import { CHANNEL_URL } from '../../../../settings';
-import { ActionCableProvider } from '../../../../hooks/useActionCable';
+import { ActionCableProvider } from '../../../../hooks/notifications/useActionCable';
 
 const MockedConsumer = () => {
   const { conn } = useContext(ActionCableContext);

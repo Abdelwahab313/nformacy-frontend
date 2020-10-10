@@ -111,12 +111,12 @@ When(/^unread notifications count decrease by (\d+)\.$/, function(number) {
   const notificationsCountBeforeClick = Number(
     getFromLocalStorage('notificationsCountBeforeClick'),
   );
+  cy.wait(1000);
   cy.get('#notificationsCount').should('be.visible');
   cy.get('#notificationsCount').then((element) => {
-    expect([
-      (notificationsCountBeforeClick - number).toString(),
-      notificationsCountBeforeClick.toString(),
-    ]).to.include(element.text().trim());
+    expect((notificationsCountBeforeClick - number).toString()).to.include(
+      element.text().trim(),
+    );
   });
 });
 When(/^I keep track of current notifications count$/, function() {

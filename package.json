@@ -129,12 +129,12 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm run test:nowatch && npm run e2e",
+      "pre-commit": "lint-staged && npm run test:nowatch && npm run e2e:force",
       "post-commit": "npm run stop:test"
     }
   },
   "lint-staged": {
-    "*.+(js|jsx)": [
+    "!(src/__test__/**/*).js": [
       "npm run lint:nosave"
     ],
     "*.+(json|css|md)": [

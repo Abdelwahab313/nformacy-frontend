@@ -5,7 +5,11 @@ import {
   signUpAndSetTokens,
 } from '../../helperFunctions';
 import faker from 'faker';
-import { BASE_URL } from '../../defualtTestValues';
+import {
+  ADVISER_WITH_NO_NOTIFICATION,
+  ADVISER_WITH_OLD_NOTIFICATION,
+  BASE_URL,
+} from '../../defualtTestValues';
 
 Given(/^I am a freelancer$/, function() {});
 
@@ -38,5 +42,9 @@ Given(/^I Logout from admin dashboard\.$/, function() {
   cy.visit(BASE_URL + '/admin/logout');
 });
 Given(/^I Login with adviser that does not have notifications$/, function() {
-  loginAsAnAdvisor(true);
+  loginAsAnAdvisor(ADVISER_WITH_NO_NOTIFICATION);
+});
+
+Given(/^I Login with adviser that have old unread notifications$/, function() {
+  loginAsAnAdvisor(ADVISER_WITH_OLD_NOTIFICATION);
 });

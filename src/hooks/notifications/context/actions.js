@@ -1,24 +1,20 @@
-import { current, produce } from 'immer';
+import produce from 'immer';
 import getPathForNotification from '../../../services/notificationPathResolver';
 import history from '../../../services/navigation';
-import { markNotificationRead } from '../../../apis/notifications';
-import { cloneDeep } from 'lodash';
-import authManager from '../../../services/authManager';
 
 const MAX_NOTIFICATIONS = 10;
-const Notification = (notification) => {
+export const Notification = (notification) => {
   return {
     notificationId: notification.notification_id,
     targetId: notification.target_id,
     messageKey: notification.message_key,
     createdAt: notification.created_at,
     type: notification.type,
-    readAt: null,
+    readAt: notification.read_at || null,
   };
 };
-const isNullOrUndefined = (value) => value == undefined;
+export const isNullOrUndefined = (value) => value == undefined;
 export const receiveNotification = (action, state) => {
-  const currentUser = action.payload.currentUser;
   const receivedNotification = Notification(action.payload.notification);
 
   return produce(state, (draftState) => {
@@ -34,10 +30,6 @@ export const receiveNotification = (action, state) => {
     }
     draftState.notifications.unshift(receivedNotification);
     draftState.unreadCount = state.unreadCount + 1;
-    authManager.updateUserInLocalStorage(currentUser, {
-      unreadNotifications: draftState.unreadCount,
-      notifications: current(draftState.notifications),
-    });
   });
 };
 export const toggleMenu = (state, action) => {
@@ -57,52 +49,26 @@ export const closeMenu = (state) => {
 };
 export const visitNotification = (state, action) => {
   return produce(state, (draftState) => {
-    const notificationToBeVisited = state.notifications.find(
-      (notify) =>
-        notify.notificationId === action.payload.notification.notificationId,
-    );
-    const currentUser = action.payload.currentUser;
-    const toBeRead = draftState.notifications.find(
-      (notification) =>
-        notification.notificationId ===
-        action.payload.notification.notificationId,
-    );
-    if (isNullOrUndefined(toBeRead.readAt)) {
-      draftState.unreadCount -= 1;
-      toBeRead.readAt = Date.now();
-    }
-    draftState.unread = true;
+    draftState.menuOpened = null;
+    draftState.unread = draftState.unreadCount > 0;
     const resolvedNotification = getPathForNotification(
       action.payload.notification,
     );
-    draftState.menuOpened = null;
     history.push(resolvedNotification.path, resolvedNotification.params);
-    markNotificationRead(action.payload.notification.notificationId).then(
-      ({ data }) => {
-        let toBeRead = cloneDeep(
-          state.notifications.find(
-            (notify) =>
-              notify.notificationId ===
-              action.payload.notification.notificationId,
-          ),
-        );
-        toBeRead.readAt = data.readAt;
-        authManager.updateUserInLocalStorage(currentUser, {
-          unreadNotifications:
-            notificationToBeVisited.readAt != null
-              ? state.unreadCount
-              : state.unreadCount - 1,
-          notifications: state.notifications.map((notify) =>
-            notify.notificationId === data.notificationId ? toBeRead : notify,
-          ),
-        });
-      },
-    );
   });
 };
 export const clearToast = (state) => {
   return produce(state, (draftState) => {
     draftState.showToast = false;
     draftState.toastToBeDisplayed = undefined;
+  });
+};
+export const loadNotifications = (state, action) => {
+  return produce(state, (draftState) => {
+    draftState.unreadCount = action.payload.unreadNotifications;
+    draftState.notifications = action.payload.notifications;
+    draftState.unread = !draftState.menuOpened
+      ? draftState.unreadCount > 0
+      : draftState.unread;
   });
 };

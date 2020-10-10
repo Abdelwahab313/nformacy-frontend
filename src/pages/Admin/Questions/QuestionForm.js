@@ -36,6 +36,7 @@ import { sendToAdmin } from 'apis/questionsAPI';
 import authManager from '../../../services/authManager';
 
 const noActionStates = [
+  'pending_assignment',
   'pending_deployment_to_roaster',
   'freelancer_answers',
   'answers_rating',
