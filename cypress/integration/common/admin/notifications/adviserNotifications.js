@@ -85,6 +85,7 @@ Then(/^I should see "([^"]*)"\.$/, function(message) {
     .should('contain.text', message);
 });
 Then(/^I should see "([^"]*)" in the end of the menu\.$/, function(message) {
+  cy.wait(1000);
   cy.get('#notification-menu-list-grow')
     .find('li')
     .last()

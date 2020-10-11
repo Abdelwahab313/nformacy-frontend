@@ -15,18 +15,14 @@ const useNotification = () => {
     { menuOpened, notifications, unread, unreadCount },
     dispatch,
   ] = useNotificationsContext();
-  const { isPreviousData } = useQuery(
-    'notifications',
-    fetchRecentNotifications,
-    {
-      onSuccess: (response) => {
-        dispatch({
-          type: notificationActions.notificationsLoaded,
-          payload: { ...response.data, firstFetch: isPreviousData },
-        });
-      },
+  useQuery('notifications', fetchRecentNotifications, {
+    onSuccess: (response) => {
+      dispatch({
+        type: notificationActions.notificationsLoaded,
+        payload: response.data,
+      });
     },
-  );
+  });
   const [markRead] = useMutation(markNotificationRead, {
     onSuccess: () => queryCache.invalidateQueries('notifications'),
   });
