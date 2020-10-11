@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 // @material-ui/core components
 // core components
 import GridItem from 'components/Grid/GridItem.js';
@@ -8,7 +8,6 @@ import Card from 'components/Card/Card.js';
 import CardHeader from 'components/Card/CardHeader.js';
 import CardFooter from 'components/Card/CardFooter.js';
 import { useHistory, useLocation } from 'react-router';
-import useFetchData from 'hooks/useFetchData';
 import { fetchQuestionDetails } from 'apis/questionsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
@@ -17,6 +16,7 @@ import QuestionForm from '../QuestionForm';
 import { useStyles } from '../../../../styles/Admin/questionFormStyles';
 import AnswerView from '../AnswerView';
 import authManager from '../../../../services/authManager';
+import { useQuery, useQueryCache } from 'react-query';
 
 const QuestionDetails = () => {
   const classes = useStyles();
@@ -29,10 +29,13 @@ const QuestionDetails = () => {
 
   const location = useLocation();
   const questionId = location.state.questionId;
-
-  let { isLoading, fetchedData: fetchedQuestion, refresh } = useFetchData(() =>
-    fetchQuestionDetails(questionId),
-  );
+  const queryCache = useQueryCache();
+  let { isLoading } = useQuery(questionId, fetchQuestionDetails, {
+    onSuccess: (response) => {
+      setQuestionDetails(response.data);
+      queryCache.invalidateQueries('notifications');
+    },
+  });
 
   const setRating = useCallback(
     (answerIndex, rating) => {
@@ -43,17 +46,6 @@ const QuestionDetails = () => {
     [questionDetails, setQuestionDetails],
   );
 
-  useEffect(() => {
-    if (!!fetchedQuestion && !!fetchedQuestion.id) {
-      setQuestionDetails(fetchedQuestion);
-    }
-  }, [fetchedQuestion]);
-
-  useEffect(() => {
-    if (!!questionId) {
-      refresh(() => fetchQuestionDetails(questionId));
-    }
-  }, [questionId]);
   if (isLoading) {
     return <LoadingCircle />;
   }

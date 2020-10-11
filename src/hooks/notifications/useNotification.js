@@ -3,7 +3,10 @@ import useActionCable from './useActionCable';
 import { NOTIFICATION_CHANNEL_IDENTIFIER } from '../../settings';
 import { notificationActions, useNotificationsContext } from './context';
 import useToastListener from './useToastListener';
-import { fetchRecentNotifications, markNotificationRead } from '../../apis/notifications';
+import {
+  fetchRecentNotifications,
+  markNotificationRead,
+} from '../../apis/notifications';
 import { useMutation, useQuery, useQueryCache } from 'react-query';
 
 const useNotification = () => {

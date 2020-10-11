@@ -40,14 +40,6 @@ Feature: Adviser notifications
     When I click on notifications menu.
     Then I should see "See more..." in the end of the menu.
 
-  Scenario: Receive notification when admin send a question to review and edit
-    When Admin send a question to me to review.
-    Then I should receive a notification about the assignment in the notifications section in the navbar and the notification counter increase by 1.
-    And A toast should be displayed with the notification.
-    When I click on notifications menu.
-    Then I should see the newly received notification.
-    And I should see toast notification with the newly received notification
-
   Scenario: Click on notification from notifications menu in navbar
     When Admin send a question to me to review.
     And I keep track of current notifications count
@@ -71,3 +63,26 @@ Feature: Adviser notifications
     And I am on the questions dashboard
     When I click on notifications menu.
     Then I should see "See more..." in the end of the menu.
+
+  Scenario: Visit the question related to the notification directly.
+    Given Admin send a question to me to review.
+    And I keep track of current notifications count
+    When I am on the questions dashboard
+    And I visit the sent question from question dashboard
+    And unread notifications count decrease by 1.
+
+  Scenario: Receive notification when admin send a question to review and edit
+    When Admin send a question to me to review.
+    Then I should receive a notification about the assignment in the notifications section in the navbar and the notification counter increase by 1.
+    And A toast should be displayed with the notification "pending_adviser_acceptance".
+    When I click on notifications menu.
+    Then I should see the newly received notification with message "pending_adviser_acceptance".
+    And I should see toast notification with the newly received notification
+
+  Scenario: Receive notification when admin deploy a question to roaster i am assigned to
+    When Admin deploy a question i am assigned to
+    Then I should receive a notification about the assignment in the notifications section in the navbar and the notification counter increase by 1.
+    And A toast should be displayed with the notification "admin_deployed_question".
+    When I click on notifications menu.
+    Then I should see the newly received notification with message "admin_deployed_question".
+    And I should see toast notification with the newly received notification

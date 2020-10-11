@@ -3,9 +3,15 @@ import faker from 'faker';
 import {
   clearLocalStorage,
   createQuestion,
+  createQuestionWithState,
   getFromLocalStorage,
   setToLocalStorage,
 } from '../../../../helperFunctions';
+import {
+  ADVISER_PASSWORD,
+  ADVISER_USERNAME,
+  BACKEND_WEB_URL,
+} from '../../../../defualtTestValues';
 
 Given(/^I have zero notification$/, function() {
   cy.get('#notificationsButton').click();
@@ -27,20 +33,17 @@ Then(
   },
 );
 
-Then(/^A toast should be displayed with the notification\.$/, function() {
-  cy.get('.Toastify__toast-body').contains('pending_adviser_acceptance');
-});
+Then(
+  /^A toast should be displayed with the notification "([^"]*)"\.$/,
+  function(message) {
+    cy.get('.Toastify__toast-body').contains(message);
+  },
+);
 
 When(/^I click on notifications menu\.$/, function() {
   cy.get('#notificationsButton').click();
 });
 
-Then(/^I should see the newly received notification\.$/, function() {
-  cy.get('#notification-menu-list-grow')
-    .find('li')
-    .first()
-    .contains('pending_adviser_acceptance');
-});
 Given(/^I have (\d+) notifications\.$/, function(counts) {
   createQuestion({}, counts);
 });
@@ -112,7 +115,6 @@ When(/^unread notifications count decrease by (\d+)\.$/, function(number) {
     getFromLocalStorage('notificationsCountBeforeClick'),
   );
   cy.wait(1000);
-  cy.get('#notificationsCount').should('be.visible');
   cy.get('#notificationsCount').then((element) => {
     expect((notificationsCountBeforeClick - number).toString()).to.include(
       element.text().trim(),
@@ -127,3 +129,42 @@ When(/^I keep track of current notifications count$/, function() {
 Given(/^Previous interactions are cleared from localstorage$/, function() {
   clearLocalStorage();
 });
+When(/^I visit the sent question from question dashboard$/, function() {
+  const createdQuestion = getFromLocalStorage('createdQuestion');
+  cy.get(`a[data-reference='${createdQuestion.referenceNumber}']`)
+    .parent()
+    .parent()
+    .click();
+  cy.wait(1000);
+});
+
+When(/^Admin deploy a question i am assigned to$/, function() {
+  cy.request('POST', `${BACKEND_WEB_URL}/auth/login`, {
+    email: ADVISER_USERNAME,
+    password: ADVISER_PASSWORD,
+  }).then(() => {
+    createQuestionWithState({
+      state: 'pending_deployment_to_roaster',
+      current_action_time: '',
+    }).then(() => {
+      const createdQuestion = getFromLocalStorage('createdQuestion');
+      const existingAdminToken = Cypress.env('adminTokens');
+      cy.request({
+        method: 'POST',
+        url: `${BACKEND_WEB_URL}/questions/${createdQuestion.id}/deploy`,
+        headers: {
+          Authorization: `Bearer ${existingAdminToken}`,
+        },
+      });
+    });
+  });
+});
+Then(
+  /^I should see the newly received notification with message "([^"]*)"\.$/,
+  function(message) {
+    cy.get('#notification-menu-list-grow')
+      .find('li')
+      .first()
+      .contains(message);
+  },
+);

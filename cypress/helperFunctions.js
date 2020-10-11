@@ -56,7 +56,7 @@ export const signUpAndSetTokens = () => {
     });
 };
 
-export const loginAsAnAdvisor = (adviser=ADVISER_USERNAME) => {
+export const loginAsAnAdvisor = (adviser = ADVISER_USERNAME) => {
   cy.request('POST', `${BACKEND_WEB_URL}/auth/login`, {
     email: adviser,
     password: ADVISER_PASSWORD,
@@ -104,27 +104,29 @@ export const createQuestion = (question = {}, n = 1) => {
 export const createQuestionWithState = (question = {}) => {
   const newQuestionParams = getFakeQuestion(question);
   delete newQuestionParams.id;
-  requestWithTokenAsAdmin((token) => {
-    cy.request({
-      method: 'POST',
-      url: `${BACKEND_WEB_URL}/questions/save`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: decamelizeKeys(newQuestionParams),
-    }).then((response) => {
-      const createdQuestion = camelizeKeys(response.body);
-      cy.request({
-        method: 'PUT',
-        url: `${BACKEND_WEB_URL}/questions/${createdQuestion.id}`,
+  return requestWithTokenAsAdmin((token) => {
+    return cy
+      .request({
+        method: 'POST',
+        url: `${BACKEND_WEB_URL}/questions/save`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
         body: decamelizeKeys(newQuestionParams),
-      }).then((response) => {
-        setToLocalStorage('createdQuestion', camelizeKeys(response.body));
+      })
+      .then((response) => {
+        const createdQuestion = camelizeKeys(response.body);
+        cy.request({
+          method: 'PUT',
+          url: `${BACKEND_WEB_URL}/questions/${createdQuestion.id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: decamelizeKeys(newQuestionParams),
+        }).then((response) => {
+          setToLocalStorage('createdQuestion', camelizeKeys(response.body));
+        });
       });
-    });
   });
 };
 
@@ -171,7 +173,7 @@ export const createQuestionWithAnswers = () => {
     }).then((response) => {
       setToLocalStorage('createdQuestion', camelizeKeys(response.body));
       createAnswer(response.body.id).then((answer) =>
-        setToLocalStorage('pendingAnswer', camelizeKeys(answer))
+        setToLocalStorage('pendingAnswer', camelizeKeys(answer)),
       );
       createAnswer(response.body.id, { state: 'accepted' }).then((answer) =>
         setToLocalStorage('acceptedAnswer', camelizeKeys(answer)),
