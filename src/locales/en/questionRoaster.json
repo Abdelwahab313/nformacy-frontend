@@ -9,5 +9,7 @@
   "call": "Call",
   "attach": "Attach",
   "field": "Fields: ",
-  "industry": "Industry: "
+  "industry": "Industry: ",
+  "questionRoaster": "Question Roaster",
+  "enterKeyword": "Enter Keyword"
 }

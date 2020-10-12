@@ -51,3 +51,12 @@ Then(/^I should only see questions that belongs to that field\.$/, function() {
 When(/^I fill all the question details$/, function() {
   cy.get('#question-title-field').type('test question title');
 });
+Then(/^I should see a banner with Nformacy primary color$/, function() {
+  cy.get('#question-roaster-banner')
+});
+Then(/^Question Roaster title in bold white large font$/, function() {
+  cy.get('#question-roaster-header');
+});
+Then(/^Search bar$/, function() {
+  cy.get('#question-roaster-search-bar')
+});

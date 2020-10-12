@@ -11,6 +11,8 @@ import { cloneDeep } from 'lodash';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import QuestionView from './QuestionView';
 import QuestionsFilter from 'pages/QuestionRoaster/QuestionsFilter';
+import Typography from '@material-ui/core/Typography';
+import t from '../../locales/en/questionRoaster';
 
 const QuestionRoasterView = () => {
   const { questions, addFilter, removeFilter, filters, loading } = useQuestionFetcher();
@@ -31,26 +33,29 @@ const QuestionRoasterView = () => {
 
   return (
     <Grid container>
-      <Grid item xs={12} className={classes.bannerStyles}>
-        Banner
-      </Grid>
-      <Grid container justify={'center'}>
-        <Grid item xs={12} sm={8} className={classes.searchGridStyles}>
-          <Paper component='form' className={classes.searchBarContainer}>
+      <Grid item xs={12} className={classes.bannerStyles} direction={'column'}>
+        <Grid item id={'question-roaster-banner'}>
+          <Typography id={'question-roaster-header'} className={classes.bannerFontStyles}>
+            {t['questionRoaster']}
+          </Typography>
+        </Grid>
+        <Grid item className={classes.searchGridStyles}>
+          <Paper component='form' className={classes.searchBarContainer} id={'question-roaster-search-bar'}>
             <InputBase
               className={classes.searchInput}
-              placeholder='Search by Keyword'
+              placeholder={t['enterKeyword']}
               inputProps={{ 'aria-label': 'search by keyword', id: 'search' }}
             />
             <IconButton
               type='submit'
               className={classes.iconButton}
               aria-label='search'>
-              <SearchIcon color={'primary'}/>
+              <SearchIcon color={'secondary'}/>
             </IconButton>
           </Paper>
         </Grid>
-
+      </Grid>
+      <Grid container justify={'center'}>
         <QuestionsFilter
           filtersState={filtersState}
           isAllClicked={filterAllState}

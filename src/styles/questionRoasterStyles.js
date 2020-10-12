@@ -1,10 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { lightGrey, lightPink, darkBlue, white } from './colors';
+import { darkBlue, lightGrey, white } from './colors';
+import bannerBackground from '../assets/banner2X.png'
 
 export const useStyles = makeStyles((theme) => ({
   bannerStyles: {
-    backgroundColor: lightPink,
-    height: '30vh',
+    backgroundImage: `url(${bannerBackground})`,
+    height: '35vh',
     width: '100vw',
     display: 'flex',
     justifyContent: 'center',
@@ -16,8 +17,13 @@ export const useStyles = makeStyles((theme) => ({
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
-    width: 400,
+    width: '44.931vw',
     border: 'solid 1px' + darkBlue,
+    borderRadius: '11px',
+    maxHeight: '52px',
+    [theme.breakpoints.down('sm')]: {
+      width: '72vw'
+    }
   },
   searchInput: {
     marginLeft: theme.spacing(1),
@@ -128,10 +134,19 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: darkBlue,
     color: white,
     marginBottom: theme.spacing(5),
-    borderRadius: '5px'
+    borderRadius: '5px',
   },
   headerTextStyles: {
     padding: theme.spacing(1),
+  },
+  bannerFontStyles: {
+    fontSize: '3.125vw',
+    color: white,
+    fontFamily: 'Apercu Pro Medium',
+    marginBottom: '38px',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '5.600vw'
+    }
   },
 }));
 export const attachButtonStyle = () => {

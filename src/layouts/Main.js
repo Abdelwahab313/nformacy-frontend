@@ -1,22 +1,11 @@
 import React from 'react';
-import {
-  createMuiTheme,
-  StylesProvider,
-  ThemeProvider,
-} from '@material-ui/core/styles';
+import { createMuiTheme, StylesProvider, ThemeProvider } from '@material-ui/core/styles';
 import { create } from 'jss';
 import preset from 'jss-preset-default';
 import rtl from 'jss-rtl';
 import { AuthProvider } from 'pages/auth/context/auth';
 import authManager from 'services/authManager';
-import {
-  grey,
-  lighterPink,
-  lightGrey,
-  lightPink,
-  darkBlue,
-  white,
-} from 'styles/colors';
+import { darkBlue, grey, lighterPink, lightGrey, lightPink } from 'styles/colors';
 import MainRouter from 'layouts/MainRouter';
 import { QueryCache, ReactQueryCacheProvider } from 'react-query';
 
@@ -33,7 +22,7 @@ const theme = createMuiTheme({
       main: darkBlue,
     },
     secondary: {
-      main: white,
+      main: lightGrey,
     },
     overlay: {
       dark: grey,
@@ -54,7 +43,7 @@ function Main() {
       <StylesProvider jss={jss}>
         <AuthProvider initialValue={{ currentUser: user }}>
           <ReactQueryCacheProvider queryCache={queryCache}>
-            <MainRouter />
+            <MainRouter/>
           </ReactQueryCacheProvider>
         </AuthProvider>
       </StylesProvider>
