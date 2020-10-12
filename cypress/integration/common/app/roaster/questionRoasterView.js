@@ -76,3 +76,6 @@ Then(/^filters row with highlighted selected filter$/, function() {
 Then(/^More icon that opens dropdown with filters that are not showing$/, function() {
   cy.get('#more-options-menu');
 });
+Then(/^Language filter as dropdown$/, function() {
+  cy.get('#question-language-filter');
+});

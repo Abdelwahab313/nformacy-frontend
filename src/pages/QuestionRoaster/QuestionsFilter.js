@@ -31,7 +31,7 @@ const QuestionsFilter = ({ isAllClicked, onClickAll, filtersState, onClickFilter
         id={'filters'}
         container
         justify={'center'}
-        className={classes.questionsCategoriesContainer}>
+        className={classes.questionsCategoriesContainerDesktop}>
         <div onClick={() => onClickAll()}
              className={isAllClicked ? classes.activeFilterStyle : classes.inactiveFilterStyle}>
           {t['all']}
@@ -42,6 +42,23 @@ const QuestionsFilter = ({ isAllClicked, onClickAll, filtersState, onClickFilter
         <ThreeDotsDropdown
           list={filterDropdownOptions}/>
       </Grid>
+      <div
+        id={'filters-mobile'}
+        className={classes.questionsCategoriesContainerMobile}>
+        <div onClick={() => onClickAll()}
+             className={isAllClicked ? classes.activeFilterStyle : classes.inactiveFilterStyle}>
+          {t['all']}
+        </div>
+        {fieldsOfExperience.map((field, key) => {
+          return <div id={`filters-${key}`}
+                      className={filtersState[key] ? classes.activeFilterStyle : classes.inactiveFilterStyle}
+                      onClick={() => {
+                        onClickFilter(field, key);
+                      }}>
+            {field.label}
+          </div>;
+        })}
+      </div>
     </Grid>
   );
 };

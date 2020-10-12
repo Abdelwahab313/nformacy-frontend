@@ -56,8 +56,19 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '4vw',
     },
   },
-  questionsCategoriesContainer: {
+  questionsCategoriesContainerDesktop: {
     marginTop: theme.spacing(3),
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
+  questionsCategoriesContainerMobile: {
+    marginTop: theme.spacing(3),
+    display: 'flex',
+    overflowX: 'scroll',
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
   },
   paper: {
     padding: theme.spacing(3),
@@ -159,6 +170,10 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     display: 'flex',
     height: 'fit-content',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '4vw',
+      whiteSpace: 'nowrap',
+    },
   },
   inactiveFilterStyle: {
     margin: `0 ${theme.spacing(1)}px`,
@@ -169,6 +184,10 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     display: 'flex',
     height: 'fit-content',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '4vw',
+      whiteSpace: 'nowrap',
+    },
   },
   moreFiltersList: {},
 }));
