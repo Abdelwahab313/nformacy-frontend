@@ -13,6 +13,7 @@ import QuestionView from './QuestionView';
 import QuestionsFilter from 'pages/QuestionRoaster/QuestionsFilter';
 import Typography from '@material-ui/core/Typography';
 import t from '../../locales/en/questionRoaster';
+import BreadcrumbsCustomSeparator from '../../components/breadcrumbs/Breadcrumbs';
 
 const QuestionRoasterView = () => {
   const { questions, addFilter, removeFilter, filters, loading } = useQuestionFetcher();
@@ -56,6 +57,11 @@ const QuestionRoasterView = () => {
         </Grid>
       </Grid>
       <Grid container justify={'center'}>
+        <Grid item xs={10}>
+          <BreadcrumbsCustomSeparator/>
+        </Grid>
+      </Grid>
+      <Grid container justify={'center'} id={'questions-roaster-filters-container'}>
         <QuestionsFilter
           filtersState={filtersState}
           isAllClicked={filterAllState}
@@ -83,7 +89,6 @@ const QuestionRoasterView = () => {
             }
           }}
         />
-
         <Grid item xs={12} sm={10}>
           <Grid container>
             {questions?.map((question, key) => {

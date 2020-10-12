@@ -1,4 +1,5 @@
 import { Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { BASE_URL } from '../../../../defualtTestValues';
 
 Then(
   /^I should see search bar And a filtering menu for the fields$/,
@@ -52,11 +53,26 @@ When(/^I fill all the question details$/, function() {
   cy.get('#question-title-field').type('test question title');
 });
 Then(/^I should see a banner with Nformacy primary color$/, function() {
-  cy.get('#question-roaster-banner')
+  cy.get('#question-roaster-banner');
 });
 Then(/^Question Roaster title in bold white large font$/, function() {
   cy.get('#question-roaster-header');
 });
 Then(/^Search bar$/, function() {
-  cy.get('#question-roaster-search-bar')
+  cy.get('#question-roaster-search-bar');
+});
+Then(/^Breadcrumbs including path to question roaster from home$/, function() {
+  cy.get('#question-roaster-breadcrumbs');
+  cy.get('#home-breadcrumb');
+  cy.get('#home-breadcrumb').click();
+  cy.location().should((loc) => {
+    expect(loc.toString()).to.eq('http://localhost:5001/');
+  });
+  cy.visit(BASE_URL + '/questions');
+});
+Then(/^filters row with highlighted selected filter$/, function() {
+  cy.get('#questions-roaster-filters-container');
+});
+Then(/^More icon that opens dropdown with filters that are not showing$/, function() {
+  cy.get('#more-options-menu');
 });

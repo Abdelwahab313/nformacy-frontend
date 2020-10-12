@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { darkBlue, lightGrey, white } from './colors';
-import bannerBackground from '../assets/banner2X.png'
+import { darkBlue, grey, lightGrey, white } from './colors';
+import bannerBackground from '../assets/banner2X.png';
 
 export const useStyles = makeStyles((theme) => ({
   bannerStyles: {
@@ -22,8 +22,8 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: '11px',
     maxHeight: '52px',
     [theme.breakpoints.down('sm')]: {
-      width: '72vw'
-    }
+      width: '72vw',
+    },
   },
   searchInput: {
     marginLeft: theme.spacing(1),
@@ -145,9 +145,32 @@ export const useStyles = makeStyles((theme) => ({
     fontFamily: 'Apercu Pro Medium',
     marginBottom: '38px',
     [theme.breakpoints.down('sm')]: {
-      fontSize: '5.600vw'
-    }
+      fontSize: '5.600vw',
+    },
   },
+  activeFilterStyle: {
+    margin: `0 ${theme.spacing(1)}px`,
+    backgroundColor: darkBlue,
+    cursor: 'default',
+    color: white,
+    borderRadius: '9px',
+    padding: theme.spacing(2),
+    fontSize: '1.458vw',
+    alignItems: 'center',
+    display: 'flex',
+    height: 'fit-content',
+  },
+  inactiveFilterStyle: {
+    margin: `0 ${theme.spacing(1)}px`,
+    cursor: 'default',
+    color: grey,
+    padding: theme.spacing(2),
+    fontSize: '1.458vw',
+    alignItems: 'center',
+    display: 'flex',
+    height: 'fit-content',
+  },
+  moreFiltersList: {},
 }));
 export const attachButtonStyle = () => {
   return {
