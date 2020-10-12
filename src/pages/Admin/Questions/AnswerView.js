@@ -96,8 +96,8 @@ const onRollback = () => {
               Consultant:
             </Typography>
             <Tooltip 
-            title={`# ${answer.userReferenceNumber}`}>
-              <Typography>{answer.userName}</Typography>
+            title={<Typography># {answer.userReferenceNumber}</Typography>}>
+            <Typography>{answer.userName}</Typography>
             </Tooltip>
           </Grid>
         </GridItem>
