@@ -86,3 +86,11 @@ Feature: Adviser notifications
     When I click on notifications menu
     Then I should see the newly received notification with message "admin_deployed_question"
     And I should see toast notification with the newly received notification
+
+  Scenario: Receive notification when admin accept an answer in a question i am assigned to.
+    When Admin accept an answer in a question i am assigned to
+    Then I should receive a notification about the assignment in the notifications section in the navbar and the notification counter increase by 1
+    And A toast should be displayed with the notification "answer_accepted"
+    When I click on notifications menu
+    Then I should see the newly received notification with message "answer_accepted"
+    And I should see toast notification with the newly received notification

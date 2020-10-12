@@ -2,6 +2,7 @@ import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import faker from 'faker';
 import {
   clearLocalStorage,
+  createAnswer,
   createQuestion,
   createQuestionWithState,
   getFromLocalStorage,
@@ -33,12 +34,11 @@ Then(
   },
 );
 
-Then(
-  /^A toast should be displayed with the notification "([^"]*)"$/,
-  function(message) {
-    cy.get('.Toastify__toast-body').contains(message);
-  },
-);
+Then(/^A toast should be displayed with the notification "([^"]*)"$/, function(
+  message,
+) {
+  cy.get('.Toastify__toast-body').contains(message);
+});
 
 When(/^I click on notifications menu$/, function() {
   cy.get('#notificationsButton').click();
@@ -54,24 +54,21 @@ Then(/^I should see the recent (\d+) notifications$/, function(count) {
     .its('length') // calls 'length' property returning that value
     .should('eq', countWithSeeMore);
 });
-Then(
-  /^The newly sent notification should replace the oldest one$/,
-  function() {
-    const sentQuestionId = getFromLocalStorage('createdQuestion').id;
-    cy.get('#notification-menu-list-grow')
-      .find('li')
-      .first()
-      .should('have.attr', 'data-target-id', sentQuestionId.toString());
-    cy.get('#notification-menu-list-grow')
-      .find('li')
-      .its('length') // calls 'length' property returning that value
-      .should('eq', 11);
-    cy.get('#notification-menu-list-grow')
-      .find('li')
-      .last()
-      .should('have.text', 'See more...')
-  },
-);
+Then(/^The newly sent notification should replace the oldest one$/, function() {
+  const sentQuestionId = getFromLocalStorage('createdQuestion').id;
+  cy.get('#notification-menu-list-grow')
+    .find('li')
+    .first()
+    .should('have.attr', 'data-target-id', sentQuestionId.toString());
+  cy.get('#notification-menu-list-grow')
+    .find('li')
+    .its('length')
+    .should('eq', 11);
+  cy.get('#notification-menu-list-grow')
+    .find('li')
+    .last()
+    .should('have.text', 'See more...');
+});
 Then(
   /^I should see toast notification with the newly received notification$/,
   function() {
@@ -169,3 +166,21 @@ Then(
       .contains(message);
   },
 );
+When(/^Admin accept an answer in a question i am assigned to$/, function() {
+  createQuestionWithState({
+    state: 'freelancer_answers',
+    current_action_time: '',
+  }).then(() => {
+    const createdQuestion = getFromLocalStorage('createdQuestion');
+    createAnswer(createdQuestion.id).then((body) => {
+      const existingAdminToken = Cypress.env('adminTokens');
+      cy.request({
+        method: 'POST',
+        url: `${BACKEND_WEB_URL}/answers/${body.id}/accept`,
+        headers: {
+          Authorization: `Bearer ${existingAdminToken}`,
+        },
+      });
+    });
+  });
+});

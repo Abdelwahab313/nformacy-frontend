@@ -140,7 +140,7 @@ export const clearLocalStorage = () => {
   localStorage.clear();
 };
 
-const createAnswer = (questionId, answer = {}) => {
+export const createAnswer = (questionId, answer = {}) => {
   const newAnswerParams = getFakeAnswer(answer);
   delete newAnswerParams.id;
   return requestWithTokenAsAdmin((token) => {
