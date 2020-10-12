@@ -38,7 +38,7 @@ When(/^I go to question roaster$/, function() {
   cy.visit(BASE_URL + '/questions');
 });
 
-Given(/^I Logout from admin dashboard\.$/, function() {
+Given(/^I Logout from admin dashboard$/, function() {
   cy.visit(BASE_URL + '/admin/logout');
 });
 Given(/^I Login with adviser that does not have notifications$/, function() {

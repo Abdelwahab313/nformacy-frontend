@@ -19,7 +19,7 @@ Given(/^I have zero notification$/, function() {
   cy.get('#notificationsCount').should('not.be.visible');
 });
 
-When(/^Admin send a question to me to review\.$/, function() {
+When(/^Admin send a question to me to review$/, function() {
   const questionTitle = faker.name.findName();
   createQuestion({
     title: questionTitle,
@@ -27,39 +27,35 @@ When(/^Admin send a question to me to review\.$/, function() {
 });
 
 Then(
-  /^I should receive a notification about the assignment in the notifications section in the navbar and the notification counter increase by (\d+)\.$/,
+  /^I should receive a notification about the assignment in the notifications section in the navbar and the notification counter increase by (\d+)$/,
   function() {
     cy.get('#notificationsCount').should('be.visible');
   },
 );
 
 Then(
-  /^A toast should be displayed with the notification "([^"]*)"\.$/,
+  /^A toast should be displayed with the notification "([^"]*)"$/,
   function(message) {
     cy.get('.Toastify__toast-body').contains(message);
   },
 );
 
-When(/^I click on notifications menu\.$/, function() {
+When(/^I click on notifications menu$/, function() {
   cy.get('#notificationsButton').click();
 });
 
-Given(/^I have (\d+) notifications\.$/, function(counts) {
+Given(/^I have (\d+) notifications$/, function(counts) {
   createQuestion({}, counts);
 });
-Then(/^I should see the recent (\d+)\.$/, function(count) {
+Then(/^I should see the recent (\d+) notifications$/, function(count) {
   const countWithSeeMore = count + 1;
   cy.get('#notification-menu-list-grow')
     .find('li')
     .its('length') // calls 'length' property returning that value
     .should('eq', countWithSeeMore);
-  cy.get('#notification-menu-list-grow')
-    .find('li')
-    .first()
-    .contains('pending_adviser_acceptance');
 });
 Then(
-  /^The newly sent notification should replace the oldest one\.$/,
+  /^The newly sent notification should replace the oldest one$/,
   function() {
     const sentQuestionId = getFromLocalStorage('createdQuestion').id;
     cy.get('#notification-menu-list-grow')
@@ -70,6 +66,10 @@ Then(
       .find('li')
       .its('length') // calls 'length' property returning that value
       .should('eq', 11);
+    cy.get('#notification-menu-list-grow')
+      .find('li')
+      .last()
+      .should('have.text', 'See more...')
   },
 );
 Then(
@@ -78,20 +78,20 @@ Then(
     cy.get('.Toastify__toast').should('be.visible');
   },
 );
-Then(/^I should see "([^"]*)"\.$/, function(message) {
+Then(/^I should see "([^"]*)"$/, function(message) {
   cy.get('#notification-menu-list-grow')
     .find('li')
     .first()
     .should('contain.text', message);
 });
-Then(/^I should see "([^"]*)" in the end of the menu\.$/, function(message) {
+Then(/^I should see "([^"]*)" in the end of the menu$/, function(message) {
   cy.wait(1000);
   cy.get('#notification-menu-list-grow')
     .find('li')
     .last()
     .should('contain.text', message);
 });
-When(/^I click on the newly received notification\.$/, function() {
+When(/^I click on the newly received notification$/, function() {
   cy.get('#notification-menu-list-grow')
     .find('li')
     .first()
@@ -107,11 +107,11 @@ When(
 When(/^Notification menu should be closed$/, function() {
   cy.get('#notification-menu-list-grow').should('not.be.visible');
 });
-When(/^I click on the toast\.$/, function() {
+When(/^I click on the toast$/, function() {
   cy.get('.Toastify__toast-body').click();
 });
 
-When(/^unread notifications count decrease by (\d+)\.$/, function(number) {
+When(/^unread notifications count decrease by (\d+)$/, function(number) {
   const notificationsCountBeforeClick = Number(
     getFromLocalStorage('notificationsCountBeforeClick'),
   );
@@ -161,7 +161,7 @@ When(/^Admin deploy a question i am assigned to$/, function() {
   });
 });
 Then(
-  /^I should see the newly received notification with message "([^"]*)"\.$/,
+  /^I should see the newly received notification with message "([^"]*)"$/,
   function(message) {
     cy.get('#notification-menu-list-grow')
       .find('li')
