@@ -4,6 +4,7 @@ import { fieldsOfExperience } from 'constants/dropDownOptions';
 import { useStyles } from 'styles/questionRoasterStyles';
 import ThreeDotsDropdown from '../../components/ThreeDotsDropdown/ThreeDotsDropdown';
 import t from '../../locales/en/questionRoaster';
+import DropdownMenu from 'components/DropdownMenu/DropdownMenu';
 
 const QuestionsFilter = ({ isAllClicked, onClickAll, filtersState, onClickFilter }) => {
   const classes = useStyles();
@@ -41,8 +42,18 @@ const QuestionsFilter = ({ isAllClicked, onClickAll, filtersState, onClickFilter
         })}
         <ThreeDotsDropdown
           list={filterDropdownOptions}/>
+        <DropdownMenu
+        dropdownClass={classes.dropdownDesktop}
+        icon={true}
+        id={'question-language-filter'}
+        menuText={'Choose Langauge'}/>
       </Grid>
-      <div
+      <Grid 
+      container 
+      direction={'row'} 
+      alignItems={'center'} 
+      className={classes.filterWrapper} >
+        <Grid item xs={10}
         id={'filters-mobile'}
         className={classes.questionsCategoriesContainerMobile}>
         <div onClick={() => onClickAll()}
@@ -51,14 +62,23 @@ const QuestionsFilter = ({ isAllClicked, onClickAll, filtersState, onClickFilter
         </div>
         {fieldsOfExperience.map((field, key) => {
           return <div id={`filters-${key}`}
-                      className={filtersState[key] ? classes.activeFilterStyle : classes.inactiveFilterStyle}
-                      onClick={() => {
-                        onClickFilter(field, key);
-                      }}>
-            {field.label}
-          </div>;
-        })}
-      </div>
+                    className={filtersState[key] ? classes.activeFilterStyle : classes.inactiveFilterStyle}
+                    onClick={() => {
+                      onClickFilter(field, key);
+                    }}>
+                  {field.label}
+                </div>;
+        })
+        }
+        </Grid>
+        <Grid item xs={2}
+        className={classes.dropdownMobile}>
+        <DropdownMenu
+          id={'question-language-filter-mobile'}
+          icon={false}
+          menuText={'E'}/>
+        </Grid>
+      </Grid>
     </Grid>
   );
 };

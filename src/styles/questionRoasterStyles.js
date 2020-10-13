@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { darkBlue, grey, lightGrey, white } from './colors';
+import { black, darkBlue, grey, lightGrey, white } from './colors';
 import bannerBackground from '../assets/banner2X.png';
 
 export const useStyles = makeStyles((theme) => ({
@@ -63,10 +63,9 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   questionsCategoriesContainerMobile: {
-    marginTop: theme.spacing(3),
     display: 'flex',
     overflowX: 'scroll',
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       display: 'none',
     },
   },
@@ -189,7 +188,42 @@ export const useStyles = makeStyles((theme) => ({
       whiteSpace: 'nowrap',
     },
   },
-  moreFiltersList: {},
+  dropdownDesktop: {
+    margin: `0 ${theme.spacing(1)}px`,
+    color: black,
+    fontSize: '1.042vw',
+    backgroundColor: white,
+    border: 'solid rgba(0,0,0,0.1)',
+    borderWidth: '0.5px',
+    borderRadius: '9px',
+    height: '4.097vw',
+    width: '14.306vw',
+    fontFamily: "SF UI Display",
+    padding: theme.spacing(2),
+    alignItems: 'center',
+    display: 'flex',
+    height: 'fit-content',
+    textTransform: 'capitalize'
+  },
+  dropdownMobile: {
+    display: 'flex',
+    color: black,
+    fontSize: '1.042vw',
+    height: '41px',
+    width: '41px',
+    backgroundColor: white,
+    border: 'solid rgba(0,0,0,0.1)',
+    borderWidth: '1px',
+    borderRadius: '5px',
+    fontFamily: "SF UI Display",
+    // height: 'fit-content',
+    // width: 'fit-content',
+  },
+  filterWrapper: {
+    [theme.breakpoints.down('sm')]:{
+      marginTop: theme.spacing(3)
+    }
+  }
 }));
 export const attachButtonStyle = () => {
   return {
