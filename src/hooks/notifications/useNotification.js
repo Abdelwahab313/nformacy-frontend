@@ -21,6 +21,7 @@ const useNotification = () => {
         type: notificationActions.notificationsLoaded,
         payload: response.data,
       });
+      queryCache.invalidateQueries('allNotifications');
     },
   });
   const [markRead] = useMutation(markNotificationRead, {

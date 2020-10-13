@@ -9,7 +9,6 @@ export const markNotificationRead = (notificationId) => {
   }).then((response) => camelizeKeys(response));
 };
 
-
 export const fetchRecentNotifications = () => {
   return axios({
     method: 'get',
@@ -17,3 +16,9 @@ export const fetchRecentNotifications = () => {
   }).then((response) => camelizeKeys(response));
 };
 
+export const fetchAllNotifications = () => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/notifications/`,
+  }).then((response) => camelizeKeys(response).data);
+};

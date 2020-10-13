@@ -1,12 +1,4 @@
-import {
-  blackColor,
-  defaultFont,
-  grayColor,
-  hexToRgb,
-  primaryBoxShadow,
-  primaryColor,
-  whiteColor,
-} from 'assets/jss/material-dashboard-react.js';
+import { blackColor, defaultFont, grayColor, hexToRgb, whiteColor } from 'assets/jss/material-dashboard-react.js';
 import { overlayColor } from '../../../styles/colors';
 
 const dropdownStyle = (theme) => ({
@@ -97,6 +89,7 @@ const dropdownStyle = (theme) => ({
   },
   dropdownItem: {
     ...defaultFont,
+    width: '100%',
     fontSize: '13px',
     padding: '10px 20px',
     margin: '0 5px',
@@ -115,13 +108,15 @@ const dropdownStyle = (theme) => ({
     height: 'unset',
     minHeight: 'unset',
     '&:hover': {
-      backgroundColor: primaryColor[0],
-      color: whiteColor,
-      ...primaryBoxShadow,
+      background: 'rgba(' + hexToRgb(theme.palette.overlay.light) + ', 0.20)',
+      '& $read': {
+        color: theme.palette.primary.main,
+      },
     },
   },
   unreadItem: {
     ...defaultFont,
+    width: '100%',
     backgroundColor: 'rgba(' + hexToRgb(overlayColor) + ', 0.50)',
     fontSize: '13px',
     padding: '10px 20px',
@@ -141,9 +136,13 @@ const dropdownStyle = (theme) => ({
     height: 'unset',
     minHeight: 'unset',
     '&:hover': {
-      backgroundColor: primaryColor[0],
-      color: whiteColor,
-      ...primaryBoxShadow,
+      background: 'rgba(' + hexToRgb(theme.palette.overlay.dark) + ', 0.20)',
+      '& $circle': {
+        background: 'rgba(' + hexToRgb(theme.palette.primary.main) + ', 0.80)',
+      },
+      '& $unread': {
+        color: 'rgba(' + hexToRgb(theme.palette.primary.main) + ', 0.80)',
+      },
     },
   },
   noHoverMenuItem: {

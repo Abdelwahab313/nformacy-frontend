@@ -4,7 +4,6 @@ import PerfectScrollbar from 'perfect-scrollbar';
 import 'perfect-scrollbar/css/perfect-scrollbar.css';
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
-
 // core components
 import AdminHeader from 'components/Header/admin/Header.js';
 import Sidebar from 'components/Sidebar/Sidebar.js';
@@ -19,6 +18,7 @@ import AdminRouter from 'layouts/admin/AdminRouter';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../styles/toastNotifications.css';
+
 let ps;
 
 const useStyles = makeStyles(styles);

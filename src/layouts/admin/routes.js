@@ -29,6 +29,7 @@ import { RoutesPaths } from 'constants/routesPath';
 // core components/views for AdminLayout layout
 import QuestionList from 'pages/Admin/Questions/list/QuestionList';
 import Dashboard from 'pages/Admin/Dashboard/Dashboard';
+import AllNotifications from 'pages/Admin/Dashboard/AllNotifications';
 import Logout from 'pages/auth/LogoutUser';
 import QuestionDetails from 'pages/Admin/Questions/details/QuestionsDetails';
 import PostQuestion from '../../pages/Admin/Questions/PostQuestion';
@@ -91,9 +92,9 @@ const adminRoutes = [
   },
   {
     path: RoutesPaths.Admin.Notifications,
-    name: 'Calls',
+    name: 'Notifications',
     icon: Notifications,
-    component: Dashboard,
+    component: AllNotifications,
     hasDashboardLink: true,
     layout: '/admin',
   },

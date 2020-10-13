@@ -22,15 +22,12 @@ import styles from 'assets/jss/material-dashboard-react/components/headerLinksSt
 import { Link } from 'react-router-dom';
 import { RoutesPaths } from 'constants/routesPath';
 import Notifications from './notifications';
-import { NotificationsProvider } from '../../../hooks/notifications/context';
-import { useAuth } from '../../../pages/auth/context/auth';
 
 const useStyles = makeStyles(styles);
 
 export default function AdminNavbarLinks() {
   const classes = useStyles();
   const [openProfile, setOpenProfile] = React.useState(null);
-  const [{ currentUser }] = useAuth();
 
   const handleClickProfile = useCallback(
     (event) => {
@@ -74,11 +71,7 @@ export default function AdminNavbarLinks() {
           <p className={classes.linkText}>Dashboard</p>
         </Hidden>
       </Button>
-      <NotificationsProvider
-        initialNotifications={currentUser.notifications}
-        unreadCount={currentUser.unreadNotifications}>
-        <Notifications />
-      </NotificationsProvider>
+      <Notifications />
       <div className={classes.manager}>
         <Button
           color={window.innerWidth > 959 ? 'transparent' : 'white'}

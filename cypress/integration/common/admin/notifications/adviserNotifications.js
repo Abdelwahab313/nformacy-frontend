@@ -48,25 +48,24 @@ Given(/^I have (\d+) notifications$/, function(counts) {
   createQuestion({}, counts);
 });
 Then(/^I should see the recent (\d+) notifications$/, function(count) {
-  const countWithSeeMore = count + 1;
   cy.get('#notification-menu-list-grow')
-    .find('li')
+    .find('button')
     .its('length') // calls 'length' property returning that value
-    .should('eq', countWithSeeMore);
+    .should('eq', count);
 });
 Then(/^The newly sent notification should replace the oldest one$/, function() {
   const sentQuestionId = getFromLocalStorage('createdQuestion').id;
   cy.get('#notification-menu-list-grow')
-    .find('li')
+    .find('button')
     .first()
     .should('have.attr', 'data-target-id', sentQuestionId.toString());
   cy.get('#notification-menu-list-grow')
-    .find('li')
+    .find('button')
     .its('length')
-    .should('eq', 11);
+    .should('eq', 10);
   cy.get('#notification-menu-list-grow')
     .find('li')
-    .last()
+    .first()
     .should('have.text', 'See more...');
 });
 Then(
@@ -85,12 +84,12 @@ Then(/^I should see "([^"]*)" in the end of the menu$/, function(message) {
   cy.wait(1000);
   cy.get('#notification-menu-list-grow')
     .find('li')
-    .last()
+    .first()
     .should('contain.text', message);
 });
 When(/^I click on the newly received notification$/, function() {
   cy.get('#notification-menu-list-grow')
-    .find('li')
+    .find('button')
     .first()
     .click();
 });
@@ -161,7 +160,7 @@ Then(
   /^I should see the newly received notification with message "([^"]*)"$/,
   function(message) {
     cy.get('#notification-menu-list-grow')
-      .find('li')
+      .find('button')
       .first()
       .contains(message);
   },
@@ -183,4 +182,24 @@ When(/^Admin accept an answer in a question i am assigned to$/, function() {
       });
     });
   });
+});
+When(/^I click on "([^"]*)" in the end of the menu$/, function() {
+  cy.wait(1000);
+  cy.get('#notification-menu-list-grow')
+    .find('li')
+    .first()
+    .should('contain.text', 'See more...');
+  cy.get('#notification-menu-list-grow')
+    .find('li')
+    .first()
+    .click();
+});
+Then(/^I should be redirected to all notifications page$/, function() {
+  cy.get('#allNotifications');
+});
+Then(/^I should see (\d+) notifications$/, function(notificationsCount) {
+  cy.get('#allNotifications')
+    .children()
+    .its('length')
+    .should('be.gte', notificationsCount);
 });

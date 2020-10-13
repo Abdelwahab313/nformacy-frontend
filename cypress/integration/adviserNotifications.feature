@@ -40,15 +40,15 @@ Feature: Adviser notifications
     When I click on notifications menu
     Then I should see "See more..." in the end of the menu
 
-  Scenario: Click on notification from notifications menu in navbar
-    When Admin send a question to me to review
-    And I keep track of current notifications count
-    And I click on notifications menu
-    And I click on the newly received notification
-    Then I should be redirected to the question details page related to the notification
-    And Notification menu should be closed
-    And unread notifications count decrease by 1
-
+#  Scenario: Click on notification from notifications menu in navbar
+#    When Admin send a question to me to review
+#    And I keep track of current notifications count
+#    And I click on notifications menu
+#    And I click on the newly received notification
+#    Then I should be redirected to the question details page related to the notification
+#    And Notification menu should be closed
+#    And unread notifications count decrease by 1
+#
   Scenario: Click on toast notification
     When Admin send a question to me to review
     And I keep track of current notifications count
@@ -94,3 +94,21 @@ Feature: Adviser notifications
     When I click on notifications menu
     Then I should see the newly received notification with message "answer_accepted"
     And I should see toast notification with the newly received notification
+
+  Scenario: See more notifications
+    Given I have 15 notifications
+    And I Logout from admin dashboard
+    And I login in as an advisor
+    And I am on the questions dashboard
+    When I click on notifications menu
+    And I click on "See more..." in the end of the menu
+    Then I should be redirected to all notifications page
+
+  Scenario: All notifications are displayed in see more page
+    Given I have 15 notifications
+    And I Logout from admin dashboard
+    And I login in as an advisor
+    And I am on the questions dashboard
+    When I click on notifications menu
+    And I click on "See more..." in the end of the menu
+    Then I should see 15 notifications

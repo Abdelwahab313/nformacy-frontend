@@ -61,8 +61,9 @@ describe('Notifications', () => {
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
+        const currentUser = { user: 'test' };
         const wrapper = ({ children }) => (
-          <AuthProvider>
+          <AuthProvider initialValue={{ currentUser }}>
             <NotificationsProvider>{children}</NotificationsProvider>
           </AuthProvider>
         );
@@ -110,8 +111,9 @@ describe('Notifications', () => {
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
+        const currentUser = { user: 'test' };
         const wrapper = ({ children }) => (
-          <AuthProvider>
+          <AuthProvider initialValue={{ currentUser }}>
             <NotificationsProvider>{children}</NotificationsProvider>
           </AuthProvider>
         );
@@ -153,8 +155,9 @@ describe('Notifications', () => {
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
+        const currentUser = { user: 'test' };
         const wrapper = ({ children }) => (
-          <AuthProvider>
+          <AuthProvider initialValue={{ currentUser }}>
             <NotificationsProvider>{children}</NotificationsProvider>
           </AuthProvider>
         );
@@ -186,8 +189,9 @@ describe('Notifications', () => {
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
+        const currentUser = { user: 'test' };
         const wrapper = ({ children }) => (
-          <AuthProvider>
+          <AuthProvider initialValue={{ currentUser }}>
             <NotificationsProvider>{children}</NotificationsProvider>
           </AuthProvider>
         );
@@ -219,8 +223,9 @@ describe('Notifications', () => {
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
+        const currentUser = { user: 'test' };
         const wrapper = ({ children }) => (
-          <AuthProvider>
+          <AuthProvider initialValue={{ currentUser }}>
             <NotificationsProvider>{children}</NotificationsProvider>
           </AuthProvider>
         );
@@ -256,8 +261,9 @@ describe('Notifications', () => {
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
+        const currentUser = { user: 'test' };
         const wrapper = ({ children }) => (
-          <AuthProvider>
+          <AuthProvider initialValue={{ currentUser }}>
             <NotificationsProvider>{children}</NotificationsProvider>
           </AuthProvider>
         );
@@ -299,8 +305,9 @@ describe('Notifications', () => {
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
+        const currentUser = { user: 'test' };
         const wrapper = ({ children }) => (
-          <AuthProvider>
+          <AuthProvider initialValue={{ currentUser }}>
             <NotificationsProvider>{children}</NotificationsProvider>
           </AuthProvider>
         );
@@ -328,8 +335,9 @@ describe('Notifications', () => {
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
+        const currentUser = { user: 'test' };
         const wrapper = ({ children }) => (
-          <AuthProvider>
+          <AuthProvider initialValue={{ currentUser }}>
             <NotificationsProvider>{children}</NotificationsProvider>
           </AuthProvider>
         );
@@ -362,8 +370,9 @@ describe('Notifications', () => {
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
+        const currentUser = { user: 'test' };
         const wrapper = ({ children }) => (
-          <AuthProvider>
+          <AuthProvider initialValue={{ currentUser }}>
             <NotificationsProvider>{children}</NotificationsProvider>
           </AuthProvider>
         );
