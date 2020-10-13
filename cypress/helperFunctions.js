@@ -10,9 +10,7 @@ import {
   PASSWORD,
   USER_NAME,
 } from './defualtTestValues';
-import { camelizeKeys, decamelizeKeys } from 'humps';
-import { getFakeQuestion } from './factories/questionFactory';
-import { getFakeAnswer } from './factories/answerFactory';
+import { camelizeKeys } from 'humps';
 
 export const login = (email = USER_NAME, password = PASSWORD) => {
   cy.visit(BASE_URL);
@@ -82,54 +80,6 @@ export const loginAsAdmin = () => {
     });
 };
 
-export const createQuestion = (question = {}, n = 1) => {
-  requestWithTokenAsAdmin((token) => {
-    for (let i = 0; i < n; i++) {
-      const newQuestionParams = getFakeQuestion(question);
-      delete newQuestionParams.id;
-      cy.request({
-        method: 'POST',
-        url: `${BACKEND_WEB_URL}/questions/`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: decamelizeKeys(newQuestionParams),
-      }).then((response) => {
-        setToLocalStorage('createdQuestion', camelizeKeys(response.body));
-      });
-    }
-  });
-};
-
-export const createQuestionWithState = (question = {}) => {
-  const newQuestionParams = getFakeQuestion(question);
-  delete newQuestionParams.id;
-  return requestWithTokenAsAdmin((token) => {
-    return cy
-      .request({
-        method: 'POST',
-        url: `${BACKEND_WEB_URL}/questions/save`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: decamelizeKeys(newQuestionParams),
-      })
-      .then((response) => {
-        const createdQuestion = camelizeKeys(response.body);
-        cy.request({
-          method: 'PUT',
-          url: `${BACKEND_WEB_URL}/questions/${createdQuestion.id}`,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: decamelizeKeys(newQuestionParams),
-        }).then((response) => {
-          setToLocalStorage('createdQuestion', camelizeKeys(response.body));
-        });
-      });
-  });
-};
-
 export const getFromLocalStorage = (key) => {
   return JSON.parse(localStorage.getItem(key));
 };
@@ -138,51 +88,6 @@ export const setToLocalStorage = (key, value) => {
 };
 export const clearLocalStorage = () => {
   localStorage.clear();
-};
-
-export const createAnswer = (questionId, answer = {}) => {
-  const newAnswerParams = getFakeAnswer(answer);
-  delete newAnswerParams.id;
-  return requestWithTokenAsAdmin((token) => {
-    return cy
-      .request({
-        method: 'POST',
-        url: `${BACKEND_WEB_URL}/questions/${questionId}/answer`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: decamelizeKeys(newAnswerParams),
-      })
-      .then((response) => {
-        return response.body;
-      });
-  });
-};
-
-export const createQuestionWithAnswers = () => {
-  const newQuestionParams = getFakeQuestion({ state: 'freelancer_answers' });
-  delete newQuestionParams.id;
-  requestWithTokenAsAdmin((token) => {
-    cy.request({
-      method: 'POST',
-      url: `${BACKEND_WEB_URL}/questions/save`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: decamelizeKeys(newQuestionParams),
-    }).then((response) => {
-      setToLocalStorage('createdQuestion', camelizeKeys(response.body));
-      createAnswer(response.body.id).then((answer) =>
-        setToLocalStorage('pendingAnswer', camelizeKeys(answer)),
-      );
-      createAnswer(response.body.id, { state: 'accepted' }).then((answer) =>
-        setToLocalStorage('acceptedAnswer', camelizeKeys(answer)),
-      );
-      createAnswer(response.body.id, { state: 'rejected' }).then((answer) =>
-        setToLocalStorage('rejectedAnswer', camelizeKeys(answer)),
-      );
-    });
-  });
 };
 
 export const createDayAvailableForUser = (dayFormatted, startDate, endDate) => {

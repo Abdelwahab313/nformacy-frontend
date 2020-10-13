@@ -1,13 +1,12 @@
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 import { BASE_URL } from '../../../../defualtTestValues';
 import {
-  createQuestion,
-  createQuestionWithState,
   getDateAfterHours,
   getFromLocalStorage,
 } from '../../../../helperFunctions';
 import { getFakeQuestion } from '../../../../factories/questionFactory';
 import moment from 'moment';
+import { createQuestion, createQuestionWithState } from '../../../../support/services/questionBuilder';
 
 Given(/^I am on Post question page$/, function() {
   cy.get('#postQuestionButton').click();

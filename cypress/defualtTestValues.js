@@ -12,3 +12,4 @@ export const FREELANCER_USERNAME = 'freelancer@test.com';
 export const FREELANCER_PASSWORD = 'test1234';
 export const ADMIN_USERNAME = 'admin@test.com';
 export const ADMIN_PASSWORD = 'test1234';
+export const ADVISER_ID = 2;

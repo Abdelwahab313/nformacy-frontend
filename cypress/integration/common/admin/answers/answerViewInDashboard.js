@@ -1,6 +1,7 @@
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { clearLocalStorage, createQuestionWithAnswers, getFromLocalStorage } from '../../../../helperFunctions';
+import { clearLocalStorage, getFromLocalStorage } from '../../../../helperFunctions';
 import { BASE_URL } from '../../../../defualtTestValues';
+import { createQuestionWithAnswers } from '../../../../support/services/questionBuilder';
 
 Given(/^There is a question with answers$/, function() {
   createQuestionWithAnswers();

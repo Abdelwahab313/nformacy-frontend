@@ -67,8 +67,6 @@ export const loadNotifications = (state, action) => {
   return produce(state, (draftState) => {
     draftState.unreadCount = action.payload.unreadNotifications;
     draftState.notifications = action.payload.notifications;
-    draftState.unread = !draftState.menuOpened
-      ? draftState.unreadCount > 0
-      : draftState.unread;
+    draftState.unread = draftState.unreadCount > 0;
   });
 };

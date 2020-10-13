@@ -5,6 +5,7 @@ Feature: Adviser notifications
     Given Previous interactions are cleared from localstorage
     And I login in as an advisor
     And I am on the questions dashboard
+    And I keep track of current notifications count
 
   Scenario: Show recent 10 notifications history in the menu bar upon login
     Given I have 15 notifications
@@ -40,15 +41,15 @@ Feature: Adviser notifications
     When I click on notifications menu
     Then I should see "See more..." in the end of the menu
 
-#  Scenario: Click on notification from notifications menu in navbar
-#    When Admin send a question to me to review
-#    And I keep track of current notifications count
-#    And I click on notifications menu
-#    And I click on the newly received notification
-#    Then I should be redirected to the question details page related to the notification
-#    And Notification menu should be closed
-#    And unread notifications count decrease by 1
-#
+  Scenario: Click on notification from notifications menu in navbar
+    When Admin send a question to me to review
+    And I keep track of current notifications count
+    And I click on notifications menu
+    And I click on the newly received notification
+    Then I should be redirected to the question details page related to the notification
+    And Notification menu should be closed
+    And unread notifications count decrease by 1
+
   Scenario: Click on toast notification
     When Admin send a question to me to review
     And I keep track of current notifications count
@@ -63,13 +64,6 @@ Feature: Adviser notifications
     And I am on the questions dashboard
     When I click on notifications menu
     Then I should see "See more..." in the end of the menu
-
-  Scenario: Visit the question related to the notification directly.
-    Given Admin send a question to me to review
-    And I keep track of current notifications count
-    When I am on the questions dashboard
-    And I visit the sent question from question dashboard
-    And unread notifications count decrease by 1
 
   Scenario: Receive notification when admin send a question to review and edit
     When Admin send a question to me to review
@@ -112,3 +106,8 @@ Feature: Adviser notifications
     When I click on notifications menu
     And I click on "See more..." in the end of the menu
     Then I should see 15 notifications
+
+  Scenario: should send notification on assign adviser to draft question
+    Given Admin assign a draft question to me to review
+    Then I should receive a notification about the assignment in the notifications section in the navbar and the notification counter increase by 1
+

@@ -2,17 +2,18 @@ import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import faker from 'faker';
 import {
   clearLocalStorage,
-  createAnswer,
-  createQuestion,
-  createQuestionWithState,
   getFromLocalStorage,
   setToLocalStorage,
 } from '../../../../helperFunctions';
+import { ADVISER_ID, BACKEND_WEB_URL } from '../../../../defualtTestValues';
 import {
-  ADVISER_PASSWORD,
-  ADVISER_USERNAME,
-  BACKEND_WEB_URL,
-} from '../../../../defualtTestValues';
+  assignAdviserToQuestion,
+  createAnswer,
+  createDeployedQuestion,
+  createDraftQuestion,
+  createQuestion,
+  createQuestionWithState,
+} from '../../../../support/services/questionBuilder';
 
 Given(/^I have zero notification$/, function() {
   cy.get('#notificationsButton').click();
@@ -30,7 +31,12 @@ When(/^Admin send a question to me to review$/, function() {
 Then(
   /^I should receive a notification about the assignment in the notifications section in the navbar and the notification counter increase by (\d+)$/,
   function() {
-    cy.get('#notificationsCount').should('be.visible');
+    const notificationsCountBeforeClick = Number(
+      getFromLocalStorage('notificationsCountBeforeClick'),
+    );
+    cy.get('#notificationsCount')
+      .should('be.visible')
+      .should('contain.text', notificationsCountBeforeClick + 1);
   },
 );
 
@@ -136,25 +142,7 @@ When(/^I visit the sent question from question dashboard$/, function() {
 });
 
 When(/^Admin deploy a question i am assigned to$/, function() {
-  cy.request('POST', `${BACKEND_WEB_URL}/auth/login`, {
-    email: ADVISER_USERNAME,
-    password: ADVISER_PASSWORD,
-  }).then(() => {
-    createQuestionWithState({
-      state: 'pending_deployment_to_roaster',
-      current_action_time: '',
-    }).then(() => {
-      const createdQuestion = getFromLocalStorage('createdQuestion');
-      const existingAdminToken = Cypress.env('adminTokens');
-      cy.request({
-        method: 'POST',
-        url: `${BACKEND_WEB_URL}/questions/${createdQuestion.id}/deploy`,
-        headers: {
-          Authorization: `Bearer ${existingAdminToken}`,
-        },
-      });
-    });
-  });
+  createDeployedQuestion();
 });
 Then(
   /^I should see the newly received notification with message "([^"]*)"$/,
@@ -202,4 +190,11 @@ Then(/^I should see (\d+) notifications$/, function(notificationsCount) {
     .children()
     .its('length')
     .should('be.gte', notificationsCount);
+});
+Given(/^Admin assign a draft question to me to review$/, function() {
+  createDraftQuestion().then(() => {
+    const question = getFromLocalStorage('createdQuestion');
+    assignAdviserToQuestion(question.id, ADVISER_ID);
+  });
+  cy.wait(1000);
 });
