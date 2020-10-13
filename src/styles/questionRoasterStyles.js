@@ -169,9 +169,9 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     display: 'flex',
     height: 'fit-content',
+    whiteSpace: 'nowrap',
     [theme.breakpoints.down('sm')]: {
       fontSize: '4vw',
-      whiteSpace: 'nowrap',
     },
   },
   inactiveFilterStyle: {
@@ -198,32 +198,42 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: '9px',
     height: '4.097vw',
     width: '14.306vw',
-    fontFamily: "SF UI Display",
+    fontFamily: 'SF UI Display',
     padding: theme.spacing(2),
     alignItems: 'center',
     display: 'flex',
-    height: 'fit-content',
-    textTransform: 'capitalize'
+    textTransform: 'capitalize',
   },
   dropdownMobile: {
     display: 'flex',
     color: black,
     fontSize: '1.042vw',
-    height: '41px',
-    width: '41px',
     backgroundColor: white,
     border: 'solid rgba(0,0,0,0.1)',
     borderWidth: '1px',
     borderRadius: '5px',
-    fontFamily: "SF UI Display",
-    // height: 'fit-content',
-    // width: 'fit-content',
+    fontFamily: 'SF UI Display',
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
   },
   filterWrapper: {
-    [theme.breakpoints.down('sm')]:{
-      marginTop: theme.spacing(3)
-    }
-  }
+    [theme.breakpoints.down('sm')]: {
+      marginTop: theme.spacing(3),
+    },
+  },
+  nextIconSlider: {
+    textAlign: 'center',
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+  fieldsFiltersContainer: {
+    display: 'flex',
+  },
+  languageFilterContainer: {
+    display: 'flex',
+  },
 }));
 export const attachButtonStyle = () => {
   return {

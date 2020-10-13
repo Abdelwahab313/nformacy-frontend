@@ -5,6 +5,7 @@ import { useStyles } from 'styles/questionRoasterStyles';
 import ThreeDotsDropdown from '../../components/ThreeDotsDropdown/ThreeDotsDropdown';
 import t from '../../locales/en/questionRoaster';
 import DropdownMenu from 'components/DropdownMenu/DropdownMenu';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 const QuestionsFilter = ({ isAllClicked, onClickAll, filtersState, onClickFilter }) => {
   const classes = useStyles();
@@ -33,50 +34,57 @@ const QuestionsFilter = ({ isAllClicked, onClickAll, filtersState, onClickFilter
         container
         justify={'center'}
         className={classes.questionsCategoriesContainerDesktop}>
-        <div onClick={() => onClickAll()}
-             className={isAllClicked ? classes.activeFilterStyle : classes.inactiveFilterStyle}>
-          {t['all']}
-        </div>
-        {filtersList.map((filter) => {
-          return filter;
-        })}
-        <ThreeDotsDropdown
-          list={filterDropdownOptions}/>
-        <DropdownMenu
-        dropdownClass={classes.dropdownDesktop}
-        icon={true}
-        id={'question-language-filter'}
-        menuText={'Choose Langauge'}/>
+        <Grid item md={10} className={classes.fieldsFiltersContainer}>
+          <div onClick={() => onClickAll()}
+               className={isAllClicked ? classes.activeFilterStyle : classes.inactiveFilterStyle}>
+            {t['all']}
+          </div>
+          {filtersList.map((filter) => {
+            return filter;
+          })}
+        </Grid>
+        <Grid item md={2} className={classes.languageFilterContainer}>
+          <ThreeDotsDropdown
+            list={filterDropdownOptions}/>
+          <DropdownMenu
+            dropdownClass={classes.dropdownDesktop}
+            icon={true}
+            id={'question-language-filter'}
+            menuText={'Choose Langauge'}/>
+        </Grid>
       </Grid>
-      <Grid 
-      container 
-      direction={'row'} 
-      alignItems={'center'} 
-      className={classes.filterWrapper} >
-        <Grid item xs={10}
-        id={'filters-mobile'}
-        className={classes.questionsCategoriesContainerMobile}>
-        <div onClick={() => onClickAll()}
-             className={isAllClicked ? classes.activeFilterStyle : classes.inactiveFilterStyle}>
-          {t['all']}
-        </div>
-        {fieldsOfExperience.map((field, key) => {
-          return <div id={`filters-${key}`}
-                    className={filtersState[key] ? classes.activeFilterStyle : classes.inactiveFilterStyle}
-                    onClick={() => {
-                      onClickFilter(field, key);
-                    }}>
-                  {field.label}
-                </div>;
-        })
-        }
+      <Grid
+        container
+        direction={'row'}
+        alignItems={'center'}
+        className={classes.filterWrapper}>
+        <Grid item xs={9}
+              id={'filters-mobile'}
+              className={classes.questionsCategoriesContainerMobile}>
+          <div onClick={() => onClickAll()}
+               className={isAllClicked ? classes.activeFilterStyle : classes.inactiveFilterStyle}>
+            {t['all']}
+          </div>
+          {fieldsOfExperience.map((field, key) => {
+            return <div id={`filters-${key}`}
+                        className={filtersState[key] ? classes.activeFilterStyle : classes.inactiveFilterStyle}
+                        onClick={() => {
+                          onClickFilter(field, key);
+                        }}>
+              {field.label}
+            </div>;
+          })
+          }
+        </Grid>
+        <Grid item xs={1} className={classes.nextIconSlider}>
+          <NavigateNextIcon color={'primary'} fontSize={'small'}/>
         </Grid>
         <Grid item xs={2}
-        className={classes.dropdownMobile}>
-        <DropdownMenu
-          id={'question-language-filter-mobile'}
-          icon={false}
-          menuText={'E'}/>
+              className={classes.dropdownMobile}>
+          <DropdownMenu
+            id={'question-language-filter-mobile'}
+            icon={false}
+            menuText={'E'}/>
         </Grid>
       </Grid>
     </Grid>
