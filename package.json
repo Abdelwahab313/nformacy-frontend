@@ -98,7 +98,7 @@
     "@testing-library/react-hooks": "^3.2.1",
     "axios-mock-adapter": "^1.18.2",
     "cucumber": "^6.0.5",
-    "cypress": "^3.8.3",
+    "cypress": "^5.4.0",
     "cypress-cucumber-preprocessor": "^2.5.0",
     "cypress-file-upload": "^4.0.7",
     "cypress-intellij-reporter": "0.0.4",
