@@ -40,14 +40,24 @@ export const useStyles = makeStyles((theme) => ({
     backgroundImage: `url(${bannerBackground})`,
     backgroundSize: '100%',
     backgroundRepeat: 'no-repeat',
-    height: '38vh',
     width: '100vw',
+    height: '35vw',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     color: white,
+    [theme.breakpoints.down('xl')]: {
+      fontSize: '1.172vw',
+      height: '19.236vw',
+    },
     [theme.breakpoints.down('md')]: {
       backgroundSize: 'cover',
+    },
+    [theme.breakpoints.down('sm')]: {
+      height: '35vw',
+    },
+    [theme.breakpoints.down('xs')]: {
+      height: '56vw',
     },
   },
   searchBarContainer: {
@@ -61,12 +71,18 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       width: '72vw',
     },
-    marginBottom: theme.spacing(8),
+    [theme.breakpoints.down('xs')]: {
+      height: '10.667vw',
+    },
+    marginBottom: theme.spacing(2),
   },
   searchInput: {
     fontFamily: fontNames.SF_COMPACT_TEXT_REGULAR,
     marginLeft: theme.spacing(1),
     flex: 1,
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '4vw',
+    },
   },
   iconButton: {
     padding: 10,
@@ -190,7 +206,7 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: '3.125vw',
     color: white,
     fontFamily: fontNames.APERCU_PRO_MEDUIUM,
-    marginBottom: '38px',
+    marginBottom: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
       fontSize: '5.600vw',
     },
@@ -210,7 +226,19 @@ export const useStyles = makeStyles((theme) => ({
   dropdownDesktop: {
     margin: `0 ${theme.spacing(1)}px`,
     color: darkGrey,
-    fontSize: '1.142vw',
+    fontSize: '1.042vw',
+    [theme.breakpoints.up('xl')]: {
+      fontSize: '0.980vw',
+    },
+    [theme.breakpoints.down('lg')]: {
+      fontSize: '1.042vw',
+    },
+    [theme.breakpoints.down('md')]: {
+      fontSize: '1.953vw',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '4vw',
+    },
     backgroundColor: white,
     border: 'solid rgba(0,0,0,0.1)',
     borderWidth: '0.5px',
@@ -219,7 +247,7 @@ export const useStyles = makeStyles((theme) => ({
       borderRadius: '5px',
     },
     height: '4.097vw',
-    width: '14.306vw',
+    width: '14.236vw',
     fontFamily: fontNames.SF_UI_REGULAR,
     padding: theme.spacing(2),
     alignItems: 'center',
@@ -248,6 +276,20 @@ export const useStyles = makeStyles((theme) => ({
   menuItem: {
     height: '4.167vw',
     fontFamily: fontNames.SF_UI_REGULAR,
+    letterSpacing: theme.spacing(0.065),
+    fontSize: '1.042vw',
+    [theme.breakpoints.up('xl')]: {
+      fontSize: '0.980vw',
+    },
+    [theme.breakpoints.down('lg')]: {
+      fontSize: '1.042vw',
+    },
+    [theme.breakpoints.down('md')]: {
+      fontSize: '1.953vw',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '4vw',
+    },
     color: darkGrey,
     '&:hover': {
       color: darkBlue,

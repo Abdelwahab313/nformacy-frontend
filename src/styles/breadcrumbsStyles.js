@@ -7,7 +7,7 @@ const fontStyle = (theme) => ({
   fontFamily: fontNames.SF_UI_LIGHT,
   fontSize: '1.042vw',
   [theme.breakpoints.up('xl')]: {
-    fontSize: '1.172vw',
+    fontSize: '0.980vw',
   },
   [theme.breakpoints.down('lg')]: {
     fontSize: '1.042vw',
@@ -21,9 +21,7 @@ const fontStyle = (theme) => ({
 });
 export const useStyles = makeStyles((theme) => ({
   root: {
-    '& > * + *': {
-      marginTop: theme.spacing(2),
-    },
+    marginTop: theme.spacing(2),
   },
   activeBreadcrumb: {
     ...fontStyle(theme),
