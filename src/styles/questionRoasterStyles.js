@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { black, darkBlue, grey, lightGrey, white } from './colors';
+import { black, darkBlue, grey, white } from './colors';
 import bannerBackground from '../assets/banner2X.png';
 
 export const useStyles = makeStyles((theme) => ({
@@ -72,11 +72,18 @@ export const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(3),
     margin: theme.spacing(2),
+    backgroundColor: '#fafafa',
   },
   questionContainer: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(2),
   },
-  assignmentTypeIcon: { fontSize: '50px' },
+  answerButtonContainer: { 
+    display: 'flex', 
+    justifyContent: 'flex-end' 
+  },
+  assignmentTypeIcon: { 
+    fontSize: '50px' 
+  },
   fieldContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -84,12 +91,8 @@ export const useStyles = makeStyles((theme) => ({
   flexContainer: {
     display: 'flex',
   },
-  questionContentField: {
-    ...defaultFieldStyles(theme),
-  },
   questionFieldsStyles: {
-    ...defaultFieldStyles(theme),
-    minHeight: '36px',
+    minHeight: '40px',
     display: 'flex',
     alignItems: 'center',
     fontSize: '1.190vw',
@@ -116,18 +119,12 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '4vw',
     },
   },
-  subFieldChip: { marginLeft: '5px', marginRight: '5px' },
   progressContainer: {
     position: 'absolute',
     left: '50%',
     top: '50%',
     transform: 'translate(-50%, -50%)',
   },
-  answerButtonsContainer: {
-    display: 'flex',
-    marginTop: '20px',
-  },
-  answerButtonContainer: { display: 'flex', justifyContent: 'flex-end' },
   attachButtonStyle: {
     backgroundColor: darkBlue,
     color: white,
@@ -234,6 +231,98 @@ export const useStyles = makeStyles((theme) => ({
   languageFilterContainer: {
     display: 'flex',
   },
+  image: {
+    height: '100%',
+    width: '100%',
+    borderRadius: '8px',
+    
+  },
+  questionTextWrapper: {
+    paddingLeft: '2.083vw',
+    [theme.breakpoints.down('xs')]: {
+      paddingTop:'15px'
+    },
+  },
+  referenceNumberStyle: {
+    color: darkBlue,
+    [theme.breakpoints.down('xs')]: {
+      fontFamily: "Apercu Pro",
+      fontSize: '14px',
+      letterSpacing: 0,
+      lineHeight: '30px',
+    },
+  },
+  postDateStyle: {
+    color: grey,
+    fontFamily: "Apercu Pro",
+    fontSize: '1.042vw',
+    lineHeight: '1.389vw',
+    [theme.breakpoints.down('xs')]: {
+      fontFamily: "Apercu Pro",
+      fontSize: '12px',
+      letterSpacing: 0,
+      lineHeight: '25px',
+    },
+  },
+  questionTitle: {
+    fontFamily: "Apercu Pro",
+    fontSize: '1.528vw',
+    fontWeight: 'bold',
+    lineHeight: '2.222vw',
+    [theme.breakpoints.down('xs')]: {
+      fontFamily: "Apercu Pro",
+      fontSize: '14px',
+      fontWeight: 'bold',
+      lineHeight: '24px',
+    },
+  },
+  FieldChip: { 
+    marginLeft: '5px', 
+    marginRight: '5px',
+    height: '28px',
+    width: '109px',
+    [theme.breakpoints.down('xs')]: {
+      height: '24px',
+      width: '80px',
+      borderRadius: '25px',
+    }, 
+  },
+  questionContentField: {
+    color: grey,
+    fontFamily: "SF UI Display",
+    fontSize: '1.181vw',
+    fontWeight: '300',
+    letterSpacing: '0.014vw',
+    lineHeight: '2.083vw',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '13px',
+      fontWeight: '300',
+      letterSpacing: '0.15px',
+      lineHeight: '23px',
+    },
+  },
+  answerButtonContainer: { 
+    display: 'flex', 
+    justifyContent: 'flex-end',
+    marginTop: '1.389vw',
+  },
+  assignmentTypeIcon: { 
+    fontSize: '35px' 
+  },
+  submitButton: {
+    height: '4.028vw',
+    width: '9.722vw',
+    borderRadius: '0.625vw',
+    fontFamily: "SF UI Display",
+    fontSize: '13px',
+    lineHeight: '16px',
+    [theme.breakpoints.down('xs')]: {
+      height: '45px',
+      width: '90px',
+      borderRadius: '9px',
+    },
+  }
+
 }));
 export const attachButtonStyle = () => {
   return {
@@ -245,15 +334,6 @@ export const attachButtonStyle = () => {
     textTransform: 'uppercase',
   };
 };
-
-const defaultFieldStyles = (theme) => ({
-  backgroundColor: lightGrey,
-  border: 'solid 1px' + darkBlue,
-  borderRadius: '5px',
-  minHeight: '36px',
-  margin: theme.spacing(1),
-  padding: theme.spacing(1),
-});
 
 export const attachContainerStyle = () => {
   return {

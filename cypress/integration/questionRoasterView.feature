@@ -13,7 +13,7 @@ Feature: Question Roaster View
    When I click on a field from the filtering menu.
    Then I should only see questions that belongs to that field.
 
-  Scenario: New question roaster design
+  Scenario: New question roaster skelton design
     Then I should see a banner with Nformacy primary color
     And Question Roaster title in bold white large font
     And Search bar
@@ -21,3 +21,11 @@ Feature: Question Roaster View
     And filters row with highlighted selected filter
     And More icon that opens dropdown with filters that are not showing
     And Language filter as dropdown
+
+  # Scenario: New question roaster card design
+  #   Then I should see first picture in the question content as thumbnail on the left
+  #   And question reference number in primary color followed by post date (month and day)
+  #   And question title in bold large font followed by time to close question divided into (days/hours/minutes)
+  #   And question fields as chips with tooltip specifying minor fields
+  #   And Question content in normal font sizeAnd assignment type icon on the left 
+  #   And answer button on the right

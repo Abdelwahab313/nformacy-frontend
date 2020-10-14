@@ -54,4 +54,12 @@ export const formattedDateTimeNoSeconds = (date) => {
   return dateTimeFormat.format(date);
 };
 
+export const formattedDateMonthAndDay = (date) => {
+  const dateTimeFormat = new Intl.DateTimeFormat('en', {
+    month: 'short',
+    day: '2-digit',
+  });
+  return dateTimeFormat.format(date);
+};
+
 export * from './humanizedTimeSpan';

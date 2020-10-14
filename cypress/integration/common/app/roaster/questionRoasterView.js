@@ -20,10 +20,10 @@ Then(
     cy.get('#question-2000100-postDate')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#questionMajorFields-0')
+    cy.get('#questionMajorFields-2000100-0').trigger('mouseover').get('#questionSubFields-2000100-0')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#questionSubFields-0')
+    cy.get('#questionSubFields-2000100-0')
       .invoke('text')
       .should('not.be.empty');
     cy.get('#question-2000100-content')
@@ -44,10 +44,10 @@ When(/^I click on a field from the filtering menu\.$/, function() {
   cy.get('#question-2000100-title')
     .invoke('text')
     .should('not.be.empty');
-  cy.get('#filters-0').click();
+  cy.get('#filters-2').click();
 });
 Then(/^I should only see questions that belongs to that field\.$/, function() {
-  cy.get('#questionMajorFields-0').should('have.text', 'Finance:');
+  cy.get('#questionMajorFields-2000100-0').should('have.text', 'Marketing and PR');
 });
 When(/^I fill all the question details$/, function() {
   cy.get('#question-title-field').type('test question title');
