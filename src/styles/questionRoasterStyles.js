@@ -34,6 +34,7 @@ const filterStyle = (theme) => ({
 export const useStyles = makeStyles((theme) => ({
   bannerStyles: {
     backgroundImage: `url(${bannerBackground})`,
+    backgroundSize: 'contain',
     height: '35vh',
     width: '100vw',
     display: 'flex',
@@ -199,7 +200,7 @@ export const useStyles = makeStyles((theme) => ({
   dropdownDesktop: {
     margin: `0 ${theme.spacing(1)}px`,
     color: black,
-    fontSize: '1.042vw',
+    fontSize: '1.142vw',
     backgroundColor: white,
     border: 'solid rgba(0,0,0,0.1)',
     borderWidth: '0.5px',
@@ -219,7 +220,7 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     color: black,
-    fontSize: '1.042vw',
+    fontSize: '1.142vw',
     backgroundColor: white,
     border: 'solid rgba(0,0,0,0.1)',
     borderWidth: '1px',
@@ -228,6 +229,10 @@ export const useStyles = makeStyles((theme) => ({
     maxWidth: '55px',
     [theme.breakpoints.up('md')]: {
       display: 'none',
+    },
+    openedDropdownMenu: {
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
     },
   },
   filterWrapper: {
@@ -251,7 +256,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   fieldsFiltersContainer: {
     display: 'flex',
-    justifyContent:' space-evenly',
+    justifyContent: ' space-evenly',
     alignItems: 'center',
   },
   languageFilterContainer: {
