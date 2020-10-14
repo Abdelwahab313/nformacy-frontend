@@ -9,14 +9,14 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import clsx from 'clsx';
 
 const QuestionsFilter = ({
-  isAllClicked,
-  onClickAll,
-  filtersState,
-  onClickFilter,
-}) => {
+                           isAllClicked,
+                           onClickAll,
+                           filtersState,
+                           onClickFilter,
+                         }) => {
   const classes = useStyles();
   let filtersList = [];
-  const numberOfVisibleFilters = 5;
+  const numberOfVisibleFilters = 4;
   for (let i = 0; i < numberOfVisibleFilters; i++) {
     filtersList.push(
       <div
@@ -42,7 +42,8 @@ const QuestionsFilter = ({
       <Grid
         id={'filters'}
         container
-        justify={'center'}
+        justify={'space-evenly'}
+        alignItems={'center'}
         className={classes.questionsCategoriesContainerDesktop}>
         <Grid item md={10} className={classes.fieldsFiltersContainer}>
           <div
@@ -56,9 +57,9 @@ const QuestionsFilter = ({
           {filtersList.map((filter) => {
             return filter;
           })}
+          <ThreeDotsDropdown list={filterDropdownOptions}/>
         </Grid>
         <Grid item md={2} className={classes.languageFilterContainer}>
-          <ThreeDotsDropdown list={filterDropdownOptions} />
           <DropdownMenu
             dropdownClass={classes.dropdownDesktop}
             icon={true}
@@ -70,11 +71,13 @@ const QuestionsFilter = ({
       <Grid
         container
         direction={'row'}
+        justify={'center'}
         alignItems={'center'}
         className={classes.filterWrapper}>
         <Grid
           item
-          xs={9}
+          xs={8}
+          sm={9}
           id={'filters-mobile'}
           className={classes.questionsCategoriesContainerMobile}>
           <div
@@ -101,13 +104,13 @@ const QuestionsFilter = ({
             );
           })}
         </Grid>
-        <Grid item xs={1} className={classes.nextIconSlider} >
+        <Grid item xs={1} className={classes.nextIconSlider}>
           <NavigateNextIcon
             color={'primary'}
             className={classes.nextIconSize}
           />
         </Grid>
-        <Grid item xs={2} className={classes.dropdownMobile}>
+        <Grid item xs={2} sm={1} className={classes.dropdownMobile}>
           <DropdownMenu
             id={'question-language-filter-mobile'}
             icon={false}

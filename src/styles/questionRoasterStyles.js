@@ -21,7 +21,7 @@ const filterStyle = (theme) => ({
     fontSize: '1.367vw',
   },
   [theme.breakpoints.down('md')]: {
-    fontSize: '2.604vw',
+    fontSize: '1.953vw',
   },
   [theme.breakpoints.down('sm')]: {
     fontSize: '3.125vw',
@@ -106,12 +106,12 @@ export const useStyles = makeStyles((theme) => ({
   questionContainer: {
     marginTop: theme.spacing(2),
   },
-  answerButtonContainer: { 
-    display: 'flex', 
-    justifyContent: 'flex-end' 
+  answerButtonContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
-  assignmentTypeIcon: { 
-    fontSize: '50px' 
+  assignmentTypeIcon: {
+    fontSize: '50px',
   },
   fieldContainer: {
     display: 'flex',
@@ -217,6 +217,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   dropdownMobile: {
     display: 'flex',
+    justifyContent: 'center',
     color: black,
     fontSize: '1.042vw',
     backgroundColor: white,
@@ -224,6 +225,7 @@ export const useStyles = makeStyles((theme) => ({
     borderWidth: '1px',
     borderRadius: '5px',
     fontFamily: 'SF UI Display',
+    maxWidth: '55px',
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
@@ -249,6 +251,8 @@ export const useStyles = makeStyles((theme) => ({
   },
   fieldsFiltersContainer: {
     display: 'flex',
+    justifyContent:' space-evenly',
+    alignItems: 'center',
   },
   languageFilterContainer: {
     display: 'flex',
@@ -257,18 +261,18 @@ export const useStyles = makeStyles((theme) => ({
     height: '100%',
     width: '100%',
     borderRadius: '8px',
-    
+
   },
   questionTextWrapper: {
     paddingLeft: '2.083vw',
     [theme.breakpoints.down('xs')]: {
-      paddingTop:'15px'
+      paddingTop: '15px',
     },
   },
   referenceNumberStyle: {
     color: darkBlue,
     [theme.breakpoints.down('xs')]: {
-      fontFamily: "Apercu Pro",
+      fontFamily: 'Apercu Pro',
       fontSize: '14px',
       letterSpacing: 0,
       lineHeight: '30px',
@@ -276,30 +280,30 @@ export const useStyles = makeStyles((theme) => ({
   },
   postDateStyle: {
     color: grey,
-    fontFamily: "Apercu Pro",
+    fontFamily: 'Apercu Pro',
     fontSize: '1.042vw',
     lineHeight: '1.389vw',
     [theme.breakpoints.down('xs')]: {
-      fontFamily: "Apercu Pro",
+      fontFamily: 'Apercu Pro',
       fontSize: '12px',
       letterSpacing: 0,
       lineHeight: '25px',
     },
   },
   questionTitle: {
-    fontFamily: "Apercu Pro",
+    fontFamily: 'Apercu Pro',
     fontSize: '1.528vw',
     fontWeight: 'bold',
     lineHeight: '2.222vw',
     [theme.breakpoints.down('xs')]: {
-      fontFamily: "Apercu Pro",
+      fontFamily: 'Apercu Pro',
       fontSize: '14px',
       fontWeight: 'bold',
       lineHeight: '24px',
     },
   },
-  FieldChip: { 
-    marginLeft: '5px', 
+  FieldChip: {
+    marginLeft: '5px',
     marginRight: '5px',
     height: '28px',
     width: '109px',
@@ -307,11 +311,11 @@ export const useStyles = makeStyles((theme) => ({
       height: '24px',
       width: '80px',
       borderRadius: '25px',
-    }, 
+    },
   },
   questionContentField: {
     color: grey,
-    fontFamily: "SF UI Display",
+    fontFamily: 'SF UI Display',
     fontSize: '1.181vw',
     fontWeight: '300',
     letterSpacing: '0.014vw',
@@ -323,19 +327,19 @@ export const useStyles = makeStyles((theme) => ({
       lineHeight: '23px',
     },
   },
-  answerButtonContainer: { 
-    display: 'flex', 
+  answerButtonContainer: {
+    display: 'flex',
     justifyContent: 'flex-end',
     marginTop: '1.389vw',
   },
-  assignmentTypeIcon: { 
-    fontSize: '35px' 
+  assignmentTypeIcon: {
+    fontSize: '35px',
   },
   submitButton: {
     height: '4.028vw',
     width: '9.722vw',
     borderRadius: '0.625vw',
-    fontFamily: "SF UI Display",
+    fontFamily: 'SF UI Display',
     fontSize: '13px',
     lineHeight: '16px',
     [theme.breakpoints.down('xs')]: {
@@ -343,7 +347,7 @@ export const useStyles = makeStyles((theme) => ({
       width: '90px',
       borderRadius: '9px',
     },
-  }
+  },
 
 }));
 export const attachButtonStyle = () => {
