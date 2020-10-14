@@ -5,14 +5,14 @@ import {
   getFromLocalStorage,
   setToLocalStorage,
 } from '../../../../helperFunctions';
-import { ADVISER_ID, BACKEND_WEB_URL } from '../../../../defualtTestValues';
+import { ADVISER_ID } from '../../../../defualtTestValues';
 import {
   assignAdviserToQuestion,
-  createAnswer,
   createDeployedQuestion,
   createDraftQuestion,
   createQuestion,
-  createQuestionWithState,
+  createMultipleQuestion,
+  createQuestionWithAccepttedAnswer
 } from '../../../../support/services/questionBuilder';
 
 Given(/^I have zero notification$/, function() {
@@ -51,7 +51,7 @@ When(/^I click on notifications menu$/, function() {
 });
 
 Given(/^I have (\d+) notifications$/, function(counts) {
-  createQuestion({}, counts);
+  createMultipleQuestion(counts);
 });
 Then(/^I should see the recent (\d+) notifications$/, function(count) {
   cy.get('#notification-menu-list-grow')
@@ -153,24 +153,11 @@ Then(
       .contains(message);
   },
 );
+
 When(/^Admin accept an answer in a question i am assigned to$/, function() {
-  createQuestionWithState({
-    state: 'freelancer_answers',
-    current_action_time: '',
-  }).then(() => {
-    const createdQuestion = getFromLocalStorage('createdQuestion');
-    createAnswer(createdQuestion.id).then((body) => {
-      const existingAdminToken = Cypress.env('adminTokens');
-      cy.request({
-        method: 'POST',
-        url: `${BACKEND_WEB_URL}/answers/${body.id}/accept`,
-        headers: {
-          Authorization: `Bearer ${existingAdminToken}`,
-        },
-      });
-    });
-  });
+  createQuestionWithAccepttedAnswer()
 });
+
 When(/^I click on "([^"]*)" in the end of the menu$/, function() {
   cy.wait(1000);
   cy.get('#notification-menu-list-grow')

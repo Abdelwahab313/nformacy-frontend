@@ -139,6 +139,7 @@ Given(/^I have a question assigned to me with finished By time$/, function() {
 });
 
 Then(/^i should be in the saved question post form\.$/, function() {});
+
 Then(/^all saved information should be visible$/, function() {});
 
 Then(/^the question status should be pending adviser acceptance$/, function() {
@@ -256,6 +257,7 @@ Then(
     );
   },
 );
+
 Given(
   /^I have a question assigned to me with pending deployment to question roaster state\.$/,
   function() {
@@ -265,6 +267,7 @@ Given(
     });
   },
 );
+
 Then(/^The question should be visible with no action\.$/, function() {
   cy.wait(1000);
   const createdQuestion = getFromLocalStorage('createdQuestion');
@@ -272,6 +275,7 @@ Then(/^The question should be visible with no action\.$/, function() {
     `tr[row-reference='${createdQuestion.referenceNumber}'] td[data-colindex="7"]`,
   );
 });
+
 When(/^I click on the question\.$/, function() {
   const createdQuestion = getFromLocalStorage('createdQuestion');
   cy.get(`a[data-reference='${createdQuestion.referenceNumber}']`)
@@ -288,9 +292,6 @@ Then(/^I click submit$/, function() {
   cy.get('#submitExtendedTime').click();
 });
 
-// Then(`Success message with {string} should be displayed`, (message) => {
-//   cy.contains(message);
-// });
 
 Then(/^By Time should be updated$/, function() {
   cy.server();
