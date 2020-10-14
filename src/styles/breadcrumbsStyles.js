@@ -1,7 +1,24 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { darkBlue, grey } from './colors';
+import { darkBlue, darkGrey } from './colors';
 import fontNames from '../constants/fonts';
+import { hexToRgb } from '../assets/jss/material-dashboard-react';
 
+const fontStyle = (theme) => ({
+  fontFamily: fontNames.SF_UI_LIGHT,
+  fontSize: '1.042vw',
+  [theme.breakpoints.up('xl')]: {
+    fontSize: '1.172vw',
+  },
+  [theme.breakpoints.down('lg')]: {
+    fontSize: '1.042vw',
+  },
+  [theme.breakpoints.down('md')]: {
+    fontSize: '1.953vw',
+  },
+  [theme.breakpoints.down('xs')]: {
+    fontSize: '4vw',
+  },
+});
 export const useStyles = makeStyles((theme) => ({
   root: {
     '& > * + *': {
@@ -9,19 +26,11 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   activeBreadcrumb: {
-    fontSize: '1.042vw',
-    fontFamily: 'SF UI Display Regular',
+    ...fontStyle(theme),
     color: darkBlue,
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '3.200vw',
-    },
   },
   inactiveBreadcrumb: {
-    fontSize: '1.042vw',
-    fontFamily: fontNames.SF_UI_REGULAR,
-    color: grey,
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '3.200vw',
-    },
+    ...fontStyle(theme),
+    color: 'rgba(' + hexToRgb(darkGrey) + ', 0.5)',
   },
 }));

@@ -48,13 +48,12 @@ const DropdownMenu = ({ id, menuText, dropdownClass, icon }) => {
           vertical: 'top',
           horizontal: 'left',
         }}
-        className={classes.openedDropdownMenu}
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>All Langauges </MenuItem>
-        <MenuItem onClick={handleClose}>Arabic</MenuItem>
-        <MenuItem onClick={handleClose}>English</MenuItem>
+        <MenuItem className={classes.menuItem} onClick={handleClose}>All Langauges </MenuItem>
+        <MenuItem className={classes.menuItem} onClick={handleClose}>Arabic</MenuItem>
+        <MenuItem className={classes.menuItem} onClick={handleClose}>English</MenuItem>
       </Menu>
     </div>
   );

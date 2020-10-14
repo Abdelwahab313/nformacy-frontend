@@ -1,21 +1,25 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { black, darkBlue, grey, white } from './colors';
+import { darkBlue, darkGrey, white } from './colors';
 import bannerBackground from '../assets/banner2X.png';
 import fontNames from '../constants/fonts';
+import { hexToRgb } from '../assets/jss/material-dashboard-react';
 
 const filterStyle = (theme) => ({
+  cursor: 'default',
   [theme.breakpoints.down('sm')]: {
     margin: `0 8vw`,
   },
-  cursor: 'default',
   padding: `${theme.spacing(1.5)}px ${theme.spacing(2)}px`,
+  [theme.breakpoints.up('sm')]: {
+    padding: `${theme.spacing(2)}px ${theme.spacing(3.5)}px`,
+  },
   fontSize: '1.458vw',
   alignItems: 'center',
   display: 'flex',
   height: 'fit-content',
   whiteSpace: 'nowrap',
   [theme.breakpoints.up('xl')]: {
-    fontSize: '1.302vw',
+    fontSize: '1.172vw',
   },
   [theme.breakpoints.down('lg')]: {
     fontSize: '1.367vw',
@@ -34,14 +38,14 @@ const filterStyle = (theme) => ({
 export const useStyles = makeStyles((theme) => ({
   bannerStyles: {
     backgroundImage: `url(${bannerBackground})`,
-    backgroundSize: 'contain',
-    height: '28vh',
+    backgroundSize: '100%',
+    backgroundRepeat: 'no-repeat',
+    height: '38vh',
     width: '100vw',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     color: white,
-    marginBottom: theme.spacing(3),
     [theme.breakpoints.down('md')]: {
       backgroundSize: 'cover',
     },
@@ -51,14 +55,16 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     width: '44.931vw',
-    border: 'solid 1px' + darkBlue,
+    border: 'solid 1px' + white,
     borderRadius: '11px',
-    maxHeight: '52px',
+    maxHeight: '28.846vw',
     [theme.breakpoints.down('sm')]: {
       width: '72vw',
     },
+    marginBottom: theme.spacing(8),
   },
   searchInput: {
+    fontFamily: fontNames.SF_COMPACT_TEXT_REGULAR,
     marginLeft: theme.spacing(1),
     flex: 1,
   },
@@ -90,7 +96,8 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   questionsCategoriesContainerDesktop: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
@@ -197,12 +204,12 @@ export const useStyles = makeStyles((theme) => ({
   },
   inactiveFilterStyle: {
     fontFamily: fontNames.SF_UI_LIGHT,
-    color: grey,
+    color: 'rgba(' + hexToRgb(darkGrey) + ', 0.7)',
     ...filterStyle(theme),
   },
   dropdownDesktop: {
     margin: `0 ${theme.spacing(1)}px`,
-    color: black,
+    color: darkGrey,
     fontSize: '1.142vw',
     backgroundColor: white,
     border: 'solid rgba(0,0,0,0.1)',
@@ -213,7 +220,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     height: '4.097vw',
     width: '14.306vw',
-    fontFamily: 'SF UI Display',
+    fontFamily: fontNames.SF_UI_REGULAR,
     padding: theme.spacing(2),
     alignItems: 'center',
     display: 'flex',
@@ -222,13 +229,13 @@ export const useStyles = makeStyles((theme) => ({
   dropdownMobile: {
     display: 'flex',
     justifyContent: 'center',
-    color: black,
+    color: 'black',
     fontSize: '1.142vw',
     backgroundColor: white,
     border: 'solid rgba(0,0,0,0.1)',
     borderWidth: '1px',
     borderRadius: '5px',
-    fontFamily: 'SF UI Display',
+    fontFamily: `${fontNames.SF_UI_REGULAR} ${fontNames.TAJAWAL_BOLD}`,
     maxWidth: '55px',
     [theme.breakpoints.up('md')]: {
       display: 'none',
@@ -236,6 +243,14 @@ export const useStyles = makeStyles((theme) => ({
     openedDropdownMenu: {
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
+    },
+  },
+  menuItem: {
+    fontFamily: fontNames.SF_UI_REGULAR,
+    color: darkGrey,
+    '&:hover': {
+      color: darkBlue,
+      borderLeft: `solid 0.486vw` + darkBlue,
     },
   },
   filterWrapper: {
@@ -269,7 +284,6 @@ export const useStyles = makeStyles((theme) => ({
     height: '100%',
     width: '100%',
     borderRadius: '8px',
-
   },
   questionTextWrapper: {
     paddingLeft: '2.083vw',
@@ -287,7 +301,7 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   postDateStyle: {
-    color: grey,
+    color: darkGrey,
     fontFamily: 'Apercu Pro',
     fontSize: '1.042vw',
     lineHeight: '1.389vw',
@@ -297,6 +311,11 @@ export const useStyles = makeStyles((theme) => ({
       letterSpacing: 0,
       lineHeight: '25px',
     },
+  },
+  threeDotButton: {
+    borderRadius: '9px',
+    background: 'rgba(0,0,0,0.03)',
+    color: 'black',
   },
   questionTitle: {
     fontFamily: 'Apercu Pro',
@@ -322,7 +341,7 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   questionContentField: {
-    color: grey,
+    color: darkGrey,
     fontFamily: 'SF UI Display',
     fontSize: '1.181vw',
     fontWeight: '300',
@@ -356,7 +375,6 @@ export const useStyles = makeStyles((theme) => ({
       borderRadius: '9px',
     },
   },
-
 }));
 export const attachButtonStyle = () => {
   return {

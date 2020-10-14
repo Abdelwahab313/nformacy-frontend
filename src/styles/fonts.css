@@ -22,3 +22,8 @@
   font-family: 'SF Compact Text Regular';
   src: url(../assets/fonts/SF-Compact-Text-Regular.woff2) format('woff2');
 }
+
+@font-face {
+  font-family: 'Tajawal Bold';
+  src: url(../assets/fonts/Tajawal-Bold.woff2) format('woff2');
+}

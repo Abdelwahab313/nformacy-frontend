@@ -58,7 +58,7 @@ const QuestionRoasterView = () => {
       </Grid>
       <Grid container justify={'center'}>
         <Grid item xs={10}>
-          <BreadcrumbsCustomSeparator/>
+          <BreadcrumbsCustomSeparator pageName={"Question Roaster"}/>
         </Grid>
       </Grid>
       <Grid container justify={'center'} id={'questions-roaster-filters-container'}>

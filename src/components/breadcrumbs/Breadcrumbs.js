@@ -6,21 +6,21 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import { useStyles } from '../../styles/breadcrumbsStyles';
 
 
-const BreadcrumbsCustomSeparator = () => {
+const BreadcrumbsCustomSeparator = ({pageName}) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <Breadcrumbs
         id={'question-roaster-breadcrumbs'}
-        separator={<NavigateNextIcon fontSize="small"/>}
+        separator={<NavigateNextIcon color='primary' fontSize="small"/>}
         aria-label="breadcrumb">
         <Link color="inherit" href="/">
           <Typography className={classes.inactiveBreadcrumb} id={'home-breadcrumb'}>
             Home
           </Typography>
         </Link>
-        <Typography color={'primary'} className={classes.activeBreadcrumb}>Breadcrumb</Typography>
+        <Typography color={'primary'} className={classes.activeBreadcrumb}>{pageName}</Typography>
       </Breadcrumbs>
     </div>
   );
