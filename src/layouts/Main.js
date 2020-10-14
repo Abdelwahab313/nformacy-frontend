@@ -1,13 +1,25 @@
 import React from 'react';
-import { createMuiTheme, StylesProvider, ThemeProvider } from '@material-ui/core/styles';
+import {
+  createMuiTheme,
+  StylesProvider,
+  ThemeProvider,
+} from '@material-ui/core/styles';
 import { create } from 'jss';
 import preset from 'jss-preset-default';
 import rtl from 'jss-rtl';
 import { AuthProvider } from 'pages/auth/context/auth';
 import authManager from 'services/authManager';
-import { darkBlue, grey, lighterPink, lightGrey, lightPink } from 'styles/colors';
+import {
+  darkBlue,
+  grey,
+  lighterPink,
+  lightGrey,
+  lightPink,
+} from 'styles/colors';
 import MainRouter from 'layouts/MainRouter';
+import '../styles/fonts.css';
 import { QueryCache, ReactQueryCacheProvider } from 'react-query';
+import fontNames from '../constants/fonts';
 
 const presets = preset().plugins;
 
@@ -30,7 +42,13 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: 'SF UI Display',
+    fontFamily: [
+      fontNames.SF_UI_REGULAR,
+      fontNames.SF_UI_LIGHT,
+      fontNames.SF_UI_BOLD,
+      fontNames.APERCU_PRO_MEDUIUM,
+      fontNames.SF_COMPACT_TEXT_REGULAR,
+    ].join(','),
   },
 });
 const queryCache = new QueryCache();
@@ -43,7 +61,7 @@ function Main() {
       <StylesProvider jss={jss}>
         <AuthProvider initialValue={{ currentUser: user }}>
           <ReactQueryCacheProvider queryCache={queryCache}>
-            <MainRouter/>
+            <MainRouter />
           </ReactQueryCacheProvider>
         </AuthProvider>
       </StylesProvider>

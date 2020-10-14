@@ -1,0 +1,24 @@
+@font-face {
+  font-family: 'SF UI Display Regular';
+  src: url(../assets/fonts/SFUIDisplay-Regular.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'SF UI Display Light';
+  src: url(../assets/fonts/SFUIDisplay-Light.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'SF UI Display Bold';
+  src: url(../assets/fonts/SFUIDisplay-Bold.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Apercu Pro Medium';
+  src: url(../assets/fonts/ApercuPro-Medium.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'SF Compact Text Regular';
+  src: url(../assets/fonts/SF-Compact-Text-Regular.woff2) format('woff2');
+}

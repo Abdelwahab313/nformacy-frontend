@@ -1,6 +1,35 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { black, darkBlue, grey, white } from './colors';
 import bannerBackground from '../assets/banner2X.png';
+import fontNames from '../constants/fonts';
+
+const filterStyle = (theme) => ({
+  [theme.breakpoints.down('sm')]: {
+    margin: `0 8vw`,
+  },
+  cursor: 'default',
+  padding: `${theme.spacing(1.5)}px ${theme.spacing(2)}px`,
+  fontSize: '1.458vw',
+  alignItems: 'center',
+  display: 'flex',
+  height: 'fit-content',
+  whiteSpace: 'nowrap',
+  [theme.breakpoints.up('xl')]: {
+    fontSize: '1.302vw',
+  },
+  [theme.breakpoints.down('lg')]: {
+    fontSize: '1.367vw',
+  },
+  [theme.breakpoints.down('md')]: {
+    fontSize: '2.604vw',
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '3.125vw',
+  },
+  [theme.breakpoints.down('xs')]: {
+    fontSize: '4vw',
+  },
+});
 
 export const useStyles = makeStyles((theme) => ({
   bannerStyles: {
@@ -149,41 +178,23 @@ export const useStyles = makeStyles((theme) => ({
   bannerFontStyles: {
     fontSize: '3.125vw',
     color: white,
-    fontFamily: 'Apercu Pro Medium',
+    fontFamily: fontNames.APERCU_PRO_MEDUIUM,
     marginBottom: '38px',
     [theme.breakpoints.down('sm')]: {
       fontSize: '5.600vw',
     },
   },
   activeFilterStyle: {
-    margin: `0 ${theme.spacing(1)}px`,
     backgroundColor: darkBlue,
-    cursor: 'default',
     color: white,
     borderRadius: '9px',
-    padding: theme.spacing(2),
-    fontSize: '1.458vw',
-    alignItems: 'center',
-    display: 'flex',
-    height: 'fit-content',
-    whiteSpace: 'nowrap',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '4vw',
-    },
+    fontFamily: fontNames.SF_UI_BOLD,
+    ...filterStyle(theme),
   },
   inactiveFilterStyle: {
-    margin: `0 ${theme.spacing(1)}px`,
-    cursor: 'default',
+    fontFamily: fontNames.SF_UI_LIGHT,
     color: grey,
-    padding: theme.spacing(2),
-    fontSize: '1.458vw',
-    alignItems: 'center',
-    display: 'flex',
-    height: 'fit-content',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '4vw',
-      whiteSpace: 'nowrap',
-    },
+    ...filterStyle(theme),
   },
   dropdownDesktop: {
     margin: `0 ${theme.spacing(1)}px`,
@@ -193,6 +204,9 @@ export const useStyles = makeStyles((theme) => ({
     border: 'solid rgba(0,0,0,0.1)',
     borderWidth: '0.5px',
     borderRadius: '9px',
+    [theme.breakpoints.down('md')]: {
+      borderRadius: '5px',
+    },
     height: '4.097vw',
     width: '14.306vw',
     fontFamily: 'SF UI Display',
@@ -223,6 +237,14 @@ export const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     [theme.breakpoints.up('md')]: {
       display: 'none',
+    },
+  },
+  nextIconSize: {
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '6.793vw',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '5.208vw',
     },
   },
   fieldsFiltersContainer: {

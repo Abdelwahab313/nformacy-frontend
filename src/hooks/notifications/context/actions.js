@@ -38,7 +38,6 @@ export const toggleMenu = (state, action) => {
       draftState.menuOpened = null;
     } else {
       draftState.menuOpened = action.payload.currentTarget;
-      draftState.unread = false;
     }
   });
 };

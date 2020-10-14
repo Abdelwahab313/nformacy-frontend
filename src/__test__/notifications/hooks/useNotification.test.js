@@ -393,21 +393,10 @@ describe('Notifications', () => {
       expect(result.current.menuOpened).toEqual(null);
     });
 
-    it('toggleMenu Should open menu and set notification to be read if menu is closed', async () => {
-      expect(result.current.menuOpened).toEqual(null);
-      expect(result.current.unread).toEqual(true);
-
-      act(() => result.current.toggleMenu({ currentTarget: 'a' }));
-
-      expect(result.current.menuOpened).toEqual('a');
-      expect(result.current.unread).toEqual(false);
-    });
-
     it('toggleMenu Should close menu if menu is opened', async () => {
       const currentTarget = { contains: () => true };
       act(() => result.current.toggleMenu({ currentTarget: currentTarget }));
       expect(result.current.menuOpened).toEqual(currentTarget);
-      expect(result.current.unread).toEqual(false);
 
       act(() => result.current.toggleMenu({ target: 'a' }));
 

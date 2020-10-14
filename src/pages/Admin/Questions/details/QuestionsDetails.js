@@ -16,7 +16,7 @@ import QuestionForm from '../QuestionForm';
 import { useStyles } from '../../../../styles/Admin/questionFormStyles';
 import AnswerView from '../AnswerView';
 import authManager from '../../../../services/authManager';
-import { useQuery, useQueryCache } from 'react-query';
+import { useQuery } from 'react-query';
 
 const QuestionDetails = () => {
   const classes = useStyles();
@@ -29,11 +29,9 @@ const QuestionDetails = () => {
 
   const location = useLocation();
   const questionId = location.state.questionId;
-  const queryCache = useQueryCache();
   let { isLoading } = useQuery(questionId, fetchQuestionDetails, {
     onSuccess: (response) => {
       setQuestionDetails(response.data);
-      queryCache.invalidateQueries('notifications');
     },
   });
 

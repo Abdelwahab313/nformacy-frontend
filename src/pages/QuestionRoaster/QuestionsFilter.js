@@ -6,18 +6,28 @@ import ThreeDotsDropdown from '../../components/ThreeDotsDropdown/ThreeDotsDropd
 import t from '../../locales/en/questionRoaster';
 import DropdownMenu from 'components/DropdownMenu/DropdownMenu';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import clsx from 'clsx';
 
-const QuestionsFilter = ({ isAllClicked, onClickAll, filtersState, onClickFilter }) => {
+const QuestionsFilter = ({
+  isAllClicked,
+  onClickAll,
+  filtersState,
+  onClickFilter,
+}) => {
   const classes = useStyles();
   let filtersList = [];
   const numberOfVisibleFilters = 5;
   for (let i = 0; i < numberOfVisibleFilters; i++) {
     filtersList.push(
-      <div id={`filters-${i}`}
-           className={filtersState[i] ? classes.activeFilterStyle : classes.inactiveFilterStyle}
-           onClick={() => {
-             onClickFilter(fieldsOfExperience[i], i);
-           }}>
+      <div
+        id={`filters-${i}`}
+        className={clsx({
+          [classes.activeFilterStyle]: Boolean(filtersState[i]),
+          [classes.inactiveFilterStyle]: !Boolean(filtersState[i]),
+        })}
+        onClick={() => {
+          onClickFilter(fieldsOfExperience[i], i);
+        }}>
         {fieldsOfExperience[i].label}
       </div>,
     );
@@ -35,8 +45,12 @@ const QuestionsFilter = ({ isAllClicked, onClickAll, filtersState, onClickFilter
         justify={'center'}
         className={classes.questionsCategoriesContainerDesktop}>
         <Grid item md={10} className={classes.fieldsFiltersContainer}>
-          <div onClick={() => onClickAll()}
-               className={isAllClicked ? classes.activeFilterStyle : classes.inactiveFilterStyle}>
+          <div
+            onClick={() => onClickAll()}
+            className={clsx({
+              [classes.activeFilterStyle]: isAllClicked,
+              [classes.inactiveFilterStyle]: !isAllClicked,
+            })}>
             {t['all']}
           </div>
           {filtersList.map((filter) => {
@@ -44,13 +58,13 @@ const QuestionsFilter = ({ isAllClicked, onClickAll, filtersState, onClickFilter
           })}
         </Grid>
         <Grid item md={2} className={classes.languageFilterContainer}>
-          <ThreeDotsDropdown
-            list={filterDropdownOptions}/>
+          <ThreeDotsDropdown list={filterDropdownOptions} />
           <DropdownMenu
             dropdownClass={classes.dropdownDesktop}
             icon={true}
             id={'question-language-filter'}
-            menuText={'Choose Langauge'}/>
+            menuText={'Choose Langauge'}
+          />
         </Grid>
       </Grid>
       <Grid
@@ -58,33 +72,47 @@ const QuestionsFilter = ({ isAllClicked, onClickAll, filtersState, onClickFilter
         direction={'row'}
         alignItems={'center'}
         className={classes.filterWrapper}>
-        <Grid item xs={9}
-              id={'filters-mobile'}
-              className={classes.questionsCategoriesContainerMobile}>
-          <div onClick={() => onClickAll()}
-               className={isAllClicked ? classes.activeFilterStyle : classes.inactiveFilterStyle}>
+        <Grid
+          item
+          xs={9}
+          id={'filters-mobile'}
+          className={classes.questionsCategoriesContainerMobile}>
+          <div
+            onClick={() => onClickAll()}
+            className={clsx({
+              [classes.activeFilterStyle]: isAllClicked,
+              [classes.inactiveFilterStyle]: !isAllClicked,
+            })}>
             {t['all']}
           </div>
           {fieldsOfExperience.map((field, key) => {
-            return <div id={`filters-${key}`}
-                        className={filtersState[key] ? classes.activeFilterStyle : classes.inactiveFilterStyle}
-                        onClick={() => {
-                          onClickFilter(field, key);
-                        }}>
-              {field.label}
-            </div>;
-          })
-          }
+            return (
+              <div
+                id={`filters-${key}`}
+                className={clsx({
+                  [classes.activeFilterStyle]: filtersState[key],
+                  [classes.inactiveFilterStyle]: !filtersState[key],
+                })}
+                onClick={() => {
+                  onClickFilter(field, key);
+                }}>
+                {field.label}
+              </div>
+            );
+          })}
         </Grid>
-        <Grid item xs={1} className={classes.nextIconSlider}>
-          <NavigateNextIcon color={'primary'} fontSize={'small'}/>
+        <Grid item xs={1} className={classes.nextIconSlider} >
+          <NavigateNextIcon
+            color={'primary'}
+            className={classes.nextIconSize}
+          />
         </Grid>
-        <Grid item xs={2}
-              className={classes.dropdownMobile}>
+        <Grid item xs={2} className={classes.dropdownMobile}>
           <DropdownMenu
             id={'question-language-filter-mobile'}
             icon={false}
-            menuText={'E'}/>
+            menuText={'E'}
+          />
         </Grid>
       </Grid>
     </Grid>
