@@ -35,13 +35,16 @@ export const useStyles = makeStyles((theme) => ({
   bannerStyles: {
     backgroundImage: `url(${bannerBackground})`,
     backgroundSize: 'contain',
-    height: '35vh',
+    height: '28vh',
     width: '100vw',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     color: white,
     marginBottom: theme.spacing(3),
+    [theme.breakpoints.down('md')]: {
+      backgroundSize: 'cover',
+    },
   },
   searchBarContainer: {
     padding: '2px 4px',
