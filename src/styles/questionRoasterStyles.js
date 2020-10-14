@@ -246,6 +246,7 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   menuItem: {
+    height: '4.167vw',
     fontFamily: fontNames.SF_UI_REGULAR,
     color: darkGrey,
     '&:hover': {
