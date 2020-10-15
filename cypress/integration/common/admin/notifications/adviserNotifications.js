@@ -183,7 +183,7 @@ Then(
   /^A toast should be displayed with the notification about question deployment$/,
   function() {
     cy.get('.Toastify__toast-body').contains(
-      /Question #\d+ is posted to Question Roaster/,
+      /Question #\d+ is posted on Q Roaster/,
     );
   },
 );
@@ -193,7 +193,7 @@ Then(
     cy.get('#notification-menu-list-grow')
       .find('button')
       .first()
-      .contains(/Question #\d+ is posted to Question Roaster/);
+      .contains(/Question #\d+ is posted on Q Roaster/);
   },
 );
 Then(

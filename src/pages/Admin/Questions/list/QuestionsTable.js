@@ -203,14 +203,7 @@ const getColumnsFor = (isAdviser, classes) => {
         filter: false,
         sort: true,
         customHeadLabelRender: () => (
-          <Grid className={classes.currentActionTimeContainer}>
-            <AlarmIcon
-              fontSize={'small'}
-              color={'primary'}
-              className={classes.currentActionTime}
-            />
-            By Time
-          </Grid>
+          <Grid className={classes.currentActionTimeContainer}>By Time</Grid>
         ),
         customBodyRender: (currentActionTime, tableMeta) => {
           return currentActionTime ? (

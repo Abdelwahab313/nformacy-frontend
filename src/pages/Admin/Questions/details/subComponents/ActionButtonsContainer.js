@@ -3,6 +3,7 @@ import { Grid } from '@material-ui/core';
 import t from '../../../../../locales/en/questionRoaster.json';
 import SubmitButton from 'components/buttons/SubmitButton';
 import authManager from '../../../../../services/authManager';
+import { useStyles as useRoasterStyle } from '../../../../../styles/questionRoasterStyles';
 
 const ActionButtonsContainer = ({
   questionDetails,
@@ -10,16 +11,17 @@ const ActionButtonsContainer = ({
   currentUser,
   saveAndCompleteLater,
   onSubmitQuestion,
-  questionRoasterClasses,
   onSendToAdminClicked,
 }) => {
+  const questionRoasterClasses = useRoasterStyle();
+
   if (authManager.isAdviser() && questionDetails.state === 'review_and_edit') {
     return (
       <Grid
         item
         xs={6}
         style={{ justifyContent: 'flex-end' }}
-        className={questionRoasterClasses.answerButtonsContainer}>
+        className={questionRoasterClasses.answerButtonContainer}>
         <SubmitButton
           id='saveAndCompleteLaterButton'
           onClick={() => saveAndCompleteLater()}
@@ -42,7 +44,7 @@ const ActionButtonsContainer = ({
       item
       xs={6}
       style={{ justifyContent: 'flex-end' }}
-      className={questionRoasterClasses.answerButtonsContainer}>
+      className={questionRoasterClasses.answerButtonContainer}>
       {isNewQuestion && (
         <SubmitButton
           id='saveAndCompleteLaterButton'

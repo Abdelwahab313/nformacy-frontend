@@ -389,7 +389,6 @@ const QuestionForm = ({
                 currentUser={currentUser}
                 saveAndCompleteLater={saveAndCompleteLater}
                 onSubmitQuestion={onSubmitQuestion}
-                questionRoasterClasses={questionRoasterClasses}
                 onSendToAdminClicked={onSendToAdminClicked}
               />
             )}

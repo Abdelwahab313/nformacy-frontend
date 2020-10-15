@@ -1,4 +1,10 @@
-import { blackColor, defaultFont, grayColor, hexToRgb, whiteColor } from 'assets/jss/material-dashboard-react.js';
+import {
+  blackColor,
+  defaultFont,
+  grayColor,
+  hexToRgb,
+  whiteColor,
+} from 'assets/jss/material-dashboard-react.js';
 import { overlayColor } from '../../../styles/colors';
 
 const dropdownStyle = (theme) => ({
@@ -112,7 +118,15 @@ const dropdownStyle = (theme) => ({
       '& $read': {
         color: theme.palette.primary.main,
       },
+      '& $iconOverlay': {
+        filter: 'grayscale(100%)',
+        background: 'rgba(' + hexToRgb(theme.palette.overlay.light) + ', 0)',
+      },
     },
+  },
+  iconOverlay: {
+    filter: 'grayscale(100%)',
+    background: 'rgba(' + hexToRgb(theme.palette.overlay.light) + ', 0.0)',
   },
   unreadItem: {
     ...defaultFont,
@@ -137,9 +151,6 @@ const dropdownStyle = (theme) => ({
     minHeight: 'unset',
     '&:hover': {
       background: 'rgba(' + hexToRgb(theme.palette.overlay.dark) + ', 0.20)',
-      '& $circle': {
-        background: 'rgba(' + hexToRgb(theme.palette.primary.main) + ', 0.80)',
-      },
       '& $unread': {
         color: 'rgba(' + hexToRgb(theme.palette.primary.main) + ', 0.80)',
       },

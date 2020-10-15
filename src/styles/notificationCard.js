@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { blackColor, hexToRgb } from '../assets/jss/material-dashboard-react';
 import fontNames from '../constants/fonts';
+import { white } from './colors';
 
 export const useStyles = makeStyles((theme) => ({
   notificationCard: {
@@ -17,6 +18,10 @@ export const useStyles = makeStyles((theme) => ({
       background: 'rgba(' + hexToRgb(theme.palette.overlay.light) + ', 0.20)',
       '& $read': {
         color: theme.palette.primary.main,
+      },
+      '& $iconOverlay': {
+        filter: 'grayscale(100%)',
+        background: 'rgba(' + hexToRgb(theme.palette.overlay.light) + ', 0)',
       },
     },
   },
@@ -79,8 +84,6 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: '50%',
   },
   avatar: {
-    borderRadius: theme.spacing(5),
-    background: 'rgba(' + hexToRgb(theme.palette.overlay.light) + ', 0.25)',
     marginRight: theme.spacing(1),
     padding: theme.spacing(1),
     [theme.breakpoints.between('xs', 'sm')]: {
@@ -96,12 +99,16 @@ export const useStyles = makeStyles((theme) => ({
       height: theme.spacing(5),
     },
   },
+  iconOverlay: {
+    filter: 'grayscale(100%)',
+    background: 'rgba(' + hexToRgb(theme.palette.overlay.light) + ', 0.0)',
+  },
 }));
 
 export const useMenuStyles = makeStyles((theme) => ({
   avatar: {
     borderRadius: theme.spacing(5),
-    background: 'rgba(' + hexToRgb(theme.palette.overlay.light) + ', 0.25)',
+    background: 'rgba(' + hexToRgb(theme.palette.overlay.light) + ', 0.0)',
     marginRight: theme.spacing(1),
     padding: theme.spacing(1),
     '&:hover': {

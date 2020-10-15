@@ -41,7 +41,9 @@ const NotificationsBody = () => {
           <img
             src={QuestionIcon}
             alt='Question'
-            className={notificationCardStyle.avatar}
+            className={clsx(notificationCardStyle.avatar, {
+              [classes.iconOverlay]: notification.readAt,
+            })}
           />
           {t(notification.messageKey, notification.messageParameters)}
         </Typography>

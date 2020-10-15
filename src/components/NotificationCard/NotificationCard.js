@@ -30,7 +30,13 @@ const NotificationCard = ({ notification }) => {
           className={classes.notificationTextStyle}
           display='inline'
           gutterBottom>
-          <img src={QuestionIcon} alt='Question' className={classes.avatar} />
+          <img
+            src={QuestionIcon}
+            alt='Question'
+            className={clsx(classes.avatar, {
+              [classes.iconOverlay]: notification.readAt,
+            })}
+          />
           {t([notification.messageKey], notification.messageParameters)}
         </Typography>
       </Grid>
