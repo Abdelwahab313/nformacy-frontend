@@ -1,12 +1,15 @@
 import { Grid, Typography } from '@material-ui/core';
 import React, { Fragment } from 'react'
 import TimerBoxSection from './TimerBoxSection';
+import { useStyles } from 'styles/TimerBoxSectionStyles';
 
 function CountdownBoxShape({ days, hours, minutes, completed }) {
+    const classes = useStyles();
+
     return (
         <Fragment>
             { completed ? 
-            <Typography>Closed</Typography> 
+            <Typography className={classes.closedQuestion} >Closed</Typography> 
             :
             <Grid container>
             <TimerBoxSection item md={4} xs={4}

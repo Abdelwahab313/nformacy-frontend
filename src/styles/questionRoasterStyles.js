@@ -125,17 +125,18 @@ export const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  paper: {
+  mainContainer: {
     padding: theme.spacing(3),
     margin: theme.spacing(2),
     backgroundColor: '#fafafa',
+    borderRadius: '4vw'
   },
   questionContainer: {
     marginTop: theme.spacing(2),
   },
   fieldContainer: {
     display: 'flex',
-    flexDirection: 'column',
+    flexWrap: 'wrap',
   },
   flexContainer: {
     display: 'flex',
@@ -316,8 +317,11 @@ export const useStyles = makeStyles((theme) => ({
   languageFilterContainer: {
     display: 'flex',
   },
+  imgContainer:{
+    display: 'flex',
+  },
   image: {
-    height: '100%',
+    objectFit: 'contain',
     width: '100%',
     borderRadius: '8px',
   },
@@ -325,14 +329,14 @@ export const useStyles = makeStyles((theme) => ({
     fontFamily: 'SF UI Display',
     paddingLeft: '2.083vw',
     [theme.breakpoints.down('xs')]: {
-      paddingTop: '15px',
+      paddingTop: '4vw',
     },
   },
   referenceNumberStyle: {
     fontFamily: fontNames.APERCU_PRO_MEDUIUM,
     color: darkBlue,
     [theme.breakpoints.down('xs')]: {
-      fontSize: '14px',
+      fontSize: '4vw',
       letterSpacing: 0,
       lineHeight: '30px',
     },
@@ -341,11 +345,11 @@ export const useStyles = makeStyles((theme) => ({
     color: grey,
     fontFamily: 'Apercu Pro',
     fontSize: '1.042vw',
-    lineHeight: '1.389vw',
     [theme.breakpoints.down('xs')]: {
       fontFamily: 'Apercu Pro',
-      fontSize: '12px',
-      lineHeight: '25px',
+      fontSize: '3.200vw',
+      lineHeight: '8vw',
+      paddingLeft:'5vw',
     },
   },
   threeDotButton: {
@@ -358,38 +362,43 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: '1.528vw',
     fontWeight: 'bold',
     lineHeight: '2.222vw',
-    paddingTop: '16px',
+    paddingTop: '1.111vw',
     [theme.breakpoints.down('xs')]: {
       fontFamily: 'Apercu Pro',
-      fontSize: '14px',
+      fontSize: '3.733vw',
       fontWeight: 'bold',
-      lineHeight: '24px',
+      lineHeight: '6.400vw',
     },
   },
-  FieldChip: {
+  fieldChip: {
     marginLeft: '5px',
     marginRight: '5px',
-    height: '28px',
-    width: '109px',
+    marginTop: '5px',
+    fontSize: '3vw',
     borderRadius: '25px',
-    paddingTop: '16px',
     [theme.breakpoints.down('xs')]: {
-      height: '24px',
-      width: '80px',
+      fontSize: '12px',
+    },
+  },
+  fieldChipText: {
+    fontSize: '1vw',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '12px',
     },
   },
   questionContentField: {
     color: grey,
+    paddingTop: '1.111vw',
     fontFamily: 'SF UI Display',
     fontSize: '1.181vw',
     fontWeight: '300',
     letterSpacing: '0.014vw',
     lineHeight: '2.083vw',
     [theme.breakpoints.down('xs')]: {
-      fontSize: '13px',
+      fontSize: '3.467vw',
       fontWeight: '300',
       letterSpacing: '0.15px',
-      lineHeight: '23px',
+      lineHeight: '6.133vw',
     },
   },
   answerButtonContainer: {
@@ -402,18 +411,32 @@ export const useStyles = makeStyles((theme) => ({
     verticalAlign: 'baseline',
   },
   submitButton: {
-    height: '4.028vw',
-    width: '9.722vw',
+    height: '4vw',
+    width: '9vw',
     borderRadius: '0.625vw',
     fontFamily: fontNames.SF_UI_REGULAR,
-    fontSize: '13px',
-    lineHeight: '16px',
+    fontSize: '1vw',
+    lineHeight: '1.111vw',
     [theme.breakpoints.down('xs')]: {
-      height: '45px',
-      width: '90px',
+      fontSize: '3vw',
+      height: '12vw',
+      width: '24vw',
       borderRadius: '9px',
     },
   },
+  timeContainer:{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+  },
+  closedQuestion:{
+    fontSize: '1.15vw',
+    fontFamily: fontNames.APERCU_PRO_MEDUIUM,
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '3vw',
+    },
+  }
 }));
 export const attachButtonStyle = () => {
   return {

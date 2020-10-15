@@ -16,35 +16,31 @@ export const useStyles = makeStyles((theme) => ({
           },
     },
     counterTime:{
-        height: '28px',
-        width: '30px',
         color: black,
         fontFamily: fontNames.APERCU_PRO_MEDUIUM,
         fontSize: '23px',
         fontWeight: 'bold',
         lineHeight: '29px',
         textAlign: 'center',
-        [theme.breakpoints.down('md')]: {
-            height: '21px',
-            width: '21px',
+        [theme.breakpoints.down('xs')]: {
             fontSize: '17px',
             lineHeight: '21px',
         },
     },
     counterText:{
-        height: '11px',
-        width: '17px',
         color: black,
         fontFamily: fontNames.APERCU_PRO_MEDUIUM,
         fontSize: '10px',
         lineHeight: '11px',
         textAlign: 'center',
         [theme.breakpoints.down('md')]: {
-            height: '11px',
-            width: '22px',
             fontSize: '10px',
             lineHeight: '11px',
         },
     },
+    closedQuestion:{
+        fontFamily: fontNames.SF_UI_REGULAR,
+        fontWeight: 'bold'
+    }
 
 }));

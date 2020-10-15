@@ -9,11 +9,11 @@ function TimerBoxSection({time, text}) {
 
     return (
     <Grid container className={classes.counterContainer} >
-        <Grid item md={12} xs={12} className={classes.counterTime}>
-            <Typography>{time}</Typography>
+        <Grid item md={12} xs={12}>
+            <Typography className={classes.counterTime} >{time}</Typography>
         </Grid>
-        <Grid item md={12} xs={12} className={classes.counterText}>
-            <Typography>{text}</Typography>
+        <Grid item md={12} xs={12}>
+            <Typography className={classes.counterText} >{text}</Typography>
         </Grid>
     </Grid>
     )

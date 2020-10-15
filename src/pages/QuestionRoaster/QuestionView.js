@@ -1,6 +1,5 @@
 import React from 'react';
 import AssignmentType from './AssignmentType';
-import Paper from '@material-ui/core/Paper';
 import Chip from '@material-ui/core/Chip';
 import { Grid, Tooltip } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
@@ -42,15 +41,19 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   };
 
   return (
-    <Paper elevation={3} className={classes.paper}>
+    <Grid className={classes.mainContainer}>
       <Grid container className={classes.questionContainer}>
-        <Grid item md={3} xs={12}>
-          <img className={classes.image} src={dummyImage} alt="Question Image" />
+        <Grid className={classes.imgContainer} item md={3} xs={12}>
+          <img 
+          id={`question-${questionDetails.referenceNumber}-thumbnail`}
+          className={classes.image} 
+          src={dummyImage} 
+          alt="Question Image" />
         </Grid>
 
         <Grid item md={9} xs={12}>
           <Grid container className={classes.questionTextWrapper}>
-{/* =======Ref and Date======= */}
+{/* =======Ref no. and Date======= */}
           <Grid item md={2} xs={3}>
           <Typography
             id={`question-${questionDetails.referenceNumber}-referenceNumber`}
@@ -65,32 +68,37 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
             {formattedDateMonthAndDay(new Date(questionDetails.createdAt))}
           </Typography>
         </Grid>
-        <Grid item md={3} xs={3}>
-          <Typography
-            id={`question-${questionDetails.referenceNumber}-closeIn`}>
-            {'Close in'}
-          </Typography>
-        </Grid>
 {/* ======Title and ActionTime======== */}
-        <Grid item md={9} xs={6}>
+        <Grid item container md={9} xs={6} alignItems={'center'}>
           <Typography
             id={`question-${questionDetails.referenceNumber}-title`}
             className={classes.questionTitle}>
             {questionDetails.title}
           </Typography>
         </Grid>
+
         <Grid item md={3} xs={6} id={`question-${questionDetails.referenceNumber}-currentActionTime`}>
-          <Countdown
-            date={questionDetails.currentActionTime}
-            renderer={(props) => <CountdownBoxShape {...props}/>}
-            className={classes.questionCountDown}
-          />
+          <Grid container direction={'column'} spacing={2} className={classes.timeContainer}>
+          <Grid item md={12} xs={12}>
+            <Typography className={classes.closedQuestion}
+              id={`question-${questionDetails.referenceNumber}-closeIn`}>
+              {'Close in'}
+            </Typography>
+          </Grid>
+          <Grid item md={12} xs={12}>
+            <Countdown
+              date={questionDetails.currentActionTime}
+              renderer={(props) => <CountdownBoxShape {...props}/>}
+              className={classes.questionCountDown}
+            />
+          </Grid>
+          </Grid>
         </Grid>
 {/* =======Major and Minor======= */}
         <Grid item md={12} xs={12} className={classes.flexContainer}>
           <Grid className={classes.fieldContainer}>
             {questionDetails.field?.map((major, key) => (
-              <Grid container alignItems={'center'}>
+              <Grid>
                   <Tooltip 
                   title={
                   <Typography> 
@@ -107,9 +115,15 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
                       
                   </Typography>}>
                   <Chip
-                    color={'secondary'}
+                    color={ key%2 == 0 ? 'primary' : 'secondary'}
                     className={classes.fieldChip}
-                      label={<Typography id={`questionMajorFields-${questionDetails.referenceNumber}-${key}`} key={key} >{major.label}</Typography>}
+                    label={
+                    <Typography 
+                    id={`questionMajorFields-${questionDetails.referenceNumber}-${key}`} 
+                    key={key} 
+                    className={classes.fieldChipText}>
+                      {major.label}
+                    </Typography>}
                   />
                   </Tooltip>
               </Grid>
@@ -125,7 +139,9 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
             />
         </Grid>
 {/* ======Icon and Button======== */}
-        <Grid item md={10} xs={10} className={classes.questionAssignmentTypeContainer}>
+        <Grid item md={10} xs={10} 
+        id={`question-${questionDetails.referenceNumber}-assignment`}
+        className={classes.questionAssignmentTypeContainer}>
           <AssignmentType
             index={questionDetails.referenceNumber}
             type={questionDetails.assignmentType}
@@ -150,7 +166,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
         </Grid>
 
       </Grid>
-    </Paper>
+    </Grid>
   );
 };
 

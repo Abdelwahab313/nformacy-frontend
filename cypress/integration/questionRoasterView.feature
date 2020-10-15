@@ -22,10 +22,11 @@ Feature: Question Roaster View
     And More icon that opens dropdown with filters that are not showing
     And Language filter as dropdown
 
-  # Scenario: New question roaster card design
-  #   Then I should see first picture in the question content as thumbnail on the left
-  #   And question reference number in primary color followed by post date (month and day)
-  #   And question title in bold large font followed by time to close question divided into (days/hours/minutes)
-  #   And question fields as chips with tooltip specifying minor fields
-  #   And Question content in normal font sizeAnd assignment type icon on the left 
-  #   And answer button on the right
+  Scenario: New question roaster card design
+    Then I should see first picture in the question content as thumbnail on the left
+    And question reference number in primary color followed by post date
+    And question title in bold large font followed by time to close question
+    And question fields as chips with tooltip specifying minor fields
+    And Question content in normal font size
+    And assignment type icon on the left 
+    And answer button on the right
