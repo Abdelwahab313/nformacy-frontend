@@ -7,7 +7,7 @@ import { useStyles } from '../../styles/questionRoasterStyles';
 
 const ITEM_HEIGHT = 48;
 
-const ThreeDotsDropdown = ({ list }) => {
+const ThreeDotsDropdown = ({ list, onClickFilter, numberOfVisibleFilters }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const classes = useStyles();
@@ -29,7 +29,7 @@ const ThreeDotsDropdown = ({ list }) => {
         aria-haspopup='true'
         onClick={handleClick}
         id={'more-options-menu'}>
-        <MoreHorizIcon id={'more-options-icon'} fontSize={'large'} />
+        <MoreHorizIcon id={'more-options-icon'} fontSize={'default'} />
       </IconButton>
       <Menu
         id='long-menu'
@@ -58,7 +58,10 @@ const ThreeDotsDropdown = ({ list }) => {
           <MenuItem
             className={classes.menuItem}
             key={key}
-            onClick={handleClose}>
+            onClick={() => {
+              handleClose();
+              onClickFilter(option, key + numberOfVisibleFilters);
+            }}>
             {option.label}
           </MenuItem>
         ))}

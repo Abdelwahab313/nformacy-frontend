@@ -9,11 +9,8 @@ const fontStyle = (theme) => ({
   [theme.breakpoints.up('xl')]: {
     fontSize: '0.980vw',
   },
-  [theme.breakpoints.down('lg')]: {
-    fontSize: '1.042vw',
-  },
   [theme.breakpoints.down('md')]: {
-    fontSize: '1.953vw',
+    fontSize: '1.142vw',
   },
   [theme.breakpoints.down('xs')]: {
     fontSize: '4vw',

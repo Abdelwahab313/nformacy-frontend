@@ -25,7 +25,7 @@ const filterStyle = (theme) => ({
     fontSize: '1.367vw',
   },
   [theme.breakpoints.down('md')]: {
-    fontSize: '1.953vw',
+    fontSize: '1.142vw',
   },
   [theme.breakpoints.down('sm')]: {
     fontSize: '3.125vw',
@@ -234,7 +234,7 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '1.042vw',
     },
     [theme.breakpoints.down('md')]: {
-      fontSize: '1.953vw',
+      fontSize: '1.142vw',
     },
     [theme.breakpoints.down('xs')]: {
       fontSize: '4vw',
@@ -285,7 +285,7 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '1.042vw',
     },
     [theme.breakpoints.down('md')]: {
-      fontSize: '1.953vw',
+      fontSize: '1.142vw',
     },
     [theme.breakpoints.down('xs')]: {
       fontSize: '4vw',
