@@ -8,12 +8,22 @@ import { useStyles } from 'styles/questionRoasterStyles';
 import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 import { useHistory } from 'react-router';
 import { fieldsOfExperience } from 'constants/dropDownOptions';
-import QuestionCountDown from 'components/counters/QuestionCountDown';
 import SubmitButton from 'components/buttons/SubmitButton';
 import t from '../../locales/en/questionRoaster';
 import createMarkup from '../../services/markup';
 import dummyImage from 'assets/img/sidebar-2.jpg';
+import Countdown from 'react-countdown';
+import CountdownBoxShape from 'components/counters/CountdownBoxShape'; 
 
+export const getFirstParaghraph = (htmlContent) => {
+  let matches = htmlContent.match(/<p>(.*?)<\/p>/gm);
+  if (matches == null) {
+      return 'No Content'
+  } else {
+      let output = matches[0].replace("<p>", "").replace("</p>", "");
+      return output
+  }
+}
 
 const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   const classes = useStyles();
@@ -30,7 +40,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
       ).length > 0
     );
   };
-  
+
   return (
     <Paper elevation={3} className={classes.paper}>
       <Grid container className={classes.questionContainer}>
@@ -62,22 +72,22 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
           </Typography>
         </Grid>
 {/* ======Title and ActionTime======== */}
-        <Grid item md={9} xs={7}>
+        <Grid item md={9} xs={6}>
           <Typography
             id={`question-${questionDetails.referenceNumber}-title`}
             className={classes.questionTitle}>
             {questionDetails.title}
           </Typography>
         </Grid>
-        <Grid item md={3} xs={5}>
-          <QuestionCountDown
+        <Grid item md={3} xs={6} id={`question-${questionDetails.referenceNumber}-currentActionTime`}>
+          <Countdown
             date={questionDetails.currentActionTime}
-            id={`question-${questionDetails.referenceNumber}-currentActionTime`}
-            className={classes.questionFieldsStyles}
+            renderer={(props) => <CountdownBoxShape {...props}/>}
+            className={classes.questionCountDown}
           />
         </Grid>
 {/* =======Major and Minor======= */}
-        <Grid item md={12} xs={12} className={[classes.flexContainer, classes.questionFieldsStyles]}>
+        <Grid item md={12} xs={12} className={classes.flexContainer}>
           <Grid className={classes.fieldContainer}>
             {questionDetails.field?.map((major, key) => (
               <Grid container alignItems={'center'}>
@@ -111,11 +121,11 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
           <div
             id={`question-${questionDetails.referenceNumber}-content`}
             className={classes.questionContentField}
-            dangerouslySetInnerHTML={createMarkup(questionDetails.content)}
-          ></div>
+            dangerouslySetInnerHTML={createMarkup(getFirstParaghraph(questionDetails.content))}
+            />
         </Grid>
 {/* ======Icon and Button======== */}
-        <Grid item md={6} xs={6}>
+        <Grid item md={10} xs={10} className={classes.questionAssignmentTypeContainer}>
           <AssignmentType
             index={questionDetails.referenceNumber}
             type={questionDetails.assignmentType}
@@ -124,8 +134,8 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
         {isSubmitVisible && (
           <Grid
             item
-            md={6}
-            xs={6}
+            md={2}
+            xs={2}
             className={classes.answerButtonContainer}>
             <SubmitButton
               className={classes.submitButton}
@@ -144,4 +154,4 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   );
 };
 
-export default QuestionView;
+export  default QuestionView ;

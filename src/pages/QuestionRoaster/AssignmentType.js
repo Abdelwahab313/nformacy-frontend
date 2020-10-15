@@ -1,39 +1,51 @@
 import React, { Fragment } from 'react';
-import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import Typography from '@material-ui/core/Typography';
-import HelpIcon from '@material-ui/icons/Help';
-import CallIcon from '@material-ui/icons/Call';
-import { useStyles } from 'styles/questionRoasterStyles';
 import t from '../../locales/en/questionRoaster';
+import { Tooltip } from '@material-ui/core';
 
 const AssignmentType = ({ index, type }) => {
-  const classes = useStyles();
 
   switch (type) {
     case 'project':
       return (
         <Fragment>
-          <BusinessCenterIcon id={`question-${index}-project`} color={'primary'}
-                              className={classes.assignmentTypeIcon}/>
-          <Typography>{t['project']}</Typography>
+          <Tooltip 
+          title={<Typography>{t['project']}</Typography>}>
+          <img
+            id={`question-${index}-project`} 
+            color={'primary'} 
+            src={require('../../assets/project.svg')}
+            width={'16px'}
+          />
+          </Tooltip>
         </Fragment>
       );
     case 'question':
       return (
         <Fragment>
+          <Tooltip 
+          title={<Typography>{t['question']}</Typography>}>
           <img
-            src={require('../../assets/image3.png')}
-            width={'50px'}
-            alt={'questionAssignmentType'}
+            id={`question-${index}-question`} 
+            color={'primary'} 
+            src={require('../../assets/question.svg')}
+            width={'16px'}
           />
-          <Typography>{t['question']}</Typography>
+          </Tooltip>
         </Fragment>
       );
     case 'call':
       return (
         <Fragment>
-          <CallIcon id={`question-${index}-call`} color={'primary'} className={classes.assignmentTypeIcon}/>
-          <Typography>{t['call']}</Typography>
+         <Tooltip 
+          title={<Typography>{t['call']}</Typography>}>
+          <img
+            id={`question-${index}-call`} 
+            color={'primary'} 
+            src={require('../../assets/call.svg')}
+            width={'16px'}
+          />
+          </Tooltip>
         </Fragment>
       );
     default:

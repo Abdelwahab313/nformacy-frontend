@@ -4,7 +4,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import QuestionIcon from '../../assets/Question.svg';
+import QuestionIcon from '../../assets/question.svg';
 import moment from 'moment';
 import React from 'react';
 import { t } from '../../locales/en/notifications';

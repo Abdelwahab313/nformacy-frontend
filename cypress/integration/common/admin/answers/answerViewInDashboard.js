@@ -8,7 +8,7 @@ Given(/^There is a question with answers$/, function() {
 });
 
 When(/^Click on created question$/, function() {
-  cy.wait(1000);
+  cy.wait(3000);
   cy.get(
     `a[data-reference='${
       getFromLocalStorage('createdQuestion').referenceNumber

@@ -9,7 +9,7 @@ import { useNotificationsContext } from '../../../../hooks/notifications/context
 import { useHistory } from 'react-router';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import QuestionIcon from '../../../../assets/Question.svg';
+import QuestionIcon from '../../../../assets/question.svg';
 import { useMenuStyles } from '../../../../styles/notificationCard';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import clsx from 'clsx';

@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { darkBlue, darkGrey, white } from './colors';
+import { darkBlue, darkGrey, grey, white } from './colors';
 import bannerBackground from '../assets/banner2X.png';
 import fontNames from '../constants/fonts';
 import { hexToRgb } from '../assets/jss/material-dashboard-react';
@@ -133,13 +133,6 @@ export const useStyles = makeStyles((theme) => ({
   questionContainer: {
     marginTop: theme.spacing(2),
   },
-  answerButtonContainer: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  assignmentTypeIcon: {
-    fontSize: '50px',
-  },
   fieldContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -225,7 +218,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   dropdownDesktop: {
     margin: `0 ${theme.spacing(1)}px`,
-    color: darkGrey,
+    color: grey,
     fontSize: '1.042vw',
     [theme.breakpoints.up('xl')]: {
       fontSize: '0.980vw',
@@ -329,29 +322,29 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: '8px',
   },
   questionTextWrapper: {
+    fontFamily: 'SF UI Display',
     paddingLeft: '2.083vw',
     [theme.breakpoints.down('xs')]: {
       paddingTop: '15px',
     },
   },
   referenceNumberStyle: {
+    fontFamily: fontNames.APERCU_PRO_MEDUIUM,
     color: darkBlue,
     [theme.breakpoints.down('xs')]: {
-      fontFamily: 'Apercu Pro',
       fontSize: '14px',
       letterSpacing: 0,
       lineHeight: '30px',
     },
   },
   postDateStyle: {
-    color: darkGrey,
+    color: grey,
     fontFamily: 'Apercu Pro',
     fontSize: '1.042vw',
     lineHeight: '1.389vw',
     [theme.breakpoints.down('xs')]: {
       fontFamily: 'Apercu Pro',
       fontSize: '12px',
-      letterSpacing: 0,
       lineHeight: '25px',
     },
   },
@@ -361,10 +354,11 @@ export const useStyles = makeStyles((theme) => ({
     color: 'black',
   },
   questionTitle: {
-    fontFamily: 'Apercu Pro',
+    fontFamily: fontNames.APERCU_PRO_MEDUIUM,
     fontSize: '1.528vw',
     fontWeight: 'bold',
     lineHeight: '2.222vw',
+    paddingTop: '16px',
     [theme.breakpoints.down('xs')]: {
       fontFamily: 'Apercu Pro',
       fontSize: '14px',
@@ -377,14 +371,15 @@ export const useStyles = makeStyles((theme) => ({
     marginRight: '5px',
     height: '28px',
     width: '109px',
+    borderRadius: '25px',
+    paddingTop: '16px',
     [theme.breakpoints.down('xs')]: {
       height: '24px',
       width: '80px',
-      borderRadius: '25px',
     },
   },
   questionContentField: {
-    color: darkGrey,
+    color: grey,
     fontFamily: 'SF UI Display',
     fontSize: '1.181vw',
     fontWeight: '300',
@@ -402,14 +397,15 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
     marginTop: '1.389vw',
   },
-  assignmentTypeIcon: {
-    fontSize: '35px',
+  questionAssignmentTypeContainer:{
+    display: 'flex',
+    verticalAlign: 'baseline',
   },
   submitButton: {
     height: '4.028vw',
     width: '9.722vw',
     borderRadius: '0.625vw',
-    fontFamily: 'SF UI Display',
+    fontFamily: fontNames.SF_UI_REGULAR,
     fontSize: '13px',
     lineHeight: '16px',
     [theme.breakpoints.down('xs')]: {
