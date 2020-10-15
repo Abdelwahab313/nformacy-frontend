@@ -68,26 +68,23 @@ Feature: Adviser notifications
   Scenario: Receive notification when admin send a question to review and edit
     When Admin send a question to me to review
     Then I should receive a notification about the assignment in the notifications section in the navbar and the notification counter increase by 1
-    And A toast should be displayed with the notification "pending_adviser_acceptance"
+    And A toast should be displayed with the notification "New Question Assigned to you"
     When I click on notifications menu
-    Then I should see the newly received notification with message "pending_adviser_acceptance"
-    And I should see toast notification with the newly received notification
+    Then I should see the newly received notification with message "New Question Assigned to you"
 
   Scenario: Receive notification when admin deploy a question to roaster i am assigned to
     When Admin deploy a question i am assigned to
     Then I should receive a notification about the assignment in the notifications section in the navbar and the notification counter increase by 1
-    And A toast should be displayed with the notification "admin_deployed_question"
+    And A toast should be displayed with the notification about question deployment
     When I click on notifications menu
-    Then I should see the newly received notification with message "admin_deployed_question"
-    And I should see toast notification with the newly received notification
+    Then I should see the newly received notification with the notification about question deployment
 
   Scenario: Receive notification when admin accept an answer in a question i am assigned to.
     When Admin accept an answer in a question i am assigned to
     Then I should receive a notification about the assignment in the notifications section in the navbar and the notification counter increase by 1
-    And A toast should be displayed with the notification "answer_accepted"
+    And A toast should be displayed with notification to rate answer
     When I click on notifications menu
-    Then I should see the newly received notification with message "answer_accepted"
-    And I should see toast notification with the newly received notification
+    Then I should see the newly received notification to rate answer
 
   Scenario: See more notifications
     Given I have 15 notifications

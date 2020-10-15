@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import QuestionIcon from '../../assets/Question.svg';
 import moment from 'moment';
 import React from 'react';
+import { t } from '../../locales/en/notifications';
 
 export const Circle = (props) => {
   const classes = useStyles();
@@ -30,7 +31,7 @@ const NotificationCard = ({ notification }) => {
           display='inline'
           gutterBottom>
           <img src={QuestionIcon} alt='Question' className={classes.avatar} />
-          {notification.messageKey}
+          {t([notification.messageKey], notification.messageParameters)}
         </Typography>
       </Grid>
       <Grid container direction='row' justify='space-between'>

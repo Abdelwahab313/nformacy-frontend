@@ -1,5 +1,6 @@
 import { notificationActions, useNotificationsContext } from './context';
 import { useEffect } from 'react';
+import { t } from '../../locales/en/notifications.js';
 import { toast } from 'react-toastify';
 
 const useToastListener = (onToastClick) => {
@@ -13,10 +14,13 @@ const useToastListener = (onToastClick) => {
   };
   useEffect(() => {
     if (showToast) {
-      toast(toastToBeDisplayed.messageKey, {
-        toastId: toastToBeDisplayed.notificationId,
-        onClick: visitNotification,
-      });
+      toast(
+        t([toastToBeDisplayed.messageKey], toastToBeDisplayed.messageParameters),
+        {
+          toastId: toastToBeDisplayed.notificationId,
+          onClick: visitNotification,
+        },
+      );
       dispatch({ type: notificationActions.toastCleared });
     }
     return () => dispatch({ type: notificationActions.toastCleared });

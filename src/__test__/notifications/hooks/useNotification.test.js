@@ -19,6 +19,7 @@ const createMessage = (notification = null) => {
   const sampleNotification = {
     id: 1,
     messageKey: 'test',
+    messageParameters: { referenceNumber: 1 },
     readAt: Date.now(),
     createdAt: Date.now(),
     type: 'QuestionNotification',
@@ -244,7 +245,7 @@ describe('Notifications', () => {
 
           expect(result.current.notifications.length).toEqual(1);
           expect(spy).toHaveBeenCalledWith(
-            mockedNotification.message_key,
+            "New Question Assigned to you",
             expect.objectContaining({
               toastId: mockedNotification.notification_id,
             }),

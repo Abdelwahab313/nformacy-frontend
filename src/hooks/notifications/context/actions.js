@@ -1,6 +1,7 @@
 import produce from 'immer';
 import getPathForNotification from '../../../services/notificationPathResolver';
 import history from '../../../services/navigation';
+import { camelizeKeys } from 'humps';
 
 const MAX_NOTIFICATIONS = 10;
 export const Notification = (notification) => {
@@ -8,6 +9,7 @@ export const Notification = (notification) => {
     notificationId: notification.notification_id,
     targetId: notification.target_id,
     messageKey: notification.message_key,
+    messageParameters: camelizeKeys(notification.message_parameters),
     createdAt: notification.created_at,
     type: notification.type,
     readAt: notification.read_at || null,

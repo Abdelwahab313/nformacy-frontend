@@ -74,12 +74,6 @@ Then(/^The newly sent notification should replace the oldest one$/, function() {
     .first()
     .should('have.text', 'See more...');
 });
-Then(
-  /^I should see toast notification with the newly received notification$/,
-  function() {
-    cy.get('.Toastify__toast').should('be.visible');
-  },
-);
 Then(/^I should see "([^"]*)"$/, function(message) {
   cy.get('#notification-menu-list-grow')
     .find('li')
@@ -185,3 +179,37 @@ Given(/^Admin assign a draft question to me to review$/, function() {
   });
   cy.wait(1000);
 });
+Then(
+  /^A toast should be displayed with the notification about question deployment$/,
+  function() {
+    cy.get('.Toastify__toast-body').contains(
+      /Question #\d+ is posted to Question Roaster/,
+    );
+  },
+);
+Then(
+  /^I should see the newly received notification with the notification about question deployment$/,
+  function() {
+    cy.get('#notification-menu-list-grow')
+      .find('button')
+      .first()
+      .contains(/Question #\d+ is posted to Question Roaster/);
+  },
+);
+Then(
+  /^A toast should be displayed with notification to rate answer$/,
+  function() {
+    cy.get('.Toastify__toast-body').contains(
+      /Answer #\d+ is ready to be Rated/,
+    );
+  },
+);
+Then(
+  /^I should see the newly received notification to rate answer$/,
+  function() {
+    cy.get('#notification-menu-list-grow')
+      .find('button')
+      .first()
+      .contains(/Answer #\d+ is ready to be Rated/);
+  },
+);

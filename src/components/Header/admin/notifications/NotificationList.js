@@ -1,7 +1,7 @@
 import useNotification from '../../../../hooks/notifications/useNotification';
 import MenuList from '@material-ui/core/MenuList';
 import MenuItem from '@material-ui/core/MenuItem';
-import React, { useMemo } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import styles from '../../../../assets/jss/material-dashboard-react/components/headerLinksStyle';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -15,6 +15,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import clsx from 'clsx';
 import moment from 'moment';
 import { Circle } from '../../../NotificationCard/NotificationCard';
+import { t } from '../../../../locales/en/notifications.js';
 
 const useStyles = makeStyles(styles);
 
@@ -42,7 +43,7 @@ const NotificationsBody = () => {
             alt='Question'
             className={notificationCardStyle.avatar}
           />
-          {notification.messageKey}
+          {t(notification.messageKey, notification.messageParameters)}
         </Typography>
         <Grid container direction='row' justify='space-between'>
           <Typography
@@ -69,7 +70,7 @@ const NotificationsHeader = () => {
   const { closeNotification } = useNotification();
   if (!notifications) return null;
   return (
-    <>
+    <Fragment>
       {notifications?.length === 0 && (
         <MenuItem
           onClick={closeNotification}
@@ -77,7 +78,7 @@ const NotificationsHeader = () => {
           No notifications to be displayed
         </MenuItem>
       )}
-    </>
+    </Fragment>
   );
 };
 
@@ -96,7 +97,7 @@ const NotificationsFooter = () => {
     history.push('/admin/notifications');
   };
   return (
-    <>
+    <Fragment>
       {(unreadCount > 10 || oldUnreadNotifications) && (
         <MenuItem
           onClick={navigateToAllNotifications}
@@ -104,7 +105,7 @@ const NotificationsFooter = () => {
           See more...
         </MenuItem>
       )}
-    </>
+    </Fragment>
   );
 };
 
