@@ -46,6 +46,7 @@ const theme = createMuiTheme({
       fontNames.SF_UI_REGULAR,
       fontNames.SF_UI_LIGHT,
       fontNames.SF_UI_BOLD,
+      fontNames.APERCU_PRO_Regular,
       fontNames.APERCU_PRO_MEDUIUM,
       fontNames.SF_COMPACT_TEXT_REGULAR,
       fontNames.TAJAWAL_BOLD,

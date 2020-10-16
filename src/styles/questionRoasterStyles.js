@@ -129,7 +129,7 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     margin: theme.spacing(2),
     backgroundColor: '#fafafa',
-    borderRadius: '4vw'
+    borderRadius: '4vw',
   },
   questionContainer: {
     marginTop: theme.spacing(2),
@@ -290,6 +290,11 @@ export const useStyles = makeStyles((theme) => ({
       borderLeft: `solid 0.486vw` + darkBlue,
     },
   },
+  selectedMenuItem: {
+    color: darkBlue,
+    background: 'rgba(0,0,0,0.03)',
+    borderLeft: `solid 0.486vw` + darkBlue,
+  },
   filterWrapper: {
     [theme.breakpoints.down('sm')]: {
       marginTop: theme.spacing(3),
@@ -317,7 +322,7 @@ export const useStyles = makeStyles((theme) => ({
   languageFilterContainer: {
     display: 'flex',
   },
-  imgContainer:{
+  imgContainer: {
     display: 'flex',
   },
   image: {
@@ -349,7 +354,7 @@ export const useStyles = makeStyles((theme) => ({
       fontFamily: 'Apercu Pro',
       fontSize: '3.200vw',
       lineHeight: '8vw',
-      paddingLeft:'5vw',
+      paddingLeft: '5vw',
     },
   },
   threeDotButton: {
@@ -382,6 +387,8 @@ export const useStyles = makeStyles((theme) => ({
   },
   fieldChipText: {
     fontSize: '1vw',
+    fontFamily: fontNames.APERCU_PRO_Regular,
+    color: 'white',
     [theme.breakpoints.down('xs')]: {
       fontSize: '12px',
     },
@@ -406,7 +413,7 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
     marginTop: '1.389vw',
   },
-  questionAssignmentTypeContainer:{
+  questionAssignmentTypeContainer: {
     display: 'flex',
     verticalAlign: 'baseline',
   },
@@ -424,19 +431,19 @@ export const useStyles = makeStyles((theme) => ({
       borderRadius: '9px',
     },
   },
-  timeContainer:{
+  timeContainer: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
   },
-  closedQuestion:{
+  closedQuestion: {
     fontSize: '1.15vw',
     fontFamily: fontNames.APERCU_PRO_MEDUIUM,
     [theme.breakpoints.down('xs')]: {
       fontSize: '3vw',
     },
-  }
+  },
 }));
 export const attachButtonStyle = () => {
   return {

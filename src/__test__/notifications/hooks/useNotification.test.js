@@ -245,7 +245,7 @@ describe('Notifications', () => {
 
           expect(result.current.notifications.length).toEqual(1);
           expect(spy).toHaveBeenCalledWith(
-            "New Question Assigned to you",
+            "New Question Assigned to you #2",
             expect.objectContaining({
               toastId: mockedNotification.notification_id,
             }),

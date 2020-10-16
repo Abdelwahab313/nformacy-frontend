@@ -4,10 +4,16 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { useStyles } from '../../styles/questionRoasterStyles';
+import clsx from 'clsx';
 
 const ITEM_HEIGHT = 48;
 
-const ThreeDotsDropdown = ({ list, onClickFilter, numberOfVisibleFilters }) => {
+const ThreeDotsDropdown = ({
+  list,
+  onClickFilter,
+  filtersState,
+  numberOfVisibleFilters,
+}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const classes = useStyles();
@@ -56,7 +62,11 @@ const ThreeDotsDropdown = ({ list, onClickFilter, numberOfVisibleFilters }) => {
         }}>
         {list.map((option, key) => (
           <MenuItem
-            className={classes.menuItem}
+            className={clsx(classes.menuItem, {
+              [classes.selectedMenuItem]:
+                filtersState[key + numberOfVisibleFilters],
+            })}
+            selected={filtersState[key + numberOfVisibleFilters]}
             key={key}
             onClick={() => {
               handleClose();

@@ -57,7 +57,7 @@ const QuestionsFilter = ({
           {filtersList.map((filter) => {
             return filter;
           })}
-          <ThreeDotsDropdown numberOfVisibleFilters={numberOfVisibleFilters} onClickFilter={onClickFilter} list={filterDropdownOptions}/>
+          <ThreeDotsDropdown numberOfVisibleFilters={numberOfVisibleFilters} onClickFilter={onClickFilter} list={filterDropdownOptions} filtersState={filtersState}/>
         </Grid>
         <Grid item md={2} className={classes.languageFilterContainer}>
           <DropdownMenu

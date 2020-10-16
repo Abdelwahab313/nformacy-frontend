@@ -4,6 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useStyles } from '../../styles/questionRoasterStyles';
+import clsx from 'clsx';
 
 const DropdownMenu = ({ id, menuText, dropdownClass, icon }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -23,11 +24,15 @@ const DropdownMenu = ({ id, menuText, dropdownClass, icon }) => {
       <Button
         id={id}
         className={dropdownClass}
-        aria-controls="simple-menu"
-        aria-haspopup="true"
+        aria-controls='simple-menu'
+        aria-haspopup='true'
         onClick={handleClick}>
         {menuText}
-        {icon ? <ExpandMoreIcon id={'expand-menu-icon'} fontSize={'small'}/> : ''}
+        {icon ? (
+          <ExpandMoreIcon id={'expand-menu-icon'} fontSize={'small'} />
+        ) : (
+          ''
+        )}
       </Button>
       <Menu
         anchorEl={anchorEl}
@@ -49,11 +54,28 @@ const DropdownMenu = ({ id, menuText, dropdownClass, icon }) => {
           horizontal: 'left',
         }}
         open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem className={classes.menuItem} onClick={handleClose}>All Langauges </MenuItem>
-        <MenuItem className={classes.menuItem} onClick={handleClose}>Arabic</MenuItem>
-        <MenuItem className={classes.menuItem} onClick={handleClose}>English</MenuItem>
+        onClose={handleClose}>
+        <MenuItem
+          className={clsx(classes.menuItem, {
+            [classes.selectedMenuItem]: true,
+          })}
+          onClick={handleClose}>
+          All Langauges{' '}
+        </MenuItem>
+        <MenuItem
+          className={clsx(classes.menuItem, {
+            [classes.selectedMenuItem]: false,
+          })}
+          onClick={handleClose}>
+          Arabic
+        </MenuItem>
+        <MenuItem
+          className={clsx(classes.menuItem, {
+            [classes.selectedMenuItem]: false,
+          })}
+          onClick={handleClose}>
+          English
+        </MenuItem>
       </Menu>
     </div>
   );
