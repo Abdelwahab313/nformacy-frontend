@@ -80,37 +80,37 @@ Then(/^Language filter as dropdown$/, function() {
   cy.get('#question-language-filter');
 });
 Then(/^I should see first picture in the question content as thumbnail on the left$/, function() {
-  cy.get('#question-2000100-title').should("exist");
+  cy.get('#question-2000100-title').should('exist');
 });
 Then(/^question reference number in primary color followed by post date$/, function() {
   cy.get('#question-2000100-referenceNumber')
-      .invoke('text')
-      .should('not.be.empty');
+    .invoke('text')
+    .should('not.be.empty');
   cy.get('#question-2000100-postDate')
-      .invoke('text')
-      .should('not.be.empty');
+    .invoke('text')
+    .should('not.be.empty');
 });
 Then(/^question title in bold large font followed by time to close question$/, function() {
   cy.get('#question-2000100-title')
-      .invoke('text')
-      .should('not.be.empty');
+    .invoke('text')
+    .should('not.be.empty');
   cy.get('#question-2000100-currentActionTime')
-      .invoke('text')
-      .should('not.be.empty');
+    .invoke('text')
+    .should('not.be.empty');
 });
 Then(/^question fields as chips with tooltip specifying minor fields$/, function() {
   cy.get('#questionMajorFields-2000100-0').trigger('mouseover').get('#questionSubFields-2000100-0')
-  .invoke('text')
-  .should('not.be.empty');
+    .invoke('text')
+    .should('not.be.empty');
 });
 Then(/^Question content in normal font size$/, function() {
   cy.get('#question-2000100-content')
-  .invoke('text')
-  .should('not.be.empty');
+    .invoke('text')
+    .should('not.be.empty');
 });
 Then(/^assignment type icon on the left$/, function() {
-  cy.get('#question-2000100-assignment').should('exist')
+  cy.get('#question-2000100-assignment').should('exist');
 });
 Then(/^answer button on the right$/, function() {
-  cy.get('#question-2000100-submit').should('exist')
+  cy.get('#question-2000100-submit').should('exist');
 });
