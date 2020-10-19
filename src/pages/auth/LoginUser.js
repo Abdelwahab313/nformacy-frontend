@@ -11,12 +11,12 @@ import { useAuth } from './context/auth';
 import ErrorDialog from '../../components/errors/ErrorDialog';
 import { useStyles } from 'styles/formsStyles';
 import { login } from 'apis/authAPI';
-import { withNamespaces } from 'react-i18next';
 import authManager from '../../services/authManager';
 import { updateUser } from './context/authActions';
 import { RoutesPaths } from 'constants/routesPath';
+import { useTranslation } from 'react-i18next';
 
-const Login = ({ t }) => {
+const Login = () => {
   const classes = useStyles();
   const { register, handleSubmit, errors } = useForm();
   const [loginFailed, setLoginFailed] = useState(false);
@@ -24,11 +24,16 @@ const Login = ({ t }) => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [showError, setShowError] = useState(false);
-  const [_, dispatch] = useAuth();
+  const [, dispatch] = useAuth();
   const location = useLocation();
+  const { t } = useTranslation();
   const isAdminLogin = location.pathname.indexOf('admin') > -1;
-  const postLoginRoute = isAdminLogin ? RoutesPaths.Admin.Home : RoutesPaths.App.Home;
-  const referer = location.state ? location.state.referer || postLoginRoute : postLoginRoute;
+  const postLoginRoute = isAdminLogin
+    ? RoutesPaths.Admin.Home
+    : RoutesPaths.App.Home;
+  const referer = location.state
+    ? location.state.referer || postLoginRoute
+    : postLoginRoute;
 
   const onSubmit = (data) => {
     setLoginFailed(false);
@@ -61,27 +66,30 @@ const Login = ({ t }) => {
     setLoginFailed(false);
   };
 
-  console.log('post login route', isAdminLogin, postLoginRoute);
-  console.log('referer', referer);
   const { authToken } = authManager.retrieveUserToken();
-  if (loginSuccess || (authToken)) {
+  if (loginSuccess || authToken) {
     if (referer.pathname === RoutesPaths.App.Logout) {
-      return <Redirect push to={postLoginRoute}/>;
+      return <Redirect push to={postLoginRoute} />;
     }
-    console.log('go to referer block')
-    return <Redirect push to={referer}/>;
+    return <Redirect push to={referer} />;
   }
   if (loading) {
     return (
       <div className={classes.progressContainer}>
-        <CircularProgress/>
+        <CircularProgress />
       </div>
     );
   }
   return (
-    <Grid container className={classes.logInPageContainer} alignContent={'center'}>
-      <Grid container alignContent='center' style={{ height: 'fit-content', marginBottom: '50px' }}>
-        <Grid item xs={1}/>
+    <Grid
+      container
+      className={classes.logInPageContainer}
+      alignContent={'center'}>
+      <Grid
+        container
+        alignContent='center'
+        className={classes.loginInTitleContainer}>
+        <Grid item xs={1} />
         <Grid item xs={10}>
           <Typography className={classes.pageHeaderStyle}>
             {t('Login')}
@@ -98,9 +106,12 @@ const Login = ({ t }) => {
             }}
           />
         )}
-        <CssBaseline/>
+        <CssBaseline />
         <Grid item xs={12} md={3}>
-          <img src={require('../../assets/22759-girl-on-a-scooter.gif')} width={'100%'}/>
+          <img
+            src={require('../../assets/22759-girl-on-a-scooter.gif')}
+            width={'100%'}
+          />
         </Grid>
         <Grid item xs={12} md={6} className={classes.paper}>
           <form
@@ -143,8 +154,8 @@ const Login = ({ t }) => {
 
             {loginFailed && (
               <span id={'loginFailedMessage'} className={classes.error}>
-              {t('Invalid Email or password')}
-            </span>
+                {t('Invalid Email or password')}
+              </span>
             )}
             <a className={classes.signupLink} href={'signup'}>
               Don't have account signup now!
@@ -167,4 +178,4 @@ const Login = ({ t }) => {
   );
 };
 
-export default withNamespaces('login')(Login);
+export default Login;

@@ -3,17 +3,17 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { useForm } from 'react-hook-form';
-import { withNamespaces } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStyles } from '../../styles/formsStyles';
-import { signup, updateProfile } from '../../apis/userAPI';
-import { AuthActionTypes, useAuth } from '../auth/context/auth';
+import { signup } from '../../apis/userAPI';
+import { useAuth } from '../auth/context/auth';
 import { Redirect } from 'react-router';
 import authManager from '../../services/authManager';
 import { Grid } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import t from '../../locales/en/signUp.json';
 import { updateUser } from '../auth/context/authActions';
+import clsx from 'clsx';
 
 const Register = () => {
   const {
@@ -29,7 +29,7 @@ const Register = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
   const [registerSucceeded, setRegisterSucceeded] = useState(false);
-  const [_, dispatch] = useAuth();
+  const [, dispatch] = useAuth();
   const classes = useStyles();
 
   const repeatVal = (passwordRepeat) =>
@@ -45,7 +45,6 @@ const Register = () => {
         return result;
       })
       .catch(({ response }) => {
-        console.log('-------', response);
         response.data.errors.forEach((error) => {
           if (error.includes('Email')) {
             setError('email', 'Already exists', 'This email address is taken');
@@ -70,18 +69,24 @@ const Register = () => {
   if (loading) {
     return (
       <div className={classes.progressContainer}>
-        <CircularProgress/>
+        <CircularProgress />
       </div>
     );
   }
 
   if (registerSucceeded) {
-    return <Redirect push to='/user/profile'/>;
+    return <Redirect push to='/user/profile' />;
   }
   return (
-    <Grid container className={classes.logInPageContainer} alignContent={'center'}>
-      <Grid container alignContent='center' style={{ height: 'fit-content', marginBottom: '50px' }}>
-        <Grid item xs={1}/>
+    <Grid
+      container
+      className={classes.logInPageContainer}
+      alignContent={'center'}>
+      <Grid
+        container
+        alignContent='center'
+        className={classes.loginInTitleContainer}>
+        <Grid item xs={1} />
         <Grid item xs={10}>
           <Typography className={classes.pageHeaderStyle}>
             {t['signUp']}
@@ -94,9 +99,9 @@ const Register = () => {
         </Grid>
       </Grid>
       <Grid container justify={'space-evenly'} alignContent={'center'}>
-        <CssBaseline/>
+        <CssBaseline />
         <Grid item xs={12} md={3}>
-          <img src={require('../../assets/Airplane.gif')} width={'100%'}/>
+          <img src={require('../../assets/Airplane.gif')} width={'100%'} />
         </Grid>
         <Grid item xs={12} md={6} className={classes.paper}>
           <form
@@ -208,8 +213,8 @@ const Register = () => {
             />
             {errors.confirmPassword && (
               <span className={classes.error}>
-              {errors.confirmPassword.message}
-            </span>
+                {errors.confirmPassword.message}
+              </span>
             )}
             <div className={classes.signUpButtonContainer}>
               <Button
@@ -218,8 +223,7 @@ const Register = () => {
                 fullWidth
                 variant='contained'
                 color='primary'
-                style={{ alignSelf: 'center' }}
-                className={classes.submit}>
+                className={clsx([classes.submit, classes.alignRight])}>
                 {t['register']}
               </Button>
             </div>
@@ -229,4 +233,4 @@ const Register = () => {
     </Grid>
   );
 };
-export default withNamespaces('register')(Register);
+export default Register;

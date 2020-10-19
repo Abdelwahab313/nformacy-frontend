@@ -1,5 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { grey, lighterPink, lightGrey, lightPink, darkBlue, white } from './colors';
+import {
+  grey,
+  lighterPink,
+  lightGrey,
+  lightPink,
+  darkBlue,
+  white,
+} from './colors';
 
 export const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -268,6 +275,8 @@ export const useStyles = makeStyles((theme) => ({
       height: '100vh',
     },
   },
+  alignRight: { alignSelf: 'center' },
+  loginInTitleContainer: { height: 'fit-content', marginBottom: '50px' },
   pageHeaderStyle: {
     fontSize: '2.024vw',
     textAlign: 'left',
@@ -358,10 +367,10 @@ export const selectStyle = {
     borderColor: darkBlue,
     '&:hover': { color: darkBlue },
   }),
-  indicatorSeparator: (provided) => ({
+  indicatorSeparator: () => ({
     borderLeft: 0,
   }),
-  dropdownIndicator: (provided) => ({
+  dropdownIndicator: () => ({
     color: darkBlue,
     '&:hover': { color: darkBlue },
   }),
