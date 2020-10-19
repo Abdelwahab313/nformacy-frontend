@@ -34,9 +34,10 @@ Feature: Admin post question
     And I am on the questions dashboard
     Then i should not see the draft question i posted as admin
 
+@focus
   # Scenario: Admin can upload photo for question as thumbnail
   #   When I upload an image for the question thumbnail
-  #   Then I should see the uploaded image question form
+  #   Then I should see the uploaded image in the question form
 
   # Scenario: Admin can view and re-upload photo
   #   When I choose a question with thumbnail image

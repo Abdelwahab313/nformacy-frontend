@@ -9,7 +9,7 @@ import SpecificFieldSelect from '../../../components/inputs/SpecificFieldSelect'
 import {
   industries,
   questionTypesOfAssignment,
-  questionLanguages
+  questionLanguages,
 } from '../../../constants/dropDownOptions';
 import humanizedTimeSpan from '../../../services/humanizedTimeSpan';
 import { useStyles } from '../../../styles/Admin/questionFormStyles';
@@ -35,6 +35,7 @@ import AcceptAndRejectActionButtons from './details/subComponents/AcceptAndRejec
 import ActionButtonsContainer from './details/subComponents/ActionButtonsContainer';
 import { sendToAdmin } from 'apis/questionsAPI';
 import authManager from '../../../services/authManager';
+import ImageUploader from 'react-images-upload';
 
 const noActionStates = [
   'pending_assignment',
@@ -168,6 +169,17 @@ const QuestionForm = ({
     }
   };
 
+  const uploadThumbnail = (picture) => {
+    console.log('----pic----', picture);
+    const imageBlob = new Blob(picture);
+    const formData = new FormData();
+    if (picture.length === 0) return;
+    formData.append('thumbnail', imageBlob, picture[0].name);
+    console.log('----name-----', picture[0].name);
+    console.log('-----blob----', imageBlob);
+    console.log('----form-----', formData);
+  };
+
   return (
     <CardBody>
       <GridContainer>
@@ -253,19 +265,19 @@ const QuestionForm = ({
         </GridItem>
         <GridItem xs={12} sm={12} md={3}>
           <DropdownSelectField
-              fieldId='questionLanguage'
-              fieldName='QuestionLanguage'
-              fieldOptions={questionLanguages}
-              fieldValue={
-                questionLanguages.filter(
-                  (option) => questionDetails.language === option.value,
-                )[0]
-              }
-              onFieldChange={(option) =>
-                onChangeQuestionField('language', option.value)
-              }
-              fieldLabel='Question Language'
-            />
+            fieldId='questionLanguage'
+            fieldName='QuestionLanguage'
+            fieldOptions={questionLanguages}
+            fieldValue={
+              questionLanguages.filter(
+                (option) => questionDetails.language === option.value,
+              )[0]
+            }
+            onFieldChange={(option) =>
+              onChangeQuestionField('language', option.value)
+            }
+            fieldLabel='Question Language'
+          />
         </GridItem>
       </GridContainer>
       {authManager.isAdmin() && (
@@ -338,6 +350,19 @@ const QuestionForm = ({
             <AssignedAdvisersSelect
               questionDetails={questionDetails}
               onChangeQuestionField={onChangeQuestionField}
+            />
+          </GridItem>
+          <GridItem xs={12} sm={12} md={12}>
+            <ImageUploader
+              id={'thumbnail-uploader'}
+              withPreview={true}
+              singleImage={true}
+              label={'Max file size: 1mb, accepted: jpg, gif, png'}
+              withIcon={true}
+              buttonText='Upload Question Thumbnail'
+              imgExtension={['.jpg', '.gif', '.png', 'jpeg']}
+              maxFileSize={1048576}
+              onChange={uploadThumbnail}
             />
           </GridItem>
         </GridContainer>

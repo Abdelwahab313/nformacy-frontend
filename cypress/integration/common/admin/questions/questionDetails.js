@@ -112,8 +112,8 @@ Then(/^I should see the question form with no action buttons$/, function() {
   cy.get('#approveQuestion').should('not.exist');
 });
 
-When(/^I Upload an image for the question thumbnail$/, function() {
-  cy.get('#thumbnail-upload').click();
+When(/^I upload an image for the question thumbnail$/, function() {
+  cy.get('#thumbnail-uploader').click();
   const thunbnailPath = 'download.png';
   cy.get('input[type="file"]').attachFile(thunbnailPath);
 });
