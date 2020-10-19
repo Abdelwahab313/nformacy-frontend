@@ -2,7 +2,6 @@ import React, { Fragment, useState } from 'react';
 import Box from '@material-ui/core/Box';
 import {
   KeyboardDatePicker,
-  KeyboardTimePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
@@ -11,7 +10,6 @@ import t from '../../../locales/en/freelancerProfile.json';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
-import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import SubmitButton from '../../buttons/SubmitButton';
 import TextField from '@material-ui/core/TextField';
 
@@ -32,7 +30,6 @@ const AvailableTimeRangeForm = ({
 
   const handleEndTime = (date) => {
     setErrors({ endTime: '' });
-    debugger;
     const isValidEndTime = selectedRange.startTime.isBefore(date);
     if (isValidEndTime) {
       updateTime('endTime', date);
@@ -119,17 +116,12 @@ const AvailableTimeRangeForm = ({
                   }}
                   onChange={(e) => {
                     const time = new moment(e.target.value, 'HH:mm');
-                    console.log('888888888', time);
                     handleEndTime(time);
                   }}
                 />
               </form>
               {!!errors.endTime && (
-                <Typography
-                  variant={'body2'}
-                  style={{
-                    color: 'red',
-                  }}>
+                <Typography variant={'body2'} className={classes.redFont}>
                   {errors.endTime}
                 </Typography>
               )}
@@ -169,6 +161,9 @@ const useStyles = makeStyles((theme) => ({
   },
   deleteAvailableDayButton: {
     alignSelf: 'flex-start',
+  },
+  redFont: {
+    color: 'red',
   },
   margin: {
     margin: theme.spacing(1),

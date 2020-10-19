@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { RoutesPaths } from 'constants/routesPath';
 import Login from 'pages/auth/LoginUser';
@@ -9,8 +9,17 @@ import AdminLayout from 'layouts/admin/AdminLayout';
 import FreeLancerProfileForm from 'pages/FreelancerProfile/FreelancerProfileForm';
 import Success from 'pages/FreelancerProfile/success';
 import Layout from 'layouts/app/AppLayout';
+import { useTranslation } from 'react-i18next';
+import useLocale from '../hooks/localization/useLocale';
 
 const MainRouter = () => {
+  const [, setLoading] = useState(true);
+  const { i18n } = useTranslation();
+  const { locale } = useLocale();
+
+  useEffect(() => {
+    i18n.changeLanguage(locale).then(() => setLoading(false));
+  }, [locale]);
   return (
     <Switch>
       <Route

@@ -34,7 +34,7 @@ When(/^I click on a free day$/, function() {
   // should get dynamic day
   cy.get(
     `#update-calendar-dialog td[data-day='30-${moment().format('MM')}']`,
-  ).click();
+  ).click({ force: true });
 });
 
 Then(
@@ -74,9 +74,7 @@ When(/^click submit time$/, function() {
 Then(
   /^I should see the selected day labeled as available day in the calendar$/,
   function() {
-    cy.get('.AppointmentsContainer-container-98')
-      .last()
-      .contains('08:00 - 17:00');
+    cy.get(`div[data-title='08:00 - 17:00']`).should('exist');
     cy.get('.AppointmentsContainer-container-98')
       .last()
       .click({ force: true });
@@ -125,12 +123,11 @@ When(/^I update the time range$/, function() {
 Then(
   /^I should see the selected day as available day with the updated time$/,
   function() {
+    const thirteenthOfCurrentMonth = new Date(
+      `${moment().format('Y')}-${moment().format('MM')}-30 8:000`,
+    ).toISOString();
     cy.get(
-      `#update-calendar-dialog [data-date='${moment(
-        `${moment().format('Y')}-${moment().format('MM')}-30`,
-      ).format('ddd')} ${moment().format('MMM')} 30 ${moment().format(
-        'Y',
-      )} 12:00:00 GMT+0200 (Eastern European Standard Time)']`,
+      `div[data-date='${thirteenthOfCurrentMonth}']`,
     );
   },
 );
@@ -187,18 +184,18 @@ When(/^click on the change time zone button to be Africa\/Cairo$/, function() {
 Then(
   /^I should see the time of that event to be changed to 02:00 PM and 11:00 PM$/,
   function() {
-    cy.get('#update-calendar-dialog [data-title="02:00 - 11:00"]')
+    cy.get('div[data-title="02:00 - 11:00"]')
       .first()
       .should('exist');
   },
 );
 When(/^Click add available time$/, function() {
-  cy.get('#addAvailableTime').click();
+  cy.get('#addAvailableTime').click({ force: true });
 });
 When(/^When I click on a day that not available$/, function() {
   cy.get(
     `#update-calendar-dialog td[data-day='20-${moment().format('MM')}']`,
-  ).click();
+  ).click({ force: true });
 });
 When(/^fill the available date range to be after a week$/, function() {
   cy.get('#end-date-range-picker').clear();
@@ -209,7 +206,7 @@ When(/^fill the available date range to be after a week$/, function() {
 Then(
   /^click on the free date slot and edit the available date range$/,
   function() {
-    cy.get('#update-calendar-dialog [data-title="08:00 - 17:00"]')
+    cy.get('#update-calendar-dialog div[data-title="08:00 - 17:00"]')
       .first()
       .click();
     cy.contains(`20-27 ${moment().format('MMMM')}`);
@@ -221,34 +218,28 @@ Then(
       .first()
       .type(`${moment().format('Y')}-${moment().format('MM')}-22 08:00`);
     cy.get(
-      '.MuiButtonBase-root.MuiButton-root.MuiButton-text.memo-button-242',
+      '.MuiButtonBase-root.MuiButton-root.MuiButton-text.memo-button-259',
     ).click();
+    cy.wait(500);
   },
 );
 Then(
   /^I should see the available date slot range with the updated range$/,
   function() {
-    // cy.wait(500);
-    cy.get(
-      `#update-calendar-dialog [data-date="${moment(
-        `${moment().format('Y')}-${moment().format('MM')}-22`,
-      ).format('ddd')} ${moment().format('MMM')} 22 ${moment().format(
-        'Y',
-      )} 08:00:00 GMT+0200 (Eastern European Standard Time)"]`,
-    )
+    const updateDateString = new Date(
+      `${moment().format('Y')}-${moment().format('MM')}-22 8:00:00`,
+    ).toISOString();
+    cy.get(`#update-calendar-dialog [data-date="${updateDateString}"]`)
       .first()
       .click();
     cy.contains(`22-27 ${moment().format('MMMM')}`);
   },
 );
 When(/^I click on a available day$/, function() {
-  cy.get(
-    `#update-calendar-dialog [data-date='${moment(
-      `${moment().format('Y')}-${moment().format('MM')}-30`,
-    ).format('ddd')} ${moment().format('MMM')} 30 ${moment().format(
-      'Y',
-    )} 08:00:00 GMT+0200 (Eastern European Standard Time)']`,
-  )
+  const thirteenthOfCurrentMonth = new Date(
+    `${moment().format('Y')}-${moment().format('MM')}-30 8:00:00`,
+  ).toISOString();
+  cy.get(`#update-calendar-dialog div[data-date='${thirteenthOfCurrentMonth}']`)
     .first()
     .click();
 });
@@ -273,7 +264,7 @@ When(
     );
     cy.get('#confirm').click();
     cy.wait(500);
-    cy.get('#update-calendar-dialog [data-title="08:00 - 17:00"]')
+    cy.get('div[data-title="08:00 - 17:00"]')
       .first()
       .should('exist');
   },

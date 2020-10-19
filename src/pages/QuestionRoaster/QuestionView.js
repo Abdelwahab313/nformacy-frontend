@@ -60,7 +60,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   };
 
   return (
-    <Grid item md={12} xs={12} className={classes.mainContainer}>
+    <Grid item md={12} xs={12} className={classes.mainContainer} id={'questionRoasterMainContainer'}>
       <Grid container className={classes.questionContainer}>
         {!!questionDetails.thumbnailUrl &&
           <Grid className={classes.imgContainer} item md={3} xs={12}>

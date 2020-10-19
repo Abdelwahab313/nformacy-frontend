@@ -1,21 +1,11 @@
 import React from 'react';
-import {
-  createMuiTheme,
-  StylesProvider,
-  ThemeProvider,
-} from '@material-ui/core/styles';
+import { createMuiTheme, StylesProvider, ThemeProvider } from '@material-ui/core/styles';
 import { create } from 'jss';
 import preset from 'jss-preset-default';
 import rtl from 'jss-rtl';
 import { AuthProvider } from 'pages/auth/context/auth';
 import authManager from 'services/authManager';
-import {
-  darkBlue,
-  grey,
-  lighterPink,
-  lightGrey,
-  lightPink,
-} from 'styles/colors';
+import { darkBlue, grey, lighterPink, lightGrey, lightPink } from 'styles/colors';
 import MainRouter from 'layouts/MainRouter';
 import '../styles/fonts.css';
 import { QueryCache, ReactQueryCacheProvider } from 'react-query';

@@ -5,7 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import FieldsOfExperience from './FieldsOfExpereience';
 import HelpIcon from '@material-ui/icons/Help';
 import { Controller, useFormContext } from 'react-hook-form';
-import CreatableSelect from 'react-select/creatable/dist/react-select.esm';
+import CreatableSelect from 'react-select/creatable';
 import { industries } from '../../constants/dropDownOptions';
 import ErrorMessage from '../errors/ErrorMessage';
 import React from 'react';
