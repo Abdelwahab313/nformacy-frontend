@@ -33,6 +33,10 @@ const filterStyle = (theme) => ({
   [theme.breakpoints.down('xs')]: {
     fontSize: '4vw',
   },
+  userSelect: 'none',
+  WebkitUserSelect: 'none',
+  MozUserSelect: 'none',
+  KhtmlUserSelect: 'none',
 });
 
 export const useStyles = makeStyles((theme) => ({
