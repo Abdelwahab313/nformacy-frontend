@@ -49,9 +49,6 @@ When(/^I click on a field from the filtering menu\.$/, function() {
 Then(/^I should only see questions that belongs to that field\.$/, function() {
   cy.get('#questionMajorFields-2000100-0').should('have.text', 'Marketing and PR');
 });
-When(/^I fill all the question details$/, function() {
-  cy.get('#question-title-field').type('test question title');
-});
 Then(/^I should see a banner with Nformacy primary color$/, function() {
   cy.get('#question-roaster-banner');
 });

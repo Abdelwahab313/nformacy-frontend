@@ -1,28 +1,5 @@
-import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
+import { When, Then } from 'cypress-cucumber-preprocessor/steps';
 
-import faker from 'faker';
-
-When(/^I fill all the question details$/, function() {
-  cy.get('#title').type('test question title');
-  cy.get('#majorFieldsOfExperienceSelect').click();
-  cy.get('#majorFieldsOfExperienceSelect-option-2').click();
-  cy.get('#specificFieldsOfExperienceSelect').click();
-  cy.get('#specificFieldsOfExperienceSelect-option-2').click();
-  cy.get('#industry').click();
-  cy.get('#industry-option-0').click();
-  cy.get('#assignmentType').click();
-  cy.get('#assignmentType-option-0').click();
-  cy.get('#hoursToCloseAnswers').type('13');
-  cy.get('#hoursToReviewAndEdit').type('10');
-  cy.get('#assignAdviser').click();
-  cy.get('#assignAdviser-option-0').click();
-  cy.get('#richContent_ifr');
-  cy.wait(1000);
-  cy.window().then((win) => {
-    const editor = win.tinymce.editors['richContent'];
-    editor.setContent('<p>Test content</p>');
-  });
-});
 
 And(/^I should see question details$/, function() {
   cy.contains('Edit Question');
@@ -36,8 +13,8 @@ When(/^i click apply changes$/, function() {
   cy.get('#applyChangesButton').click();
 });
 
-When(/^I fill question details with specific data$/, function() {
-  const givenTitle = faker.name.findName();
+When(/^I fill all the question details$/, function() {
+  const givenTitle = 'test question title';
   cy.wrap(givenTitle).as('questionTitle');
   cy.get('#title').type(givenTitle);
   cy.get('#majorFieldsOfExperienceSelect').click();
@@ -46,6 +23,8 @@ When(/^I fill question details with specific data$/, function() {
   cy.get('#specificFieldsOfExperienceSelect-option-2').click();
   cy.get('#industry').click();
   cy.get('#industry-option-0').click();
+  cy.get('#questionLanguage').click();
+  cy.get('#questionLanguage-option-0').click();
   cy.get('#assignmentType').click();
   cy.get('#assignmentType-option-0').click();
   cy.get('#hoursToCloseAnswers').type('13');
@@ -131,4 +110,10 @@ Then(/^I should see the question form with no action buttons$/, function() {
   cy.get('#acceptButton').should('not.exist');
   cy.get('#rejectButton').should('not.exist');
   cy.get('#approveQuestion').should('not.exist');
+});
+
+When(/^I Upload an image for the question thumbnail$/, function() {
+  cy.get('#thumbnail-upload').click();
+  const thunbnailPath = 'download.png';
+  cy.get('input[type="file"]').attachFile(thunbnailPath);
 });

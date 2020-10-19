@@ -9,6 +9,7 @@ import SpecificFieldSelect from '../../../components/inputs/SpecificFieldSelect'
 import {
   industries,
   questionTypesOfAssignment,
+  questionLanguages
 } from '../../../constants/dropDownOptions';
 import humanizedTimeSpan from '../../../services/humanizedTimeSpan';
 import { useStyles } from '../../../styles/Admin/questionFormStyles';
@@ -221,7 +222,7 @@ const QuestionForm = ({
       </GridContainer>
 
       <GridContainer className={classes.inputsRow}>
-        <GridItem xs={12} sm={12} md={4}>
+        <GridItem xs={12} sm={12} md={3}>
           <MajorFieldSelect
             value={questionDetails.field}
             handleOptionsChange={(newOptions) => {
@@ -229,7 +230,7 @@ const QuestionForm = ({
             }}
           />
         </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
+        <GridItem xs={12} sm={12} md={3}>
           <SpecificFieldSelect
             value={questionDetails.subfield}
             selectedMajorFields={questionDetails.field}
@@ -238,7 +239,7 @@ const QuestionForm = ({
             }
           />
         </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
+        <GridItem xs={12} sm={12} md={3}>
           <DropdownSelectField
             fieldId='industry'
             fieldName='industry'
@@ -249,6 +250,22 @@ const QuestionForm = ({
             }
             fieldLabel='Industry'
           />
+        </GridItem>
+        <GridItem xs={12} sm={12} md={3}>
+          <DropdownSelectField
+              fieldId='questionLanguage'
+              fieldName='QuestionLanguage'
+              fieldOptions={questionLanguages}
+              fieldValue={
+                questionLanguages.filter(
+                  (option) => questionDetails.language === option.value,
+                )[0]
+              }
+              onFieldChange={(option) =>
+                onChangeQuestionField('language', option.value)
+              }
+              fieldLabel='Question Language'
+            />
         </GridItem>
       </GridContainer>
       {authManager.isAdmin() && (

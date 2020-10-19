@@ -562,6 +562,11 @@ const questionTypesOfAssignment = [
   { value: 'project', label: 'Project' },
 ];
 
+const questionLanguages = [
+  { value: 'english', label: 'English' },
+  { value: 'arabic', label: 'Arabic' },
+];
+
 export {
   gender,
   employmentStatus,
@@ -570,4 +575,5 @@ export {
   questionTypesOfAssignment,
   industries,
   fieldsOfExperience,
+  questionLanguages
 };
