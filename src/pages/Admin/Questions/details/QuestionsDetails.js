@@ -17,6 +17,7 @@ import { useStyles } from '../../../../styles/Admin/questionFormStyles';
 import AnswerView from '../AnswerView';
 import authManager from '../../../../services/authManager';
 import { useQuery } from 'react-query';
+import { Typography } from '@material-ui/core';
 
 const QuestionDetails = () => {
   const classes = useStyles();
@@ -28,8 +29,10 @@ const QuestionDetails = () => {
   let history = useHistory();
 
   const location = useLocation();
-  const questionId = location.state.questionId;
+  const questionId = location?.state?.questionId;
+  const isNewQuestion = !questionId;
   let { isLoading } = useQuery(questionId, fetchQuestionDetails, {
+    enabled: !isNewQuestion,
     onSuccess: (response) => {
       setQuestionDetails(response.data);
     },
@@ -63,7 +66,9 @@ const QuestionDetails = () => {
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color='primary'>
-            <h4 className={classes.cardTitleWhite}>Edit Question</h4>
+            <Typography component={'h4'} id={'post-question-page-header'}>
+              {isNewQuestion ? 'Add Question' : 'Edit Question'}
+            </Typography>
           </CardHeader>
           <QuestionForm
             questionDetails={questionDetails}
@@ -72,10 +77,11 @@ const QuestionDetails = () => {
             setIsSnackbarShown={setIsSnackbarShown}
             setSnackbarMessage={setSnackbarMessage}
             setIsError={setIsError}
-            isNewQuestion={false}
+            isNewQuestion={isNewQuestion}
           />
           <CardFooter className={classes.footerButtons}>
-            {authManager.isAdmin() &&
+            {!isNewQuestion &&
+              authManager.isAdmin() &&
               questionDetails.state === 'pending_deployment_to_roaster' && (
                 <Button
                   id={'approveQuestion'}
@@ -94,7 +100,7 @@ const QuestionDetails = () => {
           </CardFooter>
         </Card>
       </GridItem>
-      {questionDetails.answers && (
+      {!isNewQuestion && questionDetails.answers && (
         <GridItem xs={12}>
           {questionDetails.answers?.map((answer, index) => (
             <div id={answer.referenceNumber} key={`answer-${index}`}>
