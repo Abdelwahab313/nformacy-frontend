@@ -73,6 +73,18 @@ export const updateQuestion = (questionId, updatedQuestion) => {
   }).then((response) => camelizeKeys(response));
 };
 
+export const uploadQuestionThumbnail = (questionId, thumbnail) => {
+  return axios({
+    method: 'put',
+    url: `${API_BASE_URL}/questions/${questionId}`,
+    data: thumbnail,
+    headers: {
+      accept: 'application/json',
+    },
+  }).then((response) => camelizeKeys(response));
+};
+
+
 export const acceptAssignment = (questionId) => {
   return axios({
     method: 'post',

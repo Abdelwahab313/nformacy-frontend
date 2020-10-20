@@ -24,8 +24,6 @@ const BasicInfoForm = ({ user, closeDialog, setProfilePic }) => {
       .then((response) => {
         updateUser(dispatch, response.data);
       })
-      .catch((error) => {
-      });
     if (avatar.length > 0) {
       const file = new Blob(avatar);
       const formData = new FormData();
@@ -38,8 +36,6 @@ const BasicInfoForm = ({ user, closeDialog, setProfilePic }) => {
             setProfilePic(response.data.avatar);
           }
         })
-        .catch((error) => {
-        });
     }
     user.current = { ...user.current, ...userData };
     closeDialog();

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 // @material-ui/core components
 // core components
 import GridItem from 'components/Grid/GridItem.js';
@@ -16,7 +16,6 @@ import { useStyles } from '../../../../styles/Admin/questionFormStyles';
 import AnswerView from './subComponents/AnswerView';
 import authManager from '../../../../services/authManager';
 import { QuestionProvider, useQuestionContext } from './context';
-import { useQuery } from 'react-query';
 import { Typography } from '@material-ui/core';
 import { updateQuestionDetails } from './context/questionAction';
 
@@ -24,17 +23,23 @@ const QuestionDetailsPage = () => {
   const classes = useStyles();
   const [{ questionDetails }, dispatch] = useQuestionContext();
   const [isLoadingForUpdating, setIsLoadingForUpdating] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   let history = useHistory();
 
   const location = useLocation();
   const questionId = location?.state?.questionId;
   const isNewQuestion = !questionId;
-  let { isLoading } = useQuery(questionId, fetchQuestionDetails, {
-    enabled: !isNewQuestion,
-    onSuccess: (response) => {
-      updateQuestionDetails(dispatch, response.data);
-    },
-  });
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchQuestionDetails(questionId)
+      .then((response) => {
+        updateQuestionDetails(dispatch, response.data);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
   const setRating = useCallback(
     (answerIndex, rating) => {

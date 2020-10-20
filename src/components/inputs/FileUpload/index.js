@@ -1,9 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FlipMove from 'react-flip-move';
-import { Chip, Grid, IconButton, Link } from '@material-ui/core';
-
-import DownloadIcon from '@material-ui/icons/CloudDownload';
 
 import './index.css';
 import UploadIcon from './UploadIcon.svg';
@@ -11,14 +7,6 @@ import UploadIcon from './UploadIcon.svg';
 //
 ////// this file is cloned from https://github.com/JakeHartnell/react-images-upload
 //
-
-const styles = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  flexWrap: "wrap",
-  width: "100%"
-};
 
 const ERROR = {
   NOT_SUPPORTED_EXTENSION: 'NOT_SUPPORTED_EXTENSION',
@@ -73,14 +61,6 @@ class FileUploadComponent extends React.Component {
       let fileError = {
         name: file.name,
       };
-      // Check for file extension
-      // if (!this.hasExtension(file.name)) {
-      //   fileError = Object.assign(fileError, {
-      //     type: ERROR.NOT_SUPPORTED_EXTENSION
-      //   });
-      //   fileErrors.push(fileError);
-      //   continue;
-      // }
       // Check for file size
       if (file.size > this.props.maxFileSize) {
         fileError = Object.assign(fileError, {

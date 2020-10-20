@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
 import CardBody from '../../../../../components/Card/CardBody';
 import GridContainer from '../../../../../components/Grid/GridContainer';
@@ -14,13 +14,6 @@ import {
 import humanizedTimeSpan from '../../../../../services/humanizedTimeSpan';
 import { useStyles } from '../../../../../styles/Admin/questionFormStyles';
 import RichTextEditorForm from '../../../../../components/forms/RichTextEditorForm';
-import {
-  acceptAssignment,
-  rejectAssignment,
-  saveDraftQuestion,
-  submitQuestion,
-  updateQuestion,
-} from '../../../../../apis/questionsAPI';
 import { useHistory } from 'react-router';
 
 import { Grid } from '@material-ui/core';
@@ -33,9 +26,16 @@ import QuestionCountDown from '../../../../../components/counters/QuestionCountD
 import Typography from '@material-ui/core/Typography';
 import AcceptAndRejectActionButtons from './AcceptAndRejectActionButtons';
 import ActionButtonsContainer from './ActionButtonsContainer';
-import { sendToAdmin } from 'apis/questionsAPI';
+import {
+  sendToAdmin,
+  acceptAssignment,
+  rejectAssignment,
+  saveDraftQuestion,
+  submitQuestion,
+  updateQuestion,
+  uploadQuestionThumbnail,
+} from 'apis/questionsAPI';
 import authManager from '../../../../../services/authManager';
-import ImageUploader from 'react-images-upload';
 import { useQuestionContext } from '../context';
 import {
   setEmptyMessage,
@@ -44,6 +44,7 @@ import {
   updateQuestionDetails,
 } from '../context/questionAction';
 import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
+import ImageUploadWithPreview from 'components/inputs/FileUpload/ImageUploadWithPreview';
 
 const noActionStates = [
   'pending_assignment',
@@ -55,15 +56,20 @@ const noActionStates = [
 
 const QuestionForm = ({ isNewQuestion }) => {
   const classes = useStyles();
+  const questionRoasterClasses = useRoasterStyle();
+
   const [
     { questionDetails, message, isError },
     dispatch,
   ] = useQuestionContext();
-
-  const questionRoasterClasses = useRoasterStyle();
   const [{ currentUser }] = useAuth();
+  const [thumbnailImage, setThumbnailImage] = useState('');
+  const [isThumbnailChanged, setIsThumbnailChanged] = useState(false);
 
   let history = useHistory();
+  const navigatToDashboard = () => {
+    history.push('/admin/questions');
+  };
 
   const onAcceptAssignment = () => {
     acceptAssignment(questionDetails.id).then((response) => {
@@ -82,7 +88,7 @@ const QuestionForm = ({ isNewQuestion }) => {
   const onRejectAssignment = () => {
     rejectAssignment(questionDetails.id).then((response) => {
       updateQuestionDetails(dispatch, response.data);
-      history.push('/admin/questions');
+      navigatToDashboard();
     });
   };
 
@@ -90,7 +96,7 @@ const QuestionForm = ({ isNewQuestion }) => {
     saveDraftQuestion({
       ...questionDetails,
     }).then(() => {
-      history.push('/admin/questions');
+      navigatToDashboard();
     });
     setSuccessMessage(dispatch, 'Your question is saved successfully');
   };
@@ -103,28 +109,25 @@ const QuestionForm = ({ isNewQuestion }) => {
 
   const onSendToAdminClicked = () => {
     sendToAdmin(questionDetails.id).then(() => {
-      history.push('/admin/questions');
+      navigatToDashboard();
     });
   };
 
   const validateQuestionForm = () => {
     let errorMessage = '';
-    if (
-      !questionDetails.assignedAdviserId ||
-      questionDetails.assignedAdviserId === ''
-    ) {
+    if (!questionDetails.title) {
+      errorMessage = 'You have to add title for Question.';
+    } else if (!questionDetails.assignedAdviserId) {
       errorMessage = 'You have to assign an adviser to send to.';
     } else if (
-      authManager.isAdmin() &&
-      questionDetails.assignedAdviserId &&
-      !questionDetails.hoursToReviewAndEdit
+      !questionDetails.hoursToReviewAndEdit ||
+      Number(questionDetails.hoursToReviewAndEdit) <= 0
     ) {
       errorMessage =
         'You have to set how many hours the adviser has to review and edit.';
     } else if (
-      authManager.isAdmin() &&
-      questionDetails.assignedAdviserId &&
-      !questionDetails.hoursToCloseAnswers
+      !questionDetails.hoursToCloseAnswers ||
+      Number(questionDetails.hoursToCloseAnswers) <= 0
     ) {
       errorMessage =
         'You have to set how many hours to close answers window for freelancers.';
@@ -144,24 +147,27 @@ const QuestionForm = ({ isNewQuestion }) => {
         submitQuestion({
           ...questionDetails,
         }).then(() => {
-          history.push('/admin/dashboard');
+          uploadThumbnail();
+          navigatToDashboard();
         });
       } else {
         updateQuestion(questionDetails.id, {
           ...questionDetails,
         }).then(() => {
-          history.push('/admin/dashboard');
+          uploadThumbnail();
+          navigatToDashboard();
         });
       }
       setSuccessMessage(dispatch, 'Question Sent to Adviser');
     }
   };
 
-  const uploadThumbnail = (picture) => {
-    const imageBlob = new Blob(picture);
+  const uploadThumbnail = () => {
+    if (thumbnailImage.length === 0 || !isThumbnailChanged) return;
+    const imageBlob = new Blob(thumbnailImage);
     const formData = new FormData();
-    if (picture.length === 0) return;
-    formData.append('thumbnail', imageBlob, picture[0].name);
+    formData.append('thumbnail', imageBlob, thumbnailImage[0].name);
+    uploadQuestionThumbnail(questionDetails.id, formData);
   };
 
   return (
@@ -337,7 +343,7 @@ const QuestionForm = ({ isNewQuestion }) => {
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={12}>
-            <ImageUploader
+            <ImageUploadWithPreview
               id={'thumbnail-uploader'}
               withPreview={true}
               singleImage={true}
@@ -346,7 +352,11 @@ const QuestionForm = ({ isNewQuestion }) => {
               buttonText='Upload Question Thumbnail'
               imgExtension={['.jpg', '.gif', '.png', 'jpeg']}
               maxFileSize={1048576}
-              onChange={uploadThumbnail}
+              onChange={(picture) => {
+                setThumbnailImage(picture);
+                setIsThumbnailChanged(true);
+              }}
+              defaultImage={questionDetails.thumbnailUrl}
             />
           </GridItem>
         </GridContainer>
@@ -447,7 +457,7 @@ const QuestionForm = ({ isNewQuestion }) => {
       <SuccessSnackBar
         isError={isError}
         isSnackbarShown={!!message}
-        closeSnackBar={() => setEmptyMessage()}
+        closeSnackBar={() => setEmptyMessage(dispatch)}
         content={message}
       />
     </CardBody>
