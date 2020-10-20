@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import QuestionForm from 'pages/Admin/Questions/QuestionForm';
+import QuestionForm from 'pages/Admin/Questions/QuestionDetails/subComponents/QuestionForm';
 import { AuthProvider } from 'pages/auth/context/auth';
 import moment from 'moment';
 

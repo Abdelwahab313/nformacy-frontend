@@ -1,20 +1,20 @@
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import React, { Fragment } from 'react';
-import GridContainer from '../../../components/Grid/GridContainer';
-import GridItem from '../../../components/Grid/GridItem';
-import { useStyles } from '../../../styles/Admin/questionFormStyles';
+import GridContainer from '../../../../../components/Grid/GridContainer';
+import GridItem from '../../../../../components/Grid/GridItem';
+import { useStyles } from '../../../../../styles/Admin/questionFormStyles';
 import Grid from '@material-ui/core/Grid';
 import Rating from '@material-ui/lab/Rating';
-import { acceptAnswer, rejectAnswer, rollbackAnswer, rateAnswer } from '../../../apis/answersAPI';
-import authManager from '../../../services/authManager';
-import createMarkup from '../../../services/markup';
-import AcceptAndRejectActionButtons from './details/subComponents/AcceptAndRejectActionButtons';
+import { acceptAnswer, rejectAnswer, rollbackAnswer, rateAnswer } from '../../../../../apis/answersAPI';
+import authManager from '../../../../../services/authManager';
+import createMarkup from '../../../../../services/markup';
+import AcceptAndRejectActionButtons from './AcceptAndRejectActionButtons';
 import Tooltip from '@material-ui/core/Tooltip';
 import Divider from '@material-ui/core/Divider';
 import { useState } from 'react'
 import SubmitButton from 'components/buttons/SubmitButton';
-import t from '../../../locales/en/answersView.json';
+import t from '../../../../../locales/en/answersView.json';
 
 
 const AnswerView = ({ answer, index, setRating }) => {

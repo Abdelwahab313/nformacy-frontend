@@ -412,6 +412,9 @@ export const useStyles = makeStyles((theme) => ({
       lineHeight: '6.133vw',
     },
   },
+  buttonMargin: {
+    marginRight: '10px',
+  },
   answerButtonContainer: {
     display: 'flex',
     justifyContent: 'flex-end',

@@ -1,41 +1,43 @@
 import React, { useRef, useState } from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
-import CardBody from '../../../components/Card/CardBody';
-import GridContainer from '../../../components/Grid/GridContainer';
-import GridItem from '../../../components/Grid/GridItem';
-import CustomInput from '../../../components/CustomInput/CustomInput';
-import MajorFieldSelect from '../../../components/inputs/MajorFieldSelect';
-import SpecificFieldSelect from '../../../components/inputs/SpecificFieldSelect';
+import CardBody from '../../../../../components/Card/CardBody';
+import GridContainer from '../../../../../components/Grid/GridContainer';
+import GridItem from '../../../../../components/Grid/GridItem';
+import CustomInput from '../../../../../components/CustomInput/CustomInput';
+import MajorFieldSelect from '../../../../../components/inputs/MajorFieldSelect';
+import SpecificFieldSelect from '../../../../../components/inputs/SpecificFieldSelect';
 import {
   industries,
   questionTypesOfAssignment,
   questionLanguages,
-} from '../../../constants/dropDownOptions';
-import humanizedTimeSpan from '../../../services/humanizedTimeSpan';
-import { useStyles } from '../../../styles/Admin/questionFormStyles';
-import RichTextEditorForm from '../../../components/forms/RichTextEditorForm';
+} from '../../../../../constants/dropDownOptions';
+import humanizedTimeSpan from '../../../../../services/humanizedTimeSpan';
+import { useStyles } from '../../../../../styles/Admin/questionFormStyles';
+import RichTextEditorForm from '../../../../../components/forms/RichTextEditorForm';
 import {
   acceptAssignment,
   rejectAssignment,
   saveDraftQuestion,
   submitQuestion,
   updateQuestion,
-} from '../../../apis/questionsAPI';
+} from '../../../../../apis/questionsAPI';
 import { useHistory } from 'react-router';
 
 import { Grid } from '@material-ui/core';
-import { useStyles as useRoasterStyle } from '../../../styles/questionRoasterStyles';
-import AttachmentUploader from '../../../components/forms/AttachmentUploader';
+import { useStyles as useRoasterStyle } from '../../../../../styles/questionRoasterStyles';
+import AttachmentUploader from '../../../../../components/forms/AttachmentUploader';
 import DropdownSelectField from 'components/CustomInput/DropdownSelectField';
 import AssignedAdvisersSelect from './AssignedAdvisersSelect';
-import { useAuth } from '../../auth/context/auth';
-import QuestionCountDown from '../../../components/counters/QuestionCountDown';
+import { useAuth } from '../../../../auth/context/auth';
+import QuestionCountDown from '../../../../../components/counters/QuestionCountDown';
 import Typography from '@material-ui/core/Typography';
-import AcceptAndRejectActionButtons from './details/subComponents/AcceptAndRejectActionButtons';
-import ActionButtonsContainer from './details/subComponents/ActionButtonsContainer';
+import AcceptAndRejectActionButtons from './AcceptAndRejectActionButtons';
+import ActionButtonsContainer from './ActionButtonsContainer';
 import { sendToAdmin } from 'apis/questionsAPI';
-import authManager from '../../../services/authManager';
+import authManager from '../../../../../services/authManager';
 import ImageUploader from 'react-images-upload';
+import { useQuestionContext } from '../context';
+import { updateQuestionDetails } from '../context/questionAction';
 
 const noActionStates = [
   'pending_assignment',
@@ -46,14 +48,14 @@ const noActionStates = [
 ];
 
 const QuestionForm = ({
-  questionDetails,
-  setQuestionDetails,
   setIsSnackbarShown,
   setSnackbarMessage,
   setIsError,
   isNewQuestion,
 }) => {
   const classes = useStyles();
+  const [{ questionDetails }, dispatch] = useQuestionContext();
+
   const questionRoasterClasses = useRoasterStyle();
   const [content, setContent] = useState(
     questionDetails ? questionDetails.content : '',
@@ -67,7 +69,7 @@ const QuestionForm = ({
 
   const onAcceptAssignment = () => {
     acceptAssignment(questionDetails.id).then((response) => {
-      setQuestionDetails({
+      updateQuestionDetails(dispatch, {
         ...response.data,
         content,
         createdAt: humanizedTimeSpan(questionDetails.createdAt),
@@ -84,7 +86,7 @@ const QuestionForm = ({
 
   const onRejectAssignment = () => {
     rejectAssignment(questionDetails.id).then((response) => {
-      setQuestionDetails(response.data);
+      updateQuestionDetails(dispatch, response.data);
       history.push('/admin/questions');
     });
   };
@@ -103,10 +105,9 @@ const QuestionForm = ({
   };
 
   const onChangeQuestionField = (name, data) => {
-    setQuestionDetails((prevState) => ({
-      ...prevState,
+    updateQuestionDetails(dispatch, {
       [name]: data,
-    }));
+    });
   };
 
   const onSendToAdminClicked = () => {
@@ -170,14 +171,11 @@ const QuestionForm = ({
   };
 
   const uploadThumbnail = (picture) => {
-    console.log('----pic----', picture);
     const imageBlob = new Blob(picture);
     const formData = new FormData();
     if (picture.length === 0) return;
     formData.append('thumbnail', imageBlob, picture[0].name);
-    console.log('----name-----', picture[0].name);
-    console.log('-----blob----', imageBlob);
-    console.log('----form-----', formData);
+   
   };
 
   return (

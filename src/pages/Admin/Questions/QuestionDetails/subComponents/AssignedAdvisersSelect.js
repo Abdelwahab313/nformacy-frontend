@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { fetchAdvisersList } from '../../../apis/userAPI';
+import { fetchAdvisersList } from '../../../../../apis/userAPI';
 
 import DropdownSelectField from 'components/CustomInput/DropdownSelectField';
 

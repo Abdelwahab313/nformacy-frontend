@@ -12,16 +12,18 @@ import { fetchQuestionDetails } from 'apis/questionsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
 import { approveQuestion } from '../../../../apis/questionsAPI';
-import QuestionForm from '../QuestionForm';
+import QuestionForm from './subComponents/QuestionForm';
 import { useStyles } from '../../../../styles/Admin/questionFormStyles';
-import AnswerView from '../AnswerView';
+import AnswerView from './subComponents/AnswerView';
 import authManager from '../../../../services/authManager';
+import { QuestionProvider, useQuestionContext } from './context';
 import { useQuery } from 'react-query';
 import { Typography } from '@material-ui/core';
+import { updateQuestionDetails } from './context/questionAction';
 
-const QuestionDetails = () => {
+const QuestionDetailsPage = () => {
   const classes = useStyles();
-  const [questionDetails, setQuestionDetails] = useState({});
+  const [{ questionDetails }, dispatch] = useQuestionContext();
   const [isLoadingForUpdating, setIsLoadingForUpdating] = useState(false);
   const [isSnackbarShown, setIsSnackbarShown] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -34,7 +36,7 @@ const QuestionDetails = () => {
   let { isLoading } = useQuery(questionId, fetchQuestionDetails, {
     enabled: !isNewQuestion,
     onSuccess: (response) => {
-      setQuestionDetails(response.data);
+      updateQuestionDetails(dispatch, response.data);
     },
   });
 
@@ -42,9 +44,9 @@ const QuestionDetails = () => {
     (answerIndex, rating) => {
       const newQuestionDetails = { ...questionDetails };
       newQuestionDetails.answers[answerIndex].rating = rating;
-      setQuestionDetails(newQuestionDetails);
+      updateQuestionDetails(dispatch, newQuestionDetails);
     },
-    [questionDetails, setQuestionDetails],
+    [questionDetails, dispatch],
   );
 
   if (isLoading) {
@@ -71,8 +73,6 @@ const QuestionDetails = () => {
             </Typography>
           </CardHeader>
           <QuestionForm
-            questionDetails={questionDetails}
-            setQuestionDetails={setQuestionDetails}
             isLoadingForUpdating={isLoadingForUpdating}
             setIsSnackbarShown={setIsSnackbarShown}
             setSnackbarMessage={setSnackbarMessage}
@@ -113,4 +113,11 @@ const QuestionDetails = () => {
   );
 };
 
+const QuestionDetails = (props) => {
+  return (
+    <QuestionProvider>
+      <QuestionDetailsPage {...props} />
+    </QuestionProvider>
+  );
+};
 export default QuestionDetails;

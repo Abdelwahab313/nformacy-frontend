@@ -26,9 +26,7 @@ const ActionButtonsContainer = ({
           id='saveAndCompleteLaterButton'
           onClick={() => saveAndCompleteLater()}
           buttonText={t['saveAndCompleteLater']}
-          style={{
-            marginRight: '10px',
-          }}
+          className={questionRoasterClasses.buttonMargin}
         />
         <SubmitButton
           id={'sendToAdminButton'}
@@ -50,9 +48,7 @@ const ActionButtonsContainer = ({
           id='saveAndCompleteLaterButton'
           onClick={() => saveAndCompleteLater()}
           buttonText={t['saveAndCompleteLater']}
-          style={{
-            marginRight: '10px',
-          }}
+          className={questionRoasterClasses.buttonMargin}
         />
       )}
       {!(

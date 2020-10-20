@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer } from 'react';
+import QuestionActionTypes from './actionTypes';
 
 const defaultValues = {
   questionDetails: '',
@@ -24,18 +25,15 @@ const useQuestionContext = () => {
   return context;
 };
 
-export const QuestionActionTypes = {
-  UPDATE_QUESTION: 'UPDATE_QUESTION',
-};
-
 const QuestionReducer = (state, action) => {
   switch (action.type) {
     case QuestionActionTypes.UPDATE_QUESTION:
-      return { ...state, questionDetails: action.payload };
+      const updatedQuestion = { ...state.questionDetails, ...action.payload };
+      return { ...state, questionDetails: updatedQuestion };
 
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
 };
 
-export { useQuestionContext as useAuth, QuestionProvider as AuthProvider };
+export { useQuestionContext, QuestionProvider };
