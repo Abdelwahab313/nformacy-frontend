@@ -37,7 +37,12 @@ import { sendToAdmin } from 'apis/questionsAPI';
 import authManager from '../../../../../services/authManager';
 import ImageUploader from 'react-images-upload';
 import { useQuestionContext } from '../context';
-import { updateQuestionDetails } from '../context/questionAction';
+import {
+  setEmptyMessage,
+  setErrorMessage,
+  setSuccessMessage,
+  updateQuestionDetails,
+} from '../context/questionAction';
 import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
 
 const noActionStates = [
@@ -50,11 +55,12 @@ const noActionStates = [
 
 const QuestionForm = ({ isNewQuestion }) => {
   const classes = useStyles();
-  const [{ questionDetails }, dispatch] = useQuestionContext();
+  const [
+    { questionDetails, message, isError },
+    dispatch,
+  ] = useQuestionContext();
 
   const questionRoasterClasses = useRoasterStyle();
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [isError, setIsError] = useState(false);
   const [{ currentUser }] = useAuth();
 
   let history = useHistory();
@@ -69,8 +75,7 @@ const QuestionForm = ({ isNewQuestion }) => {
         subfield: questionDetails.subfield,
         industry: questionDetails.industry,
       });
-      setIsError(false);
-      setSnackbarMessage('Question has been accepted successfully');
+      setSuccessMessage(dispatch, 'Question has been accepted successfully');
     });
   };
 
@@ -87,7 +92,7 @@ const QuestionForm = ({ isNewQuestion }) => {
     }).then(() => {
       history.push('/admin/questions');
     });
-    setSnackbarMessage('Your question is saved successfully');
+    setSuccessMessage(dispatch, 'Your question is saved successfully');
   };
 
   const onChangeQuestionField = (name, data) => {
@@ -102,33 +107,39 @@ const QuestionForm = ({ isNewQuestion }) => {
     });
   };
 
-  const onSubmitQuestion = () => {
+  const validateQuestionForm = () => {
+    let errorMessage = '';
     if (
       !questionDetails.assignedAdviserId ||
       questionDetails.assignedAdviserId === ''
     ) {
-      setSnackbarMessage('You have to assign an adviser to send to.');
-      setIsError(true);
+      errorMessage = 'You have to assign an adviser to send to.';
     } else if (
       authManager.isAdmin() &&
       questionDetails.assignedAdviserId &&
       !questionDetails.hoursToReviewAndEdit
     ) {
-      setSnackbarMessage(
-        'You have to set how many hours the adviser has to review and edit.',
-      );
-      setIsError(true);
+      errorMessage =
+        'You have to set how many hours the adviser has to review and edit.';
     } else if (
       authManager.isAdmin() &&
       questionDetails.assignedAdviserId &&
       !questionDetails.hoursToCloseAnswers
     ) {
-      setSnackbarMessage(
-        'You have to set how many hours to close answers window for freelancers.',
-      );
-      setIsError(true);
+      errorMessage =
+        'You have to set how many hours to close answers window for freelancers.';
+    }
+
+    if (!!errorMessage) {
+      setErrorMessage(dispatch, errorMessage);
+      return false;
     } else {
-      setIsError(false);
+      return true;
+    }
+  };
+
+  const onSubmitQuestion = () => {
+    if (validateQuestionForm()) {
       if (isNewQuestion) {
         submitQuestion({
           ...questionDetails,
@@ -142,7 +153,7 @@ const QuestionForm = ({ isNewQuestion }) => {
           history.push('/admin/dashboard');
         });
       }
-      setSnackbarMessage('Question Sent to Adviser');
+      setSuccessMessage(dispatch, 'Question Sent to Adviser');
     }
   };
 
@@ -435,9 +446,9 @@ const QuestionForm = ({ isNewQuestion }) => {
       </GridContainer>
       <SuccessSnackBar
         isError={isError}
-        isSnackbarShown={!!snackbarMessage}
-        closeSnackBar={() => setSnackbarMessage('')}
-        content={snackbarMessage}
+        isSnackbarShown={!!message}
+        closeSnackBar={() => setEmptyMessage()}
+        content={message}
       />
     </CardBody>
   );

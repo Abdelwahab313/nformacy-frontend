@@ -10,7 +10,6 @@ import CardFooter from 'components/Card/CardFooter.js';
 import { useHistory, useLocation } from 'react-router';
 import { fetchQuestionDetails } from 'apis/questionsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
-import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
 import { approveQuestion } from '../../../../apis/questionsAPI';
 import QuestionForm from './subComponents/QuestionForm';
 import { useStyles } from '../../../../styles/Admin/questionFormStyles';

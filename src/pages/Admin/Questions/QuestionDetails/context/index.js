@@ -2,7 +2,9 @@ import React, { createContext, useContext, useReducer } from 'react';
 import QuestionActionTypes from './actionTypes';
 
 const defaultValues = {
-  questionDetails: '',
+  questionDetails: {},
+  message: '',
+  isError: false,
 };
 
 const QuestionContext = createContext();
@@ -30,6 +32,15 @@ const QuestionReducer = (state, action) => {
     case QuestionActionTypes.UPDATE_QUESTION:
       const updatedQuestion = { ...state.questionDetails, ...action.payload };
       return { ...state, questionDetails: updatedQuestion };
+
+    case QuestionActionTypes.UPDATE_SUCCESS_MESSAGE:
+      return { ...state, isError: false, message: action.payload };
+
+    case QuestionActionTypes.UPDATE_ERROR_MESSAGE:
+      return { ...state, isError: true, message: action.payload };
+
+    case QuestionActionTypes.EMPTY_MESSAGE:
+      return { ...state, isError: false, message: '' };
 
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
