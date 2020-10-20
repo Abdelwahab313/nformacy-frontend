@@ -25,9 +25,6 @@ const QuestionDetailsPage = () => {
   const classes = useStyles();
   const [{ questionDetails }, dispatch] = useQuestionContext();
   const [isLoadingForUpdating, setIsLoadingForUpdating] = useState(false);
-  const [isSnackbarShown, setIsSnackbarShown] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
   let history = useHistory();
 
   const location = useLocation();
@@ -72,13 +69,7 @@ const QuestionDetailsPage = () => {
               {isNewQuestion ? 'Add Question' : 'Edit Question'}
             </Typography>
           </CardHeader>
-          <QuestionForm
-            isLoadingForUpdating={isLoadingForUpdating}
-            setIsSnackbarShown={setIsSnackbarShown}
-            setSnackbarMessage={setSnackbarMessage}
-            setIsError={setIsError}
-            isNewQuestion={isNewQuestion}
-          />
+          <QuestionForm isNewQuestion={isNewQuestion} />
           <CardFooter className={classes.footerButtons}>
             {!isNewQuestion &&
               authManager.isAdmin() &&
@@ -91,12 +82,6 @@ const QuestionDetailsPage = () => {
                   Deploy to question roaster
                 </Button>
               )}
-            <SuccessSnackBar
-              isError={isError}
-              isSnackbarShown={isSnackbarShown}
-              closeSnackBar={() => setIsSnackbarShown(false)}
-              content={snackbarMessage}
-            />
           </CardFooter>
         </Card>
       </GridItem>

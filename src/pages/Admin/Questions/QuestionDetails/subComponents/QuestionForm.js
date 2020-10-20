@@ -38,6 +38,7 @@ import authManager from '../../../../../services/authManager';
 import ImageUploader from 'react-images-upload';
 import { useQuestionContext } from '../context';
 import { updateQuestionDetails } from '../context/questionAction';
+import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
 
 const noActionStates = [
   'pending_assignment',
@@ -47,23 +48,15 @@ const noActionStates = [
   'closed',
 ];
 
-const QuestionForm = ({
-  setIsSnackbarShown,
-  setSnackbarMessage,
-  setIsError,
-  isNewQuestion,
-}) => {
+const QuestionForm = ({ isNewQuestion }) => {
   const classes = useStyles();
   const [{ questionDetails }, dispatch] = useQuestionContext();
 
   const questionRoasterClasses = useRoasterStyle();
-  const [content, setContent] = useState(
-    questionDetails ? questionDetails.content : '',
-  );
-  const [attachmentsGroupsId, setAttachmentsGroupsId] = useState(
-    questionDetails.attachmentsGroupsId,
-  );
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [isError, setIsError] = useState(false);
   const [{ currentUser }] = useAuth();
+  
   let history = useHistory();
   const richTextMediaId = useRef(questionDetails?.richTextMediaId);
 
@@ -71,7 +64,6 @@ const QuestionForm = ({
     acceptAssignment(questionDetails.id).then((response) => {
       updateQuestionDetails(dispatch, {
         ...response.data,
-        content,
         createdAt: humanizedTimeSpan(questionDetails.createdAt),
         title: questionDetails.title,
         field: questionDetails.field,
@@ -80,7 +72,6 @@ const QuestionForm = ({
       });
       setIsError(false);
       setSnackbarMessage('Question has been accepted successfully');
-      setIsSnackbarShown(true);
     });
   };
 
@@ -94,13 +85,10 @@ const QuestionForm = ({
   const saveAndCompleteLater = () => {
     saveDraftQuestion({
       ...questionDetails,
-      content,
-      attachmentsGroupsId,
       richTextMediaId: richTextMediaId.current,
     }).then(() => {
       history.push('/admin/questions');
     });
-    setIsSnackbarShown(true);
     setSnackbarMessage('Your question is saved successfully');
   };
 
@@ -123,7 +111,6 @@ const QuestionForm = ({
     ) {
       setSnackbarMessage('You have to assign an adviser to send to.');
       setIsError(true);
-      setIsSnackbarShown(true);
     } else if (
       authManager.isAdmin() &&
       questionDetails.assignedAdviserId &&
@@ -133,7 +120,6 @@ const QuestionForm = ({
         'You have to set how many hours the adviser has to review and edit.',
       );
       setIsError(true);
-      setIsSnackbarShown(true);
     } else if (
       authManager.isAdmin() &&
       questionDetails.assignedAdviserId &&
@@ -143,14 +129,11 @@ const QuestionForm = ({
         'You have to set how many hours to close answers window for freelancers.',
       );
       setIsError(true);
-      setIsSnackbarShown(true);
     } else {
       setIsError(false);
       if (isNewQuestion) {
         submitQuestion({
           ...questionDetails,
-          content,
-          attachmentsGroupsId,
           richTextMediaId: richTextMediaId.current,
         }).then(() => {
           history.push('/admin/dashboard');
@@ -158,14 +141,11 @@ const QuestionForm = ({
       } else {
         updateQuestion(questionDetails.id, {
           ...questionDetails,
-          content,
-          attachmentsGroupsId,
           richTextMediaId: richTextMediaId.current,
         }).then(() => {
           history.push('/admin/dashboard');
         });
       }
-      setIsSnackbarShown(true);
       setSnackbarMessage('Question Sent to Adviser');
     }
   };
@@ -175,7 +155,6 @@ const QuestionForm = ({
     const formData = new FormData();
     if (picture.length === 0) return;
     formData.append('thumbnail', imageBlob, picture[0].name);
-   
   };
 
   return (
@@ -392,8 +371,10 @@ const QuestionForm = ({
           <Grid container className={questionRoasterClasses.questionContainer}>
             <Grid item xs={12}>
               <RichTextEditorForm
-                initialContent={content}
-                onContentUpdate={setContent}
+                initialContent={questionDetails.content}
+                onContentUpdate={(value) =>
+                  onChangeQuestionField('content', value)
+                }
                 richTextMediaId={richTextMediaId}
               />
             </Grid>
@@ -414,8 +395,13 @@ const QuestionForm = ({
                       questionRoasterClasses.attachmentUploaderContainer
                     }
                     attachments={questionDetails.attachments}
-                    attachmentsGroupsId={attachmentsGroupsId}
-                    setAttachmentsGroupsId={setAttachmentsGroupsId}
+                    attachmentsGroupsId={questionDetails.attachmentsGroupsId}
+                    setAttachmentsGroupsId={(attachmentsGroupsId) => {
+                      onChangeQuestionField(
+                        'attachmentsGroupsId',
+                        attachmentsGroupsId,
+                      );
+                    }}
                   />
                 </Grid>
               )}
@@ -448,6 +434,12 @@ const QuestionForm = ({
           </Grid>
         </GridItem>
       </GridContainer>
+      <SuccessSnackBar
+        isError={isError}
+        isSnackbarShown={!!snackbarMessage}
+        closeSnackBar={() => setSnackbarMessage('')}
+        content={snackbarMessage}
+      />
     </CardBody>
   );
 };
