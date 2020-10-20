@@ -56,9 +56,8 @@ const QuestionForm = ({ isNewQuestion }) => {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [isError, setIsError] = useState(false);
   const [{ currentUser }] = useAuth();
-  
+
   let history = useHistory();
-  const richTextMediaId = useRef(questionDetails?.richTextMediaId);
 
   const onAcceptAssignment = () => {
     acceptAssignment(questionDetails.id).then((response) => {
@@ -85,7 +84,6 @@ const QuestionForm = ({ isNewQuestion }) => {
   const saveAndCompleteLater = () => {
     saveDraftQuestion({
       ...questionDetails,
-      richTextMediaId: richTextMediaId.current,
     }).then(() => {
       history.push('/admin/questions');
     });
@@ -134,14 +132,12 @@ const QuestionForm = ({ isNewQuestion }) => {
       if (isNewQuestion) {
         submitQuestion({
           ...questionDetails,
-          richTextMediaId: richTextMediaId.current,
         }).then(() => {
           history.push('/admin/dashboard');
         });
       } else {
         updateQuestion(questionDetails.id, {
           ...questionDetails,
-          richTextMediaId: richTextMediaId.current,
         }).then(() => {
           history.push('/admin/dashboard');
         });
@@ -375,7 +371,10 @@ const QuestionForm = ({ isNewQuestion }) => {
                 onContentUpdate={(value) =>
                   onChangeQuestionField('content', value)
                 }
-                richTextMediaId={richTextMediaId}
+                richTextMediaId={questionDetails.richTextMediaId}
+                updateRichTextMedia={(newRichTextMediaId) =>
+                  onChangeQuestionField('richTextMediaId', newRichTextMediaId)
+                }
               />
             </Grid>
             {!(

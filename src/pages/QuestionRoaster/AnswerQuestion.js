@@ -75,7 +75,10 @@ const AnswerQuestion = () => {
               <RichTextEditorForm
                 initialContent={content || ''}
                 onContentUpdate={setContent}
-                richTextMediaId={richTextMediaId}
+                richTextMediaId={richTextMediaId.current}
+                updateRichTextMedia={(newRichTextMediaId) =>
+                  (richTextMediaId.current = newRichTextMediaId)
+                }
               />
             </Grid>
             <Grid
