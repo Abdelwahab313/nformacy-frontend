@@ -85,6 +85,7 @@ pipeline {
       dir("${env.BackendPath}") {
         sh 'make sandbox-down'
       }
+      discordSend description: 'Hiiiii', footer: '', image: '', link: 'env.BUILD_URL', result: 'SUCCESS|UNSTABLE|FAILURE|ABORTED', thumbnail: '', title: 'Medad Build', webhookURL: 'https://discord.com/api/webhooks/768518843412381748/YzRFNky8-_X4ZYx78rbpVb49OsIAp_1mRptNXPYOQV6xsd2rh0N-ycQ5tau8Amfc-i_H' 
     }
   }
 }
