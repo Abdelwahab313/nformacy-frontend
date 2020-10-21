@@ -10,7 +10,6 @@ import { fieldsOfExperience } from 'constants/dropDownOptions';
 import SubmitButton from 'components/buttons/SubmitButton';
 import t from '../../locales/en/questionRoaster';
 import createMarkup from '../../services/markup';
-import dummyImage from 'assets/img/sidebar-2.jpg';
 import Countdown from 'react-countdown';
 import CountdownBoxShape from 'components/counters/CountdownBoxShape';
 import * as colors from '../../styles/colors';
@@ -61,7 +60,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   };
 
   return (
-    <Grid className={classes.mainContainer}>
+    <Grid item md={12} xs={12} className={classes.mainContainer}>
       <Grid container className={classes.questionContainer}>
         {!!questionDetails.thumbnailUrl &&
           <Grid className={classes.imgContainer} item md={3} xs={12}>

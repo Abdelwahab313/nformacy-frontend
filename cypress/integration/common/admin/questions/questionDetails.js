@@ -1,7 +1,6 @@
 import { When, Then } from 'cypress-cucumber-preprocessor/steps';
 import { createQuestion } from '../../../../support/services/questionBuilder';
 import {getFromLocalStorage} from '../../../../helperFunctions';
-import { BASE_URL } from '../../../../defualtTestValues';
 
 And(/^I should see question details$/, function() {
   cy.contains('Edit Question');
@@ -125,7 +124,6 @@ When(/^I should see the uploaded image in the question form$/, function() {
 });
 
 When(/^I choose a question with thumbnail image$/, function() {
-  console.log('hi there =========')
   createQuestion().then(() => {
     const createdQuestion = getFromLocalStorage('createdQuestion');
     cy.reload()
@@ -135,8 +133,8 @@ When(/^I choose a question with thumbnail image$/, function() {
     .parent()
     .click();
     cy.get('.thumbnail-uploader').click();
-    const thunbnailPath = 'download.png';
-    cy.get('input[type="file"]').attachFile(thunbnailPath).as('upload')
+    const thumbnailPath = 'download.png';
+    cy.get('input[type="file"]').attachFile(thumbnailPath).as('upload')
     cy.get('.uploadPicture').should('have.attr', 'src').should('include','download.png')
     cy.get('#applyChangesButton').click()
   }

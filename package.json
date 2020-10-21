@@ -6,7 +6,7 @@
     "start": "PORT=5000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
-    "test:nowatch": "CI=true react-scripts test",
+    "test:nowatch": "CI=true react-scripts test --env=jest-environment-jsdom-sixteen",
     "cy:run": "cypress run -e 'TAGS=not @ignore or not @slow-test or not @liveNotification'",
     "cy:ci": "TZ=Africa/Cairo cypress run -e 'TAGS=not @ignore'",
     "cy:start": "REACT_APP_ENV=e2e PORT=5001 react-scripts start",
