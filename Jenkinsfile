@@ -16,7 +16,7 @@ pipeline {
             sh 'npm ci'
             sh 'npm run cy:verify'
             sh 'REACT_APP_ENV=e2e npm run build'
-            sh 'serve -s build -l 5001'
+            sh 'nohup serve -s build -l 5001 &'
 
             dir("${env.BackendPath}") {
               // wait for npm start to
