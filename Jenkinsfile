@@ -10,11 +10,14 @@ pipeline {
       parallel {
         stage('Build front end') {
           steps {
-            echo "Building Front end code"
-            sh 'npm ci'
             sh 'rm -rf cypress/screenshots'
+            echo "Building Front end code"
+            sh 'npm i -g serve'
+            sh 'npm ci'
             sh 'npm run cy:verify'
-            sh 'npm run cy:start &'
+            sh 'REACT_APP_ENV=e2e npm run build'
+            sh 'serve -s build -l 5001'
+
             dir("${env.BackendPath}") {
               // wait for npm start to
               sh './wait-for-it.sh localhost:5001 -- echo "Sandbox is up"'
@@ -36,10 +39,10 @@ pipeline {
             echo '-- Build Backend sandbox'
             dir("${env.BackendPath}") {
               sh 'make sandbox-build'
+              sh 'make sandbox-reset'
               sh 'make sandbox-up'
               // wait for docker to load
               sh './wait-for-it.sh localhost:3001 -- echo "Sandbox is up"'
-              sh 'make sandbox-setup'
             }
           }
         }
