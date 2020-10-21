@@ -1,16 +1,35 @@
 import { useAuth } from '../../pages/auth/context/auth';
-import { useState } from 'react';
+import { CHANGE_LOCALE, useLocaleContext } from './context';
+import { changeLocaleAPI } from '../../apis/userAPI';
 
+const SWITCH_LOCAL = {
+  en: 'ar',
+  ar: 'en',
+};
 const useLocale = () => {
-  const [{ currentUser }] = useAuth();
-  const [locale, setLocale] = useState(
-    currentUser ? currentUser?.locale : 'en',
-  );
+  const [{ currentUser }, dispatchUserAction] = useAuth();
+  const [locale, dispatch] = useLocaleContext();
 
-  const changeLocale = (newLocale) => {
-    setLocale(newLocale);
+  const toggleLocale = () => {
+    const newLocale = SWITCH_LOCAL[locale];
+    dispatch({
+      type: CHANGE_LOCALE,
+      payload: { locale: newLocale },
+    });
+    changeLocaleAPI(currentUser.id, newLocale).then(() => {
+      dispatchUserAction({
+        type: CHANGE_LOCALE,
+        payload: { locale: newLocale },
+      });
+    });
   };
 
-  return { locale, changeLocale };
+  const setLocale = (newLocale) => {
+    dispatch({
+      type: CHANGE_LOCALE,
+      payload: { locale: newLocale },
+    });
+  };
+  return { locale, toggleLocale, setLocale };
 };
 export default useLocale;

@@ -18,6 +18,14 @@ const updateProfile = (user, userId) => {
   }).then((response) => camelizeKeys(response));
 };
 
+const changeLocaleAPI = (userId, locale) => {
+  return axios({
+    method: 'PATCH',
+    url: `${API_BASE_URL}/users/${userId}/language`,
+    data: { locale },
+  }).then((response) => camelizeKeys(response));
+};
+
 const activateFreelancer = (user) => {
   return axios({
     method: 'put',
@@ -61,4 +69,5 @@ export {
   uploadCV,
   activateFreelancer,
   fetchAdvisersList,
+  changeLocaleAPI,
 };

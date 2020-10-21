@@ -11,6 +11,7 @@ import {
   USER_NAME,
 } from './defualtTestValues';
 import { camelizeKeys } from 'humps';
+import UserFactory from './factories/userFactory';
 
 export const login = (email = USER_NAME, password = PASSWORD) => {
   cy.visit(BASE_URL);
@@ -41,17 +42,29 @@ export const requestWithTokenAsAdmin = (callbackFunction) => {
   }
 };
 
-export const signUpAndSetTokens = () => {
+const extractUserAndTokenFromResponse = (response) => {
+  const camelizeKeysResponse = camelizeKeys(response);
+  const { user, token } = camelizeKeysResponse.body;
+  cy.setLocalStorage('tokens', JSON.stringify(token));
+  cy.setLocalStorage('user', JSON.stringify(user));
+  cy.wrap(response.body.user).as('user');
+};
+
+export const signUpAndSetTokens = (user = {}) => {
+  cy.request('POST', `${BACKEND_WEB_URL}/users`, UserFactory(user)).then(
+    (response) => {
+      extractUserAndTokenFromResponse(response);
+    },
+  );
+};
+
+export const loginInAsFreelancer = () => {
   cy.request('POST', `${BACKEND_WEB_URL}/auth/login`, {
     email: FREELANCER_USERNAME,
     password: FREELANCER_PASSWORD,
-  })
-    .then((response) => camelizeKeys(response))
-    .then((response) => {
-      cy.setLocalStorage('tokens', JSON.stringify(response.body.token));
-      cy.setLocalStorage('user', JSON.stringify(response.body.user));
-      cy.wrap(response.body.user).as('user');
-    });
+  }).then((response) => {
+    extractUserAndTokenFromResponse(response);
+  });
 };
 
 export const loginAsAnAdvisor = (adviser = ADVISER_USERNAME) => {

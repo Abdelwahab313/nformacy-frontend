@@ -14,13 +14,13 @@ import useStyles from 'components/Header/app/styles/HeaderStyles';
 import useLocale from '../../../hooks/localization/useLocale';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
+import DIRECTION from '../../../constants/direction';
 
 export default function MainHeader() {
   const classes = useStyles();
-
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const { changeLocale } = useLocale();
   const { t } = useTranslation();
+  const { locale, toggleLocale } = useLocale();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -34,9 +34,9 @@ export default function MainHeader() {
   const mobileMenuId = 'primary-search-account-menu-mobile';
 
   return (
-    <div className={classes.grow}>
+    <div className={classes.grow} dir={DIRECTION[locale]}>
       <AppBar id={'header'} position='static'>
-        <Button id={'switchLang'} onCLick={() => changeLocale('ar')}>
+        <Button id={'switchLang'} onClick={toggleLocale}>
           {t('language')}
         </Button>
         <Toolbar>

@@ -33,7 +33,7 @@ Then(/^button for close dialog$/, function() {
 When(/^I click on a free day$/, function() {
   // should get dynamic day
   cy.get(
-    `#update-calendar-dialog td[data-day='30-${moment().format('MM')}']`,
+    `#update-calendar-dialog td[data-day='25-${moment().format('MM')}']`,
   ).click({ force: true });
 });
 
@@ -52,11 +52,11 @@ Then(
   function() {
     cy.get('#start-date-range-picker').should(
       'have.value',
-      `30/${moment().format('MM')}/${moment().format('Y')}`,
+      `25/${moment().format('MM')}/${moment().format('Y')}`,
     );
     cy.get('#end-date-range-picker').should(
       'have.value',
-      `30/${moment().format('MM')}/${moment().format('Y')}`,
+      `25/${moment().format('MM')}/${moment().format('Y')}`,
     );
   },
 );
@@ -74,10 +74,11 @@ When(/^click submit time$/, function() {
 Then(
   /^I should see the selected day labeled as available day in the calendar$/,
   function() {
+    const thirteenthOfCurrentMonth = new Date(
+      `${moment().format('Y')}-${moment().format('MM')}-25 8:000`,
+    ).toISOString();
     cy.get(`div[data-title='08:00 - 17:00']`).should('exist');
-    cy.get('.AppointmentsContainer-container-98')
-      .last()
-      .click({ force: true });
+    cy.get(`div[data-date='${thirteenthOfCurrentMonth}'`);
   },
 );
 
@@ -124,11 +125,9 @@ Then(
   /^I should see the selected day as available day with the updated time$/,
   function() {
     const thirteenthOfCurrentMonth = new Date(
-      `${moment().format('Y')}-${moment().format('MM')}-30 8:000`,
+      `${moment().format('Y')}-${moment().format('MM')}-25 8:000`,
     ).toISOString();
-    cy.get(
-      `div[data-date='${thirteenthOfCurrentMonth}']`,
-    );
+    cy.get(`div[data-date='${thirteenthOfCurrentMonth}']`);
   },
 );
 
@@ -142,7 +141,7 @@ Given(/^I have day selected as available on my calendar$/, function() {
 
 When(/^I click on a day that is already available$/, function() {
   cy.get(
-    `#update-calendar-dialog td[data-day='30-${moment().format('MM')}']`,
+    `#update-calendar-dialog td[data-day='25-${moment().format('MM')}']`,
   ).click();
 });
 
@@ -217,9 +216,7 @@ Then(
     cy.get('.MuiInputBase-input.MuiOutlinedInput-input')
       .first()
       .type(`${moment().format('Y')}-${moment().format('MM')}-22 08:00`);
-    cy.get(
-      '.MuiButtonBase-root.MuiButton-root.MuiButton-text.memo-button-259',
-    ).click();
+    cy.get('#saveButton').click();
     cy.wait(500);
   },
 );
@@ -237,7 +234,7 @@ Then(
 );
 When(/^I click on a available day$/, function() {
   const thirteenthOfCurrentMonth = new Date(
-    `${moment().format('Y')}-${moment().format('MM')}-30 8:00:00`,
+    `${moment().format('Y')}-${moment().format('MM')}-25 8:00:00`,
   ).toISOString();
   cy.get(`#update-calendar-dialog div[data-date='${thirteenthOfCurrentMonth}']`)
     .first()
@@ -253,7 +250,7 @@ When(
   /^I have an event that is already available with hours 08:00 and 17:00$/,
   function() {
     cy.get(
-      `#update-calendar-dialog td[data-day='30-${moment().format('MM')}']`,
+      `#update-calendar-dialog td[data-day='25-${moment().format('MM')}']`,
     ).click();
     cy.get('#addAvailableTime').click();
     cy.get('#start-date-range-picker').type(
@@ -287,15 +284,15 @@ When(/^I change time zone to be Pacific\/Chatham$/, function() {
   cy.get('#time-zone-picker-option-529').click();
   cy.get('#time-zone-picker').should(
     'have.value',
-    'Pacific/Chatham (GMT+12:45)',
+    'Pacific/Chatham (GMT+13:45)',
   );
 });
 Then(
-  /^I should see the time of that event to be changed to 18:45 and 03:45 30-09 31-09$/,
+  /^I should see the time of that event to be changed to 18:45 and 03:45 25-26 in the current month$/,
   function() {
-    cy.get('#update-calendar-dialog [data-title="18:45 - 03:45"]')
+    cy.get('#update-calendar-dialog [data-title="19:45 - 04:45"]')
       .first()
       .click();
-    cy.contains(`30-31 ${moment().format('MMMM')}`);
+    cy.contains(`25-26 ${moment().format('MMMM')}`);
   },
 );

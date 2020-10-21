@@ -1,9 +1,4 @@
-import {
-  darken,
-  fade,
-  lighten,
-} from '@material-ui/core/styles/colorManipulator';
-import { darkBlue } from '../../styles/colors';
+import { darken, fade, lighten } from '@material-ui/core/styles/colorManipulator';
 
 const getBorder = (theme) =>
   `1px solid ${
@@ -38,8 +33,9 @@ const calendarStyles = (theme) => ({
       outline: 0,
     },
   },
+  dayScaleCell: { textAlign: 'center', fontWeight: 'bold' },
   table: {
-    minWidth: '200px'
+    minWidth: '200px',
     // minWidth: '200px'
   },
   appointment: {
@@ -49,7 +45,7 @@ const calendarStyles = (theme) => ({
     },
   },
   minimizedAppointment: {
-    height: '10px'
+    height: '10px',
   },
   appointmentContent: {
     '&>div>div': {
@@ -67,7 +63,6 @@ const calendarStyles = (theme) => ({
   },
   dayText: {
     color: theme.palette.common.black,
-    
   },
   text: {
     padding: '0.5em',
@@ -84,7 +79,7 @@ const calendarStyles = (theme) => ({
     backgroundColor: '#00a2ff',
   },
   checkedIcon: {
-    color: '#FFFFFF'
+    color: '#FFFFFF',
   },
   circle: {
     width: theme.spacing(4.5),

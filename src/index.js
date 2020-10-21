@@ -7,16 +7,29 @@ import * as serviceWorker from './serviceWorker';
 import { Router } from 'react-router';
 import WebFont from 'webfontloader';
 import history from './services/navigation';
+import { LocaleProvider } from './hooks/localization/context';
+import { AuthProvider } from './pages/auth/context/auth';
+import authManager from './services/authManager';
+
+const App = () => {
+  const { user } = authManager.retrieveUserToken();
+  return (
+    <AuthProvider initialValue={{ currentUser: user }}>
+      <LocaleProvider initialLocale={user?.locale }>
+        <Main />
+      </LocaleProvider>
+    </AuthProvider>
+  );
+};
 
 WebFont.load({
   google: {
     families: ['Orbitron', 'sans-serif'],
   },
 });
-
 ReactDOM.render(
   <Router history={history}>
-    <Main />
+    <App />
   </Router>,
   document.getElementById('root'),
 );

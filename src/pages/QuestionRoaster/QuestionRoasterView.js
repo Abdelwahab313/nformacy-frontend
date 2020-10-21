@@ -14,6 +14,8 @@ import QuestionsFilter from 'pages/QuestionRoaster/QuestionsFilter';
 import Typography from '@material-ui/core/Typography';
 import t from '../../locales/en/questionRoaster';
 import BreadcrumbsCustomSeparator from '../../components/breadcrumbs/Breadcrumbs';
+import useLocale from '../../hooks/localization/useLocale';
+import DIRECTION from '../../constants/direction';
 
 const QuestionRoasterView = () => {
   const { questions, addFilter, loading } = useQuestionFetcher();
@@ -21,27 +23,32 @@ const QuestionRoasterView = () => {
   const [filtersState, setFilterState] = useState(
     Array.from({ length: fieldsOfExperience.length }).fill(false),
   );
-
+  const { locale } = useLocale();
   const classes = useStyles();
 
   if (loading) {
     return (
       <div id='progressBar' className={classes.progressContainer}>
-        <CircularProgress/>
+        <CircularProgress />
       </div>
     );
   }
 
   return (
-    <Grid container>
+    <Grid id='questionRoasterMainContainer' container dir={DIRECTION[locale]}>
       <Grid item xs={12} className={classes.bannerStyles} direction={'column'}>
         <Grid item id={'question-roaster-banner'}>
-          <Typography id={'question-roaster-header'} className={classes.bannerFontStyles}>
+          <Typography
+            id={'question-roaster-header'}
+            className={classes.bannerFontStyles}>
             {t['questionRoaster']}
           </Typography>
         </Grid>
         <Grid item className={classes.searchGridStyles}>
-          <Paper component='form' className={classes.searchBarContainer} id={'question-roaster-search-bar'}>
+          <Paper
+            component='form'
+            className={classes.searchBarContainer}
+            id={'question-roaster-search-bar'}>
             <InputBase
               className={classes.searchInput}
               placeholder={t['enterKeyword']}
@@ -51,17 +58,20 @@ const QuestionRoasterView = () => {
               type='submit'
               className={classes.iconButton}
               aria-label='search'>
-              <SearchIcon color={'secondary'}/>
+              <SearchIcon color={'secondary'} />
             </IconButton>
           </Paper>
         </Grid>
       </Grid>
       <Grid container justify={'center'}>
         <Grid item xs={10}>
-          <BreadcrumbsCustomSeparator pageName={"Question Roaster"}/>
+          <BreadcrumbsCustomSeparator pageName={'Question Roaster'} />
         </Grid>
       </Grid>
-      <Grid container justify={'center'} id={'questions-roaster-filters-container'}>
+      <Grid
+        container
+        justify={'center'}
+        id={'questions-roaster-filters-container'}>
         <QuestionsFilter
           filtersState={filtersState}
           isAllClicked={filterAllState}
@@ -84,7 +94,11 @@ const QuestionRoasterView = () => {
           <Grid container>
             {questions?.map((question, key) => {
               return (
-                <QuestionView questionDetails={question} key={key} isSubmitVisible={true}/>
+                <QuestionView
+                  questionDetails={question}
+                  key={key}
+                  isSubmitVisible={true}
+                />
               );
             })}
           </Grid>

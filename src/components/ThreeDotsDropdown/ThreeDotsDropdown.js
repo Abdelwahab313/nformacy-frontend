@@ -5,6 +5,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { useStyles } from '../../styles/questionRoasterStyles';
 import clsx from 'clsx';
+import useLocale from '../../hooks/localization/useLocale';
+import DIRECTIONS from '../../constants/direction';
 
 const ITEM_HEIGHT = 48;
 
@@ -17,6 +19,7 @@ const ThreeDotsDropdown = ({
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const classes = useStyles();
+  const { locale } = useLocale();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -62,6 +65,7 @@ const ThreeDotsDropdown = ({
         }}>
         {list.map((option, key) => (
           <MenuItem
+            dir={DIRECTIONS[locale]}
             className={clsx(classes.menuItem, {
               [classes.selectedMenuItem]:
                 filtersState[key + numberOfVisibleFilters],

@@ -2,7 +2,7 @@ import { Given, When } from 'cypress-cucumber-preprocessor/steps';
 import {
   loginAsAdmin,
   loginAsAnAdvisor,
-  signUpAndSetTokens,
+  loginInAsFreelancer,
 } from '../../helperFunctions';
 import faker from 'faker';
 import {
@@ -26,7 +26,7 @@ Given(/^I login in as an advisor$/, function() {
 });
 
 Given(/^I log in as a freelancer$/, function() {
-  signUpAndSetTokens();
+  loginInAsFreelancer();
   cy.wrap(faker.name.findName()).as('updatedFirstName');
 });
 

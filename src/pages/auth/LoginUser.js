@@ -15,6 +15,7 @@ import authManager from '../../services/authManager';
 import { updateUser } from './context/authActions';
 import { RoutesPaths } from 'constants/routesPath';
 import { useTranslation } from 'react-i18next';
+import useLocale from '../../hooks/localization/useLocale';
 
 const Login = () => {
   const classes = useStyles();
@@ -26,6 +27,7 @@ const Login = () => {
   const [showError, setShowError] = useState(false);
   const [, dispatch] = useAuth();
   const location = useLocation();
+  const { setLocale } = useLocale();
   const { t } = useTranslation();
   const isAdminLogin = location.pathname.indexOf('admin') > -1;
   const postLoginRoute = isAdminLogin
@@ -39,9 +41,11 @@ const Login = () => {
     setLoginFailed(false);
     setLoading(true);
     login(data)
-      .then((result) => {
+      .then(async (result) => {
         authManager.login(result.data.token);
-        updateUser(dispatch, result.data.user);
+        const user = result.data.user;
+        updateUser(dispatch, user);
+        setLocale(user.locale);
       })
       .then(() => {
         setLoginSuccess(true);

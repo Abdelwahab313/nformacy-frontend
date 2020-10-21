@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer } from 'react';
+import { CHANGE_LOCALE } from '../../../hooks/localization/context';
 
 const defaultValues = {
   currentUser: '',
@@ -30,7 +31,6 @@ export const AuthActionTypes = {
 
 const AuthReducer = (state, action) => {
   switch (action.type) {
-
     case AuthActionTypes.UPDATE_CURRENT_USER:
       localStorage.setItem('user', JSON.stringify(action.payload));
       return { ...state, currentUser: action.payload };
@@ -39,10 +39,16 @@ const AuthReducer = (state, action) => {
       localStorage.removeItem('user');
       return { ...state, currentUser: '' };
 
+    case CHANGE_LOCALE:
+      const updatedUser = {
+        ...state.currentUser,
+        locale: action.payload.locale,
+      };
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      return { ...state, updatedUser };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
 };
-
 
 export { useAuth, AuthProvider };

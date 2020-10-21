@@ -19,7 +19,7 @@ import {
   TodayButton,
   Toolbar,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
@@ -29,16 +29,18 @@ import calendarStyles from './calendarStyles';
 import { formatDayAsKey, isSameDate } from '../../services/dateTimeParser';
 import { AppointmentColors, darkBlue } from '../../styles/colors';
 import moment from 'moment';
-import DatePicker  from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import TextField from '@material-ui/core/TextField';
+import CalenderCommandButtons from './CalendarCommandButtons';
 
-const DayScaleCell = (props) => (
-  <MonthView.DayScaleCell
-    {...props}
-    style={{ textAlign: 'center', fontWeight: 'bold' }}
-  />
-);
+const useStyles = makeStyles(calendarStyles);
+
+const DayScaleCell = (props) => {
+  const classes = useStyles(calendarStyles);
+
+  return <MonthView.DayScaleCell {...props} className={classes.dayScaleCell} />;
+};
 
 const TextEditor = (props) => {
   // eslint-disable-next-line react/destructuring-assignment
@@ -54,15 +56,17 @@ const TextEditor = (props) => {
 };
 
 const DateEditor = (props) => {
-  return <DatePicker
-    selected={new Date(props.value)}
-    onChange={props.onValueChange}
-    showTimeSelect
-    timeFormat="HH:mm"
-    dateFormat='yyyy-MM-dd HH:mm'
-    customInput={<TextField variant='outlined'/>}
-    timeIntervals={15}
-  />;
+  return (
+    <DatePicker
+      selected={new Date(props.value)}
+      onChange={props.onValueChange}
+      showTimeSelect
+      timeFormat='HH:mm'
+      dateFormat='yyyy-MM-dd HH:mm'
+      customInput={<TextField variant='outlined' />}
+      timeIntervals={15}
+    />
+  );
 };
 
 const BooleanEditor = (props) => {
@@ -105,13 +109,16 @@ const style = ({ palette }) => ({
     textAlign: 'center',
   },
   firstRoom: {
-    background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/Lobby-4.jpg)',
+    background:
+      'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/Lobby-4.jpg)',
   },
   secondRoom: {
-    background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-4.jpg)',
+    background:
+      'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-4.jpg)',
   },
   thirdRoom: {
-    background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-0.jpg)',
+    background:
+      'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-0.jpg)',
   },
   header: {
     height: '260px',
@@ -122,35 +129,29 @@ const style = ({ palette }) => ({
   },
 });
 
-const Header = withStyles(style, { name: 'Header' })(({
-                                                        children, appointmentData, classes, ...restProps
-                                                      }) => (
-  <AppointmentTooltip.Header
-    {...restProps}
-    appointmentData={appointmentData}
-  >
-    <IconButton
-      /* eslint-disable-next-line no-alert */
-      onClick={() => {
-        restProps.onOpenButtonClick();
-        restProps.onHide();
-      }
-      }
-      className={classes.commandButton}
-      id={`edit-${appointmentData.id}`}
-    >
-      <EditIcon />
-    </IconButton>
-    <IconButton
-      /* eslint-disable-next-line no-alert */
-      onClick={restProps.onDeleteButtonClick}
-      className={classes.commandButton}
-      id={`delete-${appointmentData.id}`}
-    >
-      <DeleteIcon />
-    </IconButton>
-  </AppointmentTooltip.Header>
-));
+const Header = withStyles(style, { name: 'Header' })(
+  ({ appointmentData, classes, ...restProps }) => (
+    <AppointmentTooltip.Header {...restProps} appointmentData={appointmentData}>
+      <IconButton
+        /* eslint-disable-next-line no-alert */
+        onClick={() => {
+          restProps.onOpenButtonClick();
+          restProps.onHide();
+        }}
+        className={classes.commandButton}
+        id={`edit-${appointmentData.id}`}>
+        <EditIcon />
+      </IconButton>
+      <IconButton
+        /* eslint-disable-next-line no-alert */
+        onClick={restProps.onDeleteButtonClick}
+        className={classes.commandButton}
+        id={`delete-${appointmentData.id}`}>
+        <DeleteIcon />
+      </IconButton>
+    </AppointmentTooltip.Header>
+  ),
+);
 
 const TimeTableLayoutBase = ({ classes, ...props }) => (
   <MonthView.TimeTableLayout {...props} className={classes.table} />
@@ -181,7 +182,6 @@ const CellBase = React.memo(
     const isAvailableDay = formatDayAsKey(startDate) in availableDates;
 
     const dayClicked = () => {
-      console.log('day pressed', startDate);
       onDayClick && onDayClick({ selectedDay: startDate, isAvailableDay });
     };
 
@@ -335,7 +335,11 @@ const CalendarView = ({
             <Appointment {...props} isMinimized={isMinimized} />
           )}
           appointmentContentComponent={(props) => (
-            <AppointmentContent data-date={props.data.startDate} {...props} isMinimized={isMinimized} />
+            <AppointmentContent
+              data-date={props.data.startDate}
+              {...props}
+              isMinimized={isMinimized}
+            />
           )}
         />
         <AllDayPanel />
@@ -350,6 +354,7 @@ const CalendarView = ({
         )}
         {!isEditable && <AppointmentTooltip showCloseButton />}
         <AppointmentForm
+          commandButtonComponent={CalenderCommandButtons}
           textEditorComponent={TextEditor}
           dateEditorComponent={DateEditor}
           booleanEditorComponent={BooleanEditor}

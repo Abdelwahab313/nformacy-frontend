@@ -26,14 +26,14 @@ Feature: Adviser notifications
     Then The newly sent notification should replace the oldest one
     And I should see "See more..." in the end of the menu
 
-  Scenario: Click on notification from notifications menu in navbar
-    When Admin send a question to me to review
-    And I keep track of current notifications count
-    And I click on notifications menu
-    And I click on the newly received notification
-    Then I should be redirected to the question details page related to the notification
-    And Notification menu should be closed
-    And unread notifications count decrease by 1
+#  Scenario: Click on notification from notifications menu in navbar
+#    When Admin send a question to me to review
+#    And I keep track of current notifications count
+#    And I click on notifications menu
+#    And I click on the newly received notification
+#    Then I should be redirected to the question details page related to the notification
+#    And Notification menu should be closed
+#    And unread notifications count decrease by 1
 
   Scenario: Receive notification when admin send a question to review and edit
     When Admin send a question to me to review
