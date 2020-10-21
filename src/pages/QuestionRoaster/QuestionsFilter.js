@@ -4,7 +4,7 @@ import { fieldsOfExperience } from 'constants/dropDownOptions';
 import { useStyles } from 'styles/questionRoasterStyles';
 import ThreeDotsDropdown from '../../components/ThreeDotsDropdown/ThreeDotsDropdown';
 import t from '../../locales/en/questionRoaster';
-import DropdownMenu from 'components/DropdownMenu/DropdownMenu';
+import LanguagesDropdownMenu from 'pages/QuestionRoaster/LanguagesDropdownMenu';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import clsx from 'clsx';
 
@@ -66,7 +66,7 @@ const QuestionsFilter = ({
           />
         </Grid>
         <Grid item md={2} className={classes.languageFilterContainer}>
-          <DropdownMenu
+          <LanguagesDropdownMenu
             dropdownClass={classes.dropdownDesktop}
             icon={true}
             id={'question-language-filter'}
@@ -118,7 +118,7 @@ const QuestionsFilter = ({
           />
         </Grid>
         <Grid item xs={2} sm={1} className={classes.dropdownMobile}>
-          <DropdownMenu
+          <LanguagesDropdownMenu
             id={'question-language-filter-mobile'}
             icon={false}
             menuText={'E'}

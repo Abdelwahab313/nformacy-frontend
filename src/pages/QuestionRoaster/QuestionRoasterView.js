@@ -16,7 +16,7 @@ import t from '../../locales/en/questionRoaster';
 import BreadcrumbsCustomSeparator from '../../components/breadcrumbs/Breadcrumbs';
 
 const QuestionRoasterView = () => {
-  const { questions, addFilter, removeFilter, filters, loading } = useQuestionFetcher();
+  const { questions, addFilter, loading } = useQuestionFetcher();
   const [filterAllState, setFilterAllState] = useState(true);
   const [filtersState, setFilterState] = useState(
     Array.from({ length: fieldsOfExperience.length }).fill(false),
@@ -78,15 +78,6 @@ const QuestionRoasterView = () => {
             tempFilterState[key] = true;
             setFilterState(tempFilterState);
             setFilterAllState(false);
-          }}
-          onDeleteFilter={(field, key) => {
-            removeFilter(field.value);
-            const tempFilterState = cloneDeep(filtersState);
-            tempFilterState[key] = false;
-            setFilterState(tempFilterState);
-            if (filters.length === 1) {
-              setFilterAllState(true);
-            }
           }}
         />
         <Grid item xs={12} sm={10}>

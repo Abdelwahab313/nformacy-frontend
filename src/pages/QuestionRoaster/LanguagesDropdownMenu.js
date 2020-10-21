@@ -6,7 +6,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useStyles } from '../../styles/questionRoasterStyles';
 import clsx from 'clsx';
 
-const DropdownMenu = ({ id, menuText, dropdownClass, icon }) => {
+const LanguagesDropdownMenu = ({ id, menuText, dropdownClass, icon }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -81,4 +81,4 @@ const DropdownMenu = ({ id, menuText, dropdownClass, icon }) => {
   );
 };
 
-export default DropdownMenu;
+export default LanguagesDropdownMenu;
