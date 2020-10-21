@@ -3,54 +3,54 @@
 exports[`Question Form should match snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="makeStyles-cardBody-64"
+    class="cardBody"
   >
     <div
-      class="MuiGrid-root makeStyles-grid-67 MuiGrid-container"
+      class="MuiGrid-root grid MuiGrid-container"
     >
       <div
-        class="MuiGrid-root makeStyles-grid-68 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-2"
+        class="MuiGrid-root grid MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-2"
       >
         <div
-          class="MuiFormControl-root undefined makeStyles-formControl-78 MuiFormControl-fullWidth"
+          class="MuiFormControl-root undefined formControl MuiFormControl-fullWidth"
         >
           <label
-            class="MuiFormLabel-root MuiInputLabel-root makeStyles-labelRoot-73undefined MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
-            data-shrink="true"
+            class="MuiFormLabel-root MuiInputLabel-root labelRootundefined MuiInputLabel-formControl MuiInputLabel-animated"
+            data-shrink="false"
             for="reference-id"
           >
             Reference ID
           </label>
           <div
-            class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-underline-70 Mui-disabled Mui-disabled makeStyles-disabled-69 MuiInputBase-formControl MuiInput-formControl"
+            class="MuiInputBase-root MuiInput-root MuiInput-underline underline Mui-disabled Mui-disabled disabled MuiInputBase-formControl MuiInput-formControl"
           >
             <input
               aria-invalid="false"
-              class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled makeStyles-disabled-69"
+              class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled disabled"
               disabled=""
               id="reference-id"
               name="referenceNumber"
               type="text"
-              value="2000131"
+              value=""
             />
           </div>
         </div>
       </div>
       <div
-        class="MuiGrid-root makeStyles-grid-68 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-7"
+        class="MuiGrid-root grid MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-7"
       >
         <div
-          class="MuiFormControl-root undefined makeStyles-formControl-78 MuiFormControl-fullWidth"
+          class="MuiFormControl-root undefined formControl MuiFormControl-fullWidth"
         >
           <label
-            class="MuiFormLabel-root MuiInputLabel-root makeStyles-labelRoot-73undefined MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
-            data-shrink="true"
+            class="MuiFormLabel-root MuiInputLabel-root labelRootundefined MuiInputLabel-formControl MuiInputLabel-animated"
+            data-shrink="false"
             for="title"
           >
             Title
           </label>
           <div
-            class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-underline-70 MuiInputBase-formControl MuiInput-formControl"
+            class="MuiInputBase-root MuiInput-root MuiInput-underline underline MuiInputBase-formControl MuiInput-formControl"
           >
             <input
               aria-invalid="false"
@@ -58,45 +58,45 @@ exports[`Question Form should match snapshot 1`] = `
               id="title"
               name="title"
               type="text"
-              value="Test mocked question"
+              value=""
             />
           </div>
         </div>
       </div>
       <div
-        class="MuiGrid-root makeStyles-grid-68 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
+        class="MuiGrid-root grid MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
       >
         <div
-          class="MuiFormControl-root undefined makeStyles-formControl-78 MuiFormControl-fullWidth"
+          class="MuiFormControl-root undefined formControl MuiFormControl-fullWidth"
         >
           <label
-            class="MuiFormLabel-root MuiInputLabel-root makeStyles-labelRoot-73undefined MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
+            class="MuiFormLabel-root MuiInputLabel-root labelRootundefined MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
             data-shrink="true"
             for="post-date"
           >
             Post Date
           </label>
           <div
-            class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-underline-70 Mui-disabled Mui-disabled makeStyles-disabled-69 MuiInputBase-formControl MuiInput-formControl"
+            class="MuiInputBase-root MuiInput-root MuiInput-underline underline Mui-disabled Mui-disabled disabled MuiInputBase-formControl MuiInput-formControl"
           >
             <input
               aria-invalid="false"
-              class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled makeStyles-disabled-69"
+              class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled disabled"
               disabled=""
               id="post-date"
               name="createdAt"
               type="text"
-              value="1 month ago"
+              value="NaN years ago"
             />
           </div>
         </div>
       </div>
     </div>
     <div
-      class="MuiGrid-root makeStyles-grid-67 makeStyles-inputsRow-3 MuiGrid-container"
+      class="MuiGrid-root grid inputsRow MuiGrid-container"
     >
       <div
-        class="MuiGrid-root makeStyles-grid-68 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
+        class="MuiGrid-root grid MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
       >
         <div
           aria-expanded="false"
@@ -108,44 +108,22 @@ exports[`Question Form should match snapshot 1`] = `
             class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
           >
             <label
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined"
-              data-shrink="true"
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+              data-shrink="false"
               for="majorFieldsOfExperienceSelect"
               id="majorFieldsOfExperienceSelect-label"
             >
               Major Fields Of Experience
             </label>
             <div
-              class="MuiInputBase-root MuiOutlinedInput-root MuiAutocomplete-inputRoot makeStyles-inputRoot-79 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedStart MuiOutlinedInput-adornedStart MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd"
+              class="MuiInputBase-root MuiOutlinedInput-root MuiAutocomplete-inputRoot makeStyles-inputRoot-1 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd"
             >
-              <div
-                class="MuiChip-root MuiAutocomplete-tag MuiChip-deletable"
-                data-tag-index="0"
-                role="button"
-                tabindex="-1"
-              >
-                <span
-                  class="MuiChip-label"
-                >
-                  Marketing and PR
-                </span>
-                <svg
-                  aria-hidden="true"
-                  class="MuiSvgIcon-root MuiChip-deleteIcon"
-                  focusable="false"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
-                  />
-                </svg>
-              </div>
               <input
                 aria-autocomplete="list"
                 aria-invalid="false"
                 autocapitalize="none"
                 autocomplete="off"
-                class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedStart MuiOutlinedInput-inputAdornedStart MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
+                class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
                 id="majorFieldsOfExperienceSelect"
                 spellcheck="false"
                 type="text"
@@ -156,7 +134,7 @@ exports[`Question Form should match snapshot 1`] = `
               >
                 <button
                   aria-label="Clear"
-                  class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator MuiAutocomplete-clearIndicatorDirty"
+                  class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator"
                   tabindex="-1"
                   title="Clear"
                   type="button"
@@ -207,10 +185,10 @@ exports[`Question Form should match snapshot 1`] = `
               </div>
               <fieldset
                 aria-hidden="true"
-                class="PrivateNotchedOutline-root-80 MuiOutlinedInput-notchedOutline"
+                class="PrivateNotchedOutline-root-2 MuiOutlinedInput-notchedOutline"
               >
                 <legend
-                  class="PrivateNotchedOutline-legendLabelled-82 PrivateNotchedOutline-legendNotched-83"
+                  class="PrivateNotchedOutline-legendLabelled-4"
                 >
                   <span>
                     Major Fields Of Experience
@@ -222,7 +200,7 @@ exports[`Question Form should match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="MuiGrid-root makeStyles-grid-68 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
+        class="MuiGrid-root grid MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
       >
         <div
           aria-expanded="false"
@@ -234,44 +212,22 @@ exports[`Question Form should match snapshot 1`] = `
             class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
           >
             <label
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined"
-              data-shrink="true"
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+              data-shrink="false"
               for="specificFieldsOfExperienceSelect"
               id="specificFieldsOfExperienceSelect-label"
             >
               Specific Fields Of Experience
             </label>
             <div
-              class="MuiInputBase-root MuiOutlinedInput-root MuiAutocomplete-inputRoot makeStyles-inputRoot-79 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedStart MuiOutlinedInput-adornedStart MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd"
+              class="MuiInputBase-root MuiOutlinedInput-root MuiAutocomplete-inputRoot makeStyles-inputRoot-1 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd"
             >
-              <div
-                class="MuiChip-root MuiAutocomplete-tag MuiChip-deletable"
-                data-tag-index="0"
-                role="button"
-                tabindex="-1"
-              >
-                <span
-                  class="MuiChip-label"
-                >
-                  Market Research
-                </span>
-                <svg
-                  aria-hidden="true"
-                  class="MuiSvgIcon-root MuiChip-deleteIcon"
-                  focusable="false"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
-                  />
-                </svg>
-              </div>
               <input
                 aria-autocomplete="list"
                 aria-invalid="false"
                 autocapitalize="none"
                 autocomplete="off"
-                class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedStart MuiOutlinedInput-inputAdornedStart MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
+                class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
                 id="specificFieldsOfExperienceSelect"
                 spellcheck="false"
                 type="text"
@@ -282,7 +238,7 @@ exports[`Question Form should match snapshot 1`] = `
               >
                 <button
                   aria-label="Clear"
-                  class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator MuiAutocomplete-clearIndicatorDirty"
+                  class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator"
                   tabindex="-1"
                   title="Clear"
                   type="button"
@@ -333,10 +289,10 @@ exports[`Question Form should match snapshot 1`] = `
               </div>
               <fieldset
                 aria-hidden="true"
-                class="PrivateNotchedOutline-root-80 MuiOutlinedInput-notchedOutline"
+                class="PrivateNotchedOutline-root-2 MuiOutlinedInput-notchedOutline"
               >
                 <legend
-                  class="PrivateNotchedOutline-legendLabelled-82 PrivateNotchedOutline-legendNotched-83"
+                  class="PrivateNotchedOutline-legendLabelled-4"
                 >
                   <span>
                     Specific Fields Of Experience
@@ -348,7 +304,7 @@ exports[`Question Form should match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="MuiGrid-root makeStyles-grid-68 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
+        class="MuiGrid-root grid MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
       >
         <div
           aria-expanded="false"
@@ -360,8 +316,8 @@ exports[`Question Form should match snapshot 1`] = `
             class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
           >
             <label
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-filled"
-              data-shrink="true"
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+              data-shrink="false"
               for="industry"
               id="industry-label"
             >
@@ -379,7 +335,7 @@ exports[`Question Form should match snapshot 1`] = `
                 id="industry"
                 spellcheck="false"
                 type="text"
-                value="Consulting"
+                value=""
               />
               <div
                 class="MuiAutocomplete-endAdornment"
@@ -437,10 +393,10 @@ exports[`Question Form should match snapshot 1`] = `
               </div>
               <fieldset
                 aria-hidden="true"
-                class="PrivateNotchedOutline-root-80 MuiOutlinedInput-notchedOutline"
+                class="PrivateNotchedOutline-root-2 MuiOutlinedInput-notchedOutline"
               >
                 <legend
-                  class="PrivateNotchedOutline-legendLabelled-82 PrivateNotchedOutline-legendNotched-83"
+                  class="PrivateNotchedOutline-legendLabelled-4"
                 >
                   <span>
                     Industry
@@ -452,7 +408,7 @@ exports[`Question Form should match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="MuiGrid-root makeStyles-grid-68 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
+        class="MuiGrid-root grid MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
       >
         <div
           aria-expanded="false"
@@ -541,10 +497,10 @@ exports[`Question Form should match snapshot 1`] = `
               </div>
               <fieldset
                 aria-hidden="true"
-                class="PrivateNotchedOutline-root-80 MuiOutlinedInput-notchedOutline"
+                class="PrivateNotchedOutline-root-2 MuiOutlinedInput-notchedOutline"
               >
                 <legend
-                  class="PrivateNotchedOutline-legendLabelled-82"
+                  class="PrivateNotchedOutline-legendLabelled-4"
                 >
                   <span>
                     Question Language
@@ -557,18 +513,18 @@ exports[`Question Form should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="MuiGrid-root makeStyles-grid-67 makeStyles-inputsRow-3 MuiGrid-container"
+      class="MuiGrid-root grid inputsRow MuiGrid-container"
     >
       <div
-        class="MuiGrid-root makeStyles-grid-68 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-12"
+        class="MuiGrid-root grid MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-12"
       >
         <label
-          class="MuiFormLabel-root MuiInputLabel-root makeStyles-contentTitle-7 MuiInputLabel-animated"
+          class="MuiFormLabel-root MuiInputLabel-root contentTitle MuiInputLabel-animated"
         >
           Question Content
         </label>
         <div
-          class="MuiGrid-root makeStyles-questionContainer-27 MuiGrid-container"
+          class="MuiGrid-root questionContainer MuiGrid-container"
         >
           <div
             class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
@@ -579,10 +535,10 @@ exports[`Question Form should match snapshot 1`] = `
             />
           </div>
           <div
-            class="MuiGrid-root undefined makeStyles-attachmentContainer-6 MuiGrid-item MuiGrid-grid-xs-6"
+            class="MuiGrid-root undefined attachmentContainer MuiGrid-item MuiGrid-grid-xs-6"
           >
             <div
-              class="makeStyles-attachmentUploaderContainer-34"
+              class="attachmentUploaderContainer"
             >
               <div
                 class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column MuiGrid-align-items-xs-flex-start"
@@ -614,7 +570,7 @@ exports[`Question Form should match snapshot 1`] = `
             </div>
           </div>
           <div
-            class="MuiGrid-root makeStyles-answerButtonContainer-59 MuiGrid-item MuiGrid-grid-xs-6"
+            class="MuiGrid-root answerButtonContainer MuiGrid-item MuiGrid-grid-xs-6"
             style="justify-content: flex-end;"
           >
             <button

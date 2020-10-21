@@ -1,0 +1,550 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Question Roaster View should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiGrid-root MuiGrid-container"
+  >
+    <div
+      class="MuiGrid-root bannerStyles MuiGrid-item MuiGrid-direction-xs-column MuiGrid-grid-xs-12"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-item"
+        id="question-roaster-banner"
+      >
+        <p
+          class="MuiTypography-root bannerFontStyles MuiTypography-body1"
+          id="question-roaster-header"
+        >
+          Question Roaster
+        </p>
+      </div>
+      <div
+        class="MuiGrid-root searchGridStyles MuiGrid-item"
+      >
+        <form
+          class="MuiPaper-root searchBarContainer MuiPaper-elevation1 MuiPaper-rounded"
+          id="question-roaster-search-bar"
+        >
+          <div
+            class="MuiInputBase-root searchInput"
+          >
+            <input
+              aria-label="search by keyword"
+              class="MuiInputBase-input"
+              id="search"
+              placeholder="Enter Keyword"
+              type="text"
+              value=""
+            />
+          </div>
+          <button
+            aria-label="search"
+            class="MuiButtonBase-root MuiIconButton-root iconButton"
+            tabindex="0"
+            type="submit"
+          >
+            <span
+              class="MuiIconButton-label"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-colorSecondary"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                />
+              </svg>
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </form>
+      </div>
+    </div>
+    <div
+      class="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-center"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-10"
+      >
+        <div
+          class="root"
+        >
+          <nav
+            aria-label="breadcrumb"
+            class="MuiTypography-root MuiBreadcrumbs-root MuiTypography-body1 MuiTypography-colorTextSecondary"
+            id="question-roaster-breadcrumbs"
+          >
+            <ol
+              class="MuiBreadcrumbs-ol"
+            >
+              <li
+                class="MuiBreadcrumbs-li"
+              >
+                <a
+                  class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorInherit"
+                  href="/"
+                >
+                  <p
+                    class="MuiTypography-root inactiveBreadcrumb MuiTypography-body1"
+                    id="home-breadcrumb"
+                  >
+                    Home
+                  </p>
+                </a>
+              </li>
+              <li
+                aria-hidden="true"
+                class="MuiBreadcrumbs-separator"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeSmall"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+                  />
+                </svg>
+              </li>
+              <li
+                class="MuiBreadcrumbs-li"
+              >
+                <p
+                  class="MuiTypography-root activeBreadcrumb MuiTypography-body1 MuiTypography-colorPrimary"
+                >
+                  Question Roaster
+                </p>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiGrid-root MuiGrid-container MuiGrid-justify-xs-center"
+      id="questions-roaster-filters-container"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-10"
+      >
+        <div
+          class="MuiGrid-root questionsCategoriesContainerDesktop MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-space-evenly"
+          id="filters"
+        >
+          <div
+            class="MuiGrid-root fieldsFiltersContainer MuiGrid-item MuiGrid-grid-md-10"
+          >
+            <div
+              class="activeFilterStyle"
+            >
+              All
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-0"
+            >
+              Finance
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-1"
+            >
+              Human Resource
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-2"
+            >
+              Marketing and PR
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-3"
+            >
+              Formal Education
+            </div>
+            <div>
+              <button
+                aria-controls="long-menu"
+                aria-haspopup="true"
+                aria-label="more"
+                class="MuiButtonBase-root MuiIconButton-root threeDotButton"
+                id="more-options-menu"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiIconButton-label"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    id="more-options-icon"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+          </div>
+          <div
+            class="MuiGrid-root languageFilterContainer MuiGrid-item MuiGrid-grid-md-2"
+          >
+            <div>
+              <button
+                aria-controls="simple-menu"
+                aria-haspopup="true"
+                class="MuiButtonBase-root MuiButton-root MuiButton-text dropdownDesktop"
+                id="question-language-filter"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiButton-label"
+                >
+                  Choose Langauge
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+                    focusable="false"
+                    id="expand-menu-icon"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="MuiGrid-root filterWrapper MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
+        >
+          <div
+            class="MuiGrid-root questionsCategoriesContainerMobile MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-sm-9"
+            id="filters-mobile"
+          >
+            <div
+              class="activeFilterStyle"
+            >
+              All
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-0"
+            >
+              Finance
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-1"
+            >
+              Human Resource
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-2"
+            >
+              Marketing and PR
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-3"
+            >
+              Formal Education
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-4"
+            >
+              Development
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-5"
+            >
+              Entrepreneurship & Start ups
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-6"
+            >
+              Strategy
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-7"
+            >
+              Operations Management
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-8"
+            >
+              Supply Chain
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-9"
+            >
+              digitization
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-10"
+            >
+              Sales and Customer Care
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-11"
+            >
+              Legal
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-12"
+            >
+              finTech
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-13"
+            >
+              Environment
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-14"
+            >
+              Project Management
+            </div>
+            <div
+              class="inactiveFilterStyle"
+              id="filters-15"
+            >
+              Analytics
+            </div>
+          </div>
+          <div
+            class="MuiGrid-root nextIconSlider MuiGrid-item MuiGrid-grid-xs-1"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root nextIconSize MuiSvgIcon-colorPrimary"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+              />
+            </svg>
+          </div>
+          <div
+            class="MuiGrid-root dropdownMobile MuiGrid-item MuiGrid-grid-xs-2 MuiGrid-grid-sm-1"
+          >
+            <div>
+              <button
+                aria-controls="simple-menu"
+                aria-haspopup="true"
+                class="MuiButtonBase-root MuiButton-root MuiButton-text"
+                id="question-language-filter-mobile"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="MuiButton-label"
+                >
+                  E
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-10"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-container"
+        >
+          <div
+            class="MuiGrid-root mainContainer"
+          >
+            <div
+              class="MuiGrid-root questionContainer MuiGrid-container"
+            >
+              <div
+                class="MuiGrid-root imgContainer MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-3"
+              >
+                <img
+                  alt="Question Image"
+                  class="image"
+                  id="question-2000100-thumbnail"
+                  src="sidebar-2.jpg"
+                />
+              </div>
+              <div
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-9"
+              >
+                <div
+                  class="MuiGrid-root questionTextWrapper MuiGrid-container"
+                >
+                  <div
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3 MuiGrid-grid-md-2"
+                  >
+                    <p
+                      class="MuiTypography-root referenceNumberStyle MuiTypography-body1"
+                      id="question-2000100-referenceNumber"
+                    >
+                      # 2000100
+                    </p>
+                  </div>
+                  <div
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-md-7"
+                  >
+                    <p
+                      class="MuiTypography-root postDateStyle MuiTypography-body1"
+                      id="question-2000100-postDate"
+                    >
+                      Sep 14
+                    </p>
+                  </div>
+                  <div
+                    class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-grid-xs-6 MuiGrid-grid-md-9"
+                  >
+                    <p
+                      class="MuiTypography-root questionTitle MuiTypography-body1"
+                      id="question-2000100-title"
+                    >
+                      Elmer
+                    </p>
+                  </div>
+                  <div
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6 MuiGrid-grid-md-3"
+                    id="question-2000100-currentActionTime"
+                  >
+                    <div
+                      class="MuiGrid-root timeContainer MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column"
+                    >
+                      <div
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-12"
+                      >
+                        <p
+                          class="MuiTypography-root closedQuestion MuiTypography-body1"
+                          id="question-2000100-closeIn"
+                        >
+                          Close in
+                        </p>
+                      </div>
+                      <div
+                        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-12"
+                      >
+                        <p
+                          class="MuiTypography-root closedQuestion MuiTypography-body1"
+                        >
+                          Closed
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="MuiGrid-root flexContainer MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-12"
+                  >
+                    <div
+                      class="MuiGrid-root fieldContainer"
+                    >
+                      <div
+                        class="MuiGrid-root"
+                      >
+                        <div
+                          class="MuiChip-root sc-bdnylx bpbFSf fieldChip"
+                          index="0"
+                        >
+                          <span
+                            class="MuiChip-label"
+                          >
+                            <p
+                              class="MuiTypography-root fieldChipText MuiTypography-body1"
+                              id="questionMajorFields-2000100-0"
+                            >
+                              Marketing and PR
+                            </p>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-12"
+                  >
+                    <div
+                      class="questionContentField"
+                      id="question-2000100-content"
+                    >
+                      No Content
+                    </div>
+                  </div>
+                  <div
+                    class="MuiGrid-root questionAssignmentTypeContainer MuiGrid-item MuiGrid-grid-xs-10 MuiGrid-grid-md-10"
+                    id="question-2000100-assignment"
+                  >
+                    <img
+                      class=""
+                      color="primary"
+                      id="question-2000100-project"
+                      src="[object Object]"
+                      width="16px"
+                    />
+                  </div>
+                  <div
+                    class="MuiGrid-root answerButtonContainer MuiGrid-item MuiGrid-grid-xs-2 MuiGrid-grid-md-2"
+                  >
+                    <button
+                      class="MuiButtonBase-root MuiButton-root MuiButton-contained submitButton"
+                      id="question-2000100-submit"
+                      style="background-color: rgb(18, 87, 115); color: rgb(255, 255, 255);"
+                      tabindex="0"
+                      type="button"
+                    >
+                      <span
+                        class="MuiButton-label"
+                      >
+                        Answer
+                      </span>
+                      <span
+                        class="MuiTouchRipple-root"
+                      />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

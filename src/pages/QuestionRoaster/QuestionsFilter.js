@@ -9,17 +9,18 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import clsx from 'clsx';
 
 const QuestionsFilter = ({
-                           isAllClicked,
-                           onClickAll,
-                           filtersState,
-                           onClickFilter,
-                         }) => {
+  isAllClicked,
+  onClickAll,
+  filtersState,
+  onClickFilter,
+}) => {
   const classes = useStyles();
   let filtersList = [];
   const numberOfVisibleFilters = 4;
   for (let i = 0; i < numberOfVisibleFilters; i++) {
     filtersList.push(
       <div
+        key={i}
         id={`filters-${i}`}
         className={clsx({
           [classes.activeFilterStyle]: Boolean(filtersState[i]),
@@ -57,7 +58,12 @@ const QuestionsFilter = ({
           {filtersList.map((filter) => {
             return filter;
           })}
-          <ThreeDotsDropdown numberOfVisibleFilters={numberOfVisibleFilters} onClickFilter={onClickFilter} list={filterDropdownOptions} filtersState={filtersState}/>
+          <ThreeDotsDropdown
+            numberOfVisibleFilters={numberOfVisibleFilters}
+            onClickFilter={onClickFilter}
+            list={filterDropdownOptions}
+            filtersState={filtersState}
+          />
         </Grid>
         <Grid item md={2} className={classes.languageFilterContainer}>
           <DropdownMenu
@@ -91,6 +97,7 @@ const QuestionsFilter = ({
           {fieldsOfExperience.map((field, key) => {
             return (
               <div
+                key={key}
                 id={`filters-${key}`}
                 className={clsx({
                   [classes.activeFilterStyle]: filtersState[key],

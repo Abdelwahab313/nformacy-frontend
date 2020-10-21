@@ -22,7 +22,7 @@ const QuestionProvider = ({ children, initialValue = {} }) => {
 const useQuestionContext = () => {
   const context = useContext(QuestionContext);
   if (context === undefined) {
-    throw new Error('useQuestionContext must be used within a AuthProvider');
+    throw new Error('useQuestionContext must be used within a QuestionContext');
   }
   return context;
 };
