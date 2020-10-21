@@ -9,7 +9,7 @@ import { requestAsAdmin } from './requestHelper';
 export const createQuestion = (question = {}) => {
   const newQuestionParams = getFakeQuestion(question);
   delete newQuestionParams.id;
-  requestAsAdmin({
+  return requestAsAdmin({
     method: 'POST',
     url: `${BACKEND_WEB_URL}/questions/`,
     body: decamelizeKeys(newQuestionParams),

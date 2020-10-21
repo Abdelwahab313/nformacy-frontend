@@ -1,5 +1,7 @@
 import { When, Then } from 'cypress-cucumber-preprocessor/steps';
-
+import { createQuestion } from '../../../../support/services/questionBuilder';
+import {getFromLocalStorage} from '../../../../helperFunctions';
+import { BASE_URL } from '../../../../defualtTestValues';
 
 And(/^I should see question details$/, function() {
   cy.contains('Edit Question');
@@ -113,7 +115,40 @@ Then(/^I should see the question form with no action buttons$/, function() {
 });
 
 When(/^I upload an image for the question thumbnail$/, function() {
-  cy.get('#thumbnail-uploader').click();
+  cy.get('.thumbnail-uploader').click();
   const thunbnailPath = 'download.png';
   cy.get('input[type="file"]').attachFile(thunbnailPath);
+});
+
+When(/^I should see the uploaded image in the question form$/, function() {
+  cy.get('.uploadPicture').should('have.attr', 'src').should('include','download.png')
+});
+
+When(/^I choose a question with thumbnail image$/, function() {
+  console.log('hi there =========')
+  createQuestion().then(() => {
+    const createdQuestion = getFromLocalStorage('createdQuestion');
+    cy.reload()
+    cy.wait(1000);
+    cy.get(`a[data-reference='${createdQuestion.referenceNumber}']`)
+    .parent()
+    .parent()
+    .click();
+    cy.get('.thumbnail-uploader').click();
+    const thunbnailPath = 'download.png';
+    cy.get('input[type="file"]').attachFile(thunbnailPath).as('upload')
+    cy.get('.uploadPicture').should('have.attr', 'src').should('include','download.png')
+    cy.get('#applyChangesButton').click()
+  }
+  );
+});
+
+When(/^I should see the uploaded image$/, function() {
+    cy.wait(1000)
+    const createdQuestion = getFromLocalStorage('createdQuestion');
+    cy.get(`a[data-reference='${createdQuestion.referenceNumber}']`)
+    .parent()
+    .parent()
+    .click();
+    cy.get('.uploadPicture').should('have.attr', 'src').should('include','download.png')
 });

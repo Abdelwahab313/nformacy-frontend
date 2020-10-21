@@ -1,8 +1,8 @@
 import { getFromLocalStorage } from '../helperFunctions';
 import moment from 'moment';
+import { ADVISER_ID } from '../defualtTestValues';
 
 export const getFakeQuestion = (question = {}) => {
-  const user = getFromLocalStorage('user');
   const defaultQuestion = {
     id: 2,
     reference_number: 2000131,
@@ -18,7 +18,7 @@ export const getFakeQuestion = (question = {}) => {
     created_at: '2020-09-14T09:25:55.704Z',
     hours_to_close_answers: 100,
     hours_to_review_and_edit: 24,
-    assigned_adviser_id: user.id,
+    assigned_adviser_id: ADVISER_ID,
     state: 'pending_adviser_acceptance',
   };
 

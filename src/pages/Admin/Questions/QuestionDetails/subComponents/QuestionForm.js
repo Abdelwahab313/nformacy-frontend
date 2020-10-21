@@ -344,7 +344,7 @@ const QuestionForm = ({ isNewQuestion }) => {
           </GridItem>
           <GridItem xs={12} sm={12} md={12}>
             <ImageUploadWithPreview
-              id={'thumbnail-uploader'}
+              buttonClassName={'thumbnail-uploader'}
               withPreview={true}
               singleImage={true}
               label={'Max file size: 1mb, accepted: jpg, gif, png'}

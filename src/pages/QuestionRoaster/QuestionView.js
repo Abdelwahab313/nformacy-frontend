@@ -63,16 +63,17 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   return (
     <Grid className={classes.mainContainer}>
       <Grid container className={classes.questionContainer}>
-        <Grid className={classes.imgContainer} item md={3} xs={12}>
+        {!!questionDetails.thumbnailUrl &&
+          <Grid className={classes.imgContainer} item md={3} xs={12}>
           <img
             id={`question-${questionDetails.referenceNumber}-thumbnail`}
             className={classes.image}
-            src={dummyImage}
+            src={questionDetails.thumbnailUrl}
             alt='Question Image'
           />
         </Grid>
-
-        <Grid item md={9} xs={12}>
+        }
+        <Grid item md={!!questionDetails.thumbnailUrl ? 9 : 12} xs={12}>
           <Grid container className={classes.questionTextWrapper}>
             {/* =======Ref no. and Date======= */}
             <Grid item md={2} xs={3}>
