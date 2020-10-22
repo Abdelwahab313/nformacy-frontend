@@ -59,7 +59,7 @@ pipeline {
 
       steps {
         echo "Running e2e Front end tests"
-        // sh 'npm run cy:ci'
+        sh 'npm run cy:ci'
       }
     }
 
@@ -75,8 +75,7 @@ pipeline {
 
   post {
     always {
-            discordSend description: 'Hiiiii', footer: '', image: '', link: 'env.BUILD_URL', thumbnail: '', title: 'Medad Build', webhookURL: 'https://discord.com/api/webhooks/768518843412381748/YzRFNky8-_X4ZYx78rbpVb49OsIAp_1mRptNXPYOQV6xsd2rh0N-ycQ5tau8Amfc-i_H' 
-      // junit 'cypress/results/*.xml'
+      junit 'cypress/results/*.xml'
       script {
           if (fileExists('cypress/screenshots')) {
               archiveArtifacts artifacts: 'cypress/screenshots/**/*.png'
@@ -87,6 +86,7 @@ pipeline {
       dir("${env.BackendPath}") {
         sh 'make sandbox-down'
       }
+      discordSend description: 'Hiiiii', footer: '', image: '', link: 'env.BUILD_URL', thumbnail: '', title: 'Medad Build', webhookURL: 'https://discord.com/api/webhooks/768518843412381748/YzRFNky8-_X4ZYx78rbpVb49OsIAp_1mRptNXPYOQV6xsd2rh0N-ycQ5tau8Amfc-i_H' 
     }
   }
 }
