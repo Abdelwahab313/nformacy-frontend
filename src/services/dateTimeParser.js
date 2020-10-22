@@ -1,4 +1,5 @@
 import moment from 'moment';
+import LOCALES from '../constants/locale';
 
 export const isSameDate = (date1, date2) => {
   const startOfDay1 = moment(date1).startOf('day');
@@ -64,8 +65,8 @@ export const formattedDateTimeNoSeconds = (date) => {
   return dateTimeFormat.format(date);
 };
 
-export const formattedDateMonthAndDay = (date) => {
-  const dateTimeFormat = new Intl.DateTimeFormat('en', {
+export const formattedDateMonthAndDay = (date, locale = LOCALES.en) => {
+  const dateTimeFormat = new Intl.DateTimeFormat(locale, {
     month: 'short',
     day: '2-digit',
   });

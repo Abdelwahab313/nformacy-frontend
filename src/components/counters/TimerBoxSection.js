@@ -3,13 +3,12 @@ import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import useLocale from '../../hooks/localization/useLocale';
 import DEFAULT_LOCALES from '../../constants/locale';
+import { getLocalizedNumber } from '../../services/numbersLocalization';
 
 function TimerBoxSection({ time, text }) {
   const classes = useStyles();
   const { locale } = useLocale();
-  const localizedTime = new Intl.NumberFormat(DEFAULT_LOCALES[locale]).format(
-    time,
-  );
+  const localizedTime = getLocalizedNumber(time, DEFAULT_LOCALES[locale]);
 
   return (
     <Grid container className={classes.counterContainer}>
