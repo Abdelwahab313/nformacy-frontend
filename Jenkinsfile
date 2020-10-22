@@ -58,6 +58,7 @@ pipeline {
       }
 
       steps {
+        echo "Running e2e Front end tests"
         // sh 'npm run cy:ci'
       }
     }
