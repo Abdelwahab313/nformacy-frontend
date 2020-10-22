@@ -469,7 +469,7 @@ const fieldsOfExperience = [
   },
   {
     value: 'digitization',
-    label: 'digitization',
+    label: 'Digitization',
     subfields: [
       { label: 'Automation', value: 'automation' },
       { label: 'Digital Strategy design', value: 'digitalStrategyDesign' },
@@ -510,7 +510,7 @@ const fieldsOfExperience = [
   },
   {
     value: 'finTech',
-    label: 'finTech',
+    label: 'FinTech',
     subfields: [
       { label: 'Blockchain', value: 'blockchain' },
       { label: 'Payments (PayTech)', value: 'payments(PayTech)' },

@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 
 import FlipMove from 'react-flip-move';
-import { Chip, Grid, IconButton, Link } from '@material-ui/core';
+import { Chip, Grid, IconButton } from '@material-ui/core';
 import DownloadIcon from '@material-ui/icons/CloudDownload';
 
-import {
-  attachButtonStyle,
-  attachContainerStyle,
-} from '../../styles/questionRoasterStyles';
+import { attachContainerStyle } from '../../styles/questionRoasterStyles';
 import { removeAttachment, uploadAttachment } from '../../apis/questionsAPI';
 import t from '../../locales/en/questionRoaster.json';
 import FileUpload from '../inputs/FileUpload';
@@ -28,7 +25,6 @@ const AttachmentUploader = ({
 }) => {
   const [attachmentFiles, setAttachmentFiles] = useState(attachments);
 
-
   const onUploadAttachment = (attachmentFile) => {
     const fileBlob = new Blob(attachmentFile);
     const formData = new FormData();
@@ -46,7 +42,7 @@ const AttachmentUploader = ({
   };
 
   const onDeleteAttachment = (attachmentId) => {
-    removeAttachment(attachmentId).then((response) => {
+    removeAttachment(attachmentId).then(() => {
       const attachmentAfterDelete = attachmentFiles.filter(
         (attachment) => attachment.signedId !== attachmentId,
       );
@@ -56,7 +52,6 @@ const AttachmentUploader = ({
 
   const renderPreviewFiles = () => {
     return attachmentFiles.map((file, index) => {
-      console.log('picture', file);
       return (
         <Grid key={index} item xs={12}>
           <Chip
@@ -86,7 +81,6 @@ const AttachmentUploader = ({
           onChange={onUploadAttachment}
           withPreview
           accept='.doc,.docx,.xml,image/*,video/*,.pdf,.csv'
-          buttonStyles={attachButtonStyle()}
           buttonText={t['attach']}
         />
         <FlipMove enterAnimation='fade' leaveAnimation='fade' style={styles}>

@@ -24,7 +24,10 @@ export const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-  attachmentContainer: { justifyContent: 'flex-start' },
+  attachmentContainer: {
+    justifyContent: 'flex-start',
+    marginTop: '1.389vw',
+  },
   contentTitle: {
     color: '#AAAAAA',
     marginBottom: theme.spacing(2),
@@ -55,38 +58,38 @@ export const useStyles = makeStyles((theme) => ({
     // borderRadius: 10,
     // border: `1px solid ${theme.palette.primary.main}`,
     padding: theme.spacing(2),
-    marginTop: theme.spacing(4)
+    marginTop: theme.spacing(4),
   },
   answerContent: {
-    fontSize: "1.042vw",
-    color: "grey",
+    fontSize: '1.042vw',
+    color: 'grey',
   },
   answerFieldLabel: {
     marginRight: theme.spacing(2),
-    color: theme.palette.primary.main
+    color: theme.palette.primary.main,
   },
   answerRowStyles: {
     margin: '5px 0',
   },
   answerAttachment: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
 
   divider: {
-    margin: `${theme.spacing(3)}px 0`    
+    margin: `${theme.spacing(3)}px 0`,
   },
 
   rollbackButton: {
     fontSize: '0.972vw',
-    height: "40px",
+    height: '40px',
     borderRadius: '9px',
     marginRight: '20px',
-},
-rejectedAnswer: {
-  width: "100%",
-  height: "100%",
-  backgroundColor: overlayColor,
-  opacity: "95%",
-  padding: "0 10px"
-}
+  },
+  rejectedAnswer: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: overlayColor,
+    opacity: '95%',
+    padding: '0 10px',
+  },
 }));

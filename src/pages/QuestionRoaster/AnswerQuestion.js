@@ -3,7 +3,6 @@ import { useHistory, useLocation } from 'react-router';
 import Paper from '@material-ui/core/Paper';
 import { Grid } from '@material-ui/core';
 import QuestionView from './subComponents/QuestionView';
-import { darkBlue } from '../../styles/colors';
 import RichTextEditorForm from '../../components/forms/RichTextEditorForm';
 import {
   useStyles as useRoasterStyle,
@@ -25,7 +24,7 @@ const AnswerQuestion = () => {
   const savedAnswer = JSON.parse(
     localStorage.getItem(`answer${questionDetails?.id}`),
   );
-  const [answer, setAnswer] = useState(!!savedAnswer ? savedAnswer : {});
+  const [answer,] = useState(!!savedAnswer ? savedAnswer : {});
   const [content, setContent] = useState(savedAnswer?.content);
   const [attachmentsGroupsId, setAttachmentsGroupsId] = useState(
     savedAnswer?.attachmentsGroupsId,
@@ -52,11 +51,7 @@ const AnswerQuestion = () => {
   };
 
   return (
-    <Grid
-      container
-      justify={'center'}
-      alignContent={'center'}
-      style={{ marginTop: '10px' }}>
+    <Grid container justify={'center'} alignContent={'center'}>
       <Grid item xs={12} sm={10}>
         <QuestionView
           questionDetails={questionDetails}
@@ -64,10 +59,7 @@ const AnswerQuestion = () => {
         />
       </Grid>
       <Grid item xs={12} sm={10}>
-        <Paper
-          elevation={3}
-          className={classes.paper}
-          style={{ border: `solid 1px ${darkBlue}` }}>
+        <Paper elevation={3} className={classes.primaryBoarder}>
           <Grid container className={questionRoasterClasses.questionContainer}>
             <Grid item xs={12}>
               <RichTextEditorForm
@@ -79,11 +71,7 @@ const AnswerQuestion = () => {
                 }
               />
             </Grid>
-            <Grid
-              item
-              xs={6}
-              style={{ justifyContent: 'flex-start' }}
-              className={questionRoasterClasses.answerButtonsContainer}>
+            <Grid item xs={6} className={questionRoasterClasses.containerStart}>
               <AttachmentUploader
                 containerClassName={
                   questionRoasterClasses.attachmentUploaderContainer
@@ -93,18 +81,12 @@ const AnswerQuestion = () => {
                 setAttachmentsGroupsId={setAttachmentsGroupsId}
               />
             </Grid>
-            <Grid
-              item
-              xs={6}
-              style={{ justifyContent: 'flex-end' }}
-              className={questionRoasterClasses.answerButtonsContainer}>
+            <Grid item xs={6} className={questionRoasterClasses.containerEnd}>
               <SubmitButton
+                className={questionRoasterClasses.answerSaveButton}
                 id='saveAndCompleteLaterButton'
                 onClick={() => saveAndCompleteLater(richTextMediaId.current)}
                 buttonText={t['saveAndCompleteLater']}
-                style={{
-                  marginRight: '10px',
-                }}
               />
               <SubmitButton
                 onClick={onSubmitAnswer}

@@ -451,17 +451,18 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '3vw',
     },
   },
+  answerContainer: { marginTop: '10px' },
+  primaryBoarder: { border: `solid 1px ${darkBlue}` },
+  containerStart: { justifyContent: 'flex-start', padding: theme.spacing(1) },
+  containerEnd: {
+    display: 'flex',
+    padding: theme.spacing(1),
+    justifyContent: 'flex-end',
+  },
+  answerSaveButton: {
+    marginRight: '10px',
+  },
 }));
-export const attachButtonStyle = () => {
-  return {
-    backgroundColor: darkBlue,
-    color: white,
-    alignSelf: 'center',
-    borderRadius: '4px',
-    height: '36px',
-    textTransform: 'uppercase',
-  };
-};
 
 export const attachContainerStyle = () => {
   return {
