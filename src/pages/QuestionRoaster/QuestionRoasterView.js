@@ -16,7 +16,7 @@ import BreadcrumbsCustomSeparator from '../../components/breadcrumbs/Breadcrumbs
 import useLocale from '../../hooks/localization/useLocale';
 import DIRECTION from '../../constants/direction';
 
-export const QuestionRoasterView = () => {
+const QuestionRoasterView = () => {
   const { filteredQuestions, loading } = useQuestionsFilter();
   const { locale } = useLocale();
   const classes = useStyles();

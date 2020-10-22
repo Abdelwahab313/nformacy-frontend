@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
-import { QuestionRoasterView } from '../QuestionRoasterView';
+import QuestionRoasterView from '../QuestionRoasterView';
 import { fetchOpenedQuestions } from 'apis/questionsAPI';
 import { AuthProvider } from '../../auth/context/auth';
 import { LocaleProvider } from '../../../hooks/localization/context';

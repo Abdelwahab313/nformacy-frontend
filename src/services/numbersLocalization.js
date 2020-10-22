@@ -1,5 +1,7 @@
 import LOCALES from '../constants/locale';
 
 export const getLocalizedNumber = (number, locale = LOCALES.en) => {
-  return new Intl.NumberFormat(locale).format(number);
+  const formattedNumber = new Intl.NumberFormat(locale).format(number);
+  if (locale === LOCALES.en) return formattedNumber.replace(/,/g, '');
+  return formattedNumber.replace(/،/g, '');
 };

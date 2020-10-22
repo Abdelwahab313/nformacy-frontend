@@ -447,9 +447,7 @@ exports[`Question Roaster View should match snapshot 1`] = `
                         <p
                           class="MuiTypography-root closedQuestion MuiTypography-body1"
                           id="question-2000100-closeIn"
-                        >
-                          Close in
-                        </p>
+                        />
                       </div>
                       <div
                         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-12"
@@ -567,9 +565,7 @@ exports[`Question Roaster View should match snapshot 1`] = `
                     >
                       <span
                         class="MuiButton-label"
-                      >
-                        Answer
-                      </span>
+                      />
                       <span
                         class="MuiTouchRipple-root"
                       />

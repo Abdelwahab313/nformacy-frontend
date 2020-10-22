@@ -50,6 +50,10 @@ const StyledFilterChip = styled(Chip)`
 const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   const classes = useStyles();
   const history = useHistory();
+  const { i18n } = useTranslation();
+
+  const questionLocale = LANGUAGES_LOCALES_MAPPER[questionDetails.language];
+  const fixedTranslation = i18n.getFixedT(questionLocale);
 
   function handleEditClick(questionReference) {
     history.push(`/question/answer/${questionReference}`, { questionDetails });
@@ -64,185 +68,176 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   };
 
   return (
-    <Translation>
-      {(t, { i18n }) => {
-        const questionLocale =
-          LANGUAGES_LOCALES_MAPPER[questionDetails.language];
-        const fixedTranslation = i18n.getFixedT(questionLocale);
-        return (
-          <Grid
-            item
-            md={12}
-            xs={12}
-            className={classes.mainContainer}
-            id={'questionRoasterMainContainer'}
-            dir={directions[questionLocale]}>
-            <Grid container className={classes.questionContainer}>
-              <Grid className={classes.imgContainer} item md={3} xs={12}>
-                <img
-                  id={`question-${questionDetails.referenceNumber}-thumbnail`}
-                  className={classes.image}
-                  src={dummyImage}
-                  alt={fixedTranslation('questionRoaster:questionAltImg')}
-                />
-              </Grid>
+    <Grid
+      item
+      md={12}
+      xs={12}
+      className={classes.mainContainer}
+      id={'questionRoasterMainContainer'}
+      dir={directions[questionLocale]}>
+      <Grid container className={classes.questionContainer}>
+        {!!questionDetails.thumbnailUrl && <Grid className={classes.imgContainer} item md={3} xs={12}>
+          <img
+            id={`question-${questionDetails.referenceNumber}-thumbnail`}
+            className={classes.image}
+            src={questionDetails.thumbnailUrl}
+            alt={fixedTranslation('questionRoaster:questionAltImg')}
+          />
+        </Grid>}
 
-              <Grid item md={9} xs={12}>
-                <Grid container className={classes.questionTextWrapper}>
-                  {/* =======Ref no. and Date======= */}
-                  <Grid item md={2} xs={3}>
-                    <Typography
-                      id={`question-${questionDetails.referenceNumber}-referenceNumber`}
-                      className={classes.referenceNumberStyle}>
-                      {`# ${getLocalizedNumber(
-                        questionDetails.referenceNumber,
-                        DEFAULT_LOCALES[questionLocale],
-                      )}`}
-                    </Typography>
-                  </Grid>
-                  <Grid item md={7} xs={6}>
-                    <Typography
-                      id={`question-${questionDetails.referenceNumber}-postDate`}
-                      className={classes.postDateStyle}>
-                      {formattedDateMonthAndDay(
-                        new Date(questionDetails.createdAt),
-                        DEFAULT_LOCALES[questionLocale],
-                      )}
-                    </Typography>
-                  </Grid>
-                  {/* ======Title and ActionTime======== */}
-                  <Grid item container md={9} xs={6} alignItems={'center'}>
-                    <Typography
-                      id={`question-${questionDetails.referenceNumber}-title`}
-                      className={classes.questionTitle}>
-                      {questionDetails.title}
-                    </Typography>
-                  </Grid>
+        <Grid item md={!!questionDetails.thumbnailUrl ? 9 : 12} xs={12}>
+          <Grid container className={classes.questionTextWrapper}>
+            {/* =======Ref no. and Date======= */}
+            <Grid item md={2} xs={3}>
+              <Typography
+                id={`question-${questionDetails.referenceNumber}-referenceNumber`}
+                className={classes.referenceNumberStyle}>
+                {`# ${getLocalizedNumber(
+                  questionDetails.referenceNumber,
+                  DEFAULT_LOCALES[questionLocale],
+                )}`}
+              </Typography>
+            </Grid>
+            <Grid item md={7} xs={6}>
+              <Typography
+                id={`question-${questionDetails.referenceNumber}-postDate`}
+                className={classes.postDateStyle}>
+                {formattedDateMonthAndDay(
+                  new Date(questionDetails.createdAt),
+                  DEFAULT_LOCALES[questionLocale],
+                )}
+              </Typography>
+            </Grid>
+            {/* ======Title and ActionTime======== */}
+            <Grid item container md={9} xs={6} alignItems={'center'}>
+              <Typography
+                id={`question-${questionDetails.referenceNumber}-title`}
+                className={classes.questionTitle}>
+                {questionDetails.title}
+              </Typography>
+            </Grid>
 
-                  <Grid
-                    item
-                    md={3}
-                    xs={6}
-                    id={`question-${questionDetails.referenceNumber}-currentActionTime`}>
-                    <Grid
-                      container
-                      direction={'column'}
-                      spacing={2}
-                      className={classes.timeContainer}>
-                      <Grid item md={12} xs={12}>
-                        <Typography
-                          className={classes.closedQuestion}
-                          id={`question-${questionDetails.referenceNumber}-closeIn`}>
-                          {fixedTranslation('questionRoaster:closeIn')}
-                        </Typography>
-                      </Grid>
-                      <Grid item md={12} xs={12}>
-                        <Countdown
-                          date={questionDetails.currentActionTime}
-                          renderer={(props) => (
-                            <CountdownBoxShape
-                              translation={fixedTranslation}
-                              {...props}
-                            />
-                          )}
-                          className={classes.questionCountDown}
-                        />
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                  {/* =======Major and Minor======= */}
-                  <Grid item md={12} xs={12} className={classes.flexContainer}>
-                    <Grid className={classes.fieldContainer}>
-                      {questionDetails.field?.map((major, key) => (
-                        <Grid>
-                          <Tooltip
-                            title={
-                              <Typography>
-                                {fieldsOfExperience
-                                  .find(
-                                    (experience) =>
-                                      experience.value === major.value,
-                                  )
-                                  .subfields.filter((specificField) =>
-                                    isMajorContainsSpecificField(specificField),
-                                  )
-                                  ?.map((field, key) => (
-                                    <Grid
-                                      key={key}
-                                      id={`questionSubFields-${questionDetails.referenceNumber}-${key}`}
-                                      item>
-                                      {field.label}
-                                    </Grid>
-                                  ))}
-                              </Typography>
-                            }>
-                            <StyledFilterChip
-                              key={key}
-                              index={key}
-                              className={classes.fieldChip}
-                              label={
-                                <Typography
-                                  id={`questionMajorFields-${questionDetails.referenceNumber}-${key}`}
-                                  className={classes.fieldChipText}>
-                                  {major.label}
-                                </Typography>
-                              }
-                            />
-                          </Tooltip>
-                        </Grid>
-                      ))}
-                    </Grid>
-                  </Grid>
-                  {/* =======Content======= */}
-                  <Grid item md={12} xs={12}>
-                    <Grid
-                      id={`question-${questionDetails.referenceNumber}-content`}
-                      className={classes.questionContentField}>
-                      <ShowMore>
-                        <div
-                          dangerouslySetInnerHTML={createMarkup(
-                            getFirstParagraph(questionDetails.content),
-                          )}
-                        />
-                      </ShowMore>
-                    </Grid>
-                  </Grid>
-                  {/* ======Icon and Button======== */}
-                  <Grid
-                    item
-                    md={10}
-                    xs={10}
-                    id={`question-${questionDetails.referenceNumber}-assignment`}
-                    className={classes.questionAssignmentTypeContainer}>
-                    <AssignmentType
-                      index={questionDetails.referenceNumber}
-                      type={questionDetails.assignmentType}
-                    />
-                  </Grid>
-                  {isSubmitVisible && (
-                    <Grid
-                      item
-                      md={2}
-                      xs={2}
-                      className={classes.answerButtonContainer}>
-                      <SubmitButton
-                        className={classes.submitButton}
-                        id={`question-${questionDetails.referenceNumber}-submit`}
-                        onClick={() =>
-                          handleEditClick(questionDetails.referenceNumber)
-                        }
-                        buttonText={fixedTranslation('questionRoaster:answer')}
-                        disabled={false}
+            <Grid
+              item
+              md={3}
+              xs={6}
+              id={`question-${questionDetails.referenceNumber}-currentActionTime`}>
+              <Grid
+                container
+                direction={'column'}
+                spacing={2}
+                className={classes.timeContainer}>
+                <Grid item md={12} xs={12}>
+                  <Typography
+                    className={classes.closedQuestion}
+                    id={`question-${questionDetails.referenceNumber}-closeIn`}>
+                    {fixedTranslation('questionRoaster:closeIn')}
+                  </Typography>
+                </Grid>
+                <Grid item md={12} xs={12}>
+                  <Countdown
+                    date={questionDetails.currentActionTime}
+                    renderer={(props) => (
+                      <CountdownBoxShape
+                        translation={fixedTranslation}
+                        {...props}
                       />
-                    </Grid>
-                  )}
+                    )}
+                    className={classes.questionCountDown}
+                  />
                 </Grid>
               </Grid>
             </Grid>
+            {/* =======Major and Minor======= */}
+            <Grid item md={12} xs={12} className={classes.flexContainer}>
+              <Grid className={classes.fieldContainer}>
+                {questionDetails.field?.map((major, key) => (
+                  <Grid>
+                    <Tooltip
+                      title={
+                        <Typography>
+                          {fieldsOfExperience
+                            .find(
+                              (experience) =>
+                                experience.value === major.value,
+                            )
+                            .subfields.filter((specificField) =>
+                              isMajorContainsSpecificField(specificField),
+                            )
+                            ?.map((field, key) => (
+                              <Grid
+                                key={key}
+                                id={`questionSubFields-${questionDetails.referenceNumber}-${key}`}
+                                item>
+                                {field.label}
+                              </Grid>
+                            ))}
+                        </Typography>
+                      }>
+                      <StyledFilterChip
+                        key={key}
+                        index={key}
+                        className={classes.fieldChip}
+                        label={
+                          <Typography
+                            id={`questionMajorFields-${questionDetails.referenceNumber}-${key}`}
+                            className={classes.fieldChipText}>
+                            {major.label}
+                          </Typography>
+                        }
+                      />
+                    </Tooltip>
+                  </Grid>
+                ))}
+              </Grid>
+            </Grid>
+            {/* =======Content======= */}
+            <Grid item md={12} xs={12}>
+              <Grid
+                id={`question-${questionDetails.referenceNumber}-content`}
+                className={classes.questionContentField}>
+                <ShowMore>
+                  <div
+                    dangerouslySetInnerHTML={createMarkup(
+                      getFirstParagraph(questionDetails.content),
+                    )}
+                  />
+                </ShowMore>
+              </Grid>
+            </Grid>
+            {/* ======Icon and Button======== */}
+            <Grid
+              item
+              md={10}
+              xs={10}
+              id={`question-${questionDetails.referenceNumber}-assignment`}
+              className={classes.questionAssignmentTypeContainer}>
+              <AssignmentType
+                index={questionDetails.referenceNumber}
+                type={questionDetails.assignmentType}
+              />
+            </Grid>
+            {isSubmitVisible && (
+              <Grid
+                item
+                md={2}
+                xs={2}
+                className={classes.answerButtonContainer}>
+                <SubmitButton
+                  className={classes.submitButton}
+                  id={`question-${questionDetails.referenceNumber}-submit`}
+                  onClick={() =>
+                    handleEditClick(questionDetails.referenceNumber)
+                  }
+                  buttonText={fixedTranslation('questionRoaster:answer')}
+                  disabled={false}
+                />
+              </Grid>
+            )}
           </Grid>
-        );
-      }}
-    </Translation>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
