@@ -1,4 +1,4 @@
-import {getFirstParaghraph} from '../../pages/QuestionRoaster/QuestionView.js'
+import {getFirstParaghraph} from 'pages/QuestionRoaster/subComponents/QuestionView.js'
 
 
 it('should extract first paragraph from html response of rich media text', () => {

@@ -2,9 +2,9 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import { fieldsOfExperience } from 'constants/dropDownOptions';
 import { useStyles } from 'styles/questionRoasterStyles';
-import ThreeDotsDropdown from '../../components/ThreeDotsDropdown/ThreeDotsDropdown';
-import t from '../../locales/en/questionRoaster';
-import LanguagesDropdownMenu from 'pages/QuestionRoaster/LanguagesDropdownMenu';
+import ThreeDotsDropdown from '../../../components/ThreeDotsDropdown/ThreeDotsDropdown';
+import t from 'locales/en/questionRoaster';
+import LanguagesDropdownMenu from 'pages/QuestionRoaster/subComponents/LanguagesDropdownMenu';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import clsx from 'clsx';
 

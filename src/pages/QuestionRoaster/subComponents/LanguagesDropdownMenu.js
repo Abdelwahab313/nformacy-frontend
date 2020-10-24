@@ -3,10 +3,10 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { useStyles } from '../../styles/questionRoasterStyles';
+import { useStyles } from '../../../styles/questionRoasterStyles';
 import clsx from 'clsx';
-import useLocale from '../../hooks/localization/useLocale';
-import DIRECTIONS from '../../constants/direction';
+import useLocale from '../../../hooks/localization/useLocale';
+import DIRECTIONS from '../../../constants/direction';
 
 const LanguagesDropdownMenu = ({ id, menuText, dropdownClass, icon }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);

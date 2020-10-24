@@ -1,11 +1,11 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import QuestionsFetcher from '../../hooks/useQuestionsFetcher';
+import QuestionsFetcher from '../useQuestionsFetcher';
 import { renderHook, act } from '@testing-library/react-hooks';
-import { API_BASE_URL } from '../../settings';
+import { API_BASE_URL } from '../../../../settings';
 
 const mock = new MockAdapter(axios);
-
+// add mock for axios filters
 describe('Fetch question', () => {
   beforeEach(() => {
     const today = new Date();

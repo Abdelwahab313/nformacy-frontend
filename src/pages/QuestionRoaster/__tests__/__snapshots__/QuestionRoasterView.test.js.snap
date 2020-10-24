@@ -4,6 +4,8 @@ exports[`Question Roaster View should match snapshot 1`] = `
 <DocumentFragment>
   <div
     class="MuiGrid-root MuiGrid-container"
+    dir="ltr"
+    id="questionRoasterMainContainer"
   >
     <div
       class="MuiGrid-root bannerStyles MuiGrid-item MuiGrid-direction-xs-column MuiGrid-grid-xs-12"
@@ -391,6 +393,7 @@ exports[`Question Roaster View should match snapshot 1`] = `
         >
           <div
             class="MuiGrid-root mainContainer MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-12"
+            id="questionRoasterMainContainer"
           >
             <div
               class="MuiGrid-root questionContainer MuiGrid-container"

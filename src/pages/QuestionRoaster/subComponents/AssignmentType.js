@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import Typography from '@material-ui/core/Typography';
-import t from '../../locales/en/questionRoaster';
+import t from 'locales/en/questionRoaster';
 import { Tooltip } from '@material-ui/core';
 
 const AssignmentType = ({ index, type }) => {
@@ -14,7 +14,7 @@ const AssignmentType = ({ index, type }) => {
           <img
             id={`question-${index}-project`} 
             color={'primary'} 
-            src={require('../../assets/project.svg')}
+            src={require('../../../assets/project.svg')}
             width={'16px'}
           />
           </Tooltip>
@@ -28,7 +28,7 @@ const AssignmentType = ({ index, type }) => {
           <img
             id={`question-${index}-question`} 
             color={'primary'} 
-            src={require('../../assets/question.svg')}
+            src={require('../../../assets/question.svg')}
             width={'16px'}
           />
           </Tooltip>
@@ -42,7 +42,7 @@ const AssignmentType = ({ index, type }) => {
           <img
             id={`question-${index}-call`} 
             color={'primary'} 
-            src={require('../../assets/call.svg')}
+            src={require('../../../assets/call.svg')}
             width={'16px'}
           />
           </Tooltip>

@@ -2,16 +2,15 @@ import React, { useRef, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import Paper from '@material-ui/core/Paper';
 import { Grid } from '@material-ui/core';
-import QuestionView from './QuestionView';
+import QuestionView from './subComponents/QuestionView';
 import { darkBlue } from '../../styles/colors';
 import RichTextEditorForm from '../../components/forms/RichTextEditorForm';
 import {
   useStyles as useRoasterStyle,
   useStyles,
 } from '../../styles/questionRoasterStyles';
-import { submitAnswer, uploadAnswerAttachment } from '../../apis/questionsAPI';
+import { submitAnswer } from '../../apis/questionsAPI';
 import AttachmentUploader from '../../components/forms/AttachmentUploader';
-import Button from '@material-ui/core/Button';
 import t from '../../locales/en/questionRoaster.json';
 import SubmitButton from '../../components/buttons/SubmitButton';
 
@@ -47,9 +46,8 @@ const AnswerQuestion = () => {
       content: content,
       attachmentsGroupsId,
       richTextMediaId: richTextMediaId.current,
-    }).then((responses) => {
+    }).then(() => {
       history.push(`/answer/success`);
-      console.log('------ responses', responses);
     });
   };
 

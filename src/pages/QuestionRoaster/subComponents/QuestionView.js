@@ -8,11 +8,11 @@ import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 import { useHistory } from 'react-router';
 import { fieldsOfExperience } from 'constants/dropDownOptions';
 import SubmitButton from 'components/buttons/SubmitButton';
-import t from '../../locales/en/questionRoaster';
-import createMarkup from '../../services/markup';
+import t from 'locales/en/questionRoaster';
+import createMarkup from '../../../services/markup';
 import Countdown from 'react-countdown';
 import CountdownBoxShape from 'components/counters/CountdownBoxShape';
-import * as colors from '../../styles/colors';
+import * as colors from '../../../styles/colors';
 import styled from 'styled-components';
 
 const isInSecondSequence = (number) => {
