@@ -1,41 +1,54 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Grid } from '@material-ui/core';
 import { fieldsOfExperience } from 'constants/dropDownOptions';
 import { useStyles } from 'styles/questionRoasterStyles';
-import ThreeDotsDropdown from '../../../components/ThreeDotsDropdown/ThreeDotsDropdown';
+import ThreeDotsDropdown from './ThreeDotsDropdown';
 import t from 'locales/en/questionRoaster';
 import LanguagesDropdownMenu from 'pages/QuestionRoaster/subComponents/LanguagesDropdownMenu';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import clsx from 'clsx';
 
 const QuestionsFilter = ({
-  isAllClicked,
+  selectedFieldsFilters,
   onClickAll,
-  filtersState,
   onClickFilter,
 }) => {
   const classes = useStyles();
   let filtersList = [];
+
+  const isAllClicked = useMemo(() => selectedFieldsFilters.length === 0, [
+    selectedFieldsFilters,
+  ]);
+
+  const fieldsFiltersToDisplay = useMemo(() => {
+    return fieldsOfExperience.map((field) => ({
+      value: field.value,
+      label: field.label,
+      isClicked: selectedFieldsFilters.includes(field.value),
+    }));
+  }, [selectedFieldsFilters]);
+
   const numberOfVisibleFilters = 4;
   for (let i = 0; i < numberOfVisibleFilters; i++) {
+    const { value, label, isClicked } = fieldsFiltersToDisplay[i];
     filtersList.push(
       <div
         key={i}
         id={`filters-${i}`}
         className={clsx({
-          [classes.activeFilterStyle]: Boolean(filtersState[i]),
-          [classes.inactiveFilterStyle]: !Boolean(filtersState[i]),
+          [classes.activeFilterStyle]: isClicked,
+          [classes.inactiveFilterStyle]: !isClicked,
         })}
         onClick={() => {
-          onClickFilter(fieldsOfExperience[i], i);
+          onClickFilter(value);
         }}>
-        {fieldsOfExperience[i].label}
+        {label}
       </div>,
     );
   }
   const filterDropdownOptions = [];
-  for (let i = numberOfVisibleFilters; i < fieldsOfExperience.length; i++) {
-    filterDropdownOptions.push(fieldsOfExperience[i]);
+  for (let i = numberOfVisibleFilters; i < fieldsFiltersToDisplay.length; i++) {
+    filterDropdownOptions.push(fieldsFiltersToDisplay[i]);
   }
 
   return (
@@ -62,7 +75,7 @@ const QuestionsFilter = ({
             numberOfVisibleFilters={numberOfVisibleFilters}
             onClickFilter={onClickFilter}
             list={filterDropdownOptions}
-            filtersState={filtersState}
+            selectedFieldsFilters={selectedFieldsFilters}
           />
         </Grid>
         <Grid item md={2} className={classes.languageFilterContainer}>
@@ -94,17 +107,17 @@ const QuestionsFilter = ({
             })}>
             {t['all']}
           </div>
-          {fieldsOfExperience.map((field, key) => {
+          {fieldsFiltersToDisplay.map((field, key) => {
             return (
               <div
                 key={key}
                 id={`filters-${key}`}
                 className={clsx({
-                  [classes.activeFilterStyle]: filtersState[key],
-                  [classes.inactiveFilterStyle]: !filtersState[key],
+                  [classes.activeFilterStyle]: field.isClicked,
+                  [classes.inactiveFilterStyle]: !field.isClicked,
                 })}
                 onClick={() => {
-                  onClickFilter(field, key);
+                  onClickFilter(field.value);
                 }}>
                 {field.label}
               </div>

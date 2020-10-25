@@ -3,19 +3,14 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import { useStyles } from '../../styles/questionRoasterStyles';
+import { useStyles } from '../../../styles/questionRoasterStyles';
 import clsx from 'clsx';
-import useLocale from '../../hooks/localization/useLocale';
-import DIRECTIONS from '../../constants/direction';
+import useLocale from '../../../hooks/localization/useLocale';
+import DIRECTIONS from '../../../constants/direction';
 
 const ITEM_HEIGHT = 48;
 
-const ThreeDotsDropdown = ({
-  list,
-  onClickFilter,
-  filtersState,
-  numberOfVisibleFilters,
-}) => {
+const ThreeDotsDropdown = ({ list, onClickFilter }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const classes = useStyles();
@@ -63,20 +58,19 @@ const ThreeDotsDropdown = ({
           vertical: 'top',
           horizontal: 'left',
         }}>
-        {list.map((option, key) => (
+        {list.map((field, key) => (
           <MenuItem
             dir={DIRECTIONS[locale]}
             className={clsx(classes.menuItem, {
-              [classes.selectedMenuItem]:
-                filtersState[key + numberOfVisibleFilters],
+              [classes.selectedMenuItem]: field.isClicked,
             })}
-            selected={filtersState[key + numberOfVisibleFilters]}
+            selected={field.isClicked}
             key={key}
             onClick={() => {
               handleClose();
-              onClickFilter(option, key + numberOfVisibleFilters);
+              onClickFilter(field.value);
             }}>
-            {option.label}
+            {field.label}
           </MenuItem>
         ))}
       </Menu>

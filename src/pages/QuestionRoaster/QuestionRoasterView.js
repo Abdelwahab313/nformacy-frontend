@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Grid } from '@material-ui/core';
 import { useStyles } from 'styles/questionRoasterStyles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
-import { fieldsOfExperience } from 'constants/dropDownOptions';
-import useQuestionFetcher from './hooks/useQuestionsFetcher';
-import { cloneDeep } from 'lodash';
+import useQuestionsFilter from './hooks/useQuestionsFilter';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import QuestionView from './subComponents/QuestionView';
 import QuestionsFilter from 'pages/QuestionRoaster/subComponents/QuestionsFilter';
@@ -18,11 +16,13 @@ import useLocale from '../../hooks/localization/useLocale';
 import DIRECTION from '../../constants/direction';
 
 const QuestionRoasterView = () => {
-  const { questions, addFilter, loading } = useQuestionFetcher();
-  const [filterAllState, setFilterAllState] = useState(true);
-  const [filtersState, setFilterState] = useState(
-    Array.from({ length: fieldsOfExperience.length }).fill(false),
-  );
+  const {
+    filteredQuestions,
+    selectedFieldsFilters,
+    resetFieldsFilter,
+    addFieldFilter,
+    loading,
+  } = useQuestionsFilter();
   const { locale } = useLocale();
   const classes = useStyles();
 
@@ -73,26 +73,17 @@ const QuestionRoasterView = () => {
         justify={'center'}
         id={'questions-roaster-filters-container'}>
         <QuestionsFilter
-          filtersState={filtersState}
-          isAllClicked={filterAllState}
+          selectedFieldsFilters={selectedFieldsFilters}
           onClickAll={() => {
-            addFilter('all');
-            setFilterState(
-              Array.from({ length: fieldsOfExperience.length }).fill(false),
-            );
-            setFilterAllState(true);
+            resetFieldsFilter();
           }}
-          onClickFilter={(field, key) => {
-            addFilter(field.value);
-            const tempFilterState = cloneDeep(filtersState);
-            tempFilterState[key] = true;
-            setFilterState(tempFilterState);
-            setFilterAllState(false);
+          onClickFilter={(field) => {
+            addFieldFilter(field);
           }}
         />
         <Grid item xs={12} sm={10}>
           <Grid container>
-            {questions?.map((question, key) => {
+            {filteredQuestions?.map((question, key) => {
               return (
                 <QuestionView
                   questionDetails={question}
