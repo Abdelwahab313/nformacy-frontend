@@ -424,6 +424,12 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     verticalAlign: 'baseline',
   },
+  assignmentTypeIcon:{
+    width: '2vw',
+    [theme.breakpoints.down('xs')]: {
+      width: '5vw',
+    }
+  },
   submitButton: {
     height: '4vw',
     width: '9vw',

@@ -20,6 +20,12 @@ export const useStyles = makeStyles((theme) => ({
   countDown: {
     marginLeft: theme.spacing(2),
   },
+  countDownText:{
+    fontSize:'1vw',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '4vw',
+    },
+  },
   currentActionTime: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -55,8 +61,6 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    // borderRadius: 10,
-    // border: `1px solid ${theme.palette.primary.main}`,
     padding: theme.spacing(2),
     marginTop: theme.spacing(4),
   },

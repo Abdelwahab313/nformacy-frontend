@@ -358,6 +358,7 @@ const QuestionForm = ({ isNewQuestion }) => {
               className={classes.currentActionTime}></Typography>
             <QuestionCountDown
               id={'reviewAndEditTime'}
+              className={classes.countDownText}
               date={questionDetails?.currentActionTime}
             />
           </GridItem>

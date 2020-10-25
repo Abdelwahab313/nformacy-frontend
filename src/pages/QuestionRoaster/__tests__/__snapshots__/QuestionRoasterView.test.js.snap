@@ -503,13 +503,17 @@ exports[`Question Roaster View should match snapshot 1`] = `
                     class="MuiGrid-root questionAssignmentTypeContainer MuiGrid-item MuiGrid-grid-xs-10 MuiGrid-grid-md-10"
                     id="question-2000100-assignment"
                   >
-                    <img
-                      class=""
-                      color="primary"
-                      id="question-2000100-project"
-                      src="[object Object]"
-                      width="16px"
-                    />
+                    <div
+                      class="MuiGrid-root assignmentTypeIcon"
+                    >
+                      <img
+                        color="primary"
+                        height="100%"
+                        id="question-2000100-project"
+                        src="[object Object]"
+                        width="100%"
+                      />
+                    </div>
                   </div>
                   <div
                     class="MuiGrid-root answerButtonContainer MuiGrid-item MuiGrid-grid-xs-2 MuiGrid-grid-md-2"
