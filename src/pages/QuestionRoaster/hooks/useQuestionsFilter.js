@@ -1,63 +1,60 @@
 import { useEffect, useMemo, useState } from 'react';
 import { fetchOpenedQuestions } from 'apis/questionsAPI';
+import { updateFetchedQuestions } from '../context/questionsRoasterAction';
+import { useQuestionRoasterContext } from '../context';
 
-const questionsHasField = (questionFields, selectedFields) => {
-  return questionFields.some((field) => selectedFields.includes(field.value));
+const hasField = (question, selectedFields) => {
+  return question.field.some((field) => selectedFields.includes(field.value));
 };
 
-export const filterQuestionsByFields = (questionsToBeFiltered, filters) => {
-  return questionsToBeFiltered.filter((question) => {
-    return questionsHasField(question.field, filters);
+export const filterQuestionsByFields = (questions, fieldsFilters) => {
+  if (fieldsFilters.length === 0) {
+    return questions;
+  }
+  return questions.filter((question) => {
+    return hasField(question, fieldsFilters);
+  });
+};
+
+export const filterQuestionsByLanguage = (questions, languageFilter) => {
+  if (!languageFilter) {
+    return questions;
+  }
+  return questions.filter((question) => {
+    return question.language === languageFilter;
   });
 };
 
 const useQuestionsFilter = () => {
   const [loading, setLoading] = useState(false);
-  const [questions, setQuestions] = useState();
-  const [selectedFieldsFilters, setSelectedFieldsFilters] = useState([]);
+  const [
+    { questions, fieldsFilters, languageFilter },
+    dispatch,
+  ] = useQuestionRoasterContext();
 
   useEffect(() => {
     setLoading(true);
     fetchOpenedQuestions()
       .then((response) => {
-        setQuestions(response.data);
+        updateFetchedQuestions(dispatch, response.data);
       })
       .finally(() => setLoading(false));
   }, []);
 
-  const addFieldFilter = (field) => {
-    if (selectedFieldsFilters.includes(field)) {
-      return;
-    }
-    setSelectedFieldsFilters((prevFields) => [...prevFields, field]);
-  };
-
-  const removeFieldFilter = (field) => {
-    const filtersAfterRemove = selectedFieldsFilters.filter(
-      (filter) => filter !== field,
-    );
-    setSelectedFieldsFilters(filtersAfterRemove);
-  };
-
-  const resetFieldsFilter = () => {
-    setSelectedFieldsFilters([]);
-  };
-
   const filteredQuestions = useMemo(() => {
-    if (selectedFieldsFilters.length === 0) {
-      return questions;
+    let filtered = filterQuestionsByFields(questions, fieldsFilters);
+    if (!!languageFilter) {
+      filtered = filterQuestionsByLanguage(filtered, languageFilter);
     }
-
-    return filterQuestionsByFields(questions, selectedFieldsFilters);
-  }, [questions, selectedFieldsFilters]);
+    return filtered;
+  }, [questions, fieldsFilters, languageFilter]);
 
   return {
     filteredQuestions,
-    addFieldFilter,
-    selectedFieldsFilters,
-    removeFieldFilter,
-    resetFieldsFilter,
+    fieldsFilters,
+    languageFilter,
     loading,
+    dispatch,
   };
 };
 export default useQuestionsFilter;

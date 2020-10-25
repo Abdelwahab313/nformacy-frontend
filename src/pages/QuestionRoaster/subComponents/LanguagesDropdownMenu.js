@@ -7,21 +7,49 @@ import { useStyles } from '../../../styles/questionRoasterStyles';
 import clsx from 'clsx';
 import useLocale from '../../../hooks/localization/useLocale';
 import DIRECTIONS from '../../../constants/direction';
+import { addLanguageFilter } from '../context/questionsRoasterAction';
+import { useQuestionRoasterContext } from '../context';
 
-const LanguagesDropdownMenu = ({ id, menuText, dropdownClass, icon }) => {
+const languagesOfAssignment = [
+  {
+    label: 'All Langauges',
+    shortcutLabel: 'E',
+    value: '',
+  },
+  {
+    label: 'English',
+    shortcutLabel: 'EN',
+    value: 'english',
+  },
+  {
+    label: 'Arabic',
+    shortcutLabel: 'AR',
+    value: 'arabic',
+  },
+];
+const LanguagesDropdownMenu = ({
+  id,
+  menuText,
+  dropdownClass,
+  icon,
+}) => {
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { locale } = useLocale();
+  const [{ languageFilter }, dispatch] = useQuestionRoasterContext();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const classes = useStyles();
-
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+  const onClickItem = (value) => {
+    handleClose();
+    addLanguageFilter(dispatch, value);
+  };
   return (
     <div>
       <Button
@@ -58,30 +86,17 @@ const LanguagesDropdownMenu = ({ id, menuText, dropdownClass, icon }) => {
         }}
         open={Boolean(anchorEl)}
         onClose={handleClose}>
-        <MenuItem
-          dir={DIRECTIONS[locale]}
-          className={clsx(classes.menuItem, {
-            [classes.selectedMenuItem]: true,
-          })}
-          onClick={handleClose}>
-          All Langauges{' '}
-        </MenuItem>
-        <MenuItem
-          dir={DIRECTIONS[locale]}
-          className={clsx(classes.menuItem, {
-            [classes.selectedMenuItem]: false,
-          })}
-          onClick={handleClose}>
-          Arabic
-        </MenuItem>
-        <MenuItem
-          dir={DIRECTIONS[locale]}
-          className={clsx(classes.menuItem, {
-            [classes.selectedMenuItem]: false,
-          })}
-          onClick={handleClose}>
-          English
-        </MenuItem>
+        {languagesOfAssignment.map((language, key) => (
+          <MenuItem
+            key={key}
+            dir={DIRECTIONS[locale]}
+            className={clsx(classes.menuItem, {
+              [classes.selectedMenuItem]: languageFilter === language.value,
+            })}
+            onClick={() => onClickItem(language.value)}>
+            {language.label}
+          </MenuItem>
+        ))}
       </Menu>
     </div>
   );

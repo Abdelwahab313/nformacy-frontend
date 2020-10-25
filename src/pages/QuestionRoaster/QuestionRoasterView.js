@@ -11,18 +11,13 @@ import QuestionView from './subComponents/QuestionView';
 import QuestionsFilter from 'pages/QuestionRoaster/subComponents/QuestionsFilter';
 import Typography from '@material-ui/core/Typography';
 import t from '../../locales/en/questionRoaster';
+import { QuestionRoasterProvider } from './context';
 import BreadcrumbsCustomSeparator from '../../components/breadcrumbs/Breadcrumbs';
 import useLocale from '../../hooks/localization/useLocale';
 import DIRECTION from '../../constants/direction';
 
-const QuestionRoasterView = () => {
-  const {
-    filteredQuestions,
-    selectedFieldsFilters,
-    resetFieldsFilter,
-    addFieldFilter,
-    loading,
-  } = useQuestionsFilter();
+export const QuestionRoasterView = () => {
+  const { filteredQuestions, loading } = useQuestionsFilter();
   const { locale } = useLocale();
   const classes = useStyles();
 
@@ -72,15 +67,7 @@ const QuestionRoasterView = () => {
         container
         justify={'center'}
         id={'questions-roaster-filters-container'}>
-        <QuestionsFilter
-          selectedFieldsFilters={selectedFieldsFilters}
-          onClickAll={() => {
-            resetFieldsFilter();
-          }}
-          onClickFilter={(field) => {
-            addFieldFilter(field);
-          }}
-        />
+        <QuestionsFilter />
         <Grid item xs={12} sm={10}>
           <Grid container>
             {filteredQuestions?.map((question, key) => {
@@ -99,4 +86,11 @@ const QuestionRoasterView = () => {
   );
 };
 
-export default QuestionRoasterView;
+const QuestionRoaster = (props) => {
+  return (
+    <QuestionRoasterProvider>
+      <QuestionRoasterView {...props} />
+    </QuestionRoasterProvider>
+  );
+};
+export default QuestionRoaster;

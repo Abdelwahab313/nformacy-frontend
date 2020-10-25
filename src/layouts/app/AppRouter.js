@@ -4,7 +4,7 @@ import { Switch } from 'react-router-dom';
 import PrivateRoute from 'components/PrivateRoute';
 
 import HomePage from 'pages/Home';
-import QuestionRoasterView from 'pages/QuestionRoaster/QuestionRoasterView';
+import QuestionRoaster from 'pages/QuestionRoaster/QuestionRoasterView';
 import AnswerQuestion from 'pages/QuestionRoaster/AnswerQuestion';
 import EditProfile from 'pages/Profile/Profile';
 import MeetingsPage from 'pages/Meeting';
@@ -20,7 +20,7 @@ const AppRouter = () => {
       component={HomePage}/>
     <PrivateRoute
       path={RoutesPaths.App.Questions}
-      component={QuestionRoasterView}/>
+      component={QuestionRoaster}/>
     <PrivateRoute
       path={RoutesPaths.App.AnswerQuestion}
       component={AnswerQuestion}/>

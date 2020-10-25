@@ -7,27 +7,34 @@ import t from 'locales/en/questionRoaster';
 import LanguagesDropdownMenu from 'pages/QuestionRoaster/subComponents/LanguagesDropdownMenu';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import clsx from 'clsx';
+import { useQuestionRoasterContext } from '../context';
+import {
+  addFieldFilter,
+  resetFieldsFilters,
+} from '../context/questionsRoasterAction';
 
-const QuestionsFilter = ({
-  selectedFieldsFilters,
-  onClickAll,
-  onClickFilter,
-}) => {
+const QuestionsFilter = () => {
   const classes = useStyles();
-  let filtersList = [];
+  const [{ fieldsFilters }, dispatch] = useQuestionRoasterContext();
 
-  const isAllClicked = useMemo(() => selectedFieldsFilters.length === 0, [
-    selectedFieldsFilters,
+  const isAllClicked = useMemo(() => fieldsFilters.length === 0, [
+    fieldsFilters,
   ]);
-
   const fieldsFiltersToDisplay = useMemo(() => {
     return fieldsOfExperience.map((field) => ({
       value: field.value,
       label: field.label,
-      isClicked: selectedFieldsFilters.includes(field.value),
+      isClicked: fieldsFilters.includes(field.value),
     }));
-  }, [selectedFieldsFilters]);
+  }, [fieldsFilters]);
 
+  const onClickFilter = (field) => {
+    addFieldFilter(dispatch, field);
+  };
+  const onClickAll = () => {
+    resetFieldsFilters(dispatch);
+  };
+  let filtersList = [];
   const numberOfVisibleFilters = 4;
   for (let i = 0; i < numberOfVisibleFilters; i++) {
     const { value, label, isClicked } = fieldsFiltersToDisplay[i];
@@ -75,7 +82,7 @@ const QuestionsFilter = ({
             numberOfVisibleFilters={numberOfVisibleFilters}
             onClickFilter={onClickFilter}
             list={filterDropdownOptions}
-            selectedFieldsFilters={selectedFieldsFilters}
+            fieldsFilters={fieldsFilters}
           />
         </Grid>
         <Grid item md={2} className={classes.languageFilterContainer}>

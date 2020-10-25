@@ -1,17 +1,17 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
-import QuestionRoasterView from '../QuestionRoasterView';
+import { QuestionRoasterView } from '../QuestionRoasterView';
 import { fetchOpenedQuestions } from 'apis/questionsAPI';
 import { AuthProvider } from '../../auth/context/auth';
 import { LocaleProvider } from '../../../hooks/localization/context';
+import { QuestionRoasterProvider } from '../context';
 
 jest.mock('react-i18next', () => {
   return {
     ...require.requireActual('react-i18next'),
     useTranslation: jest.fn().mockReturnValue({
       i18n: {
-        getFixedT: () => (() => {
-        }),
+        getFixedT: () => () => {},
       },
     }),
   };
@@ -49,11 +49,13 @@ describe('Question Roaster View', () => {
   it('should match snapshot', async () => {
     const { asFragment } = render(
       <AuthProvider>
-        <LocaleProvider initialLocale={'en'}>
-          <QuestionRoasterView/>
-        </LocaleProvider>
-      </AuthProvider>)
-      ;
+        <QuestionRoasterProvider>
+          <LocaleProvider initialLocale={'en'}>
+            <QuestionRoasterView />
+          </LocaleProvider>
+        </QuestionRoasterProvider>
+      </AuthProvider>,
+    );
     await waitFor(() => expect(fetchOpenedQuestions).toHaveBeenCalledTimes(1));
     expect(asFragment()).toMatchSnapshot();
   });
