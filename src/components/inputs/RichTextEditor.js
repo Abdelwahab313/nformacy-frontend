@@ -3,7 +3,7 @@ import React from 'react';
 
 
 const RichTextEditor = ({ initialContent, onContentChange, onImageUpload }) => {
-  const handleEditorChange = (content, _) => {
+  const handleEditorChange = (content) => {
     !!onContentChange && onContentChange(content);
   };
   //TODO Handle remove image
@@ -20,10 +20,10 @@ const RichTextEditor = ({ initialContent, onContentChange, onImageUpload }) => {
         'insertdatetime media table paste wordcount',
       ],
       toolbar:
-        'undo redo link image | formatselect | bold italic backcolor | \
+        'undo redo link image | formatselect | bold italic backcolor forecolor | \
         alignleft aligncenter alignright alignjustify | \
         bullist numlist outdent indent | removeformat',
-      file_picker_callback: function(cb, value, meta) {
+      file_picker_callback: function(cb) {
         const input = document.createElement('input');
         input.setAttribute('type', 'file');
         input.setAttribute('accept', 'image/*');
@@ -43,7 +43,7 @@ const RichTextEditor = ({ initialContent, onContentChange, onImageUpload }) => {
 
           const reader = new FileReader();
           reader.onload = function() {
-            onImageUpload(formData, cb)
+            onImageUpload(formData, cb);
             /*
               Note: Now we need to register the blob in TinyMCEs image blob
               registry. In the next release this part hopefully won't be
