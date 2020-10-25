@@ -599,6 +599,49 @@ exports[`should match snapshot 1`] = `
                   />
                 </div>
                 <div
+                  class="MuiGrid-root grid MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-12"
+                >
+                  <div
+                    class="fileUploader "
+                  >
+                    <div
+                      class="fileContainer"
+                    >
+                      <img
+                        alt="Upload Icon"
+                        class="uploadIcon"
+                        src="UploadIcon.svg"
+                      />
+                      <p
+                        class=""
+                      >
+                        Max file size: 1mb, accepted: jpg, gif, png
+                      </p>
+                      <div
+                        class="errorsContainer"
+                      />
+                      <button
+                        class="chooseFileButton thumbnail-uploader"
+                        type="button"
+                      >
+                        Upload Question Thumbnail
+                      </button>
+                      <input
+                        accept="image/*"
+                        name=""
+                        type="file"
+                      />
+                      <div
+                        class="uploadPicturesWrapper"
+                      >
+                        <div
+                          style="position: relative; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; width: 100%;"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
                   class="MuiGrid-root undefined attachmentContainer MuiGrid-item MuiGrid-grid-xs-6"
                 >
                   <div

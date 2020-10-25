@@ -16,36 +16,51 @@ import { questionTypesOfAssignment } from 'constants/dropDownOptions';
 import ByTimeField from './subComponents/ByTimeField';
 import { useStyles } from '../../../../styles/Admin/questionTableStyles';
 
-const COLUMN_INDEXES = {
-  id: 0,
-  referenceNumber: 1,
-  title: 2,
-  assignmentType: 3,
-  field: 4,
-  createdAt: 5,
-  answersCount: 6,
-  state: 7,
-  actionNeeded: 8,
-  currentActionTime: 9,
-  alarm: 10,
-  reviewAndEditHours: 11,
-  hoursToCloseAnswers: 12,
+const COLUMN_NAMES = {
+  id: 'id',
+  referenceNumber: 'referenceNumber',
+  title: 'title',
+  assignmentType: 'assignmentType',
+  field: 'field',
+  createdAt: 'createdAt',
+  answersCount: 'answersCount',
+  state: 'state',
+  actionNeeded: 'state',
+  currentActionTime: 'currentActionTime',
+  alarm: 'currentActionTime',
+  reviewAndEditHours: 'hoursToReviewAndEdit',
+  hoursToCloseAnswers: 'hoursToCloseAnswers',
 };
-const CONSTANT_HOURS_FOR_ACTION = 12;
+
+const HOURS_FOR_ACTION = 12;
 const DYNAMIC_STATES = {
   reviewAndEdit: 'review_and_edit',
   answersRating: 'answers_rating',
 };
 
-const getTotalActionTime = (rowData) => {
-  switch (rowData[COLUMN_INDEXES.state]) {
+const getTotalActionTime = (rowData, columns) => {
+  const state = rowData[getIndexForColumn(COLUMN_NAMES.state, columns)];
+  switch (state) {
     case DYNAMIC_STATES.reviewAndEdit:
-      return rowData[COLUMN_INDEXES.reviewAndEditHours];
+      const reviewAndEditHours =
+        rowData[getIndexForColumn(COLUMN_NAMES.reviewAndEditHours, columns)];
+      return reviewAndEditHours;
     case DYNAMIC_STATES.answersRating:
-      return rowData[COLUMN_INDEXES.hoursToCloseAnswers];
+      const hoursToCloseAnswers =
+        rowData[getIndexForColumn(COLUMN_NAMES.hoursToCloseAnswers, columns)];
+      return hoursToCloseAnswers;
     default:
-      return CONSTANT_HOURS_FOR_ACTION;
+      return HOURS_FOR_ACTION;
   }
+};
+
+const getIndexForColumn = (columnName, columns) => {
+  for (const [index, column] of columns.entries()) {
+    if (column.name === columnName) {
+      return index;
+    }
+  }
+  throw new TypeError(`Column: ${columnName} does not exist`);
 };
 
 const getColumnsFor = (isAdviser, classes) => {
@@ -96,12 +111,25 @@ const getColumnsFor = (isAdviser, classes) => {
         customBodyRender: (value, tableMeta) => {
           return (
             <Link
-              data-status={tableMeta.rowData[COLUMN_INDEXES.state]}
-              data-reference={tableMeta.rowData[COLUMN_INDEXES.referenceNumber]}
+              data-status={
+                tableMeta.rowData[
+                  getIndexForColumn(COLUMN_NAMES.state, columns)
+                ]
+              }
+              data-reference={
+                tableMeta.rowData[
+                  getIndexForColumn(COLUMN_NAMES.referenceNumber, columns)
+                ]
+              }
               className={classes.link}
               to={{
                 pathname: RoutesPaths.Admin.QuestionsDetails,
-                state: { questionId: tableMeta.rowData[COLUMN_INDEXES.id] },
+                state: {
+                  questionId:
+                    tableMeta.rowData[
+                      getIndexForColumn(COLUMN_NAMES.id, columns)
+                    ],
+                },
               }}>
               <TextCroppedWithTooltip text={value} />
             </Link>
@@ -215,13 +243,20 @@ const getColumnsFor = (isAdviser, classes) => {
               className={classes.link}
               to={{
                 pathname: RoutesPaths.Admin.QuestionsDetails,
-                state: { questionId: tableMeta.rowData[COLUMN_INDEXES.id] },
+                state: {
+                  questionId:
+                    tableMeta.rowData[
+                      getIndexForColumn(COLUMN_NAMES.id, columns)
+                    ],
+                },
               }}>
               <StyledStatusChip
                 data-status={value}
                 className={'state'}
                 data-reference={
-                  tableMeta.rowData[COLUMN_INDEXES.referenceNumber]
+                  tableMeta.rowData[
+                    getIndexForColumn(COLUMN_NAMES.referenceNumber, columns)
+                  ]
                 }
                 label={actionNeeded}
               />
@@ -242,8 +277,14 @@ const getColumnsFor = (isAdviser, classes) => {
           return currentActionTime ? (
             <ByTimeField
               currentActionTime={currentActionTime}
-              referenceId={tableMeta.rowData[COLUMN_INDEXES.referenceNumber]}
-              questionId={tableMeta.rowData[COLUMN_INDEXES.id]}
+              referenceId={
+                tableMeta.rowData[
+                  getIndexForColumn(COLUMN_NAMES.referenceNumber, columns)
+                ]
+              }
+              questionId={
+                tableMeta.rowData[getIndexForColumn(COLUMN_NAMES.id, columns)]
+              }
             />
           ) : null;
         },
@@ -260,9 +301,13 @@ const getColumnsFor = (isAdviser, classes) => {
           return (
             <QuestionRemainingTimeAlarm
               remainingTime={currentActionTime}
-              totalActionHours={getTotalActionTime(tableMeta.rowData)}
+              totalActionHours={getTotalActionTime(tableMeta.rowData, columns)}
               className={'alarm'}
-              data-reference={tableMeta.rowData[COLUMN_INDEXES.referenceNumber]}
+              data-reference={
+                tableMeta.rowData[
+                  getIndexForColumn(COLUMN_NAMES.referenceNumber, columns)
+                ]
+              }
             />
           );
         },
@@ -305,6 +350,7 @@ const StyledStatusChip = withStyles({
 
 const QuestionsTable = ({ questions, isAdviser }) => {
   const classes = useStyles();
+  const columns = getColumnsFor(isAdviser, classes);
 
   const tableOptions = {
     filterType: 'checkbox',
@@ -315,15 +361,15 @@ const QuestionsTable = ({ questions, isAdviser }) => {
     print: false,
     rowsPerPage: process.env.REACT_APP_ENV === 'e2e' ? 300 : 10,
     setRowProps: (row) => ({
-      'row-reference': row[COLUMN_INDEXES.referenceNumber],
+      'row-reference':
+        row[getIndexForColumn(COLUMN_NAMES.referenceNumber, columns)],
     }),
   };
-
   return (
     <MUIDataTable
       title={'Questions List'}
       data={questions}
-      columns={getColumnsFor(isAdviser, classes)}
+      columns={columns}
       options={tableOptions}
     />
   );

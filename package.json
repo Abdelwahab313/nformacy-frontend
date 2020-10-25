@@ -106,7 +106,7 @@
     "cypress-localstorage-commands": "^1.2.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
-    "eslint": "^4.19.1",
+    "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-cypress": "^2.7.0",
     "eslint-plugin-no-inline-styles": "^1.0.5",
