@@ -14,10 +14,10 @@ import CountdownBoxShape from 'components/counters/CountdownBoxShape';
 import * as colors from '../../../styles/colors';
 import styled from 'styled-components';
 import ShowMore from '../../../components/Typography/ShowMore';
-import { Translation } from 'react-i18next';
+import { getLocalizedNumber } from '../../../services/numbersLocalization';
 import directions from '../../../constants/direction';
 import DEFAULT_LOCALES from '../../../constants/locale';
-import { getLocalizedNumber } from '../../../services/numbersLocalization';
+import { useTranslation } from 'react-i18next';
 
 const LANGUAGES_LOCALES_MAPPER = {
   english: 'en',
@@ -92,10 +92,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
               <Typography
                 id={`question-${questionDetails.referenceNumber}-referenceNumber`}
                 className={classes.referenceNumberStyle}>
-                {`# ${getLocalizedNumber(
-                  questionDetails.referenceNumber,
-                  DEFAULT_LOCALES[questionLocale],
-                )}`}
+                {`# ${questionDetails.referenceNumber}`}
               </Typography>
             </Grid>
             <Grid item md={7} xs={6}>

@@ -15,5 +15,7 @@
   "questionRoaster": "Question Roaster",
   "enterKeyword": "Enter Keyword",
   "all": "All",
-  "day": "Day"
+  "day": "Day",
+  "hour": "Hour",
+  "minute": "Minute"
 }

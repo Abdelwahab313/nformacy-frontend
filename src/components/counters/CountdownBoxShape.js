@@ -19,8 +19,8 @@ function CountdownBoxShape({ days, hours, minutes, completed, translation }) {
             time={days}
             text={translation('questionRoaster:day')}
           />
-          <TimerBoxSection item md={4} xs={4} time={hours} text={'Hours'} />
-          <TimerBoxSection item md={4} xs={4} time={minutes} text={'Minutes'} />
+          <TimerBoxSection item md={4} xs={4} time={hours} text={translation('questionRoaster:hour')} />
+          <TimerBoxSection item md={4} xs={4} time={minutes} text={translation('questionRoaster:minute')} />
         </Grid>
       )}
     </Fragment>

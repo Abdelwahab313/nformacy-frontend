@@ -36,9 +36,6 @@ export default function MainHeader() {
   return (
     <div className={classes.grow} dir={DIRECTION[locale]}>
       <AppBar id={'header'} position='static'>
-        <Button id={'switchLang'} onClick={toggleLocale}>
-          {t('language')}
-        </Button>
         <Toolbar>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -74,6 +71,9 @@ export default function MainHeader() {
               color='inherit'>
               <AccountCircle />
             </IconButton>
+            <Button id={'switchLang'} variant={'contained'} color={'primary'} className={classes.languageButton} onClick={toggleLocale}>
+              {t('language')}
+            </Button>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
