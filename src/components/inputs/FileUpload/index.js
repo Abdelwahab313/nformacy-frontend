@@ -30,7 +30,7 @@ class FileUploadComponent extends React.Component {
     this.triggerFileUpload = this.triggerFileUpload.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps, prevState, ) {
     if (prevState.files !== this.state.files) {
       this.props.onChange(this.state.files);
     }
@@ -94,7 +94,7 @@ class FileUploadComponent extends React.Component {
      Read a file and return a promise that when resolved gives the file itself and the data URL
    */
   readFile(file) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, ) => {
       const reader = new FileReader();
 
       // Read the image via FileReader API and save image result in state.
@@ -161,6 +161,7 @@ class FileUploadComponent extends React.Component {
       <div className='fileContainer' style={this.props.fileContainerStyle}>
         <div className='errorsContainer'>{this.renderErrors()}</div>
         <SubmitButton
+          id='chooseFileButton'
           type={this.props.buttonType}
           buttonText={this.props.buttonText}
           onClick={this.triggerFileUpload}

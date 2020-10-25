@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
-import AlarmIcon from '@material-ui/icons/Alarm';
 import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
 
@@ -16,6 +15,22 @@ import { questionStatusActions } from 'constants/questionStatus';
 import { questionTypesOfAssignment } from 'constants/dropDownOptions';
 import ByTimeField from './subComponents/ByTimeField';
 import { useStyles } from '../../../../styles/Admin/questionTableStyles';
+
+const COLUMN_INDEXES = {
+  id: 0,
+  referenceNumber: 1,
+  title: 2,
+  assignmentType: 3,
+  field: 4,
+  createdAt: 5,
+  answersCount: 6,
+  state: 7,
+  actionNeeded: 8,
+  currentActionTime: 9,
+  alarm: 10,
+  reviewAndEditHours: 11,
+};
+const CONSTANT_HOURS_FOR_ACTION = 12;
 
 const getColumnsFor = (isAdviser, classes) => {
   const TextCroppedWithTooltip = ({ text }) => {
@@ -65,12 +80,12 @@ const getColumnsFor = (isAdviser, classes) => {
         customBodyRender: (value, tableMeta) => {
           return (
             <Link
-              data-status={tableMeta.rowData[6]}
-              data-reference={tableMeta.rowData[1]}
+              data-status={tableMeta.rowData[COLUMN_INDEXES.state]}
+              data-reference={tableMeta.rowData[COLUMN_INDEXES.referenceNumber]}
               className={classes.link}
               to={{
                 pathname: RoutesPaths.Admin.QuestionsDetails,
-                state: { questionId: tableMeta.rowData[0] },
+                state: { questionId: tableMeta.rowData[COLUMN_INDEXES.id] },
               }}>
               <TextCroppedWithTooltip text={value} />
             </Link>
@@ -184,12 +199,14 @@ const getColumnsFor = (isAdviser, classes) => {
               className={classes.link}
               to={{
                 pathname: RoutesPaths.Admin.QuestionsDetails,
-                state: { questionId: tableMeta.rowData[0] },
+                state: { questionId: tableMeta.rowData[COLUMN_INDEXES.id] },
               }}>
               <StyledStatusChip
                 data-status={value}
                 className={'state'}
-                data-reference={tableMeta.rowData[1]}
+                data-reference={
+                  tableMeta.rowData[COLUMN_INDEXES.referenceNumber]
+                }
                 label={actionNeeded}
               />
             </Link>
@@ -209,8 +226,8 @@ const getColumnsFor = (isAdviser, classes) => {
           return currentActionTime ? (
             <ByTimeField
               currentActionTime={currentActionTime}
-              referenceId={tableMeta.rowData[1]}
-              questionId={tableMeta.rowData[0]}
+              referenceId={tableMeta.rowData[COLUMN_INDEXES.referenceNumber]}
+              questionId={tableMeta.rowData[COLUMN_INDEXES.id]}
             />
           ) : null;
         },
@@ -228,12 +245,12 @@ const getColumnsFor = (isAdviser, classes) => {
             <QuestionRemainingTimeAlarm
               remainingTime={currentActionTime}
               totalActionHours={
-                tableMeta.rowData[3] === 'review_and_edit'
-                  ? tableMeta.rowData[6]
-                  : 12
+                tableMeta.rowData[COLUMN_INDEXES.state] === 'review_and_edit'
+                  ? tableMeta.rowData[COLUMN_INDEXES.reviewAndEditHours]
+                  : CONSTANT_HOURS_FOR_ACTION
               }
               className={'alarm'}
-              data-reference={tableMeta.rowData[1]}
+              data-reference={tableMeta.rowData[COLUMN_INDEXES.referenceNumber]}
             />
           );
         },
@@ -275,7 +292,9 @@ const QuestionsTable = ({ questions, isAdviser }) => {
     download: false,
     print: false,
     rowsPerPage: process.env.REACT_APP_ENV === 'e2e' ? 300 : 10,
-    setRowProps: (row) => ({ 'row-reference': row[1] }),
+    setRowProps: (row) => ({
+      'row-reference': row[COLUMN_INDEXES.referenceNumber],
+    }),
   };
 
   return (

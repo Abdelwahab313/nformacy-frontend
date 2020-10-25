@@ -6,7 +6,10 @@ import {
 } from '../../../../helperFunctions';
 import { getFakeQuestion } from '../../../../factories/questionFactory';
 import moment from 'moment';
-import { createQuestion, createQuestionWithState } from '../../../../support/services/questionBuilder';
+import {
+  createQuestion,
+  createQuestionWithState,
+} from '../../../../support/services/questionBuilder';
 
 Given(/^I am on Post question page$/, function() {
   cy.get('#postQuestionButton').click();
@@ -51,7 +54,7 @@ Given(/^I have a question with status pending deployment$/, function() {
 
 And(/^By Time Field is not visible$/, function() {
   const referenceNumber = getFromLocalStorage('createdQuestion')
-  .referenceNumber;
+    .referenceNumber;
   cy.get(`tr[row-reference="${referenceNumber}"] .by-time`).should('not.exist');
 });
 
@@ -62,7 +65,6 @@ When(/^"Extend Time" dialog should be displayed$/, function() {
 When(/^"Extend Time" dialog should not be displayed$/, function() {
   cy.get('#extend-time-dialog').should('not.exist');
 });
-
 
 When(/^I click on that question's By Time$/, function() {
   const referenceNumber = getFromLocalStorage('createdQuestion')
@@ -109,10 +111,15 @@ When(/^i chose a question with status review_and_edit\.$/, function() {
 Then(
   /^the question i sent should be be visible in questions dashboard with state pending_deployment_to_roaster$/,
   function() {
-    cy.get(`a[data-reference='${this.toBeSendToAdmin}']`).then(function(element) {
-      expect(element[0].attributes['data-status'].value, 'pending_deployment_to_roaster');
+    cy.get(`a[data-reference='${this.toBeSendToAdmin}']`).then(function(
+      element,
+    ) {
+      expect(
+        element[0].attributes['data-status'].value,
+        'pending_deployment_to_roaster',
+      );
     });
-    },
+  },
 );
 
 Then(/^the edit should be saved successful to selected question$/, function() {
@@ -123,10 +130,15 @@ Then(/^the edit should be saved successful to selected question$/, function() {
 Given(
   'I have a question assigned to me with By time less than {string} percent',
   (percent) => {
-    let hours = (parseInt(percent) * 12) / 100;
+    let totalCurrentActionHours = 2;
+    let hours = (parseInt(percent) * totalCurrentActionHours) / 100;
     cy.server();
     cy.route('GET', '/questions/adviser_questions', [
-      getFakeQuestion({ current_action_time: getDateAfterHours(hours) }),
+      getFakeQuestion({
+        state: 'review_and_edit',
+        current_action_time: getDateAfterHours(hours),
+        hours_to_review_and_edit: totalCurrentActionHours,
+      }),
     ]).as('questions');
   },
 );
@@ -134,7 +146,10 @@ Given(
 Given(/^I have a question assigned to me with finished By time$/, function() {
   cy.server();
   cy.route('GET', '/questions/adviser_questions', [
-    getFakeQuestion({ title: 'removed question', current_action_time:  moment().subtract(5, 'days'),}),
+    getFakeQuestion({
+      title: 'removed question',
+      current_action_time: moment().subtract(5, 'days'),
+    }),
   ]).as('questions');
 });
 
@@ -292,11 +307,11 @@ Then(/^I click submit$/, function() {
   cy.get('#submitExtendedTime').click();
 });
 
-
 Then(/^By Time should be updated$/, function() {
   cy.server();
   cy.route('GET', '/questions/all').as('questions');
   cy.wait('@questions');
-  const referenceNumber = getFromLocalStorage('createdQuestion').referenceNumber;
+  const referenceNumber = getFromLocalStorage('createdQuestion')
+    .referenceNumber;
   cy.get(`tr[row-reference="${referenceNumber}"] .by-time`).contains('15:59');
 });

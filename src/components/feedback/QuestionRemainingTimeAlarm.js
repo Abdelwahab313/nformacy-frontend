@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { getRemainingHoursFromDate } from 'services/dateTimeParser';
+import { getTimeDiffInHoursFromNow } from 'services/dateTimeParser';
 import classNames from 'clsx';
-
 
 const Circle = styled.div`
   width: 1.5em;
@@ -10,8 +9,14 @@ const Circle = styled.div`
   background-color: ${(props) => props.color};
   border-radius: 1em;
 `;
-const QuestionRemainingTimeAlarm = ({ remainingTime, totalActionHours, className, ...props}) => {
-  const remainingHours = getRemainingHoursFromDate(remainingTime);
+
+const QuestionRemainingTimeAlarm = ({
+  remainingTime,
+  totalActionHours,
+  className,
+  ...props
+}) => {
+  const remainingHours = getTimeDiffInHoursFromNow(remainingTime);
   const remainingHoursPercent = (remainingHours / totalActionHours) * 100;
   let color;
   if (remainingHoursPercent >= 50) {
@@ -28,9 +33,9 @@ const QuestionRemainingTimeAlarm = ({ remainingTime, totalActionHours, className
 
   const alarmClasses = classNames({
     [color]: true,
-    [className]: true 
+    [className]: true,
   });
-  return <Circle className={alarmClasses} color={color} {...props}/>;
+  return <Circle className={alarmClasses} color={color} {...props} />;
 };
 
 export default QuestionRemainingTimeAlarm;

@@ -4,20 +4,15 @@ Feature: Adviser questions dashboard
   Background:
     Given I login in as an advisor
 
-  Scenario: view questions dashboard table view
-    Then I have a question assigned to me with By time less than "100" percent
-    And I am on the questions dashboard
-    Then I should see Action Needed column
-    And  I should see By Time column
-    And  I should see Alarm column
-
   Scenario: view question assigned to adviser entry
     Given I have a question assigned to me with By time less than "100" percent
     And  I am on the questions dashboard
     And  I should see alarm with "green" circle
+    Then I should see Action Needed column
+    And  I should see By Time column
+    And  I should see Alarm column
     When I click on question title
     Then I should see question details
-
 
   Scenario: question should show yellow alarm when by time is less than half
      Given I have a question assigned to me with By time less than "50" percent

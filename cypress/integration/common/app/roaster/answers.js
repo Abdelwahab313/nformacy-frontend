@@ -5,7 +5,7 @@ When(/^i click on post answer$/, function() {
 });
 
 When(/^i click attach file and choose a file.$/, function() {
-  cy.get('.chooseFileButton ').click();
+  cy.get('#chooseFileButton ').click();
   const attachmentPath = 'Cheatsheet.pdf';
   cy.get('input[type="file"]').attachFile(attachmentPath);
 });

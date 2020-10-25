@@ -307,7 +307,7 @@ exports[`Question Roaster View should match snapshot 1`] = `
               class="inactiveFilterStyle"
               id="filters-9"
             >
-              digitization
+              Digitization
             </div>
             <div
               class="inactiveFilterStyle"
@@ -325,7 +325,7 @@ exports[`Question Roaster View should match snapshot 1`] = `
               class="inactiveFilterStyle"
               id="filters-12"
             >
-              finTech
+              FinTech
             </div>
             <div
               class="inactiveFilterStyle"

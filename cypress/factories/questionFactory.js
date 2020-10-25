@@ -1,4 +1,3 @@
-import { getFromLocalStorage } from '../helperFunctions';
 import moment from 'moment';
 import { ADVISER_ID } from '../defualtTestValues';
 
@@ -8,7 +7,7 @@ export const getFakeQuestion = (question = {}) => {
     reference_number: 2000131,
     title: 'Test mocked question',
     content:
-      'People are different. People choose different criteria. But if there is a better way among many alternatives, I want to encourage that way by making it comfortable. So that\'s what I\'ve tried to do.',
+      "People are different. People choose different criteria. But if there is a better way among many alternatives, I want to encourage that way by making it comfortable. So that's what I've tried to do.",
     field: [{ value: 'marketingAndPR', label: 'Marketing and PR' }],
     subfield: [{ value: 'marketResearch', label: 'Market Research' }],
     industry: { value: 'consulting', label: 'Consulting' },

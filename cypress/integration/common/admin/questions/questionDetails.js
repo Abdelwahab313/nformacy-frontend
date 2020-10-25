@@ -83,7 +83,7 @@ Then(
   /^I should see send to admin button, save and complete later button and attachment button appear$/,
   function() {
     cy.get('#sendToAdminButton').should('exist');
-    cy.get('.chooseFileButton').should('exist');
+    cy.get('#chooseFileButton').should('exist');
     cy.get('#saveAndCompleteLaterButton').should('exist');
   },
 );

@@ -12,6 +12,7 @@ import {
 } from './defualtTestValues';
 import { camelizeKeys } from 'humps';
 import UserFactory from './factories/userFactory';
+import moment from 'moment';
 
 export const login = (email = USER_NAME, password = PASSWORD) => {
   cy.visit(BASE_URL);
@@ -125,7 +126,7 @@ export const createDayAvailableForUser = (dayFormatted, startDate, endDate) => {
 };
 
 export const getDateAfterHours = (hours) => {
-  let d = new Date();
-  d.setHours(d.getHours() + hours);
-  return d.toGMTString();
+  return moment()
+    .add(hours, 'hours')
+    .toString();
 };

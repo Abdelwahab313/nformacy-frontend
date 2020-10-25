@@ -551,11 +551,20 @@ exports[`Question Form should match snapshot 1`] = `
                     class="errorsContainer"
                   />
                   <button
-                    class="chooseFileButton "
-                    style="background-color: rgb(18, 87, 115); color: rgb(255, 255, 255); align-self: center; border-radius: 4px; height: 36px; text-transform: uppercase;"
+                    class="MuiButtonBase-root MuiButton-root MuiButton-contained"
+                    id="chooseFileButton"
+                    style="background-color: rgb(18, 87, 115); color: rgb(255, 255, 255);"
+                    tabindex="0"
                     type="button"
                   >
-                    Attach
+                    <span
+                      class="MuiButton-label"
+                    >
+                      Attach
+                    </span>
+                    <span
+                      class="MuiTouchRipple-root"
+                    />
                   </button>
                   <input
                     accept=".doc,.docx,.xml,image/*,video/*,.pdf,.csv"

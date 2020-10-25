@@ -172,7 +172,7 @@ Then(/^I can select multiple options$/, function() {
   );
 });
 When(/^I upload my cv$/, function() {
-  cy.get('.chooseFileButton ').click();
+  cy.get('#chooseFileButton ').click();
   const profilePicturePath = 'cv.pdf';
   cy.get('input[type="file"]').attachFile(profilePicturePath, {allowEmpty: true});
 });
