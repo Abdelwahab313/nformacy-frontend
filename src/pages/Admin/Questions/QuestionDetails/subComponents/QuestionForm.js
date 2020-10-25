@@ -342,23 +342,6 @@ const QuestionForm = ({ isNewQuestion }) => {
               onChangeQuestionField={onChangeQuestionField}
             />
           </GridItem>
-          <GridItem xs={12} sm={12} md={12}>
-            <ImageUploadWithPreview
-              buttonClassName={'thumbnail-uploader'}
-              withPreview={true}
-              singleImage={true}
-              label={'Max file size: 1mb, accepted: jpg, gif, png'}
-              withIcon={true}
-              buttonText='Upload Question Thumbnail'
-              imgExtension={['.jpg', '.gif', '.png', 'jpeg']}
-              maxFileSize={1048576}
-              onChange={(picture) => {
-                setThumbnailImage(picture);
-                setIsThumbnailChanged(true);
-              }}
-              defaultImage={questionDetails.thumbnailUrl}
-            />
-          </GridItem>
         </GridContainer>
       )}
       {authManager.isAdviser() && questionDetails.state === 'review_and_edit' && (
@@ -398,6 +381,23 @@ const QuestionForm = ({ isNewQuestion }) => {
                 }
               />
             </Grid>
+            <GridItem xs={12} sm={12} md={12}>
+              <ImageUploadWithPreview
+                buttonClassName={'thumbnail-uploader'}
+                withPreview={true}
+                singleImage={true}
+                label={'Max file size: 1mb, accepted: jpg, gif, png'}
+                withIcon={true}
+                buttonText='Upload Question Thumbnail'
+                imgExtension={['.jpg', '.gif', '.png', 'jpeg']}
+                maxFileSize={1048576}
+                onChange={(picture) => {
+                  setThumbnailImage(picture);
+                  setIsThumbnailChanged(true);
+                }}
+                defaultImage={questionDetails.thumbnailUrl}
+              />
+            </GridItem>
             {!(
               questionDetails?.state === 'pending_adviser_acceptance' &&
               currentUser?.id === questionDetails?.assignedAdviserId
