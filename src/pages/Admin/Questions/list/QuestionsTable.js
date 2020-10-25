@@ -29,8 +29,24 @@ const COLUMN_INDEXES = {
   currentActionTime: 9,
   alarm: 10,
   reviewAndEditHours: 11,
+  hoursToCloseAnswers: 12,
 };
 const CONSTANT_HOURS_FOR_ACTION = 12;
+const DYNAMIC_STATES = {
+  reviewAndEdit: 'review_and_edit',
+  answersRating: 'answers_rating',
+};
+
+const getTotalActionTime = (rowData) => {
+  switch (rowData[COLUMN_INDEXES.state]) {
+    case DYNAMIC_STATES.reviewAndEdit:
+      return rowData[COLUMN_INDEXES.reviewAndEditHours];
+    case DYNAMIC_STATES.answersRating:
+      return rowData[COLUMN_INDEXES.hoursToCloseAnswers];
+    default:
+      return CONSTANT_HOURS_FOR_ACTION;
+  }
+};
 
 const getColumnsFor = (isAdviser, classes) => {
   const TextCroppedWithTooltip = ({ text }) => {
@@ -244,11 +260,7 @@ const getColumnsFor = (isAdviser, classes) => {
           return (
             <QuestionRemainingTimeAlarm
               remainingTime={currentActionTime}
-              totalActionHours={
-                tableMeta.rowData[COLUMN_INDEXES.state] === 'review_and_edit'
-                  ? tableMeta.rowData[COLUMN_INDEXES.reviewAndEditHours]
-                  : CONSTANT_HOURS_FOR_ACTION
-              }
+              totalActionHours={getTotalActionTime(tableMeta.rowData)}
               className={'alarm'}
               data-reference={tableMeta.rowData[COLUMN_INDEXES.referenceNumber]}
             />
@@ -258,6 +270,16 @@ const getColumnsFor = (isAdviser, classes) => {
     },
     {
       name: 'hoursToReviewAndEdit',
+      label: '',
+      options: {
+        display: false,
+        ...defaultColumnOption,
+        filter: false,
+        sort: false,
+      },
+    },
+    {
+      name: 'hoursToCloseAnswers',
       label: '',
       options: {
         display: false,

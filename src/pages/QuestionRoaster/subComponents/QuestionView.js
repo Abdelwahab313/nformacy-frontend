@@ -14,6 +14,7 @@ import Countdown from 'react-countdown';
 import CountdownBoxShape from 'components/counters/CountdownBoxShape';
 import * as colors from '../../../styles/colors';
 import styled from 'styled-components';
+import ShowMore from '../../../components/Typography/ShowMore';
 
 const isInSecondSequence = (number) => {
   for (let i = 1; i <= number; i += 3) {
@@ -30,14 +31,9 @@ const getColorForField = (index) => {
   return colors.lightOrange;
 };
 
-export const getFirstParaghraph = (htmlContent) => {
-  let matches = htmlContent.match(/<p>(.*?)<\/p>/gm);
-  if (matches == null) {
-    return 'No Content';
-  } else {
-    let output = matches[0].replace('<p>', '').replace('</p>', '');
-    return output;
-  }
+export const getFirstParagraph = (htmlContent) => {
+  let matches = htmlContent.match(/(?<=<p.*>)(.*?)(?=<\/p>)/gm);
+  return matches ? matches[0] : 'No Content';
 };
 
 const StyledFilterChip = styled(Chip)`
@@ -60,18 +56,23 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   };
 
   return (
-    <Grid item md={12} xs={12} className={classes.mainContainer} id={'questionRoasterMainContainer'}>
+    <Grid
+      item
+      md={12}
+      xs={12}
+      className={classes.mainContainer}
+      id={'questionRoasterMainContainer'}>
       <Grid container className={classes.questionContainer}>
-        {!!questionDetails.thumbnailUrl &&
+        {!!questionDetails.thumbnailUrl && (
           <Grid className={classes.imgContainer} item md={3} xs={12}>
-          <img
-            id={`question-${questionDetails.referenceNumber}-thumbnail`}
-            className={classes.image}
-            src={questionDetails.thumbnailUrl}
-            alt='Question Image'
-          />
-        </Grid>
-        }
+            <img
+              id={`question-${questionDetails.referenceNumber}-thumbnail`}
+              className={classes.image}
+              src={questionDetails.thumbnailUrl}
+              alt='Question Image'
+            />
+          </Grid>
+        )}
         <Grid item md={!!questionDetails.thumbnailUrl ? 9 : 12} xs={12}>
           <Grid container className={classes.questionTextWrapper}>
             {/* =======Ref no. and Date======= */}
@@ -168,13 +169,17 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
             </Grid>
             {/* =======Content======= */}
             <Grid item md={12} xs={12}>
-              <div
+              <Grid
                 id={`question-${questionDetails.referenceNumber}-content`}
-                className={classes.questionContentField}
-                dangerouslySetInnerHTML={createMarkup(
-                  getFirstParaghraph(questionDetails.content),
-                )}
-              />
+                className={classes.questionContentField}>
+                <ShowMore>
+                  <div
+                    dangerouslySetInnerHTML={createMarkup(
+                      getFirstParagraph(questionDetails.content),
+                    )}
+                  />
+                </ShowMore>
+              </Grid>
             </Grid>
             {/* ======Icon and Button======== */}
             <Grid

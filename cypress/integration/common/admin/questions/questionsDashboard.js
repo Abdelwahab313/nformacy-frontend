@@ -128,16 +128,17 @@ Then(/^the edit should be saved successful to selected question$/, function() {
 });
 
 Given(
-  'I have a question assigned to me with By time less than {string} percent',
-  (percent) => {
-    let totalCurrentActionHours = 2;
+  'I have a question in {string} state assigned to me with By time less than {string} percent',
+  (state, percent) => {
+    let totalCurrentActionHours = state === 'review_and_edit' ? 2 : 24;
     let hours = (parseInt(percent) * totalCurrentActionHours) / 100;
     cy.server();
     cy.route('GET', '/questions/adviser_questions', [
       getFakeQuestion({
-        state: 'review_and_edit',
+        state,
         current_action_time: getDateAfterHours(hours),
         hours_to_review_and_edit: totalCurrentActionHours,
+        hours_to_close_answers: totalCurrentActionHours,
       }),
     ]).as('questions');
   },

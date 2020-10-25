@@ -2,7 +2,6 @@ import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import Transition from '../animations/Transition';
 import DialogContent from '@material-ui/core/DialogContent';
-import ShowMoreText from 'react-show-more-text';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import t from '../../locales/en/freelancerProfile.json';
@@ -11,15 +10,13 @@ import EditIcon from '@material-ui/icons/Edit';
 import Divider from '@material-ui/core/Divider';
 import { dividerStyle, useStyles } from '../../styles/formsStyles';
 import React, { useRef } from 'react';
-import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import SummaryForm from '../forms/SummaryForm';
+import ShowMore from '../Typography/ShowMore';
 
 const SummarySection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
   const [open, setOpen] = React.useState(false);
-  const handleClick = (isExpanded) => {
-    if (!isExpanded) window.dispatchEvent(new Event('resize'));
-  };
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -65,23 +62,10 @@ const SummarySection = () => {
           spacing={5}
           className={classes.paperSectionContentStyles}>
           <Grid item xs={12}>
-            <Grid
-              id='summaryValue'
-              className={classes.summaryValueStyles}>
-              <ShowMoreText
-                lines={2}
-                more={
-                  <Grid>
-                    Show more <ExpandMore />
-                  </Grid>
-                }
-                less={
-                  <Grid>
-                    Show less <ExpandLess />
-                  </Grid>
-                }>
+            <Grid id='summaryValue' className={classes.summaryValueStyles}>
+              <ShowMore>
                 {user.current.summary || 'No summary to display'}
-              </ShowMoreText>
+              </ShowMore>
             </Grid>
           </Grid>
         </Grid>

@@ -493,10 +493,50 @@ exports[`Question Roaster View should match snapshot 1`] = `
                     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-12"
                   >
                     <div
-                      class="questionContentField"
+                      class="MuiGrid-root questionContentField"
                       id="question-2000100-content"
                     >
-                      No Content
+                      <div>
+                        <span
+                          width="0"
+                        >
+                          <span />
+                          <span>
+                            <div>
+                              No Content
+                            </div>
+                          </span>
+                          <span
+                            style="position: fixed; visibility: hidden; top: 0px; left: 0px;"
+                          >
+                            <span>
+                              ... 
+                              <a
+                                class="anchor"
+                                href="#"
+                              >
+                                <div
+                                  class="MuiGrid-root icons MuiGrid-container"
+                                >
+                                  <div>
+                                     Show More 
+                                  </div>
+                                  <svg
+                                    aria-hidden="true"
+                                    class="MuiSvgIcon-root icon"
+                                    focusable="false"
+                                    viewBox="0 0 24 24"
+                                  >
+                                    <path
+                                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                                    />
+                                  </svg>
+                                </div>
+                              </a>
+                            </span>
+                          </span>
+                        </span>
+                      </div>
                     </div>
                   </div>
                   <div
