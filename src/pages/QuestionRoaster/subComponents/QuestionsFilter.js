@@ -4,12 +4,13 @@ import { fieldsOfExperience } from 'constants/dropDownOptions';
 import { useStyles } from 'styles/questionRoasterStyles';
 import ThreeDotsDropdown from './ThreeDotsDropdown';
 import t from 'locales/en/questionRoaster';
-import LanguagesDropdownMenu from 'pages/QuestionRoaster/subComponents/LanguagesDropdownMenu';
+import LanguagesDropdownMenu from './LanguagesDropdownMenu';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import clsx from 'clsx';
 import { useQuestionRoasterContext } from '../context';
 import {
   addFieldFilter,
+  removeFieldFilter,
   resetFieldsFilters,
 } from '../context/questionsRoasterAction';
 
@@ -28,8 +29,12 @@ const QuestionsFilter = () => {
     }));
   }, [fieldsFilters]);
 
-  const onClickFilter = (field) => {
-    addFieldFilter(dispatch, field);
+  const onClickFilter = (field, isClicked) => {
+    if (isClicked) {
+      removeFieldFilter(dispatch, field);
+    } else {
+      addFieldFilter(dispatch, field);
+    }
   };
   const onClickAll = () => {
     resetFieldsFilters(dispatch);
@@ -47,7 +52,7 @@ const QuestionsFilter = () => {
           [classes.inactiveFilterStyle]: !isClicked,
         })}
         onClick={() => {
-          onClickFilter(value);
+          onClickFilter(value, isClicked);
         }}>
         {label}
       </div>,
@@ -73,7 +78,7 @@ const QuestionsFilter = () => {
               [classes.activeFilterStyle]: isAllClicked,
               [classes.inactiveFilterStyle]: !isAllClicked,
             })}>
-            {t['all']}
+            {isAllClicked ? t['all'] : t['clearAll']}
           </div>
           {filtersList.map((filter) => {
             return filter;
@@ -87,10 +92,7 @@ const QuestionsFilter = () => {
         </Grid>
         <Grid item md={2} className={classes.languageFilterContainer}>
           <LanguagesDropdownMenu
-            dropdownClass={classes.dropdownDesktop}
-            icon={true}
-            id={'question-language-filter'}
-            menuText={'Choose Langauge'}
+            isMobile={false}
           />
         </Grid>
       </Grid>
@@ -124,7 +126,7 @@ const QuestionsFilter = () => {
                   [classes.inactiveFilterStyle]: !field.isClicked,
                 })}
                 onClick={() => {
-                  onClickFilter(field.value);
+                  onClickFilter(field.value, field.isClicked);
                 }}>
                 {field.label}
               </div>
@@ -139,9 +141,7 @@ const QuestionsFilter = () => {
         </Grid>
         <Grid item xs={2} sm={1} className={classes.dropdownMobile}>
           <LanguagesDropdownMenu
-            id={'question-language-filter-mobile'}
-            icon={false}
-            menuText={'E'}
+            isMobile={true}
           />
         </Grid>
       </Grid>

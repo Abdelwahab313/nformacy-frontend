@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -12,7 +12,7 @@ import { useQuestionRoasterContext } from '../context';
 
 const languagesOfAssignment = [
   {
-    label: 'All Langauges',
+    label: 'Choose Langauge',
     shortcutLabel: 'E',
     value: '',
   },
@@ -27,16 +27,18 @@ const languagesOfAssignment = [
     value: 'arabic',
   },
 ];
-const LanguagesDropdownMenu = ({
-  id,
-  menuText,
-  dropdownClass,
-  icon,
-}) => {
+const LanguagesDropdownMenu = ({ isMobile }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { locale } = useLocale();
   const [{ languageFilter }, dispatch] = useQuestionRoasterContext();
+
+  const selectedLanguageLabel = useMemo(() => {
+    const selectedLanguage = languagesOfAssignment.find(
+      (language) => language.value === languageFilter,
+    );
+    return isMobile ? selectedLanguage.shortcutLabel : selectedLanguage.label;
+  }, [languageFilter]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -53,16 +55,20 @@ const LanguagesDropdownMenu = ({
   return (
     <div>
       <Button
-        id={id}
-        className={dropdownClass}
+        id={
+          isMobile
+            ? 'question-language-filter-mobile'
+            : 'question-language-filter'
+        }
+        className={clsx({ [classes.dropdownDesktop]: !isMobile })}
         aria-controls='simple-menu'
         aria-haspopup='true'
         onClick={handleClick}>
-        {menuText}
-        {icon ? (
-          <ExpandMoreIcon id={'expand-menu-icon'} fontSize={'small'} />
-        ) : (
+        {selectedLanguageLabel}
+        {isMobile ? (
           ''
+        ) : (
+          <ExpandMoreIcon id={'expand-menu-icon'} fontSize={'small'} />
         )}
       </Button>
       <Menu
