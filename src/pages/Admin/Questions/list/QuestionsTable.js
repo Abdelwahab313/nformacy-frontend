@@ -16,7 +16,7 @@ import { questionTypesOfAssignment } from 'constants/dropDownOptions';
 import ByTimeField from './subComponents/ByTimeField';
 import { useStyles } from '../../../../styles/Admin/questionTableStyles';
 
-const COLUMN_NAMES = {
+export const COLUMN_NAMES = {
   id: 'id',
   referenceNumber: 'referenceNumber',
   title: 'title',
@@ -32,13 +32,13 @@ const COLUMN_NAMES = {
   hoursToCloseAnswers: 'hoursToCloseAnswers',
 };
 
-const HOURS_FOR_ACTION = 12;
+export const HOURS_FOR_ACTION = 12;
 const DYNAMIC_STATES = {
   reviewAndEdit: 'review_and_edit',
   answersRating: 'answers_rating',
 };
 
-const getTotalActionTime = (rowData, columns) => {
+export const getTotalActionTime = (rowData, columns) => {
   const state = rowData[getIndexForColumn(COLUMN_NAMES.state, columns)];
   switch (state) {
     case DYNAMIC_STATES.reviewAndEdit:
@@ -54,7 +54,7 @@ const getTotalActionTime = (rowData, columns) => {
   }
 };
 
-const getIndexForColumn = (columnName, columns) => {
+export const getIndexForColumn = (columnName, columns) => {
   for (const [index, column] of columns.entries()) {
     if (column.name === columnName) {
       return index;
