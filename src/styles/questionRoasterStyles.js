@@ -420,6 +420,14 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
     marginTop: '1.389vw',
   },
+  answerButtons: {
+    padding: '1.4vw',
+    maxHeight: '2.500vw',
+    [theme.breakpoints.down('xs')]: {
+      maxHeight: '9.600vw',
+      padding: '10vw',
+    }
+  },
   questionAssignmentTypeContainer: {
     display: 'flex',
     verticalAlign: 'baseline',

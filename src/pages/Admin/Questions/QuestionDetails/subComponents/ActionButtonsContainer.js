@@ -20,18 +20,18 @@ const ActionButtonsContainer = ({
       <Grid
         item
         xs={6}
-        style={{ justifyContent: 'flex-end' }}
         className={questionRoasterClasses.answerButtonContainer}>
         <SubmitButton
           id='saveAndCompleteLaterButton'
           onClick={() => saveAndCompleteLater()}
           buttonText={t['saveAndCompleteLater']}
-          className={questionRoasterClasses.buttonMargin}
+          className={[questionRoasterClasses.answerButtons, questionRoasterClasses.buttonMargin]}
         />
         <SubmitButton
           id={'sendToAdminButton'}
           onClick={onSendToAdminClicked}
           buttonText={'Send for deployment'}
+          className={questionRoasterClasses.answerButtons}
         />
       </Grid>
     );
@@ -41,14 +41,13 @@ const ActionButtonsContainer = ({
     <Grid
       item
       xs={6}
-      style={{ justifyContent: 'flex-end' }}
       className={questionRoasterClasses.answerButtonContainer}>
       {isNewQuestion && (
         <SubmitButton
           id='saveAndCompleteLaterButton'
           onClick={() => saveAndCompleteLater()}
           buttonText={t['saveAndCompleteLater']}
-          className={questionRoasterClasses.buttonMargin}
+          className={[questionRoasterClasses.answerButtons, questionRoasterClasses.buttonMargin]}
         />
       )}
       {!(
@@ -59,6 +58,7 @@ const ActionButtonsContainer = ({
           id='applyChangesButton'
           onClick={onSubmitQuestion}
           buttonText={isNewQuestion ? 'Send to advisor' : 'Apply Changes'}
+          className={questionRoasterClasses.answerButtons}
           disabled={false}
         />
       )}

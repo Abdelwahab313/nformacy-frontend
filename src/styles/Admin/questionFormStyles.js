@@ -96,4 +96,22 @@ export const useStyles = makeStyles((theme) => ({
     opacity: '95%',
     padding: '0 10px',
   },
+  attachmentChip: {
+    marginTop: '0.5vw',
+    [theme.breakpoints.down('xs')]: {
+      maxWidth: '70vw',
+      marginTop: '2vw'
+    },
+  },
+  flipMove: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    width: '100%',
+    marginTop: '0.5vw',
+    [theme.breakpoints.down('xs')]: {
+      marginTop: '12vw',
+    },
+  }
 }));

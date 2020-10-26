@@ -637,17 +637,17 @@ exports[`should match snapshot 1`] = `
                         />
                       </div>
                       <div
-                        style="position: relative; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; width: 100%;"
+                        class="flipMove"
+                        style="position: relative;"
                       />
                     </div>
                   </div>
                 </div>
                 <div
                   class="MuiGrid-root answerButtonContainer MuiGrid-item MuiGrid-grid-xs-6"
-                  style="justify-content: flex-end;"
                 >
                   <button
-                    class="MuiButtonBase-root MuiButton-root MuiButton-contained"
+                    class="MuiButtonBase-root MuiButton-root MuiButton-contained answerButtons"
                     id="applyChangesButton"
                     style="background-color: rgb(18, 87, 115); color: rgb(255, 255, 255);"
                     tabindex="0"

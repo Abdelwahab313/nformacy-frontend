@@ -8,14 +8,7 @@ import { attachContainerStyle } from '../../styles/questionRoasterStyles';
 import { removeAttachment, uploadAttachment } from '../../apis/questionsAPI';
 import t from '../../locales/en/questionRoaster.json';
 import FileUpload from '../inputs/FileUpload';
-
-const styles = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flexWrap: 'wrap',
-  width: '100%',
-};
+import { useStyles } from 'styles/Admin/questionFormStyles';
 
 const AttachmentUploader = ({
   containerClassName,
@@ -24,6 +17,8 @@ const AttachmentUploader = ({
   setAttachmentsGroupsId,
 }) => {
   const [attachmentFiles, setAttachmentFiles] = useState(attachments);
+
+  const classes = useStyles()
 
   const onUploadAttachment = (attachmentFile) => {
     const fileBlob = new Blob(attachmentFile);
@@ -55,6 +50,7 @@ const AttachmentUploader = ({
       return (
         <Grid key={index} item xs={12}>
           <Chip
+            className={classes.attachmentChip}
             key={index}
             icon={
               <IconButton onClick={() => window.open(file.url)}>
@@ -83,7 +79,7 @@ const AttachmentUploader = ({
           accept='.doc,.docx,.xml,image/*,video/*,.pdf,.csv'
           buttonText={t['attach']}
         />
-        <FlipMove enterAnimation='fade' leaveAnimation='fade' style={styles}>
+        <FlipMove enterAnimation='fade' leaveAnimation='fade' className={classes.flipMove}>
           {!!attachmentFiles &&
             attachmentFiles.length > 0 &&
             renderPreviewFiles()}
