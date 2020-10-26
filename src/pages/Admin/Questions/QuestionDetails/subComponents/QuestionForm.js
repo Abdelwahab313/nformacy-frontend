@@ -146,8 +146,8 @@ const QuestionForm = ({ isNewQuestion }) => {
       if (isNewQuestion) {
         submitQuestion({
           ...questionDetails,
-        }).then(() => {
-          uploadThumbnail();
+        }).then(({ data }) => {
+          uploadThumbnail(data.id);
           navigatToDashboard();
         });
       } else {
@@ -162,12 +162,12 @@ const QuestionForm = ({ isNewQuestion }) => {
     }
   };
 
-  const uploadThumbnail = () => {
+  const uploadThumbnail = (questionId = questionDetails.id) => {
     if (thumbnailImage.length === 0 || !isThumbnailChanged) return;
     const imageBlob = new Blob(thumbnailImage);
     const formData = new FormData();
     formData.append('thumbnail', imageBlob, thumbnailImage[0].name);
-    uploadQuestionThumbnail(questionDetails.id, formData);
+    uploadQuestionThumbnail(questionId, formData);
   };
 
   return (
@@ -382,23 +382,25 @@ const QuestionForm = ({ isNewQuestion }) => {
                 }
               />
             </Grid>
-            <GridItem xs={12} sm={12} md={12}>
-              <ImageUploadWithPreview
-                buttonClassName={'thumbnail-uploader'}
-                withPreview={true}
-                singleImage={true}
-                label={'Max file size: 1mb, accepted: jpg, gif, png'}
-                withIcon={true}
-                buttonText='Upload Question Thumbnail'
-                imgExtension={['.jpg', '.gif', '.png', 'jpeg']}
-                maxFileSize={1048576}
-                onChange={(picture) => {
-                  setThumbnailImage(picture);
-                  setIsThumbnailChanged(true);
-                }}
-                defaultImage={questionDetails.thumbnailUrl}
-              />
-            </GridItem>
+            {authManager.isAdmin() && (
+              <GridItem xs={12} sm={12} md={12}>
+                <ImageUploadWithPreview
+                  buttonClassName={'thumbnail-uploader'}
+                  withPreview={true}
+                  singleImage={true}
+                  label={'Max file size: 1mb, accepted: jpg, gif, png'}
+                  withIcon={true}
+                  buttonText='Upload Question Thumbnail'
+                  imgExtension={['.jpg', '.gif', '.png', 'jpeg']}
+                  maxFileSize={1048576}
+                  onChange={(picture) => {
+                    setThumbnailImage(picture);
+                    setIsThumbnailChanged(true);
+                  }}
+                  defaultImage={questionDetails.thumbnailUrl}
+                />
+              </GridItem>
+            )}
             {!(
               questionDetails?.state === 'pending_adviser_acceptance' &&
               currentUser?.id === questionDetails?.assignedAdviserId

@@ -24,7 +24,7 @@ const AnswerQuestion = () => {
   const savedAnswer = JSON.parse(
     localStorage.getItem(`answer${questionDetails?.id}`),
   );
-  const [answer,] = useState(!!savedAnswer ? savedAnswer : {});
+  const [answer] = useState(!!savedAnswer ? savedAnswer : {});
   const [content, setContent] = useState(savedAnswer?.content);
   const [attachmentsGroupsId, setAttachmentsGroupsId] = useState(
     savedAnswer?.attachmentsGroupsId,
@@ -38,6 +38,7 @@ const AnswerQuestion = () => {
       attachmentsGroupsId,
     });
     localStorage.setItem(`answer${questionDetails?.id}`, answerToBeSaved);
+    history.push(`/questions/`);
   };
 
   const onSubmitAnswer = () => {
