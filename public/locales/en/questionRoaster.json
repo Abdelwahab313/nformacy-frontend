@@ -1,5 +1,4 @@
 {
-  "language": "English",
   "saveAndCompleteLater": "Save & Complete Later",
   "questionAltImg": "Question Image",
   "closeIn": "Close in",
@@ -17,5 +16,6 @@
   "enterKeyword": "Enter Keyword",
   "all": "All",
   "day": "Day",
-  "clearAll": "Clear All"
+  "hour": "Hour",
+  "minute": "Minute"
 }

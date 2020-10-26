@@ -336,7 +336,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   questionTextWrapper: {
     fontFamily: 'SF UI Display',
-    paddingLeft: '2.083vw',
+    padding: '0 2.083vw',
     [theme.breakpoints.down('xs')]: {
       paddingTop: '4vw',
     },

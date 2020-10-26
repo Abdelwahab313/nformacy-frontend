@@ -63,6 +63,9 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  languageButton: {
+    margin: `0 ${theme.spacing(1)}px`
+  }
 }));
 
 export default useStyles;

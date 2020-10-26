@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './i18n';
 import './index.css';
@@ -10,13 +10,18 @@ import history from './services/navigation';
 import { LocaleProvider } from './hooks/localization/context';
 import { AuthProvider } from './pages/auth/context/auth';
 import authManager from './services/authManager';
+import LoadingCircle from './components/progress/LoadingCircle';
+
+const Loader = () => <LoadingCircle color='primary' />;
 
 const App = () => {
   const { user } = authManager.retrieveUserToken();
   return (
     <AuthProvider initialValue={{ currentUser: user }}>
-      <LocaleProvider initialLocale={user?.locale }>
-        <Main />
+      <LocaleProvider initialLocale={user?.locale}>
+        <Suspense fallback={<Loader />}>
+          <Main />
+        </Suspense>
       </LocaleProvider>
     </AuthProvider>
   );

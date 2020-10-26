@@ -1,26 +1,17 @@
 import i18n from 'i18next';
-import { initReactI18next } from "react-i18next";
-
-import translationEN from './locales/en/translation.json';
-import translationAR from './locales/ar/translation.json';
-
-// the translations
-const resources = {
-  en: {
-    translation: translationEN,
-  },
-  ar: {
-    translation: translationAR,
-  },
-};
+import { initReactI18next } from 'react-i18next';
+import Backend from 'i18next-http-backend';
 
 i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
+  .use(initReactI18next)
+  .use(Backend)
   .init({
-    resources,
+    ns: ['common', 'questionRoaster'],
+    defaultNS: 'common',
     debug: true,
     lng: 'en',
-
+    fallbackLng: 'en',
+    preload: ['en', 'ar'],
     keySeparator: false, // we do not use keys in form messages.welcome
 
     interpolation: {

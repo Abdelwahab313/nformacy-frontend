@@ -8,13 +8,21 @@ import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 import { useHistory } from 'react-router';
 import { fieldsOfExperience } from 'constants/dropDownOptions';
 import SubmitButton from 'components/buttons/SubmitButton';
-import t from 'locales/en/questionRoaster';
 import createMarkup from '../../../services/markup';
 import Countdown from 'react-countdown';
 import CountdownBoxShape from 'components/counters/CountdownBoxShape';
 import * as colors from '../../../styles/colors';
 import styled from 'styled-components';
 import ShowMore from '../../../components/Typography/ShowMore';
+import { getLocalizedNumber } from '../../../services/numbersLocalization';
+import directions from '../../../constants/direction';
+import DEFAULT_LOCALES from '../../../constants/locale';
+import { useTranslation } from 'react-i18next';
+
+const LANGUAGES_LOCALES_MAPPER = {
+  english: 'en',
+  arabic: 'ar',
+};
 
 const isInSecondSequence = (number) => {
   for (let i = 1; i <= number; i += 3) {
@@ -42,6 +50,10 @@ const StyledFilterChip = styled(Chip)`
 const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   const classes = useStyles();
   const history = useHistory();
+  const { i18n } = useTranslation();
+
+  const questionLocale = LANGUAGES_LOCALES_MAPPER[questionDetails.language];
+  const fixedTranslation = i18n.getFixedT(questionLocale);
 
   function handleEditClick(questionReference) {
     history.push(`/question/answer/${questionReference}`, { questionDetails });
@@ -61,18 +73,18 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
       md={12}
       xs={12}
       className={classes.mainContainer}
-      id={'questionRoasterMainContainer'}>
+      id={'questionRoasterMainContainer'}
+      dir={directions[questionLocale]}>
       <Grid container className={classes.questionContainer}>
-        {!!questionDetails.thumbnailUrl && (
-          <Grid className={classes.imgContainer} item md={3} xs={12}>
-            <img
-              id={`question-${questionDetails.referenceNumber}-thumbnail`}
-              className={classes.image}
-              src={questionDetails.thumbnailUrl}
-              alt='Question Image'
-            />
-          </Grid>
-        )}
+        {!!questionDetails.thumbnailUrl && <Grid className={classes.imgContainer} item md={3} xs={12}>
+          <img
+            id={`question-${questionDetails.referenceNumber}-thumbnail`}
+            className={classes.image}
+            src={questionDetails.thumbnailUrl}
+            alt={fixedTranslation('questionRoaster:questionAltImg')}
+          />
+        </Grid>}
+
         <Grid item md={!!questionDetails.thumbnailUrl ? 9 : 12} xs={12}>
           <Grid container className={classes.questionTextWrapper}>
             {/* =======Ref no. and Date======= */}
@@ -87,7 +99,10 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
               <Typography
                 id={`question-${questionDetails.referenceNumber}-postDate`}
                 className={classes.postDateStyle}>
-                {formattedDateMonthAndDay(new Date(questionDetails.createdAt))}
+                {formattedDateMonthAndDay(
+                  new Date(questionDetails.createdAt),
+                  DEFAULT_LOCALES[questionLocale],
+                )}
               </Typography>
             </Grid>
             {/* ======Title and ActionTime======== */}
@@ -113,13 +128,18 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
                   <Typography
                     className={classes.closedQuestion}
                     id={`question-${questionDetails.referenceNumber}-closeIn`}>
-                    {'Close in'}
+                    {fixedTranslation('questionRoaster:closeIn')}
                   </Typography>
                 </Grid>
                 <Grid item md={12} xs={12}>
                   <Countdown
                     date={questionDetails.currentActionTime}
-                    renderer={(props) => <CountdownBoxShape {...props} />}
+                    renderer={(props) => (
+                      <CountdownBoxShape
+                        translation={fixedTranslation}
+                        {...props}
+                      />
+                    )}
                     className={classes.questionCountDown}
                   />
                 </Grid>
@@ -135,7 +155,8 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
                         <Typography>
                           {fieldsOfExperience
                             .find(
-                              (experience) => experience.value === major.value,
+                              (experience) =>
+                                experience.value === major.value,
                             )
                             .subfields.filter((specificField) =>
                               isMajorContainsSpecificField(specificField),
@@ -205,7 +226,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
                   onClick={() =>
                     handleEditClick(questionDetails.referenceNumber)
                   }
-                  buttonText={t['answer']}
+                  buttonText={fixedTranslation('questionRoaster:answer')}
                   disabled={false}
                 />
               </Grid>
