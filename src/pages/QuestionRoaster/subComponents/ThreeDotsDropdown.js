@@ -8,8 +8,6 @@ import clsx from 'clsx';
 import useLocale from '../../../hooks/localization/useLocale';
 import DIRECTIONS from '../../../constants/direction';
 
-const ITEM_HEIGHT = 48;
-
 const ThreeDotsDropdown = ({ list, onClickFilter }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -43,12 +41,7 @@ const ThreeDotsDropdown = ({ list, onClickFilter }) => {
         open={open}
         onClose={handleClose}
         PaperProps={{
-          style: {
-            borderRadius: '9px',
-            padding: '15px 5px',
-            maxHeight: ITEM_HEIGHT * 4.5,
-            width: 'fit-content',
-          },
+          className: classes.threeDotsMenu,
         }}
         anchorOrigin={{
           vertical: 'bottom',

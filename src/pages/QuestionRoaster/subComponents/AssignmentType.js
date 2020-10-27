@@ -1,26 +1,25 @@
 import React, { Fragment } from 'react';
 import Typography from '@material-ui/core/Typography';
-import t from 'locales/en/questionRoaster';
 import { Grid, Tooltip } from '@material-ui/core';
 import { useStyles } from 'styles/questionRoasterStyles';
+import { useTranslation } from 'react-i18next';
 
 const AssignmentType = ({ index, type }) => {
-
+  const { t } = useTranslation();
   const classes = useStyles();
 
   switch (type) {
     case 'project':
       return (
         <Fragment>
-          <Tooltip 
-          title={<Typography>{t['project']}</Typography>}>
+          <Tooltip
+          title={<Typography>{t('questionRoaster:project')}</Typography>}>
           <Grid className={classes.assignmentTypeIcon}>
           <img
-            id={`question-${index}-project`} 
-            color={'primary'} 
+            id={`question-${index}-project`}
+            color={'primary'}
             src={require('../../../assets/project.svg')}
             width={'100%'}
-            height={'100%'}
           />
           </Grid>
           </Tooltip>
@@ -29,15 +28,14 @@ const AssignmentType = ({ index, type }) => {
     case 'question':
       return (
         <Fragment>
-          <Tooltip 
-          title={<Typography>{t['question']}</Typography>}>
+          <Tooltip
+          title={<Typography>{t('questionRoaster:question')}</Typography>}>
           <Grid className={classes.assignmentTypeIcon}>
           <img
-            id={`question-${index}-question`} 
-            color={'primary'} 
+            id={`question-${index}-question`}
+            color={'primary'}
             src={require('../../../assets/question.svg')}
             width={'100%'}
-            height={'100%'}
             />
             </Grid>
           </Tooltip>
@@ -46,15 +44,14 @@ const AssignmentType = ({ index, type }) => {
     case 'call':
       return (
         <Fragment>
-         <Tooltip 
-          title={<Typography>{t['call']}</Typography>}>
+         <Tooltip
+          title={<Typography>{t('questionRoaster:call')}</Typography>}>
           <Grid className={classes.assignmentTypeIcon}>
           <img
-            id={`question-${index}-call`} 
-            color={'primary'} 
+            id={`question-${index}-call`}
+            color={'primary'}
             src={require('../../../assets/call.svg')}
             width={'100%'}
-            height={'100%'}         
             />
             </Grid>
           </Tooltip>

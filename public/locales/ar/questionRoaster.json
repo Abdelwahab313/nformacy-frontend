@@ -4,5 +4,16 @@
   "day": "يوم",
   "hour": "ساعة",
   "minute": "دقيقة",
-  "answer": "إجابة"
+  "answer": "إجابة",
+  "chooseLanguage": "إختر لغة",
+  "english": "English",
+  "englishShortcut": "EN",
+  "arabic": "العربية",
+  "arabicShortcut": "ع",
+  "all": "الكل",
+  "clearAll": "إعادة الكل",
+  "title": "الاسئلة",
+  "call": "مكالمة",
+  "question": "سؤال",
+  "project": "مشروع"
 }

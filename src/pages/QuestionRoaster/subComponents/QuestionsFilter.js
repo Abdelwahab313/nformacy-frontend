@@ -3,7 +3,6 @@ import { Grid } from '@material-ui/core';
 import { fieldsOfExperience } from 'constants/dropDownOptions';
 import { useStyles } from 'styles/questionRoasterStyles';
 import ThreeDotsDropdown from './ThreeDotsDropdown';
-import t from 'locales/en/questionRoaster';
 import LanguagesDropdownMenu from './LanguagesDropdownMenu';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import clsx from 'clsx';
@@ -13,10 +12,12 @@ import {
   removeFieldFilter,
   resetFieldsFilters,
 } from '../context/questionsRoasterAction';
+import { useTranslation } from 'react-i18next';
 
 const QuestionsFilter = () => {
   const classes = useStyles();
   const [{ fieldsFilters }, dispatch] = useQuestionRoasterContext();
+  const { t } = useTranslation();
 
   const isAllClicked = useMemo(() => fieldsFilters.length === 0, [
     fieldsFilters,
@@ -78,7 +79,7 @@ const QuestionsFilter = () => {
               [classes.activeFilterStyle]: isAllClicked,
               [classes.inactiveFilterStyle]: !isAllClicked,
             })}>
-            {isAllClicked ? t['all'] : t['clearAll']}
+            {isAllClicked ? t('questionRoaster:all') : t('questionRoaster:clearAll')}
           </div>
           {filtersList.map((filter) => {
             return filter;
@@ -114,7 +115,7 @@ const QuestionsFilter = () => {
               [classes.activeFilterStyle]: isAllClicked,
               [classes.inactiveFilterStyle]: !isAllClicked,
             })}>
-            {t['all']}
+            {t('questionRoaster:all')}
           </div>
           {fieldsFiltersToDisplay.map((field, key) => {
             return (

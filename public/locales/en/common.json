@@ -1,3 +1,9 @@
 {
-  "language": "العربية"
+  "language": "العربية",
+  "enterKeyword": "Enter Keyword",
+  "searchKeyword": "Search by keyword",
+  "search": "Search",
+  "showLess": "Show Less",
+  "showMore": "Show More",
+  "home": "Home"
 }

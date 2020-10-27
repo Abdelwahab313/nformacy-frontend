@@ -13,6 +13,7 @@ jest.mock('react-i18next', () => {
       i18n: {
         getFixedT: () => () => {},
       },
+      t: (key) => key,
     }),
   };
 });

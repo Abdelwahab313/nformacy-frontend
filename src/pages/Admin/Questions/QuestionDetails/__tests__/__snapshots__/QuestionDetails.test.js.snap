@@ -833,7 +833,7 @@ exports[`should match snapshot 1`] = `
                             class="MuiGrid-root icons MuiGrid-container"
                           >
                             <div>
-                               Show More 
+                               showMore 
                             </div>
                             <svg
                               aria-hidden="true"

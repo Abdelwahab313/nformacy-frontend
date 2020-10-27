@@ -18,7 +18,7 @@ exports[`Question Roaster View should match snapshot 1`] = `
           class="MuiTypography-root bannerFontStyles MuiTypography-body1"
           id="question-roaster-header"
         >
-          Question Roaster
+          questionRoaster:title
         </p>
       </div>
       <div
@@ -32,16 +32,16 @@ exports[`Question Roaster View should match snapshot 1`] = `
             class="MuiInputBase-root searchInput"
           >
             <input
-              aria-label="search by keyword"
+              aria-label="common:searchKeyword"
               class="MuiInputBase-input"
               id="search"
-              placeholder="Enter Keyword"
+              placeholder="common:enterKeyword"
               type="text"
               value=""
             />
           </div>
           <button
-            aria-label="search"
+            aria-label="common:search"
             class="MuiButtonBase-root MuiIconButton-root iconButton"
             tabindex="0"
             type="submit"
@@ -95,7 +95,7 @@ exports[`Question Roaster View should match snapshot 1`] = `
                     class="MuiTypography-root inactiveBreadcrumb MuiTypography-body1"
                     id="home-breadcrumb"
                   >
-                    Home
+                    common:home
                   </p>
                 </a>
               </li>
@@ -120,7 +120,7 @@ exports[`Question Roaster View should match snapshot 1`] = `
                 <p
                   class="MuiTypography-root activeBreadcrumb MuiTypography-body1 MuiTypography-colorPrimary"
                 >
-                  Question Roaster
+                  questionRoaster:title
                 </p>
               </li>
             </ol>
@@ -145,7 +145,7 @@ exports[`Question Roaster View should match snapshot 1`] = `
             <div
               class="activeFilterStyle"
             >
-              All
+              questionRoaster:all
             </div>
             <div
               class="inactiveFilterStyle"
@@ -217,7 +217,7 @@ exports[`Question Roaster View should match snapshot 1`] = `
                 <span
                   class="MuiButton-label"
                 >
-                  Choose Langauge
+                  questionRoaster:chooseLanguage
                   <svg
                     aria-hidden="true"
                     class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
@@ -247,7 +247,7 @@ exports[`Question Roaster View should match snapshot 1`] = `
             <div
               class="activeFilterStyle"
             >
-              All
+              questionRoaster:all
             </div>
             <div
               class="inactiveFilterStyle"
@@ -375,7 +375,7 @@ exports[`Question Roaster View should match snapshot 1`] = `
                 <span
                   class="MuiButton-label"
                 >
-                  E
+                  questionRoaster:englishShortcut
                 </span>
                 <span
                   class="MuiTouchRipple-root"
@@ -517,7 +517,7 @@ exports[`Question Roaster View should match snapshot 1`] = `
                                   class="MuiGrid-root icons MuiGrid-container"
                                 >
                                   <div>
-                                     Show More 
+                                     showMore 
                                   </div>
                                   <svg
                                     aria-hidden="true"
@@ -546,7 +546,6 @@ exports[`Question Roaster View should match snapshot 1`] = `
                     >
                       <img
                         color="primary"
-                        height="100%"
                         id="question-2000100-project"
                         src="[object Object]"
                         width="100%"

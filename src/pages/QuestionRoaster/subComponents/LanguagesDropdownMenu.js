@@ -9,29 +9,32 @@ import useLocale from '../../../hooks/localization/useLocale';
 import DIRECTIONS from '../../../constants/direction';
 import { addLanguageFilter } from '../context/questionsRoasterAction';
 import { useQuestionRoasterContext } from '../context';
+import { useTranslation } from 'react-i18next';
 
-const languagesOfAssignment = [
-  {
-    label: 'Choose Langauge',
-    shortcutLabel: 'E',
-    value: '',
-  },
-  {
-    label: 'English',
-    shortcutLabel: 'EN',
-    value: 'english',
-  },
-  {
-    label: 'Arabic',
-    shortcutLabel: 'AR',
-    value: 'arabic',
-  },
-];
 const LanguagesDropdownMenu = ({ isMobile }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { locale } = useLocale();
   const [{ languageFilter }, dispatch] = useQuestionRoasterContext();
+  const { t } = useTranslation();
+
+  const languagesOfAssignment = [
+    {
+      label: t('questionRoaster:chooseLanguage'),
+      shortcutLabel: t('questionRoaster:englishShortcut'),
+      value: '',
+    },
+    {
+      label: t('questionRoaster:english'),
+      shortcutLabel: t('questionRoaster:englishShortcut'),
+      value: 'english',
+    },
+    {
+      label: t('questionRoaster:arabic'),
+      shortcutLabel: t('questionRoaster:arabicShortcut'),
+      value: 'arabic',
+    },
+  ];
 
   const selectedLanguageLabel = useMemo(() => {
     const selectedLanguage = languagesOfAssignment.find(
@@ -76,11 +79,7 @@ const LanguagesDropdownMenu = ({ isMobile }) => {
         getContentAnchorEl={null}
         keepMounted
         PaperProps={{
-          style: {
-            borderRadius: '9px',
-            padding: '15px 5px',
-            minWidth: '13.5%',
-          },
+          className: classes.menu,
         }}
         anchorOrigin={{
           vertical: 'bottom',

@@ -7,10 +7,12 @@ import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import { useStyles } from '../../styles/breadcrumbsStyles';
 import useLocale from '../../hooks/localization/useLocale';
 import DIRECTIONS from '../../constants/direction';
+import { useTranslation } from 'react-i18next';
 
 const BreadcrumbsCustomSeparator = ({ pageName }) => {
   const classes = useStyles();
   const { locale } = useLocale();
+  const { t } = useTranslation();
 
   return (
     <div className={classes.root}>
@@ -28,7 +30,7 @@ const BreadcrumbsCustomSeparator = ({ pageName }) => {
           <Typography
             className={classes.inactiveBreadcrumb}
             id={'home-breadcrumb'}>
-            Home
+            {t('common:home')}
           </Typography>
         </Link>
         <Typography color={'primary'} className={classes.activeBreadcrumb}>

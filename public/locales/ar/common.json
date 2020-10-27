@@ -1,3 +1,9 @@
 {
-  "language": "English"
+  "language": "English",
+  "enterKeyword": "اكتب كلمة البحث",
+  "searchKeyword": "إبحث بكلمة",
+  "search": "إبحث",
+  "showLess": "تقليص",
+  "showMore": "المزيد",
+  "home": "الرئيسية"
 }

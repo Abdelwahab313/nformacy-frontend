@@ -10,15 +10,16 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import QuestionView from './subComponents/QuestionView';
 import QuestionsFilter from 'pages/QuestionRoaster/subComponents/QuestionsFilter';
 import Typography from '@material-ui/core/Typography';
-import t from '../../locales/en/questionRoaster';
 import { QuestionRoasterProvider } from './context';
 import BreadcrumbsCustomSeparator from '../../components/breadcrumbs/Breadcrumbs';
 import useLocale from '../../hooks/localization/useLocale';
 import DIRECTION from '../../constants/direction';
+import { useTranslation } from 'react-i18next';
 
 const QuestionRoasterView = () => {
   const { filteredQuestions, loading } = useQuestionsFilter();
   const { locale } = useLocale();
+  const { t } = useTranslation();
   const classes = useStyles();
 
   if (loading) {
@@ -36,7 +37,7 @@ const QuestionRoasterView = () => {
           <Typography
             id={'question-roaster-header'}
             className={classes.bannerFontStyles}>
-            {t['questionRoaster']}
+            {t('questionRoaster:title')}
           </Typography>
         </Grid>
         <Grid item className={classes.searchGridStyles}>
@@ -46,13 +47,13 @@ const QuestionRoasterView = () => {
             id={'question-roaster-search-bar'}>
             <InputBase
               className={classes.searchInput}
-              placeholder={t['enterKeyword']}
-              inputProps={{ 'aria-label': 'search by keyword', id: 'search' }}
+              placeholder={t('common:enterKeyword')}
+              inputProps={{ 'aria-label': t('common:searchKeyword'), id: 'search' }}
             />
             <IconButton
               type='submit'
               className={classes.iconButton}
-              aria-label='search'>
+              aria-label={t("common:search")}>
               <SearchIcon color={'secondary'}/>
             </IconButton>
           </Paper>
@@ -60,7 +61,7 @@ const QuestionRoasterView = () => {
       </Grid>
       <Grid container justify={'center'}>
         <Grid item xs={10}>
-          <BreadcrumbsCustomSeparator pageName={'Question Roaster'}/>
+          <BreadcrumbsCustomSeparator pageName={t('questionRoaster:title')}/>
         </Grid>
       </Grid>
       <Grid

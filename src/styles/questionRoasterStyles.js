@@ -4,6 +4,8 @@ import bannerBackground from '../assets/banner2X.png';
 import fontNames from '../constants/fonts';
 import { hexToRgb } from '../assets/jss/material-dashboard-react';
 
+const ITEM_HEIGHT = 48;
+
 const filterStyle = (theme) => ({
   cursor: 'default',
   [theme.breakpoints.down('sm')]: {
@@ -271,6 +273,17 @@ export const useStyles = makeStyles((theme) => ({
       paddingBottom: theme.spacing(2),
     },
   },
+  menu: {
+    borderRadius: '9px',
+    padding: '15px 5px',
+    minWidth: '13.5%',
+  },
+  threeDotsMenu: {
+    borderRadius: '9px',
+    padding: '15px 5px',
+    maxHeight: ITEM_HEIGHT * 4.5,
+    width: 'fit-content',
+  },
   menuItem: {
     height: '4.167vw',
     fontFamily: fontNames.SF_UI_REGULAR,
@@ -432,11 +445,12 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     verticalAlign: 'baseline',
   },
-  assignmentTypeIcon:{
+  assignmentTypeIcon: {
     width: '2vw',
+    height: 'fit-content',
     [theme.breakpoints.down('xs')]: {
       width: '5vw',
-    }
+    },
   },
   submitButton: {
     height: '4vw',
