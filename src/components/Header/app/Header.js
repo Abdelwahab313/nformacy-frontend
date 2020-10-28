@@ -3,10 +3,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import StarsIcon from '@material-ui/icons/Stars';
 import ProfilePictureMenu from 'components/Header/app/ProfilePictureMenu';
@@ -15,6 +13,7 @@ import useLocale from '../../../hooks/localization/useLocale';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import DIRECTION from '../../../constants/direction';
+import Notifications from '../admin/notifications';
 
 export default function MainHeader() {
   const classes = useStyles();
@@ -28,7 +27,8 @@ export default function MainHeader() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleMobileMenuOpen = () => {};
+  const handleMobileMenuOpen = () => {
+  };
 
   const menuId = 'primary-search-account-menu';
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -39,7 +39,7 @@ export default function MainHeader() {
         <Toolbar>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
-              <SearchIcon />
+              <SearchIcon/>
             </div>
             <InputBase
               placeholder='Search…'
@@ -50,16 +50,14 @@ export default function MainHeader() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
-          <div className={classes.grow} />
+          <div className={classes.grow}/>
           <div className={classes.sectionDesktop}>
             <IconButton aria-label='show 4 new mails' color='inherit'>
-              <StarsIcon />
+              <StarsIcon/>
             </IconButton>
 
             <IconButton aria-label='show 17 new notifications' color='inherit'>
-              <Badge badgeContent={17} color='secondary'>
-                <NotificationsIcon />
-              </Badge>
+              <Notifications/>
             </IconButton>
 
             <IconButton
@@ -69,9 +67,10 @@ export default function MainHeader() {
               aria-haspopup='true'
               onClick={handleProfileMenuOpen}
               color='inherit'>
-              <AccountCircle />
+              <AccountCircle/>
             </IconButton>
-            <Button id={'switchLang'} variant={'contained'} color={'primary'} className={classes.languageButton} onClick={toggleLocale}>
+            <Button id={'switchLang'} variant={'contained'} color={'primary'} className={classes.languageButton}
+                    onClick={toggleLocale}>
               {t('language')}
             </Button>
           </div>
@@ -82,7 +81,7 @@ export default function MainHeader() {
               aria-haspopup='true'
               onClick={handleMobileMenuOpen}
               color='inherit'>
-              <MoreIcon />
+              <MoreIcon/>
             </IconButton>
           </div>
         </Toolbar>

@@ -1,18 +1,14 @@
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import faker from 'faker';
-import {
-  clearLocalStorage,
-  getFromLocalStorage,
-  setToLocalStorage,
-} from '../../../../helperFunctions';
+import { clearLocalStorage, getFromLocalStorage, setToLocalStorage } from '../../../../helperFunctions';
 import { ADVISER_ID } from '../../../../defualtTestValues';
 import {
   assignAdviserToQuestion,
   createDeployedQuestion,
   createDraftQuestion,
-  createQuestion,
   createMultipleQuestion,
-  createQuestionWithAccepttedAnswer
+  createQuestion,
+  createQuestionWithAccepttedAnswer,
 } from '../../../../support/services/questionBuilder';
 
 Given(/^I have zero notification$/, function() {
@@ -44,10 +40,6 @@ Then(/^A toast should be displayed with the notification "([^"]*)"$/, function(
   message,
 ) {
   cy.get('.Toastify__toast-body').contains(message);
-});
-
-When(/^I click on notifications menu$/, function() {
-  cy.get('#notificationsButton').click();
 });
 
 Given(/^I have (\d+) notifications$/, function(counts) {
@@ -138,18 +130,10 @@ When(/^I visit the sent question from question dashboard$/, function() {
 When(/^Admin deploy a question i am assigned to$/, function() {
   createDeployedQuestion();
 });
-Then(
-  /^I should see the newly received notification with message "([^"]*)"$/,
-  function(message) {
-    cy.get('#notification-menu-list-grow')
-      .find('button')
-      .first()
-      .contains(message);
-  },
-);
+
 
 When(/^Admin accept an answer in a question i am assigned to$/, function() {
-  createQuestionWithAccepttedAnswer()
+  createQuestionWithAccepttedAnswer();
 });
 
 When(/^I click on "([^"]*)" in the end of the menu$/, function() {
