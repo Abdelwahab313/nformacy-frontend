@@ -14,7 +14,6 @@ import CountdownBoxShape from 'components/counters/CountdownBoxShape';
 import * as colors from '../../../styles/colors';
 import styled from 'styled-components';
 import ShowMore from '../../../components/Typography/ShowMore';
-import { getLocalizedNumber } from '../../../services/numbersLocalization';
 import directions from '../../../constants/direction';
 import DEFAULT_LOCALES from '../../../constants/locale';
 import { useTranslation } from 'react-i18next';
@@ -73,7 +72,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
       md={12}
       xs={12}
       className={classes.mainContainer}
-      id={'questionRoasterMainContainer'}
+      id={'questionCardContainer'}
       dir={directions[questionLocale]}>
       <Grid container className={classes.questionContainer}>
         {!!questionDetails.thumbnailUrl && <Grid className={classes.imgContainer} item md={3} xs={12}>

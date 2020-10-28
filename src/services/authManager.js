@@ -18,6 +18,19 @@ class AuthManager {
     return { authToken, user };
   };
 
+  isNormalUser = () => {
+    let user;
+    try {
+      const loadedUserString = localStorage.getItem('user');
+      user = !!loadedUserString
+        ? JSON.parse(loadedUserString)
+        : undefined;
+      return user.roles.some((role) => role.name === 'freelancer');
+    } catch (e) {
+      return false
+    }
+  };
+
   isAdmin = () => {
     let user;
     try {

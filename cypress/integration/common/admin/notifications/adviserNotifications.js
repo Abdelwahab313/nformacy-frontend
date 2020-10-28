@@ -1,6 +1,10 @@
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import faker from 'faker';
-import { clearLocalStorage, getFromLocalStorage, setToLocalStorage } from '../../../../helperFunctions';
+import {
+  clearLocalStorage,
+  getFromLocalStorage,
+  setToLocalStorage,
+} from '../../../../helperFunctions';
 import { ADVISER_ID } from '../../../../defualtTestValues';
 import {
   assignAdviserToQuestion,
@@ -131,7 +135,6 @@ When(/^Admin deploy a question i am assigned to$/, function() {
   createDeployedQuestion();
 });
 
-
 When(/^Admin accept an answer in a question i am assigned to$/, function() {
   createQuestionWithAccepttedAnswer();
 });
@@ -197,3 +200,9 @@ Then(
       .contains(/Answer #\d+ is ready to be Rated/);
   },
 );
+
+Then(/^I should be navigated to question details$/, function() {
+  // should assert reference id
+  cy.contains('Edit Question').should('be.visible');
+  cy.location('pathname').should('match', /\/questions\/edit$/);
+});

@@ -52,7 +52,7 @@ const AnswerQuestion = () => {
   };
 
   return (
-    <Grid container justify={'center'} alignContent={'center'}>
+    <Grid container justify={'center'} alignContent={'center'} id={'answer-question-page'}>
       <Grid item xs={12} sm={10}>
         <QuestionView
           questionDetails={questionDetails}

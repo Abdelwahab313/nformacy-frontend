@@ -41,6 +41,8 @@ Feature: Adviser notifications
     And A toast should be displayed with the notification "New Question Assigned to you"
     When I click on notifications menu
     Then I should see the newly received notification with message "New Question Assigned to you"
+    When I click on the recieved notification
+    Then I should be navigated to question details
 
   Scenario: Receive notification when admin deploy a question to roaster i am assigned to
     When Admin deploy a question i am assigned to

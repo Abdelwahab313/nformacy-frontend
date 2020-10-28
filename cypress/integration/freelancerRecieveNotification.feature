@@ -6,3 +6,5 @@ Feature: Freelancer receive notifications
     And I go to question roaster
     And I click on notifications menu
     Then I should see the newly received notification with message "is posted on Q Roaster."
+    When I click on the recieved notification
+    Then I should navigate to question details page

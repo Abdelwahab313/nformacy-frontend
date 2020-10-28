@@ -1,11 +1,21 @@
 import { RoutesPaths } from '../constants/routesPath';
+import authManager from './authManager';
 
 const getPathForNotification = (notification) => {
-  if (notification.type === 'QuestionNotification')
-    return {
-      path: RoutesPaths.Admin.QuestionsDetails,
-      params: { questionId: notification.targetId },
-    };
+  let questionDetailsPath;
+  if (notification.type === 'QuestionNotification') {
+    if (authManager.isNormalUser()) {
+      questionDetailsPath = {
+        path: RoutesPaths.App.Questions,
+      };
+    } else {
+      questionDetailsPath = {
+        path: RoutesPaths.Admin.QuestionsDetails,
+        params: { questionId: notification.targetId },
+      };
+    }
+  }
+  return questionDetailsPath;
 };
 
 export default getPathForNotification;
