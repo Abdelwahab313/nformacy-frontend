@@ -1,16 +1,16 @@
 import React from 'react';
 import t from 'locales/en/freelancerProfile.json';
 import AutoCompleteSelectField from 'components/CustomInput/AutoCompleteSelectField';
-import { fieldsOfExperience } from 'constants/dropDownOptions';
 
-const MajorFieldSelect = ({ handleOptionsChange, value }) => {
+const MajorFieldSelect = ({ fields, handleOptionsChange, value, loading }) => {
 
   return (
     <AutoCompleteSelectField
       id='majorFieldsOfExperienceSelect'
       name='majorFieldsOfExperience'
       onChange={handleOptionsChange}
-      options={fieldsOfExperience}
+      loading={loading}
+      options={fields}
       value={value}
       inputLabel={t['majorFieldOfExperience']}
     />

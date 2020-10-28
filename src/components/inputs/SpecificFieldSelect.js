@@ -1,19 +1,23 @@
 import React, { useCallback } from 'react';
 import t from 'locales/en/freelancerProfile.json';
 import AutoCompleteSelectField from 'components/CustomInput/AutoCompleteSelectField';
-import { fieldsOfExperience } from 'constants/dropDownOptions';
 
-const SpecificFieldSelect = ({ handleOptionsChange, value, selectedMajorFields }) => {
-
+const SpecificFieldSelect = ({
+  fields,
+  handleOptionsChange,
+  value,
+  selectedMajorFields,
+  loading,
+}) => {
   const availableSpecificFieldsOptions = useCallback(() => {
     if (!!selectedMajorFields && selectedMajorFields.length > 0) {
       let availableSubFields;
       availableSubFields = selectedMajorFields
         .map((majorField) => {
           let majorFieldRelatedOptions;
-          const majorFieldRelatedSubFields = fieldsOfExperience.filter(
+          const majorFieldRelatedSubFields = fields.filter(
             (field) => field.label === majorField.label,
-          )[0].subfields;
+          )[0].fields;
           majorFieldRelatedOptions = majorFieldRelatedSubFields.map(
             (subfield) => {
               subfield['majorField'] = majorField.label;
@@ -35,10 +39,11 @@ const SpecificFieldSelect = ({ handleOptionsChange, value, selectedMajorFields }
       name='specificFieldsOfExperience'
       id='specificFieldsOfExperienceSelect'
       onChange={handleOptionsChange}
-      groupBy={(option) => option.majorField}
+      groupBy={(option) => option.majorFieldLabel}
       options={availableSpecificFieldsOptions()}
       value={value}
       inputLabel={t['specificField']}
+      loading={loading}
     />
   );
 };

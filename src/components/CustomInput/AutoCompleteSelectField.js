@@ -33,6 +33,7 @@ const AutoCompleteSelectField = ({
   onChange,
   value = [],
   inputLabel,
+  loading,
   ...props
 }) => {
   const selectClasses = useSelectStyles();
@@ -44,13 +45,14 @@ const AutoCompleteSelectField = ({
     <Autocomplete
       onChange={handleChange}
       multiple
+      loading={loading}
       classes={selectClasses}
       options={options}
       value={value}
       disableCloseOnSelect
       getOptionLabel={(option) => option.label}
       getOptionSelected={(option, value) => {
-        return option.value === value.value;
+        return option.id === value.id;
       }}
       renderOption={(option, { selected }) => (
         <React.Fragment>

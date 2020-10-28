@@ -38,6 +38,32 @@ jest.mock('apis/questionsAPI', () => ({
   }),
 }));
 
+
+jest.mock('apis/fieldsAPI', () => ({
+  __esModule: true, // this property makes it work
+  default: 'mockedDefaultExport',
+  fetchFields: jest.fn().mockResolvedValue({
+    data: [
+      {
+        id: 1,
+        label: 'Finance',
+      },
+      {
+        id: 2,
+        label: 'Marketing',
+      },
+      {
+        id: 3,
+        label: 'FinTech',
+      },
+      {
+        id: 4,
+        label: 'Accounting',
+      },
+    ],
+  }),
+}));
+
 it('should match snapshot', async () => {
   const history = createMemoryHistory();
   history.push('/', { questionId: 1 });

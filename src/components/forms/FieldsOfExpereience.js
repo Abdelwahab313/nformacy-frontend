@@ -8,6 +8,7 @@ import ErrorMessage from '../errors/ErrorMessage';
 import t from '../../locales/en/freelancerProfile.json';
 import MajorFieldSelect from 'components/inputs/MajorFieldSelect';
 import SpecificFieldSelect from 'components/inputs/SpecificFieldSelect';
+import FieldsSelect from '../inputs/FieldsSelect/FieldsSelect';
 
 const FieldsOfExperience = () => {
   const { errors, watch, setValue, register } = useFormContext();
@@ -29,45 +30,53 @@ const FieldsOfExperience = () => {
   };
 
   return (
-    <Fragment>
-      <Container maxWidth={false} className={classes.formControl}>
-        <div className={classes.formHeader}>
-          <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-            {t['experiencedIn']}
-          </Typography>
-          <HelpIcon
-            className={classes.formHeaderIcon}
-            data-tip={t['experiencedInHint']}
-            color='primary'
-            fontSize='small'
-          />
-        </div>
-        <MajorFieldSelect
-          handleOptionsChange={handleMajorFieldsSelect}
-          value={majorFieldsOfExperience}
-        />
-        <ErrorMessage errorField={errors.majorFieldsOfExperience}/>
-      </Container>
-      <Container maxWidth={false} className={classes.formControl}>
-        <div className={classes.formHeader}>
-          <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-            {t['specificallyIn']}
-          </Typography>
-          <HelpIcon
-            className={classes.formHeaderIcon}
-            data-tip={t['specificallyInHint']}
-            color='primary'
-            fontSize='small'
-          />
-        </div>
-        <SpecificFieldSelect
-          value={specificFieldsOfExperience}
-          handleOptionsChange={handleSubFieldsChange}
-          selectedMajorFields={majorFieldsOfExperience}
-        />
-        <ErrorMessage errorField={errors.specificFieldsOfExperience}/>
-      </Container>
-    </Fragment>
+    <FieldsSelect>
+      {(fields, loading) => (
+        <Fragment>
+          <Container maxWidth={false} className={classes.formControl}>
+            <div className={classes.formHeader}>
+              <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+                {t['experiencedIn']}
+              </Typography>
+              <HelpIcon
+                className={classes.formHeaderIcon}
+                data-tip={t['experiencedInHint']}
+                color='primary'
+                fontSize='small'
+              />
+            </div>
+            <MajorFieldSelect
+              handleOptionsChange={handleMajorFieldsSelect}
+              fields={fields}
+              loading={loading}
+              value={majorFieldsOfExperience}
+            />
+            <ErrorMessage errorField={errors.majorFieldsOfExperience}/>
+          </Container>
+          <Container maxWidth={false} className={classes.formControl}>
+            <div className={classes.formHeader}>
+              <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+                {t['specificallyIn']}
+              </Typography>
+              <HelpIcon
+                className={classes.formHeaderIcon}
+                data-tip={t['specificallyInHint']}
+                color='primary'
+                fontSize='small'
+              />
+            </div>
+            <SpecificFieldSelect
+              fields={fields}
+              loading={loading}
+              value={specificFieldsOfExperience}
+              handleOptionsChange={handleSubFieldsChange}
+              selectedMajorFields={majorFieldsOfExperience}
+            />
+            <ErrorMessage errorField={errors.specificFieldsOfExperience}/>
+          </Container>
+        </Fragment>
+      )}
+    </FieldsSelect>
   );
 };
 
