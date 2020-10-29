@@ -4,8 +4,6 @@ import CardBody from '../../../../../components/Card/CardBody';
 import GridContainer from '../../../../../components/Grid/GridContainer';
 import GridItem from '../../../../../components/Grid/GridItem';
 import CustomInput from '../../../../../components/CustomInput/CustomInput';
-import MajorFieldSelect from '../../../../../components/inputs/MajorFieldSelect';
-import SpecificFieldSelect from '../../../../../components/inputs/SpecificFieldSelect';
 import {
   industries,
   questionTypesOfAssignment,
@@ -45,6 +43,7 @@ import {
 } from '../context/questionAction';
 import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
 import ImageUploadWithPreview from 'components/inputs/FileUpload/ImageUploadWithPreview';
+import FieldsSelect from '../../../../../components/inputs/FieldsSelect/FieldsSelect';
 
 const noActionStates = [
   'pending_assignment',
@@ -223,53 +222,51 @@ const QuestionForm = ({ isNewQuestion }) => {
         )}
       </GridContainer>
 
-      <GridContainer className={classes.inputsRow}>
-        <GridItem xs={12} sm={12} md={3}>
-          <MajorFieldSelect
-            value={questionDetails.field}
-            handleOptionsChange={(newOptions) => {
-              onChangeQuestionField('field', newOptions);
-            }}
-          />
-        </GridItem>
-        <GridItem xs={12} sm={12} md={3}>
-          <SpecificFieldSelect
-            value={questionDetails.subfield}
-            selectedMajorFields={questionDetails.field}
-            handleOptionsChange={(newOptions) =>
-              onChangeQuestionField('subfield', newOptions)
-            }
-          />
-        </GridItem>
-        <GridItem xs={12} sm={12} md={3}>
-          <DropdownSelectField
-            fieldId='industry'
-            fieldName='industry'
-            fieldOptions={industries}
-            fieldValue={questionDetails.industry}
-            onFieldChange={(option) =>
-              onChangeQuestionField('industry', option)
-            }
-            fieldLabel='Industry'
-          />
-        </GridItem>
-        <GridItem xs={12} sm={12} md={3}>
-          <DropdownSelectField
-            fieldId='questionLanguage'
-            fieldName='QuestionLanguage'
-            fieldOptions={questionLanguages}
-            fieldValue={
-              questionLanguages.filter(
-                (option) => questionDetails.language === option.value,
-              )[0]
-            }
-            onFieldChange={(option) =>
-              onChangeQuestionField('language', option.value)
-            }
-            fieldLabel='Question Language'
-          />
-        </GridItem>
-      </GridContainer>
+      <FieldsSelect
+        initialFields={questionDetails.fields}
+        updateFields={(newOptions) => {
+          onChangeQuestionField('fields', newOptions);
+        }}>
+        {({ MajorField, Field }) => (
+
+          <GridContainer className={classes.inputsRow}>
+            <GridItem xs={12} sm={12} md={3}>
+              <MajorField/>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={3}>
+              <Field/>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={3}>
+              <DropdownSelectField
+                fieldId='industry'
+                fieldName='industry'
+                fieldOptions={industries}
+                fieldValue={questionDetails.industry}
+                onFieldChange={(option) =>
+                  onChangeQuestionField('industry', option)
+                }
+                fieldLabel='Industry'
+              />
+            </GridItem>
+            <GridItem xs={12} sm={12} md={3}>
+              <DropdownSelectField
+                fieldId='questionLanguage'
+                fieldName='QuestionLanguage'
+                fieldOptions={questionLanguages}
+                fieldValue={
+                  questionLanguages.filter(
+                    (option) => questionDetails.language === option.value,
+                  )[0]
+                }
+                onFieldChange={(option) =>
+                  onChangeQuestionField('language', option.value)
+                }
+                fieldLabel='Question Language'
+              />
+            </GridItem>
+          </GridContainer>
+        )}
+      </FieldsSelect>
       {authManager.isAdmin() && (
         <GridContainer className={classes.inputsRow}>
           <GridItem xs={12} sm={12} md={3}>
@@ -405,29 +402,29 @@ const QuestionForm = ({ isNewQuestion }) => {
               questionDetails?.state === 'pending_adviser_acceptance' &&
               currentUser?.id === questionDetails?.assignedAdviserId
             ) &&
-              !(
-                authManager.isAdviser() &&
-                noActionStates.includes(questionDetails.state)
-              ) && (
-                <Grid
-                  item
-                  xs={6}
-                  className={`${questionRoasterClasses.answerButtonsContainer} ${classes.attachmentContainer}`}>
-                  <AttachmentUploader
-                    containerClassName={
-                      questionRoasterClasses.attachmentUploaderContainer
-                    }
-                    attachments={questionDetails.attachments}
-                    attachmentsGroupsId={questionDetails.attachmentsGroupsId}
-                    setAttachmentsGroupsId={(attachmentsGroupsId) => {
-                      onChangeQuestionField(
-                        'attachmentsGroupsId',
-                        attachmentsGroupsId,
-                      );
-                    }}
-                  />
-                </Grid>
-              )}
+            !(
+              authManager.isAdviser() &&
+              noActionStates.includes(questionDetails.state)
+            ) && (
+              <Grid
+                item
+                xs={6}
+                className={`${questionRoasterClasses.answerButtonsContainer} ${classes.attachmentContainer}`}>
+                <AttachmentUploader
+                  containerClassName={
+                    questionRoasterClasses.attachmentUploaderContainer
+                  }
+                  attachments={questionDetails.attachments}
+                  attachmentsGroupsId={questionDetails.attachmentsGroupsId}
+                  setAttachmentsGroupsId={(attachmentsGroupsId) => {
+                    onChangeQuestionField(
+                      'attachmentsGroupsId',
+                      attachmentsGroupsId,
+                    );
+                  }}
+                />
+              </Grid>
+            )}
             {!(
               authManager.isAdviser() &&
               noActionStates.includes(questionDetails.state)
@@ -442,18 +439,18 @@ const QuestionForm = ({ isNewQuestion }) => {
               />
             )}
             {questionDetails?.state === 'pending_adviser_acceptance' &&
-              currentUser?.id === questionDetails?.assignedAdviserId && (
-                <AcceptAndRejectActionButtons
-                  acceptButtonProps={{
-                    id: 'acceptButton',
-                    onClick: onAcceptAssignment,
-                  }}
-                  rejectButtonProps={{
-                    id: 'rejectButton',
-                    onClick: onRejectAssignment,
-                  }}
-                />
-              )}
+            currentUser?.id === questionDetails?.assignedAdviserId && (
+              <AcceptAndRejectActionButtons
+                acceptButtonProps={{
+                  id: 'acceptButton',
+                  onClick: onAcceptAssignment,
+                }}
+                rejectButtonProps={{
+                  id: 'rejectButton',
+                  onClick: onRejectAssignment,
+                }}
+              />
+            )}
           </Grid>
         </GridItem>
       </GridContainer>

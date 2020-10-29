@@ -51,7 +51,7 @@ const QuestionDetailsPage = () => {
   );
 
   if (isLoading) {
-    return <LoadingCircle />;
+    return <LoadingCircle/>;
   }
 
   const onDeployQuestionClicked = () => {
@@ -60,7 +60,6 @@ const QuestionDetailsPage = () => {
       .then(() => {
         history.push('/admin/questions');
       })
-      .catch(() => {})
       .finally(() => setIsLoadingForUpdating(false));
   };
 
@@ -73,19 +72,19 @@ const QuestionDetailsPage = () => {
               {isNewQuestion ? 'Add Question' : 'Edit Question'}
             </Typography>
           </CardHeader>
-          <QuestionForm isNewQuestion={isNewQuestion} />
+          <QuestionForm isNewQuestion={isNewQuestion}/>
           <CardFooter className={classes.footerButtons}>
             {!isNewQuestion &&
-              authManager.isAdmin() &&
-              questionDetails.state === 'pending_deployment_to_roaster' && (
-                <Button
-                  id={'approveQuestion'}
-                  disabled={isLoadingForUpdating}
-                  onClick={onDeployQuestionClicked}
-                  color='primary'>
-                  Deploy to question roaster
-                </Button>
-              )}
+            authManager.isAdmin() &&
+            questionDetails.state === 'pending_deployment_to_roaster' && (
+              <Button
+                id={'approveQuestion'}
+                disabled={isLoadingForUpdating}
+                onClick={onDeployQuestionClicked}
+                color='primary'>
+                Deploy to question roaster
+              </Button>
+            )}
           </CardFooter>
         </Card>
       </GridItem>
@@ -93,7 +92,7 @@ const QuestionDetailsPage = () => {
         <GridItem xs={12}>
           {questionDetails.answers?.map((answer, index) => (
             <div id={answer.referenceNumber} key={`answer-${index}`}>
-              <AnswerView answer={answer} index={index} setRating={setRating} />
+              <AnswerView answer={answer} index={index} setRating={setRating}/>
             </div>
           ))}
         </GridItem>

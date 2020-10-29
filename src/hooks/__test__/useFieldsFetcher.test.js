@@ -1,9 +1,9 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
-import { AuthProvider } from '../../../../pages/auth/context/auth';
-import { LocaleProvider } from '../../../../hooks/localization/context';
+import { AuthProvider } from '../../pages/auth/context/auth';
+import { LocaleProvider } from '../localization/context';
 import useFieldsFetcher from '../useFieldsFetcher';
-import { fetchFields } from '../../../../apis/fieldsAPI';
+import { fetchFields } from '../../apis/fieldsAPI';
 
 jest.mock('apis/fieldsAPI', () => ({
   __esModule: true, // this property makes it work
@@ -47,7 +47,7 @@ describe('fetch fields', () => {
     await waitForNextUpdate()
 
     expect(fetchFields).toHaveBeenLastCalledWith(locale);
-    expect(result.current.majorFields.length).toEqual(4);
+    expect(result.current.fields.length).toEqual(4);
   });
 
   it('should fetch all major fields in arabic', async () => {
@@ -67,7 +67,7 @@ describe('fetch fields', () => {
     await waitForNextUpdate()
 
     expect(fetchFields).toHaveBeenLastCalledWith(locale);
-    expect(result.current.majorFields.length).toEqual(4);
+    expect(result.current.fields.length).toEqual(4);
     expect(result.current.loading).toEqual(false)
   });
 });

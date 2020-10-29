@@ -3,45 +3,37 @@ import t from 'locales/en/freelancerProfile.json';
 import AutoCompleteSelectField from 'components/CustomInput/AutoCompleteSelectField';
 
 const SpecificFieldSelect = ({
-  fields,
-  handleOptionsChange,
-  value,
-  selectedMajorFields,
-  loading,
-}) => {
-  const availableSpecificFieldsOptions = useCallback(() => {
-    if (!!selectedMajorFields && selectedMajorFields.length > 0) {
-      let availableSubFields;
-      availableSubFields = selectedMajorFields
-        .map((majorField) => {
-          let majorFieldRelatedOptions;
-          const majorFieldRelatedSubFields = fields.filter(
-            (field) => field.label === majorField.label,
-          )[0].fields;
-          majorFieldRelatedOptions = majorFieldRelatedSubFields.map(
-            (subfield) => {
-              subfield['majorField'] = majorField.label;
-              return subfield;
-            },
-          );
-          return majorFieldRelatedOptions;
-        })
-        .flat();
+                               fields,
+                               handleOptionsChange,
+                               selectedFields,
+                               loading,
+                               selectedMajorFieldIDs,
+                             }) => {
 
+  const availableFieldsOptions = useCallback(() => {
+    if (!!selectedMajorFieldIDs && selectedMajorFieldIDs.length > 0) {
+      const availableSubFields = fields.filter((majorField) => {
+        selectedMajorFieldIDs.includes(majorField.id);
+      }).map((majorField) => (
+        majorField.fields.map((subfield) => {
+          subfield['majorField'] = majorField.label;
+          return subfield;
+        })
+      ));
       return availableSubFields;
     } else {
       return [];
     }
-  }, [selectedMajorFields]);
+  }, [selectedMajorFieldIDs]);
 
   return (
     <AutoCompleteSelectField
       name='specificFieldsOfExperience'
       id='specificFieldsOfExperienceSelect'
       onChange={handleOptionsChange}
-      groupBy={(option) => option.majorFieldLabel}
-      options={availableSpecificFieldsOptions()}
-      value={value}
+      groupBy={(option) => option.majorField}
+      options={availableFieldsOptions()}
+      value={selectedFields}
       inputLabel={t['specificField']}
       loading={loading}
     />

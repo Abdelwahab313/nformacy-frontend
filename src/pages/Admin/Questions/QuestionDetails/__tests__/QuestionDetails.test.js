@@ -1,6 +1,5 @@
 import { render, waitFor } from '@testing-library/react';
 import { AuthProvider } from '../../../../auth/context/auth';
-import { LocaleProvider } from '../../../../../hooks/localization/context';
 import { fetchQuestionDetails } from '../../../../../apis/questionsAPI';
 import React from 'react';
 import QuestionDetails from '../index';
@@ -38,30 +37,8 @@ jest.mock('apis/questionsAPI', () => ({
   }),
 }));
 
-
-jest.mock('apis/fieldsAPI', () => ({
-  __esModule: true, // this property makes it work
-  default: 'mockedDefaultExport',
-  fetchFields: jest.fn().mockResolvedValue({
-    data: [
-      {
-        id: 1,
-        label: 'Finance',
-      },
-      {
-        id: 2,
-        label: 'Marketing',
-      },
-      {
-        id: 3,
-        label: 'FinTech',
-      },
-      {
-        id: 4,
-        label: 'Accounting',
-      },
-    ],
-  }),
+jest.mock('hooks/localization/useLocale', () => jest.fn().mockReturnValue({
+  locale: 'en',
 }));
 
 it('should match snapshot', async () => {
@@ -70,9 +47,7 @@ it('should match snapshot', async () => {
   const { asFragment } = render(
     <Router history={history}>
       <AuthProvider>
-        <LocaleProvider initialLocale={'en'}>
-          <QuestionDetails />
-        </LocaleProvider>
+        <QuestionDetails/>
       </AuthProvider>
     </Router>,
   );
