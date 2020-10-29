@@ -10,10 +10,9 @@ const styles = {
     color: colors.darkBlue,
   },
   progressContainer: {
-    position: 'absolute',
-    left: '50%',
-    top: '50%',
-    transform: 'translate(-50%, -50%)',
+    display: 'flex',
+    alignContent: 'center',
+    alignItems: 'center',
   },
 };
 

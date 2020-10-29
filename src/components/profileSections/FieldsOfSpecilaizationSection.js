@@ -7,18 +7,21 @@ import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { dividerStyle, useStyles } from '../../styles/formsStyles';
-import React, { useRef } from 'react';
+import React, { Fragment, useRef } from 'react';
 import t from '../../locales/en/freelancerProfile.json';
 import FieldsOfSpecializationForm from '../forms/FieldsOfSpecializationForm';
 import Transition from '../animations/Transition';
-import { fieldsOfExperience } from '../../constants/dropDownOptions';
+import { groupBy } from 'lodash';
+import useFieldsFetcher from '../../hooks/useFieldsFetcher';
+import LoadingCircle from '../progress/LoadingCircle';
+import clsx from 'clsx';
 
 const FieldsOfSpecializationSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
+  const { getFieldLabel, loading } = useFieldsFetcher();
+  const fields = groupBy(user.current.fields, 'majorFieldId');
   const [open, setOpen] = React.useState(false);
-
   const classes = useStyles();
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -26,9 +29,6 @@ const FieldsOfSpecializationSection = () => {
     setOpen(false);
   };
 
-  const isMajorContainsSpecificField = (subField) => {
-    return user.current.specificFieldsOfExperience.filter(specificField => specificField.value === subField.value).length > 0;
-  };
   return (
     <Grid item id='fieldsOfSpecialization'>
       <Dialog
@@ -39,7 +39,7 @@ const FieldsOfSpecializationSection = () => {
         open={open}>
         <DialogContent>
           <Grid container>
-            <FieldsOfSpecializationForm user={user} closeDialog={handleClose}/>
+            <FieldsOfSpecializationForm user={user} closeDialog={handleClose} />
           </Grid>
         </DialogContent>
       </Dialog>
@@ -52,17 +52,31 @@ const FieldsOfSpecializationSection = () => {
             </Typography>
           </Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
-            <IconButton aria-label='edit' id='editFieldsOfSpecializations' onClick={handleClickOpen}>
-              <EditIcon color={'primary'}/>
+            <IconButton
+              aria-label='edit'
+              id='editFieldsOfSpecializations'
+              onClick={handleClickOpen}>
+              <EditIcon color={'primary'} />
             </IconButton>
           </Grid>
         </Grid>
-        <Divider variant='middle' style={dividerStyle}/>
-        <Grid container spacing={5} className={classes.paperSectionContentStyles}>
-          <Grid item xs={12} className={classes.sectionRowContainerStyles} style={{ paddingLeft: '45px' }}>
+        <Divider variant='middle' style={dividerStyle} />
+        <Grid
+          container
+          spacing={5}
+          className={classes.paperSectionContentStyles}>
+          <Grid
+            item
+            xs={12}
+            className={clsx([
+              classes.industrySectionContainer,
+              classes.sectionRowContainerStyles,
+            ])}>
             <Grid container className={classes.sectionRowStyles}>
               <Grid item xs={6}>
-                <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+                <Typography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
                   {t['industryOfExperience']}
                 </Typography>
               </Grid>
@@ -80,33 +94,54 @@ const FieldsOfSpecializationSection = () => {
             </Grid>
             <Grid container className={classes.sectionRowStyles}>
               <Grid item xs={6}>
-                <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+                <Typography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
                   {t['experiencedIn']}
                 </Typography>
               </Grid>
-              <Grid item xs={6}>
-                {user.current?.majorFieldsOfExperience?.map((major, key) => (
-                  <Grid
-                    id='majorFieldsOfExperience'
-                    key={key}
-                    className={classes.fieldLabelStylesDesktop}>
-                    {major.label + ':'}
-                    <Grid container>
-                      {fieldsOfExperience.find(experience => experience.value === major.value).subfields.filter(specificField => isMajorContainsSpecificField(specificField))?.map((field, key) => (
-                        <Grid item className={classes.subFieldContainerStyles} key={key}>
-                          <Typography gutterBottom className={classes.subFieldValueStyles}>
-                            {field.label}
-                          </Typography>
+              {!loading && (
+                <Fragment>
+                  {' '}
+                  <Grid item xs={6}>
+                    {Object.entries(fields)?.map(
+                      ([majorFieldId, subFields], key) => (
+                        <Grid
+                          id='majorFieldsOfExperience'
+                          key={key}
+                          className={classes.fieldLabelStylesDesktop}>
+                          {getFieldLabel(parseInt(majorFieldId)) + ':'}
+                          <Grid container>
+                            {subFields?.map((field, key) => (
+                              <Grid
+                                item
+                                className={classes.subFieldContainerStyles}
+                                key={key}>
+                                <Typography
+                                  gutterBottom
+                                  className={classes.subFieldValueStyles}>
+                                  {field.label}
+                                </Typography>
+                              </Grid>
+                            ))}
+                          </Grid>
                         </Grid>
-                      ))}
-                    </Grid>
+                      ),
+                    )}
                   </Grid>
-                ))}
-              </Grid>
+                </Fragment>
+              )}
+              {loading && (
+                <Grid item xs={6}>
+                  <LoadingCircle />
+                </Grid>
+              )}
             </Grid>
             <Grid container className={classes.sectionRowStyles}>
               <Grid item xs={6}>
-                <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+                <Typography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
                   {t['assignmentLanguage']}
                 </Typography>
               </Grid>
@@ -124,7 +159,9 @@ const FieldsOfSpecializationSection = () => {
             </Grid>
             <Grid container className={classes.sectionRowStyles}>
               <Grid item xs={6}>
-                <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+                <Typography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
                   {t['typesOfAssignments']}
                 </Typography>
               </Grid>

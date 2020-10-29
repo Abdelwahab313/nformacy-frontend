@@ -35,27 +35,23 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
   }, [majorFieldsOptions, loading]);
 
   const handleMajorFieldChange = (selectedList) => {
-    console.log('---Change ', selectedList);
     setSelectedMajorFields(selectedList);
     const majorFieldIds = selectedList.map(
       (majorField) => majorField.id,
     );
-    const updatedSubFields = initialFields.filter((field) =>
+    const updatedSubFields = initialFields?.filter((field) =>
       majorFieldIds.includes(field.majorFieldId),
     );
-    console.log('---UPDATED SUB FIELDS', updatedSubFields);
-    updateFields([...updatedSubFields]);
+    updateFields(updatedSubFields);
   };
 
   // @selectedList [{id,label,majorFieldId}]
   const handleFieldsChange = (selectedList) => {
-    // console.log('--------subfield', selectedList, majorFieldsOptions)
     updateFields(selectedList);
   };
 
   // @return [{id,label,majorFieldLabel}]
   const availableSubFieldsOptions = useMemo(() => {
-    // console.log('-------', selectedMajorFields);
     if (!!selectedMajorFields && selectedMajorFields.length > 0) {
       const selectedMajorFieldsIDs = selectedMajorFields.map(
         (majorField) => majorField.id,
@@ -64,19 +60,16 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
       const availableMajorFields = majorFieldsOptions.filter((majorField) => {
         return selectedMajorFieldsIDs.includes(majorField.id);
       });
-      // console.log('-------+++', selectedMajorFieldsIDs, majorFieldsOptions, availableMajorFields);
 
       const availableSubFields = availableMajorFields
         ?.map((majorField) => getSubFieldsOptions(majorField))
         .flat();
-      // console.log('available subfields', availableSubFields);
       return availableSubFields;
     } else {
       return [];
     }
   }, [selectedMajorFields, majorFieldsOptions]);
 
-  // console.log('--------', availableSubFieldsOptions);
 
   const MajorField = () => (
     <AutoCompleteSelectField
@@ -92,7 +85,7 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
 
   const Field = () => (
     <AutoCompleteSelectField
-      name='specificFieldsOfExperience'
+      name='fields'
       id='specificFieldsOfExperienceSelect'
       inputLabel={t['specificField']}
       options={availableSubFieldsOptions}
