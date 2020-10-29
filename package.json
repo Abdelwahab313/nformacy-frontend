@@ -125,6 +125,7 @@
     "pm2": "^4.2.0",
     "prettier": "^1.18.2",
     "prop-types": "^15.7.2",
+    "react-query-devtools": "^2.6.0",
     "wait-for-localhost": "^3.3.0"
   },
   "cypress-cucumber-preprocessor": {

@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { createMuiTheme, StylesProvider, ThemeProvider } from '@material-ui/core/styles';
+import {
+  createMuiTheme,
+  StylesProvider,
+  ThemeProvider,
+} from '@material-ui/core/styles';
 import { create } from 'jss';
 import preset from 'jss-preset-default';
 import rtl from 'jss-rtl';
-import { darkBlue, grey, lighterPink, lightGrey, lightPink } from 'styles/colors';
+import {
+  darkBlue,
+  grey,
+  lighterPink,
+  lightGrey,
+  lightPink,
+} from 'styles/colors';
 import MainRouter from 'layouts/MainRouter';
 import '../styles/fonts.css';
 import { QueryCache, ReactQueryCacheProvider } from 'react-query';
@@ -11,6 +21,7 @@ import fontNames from '../constants/fonts';
 import useLocale from '../hooks/localization/useLocale';
 import { useTranslation } from 'react-i18next';
 import DIRECTIONS from '../constants/direction';
+import { ReactQueryDevtools } from 'react-query-devtools';
 
 const presets = preset().plugins;
 
@@ -63,6 +74,10 @@ function Main() {
       <StylesProvider jss={jss}>
         <ReactQueryCacheProvider queryCache={queryCache}>
           <MainRouter />
+          {(!process.env.NODE_ENV ||
+            process.env.NODE_ENV === 'development') && (
+            <ReactQueryDevtools initialIsOpen />
+          )}
         </ReactQueryCacheProvider>
       </StylesProvider>
     </ThemeProvider>

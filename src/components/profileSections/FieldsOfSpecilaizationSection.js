@@ -133,7 +133,7 @@ const FieldsOfSpecializationSection = () => {
               )}
               {loading && (
                 <Grid item xs={6}>
-                  <LoadingCircle />
+                  <LoadingCircle containerClass={classes.loadingContainer} />
                 </Grid>
               )}
             </Grid>

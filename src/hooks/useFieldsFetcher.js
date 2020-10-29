@@ -5,14 +5,16 @@ import { useQuery } from 'react-query';
 
 const useFieldFetcher = () => {
   const { locale } = useLocale();
-  const [fields, setFields] = useState([]);
-  const { isFetching } = useQuery(locale, fetchFields, {
+  const { isFetching, data: response } = useQuery(locale, fetchFields, {
+    staleTime: 'Infinity',
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
+    refetchOnMount: false,
     onSuccess: (response) => {
       setFields(response.data);
     },
   });
+  const [fields, setFields] = useState(response ? response.data : []);
 
   const getFieldLabel = (fieldId) => {
     return fields?.find((field) => field.id === fieldId)?.label;

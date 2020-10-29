@@ -302,6 +302,11 @@ export const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'space-evenly',
   },
+  loadingContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    alignContent: 'center',
+  },
   industrySectionContainer: { paddingLeft: '45px' },
   paperSectionContentStyles: {
     marginTop: '10px !important',
