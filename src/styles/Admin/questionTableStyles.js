@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles( () => ({
+export const useStyles = makeStyles(() => ({
   columnHeader: { fontWeight: 'bold', whiteSpace: 'nowrap' },
   link: { textDecoration: 'none' },
   field: { margin: 2 },
@@ -13,5 +13,10 @@ export const useStyles = makeStyles( () => ({
   },
   nowrapText: {
     whiteSpace: 'nowrap',
-  }
+  },
+  loadingContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    alignContent: 'center',
+  },
 }));

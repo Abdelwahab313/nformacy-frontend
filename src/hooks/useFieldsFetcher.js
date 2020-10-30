@@ -6,7 +6,6 @@ import { fetchCurrentUserFields } from '../apis/userAPI';
 import { groupBy } from 'lodash';
 
 const queryConfig = {
-  staleTime: 'Infinity',
   refetchOnWindowFocus: false,
   refetchOnReconnect: false,
   refetchOnMount: false,
@@ -19,6 +18,7 @@ const groupFieldsByMajorFieldId = (fields) => {
 const useFieldFetcher = () => {
   const { locale } = useLocale();
   const { isFetching, data: response } = useQuery(locale, fetchFields, {
+    staleTime: 'Infinity',
     ...queryConfig,
     onSuccess: (response) => {
       setFields(response.data);
@@ -52,7 +52,7 @@ const useFieldFetcher = () => {
     loading: isFetching || isUserFieldsFetching,
     getFieldLabel,
     currentUserFields,
-    updateUserFields: refetch
+    updateUserFields: refetch,
   };
 };
 export default useFieldFetcher;

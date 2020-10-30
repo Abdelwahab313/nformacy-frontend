@@ -15,6 +15,7 @@ import { questionStatusActions } from 'constants/questionStatus';
 import { questionTypesOfAssignment } from 'constants/dropDownOptions';
 import ByTimeField from './subComponents/ByTimeField';
 import { useStyles } from '../../../../styles/Admin/questionTableStyles';
+import QuestionFields from './subComponents/QuestionFields';
 
 export const COLUMN_NAMES = {
   id: 'id',
@@ -154,26 +155,14 @@ const getColumnsFor = (isAdviser, classes) => {
       },
     },
     {
-      name: 'field',
+      name: 'fields',
       label: 'Fields',
       options: {
         ...defaultColumnOption,
         display: !isAdviser,
         filter: false,
         filterType: 'multiselect',
-        customBodyRender: (value) => {
-          return value?.map((val, key) => {
-            return (
-              <div>
-                <Chip
-                  className={classes.field}
-                  label={val.label}
-                  key={key.value}
-                />
-              </div>
-            );
-          });
-        },
+        customBodyRender: (fields) => <QuestionFields fields={fields} />,
       },
     },
     {

@@ -18,12 +18,12 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-const LoadingCircle = ({ containerClass, ...restProps }) => {
+const LoadingCircle = ({ containerClass, size = 40, ...restProps }) => {
   const classes = useStyles();
   return (
     <div
       className={containerClass ? containerClass : classes.progressContainer}>
-      <CircularProgress className={classes.defaultColor} {...restProps} />
+      <CircularProgress className={classes.defaultColor} size={size} {...restProps} />
     </div>
   );
 };
