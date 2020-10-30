@@ -62,6 +62,15 @@ const fetchAdvisersList = () => {
     url: `${API_BASE_URL}/users/list_advisers`,
   }).then((response) => camelizeKeys(response));
 };
+
+
+const fetchCurrentUserFields = (locale) => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/users/fields`,
+    params: { locale: locale },
+  }).then((response) => camelizeKeys(response));
+}
 export {
   signup,
   updateProfile,
@@ -70,4 +79,5 @@ export {
   activateFreelancer,
   fetchAdvisersList,
   changeLocaleAPI,
+  fetchCurrentUserFields
 };

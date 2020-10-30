@@ -11,15 +11,19 @@ import React, { Fragment, useRef } from 'react';
 import t from '../../locales/en/freelancerProfile.json';
 import FieldsOfSpecializationForm from '../forms/FieldsOfSpecializationForm';
 import Transition from '../animations/Transition';
-import { groupBy } from 'lodash';
 import useFieldsFetcher from '../../hooks/useFieldsFetcher';
 import LoadingCircle from '../progress/LoadingCircle';
 import clsx from 'clsx';
+import { flatMap } from 'lodash';
 
 const FieldsOfSpecializationSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
-  const { getFieldLabel, loading } = useFieldsFetcher();
-  const fields = groupBy(user.current.fields, 'majorFieldId');
+  const {
+    getFieldLabel,
+    loading,
+    currentUserFields,
+    updateUserFields,
+  } = useFieldsFetcher();
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const handleClickOpen = () => {
@@ -39,7 +43,12 @@ const FieldsOfSpecializationSection = () => {
         open={open}>
         <DialogContent>
           <Grid container>
-            <FieldsOfSpecializationForm user={user} closeDialog={handleClose} />
+            <FieldsOfSpecializationForm
+              user={user}
+              fields={flatMap(currentUserFields)}
+              updateFields={() => updateUserFields()}
+              closeDialog={handleClose}
+            />
           </Grid>
         </DialogContent>
       </Dialog>
@@ -102,9 +111,8 @@ const FieldsOfSpecializationSection = () => {
               </Grid>
               {!loading && (
                 <Fragment>
-                  {' '}
                   <Grid item xs={6}>
-                    {Object.entries(fields)?.map(
+                    {Object.entries(currentUserFields)?.map(
                       ([majorFieldId, subFields], key) => (
                         <Grid
                           id='majorFieldsOfExperience'

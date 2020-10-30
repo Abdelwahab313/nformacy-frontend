@@ -1,30 +1,34 @@
 import FieldsOfSpecialization from './FieldsOfSpecialization';
 import Button from '@material-ui/core/Button';
 import { FormContext, useForm } from 'react-hook-form';
-import React, { useRef } from 'react';
+import React from 'react';
 import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
 import { updateProfile } from '../../apis/userAPI';
 import { updateUser } from '../../pages/auth/context/authActions';
 import { useAuth } from '../../pages/auth/context/auth';
 
-const FieldsOfSpecializationForm = ({ user, closeDialog }) => {
+const FieldsOfSpecializationForm = ({
+  user,
+  fields,
+  updateFields,
+  closeDialog,
+}) => {
   const formMethods = useForm({
-    defaultValues: { ...user.current },
+    defaultValues: { ...user.current, fields },
   });
   const classes = useStyles();
-  const [_, dispatch] = useAuth();
+  const [, dispatch] = useAuth();
 
   const onSubmitFieldsOfSpecialization = (userData) => {
     const userToBeSubmitted = {
       ...userData,
       id: user.current.id,
     };
-    updateProfile(userToBeSubmitted, user.current.id)
-      .then((response) => {
-        updateUser(dispatch, response.data);
-      })
-      .catch((error) => {});
+    updateProfile(userToBeSubmitted, user.current.id).then((response) => {
+      updateUser(dispatch, response.data);
+    });
     user.current = { ...user.current, ...userData };
+    updateFields();
     closeDialog();
   };
 
