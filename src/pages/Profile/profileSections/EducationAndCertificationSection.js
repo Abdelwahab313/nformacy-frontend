@@ -5,11 +5,11 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
-import t from '../../locales/en/freelancerProfile.json';
+import t from '../../../locales/en/freelancerProfile.json';
 import Divider from '@material-ui/core/Divider';
-import { dividerStyle, useStyles } from '../../styles/formsStyles';
+import { dividerStyle, useStyles } from '../../../styles/formsStyles';
 import React, { useEffect, useRef, useState } from 'react';
-import EducationAndCertificationForm from '../forms/EducationAndCertificationForm';
+import EducationAndCertificationForm from '../../../components/forms/EducationAndCertificationForm';
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
@@ -19,8 +19,8 @@ import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
 import SchoolIcon from '@material-ui/icons/School';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-import Transition from '../animations/Transition';
-import { formattedDate } from '../../services/dateTimeParser';
+import Transition from '../../../components/animations/Transition';
+import { formattedDate } from '../../../services/dateTimeParser';
 
 const EducationAndCertificationSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -51,7 +51,6 @@ const EducationAndCertificationSection = () => {
         ...certificate,
         date: new Date(certificate.startDate || Date.now()),
       };
-      console.log(certificate.startDate);
       history.push(historyEntry);
     });
     return history.sort((entry1, entry2) =>

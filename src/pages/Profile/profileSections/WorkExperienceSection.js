@@ -5,9 +5,9 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
-import t from '../../locales/en/freelancerProfile.json';
+import t from '../../../locales/en/freelancerProfile.json';
 import Divider from '@material-ui/core/Divider';
-import { dividerStyle, useStyles } from '../../styles/formsStyles';
+import { dividerStyle, useStyles } from '../../../styles/formsStyles';
 import React, { useEffect, useRef, useState } from 'react';
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
@@ -17,9 +17,9 @@ import TimelineDot from '@material-ui/lab/TimelineDot';
 import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
 import WorkIcon from '@material-ui/icons/Work';
-import Transition from '../animations/Transition';
-import WorkExperienceForm from '../forms/WorkExperienceForm';
-import { formattedDate } from '../../services/dateTimeParser';
+import Transition from '../../../components/animations/Transition';
+import WorkExperienceForm from '../../../components/forms/WorkExperienceForm';
+import { formattedDate } from '../../../services/dateTimeParser';
 
 const WorkExperienceSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));

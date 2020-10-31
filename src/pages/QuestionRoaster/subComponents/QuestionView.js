@@ -1,41 +1,23 @@
 import React from 'react';
 import AssignmentType from './AssignmentType';
-import Chip from '@material-ui/core/Chip';
-import { Grid, Tooltip } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from 'styles/questionRoasterStyles';
 import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 import { useHistory } from 'react-router';
-import { fieldsOfExperience } from 'constants/dropDownOptions';
 import SubmitButton from 'components/buttons/SubmitButton';
 import createMarkup from '../../../services/markup';
 import Countdown from 'react-countdown';
 import CountdownBoxShape from 'components/counters/CountdownBoxShape';
-import * as colors from '../../../styles/colors';
-import styled from 'styled-components';
 import ShowMore from '../../../components/Typography/ShowMore';
 import directions from '../../../constants/direction';
 import DEFAULT_LOCALES from '../../../constants/locale';
 import { useTranslation } from 'react-i18next';
+import QuestionFieldsChips from './QuestionFieldsChips';
 
 const LANGUAGES_LOCALES_MAPPER = {
   english: 'en',
   arabic: 'ar',
-};
-
-const isInSecondSequence = (number) => {
-  for (let i = 1; i <= number; i += 3) {
-    if (i === number) return true;
-  }
-  return false;
-};
-const getColorForField = (index) => {
-  if (index === 0 || index % 3 === 0) {
-    return colors.turquoise;
-  } else if (isInSecondSequence(index)) {
-    return colors.darkOrange;
-  }
-  return colors.lightOrange;
 };
 
 export const getFirstParagraph = (htmlContent) => {
@@ -43,9 +25,6 @@ export const getFirstParagraph = (htmlContent) => {
   return matches ? matches[0] : 'No Content';
 };
 
-const StyledFilterChip = styled(Chip)`
-  background-color: ${(props) => getColorForField(props.index)};
-`;
 const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   const classes = useStyles();
   const history = useHistory();
@@ -57,14 +36,6 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   function handleEditClick(questionReference) {
     history.push(`/question/answer/${questionReference}`, { questionDetails });
   }
-
-  const isMajorContainsSpecificField = (subField) => {
-    return (
-      questionDetails.subfield.filter(
-        (specificField) => specificField.value === subField.value,
-      ).length > 0
-    );
-  };
 
   return (
     <Grid
@@ -146,46 +117,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
             </Grid>
             {/* =======Major and Minor======= */}
             <Grid item md={12} xs={12} className={classes.flexContainer}>
-              <Grid className={classes.fieldContainer}>
-                {questionDetails.field?.map((major, key) => (
-                  <Grid>
-                    <Tooltip
-                      title={
-                        <Typography>
-                          {fieldsOfExperience
-                            .find(
-                              (experience) =>
-                                experience.value === major.value,
-                            )
-                            .subfields.filter((specificField) =>
-                              isMajorContainsSpecificField(specificField),
-                            )
-                            ?.map((field, key) => (
-                              <Grid
-                                key={key}
-                                id={`questionSubFields-${questionDetails.referenceNumber}-${key}`}
-                                item>
-                                {field.label}
-                              </Grid>
-                            ))}
-                        </Typography>
-                      }>
-                      <StyledFilterChip
-                        key={key}
-                        index={key}
-                        className={classes.fieldChip}
-                        label={
-                          <Typography
-                            id={`questionMajorFields-${questionDetails.referenceNumber}-${key}`}
-                            className={classes.fieldChipText}>
-                            {major.label}
-                          </Typography>
-                        }
-                      />
-                    </Tooltip>
-                  </Grid>
-                ))}
-              </Grid>
+              <QuestionFieldsChips questionDetails={questionDetails}/>
             </Grid>
             {/* =======Content======= */}
             <Grid item md={12} xs={12}>

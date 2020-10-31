@@ -3,16 +3,11 @@ import { fetchFields } from '../apis/fieldsAPI';
 import useLocale from './localization/useLocale';
 import { useQuery } from 'react-query';
 import { fetchCurrentUserFields } from '../apis/userAPI';
-import { groupBy } from 'lodash';
 
 const queryConfig = {
   refetchOnWindowFocus: false,
   refetchOnReconnect: false,
   refetchOnMount: false,
-};
-
-const groupFieldsByMajorFieldId = (fields) => {
-  return groupBy(fields, 'majorFieldId');
 };
 
 const useFieldFetcher = () => {
@@ -32,25 +27,20 @@ const useFieldFetcher = () => {
   } = useQuery([locale, 'currentUserFields'], fetchCurrentUserFields, {
     ...queryConfig,
     onSuccess: (response) => {
-      const fieldsGroupedByMajor = groupFieldsByMajorFieldId(response.data);
-      setCurrentUserFields(fieldsGroupedByMajor);
+      setCurrentUserFields(response.data);
     },
   });
 
   const [currentUserFields, setCurrentUserFields] = useState(
     userFieldsResponse
-      ? groupFieldsByMajorFieldId(userFieldsResponse.data)
+      ? userFieldsResponse.data
       : [],
   );
 
-  const getFieldLabel = (fieldId) => {
-    return fields?.find((field) => field.id === fieldId)?.label;
-  };
 
   return {
     fields,
     loading: isFetching || isUserFieldsFetching,
-    getFieldLabel,
     currentUserFields,
     updateUserFields: refetch,
   };

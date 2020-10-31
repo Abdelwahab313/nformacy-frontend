@@ -11,7 +11,8 @@ jest.mock('react-i18next', () => {
     ...require.requireActual('react-i18next'),
     useTranslation: jest.fn().mockReturnValue({
       i18n: {
-        getFixedT: () => () => {},
+        getFixedT: () => () => {
+        },
       },
       t: (key) => key,
     }),
@@ -30,7 +31,11 @@ jest.mock('apis/questionsAPI', () => ({
           'From the viewpoint of what you can do, therefore, languages do differ - but the differences are limited. For example, Python and Ruby provide almost the same power to the programmer.',
         createdAt: '2020-09-14T09:25:55.689Z',
         currentActionTime: '2020-09-14T22:02:28.411Z',
-        field: [{ value: 'marketingAndPR', label: 'Marketing and PR' }],
+        fields: [{
+          id: 36,
+          label: 'Audit',
+          major_field_id: 2,
+        }],
         hoursToCloseAnswers: null,
         hoursToReviewAndEdit: null,
         id: 1,
@@ -39,7 +44,6 @@ jest.mock('apis/questionsAPI', () => ({
         mediaId: null,
         referenceNumber: 2000100,
         state: 'pending_adviser_acceptance',
-        subfield: [{ value: 'marketResearch', label: 'Market Research' }],
         title: 'Elmer',
       },
     ],
@@ -52,7 +56,7 @@ describe('Question Roaster View', () => {
       <AuthProvider>
         <QuestionRoasterProvider>
           <LocaleProvider initialLocale={'en'}>
-            <QuestionRoasterView />
+            <QuestionRoasterView/>
           </LocaleProvider>
         </QuestionRoasterProvider>
       </AuthProvider>,

@@ -3,14 +3,14 @@ import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { useStyles } from '../../styles/formsStyles';
 import ReactTooltip from 'react-tooltip';
-import BasicInfoSection from '../../components/profileSections/BasicInfoSection';
-import PersonalInfoSection from '../../components/profileSections/PersonalInfoSection';
-import FieldsOfSpecializationSection from '../../components/profileSections/FieldsOfSpecilaizationSection';
+import BasicInfoSection from './profileSections/BasicInfoSection';
+import PersonalInfoSection from './profileSections/PersonalInfoSection';
+import FieldsOfSpecializationSection from './profileSections/FieldsOfSpecilaizationSection';
 import Grid from '@material-ui/core/Grid';
-import EducationAndCertificationSection from '../../components/profileSections/EducationAndCertificationSection';
-import WorkExperienceSection from '../../components/profileSections/WorkExperienceSection';
-import SummarySection from '../../components/profileSections/SummarySection';
-import CVSection from '../../components/profileSections/CVSection';
+import EducationAndCertificationSection from './profileSections/EducationAndCertificationSection';
+import WorkExperienceSection from './profileSections/WorkExperienceSection';
+import SummarySection from './profileSections/SummarySection';
+import CVSection from './profileSections/CVSection';
 
 const Profile = () => {
   const classes = useStyles();

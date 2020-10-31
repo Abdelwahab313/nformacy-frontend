@@ -4,20 +4,20 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import { dividerStyle, useStyles } from '../../styles/formsStyles';
+import { dividerStyle, useStyles } from '../../../styles/formsStyles';
 import React, { useRef } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import BasicInfoForm from '../forms/BasicInfoForm';
-import Transition from '../animations/Transition';
-import t from '../../locales/en/freelancerProfile.json';
+import BasicInfoForm from '../../../components/forms/BasicInfoForm';
+import Transition from '../../../components/animations/Transition';
+import t from '../../../locales/en/freelancerProfile.json';
 import Link from '@material-ui/core/Link';
 
 const BasicInfoSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
   const [open, setOpen] = React.useState(false);
   const [profilePic, setProfilePic] = React.useState(
-    user.current.avatar || require('../../assets/emptyavatar.jpg'),
+    user.current.avatar || require('../../../assets/emptyavatar.jpg'),
   );
 
   const handleClickOpen = () => {
@@ -26,8 +26,6 @@ const BasicInfoSection = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  console.log('--------------', user.current);
 
   const classes = useStyles();
   return (
@@ -50,7 +48,7 @@ const BasicInfoSection = () => {
       </Dialog>
       <Paper className={classes.paperSection} elevation={3}>
         <Grid container justify={'space-between'}>
-          <Grid item xs={1} className={classes.paperSectionHeaderStyles} />
+          <Grid item xs={1} className={classes.paperSectionHeaderStyles}/>
           <Grid item xs={10} className={classes.paperSectionHeaderStyles}>
             <Typography gutterBottom className={classes.sectionHeaderStyles}>
               {t['basicInformation']}

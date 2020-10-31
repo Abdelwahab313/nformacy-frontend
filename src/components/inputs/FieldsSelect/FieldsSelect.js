@@ -4,6 +4,7 @@ import useFieldFetcher from 'hooks/useFieldsFetcher';
 
 import t from '../../../locales/en/freelancerProfile.json';
 import AutoCompleteSelectField from '../../CustomInput/AutoCompleteSelectField';
+import { getMajorFieldsFromSubfields } from '../../../core/fields';
 
 const getSubFieldsOptions = (majorField) => {
   return majorField.fields.map((subfield) => {
@@ -12,13 +13,7 @@ const getSubFieldsOptions = (majorField) => {
     return subfield;
   });
 };
-const getMajorFieldsFromSubfields = (majorFieldsOptions, subfields) => {
-  let majorFieldsIds = subfields?.map((subfield) => subfield.majorFieldId);
-  majorFieldsIds = [...new Set(majorFieldsIds)];
-  return majorFieldsOptions.filter((majorField) =>
-    majorFieldsIds.includes(majorField.id),
-  );
-};
+
 
 const FieldsSelect = ({ initialFields, updateFields, children }) => {
   const [selectedMajorFields, setSelectedMajorFields] = useState();
