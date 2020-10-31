@@ -4,25 +4,21 @@ import { updateFetchedQuestions } from '../context/questionsRoasterAction';
 import { useQuestionRoasterContext } from '../context';
 
 const hasField = (question, selectedFields) => {
-  return question.field.some((field) => selectedFields.includes(field.value));
+  return question.fields.some((field) => selectedFields.includes(field.majorFieldId));
 };
 
 export const filterQuestionsByFields = (questions, fieldsFilters) => {
   if (fieldsFilters.length === 0) {
     return questions;
   }
-  return questions.filter((question) => {
-    return hasField(question, fieldsFilters);
-  });
+  return questions.filter((question) => hasField(question, fieldsFilters));
 };
 
 export const filterQuestionsByLanguage = (questions, languageFilter) => {
   if (!languageFilter) {
     return questions;
   }
-  return questions.filter((question) => {
-    return question.language === languageFilter;
-  });
+  return questions.filter((question) => question.language === languageFilter);
 };
 
 const useQuestionsFilter = () => {
@@ -51,8 +47,6 @@ const useQuestionsFilter = () => {
 
   return {
     filteredQuestions,
-    fieldsFilters,
-    languageFilter,
     loading,
     dispatch,
   };

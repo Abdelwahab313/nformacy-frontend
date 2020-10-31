@@ -69,8 +69,8 @@ const fetchCurrentUserFields = (locale) => {
     method: 'get',
     url: `${API_BASE_URL}/users/fields`,
     params: { locale: locale },
-  }).then((response) => camelizeKeys(response));
-}
+  }).then((response) => camelizeKeys(response.data));
+};
 export {
   signup,
   updateProfile,

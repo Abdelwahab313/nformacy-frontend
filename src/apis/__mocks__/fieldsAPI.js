@@ -4,7 +4,7 @@ export const fetchFields = jest.fn().mockResolvedValue({
       id: 1,
       label: 'Finance',
       fields: [
-        { id: 36, label: 'Coaching' },
+        { id: 30, label: 'Coaching' },
       ],
     },
     {
@@ -20,13 +20,22 @@ export const fetchFields = jest.fn().mockResolvedValue({
       id: 3,
       label: 'FinTech',
       fields: [
-        { id: 36, label: 'Coaching' },
+        { id: 39, label: 'Coaching' },
       ],
     },
     {
       id: 4,
       label: 'Accounting',
-      fields: [],
+      fields: [
+        { id: 40, label: 'Coaching' },
+      ],
+    },
+    {
+      id: 5,
+      label: 'Development',
+      fields: [
+        { id: 58, label: 'Coaching' },
+      ],
     },
   ],
 });

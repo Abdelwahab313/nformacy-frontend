@@ -61,7 +61,7 @@ const ThreeDotsDropdown = ({ list, onClickFilter }) => {
             key={key}
             onClick={() => {
               handleClose();
-              onClickFilter(field.value, field.isClicked);
+              onClickFilter(field.id, field.isClicked);
             }}>
             {field.label}
           </MenuItem>

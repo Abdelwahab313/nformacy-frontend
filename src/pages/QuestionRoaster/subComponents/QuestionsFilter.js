@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { Grid } from '@material-ui/core';
-import { fieldsOfExperience } from 'constants/dropDownOptions';
 import { useStyles } from 'styles/questionRoasterStyles';
 import ThreeDotsDropdown from './ThreeDotsDropdown';
 import LanguagesDropdownMenu from './LanguagesDropdownMenu';
@@ -13,56 +12,48 @@ import {
   resetFieldsFilters,
 } from '../context/questionsRoasterAction';
 import { useTranslation } from 'react-i18next';
+import useFieldsFetcher from '../../../hooks/useFieldsFetcher';
+import LoadingCircle from '../../../components/progress/LoadingCircle';
 
 const QuestionsFilter = () => {
   const classes = useStyles();
   const [{ fieldsFilters }, dispatch] = useQuestionRoasterContext();
+  const { fields: fieldsLabels, loading } = useFieldsFetcher();
   const { t } = useTranslation();
 
   const isAllClicked = useMemo(() => fieldsFilters.length === 0, [
     fieldsFilters,
   ]);
   const fieldsFiltersToDisplay = useMemo(() => {
-    return fieldsOfExperience.map((field) => ({
-      value: field.value,
+    return fieldsLabels?.map((field) => ({
+      id: field.id,
       label: field.label,
-      isClicked: fieldsFilters.includes(field.value),
+      isClicked: fieldsFilters.includes(field.id),
     }));
   }, [fieldsFilters]);
 
-  const onClickFilter = (field, isClicked) => {
+  if (loading) {
+    return (
+      <Grid data-testid={'loading'} item xs={6}>
+        <LoadingCircle containerClass={classes.loadingContainer}/>
+      </Grid>
+    );
+  }
+
+  const onClickFilter = (fieldId, isClicked) => {
     if (isClicked) {
-      removeFieldFilter(dispatch, field);
+      removeFieldFilter(dispatch, fieldId);
     } else {
-      addFieldFilter(dispatch, field);
+      addFieldFilter(dispatch, fieldId);
     }
   };
   const onClickAll = () => {
     resetFieldsFilters(dispatch);
   };
-  let filtersList = [];
-  const numberOfVisibleFilters = 4;
-  for (let i = 0; i < numberOfVisibleFilters; i++) {
-    const { value, label, isClicked } = fieldsFiltersToDisplay[i];
-    filtersList.push(
-      <div
-        key={i}
-        id={`filters-${i}`}
-        className={clsx({
-          [classes.activeFilterStyle]: isClicked,
-          [classes.inactiveFilterStyle]: !isClicked,
-        })}
-        onClick={() => {
-          onClickFilter(value, isClicked);
-        }}>
-        {label}
-      </div>,
-    );
-  }
-  const filterDropdownOptions = [];
-  for (let i = numberOfVisibleFilters; i < fieldsFiltersToDisplay.length; i++) {
-    filterDropdownOptions.push(fieldsFiltersToDisplay[i]);
-  }
+  const NUMBER_OF_VISIBLE_FILTERS = 4;
+
+  const visibleFilters = fieldsFiltersToDisplay.slice(0, NUMBER_OF_VISIBLE_FILTERS);
+  const filterDropdownOptions = fieldsFiltersToDisplay.slice(NUMBER_OF_VISIBLE_FILTERS, fieldsFiltersToDisplay.length);
 
   return (
     <Grid item xs={12} sm={10}>
@@ -81,14 +72,23 @@ const QuestionsFilter = () => {
             })}>
             {isAllClicked ? t('questionRoaster:all') : t('questionRoaster:clearAll')}
           </div>
-          {filtersList.map((filter) => {
-            return filter;
+          {visibleFilters.map((filter, key) => {
+            return (<div
+              key={key}
+              id={`filters-${key}`}
+              className={clsx({
+                [classes.activeFilterStyle]: filter.isClicked,
+                [classes.inactiveFilterStyle]: !filter.isClicked,
+              })}
+              onClick={() => {
+                onClickFilter(filter.id, filter.isClicked);
+              }}>
+              {filter.label}
+            </div>);
           })}
           <ThreeDotsDropdown
-            numberOfVisibleFilters={numberOfVisibleFilters}
             onClickFilter={onClickFilter}
             list={filterDropdownOptions}
-            fieldsFilters={fieldsFilters}
           />
         </Grid>
         <Grid item md={2} className={classes.languageFilterContainer}>
@@ -127,7 +127,7 @@ const QuestionsFilter = () => {
                   [classes.inactiveFilterStyle]: !field.isClicked,
                 })}
                 onClick={() => {
-                  onClickFilter(field.value, field.isClicked);
+                  onClickFilter(field.id, field.isClicked);
                 }}>
                 {field.label}
               </div>

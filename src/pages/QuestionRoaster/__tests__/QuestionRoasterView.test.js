@@ -50,6 +50,8 @@ jest.mock('apis/questionsAPI', () => ({
   }),
 }));
 
+jest.mock('apis/fieldsAPI');
+
 describe('Question Roaster View', () => {
   it('should match snapshot', async () => {
     const { asFragment } = render(

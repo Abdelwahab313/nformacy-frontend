@@ -28,12 +28,11 @@ const mockQuestionsWithFields = [
     title: 'test title',
     content: 'testContent',
     language: 'arabic',
-    field: [
-      {
-        value: 'finance',
-        label: 'Finance',
-      },
-    ],
+    fields: [{
+      id: 30,
+      label: 'Audit',
+      majorFieldId: 1,
+    }],
     assignmentType: 'Question',
     endDate: endDate,
   },
@@ -42,14 +41,16 @@ const mockQuestionsWithFields = [
     title: 'test title 2',
     content: 'testContent 2',
     language: 'english',
-    field: [
+    fields: [
       {
-        value: 'humanResource',
+        id: 31,
         label: 'Human Resource',
+        majorFieldId: 2,
       },
       {
-        value: 'formalEducation',
+        id: 32,
         label: 'Formal Education',
+        majorFieldId: 3,
       },
     ],
     assignmentType: 'Question',
@@ -60,10 +61,11 @@ const mockQuestionsWithFields = [
     title: 'test title 3',
     content: 'testContent 3',
     language: 'english',
-    field: [
+    fields: [
       {
-        value: 'humanResource',
+        id: 31,
         label: 'Human Resource',
+        majorFieldId: 2,
       },
     ],
     assignmentType: 'Question',
@@ -74,10 +76,11 @@ const mockQuestionsWithFields = [
     title: 'test title 4',
     content: 'testContent 4',
     language: 'english',
-    field: [
+    fields: [
       {
-        value: 'formalEducation',
+        id: 32,
         label: 'Formal Education',
+        majorFieldId: 3,
       },
     ],
     assignmentType: 'Question',
@@ -110,7 +113,7 @@ describe('Fetch question', () => {
 
   it('should filter questions based on given key', async () => {
     const filteredOutput = filterQuestionsByFields(mockQuestionsWithFields, [
-      'finance',
+      1,
     ]);
 
     expect(filteredOutput.length).toEqual(1);
@@ -118,8 +121,8 @@ describe('Fetch question', () => {
 
   it('should filter questions based on multiple keys', async () => {
     const filteredOutput = filterQuestionsByFields(mockQuestionsWithFields, [
-      'humanResource',
-      'formalEducation',
+      2,
+      3,
     ]);
 
     expect(filteredOutput.length).toEqual(3);
@@ -144,7 +147,7 @@ describe('Fetch question', () => {
     await act(async () => {
       await waitForNextUpdate();
 
-      addFieldFilter(result.current.dispatch, 'finance');
+      addFieldFilter(result.current.dispatch, 1);
 
       expect(result.current.filteredQuestions.length).toEqual(1);
     });
@@ -157,11 +160,11 @@ describe('Fetch question', () => {
     await act(async () => {
       await waitForNextUpdate();
 
-      addFieldFilter(result.current.dispatch, 'formalEducation');
+      addFieldFilter(result.current.dispatch, 3);
 
       expect(result.current.filteredQuestions.length).toEqual(2);
 
-      addFieldFilter(result.current.dispatch, 'humanResource');
+      addFieldFilter(result.current.dispatch, 2);
 
       expect(result.current.filteredQuestions.length).toEqual(3);
     });
@@ -174,11 +177,11 @@ describe('Fetch question', () => {
     await act(async () => {
       await waitForNextUpdate();
 
-      addFieldFilter(result.current.dispatch, 'formalEducation');
-      
+      addFieldFilter(result.current.dispatch, 3);
+
       expect(result.current.filteredQuestions.length).toEqual(2);
-      
-      removeFieldFilter(result.current.dispatch, 'formalEducation');
+
+      removeFieldFilter(result.current.dispatch, 3);
 
       expect(result.current.filteredQuestions.length).toEqual(4);
     });

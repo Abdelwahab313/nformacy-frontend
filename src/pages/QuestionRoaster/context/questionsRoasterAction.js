@@ -7,17 +7,17 @@ export const updateFetchedQuestions = (dispatch, questions) => {
   });
 };
 
-export const addFieldFilter = (dispatch, field) => {
+export const addFieldFilter = (dispatch, fieldId) => {
   dispatch({
     type: QuestionRoasterActionTypes.ADD_FIELD_FILTER,
-    payload: field,
+    payload: fieldId,
   });
 };
 
-export const removeFieldFilter = (dispatch, field) => {
+export const removeFieldFilter = (dispatch, fieldId) => {
   dispatch({
     type: QuestionRoasterActionTypes.REMOVE_FIELD_FILTER,
-    payload: field,
+    payload: fieldId,
   });
 };
 

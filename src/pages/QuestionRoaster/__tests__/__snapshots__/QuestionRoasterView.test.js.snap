@@ -133,255 +133,30 @@ exports[`Question Roaster View should match snapshot 1`] = `
       id="questions-roaster-filters-container"
     >
       <div
-        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-10"
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+        data-testid="loading"
       >
         <div
-          class="MuiGrid-root questionsCategoriesContainerDesktop MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-space-evenly"
-          id="filters"
+          class="progressContainer"
         >
           <div
-            class="MuiGrid-root fieldsFiltersContainer MuiGrid-item MuiGrid-grid-md-10"
-          >
-            <div
-              class="activeFilterStyle"
-            >
-              questionRoaster:all
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-0"
-            >
-              Finance
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-1"
-            >
-              Human Resource
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-2"
-            >
-              Marketing and PR
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-3"
-            >
-              Formal Education
-            </div>
-            <div>
-              <button
-                aria-controls="long-menu"
-                aria-haspopup="true"
-                aria-label="more"
-                class="MuiButtonBase-root MuiIconButton-root threeDotButton"
-                id="more-options-menu"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="MuiIconButton-label"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="MuiSvgIcon-root"
-                    focusable="false"
-                    id="more-options-icon"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="MuiTouchRipple-root"
-                />
-              </button>
-            </div>
-          </div>
-          <div
-            class="MuiGrid-root languageFilterContainer MuiGrid-item MuiGrid-grid-md-2"
-          >
-            <div>
-              <button
-                aria-controls="simple-menu"
-                aria-haspopup="true"
-                class="MuiButtonBase-root MuiButton-root MuiButton-text dropdownDesktop"
-                id="question-language-filter"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="MuiButton-label"
-                >
-                  questionRoaster:chooseLanguage
-                  <svg
-                    aria-hidden="true"
-                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
-                    focusable="false"
-                    id="expand-menu-icon"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="MuiTouchRipple-root"
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          class="MuiGrid-root filterWrapper MuiGrid-container MuiGrid-align-items-xs-center MuiGrid-justify-xs-center"
-        >
-          <div
-            class="MuiGrid-root questionsCategoriesContainerMobile MuiGrid-item MuiGrid-grid-xs-8 MuiGrid-grid-sm-9"
-            id="filters-mobile"
-          >
-            <div
-              class="activeFilterStyle"
-            >
-              questionRoaster:all
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-0"
-            >
-              Finance
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-1"
-            >
-              Human Resource
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-2"
-            >
-              Marketing and PR
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-3"
-            >
-              Formal Education
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-4"
-            >
-              Development
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-5"
-            >
-              Entrepreneurship & Start ups
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-6"
-            >
-              Strategy
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-7"
-            >
-              Operations Management
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-8"
-            >
-              Supply Chain
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-9"
-            >
-              Digitization
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-10"
-            >
-              Sales and Customer Care
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-11"
-            >
-              Legal
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-12"
-            >
-              FinTech
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-13"
-            >
-              Environment
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-14"
-            >
-              Project Management
-            </div>
-            <div
-              class="inactiveFilterStyle"
-              id="filters-15"
-            >
-              Analytics
-            </div>
-          </div>
-          <div
-            class="MuiGrid-root nextIconSlider MuiGrid-item MuiGrid-grid-xs-1"
+            class="MuiCircularProgress-root defaultColor MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
+            role="progressbar"
+            style="width: 40px; height: 40px;"
           >
             <svg
-              aria-hidden="true"
-              class="MuiSvgIcon-root nextIconSize MuiSvgIcon-colorPrimary"
-              focusable="false"
-              viewBox="0 0 24 24"
+              class="MuiCircularProgress-svg"
+              viewBox="22 22 44 44"
             >
-              <path
-                d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+              <circle
+                class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
+                cx="44"
+                cy="44"
+                fill="none"
+                r="20.2"
+                stroke-width="3.6"
               />
             </svg>
-          </div>
-          <div
-            class="MuiGrid-root dropdownMobile MuiGrid-item MuiGrid-grid-xs-2 MuiGrid-grid-sm-1"
-          >
-            <div>
-              <button
-                aria-controls="simple-menu"
-                aria-haspopup="true"
-                class="MuiButtonBase-root MuiButton-root MuiButton-text"
-                id="question-language-filter-mobile"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="MuiButton-label"
-                >
-                  questionRoaster:englishShortcut
-                </span>
-                <span
-                  class="MuiTouchRipple-root"
-                />
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -464,25 +239,29 @@ exports[`Question Roaster View should match snapshot 1`] = `
                     class="MuiGrid-root flexContainer MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-12"
                   >
                     <div
-                      class="MuiGrid-root fieldContainer"
+                      class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
                     >
                       <div
-                        class="MuiGrid-root"
+                        class="progressContainer"
                       >
                         <div
-                          class="MuiChip-root sc-bdnylx bpbFSf fieldChip"
-                          index="0"
+                          class="MuiCircularProgress-root defaultColor MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
+                          role="progressbar"
+                          style="width: 40px; height: 40px;"
                         >
-                          <span
-                            class="MuiChip-label"
+                          <svg
+                            class="MuiCircularProgress-svg"
+                            viewBox="22 22 44 44"
                           >
-                            <p
-                              class="MuiTypography-root fieldChipText MuiTypography-body1"
-                              id="questionMajorFields-2000100-0"
-                            >
-                              Marketing and PR
-                            </p>
-                          </span>
+                            <circle
+                              class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
+                              cx="44"
+                              cy="44"
+                              fill="none"
+                              r="20.2"
+                              stroke-width="3.6"
+                            />
+                          </svg>
                         </div>
                       </div>
                     </div>

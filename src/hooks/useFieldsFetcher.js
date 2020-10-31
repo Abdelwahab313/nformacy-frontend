@@ -16,10 +16,10 @@ const useFieldFetcher = () => {
     staleTime: 'Infinity',
     ...queryConfig,
     onSuccess: (response) => {
-      setFields(response.data);
+      setFields(response);
     },
   });
-  const [fields, setFields] = useState(response ? response.data : []);
+  const [fields, setFields] = useState(response ? response : []);
   const {
     refetch,
     data: userFieldsResponse,
@@ -27,13 +27,13 @@ const useFieldFetcher = () => {
   } = useQuery([locale, 'currentUserFields'], fetchCurrentUserFields, {
     ...queryConfig,
     onSuccess: (response) => {
-      setCurrentUserFields(response.data);
+      setCurrentUserFields(response);
     },
   });
 
   const [currentUserFields, setCurrentUserFields] = useState(
     userFieldsResponse
-      ? userFieldsResponse.data
+      ? userFieldsResponse
       : [],
   );
 

@@ -10,55 +10,51 @@ import { queryCache } from 'react-query';
 jest.mock('apis/fieldsAPI', () => ({
   __esModule: true, // this property makes it work
   default: 'mockedDefaultExport',
-  fetchFields: jest.fn().mockResolvedValue({
-    data: [
-      {
-        id: 1,
-        label: 'Finance',
-      },
-      {
-        id: 2,
-        label: 'Marketing',
-      },
-      {
-        id: 3,
-        label: 'FinTech',
-      },
-      {
-        id: 4,
-        label: 'Accounting',
-      },
-    ],
-  }),
+  fetchFields: jest.fn().mockResolvedValue([
+    {
+      id: 1,
+      label: 'Finance',
+    },
+    {
+      id: 2,
+      label: 'Marketing',
+    },
+    {
+      id: 3,
+      label: 'FinTech',
+    },
+    {
+      id: 4,
+      label: 'Accounting',
+    },
+  ]),
 }));
 
 jest.mock('apis/userAPI', () => ({
   __esModule: true, // this property makes it work
   default: 'mockedDefaultExport',
-  fetchCurrentUserFields: jest.fn().mockResolvedValue({
-    data: [
-      {
-        id: 1,
-        label: 'Finance',
-      },
-      {
-        id: 2,
-        label: 'Marketing',
-      },
-      {
-        id: 3,
-        label: 'FinTech',
-      },
-      {
-        id: 4,
-        label: 'Accounting',
-      },
-    ],
-  }),
+  fetchCurrentUserFields: jest.fn().mockResolvedValue([
+    {
+      id: 1,
+      label: 'Finance',
+    },
+    {
+      id: 2,
+      label: 'Marketing',
+    },
+    {
+      id: 3,
+      label: 'FinTech',
+    },
+    {
+      id: 4,
+      label: 'Accounting',
+    },
+  ]),
 }));
 
 describe('fetch fields', () => {
-  beforeEach(() => queryCache.clear())
+  beforeEach(() => queryCache.clear());
 
   it('should fetch all major fields in english', async () => {
     const locale = 'en';
@@ -73,7 +69,7 @@ describe('fetch fields', () => {
     const { result, waitForNextUpdate } = renderHook(() => useFieldsFetcher(), {
       wrapper,
     });
-    await waitForNextUpdate()
+    await waitForNextUpdate();
 
     expect(fetchFields).toHaveBeenLastCalledWith(locale);
     expect(result.current.fields.length).toEqual(4);
@@ -92,12 +88,12 @@ describe('fetch fields', () => {
     const { result, waitForNextUpdate } = renderHook(() => useFieldsFetcher(), {
       wrapper,
     });
-    expect(result.current.loading).toEqual(true)
-    await waitForNextUpdate()
+    expect(result.current.loading).toEqual(true);
+    await waitForNextUpdate();
 
     expect(fetchFields).toHaveBeenLastCalledWith(locale);
     expect(result.current.fields.length).toEqual(4);
-    expect(result.current.loading).toEqual(false)
+    expect(result.current.loading).toEqual(false);
   });
 
   it('should fetch current user fields in english', async () => {
@@ -113,9 +109,9 @@ describe('fetch fields', () => {
     const { result, waitForNextUpdate } = renderHook(() => useFieldsFetcher(), {
       wrapper,
     });
-    await waitForNextUpdate()
+    await waitForNextUpdate();
 
-    expect(fetchCurrentUserFields).toHaveBeenLastCalledWith(locale, "currentUserFields");
+    expect(fetchCurrentUserFields).toHaveBeenLastCalledWith(locale, 'currentUserFields');
     expect(result.current.fields.length).toEqual(4);
   });
 
@@ -132,11 +128,11 @@ describe('fetch fields', () => {
     const { result, waitForNextUpdate } = renderHook(() => useFieldsFetcher(), {
       wrapper,
     });
-    expect(result.current.loading).toEqual(true)
-    await waitForNextUpdate()
+    expect(result.current.loading).toEqual(true);
+    await waitForNextUpdate();
 
-    expect(fetchCurrentUserFields).toHaveBeenLastCalledWith(locale, "currentUserFields");
+    expect(fetchCurrentUserFields).toHaveBeenLastCalledWith(locale, 'currentUserFields');
     expect(result.current.fields.length).toEqual(4);
-    expect(result.current.loading).toEqual(false)
+    expect(result.current.loading).toEqual(false);
   });
 });

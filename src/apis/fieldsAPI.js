@@ -7,5 +7,5 @@ export const fetchFields = (locale) => {
     method: 'get',
     url: `${API_BASE_URL}/fields`,
     params: { locale: locale },
-  }).then((response) => camelizeKeys(response));
+  }).then((response) => camelizeKeys(response.data));
 };

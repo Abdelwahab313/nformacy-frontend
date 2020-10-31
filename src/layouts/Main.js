@@ -69,14 +69,15 @@ function Main() {
     },
   });
 
+  const isDebugMode = (process.env.REACT_APP_ENV !== 'e2e' && process?.env?.NODE_ENV === 'development');
+
   return (
     <ThemeProvider theme={theme}>
       <StylesProvider jss={jss}>
         <ReactQueryCacheProvider queryCache={queryCache}>
-          <MainRouter />
-          {(!process.env.NODE_ENV ||
-            process.env.NODE_ENV === 'development') && (
-            <ReactQueryDevtools initialIsOpen />
+          <MainRouter/>
+          {isDebugMode && (
+            <ReactQueryDevtools initialIsOpen/>
           )}
         </ReactQueryCacheProvider>
       </StylesProvider>
