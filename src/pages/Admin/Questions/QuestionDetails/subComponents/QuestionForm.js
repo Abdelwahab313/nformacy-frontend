@@ -4,11 +4,7 @@ import CardBody from '../../../../../components/Card/CardBody';
 import GridContainer from '../../../../../components/Grid/GridContainer';
 import GridItem from '../../../../../components/Grid/GridItem';
 import CustomInput from '../../../../../components/CustomInput/CustomInput';
-import {
-  industries,
-  questionTypesOfAssignment,
-  questionLanguages,
-} from '../../../../../constants/dropDownOptions';
+import { industries, questionLanguages, questionTypesOfAssignment } from '../../../../../constants/dropDownOptions';
 import humanizedTimeSpan from '../../../../../services/humanizedTimeSpan';
 import { useStyles } from '../../../../../styles/Admin/questionFormStyles';
 import RichTextEditorForm from '../../../../../components/forms/RichTextEditorForm';
@@ -25,22 +21,17 @@ import Typography from '@material-ui/core/Typography';
 import AcceptAndRejectActionButtons from './AcceptAndRejectActionButtons';
 import ActionButtonsContainer from './ActionButtonsContainer';
 import {
-  sendToAdmin,
   acceptAssignment,
   rejectAssignment,
   saveDraftQuestion,
+  sendToAdmin,
   submitQuestion,
   updateQuestion,
   uploadQuestionThumbnail,
 } from 'apis/questionsAPI';
 import authManager from '../../../../../services/authManager';
 import { useQuestionContext } from '../context';
-import {
-  setEmptyMessage,
-  setErrorMessage,
-  setSuccessMessage,
-  updateQuestionDetails,
-} from '../context/questionAction';
+import { setEmptyMessage, setErrorMessage, setSuccessMessage, updateQuestionDetails } from '../context/questionAction';
 import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
 import ImageUploadWithPreview from 'components/inputs/FileUpload/ImageUploadWithPreview';
 import FieldsSelect from '../../../../../components/inputs/FieldsSelect/FieldsSelect';
@@ -130,6 +121,8 @@ const QuestionForm = ({ isNewQuestion }) => {
     ) {
       errorMessage =
         'You have to set how many hours to close answers window for freelancers.';
+    } else if (!questionDetails.content) {
+      errorMessage = 'You have to add question content';
     }
 
     if (!!errorMessage) {
