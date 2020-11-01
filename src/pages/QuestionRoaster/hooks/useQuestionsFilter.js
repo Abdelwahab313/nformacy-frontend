@@ -32,7 +32,7 @@ const useQuestionsFilter = () => {
     setLoading(true);
     fetchOpenedQuestions()
       .then((response) => {
-        updateFetchedQuestions(dispatch, response.data);
+        updateFetchedQuestions(dispatch, response.data.reverse());
       })
       .finally(() => setLoading(false));
   }, []);
