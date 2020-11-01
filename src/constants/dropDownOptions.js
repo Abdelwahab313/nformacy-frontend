@@ -563,8 +563,8 @@ const questionTypesOfAssignment = [
 ];
 
 const questionLanguages = [
-  { value: 'english', label: 'English' },
-  { value: 'arabic', label: 'Arabic' },
+  { value: 'en', label: 'English' },
+  { value: 'ar', label: 'Arabic' },
 ];
 
 export {

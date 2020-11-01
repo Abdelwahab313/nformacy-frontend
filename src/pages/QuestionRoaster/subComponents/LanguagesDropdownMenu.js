@@ -27,12 +27,12 @@ const LanguagesDropdownMenu = ({ isMobile }) => {
     {
       label: t('questionRoaster:english'),
       shortcutLabel: t('questionRoaster:englishShortcut'),
-      value: 'english',
+      value: 'en',
     },
     {
       label: t('questionRoaster:arabic'),
       shortcutLabel: t('questionRoaster:arabicShortcut'),
-      value: 'arabic',
+      value: 'ar',
     },
   ];
 
