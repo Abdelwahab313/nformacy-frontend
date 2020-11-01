@@ -11,6 +11,7 @@ import MeetingsPage from 'pages/Meeting';
 import MeetingDetailsPage from 'pages/Meeting/MeetingDetailsPage';
 import { RoutesPaths } from 'constants/routesPath';
 import PostSubmissionNote from '../../pages/QuestionRoaster/PostSubmissionNote';
+import AllNotifications from '../../pages/Admin/Dashboard/AllNotifications';
 
 const AppRouter = () => {
   return <Switch>
@@ -37,6 +38,9 @@ const AppRouter = () => {
     <PrivateRoute
       path={RoutesPaths.App.SubmitAnswerNote}
       component={PostSubmissionNote}/>
+    <PrivateRoute
+      path={RoutesPaths.App.AllNotifications}
+      component={AllNotifications}/>
   </Switch>;
 };
 

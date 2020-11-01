@@ -25,5 +25,6 @@ export const RoutesPaths = {
     EditProfile: '/user/edit',
     Meetings: '/meeting/list',
     MeetingDetails: '/meeting/edit',
+    AllNotifications: '/notifications',
   },
 };

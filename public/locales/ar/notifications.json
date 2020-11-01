@@ -1,0 +1,8 @@
+{
+  "pending_adviser_acceptance": "تمت تعيين سؤال #{{referenceNumber}} لك",
+  "answer_accepted": "الإجابة #{{referenceNumber}} جاهزة للتقييم",
+  "admin_deployed_question": "السؤال #{{referenceNumber}} تمت إضافته للأسئلة.",
+  "question_closed": "السؤال #{{referenceNumber}} أغلق",
+  "noNotifications": "لا يوجد إشعارات",
+  "seeMore": "إعرض المزيد..."
+}

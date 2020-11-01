@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { blackColor, hexToRgb } from '../assets/jss/material-dashboard-react';
 import fontNames from '../constants/fonts';
-import { white } from './colors';
 
 export const useStyles = makeStyles((theme) => ({
   notificationCard: {
@@ -137,5 +136,8 @@ export const useMenuStyles = makeStyles((theme) => ({
   },
   notificationTime: {
     marginLeft: theme.spacing(4),
+  },
+  menu: {
+    zIndex: '1',
   },
 }));

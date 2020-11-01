@@ -15,7 +15,7 @@ const AllNotifications = () => {
     return <LoadingCircle />;
   }
   return (
-    <Grid id='allNotifications'>
+    <Grid container id='allNotifications'>
       {data?.notifications?.map((notification) => (
         <NotificationCard
           notification={notification}

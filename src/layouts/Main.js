@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {
-  createMuiTheme,
-  StylesProvider,
-  ThemeProvider,
-} from '@material-ui/core/styles';
+import { createMuiTheme, StylesProvider, ThemeProvider } from '@material-ui/core/styles';
 import { create } from 'jss';
 import preset from 'jss-preset-default';
 import rtl from 'jss-rtl';
-import {
-  darkBlue,
-  grey,
-  lighterPink,
-  lightGrey,
-  lightPink,
-} from 'styles/colors';
+import { darkBlue, grey, lighterPink, lightGrey, lightPink } from 'styles/colors';
 import MainRouter from 'layouts/MainRouter';
 import '../styles/fonts.css';
 import { QueryCache, ReactQueryCacheProvider } from 'react-query';
@@ -22,6 +12,7 @@ import useLocale from '../hooks/localization/useLocale';
 import { useTranslation } from 'react-i18next';
 import DIRECTIONS from '../constants/direction';
 import { ReactQueryDevtools } from 'react-query-devtools';
+import moment from 'moment';
 
 const presets = preset().plugins;
 
@@ -33,6 +24,7 @@ function Main() {
   const [, setLoading] = useState(true);
   const { i18n } = useTranslation();
   const { locale } = useLocale();
+  moment.locale(locale);
 
   useEffect(() => {
     i18n.changeLanguage(locale).then(() => {
