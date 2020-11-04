@@ -7,10 +7,10 @@ export const getFakeQuestion = (question = {}) => {
     reference_number: 2000131,
     title: 'Test mocked question',
     content:
-      "People are different. People choose different criteria. But if there is a better way among many alternatives, I want to encourage that way by making it comfortable. So that's what I've tried to do.",
-    field: [{ value: 'marketingAndPR', label: 'Marketing and PR' }],
-    subfield: [{ value: 'marketResearch', label: 'Market Research' }],
+      '<p>People are different. People choose different criteria. But if there is a better way among many alternatives, I want to encourage that way by making it comfortable. So that\'s what I\'ve tried to do.</p>',
+    fields: [{ 'id': 1, 'major_field_id': 1, 'label': 'Audit' }],
     industry: { value: 'consulting', label: 'Consulting' },
+    language: 'en',
     media_id: null,
     assignment_type: 'call',
     current_action_time: moment().add(5, 'days'),

@@ -9,6 +9,8 @@ import {
   ADVISER_WITH_NO_NOTIFICATION,
   ADVISER_WITH_OLD_NOTIFICATION,
   BASE_URL,
+  FREELANCER_2_USERNAME,
+  FREELANCER_USERNAME,
 } from '../../defualtTestValues';
 
 Given(/^I am a freelancer$/, function() {});
@@ -32,7 +34,12 @@ Given(/^I login in as an advisor$/, function() {
 });
 
 Given(/^I log in as a freelancer$/, function() {
-  loginInAsFreelancer();
+  loginInAsFreelancer(FREELANCER_USERNAME);
+  cy.wrap(faker.name.findName()).as('updatedFirstName');
+});
+
+When(/^I log in as a freelancer_2$/, function() {
+  loginInAsFreelancer(FREELANCER_2_USERNAME);
   cy.wrap(faker.name.findName()).as('updatedFirstName');
 });
 

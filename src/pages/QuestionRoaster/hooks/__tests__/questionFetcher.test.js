@@ -27,7 +27,7 @@ const mockQuestionsWithFields = [
     referenceNumber: 2000100,
     title: 'test title',
     content: 'testContent',
-    language: 'arabic',
+    language: 'ar',
     fields: [{
       id: 30,
       label: 'Audit',
@@ -40,7 +40,7 @@ const mockQuestionsWithFields = [
     referenceNumber: 2000101,
     title: 'test title 2',
     content: 'testContent 2',
-    language: 'english',
+    language: 'en',
     fields: [
       {
         id: 31,
@@ -60,7 +60,7 @@ const mockQuestionsWithFields = [
     referenceNumber: 2000102,
     title: 'test title 3',
     content: 'testContent 3',
-    language: 'english',
+    language: 'en',
     fields: [
       {
         id: 31,
@@ -75,7 +75,7 @@ const mockQuestionsWithFields = [
     referenceNumber: 2000103,
     title: 'test title 4',
     content: 'testContent 4',
-    language: 'english',
+    language: 'en',
     fields: [
       {
         id: 32,
@@ -195,11 +195,11 @@ describe('Fetch question', () => {
     await act(async () => {
       await waitForNextUpdate();
 
-      addLanguageFilter(result.current.dispatch, 'arabic');
+      addLanguageFilter(result.current.dispatch, 'ar');
 
       expect(result.current.filteredQuestions.length).toEqual(1);
 
-      addLanguageFilter(result.current.dispatch, 'english');
+      addLanguageFilter(result.current.dispatch, 'en');
 
       expect(result.current.filteredQuestions.length).toEqual(3);
     });

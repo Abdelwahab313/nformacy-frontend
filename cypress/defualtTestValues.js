@@ -9,6 +9,7 @@ export const ADVISER_PASSWORD = 'test1234';
 export const ADVISER_WITH_NO_NOTIFICATION = 'notifications@adviser.com';
 export const ADVISER_WITH_OLD_NOTIFICATION = 'oldNotifications@adviser.com';
 export const FREELANCER_USERNAME = 'freelancer@test.com';
+export const FREELANCER_2_USERNAME = 'freelancer2@test.com';
 export const FREELANCER_PASSWORD = 'test1234';
 export const ADMIN_USERNAME = 'admin@test.com';
 export const ADMIN_PASSWORD = 'test1234';

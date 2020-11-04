@@ -99,8 +99,9 @@ export const createQuestionWithAnswers = () => {
   });
 };
 
-export const createDeployedQuestion = () => {
+export const createDeployedQuestion = (question = {}) => {
   createQuestionWithState({
+    ...question,
     state: 'pending_deployment_to_roaster',
     current_action_time: '',
   }).then(() => {

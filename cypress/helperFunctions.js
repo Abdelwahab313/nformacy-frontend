@@ -6,7 +6,6 @@ import {
   BACKEND_WEB_URL,
   BASE_URL,
   FREELANCER_PASSWORD,
-  FREELANCER_USERNAME,
   PASSWORD,
   USER_NAME,
 } from './defualtTestValues';
@@ -60,9 +59,9 @@ export const signUpAndSetTokens = (user = {}) => {
   );
 };
 
-export const loginInAsFreelancer = () => {
+export const loginInAsFreelancer = (freelancerEmail) => {
   cy.request('POST', `${BACKEND_WEB_URL}/auth/login`, {
-    email: FREELANCER_USERNAME,
+    email: freelancerEmail,
     password: FREELANCER_PASSWORD,
   }).then((response) => {
     extractUserAndTokenFromResponse(response);
