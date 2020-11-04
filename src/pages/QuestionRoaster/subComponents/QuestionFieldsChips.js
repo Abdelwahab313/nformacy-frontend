@@ -9,7 +9,6 @@ import useFieldsFetcher from '../../../hooks/useFieldsFetcher';
 import { groupFieldsByMajorFieldId } from '../../../core/fields';
 import LoadingCircle from '../../../components/progress/LoadingCircle';
 
-
 const StyledFilterChip = styled(Chip)`
   background-color: ${(props) => getColorForField(props.index)};
 `;
@@ -36,12 +35,15 @@ const QuestionFieldsChips = ({ questionDetails }) => {
   if (loading) {
     return (
       <Grid item xs={6}>
-        <LoadingCircle containerClass={classes.loadingContainer}/>
+        <LoadingCircle containerClass={classes.loadingContainer} />
       </Grid>
     );
   }
 
-  const groupedFields = groupFieldsByMajorFieldId(fieldsLabels, questionDetails.fields);
+  const groupedFields = groupFieldsByMajorFieldId(
+    fieldsLabels,
+    questionDetails.fields,
+  );
   return (
     <Grid className={classes.fieldContainer}>
       {groupedFields?.map((majorField, key) => (
@@ -77,6 +79,5 @@ const QuestionFieldsChips = ({ questionDetails }) => {
     </Grid>
   );
 };
-
 
 export default QuestionFieldsChips;

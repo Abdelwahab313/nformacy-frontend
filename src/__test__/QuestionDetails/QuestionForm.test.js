@@ -5,6 +5,28 @@ import { AuthProvider } from 'pages/auth/context/auth';
 import moment from 'moment';
 import { QuestionProvider } from 'pages/Admin/Questions/QuestionDetails/context';
 import { LocaleProvider } from '../../hooks/localization/context';
+jest.mock('apis/fieldsAPI', () => ({
+  __esModule: true, // this property makes it work
+  default: 'mockedDefaultExport',
+  fetchFields: jest.fn().mockResolvedValue([
+    {
+      id: 1,
+      label: 'Finance',
+    },
+    {
+      id: 2,
+      label: 'Marketing',
+    },
+    {
+      id: 3,
+      label: 'FinTech',
+    },
+    {
+      id: 4,
+      label: 'Accounting',
+    },
+  ]),
+}));
 
 const testQuestion = {
   id: 2,

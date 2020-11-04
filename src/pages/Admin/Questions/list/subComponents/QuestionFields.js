@@ -12,18 +12,14 @@ const QuestionFields = ({ fields }) => {
 
   if (loading)
     return (
-      <LoadingCircle size={15} containerClass={classes.loadingContainer}/>
+      <LoadingCircle size={15} containerClass={classes.loadingContainer} />
     );
 
-  return (majorFields.map((field) => (
+  return majorFields.map((field) => (
     <div key={field.id}>
-      <Chip
-        className={classes.field}
-        label={field.label}
-        key={field.id}
-      />
+      <Chip className={classes.field} label={field.label} key={field.id} />
     </div>
-  )));
+  ));
 };
 
 export default QuestionFields;

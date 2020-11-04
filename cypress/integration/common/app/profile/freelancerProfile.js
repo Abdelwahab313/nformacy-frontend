@@ -5,6 +5,8 @@ import faker from 'faker';
 
 Given(/^I am a freelancer and registered$/, function() {
   cy.visit(BASE_URL + '/signup');
+  cy.server();
+  cy.route('GET', '/fields?locale=**').as('fields');
   cy.get('#firstName').type(faker.name.findName());
   cy.get('#lastName').type(faker.name.findName());
   cy.get('#email').type(faker.internet.email());
@@ -38,12 +40,11 @@ Then(/^I should see step two form$/, function() {
   cy.get('#stepTwoForm');
 });
 When(/^I fill step two data$/, function() {
+  cy.wait('@fields');
   cy.get('#majorFieldsOfExperienceSelect').click();
   cy.get('#majorFieldsOfExperienceSelect-option-2').click();
-  cy.get('#majorFieldsOfExperienceSelect').click();
   cy.get('#specificFieldsOfExperienceSelect').click();
   cy.get('#specificFieldsOfExperienceSelect-option-2').click();
-  cy.get('#specificFieldsOfExperienceSelect').click();
   cy.get('#industriesOfExperience').click();
   cy.get('#react-select-4-option-0').click();
   cy.get('#assignmentLanguage').click();
@@ -91,7 +92,7 @@ When(/^I fill step three data$/, function() {
     .click();
 
   cy.server();
-  cy.route('PUT','/users/**').as('updateUser');
+  cy.route('PUT', '/users/**').as('updateUser');
 });
 When(/^i choose an end date$/, function() {
   cy.get('#work-experience-endDate-0').click();
@@ -141,9 +142,9 @@ Then(
   },
 );
 When(/^I select a field$/, function() {
+  cy.wait('@fields');
   cy.get('#majorFieldsOfExperienceSelect').click();
   cy.get('#majorFieldsOfExperienceSelect-option-2').click();
-  cy.get('#majorFieldsOfExperienceSelect').click();
 });
 Then(
   /^Specific fields should have select box with options from above field$/,
@@ -154,7 +155,6 @@ Then(
       'Promotion and Advertising',
     );
     cy.get('#specificFieldsOfExperienceSelect-option-2').click();
-    cy.get('#specificFieldsOfExperienceSelect').click();
   },
 );
 
@@ -162,11 +162,11 @@ Then(/^I can select multiple options$/, function() {
   cy.get('#specificFieldsOfExperienceSelect').click();
   cy.get('#specificFieldsOfExperienceSelect-option-3').click();
   cy.get('#specificFieldsOfExperienceSelect').click();
-  cy.get('div[name="specificFieldsOfExperience"]').should(
+  cy.get('div[name="fields"]').should(
     'contain',
     'Promotion and Advertising',
   );
-  cy.get('div[name="specificFieldsOfExperience"]').should(
+  cy.get('div[name="fields"]').should(
     'contain',
     'Market Research',
   );
@@ -174,5 +174,7 @@ Then(/^I can select multiple options$/, function() {
 When(/^I upload my cv$/, function() {
   cy.get('#chooseFileButton ').click();
   const profilePicturePath = 'cv.pdf';
-  cy.get('input[type="file"]').attachFile(profilePicturePath, {allowEmpty: true});
+  cy.get('input[type="file"]').attachFile(profilePicturePath, {
+    allowEmpty: true,
+  });
 });

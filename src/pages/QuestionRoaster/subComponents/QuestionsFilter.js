@@ -25,17 +25,18 @@ const QuestionsFilter = () => {
     fieldsFilters,
   ]);
   const fieldsFiltersToDisplay = useMemo(() => {
+    if (!!!fieldsLabels) return [];
     return fieldsLabels?.map((field) => ({
       id: field.id,
       label: field.label,
       isClicked: fieldsFilters.includes(field.id),
     }));
-  }, [fieldsFilters]);
+  }, [fieldsFilters, loading]);
 
   if (loading) {
     return (
       <Grid data-testid={'loading'} item xs={6}>
-        <LoadingCircle containerClass={classes.loadingContainer}/>
+        <LoadingCircle containerClass={classes.loadingContainer} />
       </Grid>
     );
   }
@@ -52,8 +53,14 @@ const QuestionsFilter = () => {
   };
   const NUMBER_OF_VISIBLE_FILTERS = 4;
 
-  const visibleFilters = fieldsFiltersToDisplay.slice(0, NUMBER_OF_VISIBLE_FILTERS);
-  const filterDropdownOptions = fieldsFiltersToDisplay.slice(NUMBER_OF_VISIBLE_FILTERS, fieldsFiltersToDisplay.length);
+  const visibleFilters = fieldsFiltersToDisplay?.slice(
+    0,
+    NUMBER_OF_VISIBLE_FILTERS,
+  );
+  const filterDropdownOptions = fieldsFiltersToDisplay?.slice(
+    NUMBER_OF_VISIBLE_FILTERS,
+    fieldsFiltersToDisplay.length,
+  );
 
   return (
     <Grid item xs={12} sm={10}>
@@ -70,21 +77,25 @@ const QuestionsFilter = () => {
               [classes.activeFilterStyle]: isAllClicked,
               [classes.inactiveFilterStyle]: !isAllClicked,
             })}>
-            {isAllClicked ? t('questionRoaster:all') : t('questionRoaster:clearAll')}
+            {isAllClicked
+              ? t('questionRoaster:all')
+              : t('questionRoaster:clearAll')}
           </div>
-          {visibleFilters.map((filter, key) => {
-            return (<div
-              key={key}
-              id={`filters-${key}`}
-              className={clsx({
-                [classes.activeFilterStyle]: filter.isClicked,
-                [classes.inactiveFilterStyle]: !filter.isClicked,
-              })}
-              onClick={() => {
-                onClickFilter(filter.id, filter.isClicked);
-              }}>
-              {filter.label}
-            </div>);
+          {visibleFilters?.map((filter, key) => {
+            return (
+              <div
+                key={key}
+                id={`filters-${key}`}
+                className={clsx({
+                  [classes.activeFilterStyle]: filter.isClicked,
+                  [classes.inactiveFilterStyle]: !filter.isClicked,
+                })}
+                onClick={() => {
+                  onClickFilter(filter.id, filter.isClicked);
+                }}>
+                {filter.label}
+              </div>
+            );
           })}
           <ThreeDotsDropdown
             onClickFilter={onClickFilter}
@@ -92,9 +103,7 @@ const QuestionsFilter = () => {
           />
         </Grid>
         <Grid item md={2} className={classes.languageFilterContainer}>
-          <LanguagesDropdownMenu
-            isMobile={false}
-          />
+          <LanguagesDropdownMenu isMobile={false} />
         </Grid>
       </Grid>
       <Grid
@@ -141,9 +150,7 @@ const QuestionsFilter = () => {
           />
         </Grid>
         <Grid item xs={2} sm={1} className={classes.dropdownMobile}>
-          <LanguagesDropdownMenu
-            isMobile={true}
-          />
+          <LanguagesDropdownMenu isMobile={true} />
         </Grid>
       </Grid>
     </Grid>

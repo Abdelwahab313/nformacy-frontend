@@ -20,3 +20,9 @@ export const API_BASE_URL =
     : process.env.REACT_APP_ENV === 'staging'
     ? STAGING_URL
     : DEV_URL;
+
+export const immortalQueryConfig = {
+         refetchOnWindowFocus: false,
+         refetchOnReconnect: false,
+         refetchOnMount: true,
+       };

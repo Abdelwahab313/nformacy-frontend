@@ -155,7 +155,7 @@ When(/^I change time zone to be America\/New_York$/, function() {
   cy.get('#time-zone-picker-option-168').click();
   cy.get('#time-zone-picker').should(
     'have.value',
-    'America/New_York (GMT-04:00)',
+    'America/New_York (GMT-05:00)',
   );
 });
 
@@ -181,9 +181,9 @@ When(/^click on the change time zone button to be Africa\/Cairo$/, function() {
 });
 
 Then(
-  /^I should see the time of that event to be changed to 02:00 PM and 11:00 PM$/,
+  /^I should see the time of that event to be changed to 01:00 PM and 10:00 PM$/,
   function() {
-    cy.get('div[data-title="02:00 - 11:00"]')
+    cy.get('div[data-title="01:00 - 10:00"]')
       .first()
       .should('exist');
   },

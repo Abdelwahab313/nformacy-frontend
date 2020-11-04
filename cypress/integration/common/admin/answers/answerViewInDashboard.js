@@ -1,5 +1,9 @@
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { clearLocalStorage, getFromLocalStorage } from '../../../../helperFunctions';
+import {
+  clearLocalStorage,
+  getFromLocalStorage,
+  isAdmin,
+} from '../../../../helperFunctions';
 import { BASE_URL } from '../../../../defualtTestValues';
 import { createQuestionWithAnswers } from '../../../../support/services/questionBuilder';
 
@@ -8,11 +12,18 @@ Given(/^There is a question with answers$/, function() {
 });
 
 When(/^Click on created question$/, function() {
-  cy.wait(3000);
+  if (isAdmin()) {
+    cy.wait('@allQuestions');
+  } else {
+    cy.wait('@adviserQuestions');
+  }
   cy.get(
     `a[data-reference='${
       getFromLocalStorage('createdQuestion').referenceNumber
     }']`,
+    {
+      timeout: 50000,
+    },
   )
     .parent()
     .parent()
@@ -34,9 +45,8 @@ Then(/^I should be able to see all accepted answers$/, function() {
   cy.get(`#${getFromLocalStorage('pendingAnswer').referenceNumber}`).should(
     'not.exist',
   );
-  cy.get(
-    `#${getFromLocalStorage('rejectedAnswer').referenceNumber}`,
-  ).should('not.exist',
+  cy.get(`#${getFromLocalStorage('rejectedAnswer').referenceNumber}`).should(
+    'not.exist',
   );
   cy.get(`#${getFromLocalStorage('acceptedAnswer').referenceNumber}`).should(
     'exist',
@@ -49,11 +59,14 @@ Then(/^I rate accepted answer$/, function() {
 
 Then(/^The rate i chose should be applied$/, function() {
   cy.visit(BASE_URL + '/admin/questions');
-  cy.wait(1000);
+  cy.wait('@adviserQuestions');
   cy.get(
     `a[data-reference='${
       getFromLocalStorage('createdQuestion').referenceNumber
     }']`,
+    {
+      timeout: 50000,
+    },
   )
     .parent()
     .parent()
@@ -66,56 +79,94 @@ Then(/^The rating should be read only$/, function() {
 });
 
 And(/^I select an answer with pending status$/, function() {
-  cy.get(`#${getFromLocalStorage('pendingAnswer').referenceNumber}`).should('exist')
+  cy.get(`#${getFromLocalStorage('pendingAnswer').referenceNumber}`).should(
+    'exist',
+  );
 });
 
 And(/^I accept the answer$/, function() {
-  cy.get(`#accept-${getFromLocalStorage('pendingAnswer').referenceNumber}`).click()
+  cy.get(
+    `#accept-${getFromLocalStorage('pendingAnswer').referenceNumber}`,
+  ).click();
 });
 
 And(/^I reject the answer$/, function() {
-  cy.get(`#reject-${getFromLocalStorage('pendingAnswer').referenceNumber}`).click()
+  cy.get(
+    `#reject-${getFromLocalStorage('pendingAnswer').referenceNumber}`,
+  ).click();
 });
 
 And(/^Accept and reject buttons should not be visible$/, function() {
-  cy.get(`#accept-${getFromLocalStorage('pendingAnswer').referenceNumber}`).should('not.exist')
-  cy.get(`#reject-${getFromLocalStorage('pendingAnswer').referenceNumber}`).should('not.exist')
+  cy.get(
+    `#accept-${getFromLocalStorage('pendingAnswer').referenceNumber}`,
+  ).should('not.exist');
+  cy.get(
+    `#reject-${getFromLocalStorage('pendingAnswer').referenceNumber}`,
+  ).should('not.exist');
 });
 
 And(/^I should see rollback button$/, function() {
-  cy.get(`#rollback-${getFromLocalStorage('pendingAnswer').referenceNumber}`).should('exist')
+  cy.get(
+    `#rollback-${getFromLocalStorage('pendingAnswer').referenceNumber}`,
+  ).should('exist');
 });
 
 And(/^I selected an accepted answer$/, function() {
-  cy.get(`#${getFromLocalStorage('acceptedAnswer').referenceNumber}`).should('exist')
+  cy.get(`#${getFromLocalStorage('acceptedAnswer').referenceNumber}`).should(
+    'exist',
+  );
 });
 
 And(/^I click rollback button of accepted answer$/, function() {
-  cy.get(`#rollback-${getFromLocalStorage('acceptedAnswer').referenceNumber}`).click()
+  cy.get(
+    `#rollback-${getFromLocalStorage('acceptedAnswer').referenceNumber}`,
+  ).click();
 });
 
-And(/^The rollback button of accepted answer should not be visible$/, function() {
-  cy.get(`#rollback-${getFromLocalStorage('acceptedAnswer').referenceNumber}`).should('not.exist')
-});
+And(
+  /^The rollback button of accepted answer should not be visible$/,
+  function() {
+    cy.get(
+      `#rollback-${getFromLocalStorage('acceptedAnswer').referenceNumber}`,
+    ).should('not.exist');
+  },
+);
 
 And(/^I should see Accept and Reject buttons of accepted answer$/, function() {
-  cy.get(`#accept-${getFromLocalStorage('acceptedAnswer').referenceNumber}`).should('exist')
-  cy.get(`#reject-${getFromLocalStorage('acceptedAnswer').referenceNumber}`).should('exist')
+  cy.get(
+    `#accept-${getFromLocalStorage('acceptedAnswer').referenceNumber}`,
+  ).should('exist');
+  cy.get(
+    `#reject-${getFromLocalStorage('acceptedAnswer').referenceNumber}`,
+  ).should('exist');
 });
 
 And(/^I selected a rejected answer$/, function() {
-  cy.get(`#${getFromLocalStorage('rejectedAnswer').referenceNumber}`).should('exist')
+  cy.get(`#${getFromLocalStorage('rejectedAnswer').referenceNumber}`).should(
+    'exist',
+  );
 });
 
 And(/^I click rollback button of rejected answer$/, function() {
-  cy.get(`#rollback-${getFromLocalStorage('rejectedAnswer').referenceNumber}`).click()
+  cy.get(
+    `#rollback-${getFromLocalStorage('rejectedAnswer').referenceNumber}`,
+  ).click();
 });
 
-And(/^The rollback button of rejected answer should not be visible$/, function() {
-  cy.get(`#rollback-${getFromLocalStorage('rejectedAnswer').referenceNumber}`).should('not.exist')
-});
+And(
+  /^The rollback button of rejected answer should not be visible$/,
+  function() {
+    cy.get(
+      `#rollback-${getFromLocalStorage('rejectedAnswer').referenceNumber}`,
+    ).should('not.exist');
+  },
+);
 
 And(/^I should see Accept and Reject buttons of rejected answer$/, function() {
-  cy.get(`#accept-${getFromLocalStorage('rejectedAnswer').referenceNumber}`).should('exist')
-  cy.get(`#reject-${getFromLocalStorage('rejectedAnswer').referenceNumber}`).should('exist')
+  cy.get(
+    `#accept-${getFromLocalStorage('rejectedAnswer').referenceNumber}`,
+  ).should('exist');
+  cy.get(
+    `#reject-${getFromLocalStorage('rejectedAnswer').referenceNumber}`,
+  ).should('exist');
 });

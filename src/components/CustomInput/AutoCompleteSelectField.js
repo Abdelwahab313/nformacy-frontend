@@ -47,7 +47,7 @@ const AutoCompleteSelectField = ({
       multiple
       loading={loading}
       classes={selectClasses}
-      options={options}
+      options={options || []}
       value={value}
       disableCloseOnSelect
       getOptionLabel={(option) => option.label}

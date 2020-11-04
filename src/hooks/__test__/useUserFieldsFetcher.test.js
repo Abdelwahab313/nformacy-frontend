@@ -1,15 +1,15 @@
-import React from 'react';
-import { renderHook } from '@testing-library/react-hooks';
 import { AuthProvider } from '../../pages/auth/context/auth';
 import { LocaleProvider } from '../localization/context';
-import useFieldsFetcher from '../useFieldsFetcher';
-import { fetchFields } from '../../apis/fieldsAPI';
+import { renderHook } from '@testing-library/react-hooks';
+import { fetchCurrentUserFields } from '../../apis/userAPI';
+import React from 'react';
 import { queryCache } from 'react-query';
+import useUserFieldsFetcher from '../useUserFieldsFetcher';
 
-jest.mock('apis/fieldsAPI', () => ({
+jest.mock('apis/userAPI', () => ({
   __esModule: true, // this property makes it work
   default: 'mockedDefaultExport',
-  fetchFields: jest.fn().mockResolvedValue([
+  fetchCurrentUserFields: jest.fn().mockResolvedValue([
     {
       id: 1,
       label: 'Finance',
@@ -29,10 +29,10 @@ jest.mock('apis/fieldsAPI', () => ({
   ]),
 }));
 
-describe('fetch fields', () => {
+describe('fetch user fields', () => {
   beforeEach(() => queryCache.clear());
 
-  it('should fetch all major fields in english', async () => {
+  it('should fetch current user fields in english', async () => {
     const locale = 'en';
     const wrapper = ({ children }) => {
       return (
@@ -42,16 +42,22 @@ describe('fetch fields', () => {
       );
     };
 
-    const { result, waitForNextUpdate } = renderHook(() => useFieldsFetcher(), {
-      wrapper,
-    });
+    const { result, waitForNextUpdate } = renderHook(
+      () => useUserFieldsFetcher(),
+      {
+        wrapper,
+      },
+    );
     await waitForNextUpdate();
 
-    expect(fetchFields).toHaveBeenLastCalledWith(locale);
-    expect(result.current.fields.length).toEqual(4);
+    expect(fetchCurrentUserFields).toHaveBeenLastCalledWith(
+      locale,
+      'currentUserFields',
+    );
+    expect(result.current.currentUserFields.length).toEqual(4);
   });
 
-  it('should fetch all major fields in arabic', async () => {
+  it('should fetch current user fields in arabic', async () => {
     const locale = 'ar';
     const wrapper = ({ children }) => {
       return (
@@ -61,14 +67,20 @@ describe('fetch fields', () => {
       );
     };
 
-    const { result, waitForNextUpdate } = renderHook(() => useFieldsFetcher(), {
-      wrapper,
-    });
+    const { result, waitForNextUpdate } = renderHook(
+      () => useUserFieldsFetcher(),
+      {
+        wrapper,
+      },
+    );
     expect(result.current.loading).toEqual(true);
     await waitForNextUpdate();
 
-    expect(fetchFields).toHaveBeenLastCalledWith(locale);
-    expect(result.current.fields.length).toEqual(4);
+    expect(fetchCurrentUserFields).toHaveBeenLastCalledWith(
+      locale,
+      'currentUserFields',
+    );
+    expect(result.current.currentUserFields.length).toEqual(4);
     expect(result.current.loading).toEqual(false);
   });
 });

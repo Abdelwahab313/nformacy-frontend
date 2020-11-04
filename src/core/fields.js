@@ -1,15 +1,16 @@
 import _ from 'lodash';
 
 export const getMajorFieldsFromSubfields = (majorFieldsOptions, subfields) => {
-  let majorFieldsIds = subfields?.map((subfield) => (subfield.majorFieldId));
+  let majorFieldsIds = subfields?.map((subfield) => subfield.majorFieldId);
   majorFieldsIds = [...new Set(majorFieldsIds)];
-  return majorFieldsOptions.filter((majorField) => majorFieldsIds.includes(majorField.id));
+  return majorFieldsOptions?.filter((majorField) =>
+    majorFieldsIds.includes(majorField.id),
+  );
 };
 
 export const getFieldLabel = (fields, fieldId) => {
   return fields?.find((field) => field.id === fieldId)?.label;
 };
-
 
 export const groupFieldsByMajorFieldId = (fieldsLabels, fields) => {
   const groupedByFields = _.chain(fields)

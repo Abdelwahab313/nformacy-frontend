@@ -13,6 +13,7 @@ import {
 import { camelizeKeys } from 'humps';
 import UserFactory from './factories/userFactory';
 import moment from 'moment';
+import { some } from 'lodash';
 
 export const login = (email = USER_NAME, password = PASSWORD) => {
   cy.visit(BASE_URL);
@@ -94,6 +95,11 @@ export const loginAsAdmin = () => {
     });
 };
 
+export const isAdmin = () => {
+  const currentUser = JSON.parse(localStorage.getItem('user'));
+  const isAdmin = some(currentUser.roles, { name: 'admin' });
+  return isAdmin;
+};
 export const getFromLocalStorage = (key) => {
   return JSON.parse(localStorage.getItem(key));
 };

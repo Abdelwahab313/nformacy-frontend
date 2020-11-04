@@ -9,8 +9,12 @@ When(/^I fill my updated data$/, function() {
   cy.get('#work-experience-company-0').clear();
   cy.get('#work-experience-company-0').type('test company name');
   cy.get('#work-experience-startDate-0').click();
-  cy.get('.MuiPickersYearSelection-container').first().click();
-  cy.get('.MuiPickersMonthSelection-container').first().click();
+  cy.get('.MuiPickersYearSelection-container')
+    .first()
+    .click();
+  cy.get('.MuiPickersMonthSelection-container')
+    .first()
+    .click();
   cy.get('#experiences-toDate-0').click();
   cy.get('#add-education').click();
   cy.get('#educations-degree-0').clear();
@@ -20,35 +24,29 @@ When(/^I fill my updated data$/, function() {
   cy.get('#educations-school-0').clear();
   cy.get('#educations-school-0').type('test school');
   cy.get('#educations-endYear-0').click();
-  cy.get('.MuiPickersYearSelection-container').first().click();
-  cy.get('.MuiPickersMonthSelection-container').first().click();
+  cy.get('.MuiPickersYearSelection-container')
+    .first()
+    .click();
+  cy.get('.MuiPickersMonthSelection-container')
+    .first()
+    .click();
 });
 When(/^press submit$/, function() {
   cy.get('#saveResume').click();
   cy.get('#savePersonalInfo').click();
   cy.get('#saveFieldsOfSpecialization').click();
-
 });
 When(/^I Upload an image$/, function() {
   cy.get('.chooseFileButton ').click();
   const profilePicturePath = 'download.png';
   cy.get('input[type="file"]').attachFile(profilePicturePath);
 });
-Then(/^I should see the image i uploaded$/, function() {
-});
+Then(/^I should see the image i uploaded$/, function() {});
 
-Then(/^I should see edit basic info dialog$/, function() {
-
-});
-When(/^i edit basic info$/, function() {
-
-});
-When(/^click save$/, function() {
-
-});
-Then(/^i should see edited basic info$/, function() {
-
-});
+Then(/^I should see edit basic info dialog$/, function() {});
+When(/^i edit basic info$/, function() {});
+When(/^click save$/, function() {});
+Then(/^i should see edited basic info$/, function() {});
 Then(/^I should see basic info section$/, function() {
   cy.get('#basicInfo ');
   cy.get('#profilePicture ');
@@ -83,10 +81,10 @@ When(/^I click on edit fields of specializations$/, function() {
   cy.get('#editFieldsOfSpecializations ').click();
 });
 When(/^I fill my updated fields of specializations data$/, function() {
+  cy.wait(2000);
   cy.get('#fieldsOfSpecializationDialog').should('be.visible');
   cy.get('#majorFieldsOfExperienceSelect').click();
   cy.get('#majorFieldsOfExperienceSelect-option-3').click();
-  cy.get('#majorFieldsOfExperienceSelect').click();
   cy.get('#specificFieldsOfExperienceSelect').click();
   cy.get('#specificFieldsOfExperienceSelect-option-2').click();
   cy.get('#fieldsOfSpecializationTitle').click();
@@ -105,7 +103,6 @@ Then(/^then should see my updatedfields of specializations$/, function() {
 });
 When(/^I click on edit summary info$/, function() {
   cy.get('#editSummary ').click();
-
 });
 When(/^I fill my summary$/, function() {
   cy.get('#summaryField').clear();
@@ -125,17 +122,16 @@ When(/^I click on update cv$/, function() {
 When(/^I upload my cv$/, function() {
   cy.get('.chooseFileButton ').click();
   const profilePicturePath = 'cv.pdf';
-  cy.get('input[type="file"]').attachFile(profilePicturePath, {allowEmpty: true});
+  cy.get('input[type="file"]').attachFile(profilePicturePath, {
+    allowEmpty: true,
+  });
 });
 
 When(/^press save cv$/, function() {
   cy.get('#saveCV').click();
   cy.get('#editCV').should('be.visible');
 });
-Then(/^then should see my cv$/, function() {
-
-});
-
+Then(/^then should see my cv$/, function() {});
 
 When(/^I fill my updated basic Info data$/, function() {
   cy.get('#editBasicInfoForm').should('be.visible');
@@ -148,8 +144,6 @@ When(/^I fill my updated basic Info data$/, function() {
   cy.get('input[name="linkedInProfileUrl"]').clear();
   cy.get('input[name="linkedInProfileUrl"]').type('linkedin.com');
 });
-
-
 
 When(/^I go to profile page$/, function() {
   cy.visit(BASE_URL + '/user/edit');

@@ -26,6 +26,7 @@ Then(/^The page content should be translated to "([^"]*)"$/, function(
 });
 
 Then(/^The page direction should be "([^"]*)"$/, function(dir) {
+  cy.wait(3000);
   cy.get('#questionRoasterMainContainer').should('have.attr', 'dir', dir);
 });
 Given(/^I login in with an account with "([^"]*)" saved as language$/, function(

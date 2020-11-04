@@ -15,15 +15,16 @@ import useFieldsFetcher from 'hooks/useFieldsFetcher';
 import clsx from 'clsx';
 import { flatMap } from 'lodash';
 import FieldsView from './FieldsView';
+import useUserFieldsFetcher from '../../../hooks/useUserFieldsFetcher';
 
 const FieldsOfSpecializationSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
+  const { fields, loading: fieldsLoading } = useFieldsFetcher();
   const {
-    fields,
-    loading,
     currentUserFields,
     updateUserFields,
-  } = useFieldsFetcher();
+    loading: userFieldsLoading,
+  } = useUserFieldsFetcher();
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const handleClickOpen = () => {
@@ -54,7 +55,7 @@ const FieldsOfSpecializationSection = () => {
       </Dialog>
       <Paper className={classes.paperSection} elevation={3}>
         <Grid container justify={'space-between'}>
-          <Grid item xs={1} className={classes.paperSectionHeaderStyles}/>
+          <Grid item xs={1} className={classes.paperSectionHeaderStyles} />
           <Grid item xs={10} className={classes.paperSectionHeaderStyles}>
             <Typography gutterBottom className={classes.sectionHeaderStyles}>
               {t['fieldsOfSpecialization']}
@@ -65,11 +66,11 @@ const FieldsOfSpecializationSection = () => {
               aria-label='edit'
               id='editFieldsOfSpecializations'
               onClick={handleClickOpen}>
-              <EditIcon color={'primary'}/>
+              <EditIcon color={'primary'} />
             </IconButton>
           </Grid>
         </Grid>
-        <Divider variant='middle' style={dividerStyle}/>
+        <Divider variant='middle' style={dividerStyle} />
         <Grid
           container
           spacing={5}
@@ -109,8 +110,11 @@ const FieldsOfSpecializationSection = () => {
                   {t['experiencedIn']}
                 </Typography>
               </Grid>
-              <FieldsView currentUserFields={currentUserFields} fields={fields} loading={loading}/>
-
+              <FieldsView
+                currentUserFields={currentUserFields}
+                fields={fields}
+                loading={userFieldsLoading || fieldsLoading}
+              />
             </Grid>
             <Grid container className={classes.sectionRowStyles}>
               <Grid item xs={6}>
@@ -158,6 +162,5 @@ const FieldsOfSpecializationSection = () => {
     </Grid>
   );
 };
-
 
 export default FieldsOfSpecializationSection;

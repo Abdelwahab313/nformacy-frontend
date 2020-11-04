@@ -2,7 +2,7 @@
   "chooseLanguage": "Choose Language",
   "english": "English",
   "englishShortcut": "EN",
-  "arabic": "العربية",
+  "arabic": "Arabic",
   "arabicShortcut": "ع",
   "saveAndCompleteLater": "Save & Complete Later",
   "questionAltImg": "Question Image",
@@ -21,5 +21,6 @@
   "all": "All",
   "day": "Day",
   "hour": "Hour",
-  "minute": "Minute"
+  "minute": "Minute",
+  "clearAll": "Clear All"
 }

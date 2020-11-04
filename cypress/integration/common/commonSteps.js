@@ -15,14 +15,20 @@ Given(/^I am a freelancer$/, function() {});
 
 Given(/^I am on the questions dashboard$/, function() {
   cy.visit(BASE_URL + '/admin/questions');
+  cy.server();
+  cy.route('GET', '/fields?locale=en').as('fields');
 });
 
 Given(/^I am an admin and Logged in$/, function() {
   loginAsAdmin();
+  cy.server();
+  cy.route('GET', '/questions/all').as('allQuestions');
 });
 
 Given(/^I login in as an advisor$/, function() {
   loginAsAnAdvisor();
+  cy.server();
+  cy.route('GET', '/questions/adviser_questions').as('adviserQuestions');
 });
 
 Given(/^I log in as a freelancer$/, function() {
@@ -35,7 +41,10 @@ Given(/^visit home page$/, function() {
 });
 
 When(/^I go to question roaster$/, function() {
+  cy.server();
+  cy.route('GET', '/fields?locale=**').as('fields');
   cy.visit(BASE_URL + '/questions');
+  cy.wait('@fields');
 });
 
 Given(/^I Logout from admin dashboard$/, function() {

@@ -159,6 +159,7 @@ Then(/^i should be in the saved question post form\.$/, function() {});
 Then(/^all saved information should be visible$/, function() {});
 
 Then(/^the question status should be pending adviser acceptance$/, function() {
+  cy.wait(2000);
   cy.get('.state[data-status="draft"]')
     .last()
     .click();
@@ -285,7 +286,7 @@ Given(
 );
 
 Then(/^The question should be visible with no action\.$/, function() {
-  cy.wait(1000);
+  cy.wait('@adviserQuestions');
   const createdQuestion = getFromLocalStorage('createdQuestion');
   cy.get(
     `tr[row-reference='${createdQuestion.referenceNumber}'] td[data-colindex="7"]`,

@@ -52,7 +52,7 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
         (majorField) => majorField.id,
       );
 
-      const availableMajorFields = majorFieldsOptions.filter((majorField) => {
+      const availableMajorFields = majorFieldsOptions?.filter((majorField) => {
         return selectedMajorFieldsIDs.includes(majorField.id);
       });
 
