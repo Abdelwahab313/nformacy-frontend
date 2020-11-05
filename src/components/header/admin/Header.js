@@ -10,7 +10,7 @@ import Hidden from '@material-ui/core/Hidden';
 // @material-ui/icons
 import Menu from '@material-ui/icons/Menu';
 // core components
-import AdminNavbarLinks from 'components/Header/admin/AdminNavbarLinks.js';
+import AdminNavbarLinks from 'components/header/admin/AdminNavbarLinks.js';
 
 import styles from 'assets/jss/material-dashboard-react/components/headerStyle.js';
 import Grid from '@material-ui/core/Grid';

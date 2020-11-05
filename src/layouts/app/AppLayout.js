@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 
-import AppHeader from 'components/Header/app/Header';
+import AppHeader from 'components/header/app/Header';
 
 import AppRouter from 'layouts/app/AppRouter';
 

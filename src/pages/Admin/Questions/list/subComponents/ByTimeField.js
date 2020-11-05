@@ -11,9 +11,9 @@ import {
 import CloseIcon from '@material-ui/icons/Close';
 import Transition from 'components/animations/Transition';
 import QuestionCountDown from 'components/counters/QuestionCountDown';
-import CustomInput from 'components/CustomInput/CustomInput';
+import CustomInput from 'components/inputs/CustomInput';
 import SubmitButton from 'components/buttons/SubmitButton';
-import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
+import SuccessSnackBar from 'components/snackbar/SuccessSnackBar';
 import {extendTime} from 'apis/questionsAPI'
 import authManager from 'services/authManager';
 

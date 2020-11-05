@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 // @material-ui/core components
 // core components
-import GridItem from 'components/Grid/GridItem.js';
-import GridContainer from 'components/Grid/GridContainer.js';
+import GridItem from 'components/grid/GridItem.js';
+import GridContainer from 'components/grid/GridContainer.js';
 import Button from 'components/buttons/RegularButton.js';
-import Card from 'components/Card/Card.js';
-import CardHeader from 'components/Card/CardHeader.js';
-import CardFooter from 'components/Card/CardFooter.js';
+import Card from 'components/card/Card.js';
+import CardHeader from 'components/card/CardHeader.js';
+import CardFooter from 'components/card/CardFooter.js';
 import { useHistory, useLocation } from 'react-router';
 import { fetchQuestionDetails } from 'apis/questionsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';

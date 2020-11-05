@@ -11,7 +11,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 // core components
-import AdminNavbarLinks from 'components/Header/admin/AdminNavbarLinks.js';
+import AdminNavbarLinks from 'components/header/admin/AdminNavbarLinks.js';
 import { PermissibleRender } from '@brainhubeu/react-permissible';
 
 import styles from 'assets/jss/material-dashboard-react/components/sidebarStyle.js';

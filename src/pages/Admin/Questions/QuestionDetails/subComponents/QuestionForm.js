@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
-import CardBody from '../../../../../components/Card/CardBody';
-import GridContainer from '../../../../../components/Grid/GridContainer';
-import GridItem from '../../../../../components/Grid/GridItem';
-import CustomInput from '../../../../../components/CustomInput/CustomInput';
+import CardBody from '../../../../../components/card/CardBody';
+import GridContainer from '../../../../../components/grid/GridContainer';
+import GridItem from '../../../../../components/grid/GridItem';
+import CustomInput from '../../../../../components/inputs/CustomInput';
 import { industries, questionLanguages, questionTypesOfAssignment } from '../../../../../constants/dropDownOptions';
 import humanizedTimeSpan from '../../../../../services/humanizedTimeSpan';
 import { useStyles } from '../../../../../styles/Admin/questionFormStyles';
@@ -13,7 +13,7 @@ import { useHistory } from 'react-router';
 import { Grid } from '@material-ui/core';
 import { useStyles as useRoasterStyle } from '../../../../../styles/questionRoasterStyles';
 import AttachmentUploader from '../../../../../components/forms/AttachmentUploader';
-import DropdownSelectField from 'components/CustomInput/DropdownSelectField';
+import DropdownSelectField from 'components/inputs/DropdownSelectField';
 import AssignedAdvisersSelect from './AssignedAdvisersSelect';
 import { useAuth } from '../../../../auth/context/auth';
 import QuestionCountDown from '../../../../../components/counters/QuestionCountDown';
@@ -32,7 +32,7 @@ import {
 import authManager from '../../../../../services/authManager';
 import { useQuestionContext } from '../context';
 import { setEmptyMessage, setErrorMessage, setSuccessMessage, updateQuestionDetails } from '../context/questionAction';
-import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
+import SuccessSnackBar from 'components/snackbar/SuccessSnackBar';
 import ImageUploadWithPreview from 'components/inputs/FileUpload/ImageUploadWithPreview';
 import FieldsSelect from '../../../../../components/inputs/FieldsSelect/FieldsSelect';
 

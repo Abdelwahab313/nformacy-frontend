@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import useFieldFetcher from 'hooks/useFieldsFetcher';
 
 import t from '../../../locales/en/freelancerProfile.json';
-import AutoCompleteSelectField from '../../CustomInput/AutoCompleteSelectField';
+import AutoCompleteSelectField from '../AutoCompleteSelectField';
 import { getMajorFieldsFromSubfields } from '../../../core/fields';
 
 const getSubFieldsOptions = (majorField) => {

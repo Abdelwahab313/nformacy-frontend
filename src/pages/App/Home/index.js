@@ -5,7 +5,7 @@ import ProfileSummaryCard from './ProfileSummaryCard';
 import useStyles from './styles/HomePageStyles';
 import CalendarCard from './CalendarCard';
 import { useAuth } from '../../auth/context/auth';
-import SuccessSnackBar from '../../../components/Snackbar/SuccessSnackBar';
+import SuccessSnackBar from '../../../components/snackbar/SuccessSnackBar';
 import { useLocation } from 'react-router';
 
 const HomePage = () => {

@@ -5,8 +5,8 @@ import 'perfect-scrollbar/css/perfect-scrollbar.css';
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
 // core components
-import AdminHeader from 'components/Header/admin/Header.js';
-import Sidebar from 'components/Sidebar/Sidebar.js';
+import AdminHeader from 'components/header/admin/Header.js';
+import Sidebar from 'components/sidebar/Sidebar.js';
 
 import adminRoutes from 'layouts/admin/routes';
 

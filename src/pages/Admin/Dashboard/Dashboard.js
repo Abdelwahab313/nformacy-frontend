@@ -15,17 +15,17 @@ import BugReport from '@material-ui/icons/BugReport';
 import Code from '@material-ui/icons/Code';
 import Cloud from '@material-ui/icons/Cloud';
 // core components
-import GridItem from 'components/Grid/GridItem.js';
-import GridContainer from 'components/Grid/GridContainer.js';
-import Table from 'components/Table/Table.js';
-import Tasks from 'components/Tasks/Tasks.js';
-import CustomTabs from 'components/CustomTabs/CustomTabs.js';
-import Danger from 'components/Typography/Danger.js';
-import Card from 'components/Card/Card.js';
-import CardHeader from 'components/Card/CardHeader.js';
-import CardIcon from 'components/Card/CardIcon.js';
-import CardBody from 'components/Card/CardBody.js';
-import CardFooter from 'components/Card/CardFooter.js';
+import GridItem from 'components/grid/GridItem.js';
+import GridContainer from 'components/grid/GridContainer.js';
+import Table from 'components/table/Table.js';
+import Tasks from 'components/tasks/Tasks.js';
+import CustomTabs from 'components/customTabs/CustomTabs.js';
+import Danger from 'components/typography/Danger.js';
+import Card from 'components/card/Card.js';
+import CardHeader from 'components/card/CardHeader.js';
+import CardIcon from 'components/card/CardIcon.js';
+import CardBody from 'components/card/CardBody.js';
+import CardFooter from 'components/card/CardFooter.js';
 
 
 import styles from 'assets/jss/material-dashboard-react/views/dashboardStyle.js';

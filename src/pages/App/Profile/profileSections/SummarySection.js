@@ -11,7 +11,7 @@ import Divider from '@material-ui/core/Divider';
 import { dividerStyle, useStyles } from '../../../../styles/formsStyles';
 import React, { useRef } from 'react';
 import SummaryForm from '../../../../components/forms/SummaryForm';
-import ShowMore from '../../../../components/Typography/ShowMore';
+import ShowMore from '../../../../components/typography/ShowMore';
 
 const SummarySection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));

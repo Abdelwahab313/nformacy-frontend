@@ -1,6 +1,6 @@
 import React from 'react';
 import t from 'locales/en/freelancerProfile.json';
-import AutoCompleteSelectField from 'components/CustomInput/AutoCompleteSelectField';
+import AutoCompleteSelectField from 'components/inputs/AutoCompleteSelectField';
 
 const MajorFieldSelect = ({ fields, handleOptionsChange, value, loading }) => {
 

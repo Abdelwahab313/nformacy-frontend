@@ -15,7 +15,7 @@ import Person from '@material-ui/icons/Person';
 import Dashboard from '@material-ui/icons/Dashboard';
 import Search from '@material-ui/icons/Search';
 // core components
-import CustomInput from 'components/CustomInput/CustomInput.js';
+import CustomInput from 'components/inputs/CustomInput.js';
 import Button from 'components/buttons/RegularButton.js';
 
 import styles from 'assets/jss/material-dashboard-react/components/headerLinksStyle.js';

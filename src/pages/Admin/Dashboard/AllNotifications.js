@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import { useQuery } from 'react-query';
 import { fetchAllNotifications } from '../../../apis/notifications';
 import LoadingCircle from '../../../components/progress/LoadingCircle';
-import NotificationCard from '../../../components/NotificationCard/NotificationCard';
+import NotificationCard from '../../../components/notificationCard/NotificationCard';
 
 
 const AllNotifications = () => {

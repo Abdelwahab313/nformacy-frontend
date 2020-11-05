@@ -14,7 +14,7 @@ import { useMenuStyles } from '../../../../styles/notificationCard';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import clsx from 'clsx';
 import moment from 'moment';
-import { Circle } from '../../../NotificationCard/NotificationCard';
+import { Circle } from '../../../notificationCard/NotificationCard';
 import { useTranslation } from 'react-i18next';
 import authManager from '../../../../services/authManager';
 

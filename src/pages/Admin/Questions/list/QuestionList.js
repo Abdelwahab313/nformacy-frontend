@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
-import GridItem from 'components/Grid/GridItem.js';
-import GridContainer from 'components/Grid/GridContainer.js';
-import Card from 'components/Card/Card.js';
-import CardBody from 'components/Card/CardBody.js';
+import GridItem from 'components/grid/GridItem.js';
+import GridContainer from 'components/grid/GridContainer.js';
+import Card from 'components/card/Card.js';
+import CardBody from 'components/card/CardBody.js';
 import QuestionsTable from 'pages/Admin/Questions/list/QuestionsTable';
 import useFetchData from 'hooks/useFetchData';
 import { fetchAllQuestions, fetchQuestionsOfAdviser } from 'apis/questionsAPI';

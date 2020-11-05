@@ -9,7 +9,7 @@ import SubmitButton from 'components/buttons/SubmitButton';
 import createMarkup from '../../../../services/markup';
 import Countdown from 'react-countdown';
 import CountdownBoxShape from 'components/counters/CountdownBoxShape';
-import ShowMore from '../../../../components/Typography/ShowMore';
+import ShowMore from '../../../../components/typography/ShowMore';
 import directions from '../../../../constants/direction';
 import DEFAULT_LOCALES from '../../../../constants/locale';
 import { useTranslation } from 'react-i18next';

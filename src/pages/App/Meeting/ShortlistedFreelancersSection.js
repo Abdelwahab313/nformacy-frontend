@@ -18,7 +18,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { useLocation } from 'react-router';
 import { scheduleMeeting } from '../../../apis/meetingsAPI';
 import Typography from '@material-ui/core/Typography';
-import SuccessSnackBar from 'components/Snackbar/SuccessSnackBar';
+import SuccessSnackBar from 'components/snackbar/SuccessSnackBar';
 
 const useStyles = makeStyles((theme) => ({
   root: {

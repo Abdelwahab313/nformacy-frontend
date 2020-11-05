@@ -1,8 +1,8 @@
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import React, { Fragment } from 'react';
-import GridContainer from '../../../../../components/Grid/GridContainer';
-import GridItem from '../../../../../components/Grid/GridItem';
+import GridContainer from '../../../../../components/grid/GridContainer';
+import GridItem from '../../../../../components/grid/GridItem';
 import { useStyles } from '../../../../../styles/Admin/questionFormStyles';
 import Grid from '@material-ui/core/Grid';
 import Rating from '@material-ui/lab/Rating';
@@ -20,7 +20,7 @@ import Divider from '@material-ui/core/Divider';
 import { useState } from 'react';
 import SubmitButton from 'components/buttons/SubmitButton';
 import t from '../../../../../locales/en/answersView.json';
-import ShowMore from '../../../../../components/Typography/ShowMore';
+import ShowMore from '../../../../../components/typography/ShowMore';
 
 const AnswerView = ({ answer, index, setRating }) => {
   const classes = useStyles();
