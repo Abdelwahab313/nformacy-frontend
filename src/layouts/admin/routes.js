@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Material Dashboard React - v1.9.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 // @material-ui/icons
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Person from '@material-ui/icons/Person';
@@ -40,7 +23,6 @@ const adminRoutes = [
     icon: DashboardIcon,
     component: Dashboard,
     hasDashboardLink: true,
-    layout: '/admin',
   },
   {
     path: RoutesPaths.Admin.Questions,
@@ -48,7 +30,6 @@ const adminRoutes = [
     icon: QuestionAnswerIcon,
     component: QuestionList,
     hasDashboardLink: true,
-    layout: '/admin',
   },
   {
     path: RoutesPaths.Admin.PostQuestion,
@@ -56,14 +37,12 @@ const adminRoutes = [
     icon: QuestionAnswerIcon,
     component: QuestionDetails,
     hasDashboardLink: false,
-    layout: '/admin',
   },
   {
     path: RoutesPaths.Admin.QuestionsDetails,
     name: 'Questions Details',
     component: QuestionDetails,
     hasDashboardLink: false,
-    layout: '/admin',
   },
   {
     path: RoutesPaths.Admin.User,
@@ -71,7 +50,6 @@ const adminRoutes = [
     icon: Person,
     component: Dashboard,
     hasDashboardLink: true,
-    layout: '/admin',
   },
   {
     path: RoutesPaths.Admin.Icons,
@@ -79,7 +57,6 @@ const adminRoutes = [
     icon: BubbleChart,
     component: Dashboard,
     hasDashboardLink: true,
-    layout: '/admin',
   },
   {
     path: RoutesPaths.Admin.Typography,
@@ -87,7 +64,6 @@ const adminRoutes = [
     icon: LibraryBooks,
     component: Dashboard,
     hasDashboardLink: true,
-    layout: '/admin',
   },
   {
     path: RoutesPaths.Admin.Notifications,
@@ -95,7 +71,6 @@ const adminRoutes = [
     icon: Notifications,
     component: AllNotifications,
     hasDashboardLink: true,
-    layout: '/admin',
   },
   {
     path: RoutesPaths.Admin.Logout,
@@ -103,7 +78,6 @@ const adminRoutes = [
     icon: Unarchive,
     component: Logout,
     hasDashboardLink: false,
-    layout: '/admin',
   },
 ];
 

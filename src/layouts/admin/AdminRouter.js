@@ -1,5 +1,7 @@
 import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Switch } from 'react-router-dom';
+
+import PrivateRoute from 'components/PrivateRoute';
 
 import adminRoutes from 'layouts/admin/routes';
 import { RoutesPaths } from 'constants/routesPath';
@@ -7,18 +9,15 @@ import { RoutesPaths } from 'constants/routesPath';
 const AdminRouter = () => {
   return (
     <Switch>
-      {adminRoutes.map((prop, key) => {
-        if (prop.layout === '/admin') {
-          return (
-            <Route
-              exact
-              path={prop.path}
-              component={prop.component}
-              key={key}
-            />
-          );
-        }
-        return null;
+      {adminRoutes.map((route, key) => {
+        return (
+          <PrivateRoute
+            exact
+            path={route.path}
+            component={route.component}
+            key={key}
+          />
+        );
       })}
       <Redirect from={RoutesPaths.Admin.Home} to={RoutesPaths.Admin.Dashboard}/>
     </Switch>
