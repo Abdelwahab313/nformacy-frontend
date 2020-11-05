@@ -72,15 +72,15 @@ const Login = () => {
 
   const { authToken } = authManager.retrieveUserToken();
   if (loginSuccess || authToken) {
-    if (referer.pathname === RoutesPaths.App.Logout) {
-      return <Redirect push to={postLoginRoute} />;
+    if (referer.pathname === RoutesPaths.App.Logout || referer.pathname === RoutesPaths.Admin.Logout) {
+      return <Redirect push to={postLoginRoute}/>;
     }
-    return <Redirect push to={referer} />;
+    return <Redirect push to={referer}/>;
   }
   if (loading) {
     return (
       <div className={classes.progressContainer}>
-        <CircularProgress />
+        <CircularProgress/>
       </div>
     );
   }
@@ -93,7 +93,7 @@ const Login = () => {
         container
         alignContent='center'
         className={classes.loginInTitleContainer}>
-        <Grid item xs={1} />
+        <Grid item xs={1}/>
         <Grid item xs={10}>
           <Typography className={classes.pageHeaderStyle}>
             {t('Login')}
@@ -110,7 +110,7 @@ const Login = () => {
             }}
           />
         )}
-        <CssBaseline />
+        <CssBaseline/>
         <Grid item xs={12} md={3}>
           <img
             src={require('../../assets/22759-girl-on-a-scooter.gif')}

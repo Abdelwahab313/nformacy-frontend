@@ -3,14 +3,14 @@ import { Switch } from 'react-router-dom';
 
 import PrivateRoute from 'components/PrivateRoute';
 
-import HomePage from 'pages/Home';
-import QuestionRoaster from 'pages/QuestionRoaster/QuestionRoasterView';
-import AnswerQuestion from 'pages/QuestionRoaster/AnswerQuestion';
-import EditProfile from 'pages/Profile/Profile';
-import MeetingsPage from 'pages/Meeting';
-import MeetingDetailsPage from 'pages/Meeting/MeetingDetailsPage';
+import HomePage from 'pages/App/Home';
+import QuestionRoaster from 'pages/App/QuestionRoaster/QuestionRoasterView';
+import AnswerQuestion from 'pages/App/QuestionRoaster/AnswerQuestion';
+import EditProfile from 'pages/App/Profile/Profile';
+import MeetingsPage from 'pages/App/Meeting';
+import MeetingDetailsPage from 'pages/App/Meeting/MeetingDetailsPage';
 import { RoutesPaths } from 'constants/routesPath';
-import PostSubmissionNote from '../../pages/QuestionRoaster/PostSubmissionNote';
+import PostSubmissionNote from '../../pages/App/QuestionRoaster/PostSubmissionNote';
 import AllNotifications from '../../pages/Admin/Dashboard/AllNotifications';
 
 const AppRouter = () => {
