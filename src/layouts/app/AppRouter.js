@@ -10,7 +10,7 @@ const AppRouter = () => {
     {appRoutes.map((route, key) => {
       return (
         <PrivateRoute
-          exact
+          exact={route.exact}
           path={route.path}
           component={route.component}
           key={key}

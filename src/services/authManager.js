@@ -27,7 +27,20 @@ class AuthManager {
         : undefined;
       return user.roles.some((role) => role.name === 'freelancer');
     } catch (e) {
-      return false
+      return false;
+    }
+  };
+
+  isClient = () => {
+    let user;
+    try {
+      const loadedUserString = localStorage.getItem('user');
+      user = !!loadedUserString
+        ? JSON.parse(loadedUserString)
+        : undefined;
+      return user.roles.some((role) => role.name === 'client');
+    } catch (e) {
+      return false;
     }
   };
 
@@ -40,7 +53,7 @@ class AuthManager {
         : undefined;
       return user.roles.some((role) => role.name === 'admin');
     } catch (e) {
-      return false
+      return false;
     }
   };
 
@@ -53,7 +66,7 @@ class AuthManager {
         : undefined;
       return user.roles.some((role) => role.name === 'adviser');
     } catch (e) {
-      return false
+      return false;
     }
   };
 

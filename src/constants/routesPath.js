@@ -22,6 +22,7 @@ export const RoutesPaths = {
     Home: '/',
     Questions: '/questions',
     AnswerQuestion: '/question/answer',
+    ServiceRequestDetails: '/service/edit',
     EditProfile: '/user/edit',
     Meetings: '/meeting/list',
     MeetingDetails: '/meeting/edit',

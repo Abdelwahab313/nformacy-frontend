@@ -6,7 +6,7 @@ i18n
   .use(initReactI18next)
   .use(Backend)
   .init({
-    ns: ['common', 'questionRoaster', 'notifications'],
+    ns: ['common', 'questionRoaster', 'notifications', 'home'],
     defaultNS: 'common',
     debug: true,
     lng: 'en',
