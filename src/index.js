@@ -12,6 +12,7 @@ import { AuthProvider } from './pages/auth/context/auth';
 import authManager from './services/authManager';
 import LoadingCircle from './components/progress/LoadingCircle';
 import 'moment/locale/ar';
+
 const Loader = () => <LoadingCircle color='primary' />;
 
 const App = () => {

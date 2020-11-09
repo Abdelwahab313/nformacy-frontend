@@ -17,9 +17,6 @@ const DropdownSelectField = ({
       options={fieldOptions}
       value={fieldValue || ''}
       getOptionLabel={(option) => option.label || ''}
-      // getOptionSelected={(option, value) => {
-      //   return option.value === value.value;
-      // }}
       onChange={(e, option) => {!!option && onFieldChange(option)}}
       blurOnSelect
       renderInput={(params) => (

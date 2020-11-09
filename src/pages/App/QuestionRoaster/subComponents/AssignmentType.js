@@ -13,7 +13,7 @@ const AssignmentType = ({ index, type }) => {
       return (
         <Fragment>
           <Tooltip
-          title={<Typography>{t('questionRoaster:project')}</Typography>}>
+          title={<Typography>{t('common:project')}</Typography>}>
           <Grid className={classes.assignmentTypeIcon}>
           <img
             id={`question-${index}-project`}
@@ -29,7 +29,7 @@ const AssignmentType = ({ index, type }) => {
       return (
         <Fragment>
           <Tooltip
-          title={<Typography>{t('questionRoaster:question')}</Typography>}>
+          title={<Typography>{t('common:question')}</Typography>}>
           <Grid className={classes.assignmentTypeIcon}>
           <img
             id={`question-${index}-question`}
@@ -45,7 +45,7 @@ const AssignmentType = ({ index, type }) => {
       return (
         <Fragment>
          <Tooltip
-          title={<Typography>{t('questionRoaster:call')}</Typography>}>
+          title={<Typography>{t('common:call')}</Typography>}>
           <Grid className={classes.assignmentTypeIcon}>
           <img
             id={`question-${index}-call`}
