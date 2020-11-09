@@ -28,8 +28,7 @@ const HomePage = () => {
           </Typography>
         </Box>
         {authManager.isClient() && (<AvailableServiceSection/>)}
-      </Grid>=
-
+      </Grid>
       <Grid item lg={3}>
       </Grid>
     </Grid>
