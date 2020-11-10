@@ -238,6 +238,7 @@ const ServiceRequestForm = ({}) => {
             <Grid
               item
               xs={6}
+              style={{flexBasis: '100%', textAlign: 'right', marginTop: 20, maxWidth: '100%'}}
               className={classes.answerButtonContainer}>
               <SubmitButton
                 id='saveAndCompleteLaterButton'
@@ -245,13 +246,6 @@ const ServiceRequestForm = ({}) => {
                 }}
                 buttonText={t['saveAndCompleteLater']}
                 className={[classes.answerButtons, classes.buttonMargin]}
-              />
-              <SubmitButton
-                id={'sendToAdminButton'}
-                onClick={() => {
-                }}
-                buttonText={'Send for deployment'}
-                className={classes.answerButtons}
               />
             </Grid>
           </Grid>

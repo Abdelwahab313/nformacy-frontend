@@ -44,7 +44,7 @@ const AutoCompleteSelectField = ({
   return (
     <Autocomplete
       onChange={handleChange}
-      multiple
+      single
       loading={loading}
       classes={selectClasses}
       options={options || []}

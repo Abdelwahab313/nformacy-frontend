@@ -31,6 +31,9 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
 
   const handleMajorFieldChange = (selectedList) => {
     setSelectedMajorFields(selectedList);
+    if(typeof selectedList === 'object'){
+      selectedList = [selectedList]
+    }
     const majorFieldIds = selectedList.map(
       (majorField) => majorField.id,
     );
