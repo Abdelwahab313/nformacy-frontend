@@ -3,29 +3,36 @@ import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import { industries, questionLanguages, questionTypesOfAssignment } from 'constants/dropDownOptions';
 import humanizedTimeSpan from 'services/humanizedTimeSpan';
-import authManager from 'services/authManager';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import CustomInput from 'components/inputs/CustomInput';
 import FieldsSelect from 'components/inputs/FieldsSelect/FieldsSelect';
 import DropdownSelectField from 'components/inputs/DropdownSelectField';
-import QuestionCountDown from 'components/counters/QuestionCountDown';
 import RichTextEditorForm from 'components/forms/RichTextEditorForm';
 import CardBody from 'components/card/CardBody';
 import { useStyles } from 'styles/Admin/questionFormStyles';
 import SubmitButton from 'components/buttons/SubmitButton';
-import AssignedAdvisersSelect from '../../../Admin/Questions/QuestionDetails/subComponents/AssignedAdvisersSelect';
 import { useTranslation } from 'react-i18next';
+import TextField from '@material-ui/core/TextField';
+import { submitService } from 'apis/servicesAPI';
+
 
 const ServiceRequestForm = ({ }) => {
   const classes = useStyles();
-  const [serviceRequest, setServiceRequest] = useState({fields:[]});
+  const [serviceRequest, setServiceRequest] = useState({ fields: [] });
   const isNewServiceRequest = true;
   const onChangeField = (name, value) => {
     setServiceRequest((prevData) => ({ ...prevData, [name]: value }))
   };
   const { t } = useTranslation();
-
+  const handleSubmit = () => {
+    submitService(serviceRequest)
+    .then(() => {
+      // console.log('success', res)
+    }).catch(()=>{
+      // console.log('error');
+    })
+  }
   return (
     <CardBody>
       <GridContainer>
@@ -45,22 +52,6 @@ const ServiceRequestForm = ({ }) => {
             />
           </GridItem>
         )}
-        <GridItem xs={12} sm={12} md={!isNewServiceRequest ? 7 : 12}>
-          <CustomInput
-            labelText='Title'
-            id='title'
-            formControlProps={{
-              fullWidth: true,
-            }}
-            inputProps={{
-              value: serviceRequest.title,
-              name: 'title',
-              onChange: (e) => {
-                onChangeField('title', e.target.value);
-              },
-            }}
-          />
-        </GridItem>
         {!isNewServiceRequest && (
           <GridItem xs={12} sm={12} md={3}>
             <CustomInput
@@ -87,13 +78,13 @@ const ServiceRequestForm = ({ }) => {
         {({ MajorField, Field }) => (
 
           <GridContainer className={classes.inputsRow}>
-            <GridItem xs={12} sm={12} md={3}>
+            <GridItem xs={12} sm={12} md={4}>
               <MajorField single />
             </GridItem>
-            <GridItem xs={12} sm={12} md={3}>
+            <GridItem xs={12} sm={12} md={4}>
               <Field />
             </GridItem>
-            <GridItem xs={12} sm={12} md={3}>
+            <GridItem xs={12} sm={12} md={4}>
               <DropdownSelectField
                 fieldId='industry'
                 fieldName='industry'
@@ -105,116 +96,59 @@ const ServiceRequestForm = ({ }) => {
                 fieldLabel='Industry'
               />
             </GridItem>
-            <GridItem xs={12} sm={12} md={3}>
-              <DropdownSelectField
-                fieldId='questionLanguage'
-                fieldName='QuestionLanguage'
-                fieldOptions={questionLanguages}
-                fieldValue={
-                  questionLanguages.filter(
-                    (option) => serviceRequest.language === option.value,
-                  )[0]
-                }
-                onFieldChange={(option) =>
-                  onChangeField('language', option.value)
-                }
-                fieldLabel='Question Language'
-              />
-            </GridItem>
           </GridContainer>
         )}
       </FieldsSelect>
-      {authManager.isAdmin() && (
-        <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={12} md={3}>
-            <DropdownSelectField
-              fieldId='assignmentType'
-              fieldName='AssignmentType'
-              fieldOptions={questionTypesOfAssignment}
-              fieldValue={
-                questionTypesOfAssignment.filter(
-                  (option) => serviceRequest.assignmentType === option.value,
-                )[0]
+      <GridContainer className={classes.inputsRow}>
+        <GridItem xs={12} sm={12} md={8}>
+          <TextField
+            label="Title"
+            id='title'
+            name='title'
+            fullWidth
+            value={serviceRequest.title}
+            onChange={
+              (e) => {
+                onChangeField('title', e.target.value);
               }
-              onFieldChange={(option) =>
-                onChangeField('assignmentType', option.value)
-              }
-              fieldLabel='Type of Assignment'
-            />
-          </GridItem>
-          <GridItem
-            xs={12}
-            sm={12}
-            md={3}
-            className={classes.countDownContainer}>
-            <CustomInput
-              labelText='Time for Freelancers to Answer (In Hours)'
-              id='hoursToCloseAnswers'
-              formControlProps={{
-                style: {
-                  margin: 0,
-                },
-                fullWidth: true,
-              }}
-              inputProps={{
-                value: serviceRequest.hoursToCloseAnswers,
-                name: 'hoursToCloseAnswers',
-                type: 'number',
-                onChange: (e) => {
-                  onChangeField('hoursToCloseAnswers', e.target.value);
-                },
-              }}
-            />
-          </GridItem>
-          <GridItem
-            xs={12}
-            sm={12}
-            md={3}
-            className={classes.countDownContainer}>
-            <CustomInput
-              labelText='Time for Adviser to Review (In Hours)'
-              id='hoursToReviewAndEdit'
-              formControlProps={{
-                style: {
-                  margin: 0,
-                },
-                fullWidth: true,
-              }}
-              inputProps={{
-                value: serviceRequest.hoursToReviewAndEdit,
-                name: 'hoursToReviewAndEdit',
-                type: 'number',
-                onChange: (e) => {
-                  onChangeField('hoursToReviewAndEdit', e.target.value);
-                },
-              }}
-            />
-          </GridItem>
-          <GridItem xs={12} sm={12} md={3}>
-            <AssignedAdvisersSelect
-              serviceRequest={serviceRequest}
-              onChangeField={onChangeField}
-            />
-          </GridItem>
-        </GridContainer>
-      )}
-      {authManager.isAdviser() && serviceRequest.state === 'review_and_edit' && (
-        <GridContainer className={classes.inputsRow} alignItems={'center'}>
-          <InputLabel
-            className={classes.countDown}
-            color={'primary'}
-            htmlFor={'reviewAndEditTime'}>
-            Remaining time to review and Edit:
-          </InputLabel>
-          <GridItem xs={12} sm={12} md={3}>
-            <QuestionCountDown
-              id={'reviewAndEditTime'}
-              className={classes.countDownText}
-              date={serviceRequest?.currentActionTime}
-            />
-          </GridItem>
-        </GridContainer>
-      )}
+            }
+            variant="outlined"
+          />
+        </GridItem>
+        <GridItem xs={12} sm={12} md={2}>
+          <DropdownSelectField
+            fieldId='questionLanguage'
+            fieldName='QuestionLanguage'
+            fieldOptions={questionLanguages}
+            fieldValue={
+              questionLanguages.filter(
+                (option) => serviceRequest.language === option.value,
+              )[0]
+            }
+            onFieldChange={(option) =>
+              onChangeField('language', option.value)
+            }
+            fieldLabel='Language'
+          />
+        </GridItem>
+        <GridItem xs={12} sm={12} md={2}>
+          <DropdownSelectField
+            fieldId='assignmentType'
+            fieldName='AssignmentType'
+            fieldOptions={questionTypesOfAssignment}
+            fieldValue={
+              questionTypesOfAssignment.filter(
+                (option) => serviceRequest.assignmentType === option.value,
+              )[0]
+            }
+            onFieldChange={(option) =>
+              onChangeField('assignmentType', option.value)
+            }
+            fieldLabel='Type'
+          />
+        </GridItem>
+      </GridContainer>
+
       <GridContainer className={classes.inputsRow}>
         <GridItem xs={12} sm={12} md={12}>
           <InputLabel className={classes.contentTitle}>
@@ -241,6 +175,7 @@ const ServiceRequestForm = ({ }) => {
               <SubmitButton
                 id='saveAndCompleteLaterButton'
                 onClick={() => {
+
                 }}
                 buttonText={t('common:saveAndCompleteLater')}
                 className={[classes.answerButtons, classes.buttonMargin, classes.buttonMargin]}
@@ -248,6 +183,7 @@ const ServiceRequestForm = ({ }) => {
               <SubmitButton
                 id='submitQuestionButtonButton'
                 onClick={() => {
+                  handleSubmit()
                 }}
                 buttonText={t('common:submitQuestionButton')}
                 className={[classes.answerButtons, classes.buttonMargin, classes.buttonMargin]}

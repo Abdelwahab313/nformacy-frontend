@@ -9,6 +9,7 @@ const DropdownSelectField = ({
   fieldValue,
   onFieldChange,
   fieldLabel,
+  ...props
 }) => {
   return (
     <Autocomplete
@@ -22,6 +23,7 @@ const DropdownSelectField = ({
       renderInput={(params) => (
         <TextField {...params} variant='outlined' label={fieldLabel} />
       )}
+      {...props}
     />
   );
 };

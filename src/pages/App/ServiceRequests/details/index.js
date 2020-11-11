@@ -28,7 +28,7 @@ const ServiceRequestDetails = () => {
             {`Request a ${serviceTitle} Service`}
           </Typography>
         </CardHeader>
-        <ServiceRequestForm/>
+        <ServiceRequestForm type={serviceType}/>
         <CardFooter className={classes.footerButtons}>
         </CardFooter>
       </Card>
