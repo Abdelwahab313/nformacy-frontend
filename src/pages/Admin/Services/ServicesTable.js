@@ -98,6 +98,27 @@ const getColumnsFor = (classes) => {
         ...defaultColumnOption,
         filter: false,
         sort: true,
+        customBodyRender: (value, tableMeta) => {
+          return (
+            <Link
+              data-status={
+                tableMeta.rowData[0]
+              }
+              data-reference={
+                tableMeta.rowData[0]
+              }
+              className={classes.link}
+              to={{
+                pathname: RoutesPaths.Admin.ServiceDetails,
+                state: {
+                  serviceId:
+                    tableMeta.rowData[0],
+                },
+              }}>
+              <TextCroppedWithTooltip text={value} />
+            </Link>
+          );
+        },
       },
     },
     {
