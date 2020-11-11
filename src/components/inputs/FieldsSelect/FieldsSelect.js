@@ -41,7 +41,6 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
 
   // @selectedList [{id,label,majorFieldId}]
   const handleFieldsChange = (selectedList) => {
-    console.log('selectedList =========== ', selectedList)
     updateFields(selectedList);
   };
 
@@ -66,41 +65,41 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
   }, [selectedMajorFields, majorFieldsOptions]);
 
 
-  const MajorField = ({single=false}) => {
+  const MajorField = ({ single = false }) => {
     const handleChange = (newValue) => {
-      if(!!single) {
-        newValue = !!newValue ?  [newValue] : [];
+      if (!!single) {
+        newValue = !!newValue ? [newValue] : [];
       }
       handleMajorFieldChange(newValue)
     }
-    const fieldsValue= !!single ? ( !!selectedMajorFields ? selectedMajorFields[0]: null ) : selectedMajorFields
+    const fieldsValue = !!single ? (!!selectedMajorFields ? selectedMajorFields[0] : null) : selectedMajorFields
     return (
-    <AutoCompleteSelectField
-      id='majorFieldsOfExperienceSelect'
-      name='majorFieldsOfExperience'
-      inputLabel={t['majorFieldOfExperience']}
-      options={majorFieldsOptions}
-      value={fieldsValue}
-      onChange={handleChange}
-      loading={loading}
-    />
+      <AutoCompleteSelectField
+        id='majorFieldsOfExperienceSelect'
+        name='majorFieldsOfExperience'
+        inputLabel={t['majorFieldOfExperience']}
+        options={majorFieldsOptions}
+        value={!!fieldsValue ? fieldsValue : [] }
+        onChange={handleChange}
+        loading={loading}
+        multiple={!single}
+      />
     );
   };
 
   const Field = () => {
-
-  return (
-    <AutoCompleteSelectField
-      name='fields'
-      id='specificFieldsOfExperienceSelect'
-      inputLabel={t['specificField']}
-      options={availableSubFieldsOptions}
-      value={initialFields}
-      onChange={handleFieldsChange}
-      groupBy={(option) => option.majorFieldLabel}
-      loading={loading}
-    />
-  );
+    return (
+      <AutoCompleteSelectField
+        name='fields'
+        id='specificFieldsOfExperienceSelect'
+        inputLabel={t['specificField']}
+        options={availableSubFieldsOptions}
+        value={initialFields}
+        onChange={handleFieldsChange}
+        groupBy={(option) => option.majorFieldLabel}
+        loading={loading}
+      />
+    );
   };
   return children({ MajorField, Field });
 };

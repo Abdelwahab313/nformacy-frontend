@@ -14,6 +14,15 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
     display: 'flex',
   },
+  saveQuestionBtn: {
+    flexBasis: '100%', 
+    textAlign: 'right', 
+    marginTop: 20, 
+    maxWidth: '100%'
+  },
+  buttonMargin: {
+    marginRight: '10px',
+  },
   inputsRow: {
     marginTop: theme.spacing(4),
   },

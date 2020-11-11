@@ -8,5 +8,7 @@
   "home": "Home",
   "project": "Project",
   "question": "Question",
-  "call": "Call"
+  "call": "Call",
+  "submitQuestionButton": "Submit Question",
+  "saveAndCompleteLater": "Save & Complete Later"
 }
