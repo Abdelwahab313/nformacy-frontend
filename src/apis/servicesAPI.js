@@ -16,3 +16,10 @@ export const submitService = (service) => {
     data: decamelizeKeys({ ...service }),
   }).then((response) => camelizeKeys(response));
 };
+
+export const fetchServiceDetails = (serviceId) => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/services/${serviceId}`,
+  }).then((response) => camelizeKeys(response));
+};
