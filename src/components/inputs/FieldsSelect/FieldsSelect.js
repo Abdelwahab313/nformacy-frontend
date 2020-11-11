@@ -18,7 +18,6 @@ const getSubFieldsOptions = (majorField) => {
 const FieldsSelect = ({ initialFields, updateFields, children }) => {
   const [selectedMajorFields, setSelectedMajorFields] = useState();
   const { fields: majorFieldsOptions, loading } = useFieldFetcher();
-
   useEffect(() => {
     if (!loading) {
       const initialMajorFieldValue = getMajorFieldsFromSubfields(
@@ -31,9 +30,6 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
 
   const handleMajorFieldChange = (selectedList) => {
     setSelectedMajorFields(selectedList);
-    if(typeof selectedList === 'object'){
-      selectedList = [selectedList]
-    }
     const majorFieldIds = selectedList.map(
       (majorField) => majorField.id,
     );
@@ -45,6 +41,7 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
 
   // @selectedList [{id,label,majorFieldId}]
   const handleFieldsChange = (selectedList) => {
+    console.log('selectedList =========== ', selectedList)
     updateFields(selectedList);
   };
 
@@ -69,19 +66,30 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
   }, [selectedMajorFields, majorFieldsOptions]);
 
 
-  const MajorField = () => (
+  const MajorField = ({single=false}) => {
+    const handleChange = (newValue) => {
+      if(!!single) {
+        newValue = !!newValue ?  [newValue] : [];
+      }
+      handleMajorFieldChange(newValue)
+    }
+    const fieldsValue= !!single ? ( !!selectedMajorFields ? selectedMajorFields[0]: null ) : selectedMajorFields
+    return (
     <AutoCompleteSelectField
       id='majorFieldsOfExperienceSelect'
       name='majorFieldsOfExperience'
       inputLabel={t['majorFieldOfExperience']}
       options={majorFieldsOptions}
-      value={selectedMajorFields}
-      onChange={handleMajorFieldChange}
+      value={fieldsValue}
+      onChange={handleChange}
       loading={loading}
     />
-  );
+    );
+  };
 
-  const Field = () => (
+  const Field = () => {
+
+  return (
     <AutoCompleteSelectField
       name='fields'
       id='specificFieldsOfExperienceSelect'
@@ -93,7 +101,7 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
       loading={loading}
     />
   );
-
+  };
   return children({ MajorField, Field });
 };
 

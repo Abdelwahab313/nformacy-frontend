@@ -89,7 +89,7 @@ const ServiceRequestForm = ({}) => {
 
           <GridContainer className={classes.inputsRow}>
             <GridItem xs={12} sm={12} md={3}>
-              <MajorField/>
+              <MajorField single/>
             </GridItem>
             <GridItem xs={12} sm={12} md={3}>
               <Field/>
@@ -243,6 +243,7 @@ const ServiceRequestForm = ({}) => {
               <SubmitButton
                 id='saveAndCompleteLaterButton'
                 onClick={() => {
+                  console.log('enter save question btn');
                 }}
                 buttonText={t['saveAndCompleteLater']}
                 className={[classes.answerButtons, classes.buttonMargin]}
