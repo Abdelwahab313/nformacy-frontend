@@ -6,6 +6,7 @@ import BubbleChart from '@material-ui/icons/BubbleChart';
 import Notifications from '@material-ui/icons/Notifications';
 import Unarchive from '@material-ui/icons/Unarchive';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 
 import { RoutesPaths } from 'constants/routesPath';
 
@@ -15,6 +16,7 @@ import Dashboard from 'pages/Admin/Dashboard/Dashboard';
 import AllNotifications from 'pages/Admin/Dashboard/AllNotifications';
 import Logout from 'pages/auth/LogoutUser';
 import QuestionDetails from 'pages/Admin/Questions/QuestionDetails';
+import ServicesList from 'pages/Admin/Services';
 
 const adminRoutes = [
   {
@@ -70,6 +72,13 @@ const adminRoutes = [
     name: 'Notifications',
     icon: Notifications,
     component: AllNotifications,
+    hasDashboardLink: true,
+  },
+  {
+    path: RoutesPaths.Admin.Services,
+    name: 'Services',
+    icon: BusinessCenterIcon,
+    component: ServicesList,
     hasDashboardLink: true,
   },
   {

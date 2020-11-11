@@ -9,6 +9,7 @@ export const RoutesPaths = {
     Typography: '/admin/typography',
     Icons: '/admin/icons',
     Notifications: '/admin/notifications',
+    Services: '/admin/services',
     Logout: '/admin/logout',
     PostQuestion: '/admin/postQuestion',
   },
