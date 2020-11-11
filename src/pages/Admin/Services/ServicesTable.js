@@ -17,7 +17,7 @@ import { useStyles } from 'styles/Admin/questionTableStyles';
 
 export const COLUMN_NAMES = {
   requestId: 'id',
-  clientId: 'clientId',
+  clientId: 'userId',
   type: 'type',
   Date: 'createdAt',
   title: 'title',
@@ -101,7 +101,7 @@ const getColumnsFor = (classes) => {
       },
     },
     {
-      name: 'clientId',
+      name: 'userId',
       label: 'Client ID',
       options: {
         ...defaultColumnOption,
