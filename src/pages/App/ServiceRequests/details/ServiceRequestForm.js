@@ -124,7 +124,7 @@ const ServiceRequestForm = ({serviceRequest, setServiceRequest}) => {
             fieldOptions={questionTypesOfAssignment}
             fieldValue={
               questionTypesOfAssignment.filter(
-                (option) => serviceRequest.type === option.value,
+                (option) => serviceRequest.assignmentType === option.value,
               )[0]
             }
             fieldLabel='Type'
