@@ -1,6 +1,7 @@
 
 
 const questionStatus = {
+    pending: 'pending',
     draft: 'draft',
     pendingAssignment: 'pending_assignment',
     pendingAdviserAcceptance: 'pending_adviser_acceptance',
@@ -12,6 +13,11 @@ const questionStatus = {
   };
   
 const questionStatusActions = {
+  [questionStatus.pending]: {
+    admin: 'Pending',
+    adviser: '',
+    displayString: 'Pending'
+  },
   [questionStatus.draft]: {
     admin: 'Complete Question Form',
     adviser: '',
