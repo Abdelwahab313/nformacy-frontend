@@ -2,8 +2,21 @@
 ##### `export BACKEND_PATH="your/local/path/to/medad_backend"`
 ## For running the application in docker
 
-### `Build and run docker image in production mode`
+## To run Cypress tests
+start front end server
+`npm run cy:start`
 
+start backend sandbox
+`cd {backend-path}`
+`make sandbox-build`
+`make sandbox-reset`
+`make sandbox-up`
+
+start cypress window
+`npx cypress open`
+
+
+### `Build and run docker image in production mode`
 run command
 
 `$ docker build -f Dockerfile-prod --tag dashboard:prod .`

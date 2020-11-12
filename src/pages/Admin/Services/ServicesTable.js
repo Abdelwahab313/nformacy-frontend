@@ -14,6 +14,7 @@ import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 import { questionStatusActions } from 'constants/questionStatus';
 import { questionTypesOfAssignment } from 'constants/dropDownOptions';
 import { useStyles } from 'styles/Admin/questionTableStyles';
+import QuestionFields from '../Questions/list/subComponents/QuestionFields';
 
 export const COLUMN_NAMES = {
   requestId: 'id',
@@ -131,7 +132,7 @@ const getColumnsFor = (classes) => {
       },
     },
     {
-      name: 'type',
+      name: 'assignmentType',
       label: 'Type',
       options: {
         ...defaultColumnOption,
@@ -195,7 +196,7 @@ const getColumnsFor = (classes) => {
         ...defaultColumnOption,
         filter: false,
         filterType: 'multiselect',
-        // customBodyRender: (fields) => <QuestionFields fields={fields}/>,
+        customBodyRender: (fields) => <QuestionFields fields={fields}/>,
       },
     },
     {
