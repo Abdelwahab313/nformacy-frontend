@@ -133,7 +133,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm run test:nowatch && npm run e2e:force",
+      "pre-commit": "lint-staged && npm run test:nowatch",
       "post-commit": "npm run stop:test"
     }
   },
