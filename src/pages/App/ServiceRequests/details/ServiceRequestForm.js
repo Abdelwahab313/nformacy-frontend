@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import { industries, questionLanguages, questionTypesOfAssignment } from 'constants/dropDownOptions';
@@ -11,28 +11,14 @@ import DropdownSelectField from 'components/inputs/DropdownSelectField';
 import RichTextEditorForm from 'components/forms/RichTextEditorForm';
 import CardBody from 'components/card/CardBody';
 import { useStyles } from 'styles/Admin/questionFormStyles';
-import SubmitButton from 'components/buttons/SubmitButton';
-import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
-import { submitService } from 'apis/servicesAPI';
 
-
-const ServiceRequestForm = ({ }) => {
+const ServiceRequestForm = ({serviceRequest, setServiceRequest}) => {
   const classes = useStyles();
-  const [serviceRequest, setServiceRequest] = useState({ fields: [] });
   const isNewServiceRequest = true;
   const onChangeField = (name, value) => {
     setServiceRequest((prevData) => ({ ...prevData, [name]: value }))
-  };
-  const { t } = useTranslation();
-  const handleSubmit = () => {
-    submitService(serviceRequest)
-    .then(() => {
-      // console.log('success', res)
-    }).catch(()=>{
-      // console.log('error');
-    })
-  }
+  };  
   return (
     <CardBody>
       <GridContainer>
@@ -138,13 +124,11 @@ const ServiceRequestForm = ({ }) => {
             fieldOptions={questionTypesOfAssignment}
             fieldValue={
               questionTypesOfAssignment.filter(
-                (option) => serviceRequest.assignmentType === option.value,
+                (option) => serviceRequest.type === option.value,
               )[0]
             }
-            onFieldChange={(option) =>
-              onChangeField('assignmentType', option.value)
-            }
             fieldLabel='Type'
+            disabled
           />
         </GridItem>
       </GridContainer>
@@ -167,28 +151,7 @@ const ServiceRequestForm = ({ }) => {
                 }
               />
             </Grid>
-
-            <Grid
-              item
-              xs={6}
-              className={[classes.answerButtonContainer, classes.saveQuestionBtn]}>
-              <SubmitButton
-                id='saveAndCompleteLaterButton'
-                onClick={() => {
-
-                }}
-                buttonText={t('common:saveAndCompleteLater')}
-                className={[classes.answerButtons, classes.buttonMargin, classes.buttonMargin]}
-              />
-              <SubmitButton
-                id='submitQuestionButtonButton'
-                onClick={() => {
-                  handleSubmit()
-                }}
-                buttonText={t('common:submitQuestionButton')}
-                className={[classes.answerButtons, classes.buttonMargin, classes.buttonMargin]}
-              />
-            </Grid>
+            
           </Grid>
         </GridItem>
       </GridContainer>
