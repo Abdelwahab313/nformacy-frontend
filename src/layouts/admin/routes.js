@@ -18,7 +18,7 @@ import Logout from 'pages/auth/LogoutUser';
 import QuestionDetails from 'pages/Admin/Questions/QuestionDetails';
 import ServicesList from 'pages/Admin/Services';
 import ServiceDetails from 'pages/Admin/Services/ServiceDetails';
-
+import authManager from 'services/authManager';
 
 const adminRoutes = [
   {
@@ -33,7 +33,7 @@ const adminRoutes = [
     name: 'Questions',
     icon: QuestionAnswerIcon,
     component: QuestionList,
-    hasDashboardLink: true,
+    hasDashboardLink: authManager.isAdviser(),
   },
   {
     path: RoutesPaths.Admin.PostQuestion,

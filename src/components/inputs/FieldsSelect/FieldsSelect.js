@@ -65,7 +65,7 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
   }, [selectedMajorFields, majorFieldsOptions]);
 
 
-  const MajorField = ({ single = false }) => {
+  const MajorField = ({ single = false, disabled }) => {
     const handleChange = (newValue) => {
       if (!!single) {
         newValue = !!newValue ? [newValue] : [];
@@ -83,11 +83,12 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
         onChange={handleChange}
         loading={loading}
         multiple={!single}
+        disabled={disabled}
       />
     );
   };
 
-  const Field = () => {
+  const Field = ({disabled}) => {
     return (
       <AutoCompleteSelectField
         name='fields'
@@ -98,6 +99,7 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
         onChange={handleFieldsChange}
         groupBy={(option) => option.majorFieldLabel}
         loading={loading}
+        disabled={disabled}
       />
     );
   };

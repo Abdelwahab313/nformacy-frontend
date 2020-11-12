@@ -1,7 +1,11 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
-import { industries, questionLanguages, questionTypesOfAssignment } from 'constants/dropDownOptions';
+import {
+  industries,
+  questionLanguages,
+  questionTypesOfAssignment,
+} from 'constants/dropDownOptions';
 import humanizedTimeSpan from 'services/humanizedTimeSpan';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
@@ -13,16 +17,20 @@ import CardBody from 'components/card/CardBody';
 import { useStyles } from 'styles/Admin/questionFormStyles';
 import TextField from '@material-ui/core/TextField';
 
-const ServiceRequestForm = ({serviceRequest, setServiceRequest}) => {
+const ServiceRequestForm = ({
+  serviceRequest,
+  setServiceRequest,
+  viewOnly,
+}) => {
   const classes = useStyles();
   const isNewServiceRequest = true;
   const onChangeField = (name, value) => {
-    setServiceRequest((prevData) => ({ ...prevData, [name]: value }))
-  };  
+    setServiceRequest((prevData) => ({ ...prevData, [name]: value }));
+  };
   return (
     <CardBody>
       <GridContainer>
-        {!isNewServiceRequest && (
+        {(!isNewServiceRequest || viewOnly) && (
           <GridItem xs={12} sm={12} md={2}>
             <CustomInput
               labelText='Reference ID'
@@ -38,7 +46,7 @@ const ServiceRequestForm = ({serviceRequest, setServiceRequest}) => {
             />
           </GridItem>
         )}
-        {!isNewServiceRequest && (
+        {(!isNewServiceRequest || viewOnly) && (
           <GridItem xs={12} sm={12} md={3}>
             <CustomInput
               labelText='Post Date'
@@ -62,13 +70,12 @@ const ServiceRequestForm = ({serviceRequest, setServiceRequest}) => {
           onChangeField('fields', newOptions);
         }}>
         {({ MajorField, Field }) => (
-
           <GridContainer className={classes.inputsRow}>
             <GridItem xs={12} sm={12} md={4}>
-              <MajorField single />
+              <MajorField single disabled={viewOnly} />
             </GridItem>
             <GridItem xs={12} sm={12} md={4}>
-              <Field />
+              <Field disabled={viewOnly} />
             </GridItem>
             <GridItem xs={12} sm={12} md={4}>
               <DropdownSelectField
@@ -76,10 +83,9 @@ const ServiceRequestForm = ({serviceRequest, setServiceRequest}) => {
                 fieldName='industry'
                 fieldOptions={industries}
                 fieldValue={serviceRequest.industry}
-                onFieldChange={(option) =>
-                  onChangeField('industry', option)
-                }
+                onFieldChange={(option) => onChangeField('industry', option)}
                 fieldLabel='Industry'
+                disabled={viewOnly}
               />
             </GridItem>
           </GridContainer>
@@ -88,17 +94,16 @@ const ServiceRequestForm = ({serviceRequest, setServiceRequest}) => {
       <GridContainer className={classes.inputsRow}>
         <GridItem xs={12} sm={12} md={8}>
           <TextField
-            label="Title"
+            label='Title'
             id='title'
             name='title'
             fullWidth
             value={serviceRequest.title}
-            onChange={
-              (e) => {
-                onChangeField('title', e.target.value);
-              }
-            }
-            variant="outlined"
+            onChange={(e) => {
+              onChangeField('title', e.target.value);
+            }}
+            variant='outlined'
+            disabled={viewOnly}
           />
         </GridItem>
         <GridItem xs={12} sm={12} md={2}>
@@ -111,10 +116,9 @@ const ServiceRequestForm = ({serviceRequest, setServiceRequest}) => {
                 (option) => serviceRequest.language === option.value,
               )[0]
             }
-            onFieldChange={(option) =>
-              onChangeField('language', option.value)
-            }
+            onFieldChange={(option) => onChangeField('language', option.value)}
             fieldLabel='Language'
+            disabled={viewOnly}
           />
         </GridItem>
         <GridItem xs={12} sm={12} md={2}>
@@ -142,22 +146,35 @@ const ServiceRequestForm = ({serviceRequest, setServiceRequest}) => {
             <Grid item xs={12}>
               <RichTextEditorForm
                 initialContent={serviceRequest.content}
-                onContentUpdate={(value) =>
-                  onChangeField('content', value)
-                }
+                onContentUpdate={(value) => onChangeField('content', value)}
                 richTextMediaId={serviceRequest.richTextMediaId}
                 updateRichTextMedia={(newRichTextMediaId) =>
                   onChangeField('richTextMediaId', newRichTextMediaId)
                 }
+                disabled={viewOnly}
               />
             </Grid>
-            
+            {/* <GridItem xs={12} sm={12} md={12}> */}
+            {!!viewOnly && (
+              <TextField
+                label='Comment'
+                id='comment'
+                name='comment'
+                fullWidth
+                value={serviceRequest.comment}
+                onChange={(e) => {
+                  onChangeField('comment', e.target.value);
+                }}
+                variant='outlined'
+                className={classes.inputsRow}
+              />
+            )}
+            {/* </GridItem> */}
           </Grid>
         </GridItem>
       </GridContainer>
     </CardBody>
   );
-
 };
 
 export default ServiceRequestForm;
