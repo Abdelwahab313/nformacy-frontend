@@ -60,11 +60,9 @@ Then(
   },
 );
 
-Then(
-  /^I should see snackbar with message "Question Sent to Adviser"$/,
-  function() {
-    cy.contains('Dashboard');
-    cy.contains('Question Sent to Adviser');
+Then('I should see snackbar with message {string}',
+  function(message) {
+    cy.contains(message);
   },
 );
 

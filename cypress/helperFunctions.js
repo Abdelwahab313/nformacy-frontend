@@ -8,6 +8,8 @@ import {
   FREELANCER_PASSWORD,
   PASSWORD,
   USER_NAME,
+  CLIENT_USERNAME,
+  CLIENT_PASSWORD
 } from './defualtTestValues';
 import { camelizeKeys } from 'humps';
 import UserFactory from './factories/userFactory';
@@ -63,6 +65,15 @@ export const loginInAsFreelancer = (freelancerEmail) => {
   cy.request('POST', `${BACKEND_WEB_URL}/auth/login`, {
     email: freelancerEmail,
     password: FREELANCER_PASSWORD,
+  }).then((response) => {
+    extractUserAndTokenFromResponse(response);
+  });
+};
+
+export const loginAsClient = () => {
+  cy.request('POST', `${BACKEND_WEB_URL}/auth/login`, {
+    email: CLIENT_USERNAME,
+    password: CLIENT_PASSWORD,
   }).then((response) => {
     extractUserAndTokenFromResponse(response);
   });

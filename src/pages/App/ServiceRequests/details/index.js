@@ -20,7 +20,6 @@ const ServiceRequestDetails = () => {
   const location = useLocation();
   const { t } = useTranslation();
   const serviceType = location?.state?.serviceType;
-  const serviceTitle = t(`common:${serviceType}`);
 
   const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState('');
@@ -43,7 +42,7 @@ const ServiceRequestDetails = () => {
     if (!!validate(serviceRequest)) {
       submitService({ ...serviceRequest, state: 'pending' })
         .then(() => {
-          setMessage('Service Request has been submitted to Admin');
+          setMessage('Question Processed');
         })
         .catch(() => {
         });
@@ -65,7 +64,7 @@ const ServiceRequestDetails = () => {
         <Card>
           <CardHeader color='primary'>
             <Typography component={'h4'} id={'create-service-request-header'}>
-              {`Request a ${serviceTitle} Service`}
+              {'Ask the Expert'}
             </Typography>
           </CardHeader>
           <ServiceRequestForm

@@ -30,6 +30,7 @@ const ServiceItem = ({ service }) => {
 
   return (<Grid item xs={2} sm={2} md={2}>
     <Link
+      id={`service-${service}-btn`}
       className={classes.link}
       to={{
         pathname: RoutesPaths.App.ServiceRequestDetails,

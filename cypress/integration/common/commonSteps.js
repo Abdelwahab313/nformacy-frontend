@@ -3,6 +3,7 @@ import {
   loginAsAdmin,
   loginAsAnAdvisor,
   loginInAsFreelancer,
+  loginAsClient
 } from '../../helperFunctions';
 import faker from 'faker';
 import {
@@ -29,6 +30,12 @@ Given(/^I am an admin and Logged in$/, function() {
 
 Given(/^I login in as an advisor$/, function() {
   loginAsAnAdvisor();
+  cy.server();
+  cy.route('GET', '/questions/adviser_questions').as('adviserQuestions');
+});
+
+Given(/^I login as a client$/, function() {
+  loginAsClient();
   cy.server();
   cy.route('GET', '/questions/adviser_questions').as('adviserQuestions');
 });
