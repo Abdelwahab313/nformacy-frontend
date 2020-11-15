@@ -175,7 +175,7 @@ const getColumnsFor = (classes) => {
           return (
             <Link
               data-status={tableMeta.rowData[10]}
-              data-reference={tableMeta.rowData[1]}
+              data-reference={tableMeta.rowData[0]}
               className={classes.link}
               to={{
                 pathname: RoutesPaths.Admin.QuestionsDetails,
@@ -273,7 +273,7 @@ const getColumnsFor = (classes) => {
         filter: true,
         sort: false,
         customBodyRender: (value, tableMeta) => {
-          const actionNeeded = 'test';
+          const actionNeeded = questionStatusActions[value].admin;
           if (!actionNeeded) {
             return '';
           }
@@ -289,7 +289,7 @@ const getColumnsFor = (classes) => {
               <StyledStatusChip
                 data-status={value}
                 className={'state'}
-                data-reference={tableMeta.rowData[1]}
+                data-reference={tableMeta.rowData[0]}
                 label={actionNeeded}
               />
             </Link>
@@ -310,7 +310,7 @@ const getColumnsFor = (classes) => {
               remainingTime={currentActionTime}
               totalActionHours={getTotalActionTime(tableMeta.rowData, columns)}
               className={'alarm'}
-              data-reference={tableMeta.rowData[1]}
+              data-reference={tableMeta.rowData[0]}
             />
           );
         },
@@ -344,7 +344,7 @@ const ServicesTable = ({ services }) => {
     print: false,
     rowsPerPage: process.env.REACT_APP_ENV === 'e2e' ? 300 : 10,
     setRowProps: (row) => ({
-      'row-reference': row[1],
+      'row-reference': row[0],
     }),
   };
   return (

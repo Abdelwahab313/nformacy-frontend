@@ -14,7 +14,7 @@ const questionStatus = {
   
 const questionStatusActions = {
   [questionStatus.pending]: {
-    admin: 'Pending',
+    admin: 'Verify Request',
     adviser: '',
     displayString: 'Pending'
   },
@@ -64,4 +64,4 @@ const questionStatusActions = {
 export {
     questionStatusActions,
     questionStatus
-}
+};
