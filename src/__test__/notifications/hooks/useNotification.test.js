@@ -214,7 +214,7 @@ describe('Notifications', () => {
         });
       });
     });
-
+//flaky test
     it('should show toast when it receives new notification', async (testDone) => {
       const mockedNotification = NotificationMessage();
       const spy = jest.spyOn(toastManager, 'toast');

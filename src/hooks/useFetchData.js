@@ -23,20 +23,7 @@ const useFetchData = (fetchApi) => {
     setLoading(true);
     return fetchApi()
       .then((res) => {
-        function compare(a, b) {
-          if (a.referenceNumber < b.referenceNumber) {
-            return -1;
-          }
-          if (a.referenceNumber > b.referenceNumber) {
-            return 1;
-          }
-          return 0;
-        }
-
-        if (Array.isArray(res.data)) {
-          const sortedData = res.data.sort(compare);
-          setFetchedData(sortedData);
-        } else setFetchedData(res.data);
+        setFetchedData(res.data)
       })
       .catch((reason) => {
         handleApiErrors(reason);
