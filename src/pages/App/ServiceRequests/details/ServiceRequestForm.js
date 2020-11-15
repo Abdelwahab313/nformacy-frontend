@@ -20,9 +20,11 @@ import TextField from '@material-ui/core/TextField';
 const ServiceRequestForm = ({
   serviceRequest,
   setServiceRequest,
+  richTextRef,
   viewOnly,
 }) => {
   const classes = useStyles();
+
   const isNewServiceRequest = true;
   const onChangeField = (name, value) => {
     setServiceRequest((prevData) => ({ ...prevData, [name]: value }));
@@ -151,6 +153,7 @@ const ServiceRequestForm = ({
                 updateRichTextMedia={(newRichTextMediaId) =>
                   onChangeField('richTextMediaId', newRichTextMediaId)
                 }
+                richTextRef={richTextRef}
                 disabled={viewOnly}
               />
             </Grid>

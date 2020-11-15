@@ -1,14 +1,16 @@
-import { Editor } from '@tinymce/tinymce-react';
 import React from 'react';
+import { Editor } from '@tinymce/tinymce-react';
 
-const RichTextEditor = ({  initialContent, onContentChange, onImageUpload, disabled }) => {
+const RichTextEditor = ({  initialContent, onContentChange, onImageUpload, disabled, richTextRef=null }) => {
   const handleEditorChange = (content) => {
     !!onContentChange && onContentChange(content);
   };
+
   //TODO Handle remove image
   return (
     <Editor
       id='richContent'
+      ref={richTextRef}
       onEditorChange={handleEditorChange}
       initialValue={initialContent}
       disabled={disabled}
@@ -23,7 +25,7 @@ const RichTextEditor = ({  initialContent, onContentChange, onImageUpload, disab
         toolbar:
           'undo redo link image | formatselect | bold italic backcolor forecolor | \
         alignleft aligncenter alignright alignjustify | \
-        bullist numlist outdent indent | removeformat',
+        bullist numlist outdent indent | removeformat | wordcount',
         file_picker_callback: function(cb) {
           const input = document.createElement('input');
           input.setAttribute('type', 'file');

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@material-ui/core';
 import { useLocation } from 'react-router';
@@ -20,6 +20,7 @@ const ServiceRequestDetails = () => {
   const location = useLocation();
   const { t } = useTranslation();
   const serviceType = location?.state?.serviceType;
+  const richTextRef = useRef(null);
 
   const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState('');
@@ -28,11 +29,20 @@ const ServiceRequestDetails = () => {
     assignmentType: serviceType,
   });
 
+  const validateRichTextCount = () => {
+    const charCount = richTextRef.current.editor.plugins.wordcount.body.getCharacterCount();
+    return charCount >= 100;
+  };
   const validate = (serviceRequest) => {
     setIsError(false);
     if (!serviceRequest.title) {
       setIsError(true);
       setMessage('Please fill Title for the Service');
+      return false;
+    }
+    if (!validateRichTextCount()) {
+      setIsError(true);
+      setMessage('Please fill content with min of 100 characters');
       return false;
     }
     return true;
@@ -44,8 +54,7 @@ const ServiceRequestDetails = () => {
         .then(() => {
           setMessage('Question Processed');
         })
-        .catch(() => {
-        });
+        .catch(() => {});
     }
   };
   const handleSaveForLater = () => {
@@ -54,8 +63,7 @@ const ServiceRequestDetails = () => {
         .then(() => {
           setMessage('Service Request has been saved');
         })
-        .catch(() => {
-        });
+        .catch(() => {});
     }
   };
   return (
@@ -70,6 +78,7 @@ const ServiceRequestDetails = () => {
           <ServiceRequestForm
             serviceRequest={serviceRequest}
             setServiceRequest={setServiceRequest}
+            richTextRef={richTextRef}
           />
           <CardFooter className={classes.footerButtons}>
             <Grid

@@ -2,7 +2,7 @@ import React from 'react';
 import RichTextEditor from '../inputs/RichTextEditor';
 import { uploadImage } from '../../apis/questionsAPI';
 
-const RichTextEditorForm = ({ richTextMediaId, updateRichTextMedia, initialContent, onContentUpdate, disabled }) => {
+const RichTextEditorForm = ({ richTextMediaId, updateRichTextMedia, initialContent, onContentUpdate, disabled, richTextRef }) => {
   const uploadRichTextImage = (imageFormData, callback) => {
     if (!!richTextMediaId) {
       imageFormData.append('rich_text_media_id', richTextMediaId);
@@ -19,6 +19,7 @@ const RichTextEditorForm = ({ richTextMediaId, updateRichTextMedia, initialConte
       onContentChange={(content) => onContentUpdate(content)}
       onImageUpload={uploadRichTextImage}
       disabled={disabled}
+      richTextRef={richTextRef}
     />
   );
 };
