@@ -13,6 +13,7 @@ import ServiceRequestForm from './ServiceRequestForm';
 import { submitService } from 'apis/servicesAPI';
 import { useStyles as useStylesForm } from 'styles/Admin/questionFormStyles';
 import SuccessSnackBar from 'components/snackbar/SuccessSnackBar';
+import Direction from 'components/grid/Direction';
 
 const ServiceRequestDetails = () => {
   const classes = useStyles();
@@ -37,12 +38,12 @@ const ServiceRequestDetails = () => {
     setIsError(false);
     if (!serviceRequest.title) {
       setIsError(true);
-      setMessage('Please fill Title for the Service');
+      setMessage(t('titleValidation'));
       return false;
     }
     if (!validateRichTextCount()) {
       setIsError(true);
-      setMessage('Please fill content with min of 100 characters');
+      setMessage(t('contentValidation'));
       return false;
     }
     return true;
@@ -52,7 +53,7 @@ const ServiceRequestDetails = () => {
     if (!!validate(serviceRequest)) {
       submitService({ ...serviceRequest, state: 'pending' })
         .then(() => {
-          setMessage('Question Processed');
+          setMessage(t('serviceProcessed'));
         })
         .catch(() => {});
     }
@@ -61,7 +62,7 @@ const ServiceRequestDetails = () => {
     if (!!validate(serviceRequest)) {
       submitService({ ...serviceRequest, state: 'draft' })
         .then(() => {
-          setMessage('Service Request has been saved');
+          setMessage(t('serviceSaved'));
         })
         .catch(() => {});
     }
@@ -70,56 +71,58 @@ const ServiceRequestDetails = () => {
     <Grid container alignItems={'center'} justify={'center'}>
       <GridItem xs={12} sm={12} md={8}>
         <Card>
-          <CardHeader color='primary'>
-            <Typography component={'h4'} id={'create-service-request-header'}>
-              {'Ask the Expert'}
-            </Typography>
-          </CardHeader>
-          <ServiceRequestForm
-            serviceRequest={serviceRequest}
-            setServiceRequest={setServiceRequest}
-            richTextRef={richTextRef}
-          />
-          <CardFooter className={classes.footerButtons}>
-            <Grid
-              item
-              xs={6}
-              className={[
-                formClasses.answerButtonContainer,
-                formClasses.saveQuestionBtn,
-              ]}>
-              <SubmitButton
-                id='saveAndCompleteLaterButton'
-                onClick={() => {
-                  handleSaveForLater();
-                }}
-                buttonText={t('common:saveAndCompleteLater')}
+          <Direction>
+            <CardHeader color='primary'>
+              <Typography component={'h4'} id={'create-service-request-header'}>
+                {t('askTheExpert')}
+              </Typography>
+            </CardHeader>
+            <ServiceRequestForm
+              serviceRequest={serviceRequest}
+              setServiceRequest={setServiceRequest}
+              richTextRef={richTextRef}
+            />
+            <CardFooter className={classes.footerButtons}>
+              <Grid
+                item
+                xs={6}
                 className={[
-                  formClasses.answerButtons,
-                  formClasses.buttonMargin,
-                  formClasses.buttonMargin,
-                ]}
-              />
-              <SubmitButton
-                id='submitQuestionButtonButton'
-                onClick={() => {
-                  handleSubmit();
-                }}
-                buttonText={t('common:submitQuestionButton')}
-                className={[
-                  formClasses.answerButtons,
-                  formClasses.buttonMargin,
-                  formClasses.buttonMargin,
-                ]}
-              />
-            </Grid>
-          </CardFooter>
-          <SuccessSnackBar
-            isError={isError}
-            isSnackbarShown={!!message}
-            closeSnackBar={() => setMessage('')}
-            content={message}
-          />
+                  formClasses.answerButtonContainer,
+                  formClasses.saveQuestionBtn,
+                ]}>
+                <SubmitButton
+                  id='saveAndCompleteLaterButton'
+                  onClick={() => {
+                    handleSaveForLater();
+                  }}
+                  buttonText={t('saveAndCompleteLater')}
+                  className={[
+                    formClasses.answerButtons,
+                    formClasses.buttonMargin,
+                    formClasses.buttonMargin,
+                  ]}
+                />
+                <SubmitButton
+                  id='submitQuestionButtonButton'
+                  onClick={() => {
+                    handleSubmit();
+                  }}
+                  buttonText={t('submitQuestionButton')}
+                  className={[
+                    formClasses.answerButtons,
+                    formClasses.buttonMargin,
+                    formClasses.buttonMargin,
+                  ]}
+                />
+              </Grid>
+            </CardFooter>
+            <SuccessSnackBar
+              isError={isError}
+              isSnackbarShown={!!message}
+              closeSnackBar={() => setMessage('')}
+              content={message}
+            />
+          </Direction>
         </Card>
       </GridItem>
     </Grid>

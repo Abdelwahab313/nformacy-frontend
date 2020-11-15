@@ -2,9 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import useFieldFetcher from 'hooks/useFieldsFetcher';
 
-import t from '../../../locales/en/freelancerProfile.json';
 import AutoCompleteSelectField from '../AutoCompleteSelectField';
 import { getMajorFieldsFromSubfields } from '../../../core/fields';
+import { useTranslation } from 'react-i18next';
 
 const getSubFieldsOptions = (majorField) => {
   return majorField.fields.map((subfield) => {
@@ -66,6 +66,7 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
 
 
   const MajorField = ({ single = false, disabled }) => {
+    const { t } = useTranslation();
     const handleChange = (newValue) => {
       if (!!single) {
         newValue = !!newValue ? [newValue] : [];
@@ -77,7 +78,7 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
       <AutoCompleteSelectField
         id='majorFieldsOfExperienceSelect'
         name='majorFieldsOfExperience'
-        inputLabel={t['majorFieldOfExperience']}
+        inputLabel={t('majorFieldOfExperience')}
         options={majorFieldsOptions}
         value={!!fieldsValue ? fieldsValue : [] }
         onChange={handleChange}
@@ -89,11 +90,12 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
   };
 
   const Field = ({disabled}) => {
+    const { t } = useTranslation();
     return (
       <AutoCompleteSelectField
         name='fields'
         id='specificFieldsOfExperienceSelect'
-        inputLabel={t['specificField']}
+        inputLabel={t('specificField')}
         options={availableSubFieldsOptions}
         value={initialFields}
         onChange={handleFieldsChange}

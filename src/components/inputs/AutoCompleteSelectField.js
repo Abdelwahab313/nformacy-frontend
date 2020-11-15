@@ -7,6 +7,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { darkBlue } from 'styles/colors';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import Direction from 'components/grid/Direction';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
 const checkedIcon = <CheckBoxIcon fontSize='small' />;
@@ -55,7 +56,7 @@ const AutoCompleteSelectField = ({
         return option.id === value.id;
       }}
       renderOption={(option, { selected }) => (
-        <React.Fragment>
+        <Direction >
           <Checkbox
             icon={icon}
             color='primary'
@@ -64,7 +65,7 @@ const AutoCompleteSelectField = ({
             checked={selected}
           />
           {option.label}
-        </React.Fragment>
+        </Direction>
       )}
       renderInput={(params) => (
         <TextField {...params} variant='outlined' label={inputLabel} />

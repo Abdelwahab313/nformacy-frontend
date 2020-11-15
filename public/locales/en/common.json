@@ -10,5 +10,22 @@
   "question": "Question",
   "call": "Call",
   "submitQuestionButton": "Submit Question",
-  "saveAndCompleteLater": "Save & Complete Later"
+  "saveAndCompleteLater": "Save & Complete Later",
+  "askTheExpert": "Ask the Expert",
+  "titleValidation": "Please fill Title for the Service",
+  "contentValidation": "Please fill content with min of 100 characters",
+  "serviceProcessed": "Question Processed",
+  "serviceSaved": "Service Request has been saved",
+  "referenceId": "Reference ID",
+  "postDate": "Post Date",
+  "industry": "Industry",
+  "title": "Title",
+  "languageField": "Language",
+  "assignmentType": "Type",
+  "comment": "Comment",
+  "questionContent": "Question Content",
+  "majorFieldOfExperience": "Major Fields Of Experience",
+  "specificField": "Specific Fields Of Experience",
+  "specificallyIn": "Specifically in these Areas *",
+  "specificallyInHint": "You can choose more than one specific field of experience."
 }

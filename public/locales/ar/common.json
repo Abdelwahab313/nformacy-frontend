@@ -8,5 +8,22 @@
   "home": "الرئيسية",
   "call": "مكالمة",
   "question": "سؤال",
-  "project": "مشروع"
+  "project": "مشروع",
+  "saveAndCompleteLater": "احفظ لاحقا",
+  "askTheExpert": "اسأل الخبير",
+  "titleValidation": "من فضلك ادخل العنوان",
+  "contentValidation": "من فضلك ادخل المضمون",
+  "submitQuestionButton": "اسال الخبير",
+  "serviceProcessed": "تم الارسال",
+  "serviceSaved": "لقد تم حفظ السوال للرجوع لاحقا",
+  "referenceId": "الرقم المرجعي",
+  "postDate": "التاريخ",
+  "industry": "القطاع",
+  "title": "العنوان",
+  "languageField": "اللغه",
+  "assignmentType": "النوع",
+  "majorFieldOfExperience": "مجال التخصص",
+  "specificField": "المجال الفرعي",
+  "comment": "التعليق",
+  "questionContent": "محتوي السؤال"
 }

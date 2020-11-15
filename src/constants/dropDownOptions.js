@@ -562,6 +562,14 @@ const questionTypesOfAssignment = [
   { value: 'project', label: 'Project' },
 ];
 
+const questionTypesOfAssignmentTranslated = (t) => {
+  return [
+    { value: 'question', label: t('question') },
+    { value: 'call', label: t('call') },
+    { value: 'project', label: t('project') },
+  ];
+};
+
 const questionLanguages = [
   { value: 'en', label: 'English' },
   { value: 'ar', label: 'Arabic' },
@@ -575,5 +583,6 @@ export {
   questionTypesOfAssignment,
   industries,
   fieldsOfExperience,
-  questionLanguages
+  questionLanguages,
+  questionTypesOfAssignmentTranslated
 };

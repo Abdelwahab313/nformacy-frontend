@@ -1,7 +1,7 @@
+import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { AuthProvider } from '../../../../auth/context/auth';
-import { fetchQuestionDetails } from '../../../../../apis/questionsAPI';
-import React from 'react';
+import { fetchQuestionDetails } from 'apis/questionsAPI';
 import QuestionDetails from '../index';
 import { Router } from 'react-router';
 import { createMemoryHistory } from 'history';

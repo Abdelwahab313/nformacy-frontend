@@ -4,7 +4,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import {
   industries,
   questionLanguages,
-  questionTypesOfAssignment,
+  questionTypesOfAssignmentTranslated,
 } from 'constants/dropDownOptions';
 import humanizedTimeSpan from 'services/humanizedTimeSpan';
 import GridContainer from 'components/grid/GridContainer';
@@ -16,6 +16,7 @@ import RichTextEditorForm from 'components/forms/RichTextEditorForm';
 import CardBody from 'components/card/CardBody';
 import { useStyles } from 'styles/Admin/questionFormStyles';
 import TextField from '@material-ui/core/TextField';
+import { useTranslation } from 'react-i18next';
 
 const ServiceRequestForm = ({
   serviceRequest,
@@ -26,6 +27,8 @@ const ServiceRequestForm = ({
   const classes = useStyles();
 
   const isNewServiceRequest = true;
+  const { t } = useTranslation();
+  const questionTypesOfAssignment = questionTypesOfAssignmentTranslated(t);
   const onChangeField = (name, value) => {
     setServiceRequest((prevData) => ({ ...prevData, [name]: value }));
   };
@@ -35,7 +38,7 @@ const ServiceRequestForm = ({
         {(!isNewServiceRequest || viewOnly) && (
           <GridItem xs={12} sm={12} md={2}>
             <CustomInput
-              labelText='Reference ID'
+              labelText={t('referenceId')}
               id='reference-id'
               formControlProps={{
                 fullWidth: true,
@@ -51,7 +54,7 @@ const ServiceRequestForm = ({
         {(!isNewServiceRequest || viewOnly) && (
           <GridItem xs={12} sm={12} md={3}>
             <CustomInput
-              labelText='Post Date'
+              labelText={t('postDate')}
               id='post-date'
               formControlProps={{
                 fullWidth: true,
@@ -86,7 +89,7 @@ const ServiceRequestForm = ({
                 fieldOptions={industries}
                 fieldValue={serviceRequest.industry}
                 onFieldChange={(option) => onChangeField('industry', option)}
-                fieldLabel='Industry'
+                fieldLabel={t('industry')}
                 disabled={viewOnly}
               />
             </GridItem>
@@ -96,7 +99,7 @@ const ServiceRequestForm = ({
       <GridContainer className={classes.inputsRow}>
         <GridItem xs={12} sm={12} md={8}>
           <TextField
-            label='Title'
+            label={t('title')}
             id='title'
             name='title'
             fullWidth
@@ -119,7 +122,7 @@ const ServiceRequestForm = ({
               )[0]
             }
             onFieldChange={(option) => onChangeField('language', option.value)}
-            fieldLabel='Language'
+            fieldLabel={t('languageField')}
             disabled={viewOnly}
           />
         </GridItem>
@@ -133,7 +136,7 @@ const ServiceRequestForm = ({
                 (option) => serviceRequest.assignmentType === option.value,
               )[0]
             }
-            fieldLabel='Type'
+            fieldLabel={t('assignmentType')}
             disabled
           />
         </GridItem>
@@ -142,7 +145,7 @@ const ServiceRequestForm = ({
       <GridContainer className={classes.inputsRow}>
         <GridItem xs={12} sm={12} md={12}>
           <InputLabel className={classes.contentTitle}>
-            Question Content
+            {t('questionContent')}
           </InputLabel>
           <Grid container className={classes.questionContainer}>
             <Grid item xs={12}>
@@ -160,7 +163,7 @@ const ServiceRequestForm = ({
             {/* <GridItem xs={12} sm={12} md={12}> */}
             {!!viewOnly && (
               <TextField
-                label='Comment'
+                label={t('comment')}
                 id='comment'
                 name='comment'
                 fullWidth
