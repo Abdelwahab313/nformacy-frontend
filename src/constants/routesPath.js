@@ -29,5 +29,6 @@ export const RoutesPaths = {
     Meetings: '/meeting/list',
     MeetingDetails: '/meeting/edit',
     AllNotifications: '/notifications',
+    Services: '/services/list',
   },
 };

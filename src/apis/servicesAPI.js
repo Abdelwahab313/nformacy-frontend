@@ -9,6 +9,13 @@ export const fetchServices = () => {
   }).then((response) => camelizeKeys(response));
 };
 
+export const fetchClientServices = () => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/services/client_services`,
+  }).then((response) => camelizeKeys(response));
+};
+
 export const submitService = (service) => {
   return axios({
     method: 'post',

@@ -9,6 +9,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import VideoCallIcon from '@material-ui/icons/VideoCall';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import HelpIcon from '@material-ui/icons/Help';
 import { darkBlue } from 'styles/colors';
 
@@ -94,6 +95,18 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
           <VideoCallIcon color={'secondary'}/>
         </ListItemIcon>
         <StyledListText primary={'Meeting'}/>
+      </MenuItem>
+
+      <MenuItem
+        id={'services'}
+        key={'Services'}
+        onClick={() => handleClose()}
+        component={Link}
+        to={'/services/list'}>
+        <ListItemIcon>
+          <BusinessCenterIcon color={'secondary'}/>
+        </ListItemIcon>
+        <StyledListText primary={'Services'}/>
       </MenuItem>
 
       <MenuItem

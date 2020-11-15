@@ -12,6 +12,7 @@ import MeetingsPage from 'pages/App/Meeting';
 import MeetingDetailsPage from 'pages/App/Meeting/MeetingDetailsPage';
 import PostSubmissionNote from 'pages/App/QuestionRoaster/PostSubmissionNote';
 import AllNotifications from 'pages/Admin/Dashboard/AllNotifications';
+import ServicesPage from 'pages/App/ServiceRequests';
 
 
 const appRoutes = [
@@ -33,6 +34,11 @@ const appRoutes = [
   {
     path: RoutesPaths.App.ServiceRequestDetails,
     component: ServiceRequestDetails,
+    exact: true,
+  },
+  {
+    path: RoutesPaths.App.Services,
+    component: ServicesPage,
     exact: true,
   },
   {
