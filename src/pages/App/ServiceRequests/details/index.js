@@ -59,13 +59,11 @@ const ServiceRequestDetails = () => {
     }
   };
   const handleSaveForLater = () => {
-    if (!!validate(serviceRequest)) {
-      submitService({ ...serviceRequest, state: 'draft' })
-        .then(() => {
-          setMessage(t('serviceSaved'));
-        })
-        .catch(() => {});
-    }
+    submitService({ ...serviceRequest, state: 'draft' })
+      .then(() => {
+        setMessage(t('serviceSaved'));
+      })
+      .catch(() => {});
   };
   return (
     <Grid container alignItems={'center'} justify={'center'}>

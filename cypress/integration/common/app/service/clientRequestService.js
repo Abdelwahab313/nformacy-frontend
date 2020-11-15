@@ -24,7 +24,7 @@ When(/^I fill the service form$/, function () {
     cy.wait(1000);
     cy.window().then((win) => {
         const editor = win.tinymce.editors['richContent'];
-        editor.setContent('<p>Test content</p>');
+        editor.setContent('<p>People are different. here is what we I mean. People choose different criteria. But if there is a better way among many alternatives, I want to encourage that way by making it comfortable. So thats what Ive tried to do.</p>');
     });
 });
 
