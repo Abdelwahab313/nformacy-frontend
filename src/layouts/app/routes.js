@@ -12,7 +12,7 @@ import MeetingsPage from 'pages/App/Meeting';
 import MeetingDetailsPage from 'pages/App/Meeting/MeetingDetailsPage';
 import PostSubmissionNote from 'pages/App/QuestionRoaster/PostSubmissionNote';
 import AllNotifications from 'pages/Admin/Dashboard/AllNotifications';
-import ServicesPage from 'pages/App/ServiceRequests';
+import ServicesPage from 'pages/App/ServiceRequests/list';
 
 
 const appRoutes = [

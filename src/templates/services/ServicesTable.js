@@ -154,6 +154,7 @@ const getColumnsOptions = (classes, t) => {
       options: {
         ...defaultColumnOption,
         filter: false,
+        display: authManager.isAdmin(),
         customBodyRender: (value) => {
           return (
             <Typography
@@ -172,6 +173,7 @@ const getColumnsOptions = (classes, t) => {
       options: {
         ...defaultColumnOption,
         filter: false,
+        display: authManager.isAdmin(),
         customBodyRender: (value) => {
           return (
             <Typography
@@ -209,7 +211,7 @@ const getColumnsOptions = (classes, t) => {
           return (
             <ServiceActionLink
               status={status}
-              referenceId={tableMeta.rowData[0]}
+              serviceId={tableMeta.rowData[0]}
               questionId={tableMeta.rowData[8]}
             />
           );
@@ -307,6 +309,7 @@ const ServicesTable = ({ services }) => {
     fixedHeader: true,
     download: false,
     print: false,
+    viewColumns: authManager.isAdmin(),
     rowsPerPage: process.env.REACT_APP_ENV === 'e2e' ? 300 : 10,
     setRowProps: (row) => ({
       'row-reference': row[0],

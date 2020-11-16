@@ -16,8 +16,8 @@ import Dashboard from 'pages/Admin/Dashboard/Dashboard';
 import AllNotifications from 'pages/Admin/Dashboard/AllNotifications';
 import Logout from 'pages/auth/LogoutUser';
 import QuestionDetails from 'pages/Admin/Questions/QuestionDetails';
-import ServicesList from 'pages/Admin/Services/list';
-import ServiceDetails from 'pages/Admin/Services/ServiceDetails';
+import ServicesList from 'pages/Admin/ServicesRequests/list';
+import ServiceDetails from 'pages/Admin/ServicesRequests/details';
 import authManager from 'services/authManager';
 
 const adminRoutes = [

@@ -9,7 +9,7 @@ import GridItem from 'components/grid/GridItem';
 import Card from 'components/card/Card';
 import CardHeader from 'components/card/CardHeader';
 import CardFooter from 'components/card/CardFooter';
-import ServiceRequestForm from './ServiceRequestForm';
+import ServiceRequestForm from '../../../../templates/services/ServiceRequestForm';
 import { submitService } from 'apis/servicesAPI';
 import { useStyles as useStylesForm } from 'styles/Admin/questionFormStyles';
 import SuccessSnackBar from 'components/snackbar/SuccessSnackBar';

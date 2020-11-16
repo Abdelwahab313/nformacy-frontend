@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { fetchServiceDetails, returnToClient } from 'apis/servicesAPI';
-import ServiceRequestForm from '../../../App/ServiceRequests/details/ServiceRequestForm';
+import ServiceRequestForm from '../../../../templates/services/ServiceRequestForm';
 import CardFooter from 'components/card/CardFooter';
 import Grid from '@material-ui/core/Grid';
 import SubmitButton from 'components/buttons/SubmitButton';

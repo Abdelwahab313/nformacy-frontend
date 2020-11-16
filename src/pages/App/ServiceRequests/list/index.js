@@ -3,7 +3,7 @@ import GridItem from 'components/grid/GridItem';
 
 import Card from 'components/card/Card';
 import CardBody from 'components/card/CardBody';
-import ServicesTable from '../../Admin/Services/list/ServicesTable';
+import ServicesTable from '../../../../templates/services/ServicesTable';
 import useFetchData from 'hooks/useFetchData';
 import { fetchClientServices } from 'apis/servicesAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
