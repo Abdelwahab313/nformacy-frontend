@@ -29,5 +29,15 @@
   "specificallyIn": "Specifically in these Areas *",
   "specificallyInHint": "You can choose more than one specific field of experience.",
   "commentSubmitted": "Comment has submitted successfully.",
-  "commentValidation": "Please fill the Comment field."
+  "commentValidation": "Please fill the Comment field.",
+  "id": "ID",
+  "clientId": "Client ID",
+  "createdAt": "Date" ,
+  "fields": "Fields",
+  "serviceReferenceNumber": "Request ID",
+  "serviceQuestionId": "Question Roaster Id",
+  "answersCount": "Answers",
+  "state": "Status",
+  "actionNeeded": "Action Needed",
+  "alarm": "Alarm"
 }

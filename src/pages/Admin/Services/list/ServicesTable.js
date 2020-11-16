@@ -4,78 +4,21 @@ import MUIDataTable from 'mui-datatables';
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
-import Tooltip from '@material-ui/core/Tooltip';
 import Grid from '@material-ui/core/Grid';
-import { Link } from 'react-router-dom';
 
 import { RoutesPaths } from 'constants/routesPath';
 import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
-import { questionStatusActions } from 'constants/questionStatus';
+import { serviceActions } from 'constants/questionStatus';
 import { questionTypesOfAssignment } from 'constants/dropDownOptions';
 import { useStyles } from 'styles/Admin/questionTableStyles';
-import QuestionFields from '../Questions/list/subComponents/QuestionFields';
+import FieldsChips from 'components/chips/FieldsChips';
+import authManager from 'services/authManager';
+import { useTranslation } from 'react-i18next';
+import LinkText from 'components/typography/LinkText';
+import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
 
-export const COLUMN_NAMES = {
-  requestId: 'id',
-  clientId: 'userId',
-  type: 'type',
-  Date: 'createdAt',
-  title: 'title',
-  field: 'field',
-  language: 'language',
-  questionId: 'questionId',
-  state: 'state',
-  answersCount: 'answersCount',
-  actionNeeded: 'state',
-  currentActionTime: 'currentActionTime',
-  alarm: 'currentActionTime',
-};
-
-export const HOURS_FOR_ACTION = 12;
-const DYNAMIC_STATES = {
-  reviewAndEdit: 'review_and_edit',
-  answersRating: 'answers_rating',
-};
-
-export const getTotalActionTime = (rowData, columns) => {
-  const state = rowData[getIndexForColumn(COLUMN_NAMES.state, columns)];
-  switch (state) {
-    case DYNAMIC_STATES.reviewAndEdit:
-      const reviewAndEditHours =
-        rowData[getIndexForColumn(COLUMN_NAMES.reviewAndEditHours, columns)];
-      return reviewAndEditHours;
-    case DYNAMIC_STATES.answersRating:
-      const hoursToCloseAnswers =
-        rowData[getIndexForColumn(COLUMN_NAMES.hoursToCloseAnswers, columns)];
-      return hoursToCloseAnswers;
-    default:
-      return HOURS_FOR_ACTION;
-  }
-};
-
-export const getIndexForColumn = (columnName, columns) => {
-  for (const [index, column] of columns.entries()) {
-    if (column.name === columnName) {
-      return index;
-    }
-  }
-  throw new TypeError(`Column: ${columnName} does not exist`);
-};
-
-const getColumnsFor = (classes) => {
-  const TextCroppedWithTooltip = ({ text }) => {
-    return (
-      <Tooltip
-        title={<Typography variant={'caption'}>{text}</Typography>}
-        arrow>
-        <Typography noWrap variant={'body2'} className={classes.tooltip}>
-          {text}
-        </Typography>
-      </Tooltip>
-    );
-  };
-
+const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
     customHeadLabelRender: ({ label }) => (
       <Grid className={classes.columnHeader}>{label}</Grid>
@@ -85,7 +28,7 @@ const getColumnsFor = (classes) => {
   const columns = [
     {
       name: 'id',
-      label: 'ID',
+      label: t('id'),
       options: {
         display: false,
         filter: false,
@@ -94,37 +37,26 @@ const getColumnsFor = (classes) => {
     },
     {
       name: 'referenceNumber',
-      label: 'Request ID',
+      label: t('serviceReferenceNumber'),
       options: {
         ...defaultColumnOption,
         filter: false,
         sort: true,
         customBodyRender: (value, tableMeta) => {
           return (
-            <Link
-              data-status={
-                tableMeta.rowData[0]
-              }
-              data-reference={
-                tableMeta.rowData[0]
-              }
-              className={classes.link}
-              to={{
-                pathname: RoutesPaths.Admin.ServiceDetails,
-                state: {
-                  serviceId:
-                    tableMeta.rowData[0],
-                },
-              }}>
+            <LinkText
+              data-status={tableMeta.rowData[0]}
+              data-reference={tableMeta.rowData[0]}
+              to={getServiceDetailsLink(tableMeta.rowData[0])}>
               <TextCroppedWithTooltip text={value} />
-            </Link>
+            </LinkText>
           );
         },
       },
     },
     {
       name: 'userId',
-      label: 'Client ID',
+      label: t('clientId'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -133,7 +65,7 @@ const getColumnsFor = (classes) => {
     },
     {
       name: 'assignmentType',
-      label: 'Type',
+      label: t('assignmentType'),
       options: {
         ...defaultColumnOption,
         filter: true,
@@ -148,7 +80,7 @@ const getColumnsFor = (classes) => {
     },
     {
       name: 'createdAt',
-      label: 'Date',
+      label: t('createdAt'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -166,17 +98,16 @@ const getColumnsFor = (classes) => {
     },
     {
       name: 'title',
-      label: 'Title',
+      label: t('title'),
       options: {
         ...defaultColumnOption,
         filter: false,
         sort: true,
         customBodyRender: (value, tableMeta) => {
           return (
-            <Link
+            <LinkText
               data-status={tableMeta.rowData[10]}
               data-reference={tableMeta.rowData[0]}
-              className={classes.link}
               to={{
                 pathname: RoutesPaths.Admin.QuestionsDetails,
                 state: {
@@ -184,24 +115,24 @@ const getColumnsFor = (classes) => {
                 },
               }}>
               <TextCroppedWithTooltip text={value} />
-            </Link>
+            </LinkText>
           );
         },
       },
     },
     {
       name: 'fields',
-      label: 'Fields',
+      label: t('fields'),
       options: {
         ...defaultColumnOption,
         filter: false,
         filterType: 'multiselect',
-        customBodyRender: (fields) => <QuestionFields fields={fields}/>,
+        customBodyRender: (fields) => <FieldsChips fields={fields} />,
       },
     },
     {
       name: 'language',
-      label: 'Language',
+      label: t('languageField'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -219,7 +150,7 @@ const getColumnsFor = (classes) => {
     },
     {
       name: 'questionId',
-      label: 'Question Roaster Id',
+      label: t('serviceQuestionId'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -237,7 +168,7 @@ const getColumnsFor = (classes) => {
     },
     {
       name: 'answersCount',
-      label: 'Answers',
+      label: t('answersCount'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -255,60 +186,48 @@ const getColumnsFor = (classes) => {
     },
     {
       name: 'state',
-      label: 'Status',
+      label: t('state'),
       options: {
         ...defaultColumnOption,
         filter: true,
         sort: true,
-        customBodyRender: (value) => {
-          return questionStatusActions[value].displayString;
+        customBodyRender: (status) => {
+          const currentUserRole = authManager.getUserRole();
+          const statusString = serviceActions[currentUserRole][status]?.status;
+          return t(`serviceStatus:${statusString}`);
         },
       },
     },
     {
       name: 'state',
-      label: 'Action Needed',
+      label: t('actionNeeded'),
       options: {
         ...defaultColumnOption,
         filter: true,
         sort: false,
-        customBodyRender: (value, tableMeta) => {
-          const actionNeeded = questionStatusActions[value].admin;
-          if (!actionNeeded) {
-            return '';
-          }
+        customBodyRender: (status, tableMeta) => {
           return (
-            <Link
-              className={classes.link}
-              to={{
-                pathname: RoutesPaths.Admin.QuestionsDetails,
-                state: {
-                  questionId: tableMeta.rowData[0],
-                },
-              }}>
-              <StyledStatusChip
-                data-status={value}
-                className={'state'}
-                data-reference={tableMeta.rowData[0]}
-                label={actionNeeded}
-              />
-            </Link>
+            <ServiceActionLink
+              status={status}
+              referenceId={tableMeta.rowData[0]}
+              questionId={tableMeta.rowData[8]}
+            />
           );
         },
       },
     },
     {
       name: 'currentActionTime',
-      label: 'Alarm',
+      label: t('alarm'),
       options: {
+        ...defaultColumnOption,
         filter: false,
         sort: true,
-        ...defaultColumnOption,
         customBodyRender: (currentActionTime, tableMeta) => {
           return (
             <QuestionRemainingTimeAlarm
               remainingTime={currentActionTime}
-              totalActionHours={getTotalActionTime(tableMeta.rowData, columns)}
+              totalActionHours={10}
               className={'alarm'}
               data-reference={tableMeta.rowData[0]}
             />
@@ -331,9 +250,55 @@ const StyledStatusChip = withStyles({
   },
 })(Chip);
 
+const ServiceActionLink = ({ status, serviceId, questionId }) => {
+  const { t } = useTranslation();
+  const currentUserRole = authManager.getUserRole();
+  const actionNeeded = serviceActions[currentUserRole][status]?.action;
+  if (!actionNeeded) {
+    return '';
+  }
+
+  const redirectURL = !!questionId
+    ? getQuestionDetailsLink(questionId)
+    : getServiceDetailsLink(serviceId);
+  return (
+    <LinkText to={redirectURL}>
+      <StyledStatusChip
+        data-status={status}
+        className={'state'}
+        data-reference={serviceId}
+        label={t(`serviceStatus:${actionNeeded}`)}
+      />
+    </LinkText>
+  );
+};
+
+const getQuestionDetailsLink = (questionId) => {
+  return {
+    pathname: authManager.isAdmin()
+      ? RoutesPaths.Admin.QuestionsDetails
+      : RoutesPaths.App.QuestionsDetails,
+    state: {
+      questionId: questionId,
+    },
+  };
+};
+
+const getServiceDetailsLink = (serviceId) => {
+  return {
+    pathname: authManager.isAdmin()
+      ? RoutesPaths.Admin.ServiceDetails
+      : RoutesPaths.App.ServiceRequestDetails,
+    state: {
+      serviceId: serviceId,
+    },
+  };
+};
+
 const ServicesTable = ({ services }) => {
   const classes = useStyles();
-  const columns = getColumnsFor(classes);
+  const { t } = useTranslation();
+  const columns = getColumnsOptions(classes, t);
 
   const tableOptions = {
     filterType: 'checkbox',

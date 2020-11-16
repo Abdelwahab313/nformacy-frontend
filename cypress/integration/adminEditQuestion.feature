@@ -3,9 +3,10 @@ Feature: Admin Edit Question
 
   Scenario: Admin edit a question
     Given I am an admin and Logged in
+    And I have a question with pending assignment state
     And I am on the questions dashboard
-    When i chose second question.
+    When I click on the question id from dashboard
     And  i edit question title
     And  i assign an adviser
     And  i click apply changes
-    Then the edit should be saved successfull to second question
+    Then the edit should be saved successfully

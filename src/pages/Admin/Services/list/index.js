@@ -1,9 +1,9 @@
 import React from 'react';
-import GridItem from '../../../components/grid/GridItem';
+import GridItem from '../../../../components/grid/GridItem';
 
-import Card from '../../../components/card/Card';
-import CardBody from '../../../components/card/CardBody';
-import GridContainer from '../../../components/grid/GridContainer';
+import Card from '../../../../components/card/Card';
+import CardBody from '../../../../components/card/CardBody';
+import GridContainer from '../../../../components/grid/GridContainer';
 import ServicesTable from './ServicesTable';
 import useFetchData from 'hooks/useFetchData';
 import { fetchServices } from 'apis/servicesAPI';

@@ -70,6 +70,27 @@ class AuthManager {
     }
   };
 
+  getUserRole = () => {
+    const loadedUserString = localStorage.getItem('user');
+    if(!loadedUserString) { 
+      return ''
+    }
+    const user = !!loadedUserString ? JSON.parse(loadedUserString) : undefined;
+    const roles =  user.roles.map((role) => role.name);
+
+    if (roles.includes('admin')) {
+      return 'admin';
+    } else if (roles.includes('adviser')) {
+      return 'adviser';
+    } else if (roles.includes('client')) {
+      return 'client';
+    } else if (roles.includes('freelancer')) {
+      return 'freelancer';
+    } else {
+      return ''
+    }
+  }
+
   updateUserInLocalStorage = (currentUser, updatedFields) => {
     localStorage.setItem(
       'user',

@@ -58,6 +58,12 @@ And(/^By Time Field is not visible$/, function() {
   cy.get(`tr[row-reference="${referenceNumber}"] .by-time`).should('not.exist');
 });
 
+And(/^I click on the question id from dashboard$/, function() {
+  const referenceNumber = getFromLocalStorage('createdQuestion')
+    .referenceNumber;
+  cy.get(`tr[row-reference="${referenceNumber}"] .title`).click();
+});
+
 When(/^"Extend Time" dialog should be displayed$/, function() {
   cy.get('#extend-time-dialog').contains('Extend Time');
 });
@@ -199,19 +205,14 @@ Then(/^i should not see the draft question i posted as admin$/, function() {
   cy.contains(this.questionTitle).should('not.exist');
 });
 
-When(/^i chose second question\.$/, function() {
-  cy.get('*[data-testid="MuiDataTableBodyCell-2-1"] a')
-    .parent()
-    .parent()
-    .click();
-});
-
-Then(/^the edit should be saved successfull to second question$/, function() {
+Then(/^the edit should be saved successfully$/, function() {
   cy.visit(`${BASE_URL}/admin/questions`);
-  cy.get('.MuiTableBody-root')
-    .first()
-    .find('[data-testid="MuiDataTableBodyCell-2-1"]')
-    .should('have.text', 'updatedTitle');
+  const referenceNumber = getFromLocalStorage('createdQuestion')
+    .referenceNumber;
+  cy.get(`tr[row-reference="${referenceNumber}"] .title`).should(
+    'have.text',
+    'updatedTitle',
+  );
 });
 
 When(

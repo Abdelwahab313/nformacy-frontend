@@ -15,7 +15,8 @@ import { questionStatusActions } from 'constants/questionStatus';
 import { questionTypesOfAssignment } from 'constants/dropDownOptions';
 import ByTimeField from './subComponents/ByTimeField';
 import { useStyles } from '../../../../styles/Admin/questionTableStyles';
-import QuestionFields from './subComponents/QuestionFields';
+import FieldsChips from 'components/chips/FieldsChips';
+import LinkText from 'components/typography/LinkText';
 
 export const COLUMN_NAMES = {
   id: 'id',
@@ -111,7 +112,7 @@ const getColumnsFor = (isAdviser, classes) => {
         sort: true,
         customBodyRender: (value, tableMeta) => {
           return (
-            <Link
+            <LinkText
               data-status={
                 tableMeta.rowData[
                   getIndexForColumn(COLUMN_NAMES.state, columns)
@@ -122,7 +123,7 @@ const getColumnsFor = (isAdviser, classes) => {
                   getIndexForColumn(COLUMN_NAMES.referenceNumber, columns)
                 ]
               }
-              className={classes.link}
+              className={'title'}
               to={{
                 pathname: RoutesPaths.Admin.QuestionsDetails,
                 state: {
@@ -133,7 +134,7 @@ const getColumnsFor = (isAdviser, classes) => {
                 },
               }}>
               <TextCroppedWithTooltip text={value} />
-            </Link>
+            </LinkText>
           );
         },
       },
@@ -162,7 +163,7 @@ const getColumnsFor = (isAdviser, classes) => {
         display: !isAdviser,
         filter: false,
         filterType: 'multiselect',
-        customBodyRender: (fields) => <QuestionFields fields={fields} />,
+        customBodyRender: (fields) => <FieldsChips fields={fields} />,
       },
     },
     {
