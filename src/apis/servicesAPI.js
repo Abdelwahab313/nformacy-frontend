@@ -30,3 +30,11 @@ export const fetchServiceDetails = (serviceId) => {
     url: `${API_BASE_URL}/services/${serviceId}`,
   }).then((response) => camelizeKeys(response));
 };
+
+export const returnToClient = (serviceId, comment) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/services/${serviceId}/return_to_client`,
+    data: decamelizeKeys({ comment }),
+  }).then((response) => camelizeKeys(response));
+};
