@@ -9,19 +9,16 @@ import LoadingCircle from 'components/progress/LoadingCircle';
 import { fetchServiceDetails, returnToClient } from 'apis/servicesAPI';
 import ServiceRequestForm from '../../../../templates/services/ServiceRequestForm';
 import CardFooter from 'components/card/CardFooter';
-import Grid from '@material-ui/core/Grid';
-import SubmitButton from 'components/buttons/SubmitButton';
-import { useStyles as useStylesForm } from 'styles/Admin/questionFormStyles';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import SuccessSnackBar from 'components/snackbar/SuccessSnackBar';
+import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 
 const ServiceDetails = () => {
   const classes = useStyles();
-  const formClasses = useStylesForm();
   const [serviceRequest, setServiceRequest] = useState({});
   const location = useLocation();
-  const serviceId = location?.state?.serviceId;
+  const { serviceId } = location?.state?.service;
   const [isLoading, setIsLoading] = useState(false);
   const isNewService = !serviceId;
   const [message, setMessage] = useState('');
@@ -46,9 +43,9 @@ const ServiceDetails = () => {
             setMessage(t('commentSubmitted'));
           }
         })
-        .catch(() => { })
+        .catch(() => {});
     }
-  }
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -80,36 +77,20 @@ const ServiceDetails = () => {
             viewOnly
           />
           <CardFooter className={classes.footerButtons}>
-            <Grid
-              item
-              xs={6}
-              className={[
-                formClasses.answerButtonContainer,
-                formClasses.saveQuestionBtn,
-              ]}>
-              <SubmitButton
-                id='returnToClientButton'
-                onClick={() => {
-                  handleReturnToClient()
-                }}
-                buttonText={'return to client'}
-                className={[
-                  formClasses.answerButtons,
-                  formClasses.buttonMargin,
-                  formClasses.buttonMargin,
-                ]}
-              />
-              <SubmitButton
-                id='generateQuestionButton'
-                onClick={() => { }}
-                buttonText={'generate question'}
-                className={[
-                  formClasses.answerButtons,
-                  formClasses.buttonMargin,
-                  formClasses.buttonMargin,
-                ]}
-              />
-            </Grid>
+            <ActionButtonsContainer
+              primaryButton={{
+                id: 'returnToClientButton',
+                buttonText: 'Return to Client',
+                onClick: () => {
+                  handleReturnToClient();
+                },
+              }}
+              secondaryButton={{
+                id: 'generateQuestionButton',
+                onClick: () => {},
+                buttonText: 'Generate Question',
+              }}
+            />
           </CardFooter>
           <SuccessSnackBar
             isError={isError}

@@ -1,9 +1,9 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { Box, Grid } from '@material-ui/core';
-import ProfileSummaryCard from './ProfileSummaryCard';
+import ProfileSummaryCard from './subComponents/ProfileSummaryCard';
 import useStyles from './styles/HomePageStyles';
-import CalendarCard from './CalendarCard';
+import CalendarCard from './subComponents/CalendarCard';
 import { useAuth } from '../../auth/context/auth';
 import authManager from '../../../services/authManager';
 import AvailableServiceSection from './subComponents/AvailableServices';

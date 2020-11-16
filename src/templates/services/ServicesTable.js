@@ -60,6 +60,7 @@ const getColumnsOptions = (classes, t) => {
       options: {
         ...defaultColumnOption,
         filter: false,
+        display: authManager.isAdmin(),
         sort: true,
       },
     },
@@ -292,7 +293,9 @@ const getServiceDetailsLink = (serviceId) => {
       ? RoutesPaths.Admin.ServiceDetails
       : RoutesPaths.App.ServiceRequestDetails,
     state: {
-      serviceId: serviceId,
+      service: {
+        serviceId: serviceId,
+      },
     },
   };
 };

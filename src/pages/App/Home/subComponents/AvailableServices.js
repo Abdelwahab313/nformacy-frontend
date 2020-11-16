@@ -8,41 +8,42 @@ import { Link } from 'react-router-dom';
 
 const services = ['call', 'question', 'project'];
 
-
 const AvailableServices = () => {
   const { t } = useTranslation();
 
-  return (<Box mt={16}>
-    <Typography variant='h6' align='center'>
-      {t('home:selectAService')}
-    </Typography>
-    <Grid container direction={'row'} justify={'center'}>
-      {services.map((service) => (<ServiceItem service={service}/>))}
-    </Grid>
-  </Box>);
+  return (
+    <Box mt={16}>
+      <Typography variant='h6' align='center'>
+        {t('home:selectAService')}
+      </Typography>
+      <Grid container direction={'row'} justify={'center'}>
+        {services.map((service) => (
+          <ServiceItem service={service} />
+        ))}
+      </Grid>
+    </Box>
+  );
 };
-
 
 const ServiceItem = ({ service }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-
-  return (<Grid item xs={2} sm={2} md={2}>
-    <Link
-      id={`service-${service}-btn`}
-      className={classes.link}
-      to={{
-        pathname: RoutesPaths.App.ServiceRequestDetails,
-        state: { serviceType: service },
-      }}>
-      <Box mt={4} p={4} className={classes.item}>
-        <Typography align='center'>
-          {t(`common:${service}`)}
-        </Typography>
-      </Box>
-    </Link>
-  </Grid>);
+  return (
+    <Grid item xs={2} sm={2} md={2}>
+      <Link
+        id={`service-${service}-btn`}
+        className={classes.link}
+        to={{
+          pathname: RoutesPaths.App.ServiceRequestDetails,
+          state: { service: { assignmentType: service } },
+        }}>
+        <Box mt={4} p={4} className={classes.item}>
+          <Typography align='center'>{t(`common:${service}`)}</Typography>
+        </Box>
+      </Link>
+    </Grid>
+  );
 };
 
 const useStyles = makeStyles((theme) => ({

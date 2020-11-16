@@ -26,7 +26,7 @@ const ServiceRequestForm = ({
 }) => {
   const classes = useStyles();
 
-  const isNewServiceRequest = true;
+  const isNewServiceRequest = !serviceRequest.id;
   const { t } = useTranslation();
   const questionTypesOfAssignment = questionTypesOfAssignmentTranslated(t);
   const onChangeField = (name, value) => {
@@ -160,8 +160,7 @@ const ServiceRequestForm = ({
                 disabled={viewOnly}
               />
             </Grid>
-            {/* <GridItem xs={12} sm={12} md={12}> */}
-            {!!viewOnly && (
+            {!isNewServiceRequest && (
               <TextField
                 label={t('comment')}
                 id='comment'
@@ -171,11 +170,11 @@ const ServiceRequestForm = ({
                 onChange={(e) => {
                   onChangeField('comment', e.target.value);
                 }}
+                disabled={!viewOnly}
                 variant='outlined'
                 className={classes.inputsRow}
               />
             )}
-            {/* </GridItem> */}
           </Grid>
         </GridItem>
       </GridContainer>

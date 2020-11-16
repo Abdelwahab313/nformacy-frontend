@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Card from '@material-ui/core/Card';
-import useStyles from './styles/HomePageStyles';
-import CalendarView from '../../../components/calendar/CalendarView';
+import useStyles from '../styles/HomePageStyles';
+import CalendarView from '../../../../components/calendar/CalendarView';
 import { Grid } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
-import SubmitButton from '../../../components/buttons/SubmitButton';
+import SubmitButton from '../../../../components/buttons/SubmitButton';
 import Typography from '@material-ui/core/Typography';
-import AvailableTimesCalendarDialog from '../../../components/calendarDialogs/AvailableTimes/AvailableTimesCalendarDialog';
+import AvailableTimesCalendarDialog from '../../../../components/calendarDialogs/AvailableTimes/AvailableTimesCalendarDialog';
 
 const CalendarCard = ({ currentUser }) => {
   const [isCalendarDialogOpen, setIsCalendarDialog] = useState(false);
