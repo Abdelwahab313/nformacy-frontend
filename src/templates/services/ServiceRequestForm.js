@@ -17,6 +17,23 @@ import CardBody from 'components/card/CardBody';
 import { useStyles } from 'styles/Admin/questionFormStyles';
 import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import { red } from 'styles/colors';
+
+
+const useSelectStyles = makeStyles(() => ({
+  disabledStyle: {
+    '& .MuiInputBase-input.Mui-disabled': {
+      color: red,
+    },
+    '& .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline': {
+      borderColor: red,
+    },
+    '& .MuiFormLabel-root.Mui-disabled': {
+      color: red,
+    }
+  },
+}));
 
 const ServiceRequestForm = ({
   serviceRequest,
@@ -25,6 +42,7 @@ const ServiceRequestForm = ({
   viewOnly,
 }) => {
   const classes = useStyles();
+  const disabledClasses = useSelectStyles()
 
   const isNewServiceRequest = !serviceRequest.id;
   const { t } = useTranslation();
@@ -140,6 +158,24 @@ const ServiceRequestForm = ({
             disabled
           />
         </GridItem>
+
+        <GridItem xs={12} sm={12} md={12}>
+          {!isNewServiceRequest && (
+            <TextField
+              label={t('comment')}
+              id='comment'
+              name='comment'
+              fullWidth
+              value={serviceRequest.comment}
+              onChange={(e) => {
+                onChangeField('comment', e.target.value);
+              }}
+              disabled={!viewOnly}
+              variant='outlined'
+              className={[classes.inputsRow, disabledClasses.disabledStyle]}
+            />
+          )}
+        </GridItem>
       </GridContainer>
 
       <GridContainer className={classes.inputsRow}>
@@ -160,21 +196,6 @@ const ServiceRequestForm = ({
                 disabled={viewOnly}
               />
             </Grid>
-            {!isNewServiceRequest && (
-              <TextField
-                label={t('comment')}
-                id='comment'
-                name='comment'
-                fullWidth
-                value={serviceRequest.comment}
-                onChange={(e) => {
-                  onChangeField('comment', e.target.value);
-                }}
-                disabled={!viewOnly}
-                variant='outlined'
-                className={classes.inputsRow}
-              />
-            )}
           </Grid>
         </GridItem>
       </GridContainer>

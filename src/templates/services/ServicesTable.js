@@ -147,7 +147,7 @@ const getColumnsOptions = (classes, t) => {
               className={classes.answersCount}
               variant='body1'
               gutterBottom>
-              {value}
+              {value.toUpperCase()}
             </Typography>
           );
         },
@@ -156,6 +156,24 @@ const getColumnsOptions = (classes, t) => {
     {
       name: 'questionId',
       label: t('serviceQuestionId'),
+      options: {
+        ...defaultColumnOption,
+        filter: false,
+        display: false,
+      },
+    },
+    {
+      name: 'questionState',
+      label: t('Question State'),
+      options: {
+        display: false,
+        filter: false,
+        sort: false,
+      },
+    },
+    {
+      name: 'answersCount',
+      label: t('answersCount'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -173,17 +191,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'questionState',
-      label: t('Question State'),
-      options: {
-        display: false,
-        filter: false,
-        sort: false,
-      },
-    },
-    {
-      name: 'answersCount',
-      label: t('answersCount'),
+      name: 'questionReferenceId',
+      label: t('serviceReferenceId'),
       options: {
         ...defaultColumnOption,
         filter: false,

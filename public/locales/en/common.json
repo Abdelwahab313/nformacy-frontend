@@ -36,6 +36,7 @@
   "fields": "Fields",
   "serviceReferenceNumber": "Request ID",
   "serviceQuestionId": "Question Roaster Id",
+  "serviceReferenceId": "Question Reference Id",
   "answersCount": "Answers",
   "state": "Status",
   "actionNeeded": "Action Needed",

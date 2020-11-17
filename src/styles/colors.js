@@ -16,6 +16,7 @@ export const twilight = '#E4C9E4';
 export const silver = '#afabab';
 export const lightTurquoise = 'rgba(51,204,204,0.25)';
 export const white = '#FFFFFF';
+export const red = '#ff00008c';
 
 export const AppointmentColors = {
   call: turquoise,
