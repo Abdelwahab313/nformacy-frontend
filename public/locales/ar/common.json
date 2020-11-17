@@ -25,5 +25,11 @@
   "majorFieldOfExperience": "مجال التخصص",
   "specificField": "المجال الفرعي",
   "comment": "التعليق",
-  "questionContent": "محتوي السؤال"
+  "questionContent": "محتوي السؤال",
+  "serviceReferenceNumber": "رقم الطلب",
+  "fields": "المجال",
+  "state": "حاله الطلب",
+  "actionNeeded": "المهمه",
+  "alarm": "الوقت",
+  "serviceRequestList": "قائمه الطلبات"
 }

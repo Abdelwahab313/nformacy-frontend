@@ -85,7 +85,7 @@ const getColumnsOptions = (classes, t) => {
     },
     {
       name: 'createdAt',
-      label: t('createdAt'),
+      label: t('postDate'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -353,7 +353,7 @@ const ServicesTable = ({ services }) => {
   };
   return (
     <MUIDataTable
-      title={'Service Requests List'}
+      title={t('serviceRequestList')}
       data={services}
       columns={columns}
       options={tableOptions}

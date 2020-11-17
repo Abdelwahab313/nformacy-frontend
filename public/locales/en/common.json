@@ -33,7 +33,6 @@
   "commentValidation": "Please fill the Comment field.",
   "id": "ID",
   "clientId": "Client ID",
-  "createdAt": "Date" ,
   "fields": "Fields",
   "serviceReferenceNumber": "Request ID",
   "serviceQuestionId": "Question Roaster Id",
@@ -41,5 +40,6 @@
   "state": "Status",
   "actionNeeded": "Action Needed",
   "alarm": "Alarm",
-  "applyChange": "Apply Change"
+  "applyChange": "Apply Change",
+  "serviceRequestList": "Service Requests List"
 }
