@@ -40,5 +40,6 @@
   "answersCount": "Answers",
   "state": "Status",
   "actionNeeded": "Action Needed",
-  "alarm": "Alarm"
+  "alarm": "Alarm",
+  "applyChange": "Apply Change"
 }

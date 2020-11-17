@@ -30,6 +30,8 @@ const ServiceRequestDetails = () => {
   const { showSuccessMessage, showErrorMessage } = useSnackBar();
 
   const isNoActionForm = serviceRequest?.state === SERVICE_STATUS.pending;
+  const showDrafButtons = !serviceRequest.id || serviceRequest?.state === 'draft';
+
   useEffect(() => {
     setIsLoading(true);
     fetchServiceDetails(serviceId)
@@ -67,7 +69,7 @@ const ServiceRequestDetails = () => {
         .then(() => {
           showSuccessMessage(t('serviceProcessed'));
         })
-        .catch(() => {});
+        .catch(() => { });
     }
   };
   const handleSaveForLater = () => {
@@ -75,7 +77,7 @@ const ServiceRequestDetails = () => {
       .then(() => {
         showSuccessMessage(t('serviceSaved'));
       })
-      .catch(() => {});
+      .catch(() => { });
   };
 
   return (
@@ -102,15 +104,15 @@ const ServiceRequestDetails = () => {
                     onClick: () => {
                       handleSubmit();
                     },
-                    buttonText: t('submitQuestionButton'),
+                    buttonText: showDrafButtons ? t('submitQuestionButton') : t('applyChange'),
                   }}
-                  secondaryButton={{
+                  secondaryButton={showDrafButtons ? {
                     id: 'saveAndCompleteLaterButton',
                     onClick: () => {
                       handleSaveForLater();
                     },
                     buttonText: t('saveAndCompleteLater'),
-                  }}
+                  } : {}}
                 />
               )}
             </CardFooter>
