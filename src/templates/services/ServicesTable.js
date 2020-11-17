@@ -9,7 +9,11 @@ import Grid from '@material-ui/core/Grid';
 import { RoutesPaths } from 'constants/routesPath';
 import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
-import { serviceActions } from 'constants/questionStatus';
+import {
+  serviceActions,
+  SERVICE_STATUS,
+  questionStatusActions,
+} from 'constants/questionStatus';
 import { questionTypesOfAssignment } from 'constants/dropDownOptions';
 import { useStyles } from 'styles/Admin/questionTableStyles';
 import FieldsChips from 'components/chips/FieldsChips';
@@ -169,6 +173,15 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
+      name: 'questionState',
+      label: t('Question State'),
+      options: {
+        display: false,
+        filter: false,
+        sort: false,
+      },
+    },
+    {
       name: 'answersCount',
       label: t('answersCount'),
       options: {
@@ -194,9 +207,8 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: true,
         sort: true,
-        customBodyRender: (status) => {
-          const currentUserRole = authManager.getUserRole();
-          const statusString = serviceActions[currentUserRole][status]?.status;
+        customBodyRender: (status, tableMeta) => {
+          const statusString = getServiceStatus(status, tableMeta.rowData[9]);
           return t(`serviceStatus:${statusString}`);
         },
       },
@@ -214,6 +226,7 @@ const getColumnsOptions = (classes, t) => {
               status={status}
               serviceId={tableMeta.rowData[0]}
               questionId={tableMeta.rowData[8]}
+              questionState={tableMeta.rowData[9]}
             />
           );
         },
@@ -253,10 +266,14 @@ const StyledStatusChip = withStyles({
   },
 })(Chip);
 
-const ServiceActionLink = ({ status, serviceId, questionId }) => {
+const ServiceActionLink = ({
+  status,
+  serviceId,
+  questionId,
+  questionState,
+}) => {
   const { t } = useTranslation();
-  const currentUserRole = authManager.getUserRole();
-  const actionNeeded = serviceActions[currentUserRole][status]?.action;
+  const actionNeeded = getServiceAction(status, questionState);
   if (!actionNeeded) {
     return '';
   }
@@ -274,6 +291,22 @@ const ServiceActionLink = ({ status, serviceId, questionId }) => {
       />
     </LinkText>
   );
+};
+
+const getServiceStatus = (status, questionState) => {
+  if (status === SERVICE_STATUS.questionStarted && authManager.isAdmin()) {
+    return questionStatusActions[questionState].displayString;
+  }
+  const currentUserRole = authManager.getUserRole();
+  return serviceActions[currentUserRole][status]?.status;
+};
+
+const getServiceAction = (status, questionState) => {
+  if (status === SERVICE_STATUS.questionStarted && authManager.isAdmin()) {
+    return questionStatusActions[questionState].admin;
+  }
+  const currentUserRole = authManager.getUserRole();
+  return serviceActions[currentUserRole][status]?.action;
 };
 
 const getQuestionDetailsLink = (questionId) => {

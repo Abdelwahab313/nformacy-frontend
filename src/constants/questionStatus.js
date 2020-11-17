@@ -49,6 +49,10 @@ const serviceActions = {
       action: '',
       status: 'admin_returned_status',
     },
+    [SERVICE_STATUS.questionStarted]: {
+      action: 'admin_questionStarted_action',
+      status: 'admin_questionStarted_status',
+    },
     [SERVICE_STATUS.answersCollected]: {
       action: 'admin_questionStarted_action',
       status: 'admin_questionStarted_status',

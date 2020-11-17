@@ -9,6 +9,7 @@
   "client_answersCollected_status": "Screening Process",
   "admin_pending_status": "Request Verification",
   "admin_returned_status": "Client Review",
-  "admin_questionStarted_status": "Verified",
-  "admin_pending_action": "Verify Request"
+  "admin_pending_action": "Verify Request",
+  "admin_questionStarted_action": "Launch QR Cycle",
+  "admin_questionStarted_status": "Verified"
 }
