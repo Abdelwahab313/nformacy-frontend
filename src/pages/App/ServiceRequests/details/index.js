@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@material-ui/core';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import GridItem from 'components/grid/GridItem';
@@ -15,6 +15,7 @@ import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { useSnackBar } from 'context/SnackBarContext';
 import { SERVICE_STATUS } from 'constants/questionStatus';
+import { RoutesPaths } from 'constants/routesPath';
 
 const ServiceRequestDetails = () => {
   const classes = useStyles();
@@ -30,7 +31,13 @@ const ServiceRequestDetails = () => {
   const { showSuccessMessage, showErrorMessage } = useSnackBar();
 
   const isNoActionForm = serviceRequest?.state === SERVICE_STATUS.pending;
-  const showDrafButtons = !serviceRequest.id || serviceRequest?.state === 'draft';
+  const showDrafButtons =
+    !serviceRequest.id || serviceRequest?.state === 'draft';
+
+  let history = useHistory();
+  const navigatToDashboard = () => {
+    history.push(RoutesPaths.App.Services);
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -68,16 +75,18 @@ const ServiceRequestDetails = () => {
       submitService({ ...serviceRequest, state: 'pending' })
         .then(() => {
           showSuccessMessage(t('serviceProcessed'));
+          navigatToDashboard();
         })
-        .catch(() => { });
+        .catch(() => {});
     }
   };
   const handleSaveForLater = () => {
     submitService({ ...serviceRequest, state: 'draft' })
       .then(() => {
         showSuccessMessage(t('serviceSaved'));
+        navigatToDashboard();
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   return (
@@ -104,15 +113,21 @@ const ServiceRequestDetails = () => {
                     onClick: () => {
                       handleSubmit();
                     },
-                    buttonText: showDrafButtons ? t('submitQuestionButton') : t('applyChange'),
+                    buttonText: showDrafButtons
+                      ? t('submitQuestionButton')
+                      : t('applyChange'),
                   }}
-                  secondaryButton={showDrafButtons ? {
-                    id: 'saveAndCompleteLaterButton',
-                    onClick: () => {
-                      handleSaveForLater();
-                    },
-                    buttonText: t('saveAndCompleteLater'),
-                  } : {}}
+                  secondaryButton={
+                    showDrafButtons
+                      ? {
+                          id: 'saveAndCompleteLaterButton',
+                          onClick: () => {
+                            handleSaveForLater();
+                          },
+                          buttonText: t('saveAndCompleteLater'),
+                        }
+                      : {}
+                  }
                 />
               )}
             </CardFooter>
