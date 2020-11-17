@@ -11,6 +11,7 @@ const ActionButtonsContainer = ({ primaryButton, secondaryButton = {} }) => {
         <SubmitButton
           id={secondaryButton.id}
           onClick={secondaryButton.onClick}
+          color={'secondary'}
           buttonText={secondaryButton.buttonText}
           className={[classes.buttonMargin]}
         />

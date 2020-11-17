@@ -29,6 +29,7 @@
   "specificallyIn": "Specifically in these Areas *",
   "specificallyInHint": "You can choose more than one specific field of experience.",
   "commentSubmitted": "Comment has submitted successfully.",
+  "questionGenerated": "Question has been generated for the service successfully.",
   "commentValidation": "Please fill the Comment field.",
   "id": "ID",
   "clientId": "Client ID",

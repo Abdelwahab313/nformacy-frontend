@@ -52,7 +52,6 @@ export const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     alignItems: 'center',
     display: 'flex',
-    borderBottom: '1px solid #d2d2d2',
   },
   fieldLabelStyles: {
     fontSize: '1.190vw',

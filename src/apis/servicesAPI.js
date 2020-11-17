@@ -31,6 +31,13 @@ export const fetchServiceDetails = (serviceId) => {
   }).then((response) => camelizeKeys(response));
 };
 
+export const generateQuestion = (serviceId) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/services/${serviceId}/generate_question`,
+  }).then((response) => camelizeKeys(response));
+};
+
 export const returnToClient = (serviceId, comment) => {
   return axios({
     method: 'post',

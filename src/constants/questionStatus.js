@@ -1,4 +1,4 @@
-const questionStatus = {
+const QUESTION_STATUS = {
   draft: 'draft',
   pendingAssignment: 'pending_assignment',
   pendingAdviserAcceptance: 'pending_adviser_acceptance',
@@ -9,7 +9,7 @@ const questionStatus = {
   closed: 'closed',
 };
 
-const serviceStatus = {
+const SERVICE_STATUS = {
   draft: 'draft',
   pending: 'pending',
   returned: 'returned_to_client',
@@ -19,37 +19,37 @@ const serviceStatus = {
 
 const serviceActions = {
   client: {
-    [serviceStatus.draft]: {
+    [SERVICE_STATUS.draft]: {
       action: 'client_draft_action',
       status: 'client_draft_status',
     },
-    [serviceStatus.pending]: {
+    [SERVICE_STATUS.pending]: {
       action: '',
       status: 'client_pending_status',
     },
-    [serviceStatus.returned]: {
+    [SERVICE_STATUS.returned]: {
       action: 'client_returned_action',
       status: 'client_returned_status',
     },
-    [serviceStatus.questionStarted]: {
+    [SERVICE_STATUS.questionStarted]: {
       action: '',
       status: 'client_questionStarted_status',
     },
-    [serviceStatus.answersCollected]: {
+    [SERVICE_STATUS.answersCollected]: {
       action: 'client_answersCollected_action',
       status: 'client_answersCollected_status',
     },
   },
   admin: {
-    [serviceStatus.pending]: {
+    [SERVICE_STATUS.pending]: {
       action: 'admin_pending_action',
       status: 'admin_pending_status',
     },
-    [serviceStatus.returned]: {
+    [SERVICE_STATUS.returned]: {
       action: '',
       status: 'admin_returned_status',
     },
-    [serviceStatus.answersCollected]: {
+    [SERVICE_STATUS.answersCollected]: {
       action: 'admin_questionStarted_action',
       status: 'admin_questionStarted_status',
     },
@@ -57,46 +57,51 @@ const serviceActions = {
 };
 
 const questionStatusActions = {
-  [questionStatus.draft]: {
+  [QUESTION_STATUS.draft]: {
     admin: 'Complete Question Form',
     adviser: '',
     displayString: 'Draft',
   },
-  [questionStatus.pendingAssignment]: {
+  [QUESTION_STATUS.pendingAssignment]: {
     admin: 'Assign adviser',
     adviser: '',
     displayString: 'Adviser Assignment',
   },
-  [questionStatus.pendingAdviserAcceptance]: {
+  [QUESTION_STATUS.pendingAdviserAcceptance]: {
     admin: '',
     adviser: 'Accept Question',
     displayString: 'Adviser Acceptance',
   },
-  [questionStatus.reviewAndEdit]: {
+  [QUESTION_STATUS.reviewAndEdit]: {
     admin: '',
     adviser: 'Review',
     displayString: 'Advisor Review',
   },
-  [questionStatus.pendingDeploymentToRoaster]: {
+  [QUESTION_STATUS.pendingDeploymentToRoaster]: {
     admin: 'Post Q to Roaster',
     adviser: '',
     displayString: 'Posting to Roaster',
   },
-  [questionStatus.freelancerAnswers]: {
+  [QUESTION_STATUS.freelancerAnswers]: {
     admin: 'Approve Answers',
     adviser: 'Rating Answers',
     displayString: 'Answering',
   },
-  [questionStatus.answersRating]: {
+  [QUESTION_STATUS.answersRating]: {
     admin: 'Approve Answers',
     adviser: 'Rating Answers',
     displayString: 'Rating Answers',
   },
-  [questionStatus.closed]: {
+  [QUESTION_STATUS.closed]: {
     admin: '',
     adviser: '',
     displayString: 'Closed',
   },
 };
 
-export { questionStatusActions, questionStatus, serviceActions };
+export {
+  QUESTION_STATUS,
+  SERVICE_STATUS,
+  questionStatusActions,
+  serviceActions,
+};

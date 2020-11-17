@@ -14,6 +14,7 @@ import Direction from 'components/grid/Direction';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { useSnackBar } from 'context/SnackBarContext';
+import { SERVICE_STATUS } from 'constants/questionStatus';
 
 const ServiceRequestDetails = () => {
   const classes = useStyles();
@@ -28,6 +29,7 @@ const ServiceRequestDetails = () => {
   });
   const { showSuccessMessage, showErrorMessage } = useSnackBar();
 
+  const isNoActionForm = serviceRequest?.state === SERVICE_STATUS.pending;
   useEffect(() => {
     setIsLoading(true);
     fetchServiceDetails(serviceId)
@@ -75,6 +77,7 @@ const ServiceRequestDetails = () => {
       })
       .catch(() => {});
   };
+
   return (
     <Grid container alignItems={'center'} justify={'center'}>
       <GridItem xs={12} sm={12} md={8}>
@@ -89,24 +92,27 @@ const ServiceRequestDetails = () => {
               serviceRequest={serviceRequest}
               setServiceRequest={setServiceRequest}
               richTextRef={richTextRef}
+              viewOnly={isNoActionForm}
             />
             <CardFooter className={classes.footerButtons}>
-              <ActionButtonsContainer
-                primaryButton={{
-                  id: 'submitQuestionButtonButton',
-                  onClick: () => {
-                    handleSubmit();
-                  },
-                  buttonText: t('submitQuestionButton'),
-                }}
-                secondaryButton={{
-                  id: 'saveAndCompleteLaterButton',
-                  onClick: () => {
-                    handleSaveForLater();
-                  },
-                  buttonText: t('saveAndCompleteLater'),
-                }}
-              />
+              {!isNoActionForm && (
+                <ActionButtonsContainer
+                  primaryButton={{
+                    id: 'submitQuestionButtonButton',
+                    onClick: () => {
+                      handleSubmit();
+                    },
+                    buttonText: t('submitQuestionButton'),
+                  }}
+                  secondaryButton={{
+                    id: 'saveAndCompleteLaterButton',
+                    onClick: () => {
+                      handleSaveForLater();
+                    },
+                    buttonText: t('saveAndCompleteLater'),
+                  }}
+                />
+              )}
             </CardFooter>
           </Direction>
         </Card>

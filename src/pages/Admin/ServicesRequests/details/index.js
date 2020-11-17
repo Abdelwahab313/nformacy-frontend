@@ -4,20 +4,35 @@ import GridItem from 'components/grid/GridItem.js';
 import Card from 'components/card/Card.js';
 import CardHeader from 'components/card/CardHeader.js';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import LoadingCircle from 'components/progress/LoadingCircle';
-import { fetchServiceDetails, returnToClient } from 'apis/servicesAPI';
+import {
+  fetchServiceDetails,
+  returnToClient,
+  generateQuestion,
+} from 'apis/servicesAPI';
 import ServiceRequestForm from '../../../../templates/services/ServiceRequestForm';
 import CardFooter from 'components/card/CardFooter';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import { useSnackBar } from 'context/SnackBarContext';
+import { RoutesPaths } from 'constants/routesPath';
 
 const ServiceDetails = () => {
   const classes = useStyles();
   const [serviceRequest, setServiceRequest] = useState({});
   const location = useLocation();
+
+  let history = useHistory();
+  const navigatToDashboard = () => {
+    history.push(RoutesPaths.Admin.Services);
+  };
+
+  const navigateToQuestionDetails = (questionId) => {
+    history.push(RoutesPaths.Admin.QuestionsDetails, { questionId });
+  };
+
   const { serviceId } = location?.state?.service;
   const [isLoading, setIsLoading] = useState(false);
   const isNewService = !serviceId;
@@ -32,11 +47,22 @@ const ServiceDetails = () => {
     return true;
   };
 
+  const handleGenerateQuestion = () => {
+    generateQuestion(serviceId)
+      .then((response) => {
+        const createdQuestionId = response.data.id;
+        navigateToQuestionDetails(createdQuestionId);
+        showSuccessMessage(t('questionGenerated'));
+      })
+      .catch(() => {});
+  };
+
   const handleReturnToClient = () => {
     if (!!validate(serviceRequest)) {
       returnToClient(serviceId, serviceRequest.comment)
         .then(() => {
           showSuccessMessage(t('commentSubmitted'));
+          navigatToDashboard();
         })
         .catch(() => {});
     }
@@ -74,16 +100,18 @@ const ServiceDetails = () => {
           <CardFooter className={classes.footerButtons}>
             <ActionButtonsContainer
               primaryButton={{
+                id: 'generateQuestionButton',
+                onClick: () => {
+                  handleGenerateQuestion();
+                },
+                buttonText: 'Generate Question',
+              }}
+              secondaryButton={{
                 id: 'returnToClientButton',
                 buttonText: 'Return to Client',
                 onClick: () => {
                   handleReturnToClient();
                 },
-              }}
-              secondaryButton={{
-                id: 'generateQuestionButton',
-                onClick: () => {},
-                buttonText: 'Generate Question',
               }}
             />
           </CardFooter>
