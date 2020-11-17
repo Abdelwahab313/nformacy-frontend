@@ -13,7 +13,7 @@ import MeetingDetailsPage from 'pages/App/Meeting/MeetingDetailsPage';
 import PostSubmissionNote from 'pages/App/QuestionRoaster/PostSubmissionNote';
 import AllNotifications from 'pages/Admin/Dashboard/AllNotifications';
 import ServicesPage from 'pages/App/ServiceRequests/list';
-
+import QuestionDetails from 'pages/App/Questions/details';
 
 const appRoutes = [
   {
@@ -24,6 +24,11 @@ const appRoutes = [
   {
     path: RoutesPaths.App.Questions,
     component: QuestionRoaster,
+    exact: true,
+  },
+  {
+    path: RoutesPaths.App.QuestionsDetails,
+    component: QuestionDetails,
     exact: true,
   },
   {

@@ -9,11 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import { RoutesPaths } from 'constants/routesPath';
 import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
-import {
-  serviceActions,
-  SERVICE_STATUS,
-  questionStatusActions,
-} from 'constants/questionStatus';
+
 import { questionTypesOfAssignment } from 'constants/dropDownOptions';
 import { useStyles } from 'styles/Admin/questionTableStyles';
 import FieldsChips from 'components/chips/FieldsChips';
@@ -21,6 +17,7 @@ import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
 import LinkText from 'components/typography/LinkText';
 import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
+import { getServiceAction, getServiceStatus } from 'core/serviceStatus';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -300,22 +297,6 @@ const ServiceActionLink = ({
       />
     </LinkText>
   );
-};
-
-const getServiceStatus = (status, questionState) => {
-  if (status === SERVICE_STATUS.questionStarted && authManager.isAdmin()) {
-    return questionStatusActions[questionState].displayString;
-  }
-  const currentUserRole = authManager.getUserRole();
-  return serviceActions[currentUserRole][status]?.status;
-};
-
-const getServiceAction = (status, questionState) => {
-  if (status === SERVICE_STATUS.questionStarted && authManager.isAdmin()) {
-    return questionStatusActions[questionState].admin;
-  }
-  const currentUserRole = authManager.getUserRole();
-  return serviceActions[currentUserRole][status]?.action;
 };
 
 const getQuestionDetailsLink = (questionId) => {

@@ -11,5 +11,7 @@
   "admin_returned_status": "Client Review",
   "admin_pending_action": "Verify Request",
   "admin_questionStarted_action": "Launch QR Cycle",
-  "admin_questionStarted_status": "Verified"
+  "admin_questionStarted_status": "Verified",
+  "client_collecting_answers_status": "Rating Answer",
+  "client_collecting_answers_action": "View Answers"
 }

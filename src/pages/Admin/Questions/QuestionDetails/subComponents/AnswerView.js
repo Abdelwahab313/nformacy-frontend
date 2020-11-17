@@ -158,6 +158,14 @@ const AnswerView = ({ answer, index, setRating }) => {
                 buttonText={t['rollback']}
               />
             )}
+            {authManager.isClient() && (
+              <SubmitButton
+                id={`call-${answer.referenceNumber}`}
+                className={classes.rollbackButton}
+                onClick={() => {}}
+                buttonText={t['callTheExpert']}
+              />
+            )}
           </Grid>
         </GridContainer>
         <Divider variant='middle' className={classes.divider} />

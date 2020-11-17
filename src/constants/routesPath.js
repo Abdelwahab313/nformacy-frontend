@@ -23,6 +23,7 @@ export const RoutesPaths = {
     SubmitAnswerNote: '/answer/success',
     Home: '/',
     Questions: '/questions',
+    QuestionsDetails: '/questions/view',
     AnswerQuestion: '/question/answer',
     ServiceRequestDetails: '/service/edit',
     EditProfile: '/user/edit',
