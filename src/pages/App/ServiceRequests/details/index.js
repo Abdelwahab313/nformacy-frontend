@@ -10,24 +10,23 @@ import CardHeader from 'components/card/CardHeader';
 import CardFooter from 'components/card/CardFooter';
 import ServiceRequestForm from 'templates/services/ServiceRequestForm';
 import { fetchServiceDetails, submitService } from 'apis/servicesAPI';
-import SuccessSnackBar from 'components/snackbar/SuccessSnackBar';
 import Direction from 'components/grid/Direction';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import LoadingCircle from 'components/progress/LoadingCircle';
+import { useSnackBar } from 'context/SnackBarContext';
 
 const ServiceRequestDetails = () => {
   const classes = useStyles();
   const location = useLocation();
   const { t } = useTranslation();
-  const {serviceId, assignmentType} = location?.state?.service;
+  const { serviceId, assignmentType } = location?.state?.service;
   const richTextRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [message, setMessage] = useState('');
   const [serviceRequest, setServiceRequest] = useState({
     fields: [],
     assignmentType: assignmentType,
   });
+  const { showSuccessMessage, showErrorMessage } = useSnackBar();
 
   useEffect(() => {
     setIsLoading(true);
@@ -49,15 +48,12 @@ const ServiceRequestDetails = () => {
     return charCount >= 100;
   };
   const validate = (serviceRequest) => {
-    setIsError(false);
     if (!serviceRequest.title) {
-      setIsError(true);
-      setMessage(t('titleValidation'));
+      showErrorMessage(t('titleValidation'));
       return false;
     }
     if (!validateRichTextCount()) {
-      setIsError(true);
-      setMessage(t('contentValidation'));
+      showErrorMessage(t('contentValidation'));
       return false;
     }
     return true;
@@ -67,7 +63,7 @@ const ServiceRequestDetails = () => {
     if (!!validate(serviceRequest)) {
       submitService({ ...serviceRequest, state: 'pending' })
         .then(() => {
-          setMessage(t('serviceProcessed'));
+          showSuccessMessage(t('serviceProcessed'));
         })
         .catch(() => {});
     }
@@ -75,7 +71,7 @@ const ServiceRequestDetails = () => {
   const handleSaveForLater = () => {
     submitService({ ...serviceRequest, state: 'draft' })
       .then(() => {
-        setMessage(t('serviceSaved'));
+        showSuccessMessage(t('serviceSaved'));
       })
       .catch(() => {});
   };
@@ -112,12 +108,6 @@ const ServiceRequestDetails = () => {
                 }}
               />
             </CardFooter>
-            <SuccessSnackBar
-              isError={isError}
-              isSnackbarShown={!!message}
-              closeSnackBar={() => setMessage('')}
-              content={message}
-            />
           </Direction>
         </Card>
       </GridItem>

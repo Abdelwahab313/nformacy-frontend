@@ -13,35 +13,35 @@ import Transition from 'components/animations/Transition';
 import QuestionCountDown from 'components/counters/QuestionCountDown';
 import CustomInput from 'components/inputs/CustomInput';
 import SubmitButton from 'components/buttons/SubmitButton';
-import SuccessSnackBar from 'components/snackbar/SuccessSnackBar';
-import {extendTime} from 'apis/questionsAPI'
+import { extendTime } from 'apis/questionsAPI';
 import authManager from 'services/authManager';
+import { useSnackBar } from 'context/SnackBarContext';
+import { makeStyles } from '@material-ui/core/styles';
 
 const ByTimeField = ({ currentActionTime, referenceId, questionId }) => {
+  const classes = useStyles();
   const [isDialogOpend, setIsDialogOpened] = useState(false);
   const [extendedTime, setIsExtendedTime] = useState();
-  const [isError, setIsError] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const { showErrorMessage, showSuccessMessage } = useSnackBar();
 
-  
   const closeDialog = () => {
     setIsDialogOpened(false);
   };
   const submitExtendedTime = (questionId, extendedTime) => {
-    setIsError(false);
-    if(extendedTime > 0) {
-      extendTime(questionId, extendedTime).then(
-        () => {
+    if (extendedTime > 0) {
+      extendTime(questionId, extendedTime)
+        .then(() => {
           setIsDialogOpened(false);
-          setSnackbarMessage('Successfully updated question time');
-        }
-      ).then(() => {window.location.reload(true)} )
+          showSuccessMessage('Successfully updated question time');
+        })
+        .then(() => {
+          window.location.reload(true);
+        });
     } else {
-      setSnackbarMessage('Please enter a valied time to extend');
-      setIsError(true);
+      showErrorMessage('Please enter a valied time to extend');
     }
   };
-  
+
   return (
     <Fragment>
       <button
@@ -100,23 +100,13 @@ const ByTimeField = ({ currentActionTime, referenceId, questionId }) => {
               }}
             />
           </Grid>
-          <Grid
-            item
-            xs={6}
-            style={{
-              justifyContent: 'flex-end',
-              float: 'right',
-              margin: '0.5rem 0',
-            }}
-            // className={questionRoasterClasses.answerButtonsContainer}
-          >
+          <Grid item xs={6} className={classes.dialogActionButtons}>
             <SubmitButton
+            color="secondary"
               id='cancel'
               onClick={() => closeDialog()}
               buttonText={'Cancel'}
-              style={{
-                marginRight: '10px',
-              }}
+              className={classes.buttonMargin}
             />
             <SubmitButton
               id={'submitExtendedTime'}
@@ -126,14 +116,19 @@ const ByTimeField = ({ currentActionTime, referenceId, questionId }) => {
           </Grid>
         </DialogContent>
       </Dialog>
-      <SuccessSnackBar
-        isError={isError}
-        isSnackbarShown={ !!snackbarMessage }
-        closeSnackBar={() => setSnackbarMessage('')}
-        content={snackbarMessage}
-      />
     </Fragment>
   );
 };
+
+const useStyles = makeStyles(() => ({
+  dialogActionButtons: {
+    justifyContent: 'flex-end',
+    float: 'right',
+    margin: '0.5rem 0',
+  },
+  buttonMargin: {
+    marginRight: '10px',
+  },
+}));
 
 export default ByTimeField;

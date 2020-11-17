@@ -11,8 +11,8 @@ import ServiceRequestForm from '../../../../templates/services/ServiceRequestFor
 import CardFooter from 'components/card/CardFooter';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import SuccessSnackBar from 'components/snackbar/SuccessSnackBar';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
+import { useSnackBar } from 'context/SnackBarContext';
 
 const ServiceDetails = () => {
   const classes = useStyles();
@@ -21,15 +21,12 @@ const ServiceDetails = () => {
   const { serviceId } = location?.state?.service;
   const [isLoading, setIsLoading] = useState(false);
   const isNewService = !serviceId;
-  const [message, setMessage] = useState('');
   const { t } = useTranslation();
-  const [isError, setIsError] = useState(false);
+  const { showErrorMessage, showSuccessMessage } = useSnackBar();
 
   const validate = (serviceRequest) => {
-    setIsError(false);
     if (!serviceRequest.comment) {
-      setIsError(true);
-      setMessage(t('commentValidation'));
+      showErrorMessage(t('commentValidation'));
       return false;
     }
     return true;
@@ -39,9 +36,7 @@ const ServiceDetails = () => {
     if (!!validate(serviceRequest)) {
       returnToClient(serviceId, serviceRequest.comment)
         .then(() => {
-          {
-            setMessage(t('commentSubmitted'));
-          }
+          showSuccessMessage(t('commentSubmitted'));
         })
         .catch(() => {});
     }
@@ -92,12 +87,6 @@ const ServiceDetails = () => {
               }}
             />
           </CardFooter>
-          <SuccessSnackBar
-            isError={isError}
-            isSnackbarShown={!!message}
-            closeSnackBar={() => setMessage('')}
-            content={message}
-          />
         </Card>
       </GridItem>
     </GridContainer>

@@ -12,6 +12,7 @@ import { AuthProvider } from './pages/auth/context/auth';
 import authManager from './services/authManager';
 import LoadingCircle from './components/progress/LoadingCircle';
 import 'moment/locale/ar';
+import { SnackBarProvider } from 'context/SnackBarContext';
 
 const Loader = () => <LoadingCircle color='primary' />;
 
@@ -20,9 +21,11 @@ const App = () => {
   return (
     <AuthProvider initialValue={{ currentUser: user }}>
       <LocaleProvider initialLocale={user?.locale}>
-        <Suspense fallback={<Loader />}>
-          <Main />
-        </Suspense>
+        <SnackBarProvider>
+          <Suspense fallback={<Loader />}>
+            <Main />
+          </Suspense>
+        </SnackBarProvider>
       </LocaleProvider>
     </AuthProvider>
   );

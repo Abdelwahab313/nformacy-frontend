@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { createMuiTheme, StylesProvider, ThemeProvider } from '@material-ui/core/styles';
+import {
+  createMuiTheme,
+  StylesProvider,
+  ThemeProvider,
+} from '@material-ui/core/styles';
 import { create } from 'jss';
 import preset from 'jss-preset-default';
 import rtl from 'jss-rtl';
-import { darkBlue, grey, lighterPink, lightGrey, lightPink } from 'styles/colors';
+import {
+  darkBlue,
+  grey,
+  lighterPink,
+  lightGrey,
+  lightPink,
+} from 'styles/colors';
 import MainRouter from 'layouts/MainRouter';
 import '../styles/fonts.css';
 import { QueryCache, ReactQueryCacheProvider } from 'react-query';
@@ -11,8 +21,8 @@ import fontNames from '../constants/fonts';
 import useLocale from '../hooks/localization/useLocale';
 import { useTranslation } from 'react-i18next';
 import DIRECTIONS from '../constants/direction';
-import { ReactQueryDevtools } from 'react-query-devtools';
 import moment from 'moment';
+import SnackBarWrapper from 'components/feedback/SnackBarWrapper';
 
 const presets = preset().plugins;
 
@@ -61,16 +71,14 @@ function Main() {
     },
   });
 
-  const isDebugMode = (process.env.REACT_APP_ENV !== 'e2e' && process?.env?.NODE_ENV === 'development');
-
   return (
     <ThemeProvider theme={theme}>
       <StylesProvider jss={jss}>
         <ReactQueryCacheProvider queryCache={queryCache}>
-          <MainRouter/>
-          {isDebugMode && (
-            <ReactQueryDevtools initialIsOpen/>
-          )}
+          <SnackBarWrapper>
+            <MainRouter />
+            {/* {isDebugMode && <ReactQueryDevtools initialIsOpen />} */}
+          </SnackBarWrapper>
         </ReactQueryCacheProvider>
       </StylesProvider>
     </ThemeProvider>
