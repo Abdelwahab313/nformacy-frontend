@@ -370,7 +370,6 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       fontFamily: 'Apercu Pro',
       fontSize: '3.200vw',
-      lineHeight: '8vw',
       paddingLeft: '5vw',
     },
   },
@@ -473,6 +472,7 @@ export const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
   closedQuestion: {
+    margin: 'auto',
     fontSize: '1.15vw',
     fontFamily: fontNames.APERCU_PRO_MEDUIUM,
     [theme.breakpoints.down('xs')]: {

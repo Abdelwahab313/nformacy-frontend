@@ -21,10 +21,13 @@ import { useState } from 'react';
 import SubmitButton from 'components/buttons/SubmitButton';
 import t from '../../../../../locales/en/answersView.json';
 import ShowMore from '../../../../../components/typography/ShowMore';
+import { formattedDateMonthAndDay } from 'services/dateTimeParser';
+import useLocale from '../../../../../hooks/localization/useLocale';
+
 
 const AnswerView = ({ answer, index, setRating }) => {
   const classes = useStyles();
-
+  const { local } = useLocale();
   const [answerState, setAnswerState] = useState(answer.state);
   const onChangeRating = (index, newValue) => {
     setRating(index, newValue);
@@ -79,16 +82,6 @@ const AnswerView = ({ answer, index, setRating }) => {
               </Grid>
             )}
           </GridItem>
-          <GridItem xs={10} className={classes.answerRowStyles}>
-            <Grid
-              container
-              alignContent='row'
-              className={classes.answerFieldStyle}>
-              <Typography>
-                {new Date(answer.createdAt).toLocaleString()}
-              </Typography>
-            </Grid>
-          </GridItem>
           <GridItem xs={12} className={classes.answerRowStyles}>
             <Grid
               container
@@ -101,6 +94,12 @@ const AnswerView = ({ answer, index, setRating }) => {
                 title={<Typography># {answer.userReferenceNumber}</Typography>}>
                 <Typography>{answer.userName}</Typography>
               </Tooltip>
+              <Typography className={classes.countDown} >
+              {formattedDateMonthAndDay(
+                  new Date(answer.createdAt),
+                  local,
+                )}
+              </Typography>
             </Grid>
           </GridItem>
           <GridItem xs={12} className={classes.answerRowStyles}>

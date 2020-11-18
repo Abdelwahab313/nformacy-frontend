@@ -4,7 +4,7 @@ import { useLocation } from 'react-router';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { fetchQuestionDetails } from 'apis/questionsAPI';
 import useFetchData from 'hooks/useFetchData';
-import { Grid } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import QuestionView from 'pages/App/QuestionRoaster/subComponents/QuestionView';
 import GridItem from 'components/grid/GridItem';
 import AnswerView from 'pages/Admin/Questions/QuestionDetails/subComponents/AnswerView';
@@ -22,8 +22,8 @@ const QuestionDetails = () => {
   }
 
   return (
-    <div>
-      <Grid item xs={12} sm={12}>
+    <Box display="flex" justifyContent="center">
+      <Grid item xs={10} sm={10} >
         <QuestionView
           questionDetails={questionDetails}
           isSubmitVisible={false}
@@ -42,7 +42,7 @@ const QuestionDetails = () => {
           </GridItem>
         )}
       </Grid>
-    </div>
+    </Box>
   );
 };
 

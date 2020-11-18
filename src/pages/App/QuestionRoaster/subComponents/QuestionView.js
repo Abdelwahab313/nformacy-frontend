@@ -1,6 +1,6 @@
 import React from 'react';
 import AssignmentType from './AssignmentType';
-import { Grid } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from 'styles/questionRoasterStyles';
 import { formattedDateMonthAndDay } from 'services/dateTimeParser';
@@ -58,7 +58,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
         <Grid item md={!!questionDetails.thumbnailUrl ? 9 : 12} xs={12}>
           <Grid container className={classes.questionTextWrapper}>
             {/* =======Ref no. and Date======= */}
-            <Grid item md={2} xs={3}>
+            <Grid item md={2} xs={6}>
               <Typography
                 id={`question-${questionDetails.referenceNumber}-referenceNumber`}
                 className={classes.referenceNumberStyle}>
@@ -94,14 +94,15 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
                 direction={'column'}
                 spacing={2}
                 className={classes.timeContainer}>
-                <Grid item md={12} xs={12}>
+                <Grid container md={12} xs={12}>
                   <Typography
                     className={classes.closedQuestion}
                     id={`question-${questionDetails.referenceNumber}-closeIn`}>
                     {fixedTranslation('questionRoaster:closeIn')}
                   </Typography>
                 </Grid>
-                <Grid item md={12} xs={12}>
+                <Grid container md={12} xs={12} >
+                  <Box mx="auto">
                   <Countdown
                     date={questionDetails.currentActionTime}
                     renderer={(props) => (
@@ -112,6 +113,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
                     )}
                     className={classes.questionCountDown}
                   />
+                  </Box>
                 </Grid>
               </Grid>
             </Grid>

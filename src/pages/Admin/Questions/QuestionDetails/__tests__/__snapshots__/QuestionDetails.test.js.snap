@@ -732,19 +732,6 @@ exports[`should match snapshot 1`] = `
               class="MuiGrid-root grid answerRowStyles MuiGrid-item MuiGrid-grid-xs-2"
             />
             <div
-              class="MuiGrid-root grid answerRowStyles MuiGrid-item MuiGrid-grid-xs-10"
-            >
-              <div
-                class="MuiGrid-root MuiGrid-container"
-              >
-                <p
-                  class="MuiTypography-root MuiTypography-body1"
-                >
-                  Invalid Date
-                </p>
-              </div>
-            </div>
-            <div
               class="MuiGrid-root grid answerRowStyles MuiGrid-item MuiGrid-grid-xs-12"
             >
               <div
@@ -758,6 +745,11 @@ exports[`should match snapshot 1`] = `
                 <p
                   class="MuiTypography-root MuiTypography-body1"
                 />
+                <p
+                  class="MuiTypography-root countDown MuiTypography-body1"
+                >
+                  Oct 14
+                </p>
               </div>
             </div>
             <div

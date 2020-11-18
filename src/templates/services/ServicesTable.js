@@ -144,7 +144,7 @@ const getColumnsOptions = (classes, t) => {
               className={classes.answersCount}
               variant='body1'
               gutterBottom>
-              {value.toUpperCase()}
+              {value?.toUpperCase()}
             </Typography>
           );
         },
