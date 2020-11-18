@@ -42,5 +42,6 @@
   "actionNeeded": "Action Needed",
   "alarm": "Alarm",
   "applyChange": "Apply Change",
-  "serviceRequestList": "Service Requests List"
+  "serviceRequestList": "Service Requests List",
+  "serviceTitle": "Add Services"
 }

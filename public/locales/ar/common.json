@@ -31,5 +31,6 @@
   "state": "حاله الطلب",
   "actionNeeded": "المهمه",
   "alarm": "الوقت",
-  "serviceRequestList": "قائمه الطلبات"
+  "serviceRequestList": "قائمه الطلبات",
+  "serviceTitle": "اضافة خدمة"
 }

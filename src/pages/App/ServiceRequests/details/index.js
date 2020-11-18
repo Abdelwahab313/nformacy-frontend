@@ -9,13 +9,14 @@ import Card from 'components/card/Card';
 import CardHeader from 'components/card/CardHeader';
 import CardFooter from 'components/card/CardFooter';
 import ServiceRequestForm from 'templates/services/ServiceRequestForm';
-import { fetchServiceDetails, createOrUpdateService} from 'apis/servicesAPI';
+import { fetchServiceDetails, createOrUpdateService } from 'apis/servicesAPI';
 import Direction from 'components/grid/Direction';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { useSnackBar } from 'context/SnackBarContext';
 import { SERVICE_STATUS } from 'constants/questionStatus';
 import { RoutesPaths } from 'constants/routesPath';
+import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 
 const ServiceRequestDetails = () => {
   const classes = useStyles();
@@ -77,7 +78,7 @@ const ServiceRequestDetails = () => {
           showSuccessMessage(t('serviceProcessed'));
           navigatToDashboard();
         })
-        .catch(() => {});
+        .catch(() => { });
     }
   };
   const handleSaveForLater = () => {
@@ -86,12 +87,17 @@ const ServiceRequestDetails = () => {
         showSuccessMessage(t('serviceSaved'));
         navigatToDashboard();
       })
-      .catch(() => {});
+      .catch(() => { });
   };
 
   return (
     <Grid container alignItems={'center'} justify={'center'}>
       <GridItem xs={12} sm={12} md={8}>
+        <Direction>
+          <Grid item xs={10}>
+            <BreadcrumbsCustomSeparator pageName={t('serviceTitle')} />
+          </Grid>
+        </Direction>
         <Card>
           <Direction>
             <CardHeader color='primary'>
@@ -120,12 +126,12 @@ const ServiceRequestDetails = () => {
                   secondaryButton={
                     showDrafButtons
                       ? {
-                          id: 'saveAndCompleteLaterButton',
-                          onClick: () => {
-                            handleSaveForLater();
-                          },
-                          buttonText: t('saveAndCompleteLater'),
-                        }
+                        id: 'saveAndCompleteLaterButton',
+                        onClick: () => {
+                          handleSaveForLater();
+                        },
+                        buttonText: t('saveAndCompleteLater'),
+                      }
                       : {}
                   }
                 />
