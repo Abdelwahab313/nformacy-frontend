@@ -9,7 +9,7 @@ import Card from 'components/card/Card';
 import CardHeader from 'components/card/CardHeader';
 import CardFooter from 'components/card/CardFooter';
 import ServiceRequestForm from 'templates/services/ServiceRequestForm';
-import { fetchServiceDetails, submitService } from 'apis/servicesAPI';
+import { fetchServiceDetails, createOrUpdateService} from 'apis/servicesAPI';
 import Direction from 'components/grid/Direction';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import LoadingCircle from 'components/progress/LoadingCircle';
@@ -72,7 +72,7 @@ const ServiceRequestDetails = () => {
 
   const handleSubmit = () => {
     if (!!validate(serviceRequest)) {
-      submitService({ ...serviceRequest, state: 'pending' })
+      createOrUpdateService({ ...serviceRequest, state: 'pending' })
         .then(() => {
           showSuccessMessage(t('serviceProcessed'));
           navigatToDashboard();
@@ -81,7 +81,7 @@ const ServiceRequestDetails = () => {
     }
   };
   const handleSaveForLater = () => {
-    submitService({ ...serviceRequest, state: 'draft' })
+    createOrUpdateService({ ...serviceRequest, state: 'draft' })
       .then(() => {
         showSuccessMessage(t('serviceSaved'));
         navigatToDashboard();

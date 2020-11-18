@@ -16,13 +16,30 @@ export const fetchClientServices = () => {
   }).then((response) => camelizeKeys(response));
 };
 
-export const submitService = (service) => {
+export const createService = (service) => {
   return axios({
     method: 'post',
     url: `${API_BASE_URL}/services/`,
     data: decamelizeKeys({ ...service }),
   }).then((response) => camelizeKeys(response));
 };
+
+export const updateService = (service) => {
+  return axios({
+    method: 'put',
+    url: `${API_BASE_URL}/services/${service.id}`,
+    data: decamelizeKeys({ ...service }),
+  }).then((response) => camelizeKeys(response));
+};
+
+export const createOrUpdateService = (service) => {
+  if(!!service.id){
+    return updateService(service);
+  }
+  else {
+    return createService(service);
+  }
+}
 
 export const fetchServiceDetails = (serviceId) => {
   return axios({
