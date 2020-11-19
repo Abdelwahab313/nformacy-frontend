@@ -43,5 +43,6 @@
   "alarm": "Alarm",
   "applyChange": "Apply Change",
   "serviceRequestList": "Service Requests List",
-  "serviceTitle": "Add Services"
+  "serviceTitle": "Add Services",
+  "writeGreatQuestion": "Write Great Question"
 }
