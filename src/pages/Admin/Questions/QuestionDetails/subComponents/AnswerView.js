@@ -73,7 +73,6 @@ const AnswerView = ({ answer, index, setRating }) => {
               <Grid
                 id={answer.referenceNumber}
                 container
-                alignContent='row'
                 className={classes.answerFieldStyle}>
                 <Typography className={classes.answerFieldLabel}>
                   # Answer:
@@ -85,7 +84,6 @@ const AnswerView = ({ answer, index, setRating }) => {
           <GridItem xs={12} className={classes.answerRowStyles}>
             <Grid
               container
-              alignContent='row'
               className={classes.answerFieldStyle}>
               <Typography className={classes.answerFieldLabel}>
                 Consultant:

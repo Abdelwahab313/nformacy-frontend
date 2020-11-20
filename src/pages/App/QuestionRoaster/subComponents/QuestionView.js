@@ -94,14 +94,14 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
                 direction={'column'}
                 spacing={2}
                 className={classes.timeContainer}>
-                <Grid container md={12} xs={12}>
+                <Grid item md={12} xs={12}>
                   <Typography
                     className={classes.closedQuestion}
                     id={`question-${questionDetails.referenceNumber}-closeIn`}>
                     {fixedTranslation('questionRoaster:closeIn')}
                   </Typography>
                 </Grid>
-                <Grid container md={12} xs={12} >
+                <Grid item md={12} xs={12} >
                   <Box mx="auto">
                   <Countdown
                     date={questionDetails.currentActionTime}

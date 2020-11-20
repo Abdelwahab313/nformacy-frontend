@@ -3,8 +3,7 @@
 exports[`should match snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="MuiGrid-root grid MuiGrid-container"
-    justifycontent="center"
+    class="MuiGrid-root grid MuiGrid-container MuiGrid-justify-xs-center"
   >
     <div
       class="MuiGrid-root grid MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-12"

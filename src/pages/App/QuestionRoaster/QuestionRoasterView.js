@@ -32,7 +32,7 @@ const QuestionRoasterView = () => {
 
   return (
     <Grid id='questionRoasterMainContainer' container dir={DIRECTION[locale]}>
-      <Grid item xs={12} className={classes.bannerStyles} direction={'column'}>
+      <Grid container className={classes.bannerStyles} direction={'column'}>
         <Grid item id={'question-roaster-banner'}>
           <Typography
             id={'question-roaster-header'}
