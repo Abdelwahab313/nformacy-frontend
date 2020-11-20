@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 import LinkText from 'components/typography/LinkText';
 import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
 import { getServiceAction, getServiceStatus } from 'core/serviceStatus';
+import ByTimeField from 'pages/Admin/Questions/list/subComponents/ByTimeField';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -235,6 +236,25 @@ const getColumnsOptions = (classes, t) => {
               questionState={tableMeta.rowData[9]}
             />
           );
+        },
+      },
+    },
+    {
+      name: 'currentActionTime',
+      options: {
+        filter: false,
+        sort: true,
+        customHeadLabelRender: () => (
+          <Grid className={classes.currentActionTimeContainer}>By Time</Grid>
+        ),
+        customBodyRender: (currentActionTime, tableMeta) => {
+          return currentActionTime ? (
+            <ByTimeField
+              currentActionTime={currentActionTime}
+              referenceId={tableMeta.rowData[0]}
+              questionId={tableMeta.rowData[8]}
+            />
+          ) : null;
         },
       },
     },

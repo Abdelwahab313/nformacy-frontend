@@ -19,15 +19,15 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Divider from '@material-ui/core/Divider';
 import { useState } from 'react';
 import SubmitButton from 'components/buttons/SubmitButton';
-import t from '../../../../../locales/en/answersView.json';
 import ShowMore from '../../../../../components/typography/ShowMore';
 import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 import useLocale from '../../../../../hooks/localization/useLocale';
-
+import { useTranslation } from 'react-i18next';
 
 const AnswerView = ({ answer, index, setRating }) => {
   const classes = useStyles();
   const { local } = useLocale();
+  const { t } = useTranslation();
   const [answerState, setAnswerState] = useState(answer.state);
   const onChangeRating = (index, newValue) => {
     setRating(index, newValue);
@@ -94,11 +94,8 @@ const AnswerView = ({ answer, index, setRating }) => {
                 title={<Typography># {answer.userReferenceNumber}</Typography>}>
                 <Typography>{answer.userName}</Typography>
               </Tooltip>
-              <Typography className={classes.countDown} >
-              {formattedDateMonthAndDay(
-                  new Date(answer.createdAt),
-                  local,
-                )}
+              <Typography className={classes.countDown}>
+                {formattedDateMonthAndDay(new Date(answer.createdAt), local)}
               </Typography>
             </Grid>
           </GridItem>
@@ -154,7 +151,7 @@ const AnswerView = ({ answer, index, setRating }) => {
                 id={`rollback-${answer.referenceNumber}`}
                 className={classes.rollbackButton}
                 onClick={() => onRollback()}
-                buttonText={t['rollback']}
+                buttonText={t('rollback')}
               />
             )}
             {authManager.isClient() && (
@@ -162,7 +159,7 @@ const AnswerView = ({ answer, index, setRating }) => {
                 id={`call-${answer.referenceNumber}`}
                 className={classes.rollbackButton}
                 onClick={() => {}}
-                buttonText={t['callTheExpert']}
+                buttonText={t('callTheExpert')}
               />
             )}
           </Grid>

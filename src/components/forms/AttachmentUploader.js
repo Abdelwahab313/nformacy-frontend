@@ -6,9 +6,9 @@ import DownloadIcon from '@material-ui/icons/CloudDownload';
 
 import { attachContainerStyle } from '../../styles/questionRoasterStyles';
 import { removeAttachment, uploadAttachment } from '../../apis/questionsAPI';
-import t from '../../locales/en/questionRoaster.json';
 import FileUpload from '../inputs/FileUpload';
 import { useStyles } from 'styles/Admin/questionFormStyles';
+import { useTranslation } from 'react-i18next';
 
 const AttachmentUploader = ({
   containerClassName,
@@ -18,7 +18,8 @@ const AttachmentUploader = ({
 }) => {
   const [attachmentFiles, setAttachmentFiles] = useState(attachments);
 
-  const classes = useStyles()
+  const classes = useStyles();
+  const { t } = useTranslation();
 
   const onUploadAttachment = (attachmentFile) => {
     const fileBlob = new Blob(attachmentFile);
@@ -77,9 +78,12 @@ const AttachmentUploader = ({
           onChange={onUploadAttachment}
           withPreview
           accept='.doc,.docx,.xml,image/*,video/*,.pdf,.csv'
-          buttonText={t['attach']}
+          buttonText={t('attachMedia')}
         />
-        <FlipMove enterAnimation='fade' leaveAnimation='fade' className={classes.flipMove}>
+        <FlipMove
+          enterAnimation='fade'
+          leaveAnimation='fade'
+          className={classes.flipMove}>
           {!!attachmentFiles &&
             attachmentFiles.length > 0 &&
             renderPreviewFiles()}

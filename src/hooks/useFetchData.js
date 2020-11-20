@@ -35,7 +35,7 @@ const useFetchData = (fetchApi) => {
 
   useEffect(() => {
     getData();
-  }, [setLoading]);
+  }, []);
 
   const refresh = (fetchApi) => {
     setLoading(true);

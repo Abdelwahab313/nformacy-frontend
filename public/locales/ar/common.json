@@ -32,5 +32,14 @@
   "actionNeeded": "المهمه",
   "alarm": "الوقت",
   "serviceRequestList": "قائمه الطلبات",
-  "serviceTitle": "اضافة خدمة"
+  "serviceTitle": "اضافة خدمة",
+  "selectAService": "اختر ما تريد",
+  "welcomeToMedad": "مرحبا بك! \uD83C\uDF89",
+  "Network Error": "حدث خطأ أثناء الاتصال بالخادم",
+  "Login": "تسجيل الدخول",
+  "Password": "كلمه المرور",
+  "Email": "البريد الالكتروني",
+  "Email empty error": "برجاء ادخال البريد الالكتروني",
+  "Password empty error": "برجاء ادخال كلمه السر",
+  "Invalid Email or password": "خطأ في البريد الالكتروني او كلمه المرور"
 }

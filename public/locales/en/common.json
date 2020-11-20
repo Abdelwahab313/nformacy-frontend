@@ -44,5 +44,17 @@
   "applyChange": "Apply Change",
   "serviceRequestList": "Service Requests List",
   "serviceTitle": "Add Services",
-  "writeGreatQuestion": "Write Great Question"
+  "writeGreatQuestion": "Write Great Question",
+  "rollback": "Rollback",
+  "callTheExpert": "Call The Expert",
+  "selectAService": "Select a Service ....",
+  "welcomeToMedad": "Welcome to Medad! \uD83C\uDF89",
+  "Network Error": "Network Error",
+  "Login": "Login",
+  "Password": "Password",
+  "Email": "Email",
+  "Email empty error": "Please enter your email",
+  "Password empty error": "Please enter your password",
+  "Invalid Email or password": "The email or password is incorrect!",
+  "attachMedia": "Attach"
 }

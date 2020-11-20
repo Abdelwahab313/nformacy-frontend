@@ -580,7 +580,7 @@ exports[`should match snapshot 1`] = `
                           <span
                             class="MuiButton-label"
                           >
-                            Attach
+                            attachMedia
                           </span>
                           <span
                             class="MuiTouchRipple-root"

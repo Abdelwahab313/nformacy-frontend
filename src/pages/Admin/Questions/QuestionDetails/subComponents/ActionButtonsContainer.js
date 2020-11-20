@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import t from '../../../../../locales/en/questionRoaster.json';
+import { useTranslation } from 'react-i18next';
 import SubmitButton from 'components/buttons/SubmitButton';
 import authManager from '../../../../../services/authManager';
 import { useStyles as useRoasterStyle } from '../../../../../styles/questionRoasterStyles';
@@ -14,6 +14,7 @@ const ActionButtonsContainer = ({
   onSendToAdminClicked,
 }) => {
   const questionRoasterClasses = useRoasterStyle();
+  const { t } = useTranslation();
 
   if (authManager.isAdviser() && questionDetails.state === 'review_and_edit') {
     return (
@@ -24,8 +25,11 @@ const ActionButtonsContainer = ({
         <SubmitButton
           id='saveAndCompleteLaterButton'
           onClick={() => saveAndCompleteLater()}
-          buttonText={t['saveAndCompleteLater']}
-          className={[questionRoasterClasses.answerButtons, questionRoasterClasses.buttonMargin]}
+          buttonText={t('saveAndCompleteLater')}
+          className={[
+            questionRoasterClasses.answerButtons,
+            questionRoasterClasses.buttonMargin,
+          ]}
         />
         <SubmitButton
           id={'sendToAdminButton'}
@@ -38,16 +42,16 @@ const ActionButtonsContainer = ({
   }
 
   return (
-    <Grid
-      item
-      xs={6}
-      className={questionRoasterClasses.answerButtonContainer}>
+    <Grid item xs={6} className={questionRoasterClasses.answerButtonContainer}>
       {isNewQuestion && (
         <SubmitButton
           id='saveAndCompleteLaterButton'
           onClick={() => saveAndCompleteLater()}
-          buttonText={t['saveAndCompleteLater']}
-          className={[questionRoasterClasses.answerButtons, questionRoasterClasses.buttonMargin]}
+          buttonText={t('saveAndCompleteLater')}
+          className={[
+            questionRoasterClasses.answerButtons,
+            questionRoasterClasses.buttonMargin,
+          ]}
         />
       )}
       {!(

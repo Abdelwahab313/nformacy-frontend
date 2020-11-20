@@ -10,12 +10,14 @@ import {
 } from '../../../styles/questionRoasterStyles';
 import { submitAnswer } from '../../../apis/questionsAPI';
 import AttachmentUploader from '../../../components/forms/AttachmentUploader';
-import t from '../../../locales/en/questionRoaster.json';
 import SubmitButton from '../../../components/buttons/SubmitButton';
+import { useTranslation } from 'react-i18next';
 
 const AnswerQuestion = () => {
   const classes = useStyles();
   const questionRoasterClasses = useRoasterStyle();
+
+  const { t } = useTranslation();
 
   const location = useLocation();
   let history = useHistory();
@@ -87,7 +89,7 @@ const AnswerQuestion = () => {
                 className={questionRoasterClasses.answerSaveButton}
                 id='saveAndCompleteLaterButton'
                 onClick={() => saveAndCompleteLater(richTextMediaId.current)}
-                buttonText={t['saveAndCompleteLater']}
+                buttonText={t('saveAndCompleteLater')}
               />
               <SubmitButton
                 onClick={onSubmitAnswer}

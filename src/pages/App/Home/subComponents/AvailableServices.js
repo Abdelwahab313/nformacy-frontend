@@ -14,7 +14,7 @@ const AvailableServices = () => {
   return (
     <Box mt={16}>
       <Typography variant='h6' align='center'>
-        {t('home:selectAService')}
+        {t('selectAService')}
       </Typography>
       <Grid container direction={'row'} justify={'center'}>
         {services.map((service) => (
@@ -39,7 +39,7 @@ const ServiceItem = ({ service }) => {
           state: { service: { assignmentType: service } },
         }}>
         <Box mt={4} p={4} className={classes.item}>
-          <Typography align='center'>{t(`common:${service}`)}</Typography>
+          <Typography align='center'>{t(`${service}`)}</Typography>
         </Box>
       </Link>
     </Grid>
