@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
@@ -9,17 +9,27 @@ import Box from '@material-ui/core/Box';
 
 const ProfileSummaryCard = () => {
   const classes = useStyles();
+  const user = useRef(JSON.parse(localStorage.getItem('user')));
+  const [profilePic,] = useState(
+    user.current.avatar || require('../../../../assets/emptyavatar.jpg'),
+  );
 
   return (
     <Card className={classes.card}>
       <CardActionArea
         component={Link}
         to={'/user/edit'}>
-        <Box className={classes.media}/>
-
+        <Box className={classes.media}>
+          <img
+            id='profilePicture'
+            src={profilePic}
+            className={classes.largeProfilePic}
+            alt='Profile Picture'
+          />
+        </Box>
         <CardContent>
-          <Typography align={'center'} gutterBottom variant="h5" component="h2">
-            Profile
+          <Typography align={'center'} gutterBottom variant="h5" component="h1">
+            {user.current.firstName + ' ' + user.current.lastName}
           </Typography>
           <Typography align={'center'} variant="body2" color="textSecondary" component="p">
             Expert in the (Fields/subfields)

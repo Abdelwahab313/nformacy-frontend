@@ -5,10 +5,17 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 345,
     marginBottom: theme.spacing(3),
     borderRadius: 25,
-    border: `1px solid ${theme.palette.primary.main}`,
+    border: `1px solid #ecedf0`,
+    backgroundColor: '#f9fafd',
+    boxShadow: 'none',
+    [theme.breakpoints.down('md')]: {
+      display: 'none'
+    },
   },
   media: {
-    height: 140,
+    height: 160,
+    textAlign: 'center',
+    lineHeight: '160px'
   },
   clientHomeContainer: {
     padding: theme.spacing(5),
@@ -19,8 +26,9 @@ const useStyles = makeStyles((theme) => ({
   askQuestionBox: {
     padding: theme.spacing(3),
     margin: theme.spacing(2),
-    backgroundColor: '#fafafa',
-    borderRadius: 8,
+    marginTop: 0,
+    backgroundColor: '#f9fafd',
+    borderRadius: 20,
     border: '1px solid #ecedf0',
     [theme.breakpoints.down('md')]: {
       margin: '10px 0'
@@ -36,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '12px',
     width: '60%',
     float: 'right',
+    textTransform: 'capitalize',
     borderRadius: '11px',
     [theme.breakpoints.down('md')]: {
       fontSize: 12,
@@ -71,7 +80,8 @@ const useStyles = makeStyles((theme) => ({
   },
   chargeBtn: {
     backgroundColor: '#fff !important',
-    color: '#125773 !important '
+    color: '#125773 !important',
+    textTransform: 'capitalize'
   },
   clientImg: {
     float: 'right',
@@ -92,6 +102,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   threeBtnsContainer: {
+    marginTop: theme.spacing(5),
     [theme.breakpoints.down('md')]: {
       justifyContent: 'space-between'
     },
@@ -106,7 +117,13 @@ const useStyles = makeStyles((theme) => ({
       border: 'none',
       boxShadow: 'none',
     },
-  }
+  },
+  largeProfilePic: {
+    width: '100px',
+    height: '100px',
+    verticalAlign: 'middle',
+    borderRadius: '100%',
+  },
 }));
 
 export default useStyles;
