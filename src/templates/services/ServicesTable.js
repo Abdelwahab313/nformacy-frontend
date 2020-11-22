@@ -1,8 +1,6 @@
 import React from 'react';
 
 import MUIDataTable from 'mui-datatables';
-import { withStyles } from '@material-ui/core/styles';
-import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
@@ -17,8 +15,10 @@ import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
 import LinkText from 'components/typography/LinkText';
 import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
-import { getServiceAction, getServiceStatus } from 'core/serviceStatus';
+import { getServiceStatus } from 'core/serviceStatus';
 import ByTimeField from 'pages/Admin/Questions/list/subComponents/ByTimeField';
+import { getServiceDetailsLink } from 'services/navigation';
+import ServiceActionLink from './ServiceActionLink';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -44,14 +44,12 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: false,
         sort: true,
-        customBodyRender: (value, tableMeta) => {
+        customBodyRender: (referenceId, tableMeta) => {
           return (
-            <LinkText
-              data-status={tableMeta.rowData[0]}
-              data-reference={tableMeta.rowData[0]}
-              to={getServiceDetailsLink(tableMeta.rowData[0])}>
-              <TextCroppedWithTooltip text={value} />
-            </LinkText>
+            <ServiceRefIdLink
+              serviceId={tableMeta.rowData[0]}
+              referenceId={referenceId}
+            />
           );
         },
       },
@@ -283,65 +281,12 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const StyledStatusChip = withStyles({
-  root: {
-    margin: 1,
-    backgroundColor: '#cec8ef',
-  },
-  label: {
-    fontSize: '0.8rem',
-  },
-})(Chip);
-
-const ServiceActionLink = ({
-  status,
-  serviceId,
-  questionId,
-  questionState,
-}) => {
-  const { t } = useTranslation();
-  const actionNeeded = getServiceAction(status, questionState);
-  if (!actionNeeded) {
-    return '';
-  }
-
-  const redirectURL = !!questionId
-    ? getQuestionDetailsLink(questionId)
-    : getServiceDetailsLink(serviceId);
+export const ServiceRefIdLink = ({ serviceId, referenceId }) => {
   return (
-    <LinkText to={redirectURL}>
-      <StyledStatusChip
-        data-status={status}
-        className={'state'}
-        data-reference={serviceId}
-        label={t(`serviceStatus:${actionNeeded}`)}
-      />
+    <LinkText data-reference={serviceId} to={getServiceDetailsLink(serviceId)}>
+      <TextCroppedWithTooltip text={`#${referenceId}`} />
     </LinkText>
   );
-};
-
-const getQuestionDetailsLink = (questionId) => {
-  return {
-    pathname: authManager.isAdmin()
-      ? RoutesPaths.Admin.QuestionsDetails
-      : RoutesPaths.App.QuestionsDetails,
-    state: {
-      questionId: questionId,
-    },
-  };
-};
-
-const getServiceDetailsLink = (serviceId) => {
-  return {
-    pathname: authManager.isAdmin()
-      ? RoutesPaths.Admin.ServiceDetails
-      : RoutesPaths.App.ServiceRequestDetails,
-    state: {
-      service: {
-        serviceId: serviceId,
-      },
-    },
-  };
 };
 
 const ServicesTable = ({ services }) => {

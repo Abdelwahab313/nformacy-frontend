@@ -9,12 +9,9 @@ import {
 } from '../../../hooks/notifications/context';
 import { NotificationMessage } from '../../factory/notification';
 import { Router } from 'react-router';
-import { Server } from 'mock-socket';
-import { CHANNEL_URL } from '../../../settings';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import history from '../../../services/navigation';
-import faker from 'faker';
+import {history} from '../../../services/navigation';
 
 export const TestComponent = () => {
   const [

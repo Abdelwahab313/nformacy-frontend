@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   createMuiTheme,
+  responsiveFontSizes,
   StylesProvider,
   ThemeProvider,
 } from '@material-ui/core/styles';
@@ -42,7 +43,7 @@ function Main() {
     });
   }, [locale]);
 
-  const theme = createMuiTheme({
+  let theme = createMuiTheme({
     direction: DIRECTIONS[locale],
     palette: {
       primary: {
@@ -70,6 +71,7 @@ function Main() {
       ].join(','),
     },
   });
+  theme = responsiveFontSizes(theme);
 
   return (
     <ThemeProvider theme={theme}>

@@ -6,7 +6,7 @@ import Main from 'layouts/Main';
 import * as serviceWorker from './serviceWorker';
 import { Router } from 'react-router';
 import WebFont from 'webfontloader';
-import history from './services/navigation';
+import {history} from './services/navigation';
 import { LocaleProvider } from './hooks/localization/context';
 import { AuthProvider } from './pages/auth/context/auth';
 import authManager from './services/authManager';

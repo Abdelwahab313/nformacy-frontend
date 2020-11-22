@@ -58,5 +58,10 @@
   "Invalid Email or password": "The email or password is incorrect!",
   "attachMedia": "Attach",
   "questionDetails": "Question Details",
-  "consultant": "Consultant"
+  "consultant": "Consultant",
+  "myActivityTableTitle": "My Activities",
+  "viewAll": "View All",
+  "activityType": "Activity Type",
+  "refNo": "Ref. No.",
+  "requestDate": "Request Date"
 }

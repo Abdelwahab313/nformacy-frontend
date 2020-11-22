@@ -32,12 +32,11 @@ const BreadcrumbsCustomSeparator = ({ pageName }) => {
             aria-label='breadcrumb'>
             <Link color='inherit' href='/'>
               <Typography
-                className={classes.inactiveBreadcrumb}
                 id={'home-breadcrumb'}>
                 {t('common:home')}
               </Typography>
             </Link>
-            <Typography color={'primary'} className={classes.activeBreadcrumb}>
+            <Typography color={'primary'}>
               {pageName}
             </Typography>
           </Breadcrumbs>

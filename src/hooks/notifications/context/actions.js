@@ -1,6 +1,6 @@
 import produce from 'immer';
 import getPathForNotification from '../../../services/notificationPathResolver';
-import history from '../../../services/navigation';
+import {history} from '../../../services/navigation';
 import { camelizeKeys } from 'humps';
 
 const MAX_NOTIFICATIONS = 10;
