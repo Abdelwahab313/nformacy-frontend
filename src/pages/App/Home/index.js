@@ -86,7 +86,7 @@ const HomePage = () => {
           </Grid>
         </Grid>
 
-        <Grid container>
+        <Grid>
           <Grid item xs={4} md={3} className={[classes.askQuestionBox, classes.clientThreeBtns]}>
             <Grid container>
               <Grid item xs={9} md={9}>
@@ -108,15 +108,13 @@ const HomePage = () => {
               <Grid item xs={3} md={3}>
                 <img src={require('../../../assets/client-call.svg')} className={classes.clientImg} />
               </Grid>
-              <Grid container>
-                <Grid item xs={12}>
+              <Grid container xs={12}>
                   <SubmitButton
                     id={'proceedBtn'}
                     onClick={() => { }}
                     className={[classes.proceedBtn, classes.startProcessBtn]}
                     buttonText={'Start the process'}
                   />
-                </Grid>
               </Grid>
             </Grid>
           </Grid>

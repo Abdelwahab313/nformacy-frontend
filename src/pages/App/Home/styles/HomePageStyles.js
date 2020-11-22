@@ -86,11 +86,13 @@ const useStyles = makeStyles((theme) => ({
   },
   clientThreeBtns: {
     minWidth: '29.5%',
-    backgroundColor: '#ffffff'
+    backgroundColor: '#ffffff',
+    display: 'inline-flex',
   },
   startProcessBtn: {
     width: '75%',
     margin: '0px auto',
+    marginTop: 50,
     [theme.breakpoints.down('md')]: {
       backgroundColor: 'transparent !important',
       color: 'rgb(18 87 115) !important',
