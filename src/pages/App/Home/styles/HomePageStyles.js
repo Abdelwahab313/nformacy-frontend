@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 345,
     marginBottom: theme.spacing(3),
     borderRadius: 25,
-    border: `1px solid #ecedf0`,
+    border: '1px solid #ecedf0',
     backgroundColor: '#f9fafd',
     boxShadow: 'none',
     [theme.breakpoints.down('md')]: {
@@ -95,6 +95,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   clientThreeBtns: {
+    display: 'inline-flex',
     minWidth: '29.5%',
     backgroundColor: '#ffffff',
     [theme.breakpoints.down('md')]: {

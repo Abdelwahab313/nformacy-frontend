@@ -87,55 +87,10 @@ const HomePage = () => {
           </Grid>
         </Grid>
 
-        <Grid container className={classes.threeBtnsContainer}>
-          <Grid item xs={3} md={3} className={[classes.askQuestionBox, classes.clientThreeBtns]}>
-            <Grid container>
-              <Grid item xs={8} md={9}>
-                <p>Call the Expert</p>
-                <p className={classes.clientText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-              </Grid>
-              <Grid item xs={3} md={3}>
-                <img src={require('../../../assets/client-call.svg')} className={classes.clientImg} />
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <Grid item xs={3} md={3} className={[classes.askQuestionBox, classes.clientThreeBtns]}>
-            <Grid container>
-              <Grid item xs={8} md={9}>
-                <p>Assign a Consultant</p>
-                <p className={classes.clientText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-              </Grid>
-              <Grid item xs={3} md={3}>
-                <img src={require('../../../assets/client-call.svg')} className={classes.clientImg} />
-              </Grid>
-              <Grid container xs={12}>
-                <SubmitButton
-                  id={'proceedBtn'}
-                  onClick={() => { }}
-                  className={[classes.proceedBtn, classes.startProcessBtn]}
-                  buttonText={'Start the process'}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <Grid item xs={3} md={3} className={[classes.askQuestionBox, classes.clientThreeBtns]}>
-            <Grid container>
-              <Grid item xs={8} md={9}>
-                <p>It's a Project</p>
-                <p className={classes.clientText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-              </Grid>
-              <Grid item xs={3} md={3}>
-                <img src={require('../../../assets/client-project.svg')} className={classes.clientImg} />
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-
-        <ActivityTable />
-        
+        <Grid className={classes.threeBtnsContainer}>
         {authManager.isClient() && (<AvailableServiceSection />)}
+        </Grid>
+        <ActivityTable />
       </Grid>
 
     </Grid>
