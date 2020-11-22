@@ -126,6 +126,22 @@ const useStyles = makeStyles((theme) => ({
     verticalAlign: 'middle',
     borderRadius: '100%',
   },
+  feedsTimelineContainer: {
+    backgroundColor: '#f9fafd',
+  },
+  feedsImg: {
+    width: '60%',
+    height: '100%',
+    borderRadius: 12,
+    float: 'right'
+  },
+  feedsDivider: {
+    width: '100%',
+    backgroundColor: '#eceded'
+  },
+  feedsSectionContainer: {
+    margin: 15
+  }
 }));
 
 export default useStyles;

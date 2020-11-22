@@ -10,6 +10,7 @@ import AvailableServiceSection from './subComponents/AvailableServices';
 import { useTranslation } from 'react-i18next';
 import SubmitButton from 'components/buttons/SubmitButton';
 import ActivityTable from './subComponents/ActivityTable';
+import FeedsTimeline from './subComponents/FeedsTimeline';
 
 const HomePage = () => {
   const classes = useStyles();
@@ -91,6 +92,9 @@ const HomePage = () => {
         {authManager.isClient() && (<AvailableServiceSection />)}
         </Grid>
         <ActivityTable />
+        <FeedsTimeline />
+
+        {authManager.isClient() && (<AvailableServiceSection />)}
       </Grid>
 
     </Grid>
