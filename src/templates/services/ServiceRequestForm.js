@@ -19,7 +19,8 @@ import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { red } from 'styles/colors';
-
+import { SERVICE_STATUS } from 'constants/questionStatus';
+import authManager from 'services/authManager';
 
 const useSelectStyles = makeStyles(() => ({
   disabledStyle: {
@@ -31,7 +32,7 @@ const useSelectStyles = makeStyles(() => ({
     },
     '& .MuiFormLabel-root.Mui-disabled': {
       color: red,
-    }
+    },
   },
 }));
 
@@ -42,9 +43,11 @@ const ServiceRequestForm = ({
   viewOnly,
 }) => {
   const classes = useStyles();
-  const disabledClasses = useSelectStyles()
+  const disabledClasses = useSelectStyles();
 
   const isNewServiceRequest = !serviceRequest.id;
+  const isDraftServiceRequest =
+    !!serviceRequest.state && serviceRequest.state === SERVICE_STATUS.draft;
   const { t } = useTranslation();
   const questionTypesOfAssignment = questionTypesOfAssignmentTranslated(t);
   const onChangeField = (name, value) => {
@@ -160,7 +163,7 @@ const ServiceRequestForm = ({
         </GridItem>
 
         <GridItem xs={12} sm={12} md={12}>
-          {!isNewServiceRequest && (
+          {!isNewServiceRequest && !isDraftServiceRequest && (
             <TextField
               label={t('comment')}
               id='comment'
@@ -170,7 +173,7 @@ const ServiceRequestForm = ({
               onChange={(e) => {
                 onChangeField('comment', e.target.value);
               }}
-              disabled={!viewOnly}
+              disabled={!authManager.isAdmin()}
               variant='outlined'
               className={[classes.inputsRow, disabledClasses.disabledStyle]}
             />

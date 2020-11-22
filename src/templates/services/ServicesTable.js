@@ -243,6 +243,7 @@ const getColumnsOptions = (classes, t) => {
       name: 'currentActionTime',
       options: {
         filter: false,
+        display: authManager.isAdmin(),
         sort: true,
         customHeadLabelRender: () => (
           <Grid className={classes.currentActionTimeContainer}>By Time</Grid>
