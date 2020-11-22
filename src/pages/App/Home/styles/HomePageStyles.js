@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
   clientImg: {
     float: 'right',
     [theme.breakpoints.down('md')]: {
-      width: '80%'
+      width: '60%'
     },
   },
   clientText: {
@@ -87,7 +87,14 @@ const useStyles = makeStyles((theme) => ({
   clientThreeBtns: {
     minWidth: '29.5%',
     backgroundColor: '#ffffff',
-    display: 'inline-flex',
+    [theme.breakpoints.down('md')]: {
+      padding: '5px'
+    },
+  },
+  threeBtnsContainer: {
+    [theme.breakpoints.down('md')]: {
+      justifyContent: 'space-between'
+    },
   },
   startProcessBtn: {
     width: '75%',

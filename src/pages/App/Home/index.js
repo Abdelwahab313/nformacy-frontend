@@ -86,11 +86,11 @@ const HomePage = () => {
           </Grid>
         </Grid>
 
-        <Grid>
-          <Grid item xs={4} md={3} className={[classes.askQuestionBox, classes.clientThreeBtns]}>
+        <Grid container className={classes.threeBtnsContainer}>
+          <Grid item xs={3} md={3} className={[classes.askQuestionBox, classes.clientThreeBtns]}>
             <Grid container>
-              <Grid item xs={9} md={9}>
-                <h5>call the expert</h5>
+              <Grid item xs={8} md={9}>
+                <p>Call the Expert</p>
                 <p className={classes.clientText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
               </Grid>
               <Grid item xs={3} md={3}>
@@ -99,10 +99,10 @@ const HomePage = () => {
             </Grid>
           </Grid>
 
-          <Grid item xs={4} md={3} className={[classes.askQuestionBox, classes.clientThreeBtns]}>
+          <Grid item xs={3} md={3} className={[classes.askQuestionBox, classes.clientThreeBtns]}>
             <Grid container>
-              <Grid item xs={9} md={9}>
-                <h5>call the expert</h5>
+              <Grid item xs={8} md={9}>
+                <p>Assign a Consultant</p>
                 <p className={classes.clientText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
               </Grid>
               <Grid item xs={3} md={3}>
@@ -119,10 +119,10 @@ const HomePage = () => {
             </Grid>
           </Grid>
 
-          <Grid item xs={4} md={3} className={[classes.askQuestionBox, classes.clientThreeBtns]}>
+          <Grid item xs={3} md={3} className={[classes.askQuestionBox, classes.clientThreeBtns]}>
             <Grid container>
-              <Grid item xs={9} md={9}>
-                <h5>call the expert</h5>
+              <Grid item xs={8} md={9}>
+                <p>It's a Project</p>
                 <p className={classes.clientText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
               </Grid>
               <Grid item xs={3} md={3}>
