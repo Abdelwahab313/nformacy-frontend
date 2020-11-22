@@ -9,6 +9,7 @@ import authManager from '../../../services/authManager';
 import AvailableServiceSection from './subComponents/AvailableServices';
 import { useTranslation } from 'react-i18next';
 import SubmitButton from 'components/buttons/SubmitButton';
+import ActivityTable from './subComponents/ActivityTable';
 
 const HomePage = () => {
   const classes = useStyles();
@@ -109,12 +110,12 @@ const HomePage = () => {
                 <img src={require('../../../assets/client-call.svg')} className={classes.clientImg} />
               </Grid>
               <Grid container xs={12}>
-                  <SubmitButton
-                    id={'proceedBtn'}
-                    onClick={() => { }}
-                    className={[classes.proceedBtn, classes.startProcessBtn]}
-                    buttonText={'Start the process'}
-                  />
+                <SubmitButton
+                  id={'proceedBtn'}
+                  onClick={() => { }}
+                  className={[classes.proceedBtn, classes.startProcessBtn]}
+                  buttonText={'Start the process'}
+                />
               </Grid>
             </Grid>
           </Grid>
@@ -130,9 +131,10 @@ const HomePage = () => {
               </Grid>
             </Grid>
           </Grid>
-
         </Grid>
 
+        <ActivityTable />
+        
         {authManager.isClient() && (<AvailableServiceSection />)}
       </Grid>
 
