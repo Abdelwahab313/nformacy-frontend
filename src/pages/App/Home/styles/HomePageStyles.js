@@ -60,6 +60,43 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       width: '83%'
     },
+  },
+  pointsBox: {
+    backgroundColor: '#125773',
+    color: '#fff',
+    textAlign: 'center',
+    [theme.breakpoints.down('md')]: {
+      display: 'none'
+    },
+  },
+  chargeBtn: {
+    backgroundColor: '#fff !important',
+    color: '#125773 !important '
+  },
+  clientImg: {
+    float: 'right',
+    [theme.breakpoints.down('md')]: {
+      width: '80%'
+    },
+  },
+  clientText: {
+    [theme.breakpoints.down('md')]: {
+      display: 'none'
+    },
+  },
+  clientThreeBtns: {
+    minWidth: '29.5%',
+    backgroundColor: '#ffffff'
+  },
+  startProcessBtn: {
+    width: '75%',
+    margin: '0px auto',
+    [theme.breakpoints.down('md')]: {
+      backgroundColor: 'transparent !important',
+      color: 'rgb(18 87 115) !important',
+      border: 'none',
+      boxShadow: 'none',
+    },
   }
 }));
 

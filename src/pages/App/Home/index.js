@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Grid, Button, InputBase, Divider, Link } from '@material-ui/core';
+import { Grid, InputBase, Divider, Link } from '@material-ui/core';
 import ProfileSummaryCard from './subComponents/ProfileSummaryCard';
 import useStyles from './styles/HomePageStyles';
 import CalendarCard from './subComponents/CalendarCard';
@@ -70,50 +70,65 @@ const HomePage = () => {
 
           </Grid>
 
-          <Grid item xs={12} md={3} className={classes.askQuestionBox}>
+          <Grid item xs={12} md={3} className={[classes.askQuestionBox, classes.pointsBox]}>
+            <img
+              color={'primary'}
+              src={require('../../../assets/wallet.svg')}
+              width={'25%'}
+            />
             <div>you have 40 points</div>
-            <Button>proceed</Button>
+            <SubmitButton
+              id={'proceedBtn'}
+              onClick={() => { }}
+              className={classes.chargeBtn}
+              buttonText={'Charge my wallet'}
+            />
           </Grid>
         </Grid>
 
         <Grid container>
-          <Grid item xs={12} md={3} className={classes.askQuestionBox}>
+          <Grid item xs={4} md={3} className={[classes.askQuestionBox, classes.clientThreeBtns]}>
             <Grid container>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={9} md={9}>
                 <h5>call the expert</h5>
-                <p>test test</p>
+                <p className={classes.clientText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
               </Grid>
-              <Grid item xs={12} md={6}>
-                <img
-                  color={'primary'}
-                  src={require('../../../assets/project.svg')}
-                  width={'100%'}
-                />
+              <Grid item xs={3} md={3}>
+                <img src={require('../../../assets/client-call.svg')} className={classes.clientImg} />
               </Grid>
             </Grid>
           </Grid>
 
-          <Grid item xs={12} md={3} className={classes.askQuestionBox}>
+          <Grid item xs={4} md={3} className={[classes.askQuestionBox, classes.clientThreeBtns]}>
             <Grid container>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={9} md={9}>
                 <h5>call the expert</h5>
-                <p>test test</p>
+                <p className={classes.clientText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
               </Grid>
-              <Grid item xs={12} md={6}>
-                <img src=""></img>
+              <Grid item xs={3} md={3}>
+                <img src={require('../../../assets/client-call.svg')} className={classes.clientImg} />
               </Grid>
-              <Button>start the process</Button>
+              <Grid container>
+                <Grid item xs={12}>
+                  <SubmitButton
+                    id={'proceedBtn'}
+                    onClick={() => { }}
+                    className={[classes.proceedBtn, classes.startProcessBtn]}
+                    buttonText={'Start the process'}
+                  />
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
 
-          <Grid item xs={12} md={3} className={classes.askQuestionBox}>
+          <Grid item xs={4} md={3} className={[classes.askQuestionBox, classes.clientThreeBtns]}>
             <Grid container>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={9} md={9}>
                 <h5>call the expert</h5>
-                <p>test test</p>
+                <p className={classes.clientText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
               </Grid>
-              <Grid item xs={12} md={6}>
-                <img src=""></img>
+              <Grid item xs={3} md={3}>
+                <img src={require('../../../assets/client-project.svg')} className={classes.clientImg} />
               </Grid>
             </Grid>
           </Grid>
