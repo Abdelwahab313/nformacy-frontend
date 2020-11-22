@@ -41,5 +41,8 @@
   "Email": "البريد الالكتروني",
   "Email empty error": "برجاء ادخال البريد الالكتروني",
   "Password empty error": "برجاء ادخال كلمه السر",
-  "Invalid Email or password": "خطأ في البريد الالكتروني او كلمه المرور"
+  "Invalid Email or password": "خطأ في البريد الالكتروني او كلمه المرور",
+  "questionDetails": "تفاصيل السؤال",
+  "callTheExpert": "اتصل بالخبير",
+  "consultant": "الخبير"
 }

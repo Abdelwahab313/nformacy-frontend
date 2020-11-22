@@ -35,7 +35,7 @@ export default function MainHeader() {
 
   return (
     <div className={classes.grow} dir={DIRECTION[locale]}>
-      <AppBar id={'header'} position='static'>
+      <AppBar className={classes.headerBackground} id={'header'} position='static'>
         <Toolbar>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

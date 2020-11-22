@@ -739,7 +739,7 @@ exports[`should match snapshot 1`] = `
                 <p
                   class="MuiTypography-root answerFieldLabel MuiTypography-body1"
                 >
-                  Consultant:
+                  consultant:
                 </p>
                 <p
                   class="MuiTypography-root MuiTypography-body1"

@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
       display: 'block',
     },
   },
+  headerBackground: {
+    backgroundColor: '#dc5739',
+  },
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -64,8 +67,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   languageButton: {
-    margin: `0 ${theme.spacing(1)}px`
-  }
+    margin: `0 ${theme.spacing(1)}px`,
+  },
 }));
 
 export default useStyles;

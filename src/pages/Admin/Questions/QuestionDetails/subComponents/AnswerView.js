@@ -86,7 +86,7 @@ const AnswerView = ({ answer, index, setRating }) => {
               container
               className={classes.answerFieldStyle}>
               <Typography className={classes.answerFieldLabel}>
-                Consultant:
+                {`${t('consultant')}:`}
               </Typography>
               <Tooltip
                 title={<Typography># {answer.userReferenceNumber}</Typography>}>

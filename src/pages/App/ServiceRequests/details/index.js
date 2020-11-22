@@ -78,7 +78,7 @@ const ServiceRequestDetails = () => {
           showSuccessMessage(t('serviceProcessed'));
           navigatToDashboard();
         })
-        .catch(() => { });
+        .catch(() => {});
     }
   };
   const handleSaveForLater = () => {
@@ -87,17 +87,13 @@ const ServiceRequestDetails = () => {
         showSuccessMessage(t('serviceSaved'));
         navigatToDashboard();
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   return (
     <Grid container alignItems={'center'} justify={'center'}>
       <GridItem xs={12} sm={12} md={8}>
-        <Direction>
-          <Grid item xs={10}>
-            <BreadcrumbsCustomSeparator pageName={t('serviceTitle')} />
-          </Grid>
-        </Direction>
+        <BreadcrumbsCustomSeparator pageName={t('serviceTitle')} />
         <Card>
           <Direction>
             <CardHeader color='primary'>
@@ -126,12 +122,12 @@ const ServiceRequestDetails = () => {
                   secondaryButton={
                     showDrafButtons
                       ? {
-                        id: 'saveAndCompleteLaterButton',
-                        onClick: () => {
-                          handleSaveForLater();
-                        },
-                        buttonText: t('saveAndCompleteLater'),
-                      }
+                          id: 'saveAndCompleteLaterButton',
+                          onClick: () => {
+                            handleSaveForLater();
+                          },
+                          buttonText: t('saveAndCompleteLater'),
+                        }
                       : {}
                   }
                 />
