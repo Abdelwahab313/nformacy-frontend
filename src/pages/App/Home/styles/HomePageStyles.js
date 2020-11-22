@@ -104,6 +104,7 @@ const useStyles = makeStyles((theme) => ({
   },
   threeBtnsContainer: {
     marginTop: theme.spacing(5),
+    minHeight: 290,
     [theme.breakpoints.down('md')]: {
       justifyContent: 'space-between'
     },

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Grid } from '@material-ui/core';
 import useStyles from './../styles/HomePageStyles';
 import SubmitButton from 'components/buttons/SubmitButton';
+import Collapse from '@material-ui/core/Collapse';
+
 
 
 const services = [
@@ -26,6 +28,7 @@ const ServiceItem = ({ service, isFocused, setFocusedItem }) => {
   const classes = useStyles();
 
   return (
+    <Collapse in={isFocused} collapsedHeight={150} timeout={500}>
     <Grid container onMouseEnter={() => setFocusedItem(service.name)} onMouseLeave={() => setFocusedItem('')}>
     <Grid item xs={8} md={9}>
       <p>{service.title}</p>
@@ -43,6 +46,7 @@ const ServiceItem = ({ service, isFocused, setFocusedItem }) => {
         />)}
     </Grid>
   </Grid>
+  </Collapse>
   );
 };
 
