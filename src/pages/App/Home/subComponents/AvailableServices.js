@@ -15,13 +15,13 @@ const services = [
 const AvailableServices = () => {
   const classes = useStyles();
   const [focusedItem, setFocusedItem] =useState('');
-  const isMobile = window.innerWidth > 768;
+  const isMobile = window.innerWidth < 768;
   return (
     services.map((service) => (
       <Grid item xs={3} md={3} className={[classes.askQuestionBox, classes.clientThreeBtns]}>
         {isMobile
-           ?<ServiceItem service={service} isFocused={service.name === focusedItem} setFocusedItem={setFocusedItem}/>
-           :<MobileServiceItem service={service}/>
+           ?<MobileServiceItem service={service}/>
+           :<ServiceItem service={service} isFocused={service.name === focusedItem} setFocusedItem={setFocusedItem}/>
         }
       </Grid>
         ))

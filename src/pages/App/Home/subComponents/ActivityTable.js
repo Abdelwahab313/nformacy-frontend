@@ -42,6 +42,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const ActivityTable = () => {
+  const isMobile = window.innerWidth < 768;
   const classes = useStyles();
   const { t } = useTranslation();
   const { fetchedData: services, isLoading } = useFetchData(
@@ -61,10 +62,10 @@ const ActivityTable = () => {
                 <TableRow>
                   <StyledTableCell>{t('activityType')}</StyledTableCell>
                   <StyledTableCell>{t('refNo')}</StyledTableCell>
-                  <StyledTableCell>{t('title')}</StyledTableCell>
-                  <StyledTableCell>{t('requestDate')}</StyledTableCell>
+                  {!isMobile && (<StyledTableCell>{t('title')}</StyledTableCell>)}
+                  {!isMobile && (<StyledTableCell>{t('requestDate')}</StyledTableCell>)}
                   <StyledTableCell>{t('state')}</StyledTableCell>
-                  <StyledTableCell>{t('actionNeeded')}</StyledTableCell>
+                  {!isMobile && (<StyledTableCell>{t('actionNeeded')}</StyledTableCell>)}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -84,10 +85,10 @@ const ActivityTable = () => {
                         referenceId={service.referenceNumber}
                       />
                     </StyledTableCell>
-                    <StyledTableCell>{service.title}</StyledTableCell>
-                    <StyledTableCell>
+                  {!isMobile && ( <StyledTableCell>{service.title}</StyledTableCell>)}
+                  {!isMobile && ( <StyledTableCell>
                       {formattedDateTimeNoSeconds(new Date(service.createdAt))}
-                    </StyledTableCell>
+                    </StyledTableCell>)}
                     <StyledTableCell>
                       {t(
                         `serviceStatus:${getServiceStatus(
@@ -96,14 +97,14 @@ const ActivityTable = () => {
                         )}`,
                       )}
                     </StyledTableCell>
-                    <StyledTableCell>
+                    {!isMobile && ( <StyledTableCell>
                       <ServiceActionLink
                         status={service.state}
                         serviceId={service.id}
                         questionId={service.questionId}
                         questionState={service.questionState}
                       />
-                    </StyledTableCell>
+                    </StyledTableCell>)}
                   </StyledTableRow>
                 ))}
               </TableBody>
