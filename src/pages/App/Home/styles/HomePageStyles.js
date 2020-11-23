@@ -79,6 +79,12 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  walletIcon: {
+    width: '50px',
+  },
+  marginBottom: {
+    marginBottom: theme.spacing(3),
+  },
   chargeBtn: {
     backgroundColor: '#fff !important',
     color: '#125773 !important',

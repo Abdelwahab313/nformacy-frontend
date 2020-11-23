@@ -17,7 +17,9 @@ const HomePageCard = ({ title, viewMoreUrl, children }) => {
         justify='space-between'
         className={classes.marginBottom}>
         <Grid item>
-          <Typography variant='h6'>{title}</Typography>
+          <Typography variant='h6' className={classes.headerTitle}>
+            {title}
+          </Typography>
         </Grid>
         <Grid item>
           <LinkText to={viewMoreUrl}>
@@ -36,6 +38,9 @@ const HomePageCard = ({ title, viewMoreUrl, children }) => {
 const useStyles = makeStyles(() => ({
   marginBottom: {
     marginBottom: '20px',
+  },
+  headerTitle: {
+    fontWeight: 'bold',
   },
 }));
 

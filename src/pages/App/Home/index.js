@@ -78,19 +78,24 @@ const HomePage = () => {
               container
               direction='column'
               alignItems='center'
-              justify='space-around'>
-              <img
-                color={'primary'}
-                src={require('../../../assets/wallet.svg')}
-                width={'25%'}
-              />
-              <div>you have 40 points</div>
-              <SubmitButton
-                id={'proceedBtn'}
-                onClick={() => {}}
-                className={classes.chargeBtn}
-                buttonText={'Charge my wallet'}
-              />
+              justify='space-between'>
+              <div className={classes.marginBottom}>
+                <img
+                  className={[classes.walletIcon]}
+                  color={'primary'}
+                  src={require('../../../assets/wallet.svg')}
+                  width={'25%'}
+                />
+              </div>
+              <div className={classes.marginBottom}>you have 40 points</div>
+              <div className={classes.marginBottom}>
+                <SubmitButton
+                  id={'proceedBtn'}
+                  onClick={() => {}}
+                  className={[classes.chargeBtn, classes.marginBottom]}
+                  buttonText={'Charge my wallet'}
+                />
+              </div>
             </Grid>
           </Grid>
         </Grid>
