@@ -135,7 +135,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: 'transparent !important',
       color: 'rgb(18 87 115) !important',
       border: 'none',
-      boxShadow: 'none',
+      boxShadow: 'none !important',
       whiteSpace: 'nowrap',
       marginTop: 0,
     },
