@@ -94,7 +94,6 @@ const HomePage = () => {
         <ActivityTable />
         <FeedsTimeline />
 
-        {authManager.isClient() && (<AvailableServiceSection />)}
       </Grid>
 
     </Grid>
