@@ -23,7 +23,7 @@ const HomePageCard = ({ title, viewMoreUrl, children }) => {
         </Grid>
         <Grid item>
           <LinkText to={viewMoreUrl}>
-            <Grid container direction='row'>
+            <Grid container direction='row' alignItems="center" className="MuiTypography-colorPrimary">
               <Typography variant='h6'>{t('viewAll')}</Typography>
               <ArrowForwardIcon />
             </Grid>
