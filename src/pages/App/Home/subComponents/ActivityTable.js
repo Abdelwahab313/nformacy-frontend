@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, makeStyles, Typography } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -16,12 +16,15 @@ import { ServiceRefIdLink } from 'templates/services/ServicesTable';
 import { useTranslation } from 'react-i18next';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 import ServiceActionLink from 'templates/services/ServiceActionLink';
+import HomePageCard from './HomePageCard';
+import { RoutesPaths } from 'constants/routesPath';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: '#3a3b4b',
     color: theme.palette.common.white,
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   body: {
     fontSize: 14,
@@ -47,20 +50,9 @@ const ActivityTable = () => {
   if (isLoading) {
   }
   return (
-    <Grid container>
-      <Grid container>
-        <Grid item md={6}>
-          <Typography align={'left'} variant='h6'>
-            {t('myActivityTableTitle')}
-          </Typography>
-        </Grid>
-        <Grid item md={6}>
-          <Typography align={'right'} variant='h6'>
-            {t('viewAll')}
-          </Typography>
-        </Grid>
-      </Grid>
-
+    <HomePageCard
+      title={t('myActivityTableTitle')}
+      viewMoreUrl={RoutesPaths.App.Services}>
       <Grid container>
         <Grid item md={12}>
           <TableContainer component={Paper} className={classes.tableContainer}>
@@ -119,7 +111,7 @@ const ActivityTable = () => {
           </TableContainer>
         </Grid>
       </Grid>
-    </Grid>
+    </HomePageCard>
   );
 };
 

@@ -1,4 +1,8 @@
-import { darken, fade, lighten } from '@material-ui/core/styles/colorManipulator';
+import {
+  darken,
+  fade,
+  lighten,
+} from '@material-ui/core/styles/colorManipulator';
 
 const getBorder = (theme) =>
   `1px solid ${
@@ -7,7 +11,7 @@ const getBorder = (theme) =>
       : darken(fade(theme.palette.divider, 1), 0.68)
   }`;
 
-const calendarStyles = (theme) => ({
+export const calendarStyles = (theme) => ({
   cell: {
     color: '#78909C',
     position: 'relative',
@@ -32,6 +36,9 @@ const calendarStyles = (theme) => ({
       // backgroundColor: fade(theme.palette.primary.main, 0.15),
       outline: 0,
     },
+  },
+  paperBackground: {
+    backgroundColor: 'transparent',
   },
   dayScaleCell: { textAlign: 'center', fontWeight: 'bold' },
   table: {
@@ -88,4 +95,30 @@ const calendarStyles = (theme) => ({
   },
 });
 
-export default calendarStyles;
+export const appointmentHeaderStyles = ({ palette }) => ({
+  icon: {
+    color: palette.action.active,
+  },
+  textCenter: {
+    textAlign: 'center',
+  },
+  firstRoom: {
+    background:
+      'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/Lobby-4.jpg)',
+  },
+  secondRoom: {
+    background:
+      'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-4.jpg)',
+  },
+  thirdRoom: {
+    background:
+      'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-0.jpg)',
+  },
+  header: {
+    height: '260px',
+    backgroundSize: 'cover',
+  },
+  commandButton: {
+    backgroundColor: 'rgba(255,255,255,0.65)',
+  },
+});

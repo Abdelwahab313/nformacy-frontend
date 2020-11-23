@@ -19,6 +19,7 @@ const CalendarCard = ({ currentUser }) => {
   return (
     <Card className={classes.card}>
       <Grid container alignItems={'center'} justify={'center'}>
+        <Typography variant={'h6'} gutterBottom>Calender of Events</Typography>
         <CalendarView isMinimized availableDates={availableDates} />
         <Box m={1}>
           <SubmitButton

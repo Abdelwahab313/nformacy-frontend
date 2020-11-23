@@ -9,18 +9,18 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#f9fafd',
     boxShadow: 'none',
     [theme.breakpoints.down('md')]: {
-      display: 'none'
+      display: 'none',
     },
   },
   media: {
     height: 160,
     textAlign: 'center',
-    lineHeight: '160px'
+    lineHeight: '160px',
   },
   clientHomeContainer: {
     padding: theme.spacing(5),
     [theme.breakpoints.down('md')]: {
-      padding: theme.spacing(3)
+      padding: theme.spacing(3),
     },
   },
   askQuestionBox: {
@@ -31,14 +31,14 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 20,
     border: '1px solid #ecedf0',
     [theme.breakpoints.down('md')]: {
-      margin: '10px 0'
+      margin: '10px 0',
     },
   },
   underline: {
-    color: 'red'
+    color: 'red',
   },
   askExpertInputField: {
-    width: '100%'
+    width: '100%',
   },
   proceedBtn: {
     marginTop: '12px',
@@ -48,26 +48,26 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '11px',
     [theme.breakpoints.down('md')]: {
       fontSize: 12,
-      textTransform: 'capitalize'
+      textTransform: 'capitalize',
     },
   },
   askQuestionLink: {
     marginTop: theme.spacing(2),
     display: 'block',
     [theme.breakpoints.down('md')]: {
-      fontSize: 15
+      fontSize: 15,
     },
   },
   askExpertContainer: {
-    padding: [theme.spacing(4), theme.spacing(2)]
+    padding: [theme.spacing(4), theme.spacing(2)],
   },
   dividers: {
-    margin: [theme.spacing(1), theme.spacing(0)]
+    margin: [theme.spacing(1), theme.spacing(0)],
   },
   writeQuestionBorder: {
     width: '35%',
     [theme.breakpoints.down('md')]: {
-      width: '83%'
+      width: '83%',
     },
   },
   pointsBox: {
@@ -75,23 +75,23 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
     textAlign: 'center',
     [theme.breakpoints.down('md')]: {
-      display: 'none'
+      display: 'none',
     },
   },
   chargeBtn: {
     backgroundColor: '#fff !important',
     color: '#125773 !important',
-    textTransform: 'capitalize'
+    textTransform: 'capitalize',
   },
   clientImg: {
     float: 'right',
     [theme.breakpoints.down('md')]: {
-      width: '60%'
+      width: '60%',
     },
   },
   clientText: {
     [theme.breakpoints.down('md')]: {
-      display: 'none'
+      display: 'none',
     },
   },
   clientThreeBtns: {
@@ -99,15 +99,18 @@ const useStyles = makeStyles((theme) => ({
     minWidth: '29.5%',
     backgroundColor: '#ffffff',
     [theme.breakpoints.down('md')]: {
-      padding: '5px'
+      padding: '5px',
     },
   },
   threeBtnsContainer: {
     marginTop: theme.spacing(5),
     minHeight: 290,
     [theme.breakpoints.down('md')]: {
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
     },
+  },
+  sectionContainer: {
+    margin: theme.spacing(2),
   },
   startProcessBtn: {
     width: '75%',
@@ -133,15 +136,15 @@ const useStyles = makeStyles((theme) => ({
     width: '60%',
     height: '100%',
     borderRadius: 12,
-    float: 'right'
+    float: 'right',
   },
   feedsDivider: {
     width: '100%',
-    backgroundColor: '#eceded'
+    backgroundColor: '#eceded',
   },
   feedsSectionContainer: {
-    margin: 15
-  }
+    margin: 15,
+  },
 }));
 
 export default useStyles;

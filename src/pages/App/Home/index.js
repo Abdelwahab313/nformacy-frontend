@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Grid, InputBase, Divider, Link } from '@material-ui/core';
 import ProfileSummaryCard from './subComponents/ProfileSummaryCard';
@@ -18,17 +17,13 @@ const HomePage = () => {
   const { t } = useTranslation();
 
   return (
-    <Grid container justify="center" className={classes.clientHomeContainer}>
-
+    <Grid container justify='center' className={classes.clientHomeContainer}>
       <Grid item xs={12} md={3}>
         <ProfileSummaryCard />
         <CalendarCard currentUser={currentUser} />
       </Grid>
-
-      <Grid item xs={12} md={8}>
-
+      <Grid item xs={12} md={9}>
         <Grid container>
-
           <Grid item xs={12} md={8} className={classes.askQuestionBox}>
             <Grid container className={classes.askExpertContainer}>
               <Grid xs={2} md={1}>
@@ -42,7 +37,7 @@ const HomePage = () => {
                 <form>
                   <InputBase
                     className={classes.askExpertInputField}
-                    placeholder="Ask the expert"
+                    placeholder='Ask the expert'
                   />
                 </form>
               </Grid>
@@ -52,53 +47,66 @@ const HomePage = () => {
             <Grid container>
               <Grid item xs={8} md={8}>
                 <Link
-                  underline="none"
+                  underline='none'
                   className={classes.askQuestionLink}
-                  href="#" onClick={() => { }}>
+                  href='#'
+                  onClick={() => {}}>
                   {t('writeGreatQuestion')}
                 </Link>
-                <Divider className={[classes.dividers, classes.writeQuestionBorder]} />
+                <Divider
+                  className={[classes.dividers, classes.writeQuestionBorder]}
+                />
               </Grid>
 
-              <Grid item xs={4} md={4} justify="center" >
+              <Grid item xs={4} md={4} justify='center'>
                 <SubmitButton
                   id={'proceedBtn'}
-                  onClick={() => { }}
+                  onClick={() => {}}
                   className={classes.proceedBtn}
                   buttonText={'proceed'}
                 />
               </Grid>
             </Grid>
-
           </Grid>
 
-          <Grid item xs={12} md={3} className={[classes.askQuestionBox, classes.pointsBox]}>
-            <img
-              color={'primary'}
-              src={require('../../../assets/wallet.svg')}
-              width={'25%'}
-            />
-            <div>you have 40 points</div>
-            <SubmitButton
-              id={'proceedBtn'}
-              onClick={() => { }}
-              className={classes.chargeBtn}
-              buttonText={'Charge my wallet'}
-            />
+          <Grid
+            item
+            xs={12}
+            md={3}
+            className={[classes.askQuestionBox, classes.pointsBox]}>
+            <Grid
+              container
+              direction='column'
+              alignItems='center'
+              justify='space-around'>
+              <img
+                color={'primary'}
+                src={require('../../../assets/wallet.svg')}
+                width={'25%'}
+              />
+              <div>you have 40 points</div>
+              <SubmitButton
+                id={'proceedBtn'}
+                onClick={() => {}}
+                className={classes.chargeBtn}
+                buttonText={'Charge my wallet'}
+              />
+            </Grid>
           </Grid>
         </Grid>
 
         <Grid className={classes.threeBtnsContainer}>
-        {authManager.isClient() && (<AvailableServiceSection />)}
+          {authManager.isClient() && <AvailableServiceSection />}
         </Grid>
-        <ActivityTable />
-        <FeedsTimeline />
-
+        <Grid item xs={12} md={12} className={classes.sectionContainer}>
+          <ActivityTable />
+        </Grid>
+        <Grid item xs={12} md={12} className={classes.sectionContainer}>
+          <FeedsTimeline />
+        </Grid>
       </Grid>
-
     </Grid>
   );
 };
-
 
 export default HomePage;

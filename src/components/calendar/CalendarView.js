@@ -25,7 +25,7 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
-import calendarStyles from './calendarStyles';
+import { calendarStyles, appointmentHeaderStyles } from './calendarStyles';
 import { formatDayAsKey, isSameDate } from '../../services/dateTimeParser';
 import { AppointmentColors, darkBlue } from '../../styles/colors';
 import moment from 'moment';
@@ -101,57 +101,29 @@ const LabelEditor = (props) => {
   return <AppointmentForm.Label {...props} />;
 };
 
-const style = ({ palette }) => ({
-  icon: {
-    color: palette.action.active,
-  },
-  textCenter: {
-    textAlign: 'center',
-  },
-  firstRoom: {
-    background:
-      'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/Lobby-4.jpg)',
-  },
-  secondRoom: {
-    background:
-      'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-4.jpg)',
-  },
-  thirdRoom: {
-    background:
-      'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-0.jpg)',
-  },
-  header: {
-    height: '260px',
-    backgroundSize: 'cover',
-  },
-  commandButton: {
-    backgroundColor: 'rgba(255,255,255,0.65)',
-  },
-});
-
-const Header = withStyles(style, { name: 'Header' })(
-  ({ appointmentData, classes, ...restProps }) => (
-    <AppointmentTooltip.Header {...restProps} appointmentData={appointmentData}>
-      <IconButton
-        /* eslint-disable-next-line no-alert */
-        onClick={() => {
-          restProps.onOpenButtonClick();
-          restProps.onHide();
-        }}
-        className={classes.commandButton}
-        id={`edit-${appointmentData.id}`}>
-        <EditIcon />
-      </IconButton>
-      <IconButton
-        /* eslint-disable-next-line no-alert */
-        onClick={restProps.onDeleteButtonClick}
-        className={classes.commandButton}
-        id={`delete-${appointmentData.id}`}>
-        <DeleteIcon />
-      </IconButton>
-    </AppointmentTooltip.Header>
-  ),
-);
+const AppointmentHeader = withStyles(appointmentHeaderStyles, {
+  name: 'Header',
+})(({ appointmentData, classes, ...restProps }) => (
+  <AppointmentTooltip.Header {...restProps} appointmentData={appointmentData}>
+    <IconButton
+      /* eslint-disable-next-line no-alert */
+      onClick={() => {
+        restProps.onOpenButtonClick();
+        restProps.onHide();
+      }}
+      className={classes.commandButton}
+      id={`edit-${appointmentData.id}`}>
+      <EditIcon />
+    </IconButton>
+    <IconButton
+      /* eslint-disable-next-line no-alert */
+      onClick={restProps.onDeleteButtonClick}
+      className={classes.commandButton}
+      id={`delete-${appointmentData.id}`}>
+      <DeleteIcon />
+    </IconButton>
+  </AppointmentTooltip.Header>
+));
 
 const TimeTableLayoutBase = ({ classes, ...props }) => (
   <MonthView.TimeTableLayout {...props} className={classes.table} />
@@ -187,7 +159,7 @@ const CellBase = React.memo(
 
     const isFirstMonthDay = startDate.getDate() === 1;
     const formatOptions = isFirstMonthDay
-      ? { day: 'numeric', month: 'long' }
+      ? { day: 'numeric', month: 'short' }
       : { day: 'numeric' };
 
     return (
@@ -289,6 +261,7 @@ const CalendarView = ({
   onUpdateAvailableDays,
   isEditable,
 }) => {
+  const classes = useStyles();
   const onEditEvent = ({ added, changed, deleted }) => {
     if (added) {
     } else if (changed) {
@@ -313,7 +286,9 @@ const CalendarView = ({
     }
   };
   return (
-    <Paper id={'calendar-view'} className={containerStyle}>
+    <Paper
+      id={'calendar-view'}
+      className={classNames([containerStyle, classes.paperBackground])}>
       <Scheduler data={isInteractable ? [] : availableDates}>
         <ViewState defaultCurrentDate={Date.now()} />
         <MonthView
@@ -350,7 +325,10 @@ const CalendarView = ({
         <DateNavigator />
         <TodayButton />
         {isEditable && (
-          <AppointmentTooltip headerComponent={Header} showCloseButton />
+          <AppointmentTooltip
+            headerComponent={AppointmentHeader}
+            showCloseButton
+          />
         )}
         {!isEditable && <AppointmentTooltip showCloseButton />}
         <AppointmentForm
