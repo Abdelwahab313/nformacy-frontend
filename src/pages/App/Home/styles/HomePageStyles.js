@@ -92,8 +92,12 @@ const useStyles = makeStyles((theme) => ({
   },
   clientImg: {
     float: 'right',
+    width: 65,
+    height: 131,
     [theme.breakpoints.down('md')]: {
-      width: '60%',
+      width: 15,
+    height: 40,
+    marginTop: theme.spacing(1),
     },
   },
   clientText: {

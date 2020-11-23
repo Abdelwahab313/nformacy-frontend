@@ -8,8 +8,8 @@ import Collapse from '@material-ui/core/Collapse';
 
 const services = [
   {name: 'call', title: 'Call the Expert', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', icon: require('../../../../assets/client-call.svg'), btnTxt:'Request a Call'}, 
-  {name: 'question', title: 'Assign a Consultant', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', icon: require('../../../../assets/client-call.svg'), btnTxt:'Start the process'}, 
-  {name: 'project', title: 'It’s a Project', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', icon: require('../../../../assets/client-call.svg'), btnTxt: 'Start the process'}, 
+  {name: 'question', title: 'Assign a Consultant', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', icon: require('../../../../assets/consultant.png'), btnTxt:'Start the process'}, 
+  {name: 'project', title: 'It’s a Project', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.', icon: require('../../../../assets/client-project.svg'), btnTxt: 'Start the process'}, 
 ];
 
 const AvailableServices = () => {
