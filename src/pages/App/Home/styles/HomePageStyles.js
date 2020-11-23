@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid #ecedf0',
     [theme.breakpoints.down('md')]: {
       margin: '10px 0',
+      borderRadius: 10,
     },
   },
   underline: {
@@ -99,7 +100,8 @@ const useStyles = makeStyles((theme) => ({
     minWidth: '29.5%',
     backgroundColor: '#ffffff',
     [theme.breakpoints.down('md')]: {
-      padding: '5px',
+      padding: '10px',
+      fontSize: 'smaller',
     },
   },
   threeBtnsContainer: {
@@ -107,6 +109,9 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 290,
     [theme.breakpoints.down('md')]: {
       justifyContent: 'space-between',
+      display: 'flex',
+      minHeight: 160,
+      maxHeight: 160,
     },
   },
   sectionContainer: {
@@ -121,6 +126,8 @@ const useStyles = makeStyles((theme) => ({
       color: 'rgb(18 87 115) !important',
       border: 'none',
       boxShadow: 'none',
+      whiteSpace: 'nowrap',
+      marginTop: 0,
     },
   },
   largeProfilePic: {
