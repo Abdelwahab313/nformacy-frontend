@@ -145,6 +145,10 @@ const useStyles = makeStyles((theme) => ({
   feedsSectionContainer: {
     margin: 15,
   },
+  feedsTimelineContainer: {
+    maxHeight: 470,
+    overflowY: 'scroll'
+  }
 }));
 
 export default useStyles;

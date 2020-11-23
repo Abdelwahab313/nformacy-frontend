@@ -1,15 +1,13 @@
-
 import React from 'react';
-import { Grid, Typography, Divider } from '@material-ui/core';
+import { Grid, Typography, Divider, Box } from '@material-ui/core';
 import useStyles from '../styles/HomePageStyles';
-// import {ksn} from '../../../../assets/img/feeds1.jpg'
 
 const FeedsTimeline = () => {
 
     const classes = useStyles();
 
     return (
-        <Grid container>
+        <Box mt={6}>
 
             <Grid container>
                 <Grid item md={6}>
@@ -26,7 +24,7 @@ const FeedsTimeline = () => {
 
             <Grid container className={[classes.askQuestionBox, classes.feedsTimelineContainer]}>
                 <Grid container className={classes.feedsSectionContainer}>
-                    <Typography align={'left'} component="h1">Introduction to Human Resource</Typography>
+                    <Typography align={'left'} variant="h6" component="h1" fontWeight="fontWeightBold">Introduction to Human Resource</Typography>
                     <Grid item md={10}>
                         <Typography align={'left'} component="p">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</Typography>
                         <Typography align={'left'} component="p">23 Answers <span class="dot"></span> Oct 14</Typography>
@@ -41,7 +39,7 @@ const FeedsTimeline = () => {
                 </Grid>
                 <Divider className={[classes.dividers, classes.feedsDivider]} />
                 <Grid container className={classes.feedsSectionContainer}>
-                    <Typography align={'left'} component="h1">Introduction to Human Resource</Typography>
+                    <Typography align={'left'} variant="h6" component="h1">Introduction to Human Resource</Typography>
                     <Grid item md={10}>
                         <Typography align={'left'} component="p">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</Typography>
                         <Typography align={'left'} component="p">23 Answers <span class="dot"></span> Oct 14</Typography>
@@ -56,7 +54,7 @@ const FeedsTimeline = () => {
                 </Grid>
                 <Divider className={[classes.dividers, classes.feedsDivider]} />
                 <Grid container className={classes.feedsSectionContainer}>
-                    <Typography align={'left'} component="h1">Introduction to Human Resource</Typography>
+                    <Typography align={'left'} variant="h6" component="h1">Introduction to Human Resource</Typography>
                     <Grid item md={10}>
                         <Typography align={'left'} component="p">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</Typography>
                         <Typography align={'left'} component="p">23 Answers <span class="dot"></span> Oct 14</Typography>
@@ -71,7 +69,7 @@ const FeedsTimeline = () => {
                 </Grid>
                 <Divider className={[classes.dividers, classes.feedsDivider]} />
                 <Grid container className={classes.feedsSectionContainer}>
-                    <Typography align={'left'} component="h1">Introduction to Human Resource</Typography>
+                    <Typography align={'left'} variant="h6" component="h1">Introduction to Human Resource</Typography>
                     <Grid item md={10}>
                         <Typography align={'left'} component="p">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</Typography>
                         <Typography align={'left'} component="p">23 Answers <span class="dot"></span> Oct 14</Typography>
@@ -85,7 +83,7 @@ const FeedsTimeline = () => {
                     </Grid>
                 </Grid>
             </Grid>
-        </Grid>
+        </Box>
     )
 }
 export default FeedsTimeline;
