@@ -146,14 +146,16 @@ const useStyles = makeStyles((theme) => ({
     verticalAlign: 'middle',
     borderRadius: '100%',
   },
-  feedsTimelineContainer: {
-    backgroundColor: '#f9fafd',
-  },
   feedsImg: {
     width: '60%',
     height: '100%',
     borderRadius: 12,
     float: 'right',
+    [theme.breakpoints.down('md')]: {
+      float: 'left',
+      width: '80%',    
+      maxHeight: 115
+    },
   },
   feedsDivider: {
     width: '100%',
@@ -163,8 +165,45 @@ const useStyles = makeStyles((theme) => ({
     margin: 15,
   },
   feedsTimelineContainer: {
-    maxHeight: 470,
-    overflowY: 'scroll'
+    maxHeight: 490,
+    overflowY: 'scroll',
+    backgroundColor: '#f9fafd',
+    [theme.breakpoints.down('md')]: {
+      padding: 0
+    },
+  },
+  feedsHeader: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    [theme.breakpoints.down('md')]: {
+      marginBottom: 15
+    },
+  },
+  feedsSubText: {
+    color: '#202020',
+    fontSize: 15,
+    margin: '15px 0'
+  },
+  feedsDate: {
+    fontSize: 13,
+    color: '#8b8a8a'
+  },
+  dot: {
+    height: 3,
+    width: 3,
+    backgroundColor: '#bbb',
+    borderRadius: '50%',
+    display: 'inline-block'
+  },
+  feedsRightSide: {
+    [theme.breakpoints.down('md')]: {
+      order: 1
+    },
+  },
+  feedsLeftSide: {
+    [theme.breakpoints.down('md')]: {
+      order: 2
+    },
   }
 }));
 
