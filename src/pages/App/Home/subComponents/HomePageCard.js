@@ -39,7 +39,7 @@ const MoreLink = ({ text, viewMoreUrl }) => {
         className='MuiTypography-colorPrimary'
         spacing={1}>
         <Grid item>
-          <CustomTypography variant='body1' fontWeight='bold'>
+          <CustomTypography variant='body1'>
             {text}
           </CustomTypography>
         </Grid>

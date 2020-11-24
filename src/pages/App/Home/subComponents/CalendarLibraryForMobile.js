@@ -40,8 +40,8 @@ export const CalendarLibraryForMobile = () => {
         </CustomTypography>
         <CustomTypography className={classes.calendarMarginBottom} variant='body2'>
           {t('goToLibrary')}
+          <ArrowForwardIcon />
         </CustomTypography>
-        <ArrowForwardIcon />
       </Grid>
     </Grid>
   )

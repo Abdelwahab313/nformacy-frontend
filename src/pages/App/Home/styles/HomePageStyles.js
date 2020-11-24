@@ -262,9 +262,9 @@ const useStyles = makeStyles((theme) => ({
   },
   calendarMobileBox: {
     backgroundColor: theme.palette.primary.main,
-    color: '#fff',
+    color: theme.palette.common.white,
     textAlign: 'center',
-    padding: 15,
+    padding: '16px 0',
     borderRadius: 20,
   },
   goToLibraryMobileBox: {
@@ -272,6 +272,8 @@ const useStyles = makeStyles((theme) => ({
   },
   calendarMarginBottom:{
     marginBottom: theme.spacing(1),
+    display: 'flex',
+    justifyContent: 'center'
   }
 
 }));
