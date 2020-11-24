@@ -8,7 +8,7 @@ const HomePageCard = ({ title, viewMoreUrl, viewMoreText, children }) => {
   const classes = useStyles();
 
   return (
-    <Grid container>
+    <Grid>
       <Grid
         container
         direction={'row'}
