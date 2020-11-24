@@ -256,6 +256,26 @@ const useStyles = makeStyles((theme) => ({
   leftSectionContainer: {
     marginTop: '20px',
   },
+  calendarLibraryContainer: {
+    display: 'none',
+    [theme.breakpoints.down('md')]: {
+      display: 'flex',
+    },
+  },
+  calendarMobileBox: {
+    backgroundColor: theme.palette.primary.main,
+    color: '#fff',
+    textAlign: 'center',
+    padding: 15,
+    borderRadius: 20,
+  },
+  goToLibraryMobileBox: {
+    backgroundColor: '#ed7d31'
+  },
+  calendarMarginBottom:{
+    marginBottom: theme.spacing(1),
+  }
+
 }));
 
 export default useStyles;

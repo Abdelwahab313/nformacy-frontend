@@ -67,5 +67,9 @@
   "requestDate": "Request Date",
   "chargeMyWallet": "Charge my wallet",
   "proceed": "Proceed",
-  "libraryOfResources": "Library of Resources"
+  "libraryOfResources": "Library of Resources",
+  "calendarOfEvents": "Calendar Of Events",
+  "goToLibrary": "Go to Library",
+  "libraryResources": "Library Resources",
+  "fullView": "Full View"
 }

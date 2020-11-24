@@ -21,6 +21,7 @@ import FeedsTimeline from './subComponents/FeedsTimeline';
 import Direction from 'components/grid/Direction';
 import LibraryCard from './subComponents/LibraryCard';
 import CustomTypography from 'components/typography/Typography';
+import { CalendarLibraryForMobile } from './subComponents/CalendarLibraryForMobile';
 
 const HomePage = () => {
   const classes = useStyles();
@@ -138,6 +139,9 @@ const HomePage = () => {
             {authManager.isClient() && <AvailableServiceSection />}
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
               <ActivityTable />
+            </Grid>
+            <Grid item xs={12} md={12} className={classes.sectionContainer}>
+              <CalendarLibraryForMobile />
             </Grid>
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
               <FeedsTimeline />
