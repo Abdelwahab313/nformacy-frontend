@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 345,
-    marginBottom: theme.spacing(3),
+    margin: '0 auto 24px',
     borderRadius: 25,
     border: '1px solid #ecedf0',
     backgroundColor: '#f9fafd',
@@ -18,15 +18,14 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: '160px',
   },
   clientHomeContainer: {
-    padding: theme.spacing(5),
+    maxWidth: 1440,
     [theme.breakpoints.down('md')]: {
       padding: theme.spacing(3),
     },
   },
   askQuestionBox: {
     padding: theme.spacing(3),
-    margin: theme.spacing(2),
-    marginTop: 0,
+    margin: 20,
     backgroundColor: '#f9fafd',
     borderRadius: 20,
     border: '1px solid #ecedf0',
@@ -96,8 +95,8 @@ const useStyles = makeStyles((theme) => ({
     height: 131,
     [theme.breakpoints.down('md')]: {
       width: 15,
-    height: 40,
-    marginTop: theme.spacing(1),
+      height: 40,
+      marginTop: theme.spacing(1),
     },
   },
   clientText: {
@@ -115,7 +114,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   threeBtnsContainer: {
-    marginTop: theme.spacing(5),
     minHeight: 290,
     [theme.breakpoints.down('md')]: {
       justifyContent: 'space-between',
@@ -125,7 +123,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   sectionContainer: {
-    margin: theme.spacing(2),
+    margin: 20,
   },
   startProcessBtn: {
     width: '75%',
@@ -153,7 +151,7 @@ const useStyles = makeStyles((theme) => ({
     float: 'right',
     [theme.breakpoints.down('md')]: {
       float: 'left',
-      width: '80%',    
+      width: '80%',
       maxHeight: 115
     },
   },
@@ -166,6 +164,7 @@ const useStyles = makeStyles((theme) => ({
   },
   feedsTimelineContainer: {
     maxHeight: 490,
+    margin: 0,
     overflowY: 'scroll',
     backgroundColor: '#f9fafd',
     [theme.breakpoints.down('md')]: {
@@ -215,6 +214,9 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     textAlign: "center",
     color: "#fff",
+  },
+  leftSectionContainer: {
+    marginTop: '20px'
   }
 }));
 

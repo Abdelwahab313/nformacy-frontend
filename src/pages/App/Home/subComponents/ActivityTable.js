@@ -86,8 +86,8 @@ const ActivityTable = () => {
                         referenceId={service.referenceNumber}
                       />
                     </StyledTableCell>
-                  {!isMobile && ( <StyledTableCell>{service.title}</StyledTableCell>)}
-                  {!isMobile && ( <StyledTableCell>
+                    {!isMobile && (<StyledTableCell>{service.title}</StyledTableCell>)}
+                    {!isMobile && (<StyledTableCell>
                       {formattedDateTimeNoSeconds(new Date(service.createdAt))}
                     </StyledTableCell>)}
                     <StyledTableCell>
@@ -98,7 +98,7 @@ const ActivityTable = () => {
                         )}`,
                       )}
                     </StyledTableCell>
-                    {!isMobile && ( <StyledTableCell>
+                    {!isMobile && (<StyledTableCell>
                       <ServiceActionLink
                         status={service.state}
                         serviceId={service.id}
