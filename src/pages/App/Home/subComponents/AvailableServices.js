@@ -6,6 +6,8 @@ import Collapse from '@material-ui/core/Collapse';
 import HomePageCard from './HomePageCard';
 import { RoutesPaths } from 'constants/routesPath';
 import { useTranslation } from 'react-i18next';
+import CustomTypography from 'components/typography/Typography';
+
 
 const services = [
   {
@@ -68,8 +70,7 @@ const MobileServiceItem = ({ service }) => {
   return (
     <Grid container className={classes.mobileVisible}>
       <Grid item xs={8} md={9}>
-        <p>{service.title}</p>
-        <p className={classes.clientText}>{service.description}</p>
+      <CustomTypography variant='body2'>{service.title}</CustomTypography>
       </Grid>
       <Grid item xs={3} md={3}>
         <img src={service.icon} className={classes.clientImg} />
@@ -79,7 +80,8 @@ const MobileServiceItem = ({ service }) => {
           id={'proceedBtn'}
           onClick={() => {}}
           className={[classes.proceedBtn, classes.startProcessBtn]}
-          buttonText={service.btnTxt}
+          buttonText={<CustomTypography variant='caption'>{service.btnTxt}</CustomTypography>}
+
         />
       </Grid>
     </Grid>
@@ -95,8 +97,8 @@ const ServiceItem = ({ service, isFocused, setFocusedItem }) => {
         onMouseEnter={() => setFocusedItem(service.name)}
         onMouseLeave={() => setFocusedItem('')}>
         <Grid item xs={8} md={9}>
-          <p>{service.title}</p>
-          <p className={classes.clientText}>{service.description}</p>
+        <CustomTypography variant='h6' fontWeight='bold'>{service.title}</CustomTypography>
+        <CustomTypography variant='body1' fontWeight='light' >{service.description}</CustomTypography>
         </Grid>
         <Grid item xs={3} md={3}>
           <img src={service.icon} className={classes.clientImg} />
@@ -107,8 +109,8 @@ const ServiceItem = ({ service, isFocused, setFocusedItem }) => {
               id={'proceedBtn'}
               onClick={() => {}}
               className={[classes.proceedBtn, classes.startProcessBtn]}
-              buttonText={service.btnTxt}
-            />
+              buttonText={<CustomTypography variant='body2' >{service.btnTxt}</CustomTypography>}
+              />
           )}
         </Grid>
       </Grid>

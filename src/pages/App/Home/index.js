@@ -20,6 +20,7 @@ import ActivityTable from './subComponents/ActivityTable';
 import FeedsTimeline from './subComponents/FeedsTimeline';
 import Direction from 'components/grid/Direction';
 import LibraryCard from './subComponents/LibraryCard';
+import CustomTypography from 'components/typography/Typography';
 
 const HomePage = () => {
   const classes = useStyles();
@@ -78,7 +79,7 @@ const HomePage = () => {
                       underline='none'
                       className={classes.askQuestionLink}
                       href='#'
-                      onClick={() => { }}>
+                      onClick={() => {}}>
                       {t('writeGreatQuestion')}
                     </Link>
                     <Divider
@@ -92,9 +93,13 @@ const HomePage = () => {
                   <Grid item xs={4} md={4} justify='center'>
                     <SubmitButton
                       id={'proceedBtn'}
-                      onClick={() => { }}
+                      onClick={() => {}}
                       className={classes.proceedBtn}
-                      buttonText={t('proceed')}
+                      buttonText={
+                        <CustomTypography variant='body2'>
+                          {t('proceed')}
+                        </CustomTypography>
+                      }
                     />
                   </Grid>
                 </Grid>
@@ -122,7 +127,7 @@ const HomePage = () => {
                   <div className={classes.marginBottom}>
                     <SubmitButton
                       id={'proceedBtn'}
-                      onClick={() => { }}
+                      onClick={() => {}}
                       className={[classes.chargeBtn, classes.marginBottom]}
                       buttonText={t('chargeMyWallet')}
                     />
