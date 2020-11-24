@@ -18,12 +18,13 @@ const HomePage = () => {
   const { t } = useTranslation();
   const Header = require('../../../assets/BG1@1x.png');
   return (
+    <Direction>
     <Grid container justify="center">
       <Card className={classes.headerCard}>
         <CardMedia
           component="img"
           alt="Header"
-          height="270"
+          className={classes.headerCardImg}
           image={Header}
           title="Header"
         />
@@ -35,7 +36,6 @@ const HomePage = () => {
           {currentUser.firstName + ' ' + currentUser.lastName}
         </Typography>
       </Card>
-      <Direction>
         <Grid container className={classes.clientHomeContainer}>
           <Grid item xs={12} md={3} className={classes.leftSectionContainer}>
             <ProfileSummaryCard />
@@ -118,10 +118,7 @@ const HomePage = () => {
                 </Grid>
               </Grid>
             </Grid>
-
-            <Grid className={classes.threeBtnsContainer}>
               {authManager.isClient() && <AvailableServiceSection />}
-            </Grid>
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
               <ActivityTable />
             </Grid>
@@ -130,8 +127,8 @@ const HomePage = () => {
             </Grid>
           </Grid>
         </Grid>
-      </Direction>
     </Grid>
+    </Direction>
   );
 };
 

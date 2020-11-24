@@ -44,23 +44,25 @@ const AvailableServices = () => {
       title={''}
       viewMoreText={t('seeMore')}
       viewMoreUrl={RoutesPaths.Admin.Home}>
-      {services.map((service) => (
-        <Grid
-          item
-          xs={3}
-          md={3}
-          className={[classes.askQuestionBox, classes.clientThreeBtns]}>
-          {isMobile ? (
-            <MobileServiceItem service={service} />
-          ) : (
-            <ServiceItem
-              service={service}
-              isFocused={service.name === focusedItem}
-              setFocusedItem={setFocusedItem}
-            />
-          )}
-        </Grid>
-      ))}
+      <Grid className={classes.threeBtnsContainer}>
+        {services.map((service) => (
+          <Grid
+            item
+            xs={3}
+            md={3}
+            className={[classes.askQuestionBox, classes.clientThreeBtns]}>
+            {isMobile ? (
+              <MobileServiceItem service={service} />
+            ) : (
+              <ServiceItem
+                service={service}
+                isFocused={service.name === focusedItem}
+                setFocusedItem={setFocusedItem}
+              />
+            )}
+          </Grid>
+        ))}
+      </Grid>
     </HomePageCard>
   );
 };

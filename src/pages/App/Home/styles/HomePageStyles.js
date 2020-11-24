@@ -114,7 +114,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   threeBtnsContainer: {
-    minHeight: 290,
+    minHeight: 310,
     [theme.breakpoints.down('md')]: {
       justifyContent: 'space-between',
       display: 'flex',
@@ -205,7 +205,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   headerCard: {
-    poition: 'relative'
+    position: 'relative',
+    width: '100%'
+  },
+  headerCardImg: {
+    height: 270,
+    [theme.breakpoints.down('md')]: {
+      height: 115,
+    },
   },
   headerCardTxt: {
     position: "absolute",
@@ -213,7 +220,11 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     right: 0,
     textAlign: "center",
-    color: "#fff",
+    color: theme.palette.common.white,
+    [theme.breakpoints.down('md')]: {
+      color: theme.palette.common.black,
+      display: 'none',
+    },
   },
   leftSectionContainer: {
     marginTop: '20px'

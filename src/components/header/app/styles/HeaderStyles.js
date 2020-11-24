@@ -14,7 +14,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   headerBackground: {
-    // backgroundColor: '#dc5739',
+     backgroundColor: theme.palette.common.white,
+     color: theme.palette.primary.main,
+     padding:theme.spacing(1),
   },
   search: {
     position: 'relative',
