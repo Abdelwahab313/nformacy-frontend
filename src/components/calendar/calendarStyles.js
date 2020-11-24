@@ -40,7 +40,10 @@ export const calendarStyles = (theme) => ({
   paperBackground: {
     backgroundColor: 'transparent',
   },
-  dayScaleCell: { textAlign: 'center', fontWeight: 'bold' },
+  dayScaleCell: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
   table: {
     minWidth: '200px',
     // minWidth: '200px'

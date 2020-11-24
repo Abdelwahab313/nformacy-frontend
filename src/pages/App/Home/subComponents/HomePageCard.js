@@ -1,12 +1,10 @@
 import React from 'react';
 import { Grid, makeStyles, Typography } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
-
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+
 import LinkText from 'components/typography/LinkText';
 
-const HomePageCard = ({ title, viewMoreUrl, children }) => {
-  const { t } = useTranslation();
+const HomePageCard = ({ title, viewMoreUrl, viewMoreText, children }) => {
   const classes = useStyles();
 
   return (
@@ -17,17 +15,12 @@ const HomePageCard = ({ title, viewMoreUrl, children }) => {
         justify='space-between'
         className={classes.marginBottom}>
         <Grid item>
-          <Typography variant='h6' className={classes.headerTitle}>
+          <Typography variant='h6' className={classes.boldTitle}>
             {title}
           </Typography>
         </Grid>
         <Grid item>
-          <LinkText to={viewMoreUrl}>
-            <Grid container direction='row' alignItems="center" className="MuiTypography-colorPrimary">
-              <Typography variant='h6'>{t('viewAll')}</Typography>
-              <ArrowForwardIcon />
-            </Grid>
-          </LinkText>
+          <MoreLink text={viewMoreText} viewMoreUrl={viewMoreUrl} />
         </Grid>
       </Grid>
       {children}
@@ -35,11 +28,35 @@ const HomePageCard = ({ title, viewMoreUrl, children }) => {
   );
 };
 
+const MoreLink = ({ text, viewMoreUrl }) => {
+  const classes = useStyles();
+
+  return (
+    <LinkText to={viewMoreUrl}>
+      <Grid
+        container
+        direction='row'
+        alignItems='center'
+        className='MuiTypography-colorPrimary'
+        spacing={1}>
+        <Grid item>
+          <Typography variant='h6' className={classes.boldTitle}>
+            {text}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <ArrowForwardIcon />
+        </Grid>
+      </Grid>
+    </LinkText>
+  );
+};
+
 const useStyles = makeStyles(() => ({
   marginBottom: {
     marginBottom: '20px',
   },
-  headerTitle: {
+  boldTitle: {
     fontWeight: 'bold',
   },
 }));

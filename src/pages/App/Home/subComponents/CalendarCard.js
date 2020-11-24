@@ -7,6 +7,7 @@ import Box from '@material-ui/core/Box';
 import SubmitButton from '../../../../components/buttons/SubmitButton';
 import Typography from '@material-ui/core/Typography';
 import AvailableTimesCalendarDialog from '../../../../components/calendarDialogs/AvailableTimes/AvailableTimesCalendarDialog';
+import authManager from 'services/authManager';
 
 const CalendarCard = ({ currentUser }) => {
   const [isCalendarDialogOpen, setIsCalendarDialog] = useState(false);
@@ -19,19 +20,23 @@ const CalendarCard = ({ currentUser }) => {
   return (
     <Card className={classes.card}>
       <Grid container alignItems={'center'} justify={'center'}>
-        <Typography variant={'h6'} gutterBottom>Calender of Events</Typography>
+        <Typography variant={'h6'} gutterBottom>
+          Calender of Events
+        </Typography>
         <CalendarView isMinimized availableDates={availableDates} />
-        <Box m={1}>
-          <SubmitButton
-            id={'open-update-calendar-dialog-btn'}
-            buttonText={
-              <Typography align={'center'} variant='body2'>
-                Update your Available Times
-              </Typography>
-            }
-            onClick={openCalendarDialog}
-          />
-        </Box>
+        {authManager.isNormalUser() && (
+          <Box m={1}>
+            <SubmitButton
+              id={'open-update-calendar-dialog-btn'}
+              buttonText={
+                <Typography align={'center'} variant='body2'>
+                  Update your Available Times
+                </Typography>
+              }
+              onClick={openCalendarDialog}
+            />
+          </Box>
+        )}
       </Grid>
 
       <AvailableTimesCalendarDialog

@@ -16,7 +16,6 @@ import {
   MonthView,
   Resources,
   Scheduler,
-  TodayButton,
   Toolbar,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -323,7 +322,6 @@ const CalendarView = ({
         <IntegratedEditing />
         <Toolbar />
         <DateNavigator />
-        <TodayButton />
         {isEditable && (
           <AppointmentTooltip
             headerComponent={AppointmentHeader}

@@ -53,6 +53,7 @@ const ActivityTable = () => {
   return (
     <HomePageCard
       title={t('myActivityTableTitle')}
+      viewMoreText={t('viewAll')}
       viewMoreUrl={RoutesPaths.App.Services}>
       <Grid container>
         <Grid item md={12}>
