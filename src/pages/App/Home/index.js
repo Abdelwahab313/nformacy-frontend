@@ -1,5 +1,13 @@
 import React from 'react';
-import { Grid, InputBase, Divider, Link, Card, CardMedia, Typography } from '@material-ui/core';
+import {
+  Grid,
+  InputBase,
+  Divider,
+  Link,
+  Card,
+  CardMedia,
+  Typography,
+} from '@material-ui/core';
 import ProfileSummaryCard from './subComponents/ProfileSummaryCard';
 import useStyles from './styles/HomePageStyles';
 import CalendarCard from './subComponents/CalendarCard';
@@ -11,6 +19,7 @@ import SubmitButton from 'components/buttons/SubmitButton';
 import ActivityTable from './subComponents/ActivityTable';
 import FeedsTimeline from './subComponents/FeedsTimeline';
 import Direction from 'components/grid/Direction';
+import LibraryCard from './subComponents/LibraryCard';
 
 const HomePage = () => {
   const classes = useStyles();
@@ -19,27 +28,27 @@ const HomePage = () => {
   const Header = require('../../../assets/BG1@1x.png');
   return (
     <Direction>
-    <Grid container justify="center">
-      <Card className={classes.headerCard}>
-        <CardMedia
-          component="img"
-          alt="Header"
-          className={classes.headerCardImg}
-          image={Header}
-          title="Header"
-        />
-        <Typography
-          variant="h3"
-          component="h3"
-          className={classes.headerCardTxt}
-        >
-          {currentUser.firstName + ' ' + currentUser.lastName}
-        </Typography>
-      </Card>
+      <Grid container justify='center'>
+        <Card className={classes.headerCard}>
+          <CardMedia
+            component='img'
+            alt='Header'
+            className={classes.headerCardImg}
+            image={Header}
+            title='Header'
+          />
+          <Typography
+            variant='h3'
+            component='h3'
+            className={classes.headerCardTxt}>
+            {currentUser.firstName + ' ' + currentUser.lastName}
+          </Typography>
+        </Card>
         <Grid container className={classes.clientHomeContainer}>
           <Grid item xs={12} md={3} className={classes.leftSectionContainer}>
             <ProfileSummaryCard />
             <CalendarCard currentUser={currentUser} />
+            <LibraryCard />
           </Grid>
           <Grid item xs={12} md={9}>
             <Grid container justify='space-around'>
@@ -73,7 +82,10 @@ const HomePage = () => {
                       {t('writeGreatQuestion')}
                     </Link>
                     <Divider
-                      className={[classes.dividers, classes.writeQuestionBorder]}
+                      className={[
+                        classes.dividers,
+                        classes.writeQuestionBorder,
+                      ]}
                     />
                   </Grid>
 
@@ -118,7 +130,7 @@ const HomePage = () => {
                 </Grid>
               </Grid>
             </Grid>
-              {authManager.isClient() && <AvailableServiceSection />}
+            {authManager.isClient() && <AvailableServiceSection />}
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
               <ActivityTable />
             </Grid>
@@ -127,7 +139,7 @@ const HomePage = () => {
             </Grid>
           </Grid>
         </Grid>
-    </Grid>
+      </Grid>
     </Direction>
   );
 };

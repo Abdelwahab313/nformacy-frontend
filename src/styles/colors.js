@@ -9,6 +9,7 @@ export const periWinkle = '#CED4EA';
 export const grey = '#7F7F7F';
 export const darkGrey = '#202020';
 export const lightGrey = '#d1d0d0';
+export const brightGray = '#3A3C4B';
 export const lighterGrey = '#F0F0F0';
 export const overlayColor = '#DDD';
 export const turquoise = '#33CCCC';

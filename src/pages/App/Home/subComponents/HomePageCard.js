@@ -1,8 +1,9 @@
 import React from 'react';
-import { Grid, makeStyles, Typography } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import LinkText from 'components/typography/LinkText';
+import CustomTypography from 'components/typography/Typography';
 
 const HomePageCard = ({ title, viewMoreUrl, viewMoreText, children }) => {
   const classes = useStyles();
@@ -15,9 +16,9 @@ const HomePageCard = ({ title, viewMoreUrl, viewMoreText, children }) => {
         justify='space-between'
         className={classes.marginBottom}>
         <Grid item>
-          <Typography variant='h6' className={classes.boldTitle}>
+          <CustomTypography variant='h5' fontWeight='bold'>
             {title}
-          </Typography>
+          </CustomTypography>
         </Grid>
         <Grid item>
           <MoreLink text={viewMoreText} viewMoreUrl={viewMoreUrl} />
@@ -29,8 +30,6 @@ const HomePageCard = ({ title, viewMoreUrl, viewMoreText, children }) => {
 };
 
 const MoreLink = ({ text, viewMoreUrl }) => {
-  const classes = useStyles();
-
   return (
     <LinkText to={viewMoreUrl}>
       <Grid
@@ -40,9 +39,9 @@ const MoreLink = ({ text, viewMoreUrl }) => {
         className='MuiTypography-colorPrimary'
         spacing={1}>
         <Grid item>
-          <Typography variant='h6' className={classes.boldTitle}>
+          <CustomTypography variant='body1' fontWeight='bold'>
             {text}
-          </Typography>
+          </CustomTypography>
         </Grid>
         <Grid item>
           <ArrowForwardIcon />
@@ -55,9 +54,6 @@ const MoreLink = ({ text, viewMoreUrl }) => {
 const useStyles = makeStyles(() => ({
   marginBottom: {
     marginBottom: '20px',
-  },
-  boldTitle: {
-    fontWeight: 'bold',
   },
 }));
 

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid #ecedf0',
     backgroundColor: '#f9fafd',
     boxShadow: 'none',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
   },
@@ -28,6 +28,21 @@ const useStyles = makeStyles((theme) => ({
     height: 160,
     textAlign: 'center',
     lineHeight: '160px',
+  },
+  darkBackground: {
+    backgroundColor: theme.palette.secondary.dark,
+    color: theme.palette.common.white,
+  },
+  libraryCardContainer: {
+    minHeight: 300,
+  },
+  gotToLibraryBtn: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: [theme.spacing(2), theme.spacing(4)],
+    border: '1px solid #fff',
+    borderRadius: '16px',
   },
   clientHomeContainer: {
     maxWidth: 1440,
@@ -83,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   pointsBox: {
-    backgroundColor: '#125773',
+    backgroundColor: theme.palette.primary.main,
     color: '#fff',
     textAlign: 'center',
     [theme.breakpoints.down('md')]: {

@@ -9,6 +9,7 @@ import { create } from 'jss';
 import preset from 'jss-preset-default';
 import rtl from 'jss-rtl';
 import {
+  brightGray,
   darkBlue,
   grey,
   lighterPink,
@@ -18,7 +19,6 @@ import {
 import MainRouter from 'layouts/MainRouter';
 import '../styles/fonts.css';
 import { QueryCache, ReactQueryCacheProvider } from 'react-query';
-import fontNames from '../constants/fonts';
 import useLocale from '../hooks/localization/useLocale';
 import { useTranslation } from 'react-i18next';
 import DIRECTIONS from '../constants/direction';
@@ -53,22 +53,12 @@ function Main() {
       },
       secondary: {
         main: lightGrey,
+        dark: brightGray,
       },
       overlay: {
         dark: grey,
         light: lightGrey,
       },
-    },
-    typography: {
-      fontFamily: [
-        fontNames.SF_UI_REGULAR,
-        fontNames.SF_UI_LIGHT,
-        fontNames.SF_UI_BOLD,
-        fontNames.APERCU_PRO_Regular,
-        fontNames.APERCU_PRO_MEDUIUM,
-        fontNames.SF_COMPACT_TEXT_REGULAR,
-        fontNames.TAJAWAL_BOLD,
-      ].join(','),
     },
   });
   theme = responsiveFontSizes(theme);

@@ -27,3 +27,8 @@
   font-family: 'Tajawal Bold';
   src: url(../assets/fonts/Tajawal-Bold.woff2) format('woff2');
 }
+
+@font-face {
+  font-family: 'Apercu Pro Bold';
+  src: url(../assets/fonts/ApercuPro-Medium.woff2) format('woff2');
+}
