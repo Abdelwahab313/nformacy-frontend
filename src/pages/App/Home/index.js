@@ -97,7 +97,7 @@ const HomePage = () => {
                       onClick={() => {}}
                       className={classes.proceedBtn}
                       buttonText={
-                        <CustomTypography variant='body2'>
+                        <CustomTypography variant='body1'>
                           {t('proceed')}
                         </CustomTypography>
                       }

@@ -69,12 +69,10 @@ const useStyles = makeStyles((theme) => ({
   },
   proceedBtn: {
     marginTop: '12px',
-    width: '60%',
     float: 'right',
     textTransform: 'capitalize',
     borderRadius: '11px',
     [theme.breakpoints.down('md')]: {
-      fontSize: 12,
       textTransform: 'capitalize',
     },
   },

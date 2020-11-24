@@ -7,7 +7,7 @@ import HomePageCard from './HomePageCard';
 import { RoutesPaths } from 'constants/routesPath';
 import { useTranslation } from 'react-i18next';
 import CustomTypography from 'components/typography/Typography';
-
+import { useHistory } from 'react-router';
 
 const services = [
   {
@@ -37,9 +37,17 @@ const services = [
 ];
 
 const AvailableServices = () => {
+  const history = useHistory();
   const classes = useStyles();
   const { t } = useTranslation();
   const [focusedItem, setFocusedItem] = useState('');
+
+  const navigatToServiceForm = (type) => {
+    history.push(RoutesPaths.App.ServiceRequestDetails, {
+      service: { assignmentType: type },
+    });
+  };
+
   return (
     <HomePageCard
       title={''}
@@ -52,12 +60,16 @@ const AvailableServices = () => {
             xs={3}
             md={3}
             className={[classes.askQuestionBox, classes.clientThreeBtns]}>
-              <MobileServiceItem service={service} />
-              <ServiceItem
-                service={service}
-                isFocused={service.name === focusedItem}
-                setFocusedItem={setFocusedItem}
-              />
+            <MobileServiceItem
+              service={service}
+              onServiceClick={() => navigatToServiceForm(service.name)}
+            />
+            <ServiceItem
+              service={service}
+              isFocused={service.name === focusedItem}
+              setFocusedItem={setFocusedItem}
+              onServiceClick={() => navigatToServiceForm(service.name)}
+            />
           </Grid>
         ))}
       </Grid>
@@ -65,12 +77,12 @@ const AvailableServices = () => {
   );
 };
 
-const MobileServiceItem = ({ service }) => {
+const MobileServiceItem = ({ service, onServiceClick }) => {
   const classes = useStyles();
   return (
     <Grid container className={classes.mobileVisible}>
       <Grid item xs={8} md={9}>
-      <CustomTypography variant='body2'>{service.title}</CustomTypography>
+        <CustomTypography variant='body2'>{service.title}</CustomTypography>
       </Grid>
       <Grid item xs={3} md={3}>
         <img src={service.icon} className={classes.clientImg} />
@@ -78,27 +90,43 @@ const MobileServiceItem = ({ service }) => {
       <Grid container xs={12}>
         <SubmitButton
           id={'proceedBtn'}
-          onClick={() => {}}
+          onClick={() => onServiceClick()}
           className={[classes.proceedBtn, classes.startProcessBtn]}
-          buttonText={<CustomTypography variant='caption'>{service.btnTxt}</CustomTypography>}
-
+          buttonText={
+            <CustomTypography variant='caption'>
+              {service.btnTxt}
+            </CustomTypography>
+          }
         />
       </Grid>
     </Grid>
   );
 };
 
-const ServiceItem = ({ service, isFocused, setFocusedItem }) => {
+const ServiceItem = ({
+  service,
+  isFocused,
+  setFocusedItem,
+  onServiceClick,
+}) => {
   const classes = useStyles();
   return (
-    <Collapse in={isFocused} collapsedHeight={150} timeout={500} className={classes.desktopVisible}>
+    <Collapse
+      in={isFocused}
+      collapsedHeight={150}
+      timeout={500}
+      className={classes.desktopVisible}>
       <Grid
         container
         onMouseEnter={() => setFocusedItem(service.name)}
         onMouseLeave={() => setFocusedItem('')}>
         <Grid item xs={8} md={9}>
-        <CustomTypography variant='h6' fontWeight='bold'>{service.title}</CustomTypography>
-        <CustomTypography variant='body1' fontWeight='light' >{service.description}</CustomTypography>
+          <CustomTypography variant='h6' fontWeight='bold'>
+            {service.title}
+          </CustomTypography>
+          <CustomTypography variant='body1' fontWeight='light'>
+            {service.description}
+          </CustomTypography>
         </Grid>
         <Grid item xs={3} md={3}>
           <img src={service.icon} className={classes.clientImg} />
@@ -107,10 +135,14 @@ const ServiceItem = ({ service, isFocused, setFocusedItem }) => {
           {isFocused && (
             <SubmitButton
               id={'proceedBtn'}
-              onClick={() => {}}
+              onClick={() => onServiceClick()}
               className={[classes.proceedBtn, classes.startProcessBtn]}
-              buttonText={<CustomTypography variant='body2' >{service.btnTxt}</CustomTypography>}
-              />
+              buttonText={
+                <CustomTypography variant='body1'>
+                  {service.btnTxt}
+                </CustomTypography>
+              }
+            />
           )}
         </Grid>
       </Grid>
