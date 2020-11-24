@@ -42,7 +42,6 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const ActivityTable = () => {
-  const isMobile = window.innerWidth < 768;
   const classes = useStyles();
   const { t } = useTranslation();
   const { fetchedData: services, isLoading } = useFetchData(
@@ -63,10 +62,10 @@ const ActivityTable = () => {
                 <TableRow>
                   <StyledTableCell>{t('activityType')}</StyledTableCell>
                   <StyledTableCell>{t('refNo')}</StyledTableCell>
-                  {!isMobile && (<StyledTableCell>{t('title')}</StyledTableCell>)}
-                  {!isMobile && (<StyledTableCell>{t('requestDate')}</StyledTableCell>)}
+                  <StyledTableCell className={classes.desktopVisible}>{t('title')}</StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>{t('requestDate')}</StyledTableCell>
                   <StyledTableCell>{t('state')}</StyledTableCell>
-                  {!isMobile && (<StyledTableCell>{t('actionNeeded')}</StyledTableCell>)}
+                  <StyledTableCell className={classes.desktopVisible}>{t('actionNeeded')}</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -86,10 +85,10 @@ const ActivityTable = () => {
                         referenceId={service.referenceNumber}
                       />
                     </StyledTableCell>
-                    {!isMobile && (<StyledTableCell>{service.title}</StyledTableCell>)}
-                    {!isMobile && (<StyledTableCell>
+                    <StyledTableCell className={classes.desktopVisible}>{service.title}</StyledTableCell>
+                    <StyledTableCell className={classes.desktopVisible}>
                       {formattedDateTimeNoSeconds(new Date(service.createdAt))}
-                    </StyledTableCell>)}
+                    </StyledTableCell>
                     <StyledTableCell>
                       {t(
                         `serviceStatus:${getServiceStatus(
@@ -98,14 +97,14 @@ const ActivityTable = () => {
                         )}`,
                       )}
                     </StyledTableCell>
-                    {!isMobile && (<StyledTableCell>
+                    <StyledTableCell className={classes.desktopVisible}>
                       <ServiceActionLink
                         status={service.state}
                         serviceId={service.id}
                         questionId={service.questionId}
                         questionState={service.questionState}
                       />
-                    </StyledTableCell>)}
+                    </StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>
@@ -117,9 +116,15 @@ const ActivityTable = () => {
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   tableContainer: {
     maxHeight: '350px',
   },
+  desktopVisible: {
+    display: 'table-cell',
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    }
+  }
 }));
 export default ActivityTable;
