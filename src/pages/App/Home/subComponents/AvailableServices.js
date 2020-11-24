@@ -38,7 +38,6 @@ const AvailableServices = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [focusedItem, setFocusedItem] = useState('');
-  const isMobile = window.innerWidth < 768;
   return (
     <HomePageCard
       title={''}
@@ -51,15 +50,12 @@ const AvailableServices = () => {
             xs={3}
             md={3}
             className={[classes.askQuestionBox, classes.clientThreeBtns]}>
-            {isMobile ? (
               <MobileServiceItem service={service} />
-            ) : (
               <ServiceItem
                 service={service}
                 isFocused={service.name === focusedItem}
                 setFocusedItem={setFocusedItem}
               />
-            )}
           </Grid>
         ))}
       </Grid>
@@ -70,7 +66,7 @@ const AvailableServices = () => {
 const MobileServiceItem = ({ service }) => {
   const classes = useStyles();
   return (
-    <Grid container>
+    <Grid container className={classes.mobileVisible}>
       <Grid item xs={8} md={9}>
         <p>{service.title}</p>
         <p className={classes.clientText}>{service.description}</p>
@@ -93,7 +89,7 @@ const MobileServiceItem = ({ service }) => {
 const ServiceItem = ({ service, isFocused, setFocusedItem }) => {
   const classes = useStyles();
   return (
-    <Collapse in={isFocused} collapsedHeight={150} timeout={500}>
+    <Collapse in={isFocused} collapsedHeight={150} timeout={500} className={classes.desktopVisible}>
       <Grid
         container
         onMouseEnter={() => setFocusedItem(service.name)}

@@ -1,6 +1,18 @@
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
+  mobileVisible: {
+    display: 'none',
+    [theme.breakpoints.down('md')]: {
+      display: 'flex',
+    },
+  },
+  desktopVisible: {
+    display: 'block',
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
+  },
   card: {
     maxWidth: 345,
     margin: '0 auto 24px',
@@ -152,7 +164,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       float: 'left',
       width: '80%',
-      maxHeight: 115
+      maxHeight: 115,
     },
   },
   feedsDivider: {
@@ -168,45 +180,45 @@ const useStyles = makeStyles((theme) => ({
     overflowY: 'scroll',
     backgroundColor: '#f9fafd',
     [theme.breakpoints.down('md')]: {
-      padding: 0
+      padding: 0,
     },
   },
   feedsHeader: {
     fontSize: 16,
     fontWeight: 'bold',
     [theme.breakpoints.down('md')]: {
-      marginBottom: 15
+      marginBottom: 15,
     },
   },
   feedsSubText: {
     color: '#202020',
     fontSize: 15,
-    margin: '15px 0'
+    margin: '15px 0',
   },
   feedsDate: {
     fontSize: 13,
-    color: '#8b8a8a'
+    color: '#8b8a8a',
   },
   dot: {
     height: 3,
     width: 3,
     backgroundColor: '#bbb',
     borderRadius: '50%',
-    display: 'inline-block'
+    display: 'inline-block',
   },
   feedsRightSide: {
     [theme.breakpoints.down('md')]: {
-      order: 1
+      order: 1,
     },
   },
   feedsLeftSide: {
     [theme.breakpoints.down('md')]: {
-      order: 2
+      order: 2,
     },
   },
   headerCard: {
     position: 'relative',
-    width: '100%'
+    width: '100%',
   },
   headerCardImg: {
     height: 270,
@@ -215,11 +227,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   headerCardTxt: {
-    position: "absolute",
-    top: "35%",
+    position: 'absolute',
+    top: '35%',
     left: 0,
     right: 0,
-    textAlign: "center",
+    textAlign: 'center',
     color: theme.palette.common.white,
     [theme.breakpoints.down('md')]: {
       color: theme.palette.common.black,
@@ -227,8 +239,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   leftSectionContainer: {
-    marginTop: '20px'
-  }
+    marginTop: '20px',
+  },
 }));
 
 export default useStyles;
