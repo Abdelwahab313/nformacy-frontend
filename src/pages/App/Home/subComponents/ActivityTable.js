@@ -122,7 +122,7 @@ const useStyles = makeStyles((theme) => ({
   },
   desktopVisible: {
     display: 'table-cell',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('xs')]: {
       display: 'none',
     }
   }

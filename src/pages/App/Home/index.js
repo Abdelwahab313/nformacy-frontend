@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Grid,
-  InputBase,
-  Divider,
-  Link,
-  Card,
-  CardMedia,
-  Typography,
-} from '@material-ui/core';
+import { Grid, InputBase, Divider, Link } from '@material-ui/core';
 import ProfileSummaryCard from './subComponents/ProfileSummaryCard';
 import useStyles from './styles/HomePageStyles';
 import CalendarCard from './subComponents/CalendarCard';
@@ -22,30 +14,17 @@ import Direction from 'components/grid/Direction';
 import LibraryCard from './subComponents/LibraryCard';
 import CustomTypography from 'components/typography/Typography';
 import { CalendarLibraryForMobile } from './subComponents/CalendarLibraryForMobile';
+import HomeHeadBar from './subComponents/HomeHeadBar';
 
 const HomePage = () => {
   const classes = useStyles();
   const [{ currentUser }] = useAuth();
   const { t } = useTranslation();
-  const Header = require('../../../assets/BG1@1x.png');
+
   return (
     <Direction>
       <Grid container justify='center'>
-        <Card className={classes.headerCard}>
-          <CardMedia
-            component='img'
-            alt='Header'
-            className={classes.headerCardImg}
-            image={Header}
-            title='Header'
-          />
-          <Typography
-            variant='h3'
-            component='h3'
-            className={classes.headerCardTxt}>
-            {currentUser.firstName + ' ' + currentUser.lastName}
-          </Typography>
-        </Card>
+        <HomeHeadBar />
         <Grid container className={classes.clientHomeContainer}>
           <Grid item xs={12} md={3} className={classes.leftSectionContainer}>
             <ProfileSummaryCard />
@@ -54,7 +33,7 @@ const HomePage = () => {
           </Grid>
           <Grid item xs={12} md={9}>
             <Grid container justify='space-around'>
-              <Grid item xs={12} md={8} className={classes.askQuestionBox}>
+              <Grid item xs={12} md={8} className={[classes.askQuestionBox]}>
                 <Grid container className={classes.askExpertContainer}>
                   <Grid xs={2} md={1}>
                     <img

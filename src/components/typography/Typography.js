@@ -7,6 +7,7 @@ import fontNames from 'constants/fonts';
 const CustomTypography = ({
   variant,
   fontWeight = 'regular',
+  className,
   children,
   ...props
 }) => {
@@ -15,7 +16,10 @@ const CustomTypography = ({
   const classes = useStyles({ variant, fontWeight });
 
   return (
-    <Typography variant={variant} className={classes.fontStyles} {...props}>
+    <Typography
+      variant={variant}
+      className={[classes.fontStyles, className]}
+      {...props}>
       {children}
     </Typography>
   );

@@ -71,5 +71,7 @@
   "calendarOfEvents": "Calendar Of Events",
   "goToLibrary": "Go to Library",
   "libraryResources": "Library Resources",
-  "fullView": "Full View"
+  "fullView": "Full View",
+  "youHave": "You Have ",
+  "points": "40 points"
 }

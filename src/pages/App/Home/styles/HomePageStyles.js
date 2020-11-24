@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core';
+import { lightOrange } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
   mobileVisible: {
@@ -29,11 +30,31 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     lineHeight: '160px',
   },
+  profileMobile: {
+    marginTop: '-30px',
+    zIndex: 99,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+  profilePictureMobile: {
+    width: 60,
+    height: 60,
+    verticalAlign: 'middle',
+    borderRadius: '100%',
+    marginBottom: theme.spacing(2),
+  },
+  orangeText: {
+    color: lightOrange,
+  },
   darkBackground: {
     backgroundColor: theme.palette.secondary.dark,
     color: theme.palette.common.white,
   },
-  libraryCardContainer: {
+  cardContainer: {
     minHeight: 300,
   },
   gotToLibraryBtn: {

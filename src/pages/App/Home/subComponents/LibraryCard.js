@@ -16,7 +16,7 @@ const LibraryCard = () => {
         direction='column'
         justify='space-evenly'
         alignItems='center'
-        className={classes.libraryCardContainer}>
+        className={classes.cardContainer}>
         <CustomTypography align={'center'} variant='h6' fontWeight='bold'>
           Library of Resources
         </CustomTypography>

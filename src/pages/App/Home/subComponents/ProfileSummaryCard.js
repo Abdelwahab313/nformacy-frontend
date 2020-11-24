@@ -18,6 +18,7 @@ const ProfileSummaryCard = () => {
     <Card className={classes.card}>
       <CardActionArea
         component={Link}
+        className={classes.cardContainer}
         to={'/user/edit'}>
         <Box className={classes.media}>
           <img
