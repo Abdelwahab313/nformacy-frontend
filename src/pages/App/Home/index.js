@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, InputBase, Divider, Link } from '@material-ui/core';
+import { Grid, InputBase, Divider, Link, Card, CardMedia, Typography } from '@material-ui/core';
 import ProfileSummaryCard from './subComponents/ProfileSummaryCard';
 import useStyles from './styles/HomePageStyles';
 import CalendarCard from './subComponents/CalendarCard';
@@ -15,9 +15,25 @@ const HomePage = () => {
   const classes = useStyles();
   const [{ currentUser }] = useAuth();
   const { t } = useTranslation();
-
+  const Header = require('../../../assets/BG1@1x.png');
   return (
     <Grid container justify='center' className={classes.clientHomeContainer}>
+      <Card className={classes.headerCard}>
+        <CardMedia
+          component="img"
+          alt="Header"
+          height="270"
+          image={Header}
+          title="Header"
+        />
+        <Typography
+          variant="h3"
+          component="h3"
+          className={classes.headerCardTxt}
+        >
+          {currentUser.firstName + ' ' + currentUser.lastName}
+        </Typography>
+      </Card>
       <Grid item xs={12} md={3}>
         <ProfileSummaryCard />
         <CalendarCard currentUser={currentUser} />

@@ -204,6 +204,17 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       order: 2
     },
+  },
+  headerCard: {
+    poition: 'relative'
+  },
+  headerCardTxt: {
+    position: "absolute",
+    top: "35%",
+    left: 0,
+    right: 0,
+    textAlign: "center",
+    color: "#fff",
   }
 }));
 
