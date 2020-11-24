@@ -64,5 +64,7 @@
   "seeMore": "Read More",
   "activityType": "Activity Type",
   "refNo": "Ref. No.",
-  "requestDate": "Request Date"
+  "requestDate": "Request Date",
+  "chargeMyWallet": "Charge my wallet",
+  "proceed": "Proceed"
 }
