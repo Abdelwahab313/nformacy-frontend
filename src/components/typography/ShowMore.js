@@ -4,14 +4,15 @@ import ShowMoreText from 'react-show-more-text';
 import React from 'react';
 import useStyles from './styles/showMore';
 import { useTranslation } from 'react-i18next';
+import CustomTypography from './Typography';
 
 const ShowLessComponent = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
   return (
-    <Grid container direction='row' className={classes.icons}>
-      <div> {t('showLess')} </div>
+    <Grid container direction='row'>
+      <CustomTypography variant='body1'>{t('showLess')}</CustomTypography>
       <ExpandLess className={classes.icon} />
     </Grid>
   );
@@ -22,8 +23,8 @@ const ShowMoreComponent = () => {
   const { t } = useTranslation();
 
   return (
-    <Grid container direction='row' className={classes.icons}>
-      <div> {t('showMore')} </div>
+    <Grid container direction='row'>
+      <CustomTypography variant='subtitle1'>{t('showMore')}</CustomTypography>
       <ExpandMore className={classes.icon} />
     </Grid>
   );

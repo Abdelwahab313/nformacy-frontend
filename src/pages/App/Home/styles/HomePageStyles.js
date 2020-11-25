@@ -251,7 +251,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'inline-block',
   },
   feedsRightSide: {
+    display: 'flex',
+    justifyContent: 'flex-end',
     [theme.breakpoints.down('md')]: {
+      justifyContent: 'flex-start',
       order: 1,
     },
   },
@@ -311,6 +314,14 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 12,
     height: 115,
     width: 115,
+    [theme.breakpoints.down('md')]: {
+      height: 80,
+      width: 80,
+    },
+    [theme.breakpoints.down('xs')]: {
+      height: 80,
+      width: 60,
+    },
   },
 }));
 

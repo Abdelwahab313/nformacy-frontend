@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid, Tooltip } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../../../../styles/questionRoasterStyles';
 import styled from 'styled-components';
 import Chip from '@material-ui/core/Chip';
@@ -8,6 +7,7 @@ import * as colors from '../../../../styles/colors';
 import useFieldsFetcher from '../../../../hooks/useFieldsFetcher';
 import { groupFieldsByMajorFieldId } from '../../../../core/fields';
 import LoadingCircle from '../../../../components/progress/LoadingCircle';
+import CustomTypography from 'components/typography/Typography';
 
 const StyledFilterChip = styled(Chip)`
   background-color: ${(props) => getColorForField(props.index)};
@@ -50,7 +50,7 @@ const QuestionFieldsChips = ({ questionDetails }) => {
         <Grid>
           <Tooltip
             title={
-              <Typography>
+              <CustomTypography variant='body1'>
                 {majorField.subfields.map((field, key) => (
                   <Grid
                     key={key}
@@ -59,18 +59,19 @@ const QuestionFieldsChips = ({ questionDetails }) => {
                     {field.label}
                   </Grid>
                 ))}
-              </Typography>
+              </CustomTypography>
             }>
             <StyledFilterChip
               key={key}
               index={key}
               className={classes.fieldChip}
               label={
-                <Typography
+                <CustomTypography
+                  variant='body1'
                   id={`questionMajorFields-${questionDetails.referenceNumber}-${key}`}
                   className={classes.fieldChipText}>
                   {majorField.majorFieldLabel}
-                </Typography>
+                </CustomTypography>
               }
             />
           </Tooltip>

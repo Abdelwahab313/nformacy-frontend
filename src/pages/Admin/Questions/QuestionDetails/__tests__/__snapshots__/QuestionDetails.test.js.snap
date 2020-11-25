@@ -777,11 +777,13 @@ exports[`should match snapshot 1`] = `
                           href="#"
                         >
                           <div
-                            class="MuiGrid-root icons MuiGrid-container"
+                            class="MuiGrid-root MuiGrid-container"
                           >
-                            <div>
-                               showMore 
-                            </div>
+                            <h6
+                              class="MuiTypography-root fontStyles MuiTypography-subtitle1"
+                            >
+                              showMore
+                            </h6>
                             <svg
                               aria-hidden="true"
                               class="MuiSvgIcon-root icon"

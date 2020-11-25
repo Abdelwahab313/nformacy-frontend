@@ -43,6 +43,7 @@ export const calendarStyles = (theme) => ({
   dayScaleCell: {
     textAlign: 'center',
     fontWeight: 'bold',
+    color: 'red',
   },
   table: {
     minWidth: '200px',

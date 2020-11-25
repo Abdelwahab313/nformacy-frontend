@@ -29,10 +29,10 @@ const ConsultantQuestionRoaster = () => {
   const history = useHistory();
 
   const onClickMore = () => {
-     history.push(RoutesPaths.App.Questions);
+    history.push(RoutesPaths.App.Questions);
   };
   if (isLoading) {
-    return <LoadingCircle/>;
+    return <LoadingCircle />;
   }
   return (
     <Box className={classes.askQuestionBox}>
@@ -43,7 +43,7 @@ const ConsultantQuestionRoaster = () => {
         {Questions.slice(0, 5).map((question) => (
           <Grid item>
             <Grid container alignItems='center' justify='space-between'>
-              <Grid item xs={6} md={9} className={classes.feedsLeftSide}>
+              <Grid item xs={9} md={9} className={classes.feedsLeftSide}>
                 <CustomTypography
                   align={'left'}
                   variant='body2'
@@ -66,7 +66,7 @@ const ConsultantQuestionRoaster = () => {
                 <QuestionFieldsChips questionDetails={question} />
               </Grid>
 
-              <Grid item xs={6} md={2} className={classes.feedsRightSide}>
+              <Grid item xs={3} md={3} className={classes.feedsRightSide}>
                 <img
                   className={classes.questionImg}
                   color={'primary'}

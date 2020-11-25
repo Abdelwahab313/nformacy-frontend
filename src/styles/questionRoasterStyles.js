@@ -402,12 +402,7 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   fieldChipText: {
-    fontSize: '1vw',
-    fontFamily: fontNames.APERCU_PRO_Regular,
-    color: 'white',
-    [theme.breakpoints.down('xs')]: {
-      fontSize: '12px',
-    },
+    color: theme.palette.common.white,
   },
   questionContentField: {
     color: grey,
@@ -438,7 +433,7 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       maxHeight: '9.600vw',
       padding: '10vw',
-    }
+    },
   },
   questionAssignmentTypeContainer: {
     display: 'flex',

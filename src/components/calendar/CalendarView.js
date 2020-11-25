@@ -32,13 +32,20 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import TextField from '@material-ui/core/TextField';
 import CalenderCommandButtons from './CalendarCommandButtons';
+import CustomTypography from 'components/typography/Typography';
 
 const useStyles = makeStyles(calendarStyles);
 
-const DayScaleCell = (props) => {
-  const classes = useStyles(calendarStyles);
+const DayScaleCell = ({ startDate, formatDate, ...props }) => {
+  // const classes = useStyles(calendarStyles);
 
-  return <MonthView.DayScaleCell {...props} className={classes.dayScaleCell} />;
+  return (
+    <TableCell {...props}>
+      <CustomTypography variant={'body1'} fontWeight={'bold'}>
+        {formatDate(startDate, { weekday: 'short' })}
+      </CustomTypography>
+    </TableCell>
+  );
 };
 
 const TextEditor = (props) => {
@@ -138,9 +145,8 @@ const DayScaleLayout = withStyles(calendarStyles, { name: 'TimeTable' })(
   DayScaleLayoutBase,
 );
 
-const CellBase = React.memo(
+const TimeTableCell = React.memo(
   ({
-    classes,
     startDate,
     formatDate,
     otherMonth,
@@ -148,6 +154,7 @@ const CellBase = React.memo(
     selectedDay,
     onDayClick,
   }) => {
+    const classes = useStyles({ name: 'Cell' });
     const isSelectedDay = !!selectedDay && isSameDate(startDate, selectedDay);
 
     const isAvailableDay = formatDayAsKey(startDate) in availableDates;
@@ -198,7 +205,6 @@ const CellBase = React.memo(
     );
   },
 );
-const TimeTableCell = withStyles(calendarStyles, { name: 'Cell' })(CellBase);
 
 const AppointmentContent = withStyles(calendarStyles, {
   name: 'AppointmentContent',
