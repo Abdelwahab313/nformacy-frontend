@@ -4,11 +4,14 @@ import useStyles from '../styles/HomePageStyles';
 import { useTranslation } from 'react-i18next';
 import CustomTypography from 'components/typography/Typography';
 import { useAuth } from 'pages/auth/context/auth';
+import authManager from 'services/authManager';
 
 const HomeHeadBar = () => {
   const { t } = useTranslation();
   const classes = useStyles();
-  const Header = require('../../../../assets/BG1@1x.png');
+  const Header = authManager.isClient()
+    ? require('../../../../assets/BG1@1x.png')
+    : require('../../../../assets/consultant-bg.png');
   const [{ currentUser }] = useAuth();
 
   return (
@@ -25,7 +28,7 @@ const HomeHeadBar = () => {
           variant='h3'
           component='h3'
           className={classes.headerCardTxt}>
-          {currentUser.firstName + ' ' + currentUser.lastName}
+          {currentUser.firstName + ' ' + currentUser.lastName +' Work-Space'}
         </Typography>
       </Card>
       <Box className={classes.profileMobile}>
