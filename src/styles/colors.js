@@ -15,6 +15,7 @@ export const overlayColor = '#DDD';
 export const turquoise = '#33CCCC';
 export const twilight = '#E4C9E4';
 export const silver = '#afabab';
+export const whiteLilac = '#F9FAFD';
 export const lightTurquoise = 'rgba(51,204,204,0.25)';
 export const white = '#FFFFFF';
 export const red = '#ff00008c';

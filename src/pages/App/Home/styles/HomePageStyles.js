@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import { lightOrange, grey } from 'styles/colors';
+import { lightOrange, grey, whiteLilac } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
   mobileVisible: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 auto 24px',
     borderRadius: 25,
     border: '1px solid #ecedf0',
-    backgroundColor: '#f9fafd',
+    backgroundColor: whiteLilac,
     boxShadow: 'none',
     [theme.breakpoints.down('sm')]: {
       display: 'none',
@@ -77,8 +77,7 @@ const useStyles = makeStyles((theme) => ({
   },
   askQuestionBox: {
     padding: theme.spacing(3),
-    // margin: 20,
-    backgroundColor: '#f9fafd',
+    backgroundColor: whiteLilac,
     borderRadius: 20,
     border: '1px solid #ecedf0',
     [theme.breakpoints.down('sm')]: {
@@ -95,6 +94,7 @@ const useStyles = makeStyles((theme) => ({
   proceedBtn: {
     marginTop: '12px',
     float: 'right',
+    minHeight: theme.spacing(5),
     textTransform: 'capitalize',
     borderRadius: '11px',
     [theme.breakpoints.down('md')]: {
@@ -143,6 +143,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#fff !important',
     color: '#125773 !important',
     textTransform: 'capitalize',
+    height: theme.spacing(5),
   },
   clientImg: {
     float: 'right',
@@ -221,7 +222,7 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: 490,
     margin: 0,
     overflowY: 'scroll',
-    backgroundColor: '#f9fafd',
+    backgroundColor: whiteLilac,
     [theme.breakpoints.down('md')]: {
       padding: 0,
     },

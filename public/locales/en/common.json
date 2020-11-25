@@ -62,6 +62,7 @@
   "myActivityTableTitle": "My Activities",
   "viewAll": "View All",
   "seeMore": "Read More",
+  "learnMore": "Learn More",
   "activityType": "Activity Type",
   "refNo": "Ref. No.",
   "requestDate": "Request Date",
@@ -74,5 +75,7 @@
   "fullView": "Full View",
   "youHave": "You Have ",
   "points": "40 points",
-  "howToWriteBestAnswer": "How to write the best answer?"
+  "howToWriteBestAnswer": "How to write the best answer?",
+  "yourRank": "Your Rank is : Gold",
+  "raiseRank": "Raise your Rank"
 }
