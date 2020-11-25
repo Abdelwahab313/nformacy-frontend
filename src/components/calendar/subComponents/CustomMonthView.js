@@ -10,6 +10,7 @@ import { formatDayAsKey, isSameDate } from '../../../services/dateTimeParser';
 import { darkBlue } from '../../../styles/colors';
 import moment from 'moment';
 import CustomTypography from 'components/typography/Typography';
+import '../styles/calendar.css'
 
 const useStyles = makeStyles(calendarStyles);
 
@@ -48,6 +49,24 @@ const TimeTableCell = React.memo(
       ? { day: 'numeric', month: 'short' }
       : { day: 'numeric' };
 
+    if (
+      (otherMonth &&
+        formatDate(startDate, { day: 'numeric' }) > 20 &&
+        formatDate(startDate, { weekday: 'short' }) === 'Sat') ||
+      (otherMonth &&
+        formatDate(startDate, { day: 'numeric' }) <= 9 &&
+        formatDate(startDate, { weekday: 'short' }) === 'Sun')
+    ) {
+      return (
+        <TableCell
+          className={classNames({
+            [classes.removeRow]: true,
+            removeRow: true,
+          })}>
+          5
+        </TableCell>
+      );
+    }
     return (
       <TableCell
         style={isAvailableDay ? { backgroundColor: darkBlue } : {}}

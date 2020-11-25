@@ -21,7 +21,7 @@ export const calendarStyles = (theme) => ({
     height: '4em',
     borderLeft: getBorder(theme),
     '&:first-child': {
-      borderLeft: 'none',
+      // borderLeft: 'none',
     },
     '&:last-child': {
       paddingRight: 0,
@@ -37,6 +37,11 @@ export const calendarStyles = (theme) => ({
       outline: 0,
     },
   },
+  removeRow: {
+    '&:parent': {
+      display: 'none',
+    },
+  },
   paperBackground: {
     backgroundColor: 'transparent',
   },
@@ -48,6 +53,9 @@ export const calendarStyles = (theme) => ({
   },
   table: {
     minWidth: '200px',
+    '&:tr < td.removeRow': {
+      display: 'none',
+    },
   },
   appointment: {
     borderRadius: '10px',
