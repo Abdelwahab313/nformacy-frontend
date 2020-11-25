@@ -15,8 +15,8 @@ export const CalendarLibraryForMobile = () => {
         <div className={classes.calendarMarginBottom}>
           <img
             color={'primary'}
-            src={require('../../../../assets/wallet.svg')}
-            width={'35%'}
+            src={require('../../../../assets/calendar.svg')}
+            width={'30px'}
           />
         </div>
         <CustomTypography className={classes.calendarMarginBottom} variant='body2'>
@@ -31,8 +31,8 @@ export const CalendarLibraryForMobile = () => {
         <div className={classes.calendarMarginBottom}>
           <img
             color={'primary'}
-            src={require('../../../../assets/wallet.svg')}
-            width={'35%'}
+            src={require('../../../../assets/library.svg')}
+            width={'30px'}
           />
         </div>
         <CustomTypography className={classes.calendarMarginBottom} variant='body2'>
