@@ -128,6 +128,11 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  pointsContainer: {
+    [theme.breakpoints.up('md')]: {
+      height: 180,
+    },
+  },
   walletIcon: {
     width: '50px',
   },

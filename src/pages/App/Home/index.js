@@ -33,7 +33,8 @@ const HomePage = () => {
           <Grid item xs={12} md={9}>
             <Grid container spacing={4}>
               <Grid item xs={12} md={9}>
-                <Box className={[classes.askQuestionBox]}>
+                <Box
+                  className={[classes.askQuestionBox, classes.pointsContainer]}>
                   <Grid container className={classes.askExpertContainer}>
                     <Grid xs={2} md={1}>
                       <img
@@ -92,26 +93,23 @@ const HomePage = () => {
                     container
                     direction='column'
                     alignItems='center'
-                    justify='space-between'>
-                    <div className={classes.marginBottom}>
-                      <img
-                        className={[classes.walletIcon]}
-                        color={'primary'}
-                        src={require('../../../assets/wallet.svg')}
-                        width={'25%'}
-                      />
-                    </div>
+                    justify='space-evenly'
+                    className={classes.pointsContainer}>
+                    <img
+                      className={[classes.walletIcon]}
+                      color={'primary'}
+                      src={require('../../../assets/wallet.svg')}
+                      width={'25%'}
+                    />
                     <div className={classes.marginBottom}>
                       you have 40 points
                     </div>
-                    <div className={classes.marginBottom}>
-                      <SubmitButton
-                        id={'proceedBtn'}
-                        onClick={() => {}}
-                        className={[classes.chargeBtn, classes.marginBottom]}
-                        buttonText={t('chargeMyWallet')}
-                      />
-                    </div>
+                    <SubmitButton
+                      id={'proceedBtn'}
+                      onClick={() => {}}
+                      className={[classes.chargeBtn]}
+                      buttonText={t('chargeMyWallet')}
+                    />
                   </Grid>
                 </Box>
               </Grid>
