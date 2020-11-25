@@ -2,8 +2,8 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import useStyles from '../styles/HomePageStyles';
 import { useTranslation } from 'react-i18next';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CustomTypography from 'components/typography/Typography';
+import NextArrow from 'components/icons/NextArrow';
 
 export const CalendarLibraryForMobile = () => {
   const classes = useStyles();
@@ -24,7 +24,7 @@ export const CalendarLibraryForMobile = () => {
         </CustomTypography>
         <CustomTypography className={classes.calendarMarginBottom} variant='body2'>
           {t('fullView') + '  '}
-          <ArrowForwardIcon />
+          <NextArrow />
         </CustomTypography>
       </Grid>
       <Grid item xs={5} className={[classes.calendarMobileBox, classes.goToLibraryMobileBox]}>
@@ -40,7 +40,7 @@ export const CalendarLibraryForMobile = () => {
         </CustomTypography>
         <CustomTypography className={classes.calendarMarginBottom} variant='body2'>
           {t('goToLibrary')}
-          <ArrowForwardIcon />
+          <NextArrow />
         </CustomTypography>
       </Grid>
     </Grid>

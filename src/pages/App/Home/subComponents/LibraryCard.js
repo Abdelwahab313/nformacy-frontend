@@ -1,10 +1,10 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import { Box, Grid } from '@material-ui/core';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import useStyles from '../styles/HomePageStyles';
 import CustomTypography from 'components/typography/Typography';
+import NextArrow from 'components/icons/NextArrow';
 
 const LibraryCard = () => {
   const classes = useStyles();
@@ -29,7 +29,7 @@ const LibraryCard = () => {
           <CustomTypography component='span' align={'center'} variant='body2'>
             Go to Library
           </CustomTypography>
-          <ArrowForwardIcon />
+          <NextArrow />
         </Box>
       </Grid>
     </Card>

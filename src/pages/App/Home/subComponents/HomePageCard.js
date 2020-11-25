@@ -1,9 +1,9 @@
 import React from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import LinkText from 'components/typography/LinkText';
 import CustomTypography from 'components/typography/Typography';
+import NextArrow from 'components/icons/NextArrow';
 
 const HomePageCard = ({ title, viewMoreUrl, viewMoreText, children }) => {
   const classes = useStyles();
@@ -44,7 +44,7 @@ const MoreLink = ({ text, viewMoreUrl }) => {
           </CustomTypography>
         </Grid>
         <Grid item>
-          <ArrowForwardIcon />
+          <NextArrow />
         </Grid>
       </Grid>
     </LinkText>
