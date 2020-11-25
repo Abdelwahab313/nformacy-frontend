@@ -55,7 +55,7 @@ const ActivityTable = () => {
       viewMoreText={t('viewAll')}
       viewMoreUrl={RoutesPaths.App.Services}>
       <Grid container>
-        <Grid item md={12}>
+        <Grid item md={12} className={classes.activityTable}>
           <TableContainer component={Paper} className={classes.tableContainer}>
             <Table stickyHeader aria-label='My Activity Table'>
               <TableHead>
@@ -125,6 +125,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       display: 'none',
     }
+  },
+  activityTable: {
+    width: '100%',
   }
 }));
 export default ActivityTable;
