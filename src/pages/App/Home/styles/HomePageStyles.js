@@ -203,6 +203,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     borderRadius: 12,
     float: 'right',
+    maxHeight: 115,
     [theme.breakpoints.down('md')]: {
       float: 'left',
       width: '80%',
@@ -304,6 +305,11 @@ const useStyles = makeStyles((theme) => ({
   serviceDesc: {
     margin: 'revert',
     color: grey,
+  },
+  questionImg: {
+    borderRadius: 12,
+    height: 115,
+    width: 115,
   },
 }));
 
