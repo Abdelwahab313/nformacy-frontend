@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, InputBase, Divider, Link, Box } from '@material-ui/core';
+import { Grid, Box } from '@material-ui/core';
 import ProfileSummaryCard from './subComponents/ProfileSummaryCard';
 import useStyles from './styles/HomePageStyles';
 import CalendarCard from './subComponents/CalendarCard';
@@ -11,9 +11,9 @@ import ActivityTable from './subComponents/ActivityTable';
 import FeedsTimeline from './subComponents/FeedsTimeline';
 import Direction from 'components/grid/Direction';
 import LibraryCard from './subComponents/LibraryCard';
-import CustomTypography from 'components/typography/Typography';
 import { CalendarLibraryForMobile } from './subComponents/CalendarLibraryForMobile';
 import HomeHeadBar from './subComponents/HomeHeadBar';
+import AskTheExpertSection from './subComponents/AskTheExpertSection';
 
 const HomePage = () => {
   const classes = useStyles();
@@ -33,58 +33,7 @@ const HomePage = () => {
           <Grid item xs={12} md={9}>
             <Grid container spacing={4}>
               <Grid item xs={12} md={9}>
-                <Box
-                  className={[classes.askQuestionBox, classes.pointsContainer]}>
-                  <Grid container className={classes.askExpertContainer}>
-                    <Grid xs={2} md={1}>
-                      <img
-                        color={'primary'}
-                        src={require('../../../assets/question.svg')}
-                        width={'50%'}
-                      />
-                    </Grid>
-                    <Grid xs={10} md={11}>
-                      <form>
-                        <InputBase
-                          className={classes.askExpertInputField}
-                          placeholder={t('askTheExpert')}
-                        />
-                      </form>
-                    </Grid>
-                  </Grid>
-                  <Divider className={classes.dividers} />
-
-                  <Grid container>
-                    <Grid item xs={8} md={8}>
-                      <Link
-                        underline='none'
-                        className={classes.askQuestionLink}
-                        href='#'
-                        onClick={() => {}}>
-                        {t('writeGreatQuestion')}
-                      </Link>
-                      <Divider
-                        className={[
-                          classes.dividers,
-                          classes.writeQuestionBorder,
-                        ]}
-                      />
-                    </Grid>
-
-                    <Grid item xs={4} md={4} justify='center'>
-                      <SubmitButton
-                        id={'proceedBtn'}
-                        onClick={() => {}}
-                        className={classes.proceedBtn}
-                        buttonText={
-                          <CustomTypography variant='body1'>
-                            {t('proceed')}
-                          </CustomTypography>
-                        }
-                      />
-                    </Grid>
-                  </Grid>
-                </Box>
+                <AskTheExpertSection />
               </Grid>
 
               <Grid item xs={12} md={3}>

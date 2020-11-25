@@ -22,11 +22,12 @@ const ServiceRequestDetails = () => {
   const classes = useStyles();
   const location = useLocation();
   const { t } = useTranslation();
-  const { serviceId, assignmentType } = location?.state?.service;
+  const { serviceId, assignmentType, title } = location?.state?.service;
   const richTextRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [serviceRequest, setServiceRequest] = useState({
     fields: [],
+    title: title,
     assignmentType: assignmentType,
   });
   const { showSuccessMessage, showErrorMessage } = useSnackBar();
