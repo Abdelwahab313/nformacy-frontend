@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContainer: {
     minHeight: 300,
+    padding: theme.spacing(1),
   },
   gotToLibraryBtn: {
     display: 'flex',
@@ -67,17 +68,20 @@ const useStyles = makeStyles((theme) => ({
   },
   clientHomeContainer: {
     maxWidth: 1440,
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.up('sm')]: {
+      padding: [theme.spacing(2), theme.spacing(4)],
+    },
+    [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(3),
     },
   },
   askQuestionBox: {
     padding: theme.spacing(3),
-    margin: 20,
+    // margin: 20,
     backgroundColor: '#f9fafd',
     borderRadius: 20,
     border: '1px solid #ecedf0',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       margin: '10px 0',
       borderRadius: 10,
     },
@@ -120,7 +124,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     color: '#fff',
     textAlign: 'center',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
   },
@@ -151,7 +155,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   clientThreeBtns: {
-    display: 'inline-flex',
     minWidth: '29.5%',
     backgroundColor: '#ffffff',
     [theme.breakpoints.down('md')]: {
@@ -169,7 +172,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   sectionContainer: {
-    margin: 20,
+    marginTop: theme.spacing(3),
   },
   startProcessBtn: {
     width: '75%',
@@ -272,9 +275,6 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  leftSectionContainer: {
-    marginTop: '20px',
-  },
   calendarLibraryContainer: {
     display: 'none',
     [theme.breakpoints.down('md')]: {
@@ -289,14 +289,13 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 20,
   },
   goToLibraryMobileBox: {
-    backgroundColor: '#ed7d31'
+    backgroundColor: '#ed7d31',
   },
-  calendarMarginBottom:{
+  calendarMarginBottom: {
     marginBottom: theme.spacing(1),
     display: 'flex',
-    justifyContent: 'center'
-  }
-
+    justifyContent: 'center',
+  },
 }));
 
 export default useStyles;

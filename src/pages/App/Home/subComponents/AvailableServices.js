@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import useStyles from './../styles/HomePageStyles';
 import SubmitButton from 'components/buttons/SubmitButton';
 import Collapse from '@material-ui/core/Collapse';
@@ -53,23 +53,25 @@ const AvailableServices = () => {
       title={''}
       viewMoreText={t('seeMore')}
       viewMoreUrl={RoutesPaths.Admin.Home}>
-      <Grid className={classes.threeBtnsContainer}>
+      <Grid
+        container
+        className={classes.threeBtnsContainer}
+        justify='space-between'
+        spacing={4}>
         {services.map((service) => (
-          <Grid
-            item
-            xs={3}
-            md={3}
-            className={[classes.askQuestionBox, classes.clientThreeBtns]}>
-            <MobileServiceItem
-              service={service}
-              onServiceClick={() => navigatToServiceForm(service.name)}
-            />
-            <ServiceItem
-              service={service}
-              isFocused={service.name === focusedItem}
-              setFocusedItem={setFocusedItem}
-              onServiceClick={() => navigatToServiceForm(service.name)}
-            />
+          <Grid item xs={4} md={4}>
+            <Box className={[classes.askQuestionBox, classes.clientThreeBtns]}>
+              <MobileServiceItem
+                service={service}
+                onServiceClick={() => navigatToServiceForm(service.name)}
+              />
+              <ServiceItem
+                service={service}
+                isFocused={service.name === focusedItem}
+                setFocusedItem={setFocusedItem}
+                onServiceClick={() => navigatToServiceForm(service.name)}
+              />
+            </Box>
           </Grid>
         ))}
       </Grid>
