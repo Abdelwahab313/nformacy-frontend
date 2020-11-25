@@ -126,7 +126,7 @@ const ServiceItem = ({
           <CustomTypography variant='h6' fontWeight='bold'>
             {service.title}
           </CustomTypography>
-          <CustomTypography variant='body1' fontWeight='light'>
+          <CustomTypography variant='body1' fontWeight='light' className={classes.serviceDesc}>
             {service.description}
           </CustomTypography>
         </Grid>

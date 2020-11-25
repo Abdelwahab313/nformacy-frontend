@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import { lightOrange } from 'styles/colors';
+import { lightOrange, grey } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
   mobileVisible: {
@@ -295,6 +295,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     display: 'flex',
     justifyContent: 'center',
+  },
+  serviceDesc: {
+    margin: 'revert',
+    color: grey,
   },
 }));
 
