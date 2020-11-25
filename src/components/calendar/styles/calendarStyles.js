@@ -41,13 +41,13 @@ export const calendarStyles = (theme) => ({
     backgroundColor: 'transparent',
   },
   dayScaleCell: {
+    padding: 0,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: 'red',
+    color: theme.palette.primary.main,
   },
   table: {
     minWidth: '200px',
-    // minWidth: '200px'
   },
   appointment: {
     borderRadius: '10px',
