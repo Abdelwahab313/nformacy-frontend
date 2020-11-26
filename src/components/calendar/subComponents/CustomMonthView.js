@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import moment from 'moment';
 import TableCell from '@material-ui/core/TableCell';
-import classNames from 'clsx';
-import { MonthView } from '@devexpress/dx-react-scheduler-material-ui';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import { MonthView } from '@devexpress/dx-react-scheduler-material-ui';
+import classNames from 'clsx';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { calendarStyles } from '../styles/calendarStyles';
 import { formatDayAsKey, isSameDate } from '../../../services/dateTimeParser';
 import { darkBlue } from '../../../styles/colors';
-import moment from 'moment';
 import CustomTypography from 'components/typography/Typography';
-import '../styles/calendar.css'
 
 const useStyles = makeStyles(calendarStyles);
 
@@ -49,27 +48,20 @@ const TimeTableCell = React.memo(
       ? { day: 'numeric', month: 'short' }
       : { day: 'numeric' };
 
-    if (
-      (otherMonth &&
+    const isInavlidRow = () => {
+      const isInvalidPreviousMonth =
         formatDate(startDate, { day: 'numeric' }) > 20 &&
-        formatDate(startDate, { weekday: 'short' }) === 'Sat') ||
-      (otherMonth &&
+        formatDate(startDate, { weekday: 'short' }) === 'Sat';
+      const isInvalidNextMonth =
         formatDate(startDate, { day: 'numeric' }) <= 9 &&
-        formatDate(startDate, { weekday: 'short' }) === 'Sun')
-    ) {
-      return (
-        <TableCell
-          className={classNames({
-            [classes.removeRow]: true,
-            removeRow: true,
-          })}>
-          5
-        </TableCell>
-      );
-    }
+        formatDate(startDate, { weekday: 'short' }) === 'Sun';
+
+      return otherMonth && (isInvalidPreviousMonth || isInvalidNextMonth);
+    };
     return (
       <TableCell
         style={isAvailableDay ? { backgroundColor: darkBlue } : {}}
+        id={isInavlidRow() && 'invalidRow'}
         onClick={dayClicked}
         tabIndex={0}
         data-day={moment(startDate).format('DD-MM')}
@@ -125,6 +117,10 @@ const CustomMonthView = ({
   isInteractable,
   onDayClick,
 }) => {
+  useEffect(() => {
+    // remove invalid other month row
+    document.getElementById('invalidRow').parentElement.remove();
+  }, []);
   return (
     <MonthView
       timeTableCellComponent={(props) => (
