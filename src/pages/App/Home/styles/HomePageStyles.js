@@ -129,6 +129,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     color: '#fff',
     textAlign: 'center',
+  },
+  displayDesktop: {
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },

@@ -12,7 +12,12 @@ const PointsBox = () => {
   const { t } = useTranslation();
 
   return (
-    <Box className={[classes.askQuestionBox, classes.pointsBox]}>
+    <Box
+      className={[
+        classes.askQuestionBox,
+        classes.pointsBox,
+        classes.displayDesktop,
+      ]}>
       <Grid
         container
         direction='column'

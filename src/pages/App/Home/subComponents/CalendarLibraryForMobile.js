@@ -15,7 +15,7 @@ export const CalendarLibraryForMobile = () => {
         <div className={classes.calendarMarginBottom}>
           <img
             color={'primary'}
-            src={require('../../../../assets/calendar.svg')}
+            src={require('../../../../assets/icons/calendar.svg')}
             width={'30px'}
           />
         </div>
@@ -31,7 +31,7 @@ export const CalendarLibraryForMobile = () => {
         <div className={classes.calendarMarginBottom}>
           <img
             color={'primary'}
-            src={require('../../../../assets/library.svg')}
+            src={require('../../../../assets/icons/library.svg')}
             width={'30px'}
           />
         </div>

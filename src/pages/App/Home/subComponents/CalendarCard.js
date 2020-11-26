@@ -28,9 +28,8 @@ const CalendarCard = ({ currentUser }) => {
         {authManager.isNormalUser() && (
           <Box m={1}>
             <SubmitButton
-              variant='text'
               id={'open-update-calendar-dialog-btn'}
-              className={classes.calendarCardButton}
+              // className={classes.calendarCardButton}
               buttonText={
                 <CustomTypography
                   align={'center'}

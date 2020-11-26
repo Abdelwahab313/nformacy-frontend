@@ -11,7 +11,12 @@ const RankBox = () => {
   const { t } = useTranslation();
 
   return (
-    <Box className={[classes.askQuestionBox, classes.marginBottom]}>
+    <Box
+      className={[
+        classes.askQuestionBox,
+        classes.marginBottom,
+        classes.displayDesktop,
+      ]}>
       <Grid
         container
         direction='column'

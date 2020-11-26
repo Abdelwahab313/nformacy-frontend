@@ -17,6 +17,11 @@ const LibraryCard = () => {
         justify='space-evenly'
         alignItems='center'
         className={classes.cardContainer}>
+        <img
+          color={'primary'}
+          src={require('../../../../assets/icons/library.svg')}
+          width={'30px'}
+        />
         <CustomTypography align={'center'} variant='h6' fontWeight='bold'>
           Library of Resources
         </CustomTypography>

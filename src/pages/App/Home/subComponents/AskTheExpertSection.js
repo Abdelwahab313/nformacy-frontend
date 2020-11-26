@@ -17,7 +17,7 @@ const AskTheExpertSection = () => {
 
   const onClickProceed = () => {
     history.push(RoutesPaths.App.ServiceRequestDetails, {
-      service: { assignmentType: 'question', title: questionTitle },
+      service: { assignmentType: 'question', content: questionTitle },
     });
   };
 
