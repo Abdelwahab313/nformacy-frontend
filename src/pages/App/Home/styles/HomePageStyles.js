@@ -58,6 +58,11 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 300,
     padding: theme.spacing(1),
   },
+  calendarCardButton: {
+    backgroundColor: 'transparent !important',
+    color: '#202020 !important',
+    textDecoration: 'underline',
+  },
   gotToLibraryBtn: {
     display: 'flex',
     alignItems: 'center',

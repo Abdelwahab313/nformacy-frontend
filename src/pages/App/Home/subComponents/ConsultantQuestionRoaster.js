@@ -36,7 +36,7 @@ const ConsultantQuestionRoaster = () => {
   }
   return (
     <Box className={classes.askQuestionBox}>
-      <CustomTypography variant='h5' fontWeight='bold'>
+      <CustomTypography variant='h5' fontWeight='bold' gutterBottom>
         Top Active Questions in the Question Roaster
       </CustomTypography>
       <Box height={500} overflow={'scroll'}>

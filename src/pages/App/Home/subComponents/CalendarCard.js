@@ -8,6 +8,7 @@ import SubmitButton from '../../../../components/buttons/SubmitButton';
 import Typography from '@material-ui/core/Typography';
 import AvailableTimesCalendarDialog from '../../../../components/calendarDialogs/AvailableTimes/AvailableTimesCalendarDialog';
 import authManager from 'services/authManager';
+import CustomTypography from 'components/typography/Typography';
 
 const CalendarCard = ({ currentUser }) => {
   const [isCalendarDialogOpen, setIsCalendarDialog] = useState(false);
@@ -27,11 +28,16 @@ const CalendarCard = ({ currentUser }) => {
         {authManager.isNormalUser() && (
           <Box m={1}>
             <SubmitButton
+              variant='text'
               id={'open-update-calendar-dialog-btn'}
+              className={classes.calendarCardButton}
               buttonText={
-                <Typography align={'center'} variant='body2'>
+                <CustomTypography
+                  align={'center'}
+                  variant='body2'
+                  fontWeight='bold'>
                   Update your Available Times
-                </Typography>
+                </CustomTypography>
               }
               onClick={openCalendarDialog}
             />
