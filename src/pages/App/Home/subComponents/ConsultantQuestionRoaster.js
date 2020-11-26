@@ -43,7 +43,10 @@ const ConsultantQuestionRoaster = () => {
         {Questions.slice(0, 5).map((question) => (
           <Grid item>
             <Grid container alignItems='center' justify='space-between'>
-              <Grid item xs={9} md={9} className={classes.feedsLeftSide}>
+              <Grid
+                item
+                xs={!!question.thumbnailUrl ? 9 : 12}
+                className={classes.feedsLeftSide}>
                 <CustomTypography
                   align={'left'}
                   variant='body2'
@@ -66,13 +69,15 @@ const ConsultantQuestionRoaster = () => {
                 <QuestionFieldsChips questionDetails={question} />
               </Grid>
 
-              <Grid item xs={3} md={3} className={classes.feedsRightSide}>
-                <img
-                  className={classes.questionImg}
-                  color={'primary'}
-                  src={require('../../../../assets/feeds1.jpg')}
-                />
-              </Grid>
+              {!!question.thumbnailUrl && (
+                <Grid item xs={3} md={3} className={classes.feedsRightSide}>
+                  <img
+                    className={classes.questionImg}
+                    color={'primary'}
+                    src={question.thumbnailUrl}
+                  />
+                </Grid>
+              )}
             </Grid>
             <Divider className={classes.dividers} />
           </Grid>
