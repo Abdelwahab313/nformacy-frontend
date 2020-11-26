@@ -59,6 +59,7 @@ export const calendarStyles = (theme) => ({
   },
   appointment: {
     borderRadius: '10px',
+    top: 10,
     '&:hover': {
       opacity: 0.6,
     },
