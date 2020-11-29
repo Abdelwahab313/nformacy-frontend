@@ -27,7 +27,7 @@ const ServiceRequestDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [serviceRequest, setServiceRequest] = useState({
     fields: [],
-    content: content,
+    content: assignmentType === 'call' ? CONTENT_FOR_CALL : content,
     assignmentType: assignmentType,
   });
   const { showSuccessMessage, showErrorMessage } = useSnackBar();
@@ -151,5 +151,8 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
   },
 }));
+
+const CONTENT_FOR_CALL =
+  '<ul><li style="font-weight: 400;"><span style="font-weight: 400; background-color: #ffffff; color: #34495e;">What is the purpose of call?</span></li><li style="font-weight: 400;"><span style="font-weight: 400; background-color: #ffffff; color: #34495e;">What do you want to achieve at the end of the call?</span></li><li style="font-weight: 400;"><span style="font-weight: 400; background-color: #ffffff; color: #34495e;">What are the issues you want to discuss in the call?</span></li><li style="font-weight: 400;"><span style="font-weight: 400; background-color: #ffffff; color: #34495e;">Is there any specific information we need to know before the call?</span></li><li style="font-weight: 400;"><span style="font-weight: 400; background-color: #ffffff; color: #34495e;">Is there any specific requirements in the expert you want to talk?</span></li></ul>';
 
 export default ServiceRequestDetails;

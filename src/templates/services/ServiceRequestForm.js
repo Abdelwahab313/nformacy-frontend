@@ -21,6 +21,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { red } from 'styles/colors';
 import { SERVICE_STATUS } from 'constants/questionStatus';
 import authManager from 'services/authManager';
+import AttachmentUploader from 'components/forms/AttachmentUploader';
 
 const useSelectStyles = makeStyles(() => ({
   disabledStyle: {
@@ -200,6 +201,27 @@ const ServiceRequestForm = ({
               />
             </Grid>
           </Grid>
+          {(serviceRequest.assignmentType === 'call') && (
+            <Grid
+              item
+              xs={6}
+              // className={`${questionRoasterClasses.answerButtonsContainer} ${classes.attachmentContainer}`}
+            >
+              <AttachmentUploader
+                // containerClassName={
+                //   // questionRoasterClasses.attachmentUploaderContainer
+                // }
+                attachments={serviceRequest.attachments}
+                attachmentsGroupsId={serviceRequest.attachmentsGroupsId}
+                setAttachmentsGroupsId={(attachmentsGroupsId) => {
+                  onChangeField(
+                    'attachmentsGroupsId',
+                    attachmentsGroupsId,
+                  );
+                }}
+              />
+            </Grid>
+          )}
         </GridItem>
       </GridContainer>
     </CardBody>
