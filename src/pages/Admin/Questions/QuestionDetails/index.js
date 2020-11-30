@@ -16,8 +16,10 @@ import { useStyles } from '../../../../styles/Admin/questionFormStyles';
 import AnswerView from './subComponents/AnswerView';
 import authManager from '../../../../services/authManager';
 import { QuestionProvider, useQuestionContext } from './context';
-import { Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { updateQuestionDetails } from './context/questionAction';
+import { useSnackBar } from 'context/SnackBarContext';
+import { QUESTION_STATUS } from 'constants/questionStatus';
 
 const QuestionDetailsPage = () => {
   const classes = useStyles();
@@ -29,7 +31,8 @@ const QuestionDetailsPage = () => {
   const location = useLocation();
   const questionId = location?.state?.questionId;
   const isNewQuestion = !questionId;
-
+  const [shortlisted, setShortlisted] = useState([]);
+  const { showErrorMessage } = useSnackBar();
   useEffect(() => {
     setIsLoading(true);
     fetchQuestionDetails(questionId)
@@ -49,9 +52,31 @@ const QuestionDetailsPage = () => {
     },
     [questionDetails, dispatch],
   );
+  const allowCheck = (answer) => {
+    return (
+      shortlisted.length < 3 ||
+      shortlisted.some((item) => item.id === answer.id)
+    );
+  };
+  const addRemoveAnswerToShortlistedArray = (answer) => {
+    if (shortlisted.indexOf(answer) === -1) {
+      setShortlisted([...shortlisted, answer]);
+    } else {
+      setShortlisted(shortlisted.filter((item) => item.id !== answer.id));
+    }
+  };
+  const changeCheck = (answer) => {
+    if (allowCheck(answer)) {
+      addRemoveAnswerToShortlistedArray(answer);
+    } else {
+      showErrorMessage(
+        'You already have 3 shortlisted please remove one first',
+      );
+    }
+  };
 
   if (isLoading) {
-    return <LoadingCircle/>;
+    return <LoadingCircle />;
   }
 
   const onDeployQuestionClicked = () => {
@@ -72,27 +97,66 @@ const QuestionDetailsPage = () => {
               {isNewQuestion ? 'Add Question' : 'Edit Question'}
             </Typography>
           </CardHeader>
-          <QuestionForm isNewQuestion={isNewQuestion}/>
+          <QuestionForm isNewQuestion={isNewQuestion} />
           <CardFooter className={classes.footerButtons}>
             {!isNewQuestion &&
-            authManager.isAdmin() &&
-            questionDetails.state === 'pending_deployment_to_roaster' && (
-              <Button
-                id={'approveQuestion'}
-                disabled={isLoadingForUpdating}
-                onClick={onDeployQuestionClicked}
-                color='primary'>
-                Deploy to question roaster
-              </Button>
-            )}
+              authManager.isAdmin() &&
+              questionDetails.state === 'pending_deployment_to_roaster' && (
+                <Button
+                  id={'approveQuestion'}
+                  disabled={isLoadingForUpdating}
+                  onClick={onDeployQuestionClicked}
+                  color='primary'>
+                  Deploy to question roaster
+                </Button>
+              )}
           </CardFooter>
         </Card>
       </GridItem>
+      {!!shortlisted.length && (
+        <GridItem xs={12}>
+          <Card>
+            <CardHeader color='primary'>
+              <Typography component={'h4'} id={'shortlistedAnswer-header'}>
+                Shortlisted
+              </Typography>
+            </CardHeader>
+            {shortlisted?.map((answer, index) => (
+              <Box
+                mx={4}
+                id={'shortlisted' + answer.referenceNumber}
+                key={`shortlistedAnswer-${index}`}>
+                <AnswerView
+                  answer={answer}
+                  index={index}
+                  setRating={setRating}
+                  changeCheck={changeCheck}
+                  isShortListed={true}
+                  showShortListOption={
+                    questionDetails.state === QUESTION_STATUS.shortlisting
+                  }
+                />
+              </Box>
+            ))}
+          </Card>
+        </GridItem>
+      )}
       {!isNewQuestion && questionDetails.answers && (
         <GridItem xs={12}>
           {questionDetails.answers?.map((answer, index) => (
             <div id={answer.referenceNumber} key={`answer-${index}`}>
-              <AnswerView answer={answer} index={index} setRating={setRating}/>
+              <AnswerView
+                answer={answer}
+                index={index}
+                setRating={setRating}
+                changeCheck={changeCheck}
+                showShortListOption={
+                  questionDetails.state === QUESTION_STATUS.shortlisting
+                }
+                isShortListed={shortlisted.some(
+                  (item) => item.id === answer.id,
+                )}
+              />
             </div>
           ))}
         </GridItem>

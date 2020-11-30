@@ -25,21 +25,28 @@ jest.mock('apis/questionsAPI', () => ({
       isApproved: true,
       mediaId: null,
       referenceNumber: 2000100,
-      state: 'pending_adviser_acceptance',
+      state: 'freelancer_answers',
       subfield: [{ value: 'marketResearch', label: 'Market Research' }],
       title: 'Elmer',
       answers: [
         {
           content: 'test content',
-          createdAt: '2020-10-14T09:25:55.689Z'
+          createdAt: '2020-10-14T09:25:55.689Z',
         },
       ],
     },
   }),
 }));
 
-jest.mock('hooks/localization/useLocale', () => jest.fn().mockReturnValue({
-  locale: 'en',
+jest.mock('hooks/localization/useLocale', () =>
+  jest.fn().mockReturnValue({
+    locale: 'en',
+  }),
+);
+jest.mock('context/SnackBarContext', () => ({
+  useSnackBar: jest.fn().mockResolvedValue({
+    showErrorMessage: jest.fn(),
+  }),
 }));
 
 it('should match snapshot', async () => {
@@ -48,7 +55,7 @@ it('should match snapshot', async () => {
   const { asFragment } = render(
     <Router history={history}>
       <AuthProvider>
-        <QuestionDetails/>
+        <QuestionDetails />
       </AuthProvider>
     </Router>,
   );

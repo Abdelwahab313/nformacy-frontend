@@ -23,12 +23,21 @@ import ShowMore from '../../../../../components/typography/ShowMore';
 import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 import useLocale from '../../../../../hooks/localization/useLocale';
 import { useTranslation } from 'react-i18next';
+import { Checkbox, FormControlLabel } from '@material-ui/core';
 
-const AnswerView = ({ answer, index, setRating }) => {
+const AnswerView = ({
+  answer,
+  index,
+  setRating,
+  changeCheck,
+  isShortListed,
+  showShortListOption,
+}) => {
   const classes = useStyles();
   const { local } = useLocale();
   const { t } = useTranslation();
   const [answerState, setAnswerState] = useState(answer.state);
+
   const onChangeRating = (index, newValue) => {
     setRating(index, newValue);
     rateAnswer(answer.id, newValue);
@@ -51,7 +60,9 @@ const AnswerView = ({ answer, index, setRating }) => {
       setAnswerState(response.data.state);
     });
   };
-
+  const checkBoxChange = (answer) => {
+    changeCheck(answer);
+  };
   return (
     <Fragment>
       <div className={answerState === 'rejected' ? classes.rejectedAnswer : ''}>
@@ -82,9 +93,7 @@ const AnswerView = ({ answer, index, setRating }) => {
             )}
           </GridItem>
           <GridItem xs={12} className={classes.answerRowStyles}>
-            <Grid
-              container
-              className={classes.answerFieldStyle}>
+            <Grid container className={classes.answerFieldStyle}>
               <Typography className={classes.answerFieldLabel}>
                 {`${t('consultant')}:`}
               </Typography>
@@ -117,6 +126,23 @@ const AnswerView = ({ answer, index, setRating }) => {
               />
             ))}
           </GridItem>
+          {answerState == 'accepted' && showShortListOption && (
+            <GridItem xs={12} className={classes.answerRowStyles}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    onChange={() => checkBoxChange(answer)}
+                    name='shortlist'
+                    color='primary'
+                    checked={isShortListed}
+                  />
+                }
+                label={
+                  isShortListed ? 'Remove from Shortlist' : 'Add to Shortlist'
+                }
+              />
+            </GridItem>
+          )}
           <GridItem xs={2} className={classes.answerRowStyles}>
             {authManager.isAdviser() && (
               <Rating
@@ -144,14 +170,16 @@ const AnswerView = ({ answer, index, setRating }) => {
             )}
           </GridItem>
           <Grid container direction='row-reverse' alignItems='flex-end'>
-            {authManager.isAdmin() && answerState != 'pending' && (
-              <SubmitButton
-                id={`rollback-${answer.referenceNumber}`}
-                className={classes.rollbackButton}
-                onClick={() => onRollback()}
-                buttonText={t('rollback')}
-              />
-            )}
+            {authManager.isAdmin() &&
+              answerState != 'pending' &&
+              !showShortListOption && (
+                <SubmitButton
+                  id={`rollback-${answer.referenceNumber}`}
+                  className={classes.rollbackButton}
+                  onClick={() => onRollback()}
+                  buttonText={t('rollback')}
+                />
+              )}
             {authManager.isClient() && (
               <SubmitButton
                 id={`call-${answer.referenceNumber}`}
