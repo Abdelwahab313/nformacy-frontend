@@ -13,5 +13,7 @@
   "admin_questionStarted_action": "Launch QR Cycle",
   "admin_questionStarted_status": "Verified",
   "client_collecting_answers_status": "Rating Answer",
-  "client_collecting_answers_action": "View Answers"
+  "client_collecting_answers_action": "View Answers",
+  "admin_shortlisting_status": "Short List Candidates",
+  "admin_shortlisting_action": "Short Listing"
 }

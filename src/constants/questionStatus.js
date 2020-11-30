@@ -6,6 +6,7 @@ const QUESTION_STATUS = {
   pendingDeploymentToRoaster: 'pending_deployment_to_roaster',
   freelancerAnswers: 'freelancer_answers',
   answersRating: 'answers_rating',
+  shortlisting: 'shortlisting',
   closed: 'closed',
 };
 
@@ -18,88 +19,132 @@ const SERVICE_STATUS = {
 };
 
 const serviceActions = {
-  client: {
-    [SERVICE_STATUS.draft]: {
-      action: 'client_draft_action',
-      status: 'client_draft_status',
+  [SERVICE_STATUS.draft]: {
+    status: {
+      client: 'client_draft_status',
     },
-    [SERVICE_STATUS.pending]: {
-      action: '',
-      status: 'client_pending_status',
-    },
-    [SERVICE_STATUS.returned]: {
-      action: 'client_returned_action',
-      status: 'client_returned_status',
-    },
-    [SERVICE_STATUS.questionStarted]: {
-      action: '',
-      status: 'client_questionStarted_status',
-    },
-    [SERVICE_STATUS.answersCollected]: {
-      action: 'client_answersCollected_action',
-      status: 'client_answersCollected_status',
+    action: {
+      client: 'client_draft_action',
     },
   },
-  admin: {
-    [SERVICE_STATUS.pending]: {
-      action: 'admin_pending_action',
-      status: 'admin_pending_status',
+  [SERVICE_STATUS.pending]: {
+    status: {
+      client: 'client_pending_status',
+      admin: 'admin_pending_status',
     },
-    [SERVICE_STATUS.returned]: {
-      action: '',
-      status: 'admin_returned_status',
+    action: {
+      admin: 'admin_pending_action',
     },
-    [SERVICE_STATUS.questionStarted]: {
-      action: 'admin_questionStarted_action',
-      status: 'admin_questionStarted_status',
+  },
+  [SERVICE_STATUS.returned]: {
+    status: {
+      client: 'client_returned_status',
+      admin: 'admin_returned_status',
     },
-    [SERVICE_STATUS.answersCollected]: {
-      action: 'admin_questionStarted_action',
-      status: 'admin_questionStarted_status',
+    action: {
+      client: 'client_returned_action',
+    },
+  },
+  [SERVICE_STATUS.questionStarted]: {
+    status: {
+      client: 'client_questionStarted_status',
+      admin: 'admin_questionStarted_status',
+    },
+    action: {
+      admin: 'admin_questionStarted_action',
+    },
+  },
+  [SERVICE_STATUS.answersCollected]: {
+    status: {
+      client: 'client_answersCollected_status',
+      admin: 'admin_questionStarted_status',
+    },
+    action: {
+      client: 'client_answersCollected_action',
     },
   },
 };
 
 const questionStatusActions = {
   [QUESTION_STATUS.draft]: {
-    admin: 'Complete Question Form',
-    adviser: '',
-    displayString: 'Draft',
+    status: {
+      displayString: 'Draft',
+    },
+    action: {
+      admin: 'Complete Question Form',
+    },
   },
   [QUESTION_STATUS.pendingAssignment]: {
-    admin: 'Assign adviser',
-    adviser: '',
-    displayString: 'Adviser Assignment',
+    status: {
+      displayString: 'Adviser Assignment',
+    },
+    action: {
+      admin: 'Assign adviser',
+      adviser: '',
+    },
   },
   [QUESTION_STATUS.pendingAdviserAcceptance]: {
-    admin: '',
-    adviser: 'Accept Question',
-    displayString: 'Adviser Acceptance',
+    status: {
+      displayString: 'Adviser Acceptance',
+    },
+    action: {
+      admin: '',
+      adviser: 'Accept Question',
+    },
   },
   [QUESTION_STATUS.reviewAndEdit]: {
-    admin: '',
-    adviser: 'Review',
-    displayString: 'Advisor Review',
+    status: {
+      displayString: 'Advisor Review',
+    },
+    action: {
+      admin: '',
+      adviser: 'Review',
+    },
   },
   [QUESTION_STATUS.pendingDeploymentToRoaster]: {
-    admin: 'Post Q to Roaster',
-    adviser: '',
-    displayString: 'Posting to Roaster',
+    status: {
+      displayString: 'Posting to Roaster',
+    },
+    action: {
+      admin: 'Post Q to Roaster',
+      adviser: '',
+    },
   },
   [QUESTION_STATUS.freelancerAnswers]: {
-    admin: 'Approve Answers',
-    adviser: 'Rating Answers',
-    displayString: 'Answering',
+    status: {
+      displayString: 'Answering',
+    },
+    action: {
+      admin: 'Approve Answers',
+      adviser: 'Rating Answers',
+    },
   },
   [QUESTION_STATUS.answersRating]: {
-    admin: 'Approve Answers',
-    adviser: 'Rating Answers',
-    displayString: 'Rating Answers',
+    status: {
+      displayString: 'Rating Answers',
+    },
+    action: {
+      admin: 'Approve Answers',
+      adviser: 'Rating Answers',
+    },
+  },
+  [QUESTION_STATUS.shortlisting]: {
+    status: {
+      displayString: 'Short Listing',
+    },
+    action: {
+      admin: 'Short List Candidates',
+      adviser: '',
+    },
   },
   [QUESTION_STATUS.closed]: {
-    admin: '',
-    adviser: '',
-    displayString: 'Closed',
+    status: {
+      displayString: 'Closed',
+    },
+    action: {
+      admin: '',
+      adviser: '',
+    },
   },
 };
 

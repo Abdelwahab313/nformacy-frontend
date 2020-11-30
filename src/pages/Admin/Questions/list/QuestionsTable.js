@@ -210,7 +210,7 @@ const getColumnsFor = (isAdviser, classes) => {
         filter: true,
         sort: true,
         customBodyRender: (value) => {
-          return questionStatusActions[value].displayString;
+          return questionStatusActions[value].status.displayString;
         },
       },
     },
@@ -223,7 +223,7 @@ const getColumnsFor = (isAdviser, classes) => {
         sort: false,
         customBodyRender: (value, tableMeta) => {
           const actionNeeded =
-            questionStatusActions[value][isAdviser ? 'adviser' : 'admin'];
+            questionStatusActions[value].action[isAdviser ? 'adviser' : 'admin'];
 
           if (!actionNeeded) {
             return '';

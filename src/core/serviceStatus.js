@@ -11,10 +11,10 @@ export const getServiceStatus = (status, questionState) => {
     return 'client_collecting_answers_status';
   }
   if (status === SERVICE_STATUS.questionStarted && authManager.isAdmin()) {
-    return questionStatusActions[questionState].displayString;
+    return questionStatusActions[questionState].status.displayString;
   }
   const currentUserRole = authManager.getUserRole();
-  return serviceActions[currentUserRole][status]?.status;
+  return serviceActions[status]?.status[currentUserRole];
 };
 
 export const getServiceAction = (status, questionState) => {
@@ -22,10 +22,10 @@ export const getServiceAction = (status, questionState) => {
     return 'client_collecting_answers_action';
   }
   if (status === SERVICE_STATUS.questionStarted && authManager.isAdmin()) {
-    return questionStatusActions[questionState].admin;
+    return questionStatusActions[questionState].action.admin;
   }
   const currentUserRole = authManager.getUserRole();
-  return serviceActions[currentUserRole][status]?.action;
+  return serviceActions[status]?.action[currentUserRole];
 };
 
 export const isAnsweringState = (questionState) => {

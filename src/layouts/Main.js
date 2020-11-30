@@ -24,6 +24,7 @@ import { useTranslation } from 'react-i18next';
 import DIRECTIONS from '../constants/direction';
 import moment from 'moment';
 import SnackBarWrapper from 'components/feedback/SnackBarWrapper';
+import LoadingCircle from 'components/progress/LoadingCircle';
 
 const presets = preset().plugins;
 
@@ -32,7 +33,7 @@ const jss = create({ plugins: [...presets, rtl()] });
 const queryCache = new QueryCache();
 
 function Main() {
-  const [, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true);
   const { i18n } = useTranslation();
   const { locale } = useLocale();
   moment.locale(locale);
@@ -43,6 +44,9 @@ function Main() {
     });
   }, [locale]);
 
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
   let theme = createMuiTheme({
     direction: DIRECTIONS[locale],
     palette: {
