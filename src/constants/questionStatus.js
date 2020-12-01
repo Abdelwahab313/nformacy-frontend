@@ -15,6 +15,7 @@ const SERVICE_STATUS = {
   pending: 'pending',
   returned: 'returned_to_client',
   questionStarted: 'question_started',
+  clientSelection: 'client_selection',
   answersCollected: 'answers_collected',
 };
 
@@ -52,6 +53,15 @@ const serviceActions = {
     },
     action: {
       admin: 'admin_questionStarted_action',
+    },
+  },
+  [SERVICE_STATUS.clientSelection]: {
+    status: {
+      client: 'client_clientSelection_status',
+      admin: 'admin_clientSelection_status',
+    },
+    action: {
+      client: 'client_shortlisting_action',
     },
   },
   [SERVICE_STATUS.answersCollected]: {

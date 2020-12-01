@@ -15,5 +15,7 @@
   "client_collecting_answers_status": "Rating Answer",
   "client_collecting_answers_action": "View Answers",
   "admin_shortlisting_status": "Short List Candidates",
-  "admin_shortlisting_action": "Short Listing"
+  "admin_clientSelection_status": "Client Selection",
+  "client_clientSelection_status": "Client Selection",
+  "client_shortlisting_action": "Select from Candidates"
 }

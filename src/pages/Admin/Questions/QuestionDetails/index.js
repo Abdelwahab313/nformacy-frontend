@@ -10,7 +10,10 @@ import CardFooter from 'components/card/CardFooter.js';
 import { useHistory, useLocation } from 'react-router';
 import { fetchQuestionDetails } from 'apis/questionsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
-import { approveQuestion } from '../../../../apis/questionsAPI';
+import {
+  approveQuestion,
+  submitShortlisted,
+} from '../../../../apis/questionsAPI';
 import QuestionForm from './subComponents/QuestionForm';
 import { useStyles } from '../../../../styles/Admin/questionFormStyles';
 import AnswerView from './subComponents/AnswerView';
@@ -22,6 +25,7 @@ import { useSnackBar } from 'context/SnackBarContext';
 import { QUESTION_STATUS } from 'constants/questionStatus';
 import SubmitButton from 'components/buttons/SubmitButton';
 import { shortlistAnswer } from '../../../../apis/answersAPI';
+import { RoutesPaths } from 'constants/routesPath';
 
 const QuestionDetailsPage = () => {
   const classes = useStyles();
@@ -35,7 +39,7 @@ const QuestionDetailsPage = () => {
   const isNewQuestion = !questionId;
   const [shortlisted, setShortlisted] = useState([]);
   const [shortlistedIds, setShortlistedIds] = useState([]);
-  const { showErrorMessage } = useSnackBar();
+  const { showErrorMessage, showSuccessMessage } = useSnackBar();
   useEffect(() => {
     setIsLoading(true);
     fetchQuestionDetails(questionId)
@@ -80,15 +84,22 @@ const QuestionDetailsPage = () => {
       );
     }
   };
-  const saveShortlisted = () => {
-    setIsLoading(true);
-    shortlistAnswer(shortlistedIds).then(() => {
-      setIsLoading(false);
-    });
+  const onSubmitShortlisted = () => {
+    shortlistAnswer(shortlistedIds)
+      .then(() => {
+        submitShortlisted(questionDetails.id).then(() => {
+          showSuccessMessage('Candidates will be sent to the client!');
+          history.push(RoutesPaths.Admin.Services);
+        });
+      })
+      .catch(() => {
+        showErrorMessage('Something went wrong!');
+      });
   };
   const getShortlistedAnswers = (answers) => {
     setShortlisted(answers.filter((item) => item.state === 'shortlisted'));
   };
+
   if (isLoading) {
     return <LoadingCircle />;
   }
@@ -152,20 +163,16 @@ const QuestionDetailsPage = () => {
                 />
               </Box>
             ))}
-            <Box m={2} display='flex' justifyContent='flex-end'>
-              <SubmitButton
-                id={'save'}
-                className={classes.rollbackButton}
-                onClick={() => saveShortlisted()}
-                buttonText={'save'}
-              />
-              <SubmitButton
-                id={'notify'}
-                className={classes.rollbackButton}
-                onClick={() => {}}
-                buttonText={'send to candidates'}
-              />
-            </Box>
+            {questionDetails.state === QUESTION_STATUS.shortlisting && (
+              <Box m={2} display='flex' justifyContent='flex-end'>
+                <SubmitButton
+                  id={'notify'}
+                  className={classes.rollbackButton}
+                  onClick={() => onSubmitShortlisted()}
+                  buttonText={'send to candidates'}
+                />
+              </Box>
+            )}
           </Card>
         </GridItem>
       )}

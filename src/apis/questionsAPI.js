@@ -139,3 +139,10 @@ export const extendTime = (questionId, addedTime) => {
     data: decamelizeKeys({ addedTime }),
   }).then((response) => camelizeKeys(response));
 };
+
+export const submitShortlisted = (questionId) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/questions/${questionId}/submit_shortlisted`,
+  }).then((response) => camelizeKeys(response));
+};

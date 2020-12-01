@@ -4,13 +4,14 @@ import { useLocation } from 'react-router';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { fetchQuestionDetails } from 'apis/questionsAPI';
 import useFetchData from 'hooks/useFetchData';
-import { Grid } from '@material-ui/core';
+import { Box, Card, Grid, Typography } from '@material-ui/core';
 import QuestionView from 'pages/App/QuestionRoaster/subComponents/QuestionView';
 import GridItem from 'components/grid/GridItem';
 import AnswerView from 'pages/Admin/Questions/QuestionDetails/subComponents/AnswerView';
 import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import Direction from 'components/grid/Direction';
+import CardHeader from 'components/card/CardHeader';
 
 const QuestionDetails = () => {
   const location = useLocation();
@@ -22,6 +23,9 @@ const QuestionDetails = () => {
   if (isLoading) {
     return <LoadingCircle />;
   }
+  const shortlisted = questionDetails.answers.filter(
+    (item) => item.state === 'shortlisted',
+  );
 
   return (
     <Direction>
@@ -32,6 +36,29 @@ const QuestionDetails = () => {
             questionDetails={questionDetails}
             isSubmitVisible={false}
           />
+          {!!shortlisted.length && (
+            <GridItem xs={12}>
+              <Card>
+                <CardHeader color='primary'>
+                  <Typography component={'h4'} id={'shortlistedAnswer-header'}>
+                    Shortlisted
+                  </Typography>
+                </CardHeader>
+                {shortlisted?.map((answer, index) => (
+                  <Box
+                    mx={4}
+                    id={'shortlisted' + answer.referenceNumber}
+                    key={`shortlistedAnswer-${index}`}>
+                    <AnswerView
+                      answer={answer}
+                      index={index}
+                      isShortListed={true}
+                    />
+                  </Box>
+                ))}
+              </Card>
+            </GridItem>
+          )}
           {!!questionDetails.answers && (
             <GridItem xs={12}>
               {questionDetails.answers?.map((answer, index) => (
