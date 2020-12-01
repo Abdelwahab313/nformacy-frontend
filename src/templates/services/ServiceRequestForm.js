@@ -208,9 +208,6 @@ const ServiceRequestForm = ({
               // className={`${questionRoasterClasses.answerButtonsContainer} ${classes.attachmentContainer}`}
             >
               <AttachmentUploader
-                // containerClassName={
-                //   // questionRoasterClasses.attachmentUploaderContainer
-                // }
                 attachments={serviceRequest.attachments}
                 attachmentsGroupsId={serviceRequest.attachmentsGroupsId}
                 setAttachmentsGroupsId={(attachmentsGroupsId) => {
