@@ -20,6 +20,8 @@ import { Box, Typography } from '@material-ui/core';
 import { updateQuestionDetails } from './context/questionAction';
 import { useSnackBar } from 'context/SnackBarContext';
 import { QUESTION_STATUS } from 'constants/questionStatus';
+import SubmitButton from 'components/buttons/SubmitButton';
+import { shortlistAnswer } from '../../../../apis/answersAPI';
 
 const QuestionDetailsPage = () => {
   const classes = useStyles();
@@ -32,12 +34,14 @@ const QuestionDetailsPage = () => {
   const questionId = location?.state?.questionId;
   const isNewQuestion = !questionId;
   const [shortlisted, setShortlisted] = useState([]);
+  const [shortlistedIds, setShortlistedIds] = useState([]);
   const { showErrorMessage } = useSnackBar();
   useEffect(() => {
     setIsLoading(true);
     fetchQuestionDetails(questionId)
       .then((response) => {
         updateQuestionDetails(dispatch, response.data);
+        getShortlistedAnswers(response.data.answers);
       })
       .finally(() => {
         setIsLoading(false);
@@ -61,8 +65,10 @@ const QuestionDetailsPage = () => {
   const addRemoveAnswerToShortlistedArray = (answer) => {
     if (shortlisted.indexOf(answer) === -1) {
       setShortlisted([...shortlisted, answer]);
+      setShortlistedIds([...shortlistedIds, answer.id]);
     } else {
       setShortlisted(shortlisted.filter((item) => item.id !== answer.id));
+      setShortlistedIds(shortlistedIds.filter((id) => id !== answer.id));
     }
   };
   const changeCheck = (answer) => {
@@ -74,7 +80,15 @@ const QuestionDetailsPage = () => {
       );
     }
   };
-
+  const saveShortlisted = () => {
+    setIsLoading(true);
+    shortlistAnswer(shortlistedIds).then(() => {
+      setIsLoading(false);
+    });
+  };
+  const getShortlistedAnswers = (answers) => {
+    setShortlisted(answers.filter((item) => item.state === 'shortlisted'));
+  };
   if (isLoading) {
     return <LoadingCircle />;
   }
@@ -138,6 +152,20 @@ const QuestionDetailsPage = () => {
                 />
               </Box>
             ))}
+            <Box m={2} display='flex' justifyContent='flex-end'>
+              <SubmitButton
+                id={'save'}
+                className={classes.rollbackButton}
+                onClick={() => saveShortlisted()}
+                buttonText={'save'}
+              />
+              <SubmitButton
+                id={'notify'}
+                className={classes.rollbackButton}
+                onClick={() => {}}
+                buttonText={'send to candidates'}
+              />
+            </Box>
           </Card>
         </GridItem>
       )}

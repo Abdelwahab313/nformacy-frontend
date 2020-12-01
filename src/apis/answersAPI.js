@@ -30,3 +30,11 @@ export const rollbackAnswer = (answerId) => {
     url: `${API_BASE_URL}/answers/${answerId}/rollback`,
   }).then((response) => camelizeKeys(response));
 };
+
+export const shortlistAnswer = (answers_ids) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/answers/shortlist_answers`,
+    data: decamelizeKeys({ answers_ids }),
+  }).then((response) => camelizeKeys(response));
+};
