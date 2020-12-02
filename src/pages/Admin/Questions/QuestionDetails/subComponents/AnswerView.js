@@ -1,9 +1,9 @@
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import React, { Fragment } from 'react';
-import GridContainer from '../../../../../components/grid/GridContainer';
-import GridItem from '../../../../../components/grid/GridItem';
-import { useStyles } from '../../../../../styles/Admin/questionFormStyles';
+import GridContainer from 'components/grid/GridContainer';
+import GridItem from 'components/grid/GridItem';
+import { useStyles } from 'styles/Admin/questionFormStyles';
 import Grid from '@material-ui/core/Grid';
 import Rating from '@material-ui/lab/Rating';
 import {
@@ -11,17 +11,17 @@ import {
   rejectAnswer,
   rollbackAnswer,
   rateAnswer,
-} from '../../../../../apis/answersAPI';
-import authManager from '../../../../../services/authManager';
-import createMarkup from '../../../../../services/markup';
+} from 'apis/answersAPI';
+import authManager from 'services/authManager';
+import createMarkup from 'services/markup';
 import AcceptAndRejectActionButtons from './AcceptAndRejectActionButtons';
 import Tooltip from '@material-ui/core/Tooltip';
 import Divider from '@material-ui/core/Divider';
 import { useState } from 'react';
 import SubmitButton from 'components/buttons/SubmitButton';
-import ShowMore from '../../../../../components/typography/ShowMore';
+import ShowMore from 'components/typography/ShowMore';
 import { formattedDateMonthAndDay } from 'services/dateTimeParser';
-import useLocale from '../../../../../hooks/localization/useLocale';
+import useLocale from 'hooks/localization/useLocale';
 import { useTranslation } from 'react-i18next';
 import { Checkbox, FormControlLabel } from '@material-ui/core';
 
@@ -29,9 +29,10 @@ const AnswerView = ({
   answer,
   index,
   setRating,
-  changeCheck,
+  onCheckAnswer,
   isShortListed,
   showShortListOption,
+  showAcceptAction,
 }) => {
   const classes = useStyles();
   const { local } = useLocale();
@@ -59,9 +60,6 @@ const AnswerView = ({
     rollbackAnswer(answer.id).then((response) => {
       setAnswerState(response.data.state);
     });
-  };
-  const checkBoxChange = (answer) => {
-    changeCheck(answer);
   };
   return (
     <Fragment>
@@ -131,7 +129,7 @@ const AnswerView = ({
               <FormControlLabel
                 control={
                   <Checkbox
-                    onChange={() => checkBoxChange(answer)}
+                    onChange={() => onCheckAnswer(answer.id)}
                     name='shortlist'
                     color='primary'
                     checked={isShortListed}
@@ -156,21 +154,24 @@ const AnswerView = ({
             )}
           </GridItem>
           <GridItem xs={10}>
-            {authManager.isAdmin() && answerState == 'pending' && (
-              <AcceptAndRejectActionButtons
-                acceptButtonProps={{
-                  id: `accept-${answer.referenceNumber}`,
-                  onClick: onAcceptAnswer,
-                }}
-                rejectButtonProps={{
-                  id: `reject-${answer.referenceNumber}`,
-                  onClick: onRejectAnswer,
-                }}
-              />
-            )}
+            {authManager.isAdmin() &&
+              showAcceptAction &&
+              answerState == 'pending' && (
+                <AcceptAndRejectActionButtons
+                  acceptButtonProps={{
+                    id: `accept-${answer.referenceNumber}`,
+                    onClick: onAcceptAnswer,
+                  }}
+                  rejectButtonProps={{
+                    id: `reject-${answer.referenceNumber}`,
+                    onClick: onRejectAnswer,
+                  }}
+                />
+              )}
           </GridItem>
           <Grid container direction='row-reverse' alignItems='flex-end'>
             {authManager.isAdmin() &&
+              showAcceptAction &&
               answerState != 'pending' &&
               !showShortListOption && (
                 <SubmitButton

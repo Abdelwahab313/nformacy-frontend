@@ -6,25 +6,26 @@ import Collapse from '@material-ui/core/Collapse';
 import CustomTypography from 'components/typography/Typography';
 import { lightOrange, lightTurquoise, lighterPink } from 'styles/colors';
 
-const ShortlistCandidate = ({ shortlisted }) => {
+const getUserName = (user) => {
+  return `${user?.firstName[0]}. ${user?.lastName}`;
+};
+
+const ShortlistCandidate = ({ candidates }) => {
   const classes = useStyles();
   const [focusedItem, setFocusedItem] = useState('');
-  const candidateImg = require('../../../../assets/emptyavatar.jpg');
   const shortlistedContainerColors = [lightOrange, lightTurquoise, lighterPink];
   return (
     <Grid
       container
       justify='space-around'
       className={classes.shortlistContainer}>
-      {shortlisted.map((candidate, index) => (
+      {candidates.map((candidate, index) => (
         <Grid item xs={12} md={3}>
           <Box>
             <CandidateItem
-              classes={classes}
               bgcolor={shortlistedContainerColors[index]}
-              candidateImg={candidateImg}
               candidate={candidate}
-              isFocused={candidate.userName === focusedItem}
+              isFocused={candidate.id === focusedItem}
               setFocusedItem={setFocusedItem}
               onCandidateClick={() => {}}
             />
@@ -40,35 +41,36 @@ const CandidateItem = ({
   isFocused,
   setFocusedItem,
   onCandidateClick,
-  candidateImg,
   bgcolor,
-  classes,
 }) => {
+  const classes = useStyles();
+  const defaultImage = require('../../../../../assets/emptyavatar.jpg');
+
   return (
     <div className={classes.candidateContainerBorder}>
       <Collapse in={isFocused} collapsedHeight={350} timeout={500}>
         <Grid
           container
-          onMouseEnter={() => setFocusedItem(candidate.userName)}
+          onMouseEnter={() => setFocusedItem(candidate.id)}
           onMouseLeave={() => setFocusedItem('')}>
           <Box style={{ backgroundColor: bgcolor }}>
             <Grid item xs={12} md={12}>
-              <img src={candidateImg} className={classes.candidateImg} />
+              <img
+                src={!!candidate.avatar ? candidate.avatar : defaultImage}
+                className={classes.candidateImg}
+              />
             </Grid>
           </Box>
           <Box p={2}>
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12}>
               <CustomTypography variant='h6' fontWeight='bold'>
-                {candidate.userName}
+                {getUserName(candidate)}
               </CustomTypography>
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
                 className={classes.candidateDesc}>
-                description about candidate description about candidate
-                description about candidate description about candidate
-                description about candidate description about candidate
-                description about candidate description about candidate
+                {candidate.summary}
               </CustomTypography>
             </Grid>
             <Grid container justify='center' xs={12}>

@@ -11,7 +11,7 @@ import AnswerView from 'pages/Admin/Questions/QuestionDetails/subComponents/Answ
 import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import Direction from 'components/grid/Direction';
-import ShortlistCandidate from 'pages/App/Home/subComponents/ShortlistCandidate';
+import ShortlistCandidate from 'pages/App/Questions/details/subComponents/ShortlistCandidate';
 
 const QuestionDetails = () => {
   const location = useLocation();
@@ -23,9 +23,6 @@ const QuestionDetails = () => {
   if (isLoading) {
     return <LoadingCircle />;
   }
-  const shortlisted = questionDetails.answers.filter(
-    (item) => item.state === 'shortlisted',
-  );
 
   return (
     <Direction>
@@ -36,20 +33,24 @@ const QuestionDetails = () => {
             questionDetails={questionDetails}
             isSubmitVisible={false}
           />
-          <ShortlistCandidate shortlisted={shortlisted} />
-          {!!questionDetails.answers && (
-            <GridItem xs={12}>
-              {questionDetails.answers?.map((answer, index) => (
-                <div id={answer.referenceNumber} key={`answer-${index}`}>
-                  <AnswerView
-                    answer={answer}
-                    index={index}
-                    setRating={() => {}}
-                  />
-                </div>
-              ))}
-            </GridItem>
-          )}
+          {questionDetails.assignmentType === 'call' &&
+            questionDetails.candidates?.length > 0 && (
+              <ShortlistCandidate candidates={questionDetails.candidates} />
+            )}
+          {questionDetails.assignmentType === 'question' &&
+            !!questionDetails.answers && (
+              <GridItem xs={12}>
+                {questionDetails.answers?.map((answer, index) => (
+                  <div id={answer.referenceNumber} key={`answer-${index}`}>
+                    <AnswerView
+                      answer={answer}
+                      index={index}
+                      setRating={() => {}}
+                    />
+                  </div>
+                ))}
+              </GridItem>
+            )}
         </Grid>
       </Grid>
     </Direction>

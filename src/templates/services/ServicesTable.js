@@ -4,7 +4,6 @@ import MUIDataTable from 'mui-datatables';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
-import { RoutesPaths } from 'constants/routesPath';
 import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 
@@ -17,7 +16,10 @@ import LinkText from 'components/typography/LinkText';
 import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
 import { getServiceStatus } from 'core/serviceStatus';
 import ByTimeField from 'pages/Admin/Questions/list/subComponents/ByTimeField';
-import { getServiceDetailsLink } from 'services/navigation';
+import {
+  getQuestionDetailsLink,
+  getServiceDetailsLink,
+} from 'services/navigation';
 import ServiceActionLink from './ServiceActionLink';
 
 const getColumnsOptions = (classes, t) => {
@@ -107,14 +109,8 @@ const getColumnsOptions = (classes, t) => {
         customBodyRender: (value, tableMeta) => {
           return (
             <LinkText
-              data-status={tableMeta.rowData[10]}
               data-reference={tableMeta.rowData[0]}
-              to={{
-                pathname: RoutesPaths.Admin.QuestionsDetails,
-                state: {
-                  questionId: tableMeta.rowData[0],
-                },
-              }}>
+              to={getServiceDetailsLink(tableMeta.rowData[0])}>
               <TextCroppedWithTooltip text={value} />
             </LinkText>
           );
@@ -193,14 +189,14 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: false,
         display: authManager.isAdmin(),
-        customBodyRender: (value) => {
+        customBodyRender: (value, tableMeta) => {
+          if (!value) return '';
           return (
-            <Typography
-              className={classes.answersCount}
-              variant='body1'
-              gutterBottom>
-              {value}
-            </Typography>
+            <LinkText
+              data-reference={tableMeta.rowData[0]}
+              to={getQuestionDetailsLink(tableMeta.rowData[8])}>
+              <TextCroppedWithTooltip text={`#${value}`} />
+            </LinkText>
           );
         },
       },

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // @material-ui/core components
 // core components
 import GridItem from 'components/grid/GridItem.js';
@@ -10,22 +10,14 @@ import CardFooter from 'components/card/CardFooter.js';
 import { useHistory, useLocation } from 'react-router';
 import { fetchQuestionDetails } from 'apis/questionsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
-import {
-  approveQuestion,
-  submitShortlisted,
-} from '../../../../apis/questionsAPI';
+import { approveQuestion } from 'apis/questionsAPI';
 import QuestionForm from './subComponents/QuestionForm';
-import { useStyles } from '../../../../styles/Admin/questionFormStyles';
-import AnswerView from './subComponents/AnswerView';
-import authManager from '../../../../services/authManager';
+import { useStyles } from 'styles/Admin/questionFormStyles';
+import authManager from 'services/authManager';
 import { QuestionProvider, useQuestionContext } from './context';
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { updateQuestionDetails } from './context/questionAction';
-import { useSnackBar } from 'context/SnackBarContext';
-import { QUESTION_STATUS } from 'constants/questionStatus';
-import SubmitButton from 'components/buttons/SubmitButton';
-import { shortlistAnswer } from '../../../../apis/answersAPI';
-import { RoutesPaths } from 'constants/routesPath';
+import AnswersContainer from './subComponents/AnswersContainer';
 
 const QuestionDetailsPage = () => {
   const classes = useStyles();
@@ -37,68 +29,16 @@ const QuestionDetailsPage = () => {
   const location = useLocation();
   const questionId = location?.state?.questionId;
   const isNewQuestion = !questionId;
-  const [shortlisted, setShortlisted] = useState([]);
-  const [shortlistedIds, setShortlistedIds] = useState([]);
-  const { showErrorMessage, showSuccessMessage } = useSnackBar();
   useEffect(() => {
     setIsLoading(true);
     fetchQuestionDetails(questionId)
       .then((response) => {
         updateQuestionDetails(dispatch, response.data);
-        getShortlistedAnswers(response.data.answers);
       })
       .finally(() => {
         setIsLoading(false);
       });
   }, []);
-
-  const setRating = useCallback(
-    (answerIndex, rating) => {
-      const newQuestionDetails = { ...questionDetails };
-      newQuestionDetails.answers[answerIndex].rating = rating;
-      updateQuestionDetails(dispatch, newQuestionDetails);
-    },
-    [questionDetails, dispatch],
-  );
-  const allowCheck = (answer) => {
-    return (
-      shortlisted.length < 3 ||
-      shortlisted.some((item) => item.id === answer.id)
-    );
-  };
-  const addRemoveAnswerToShortlistedArray = (answer) => {
-    if (shortlisted.indexOf(answer) === -1) {
-      setShortlisted([...shortlisted, answer]);
-      setShortlistedIds([...shortlistedIds, answer.id]);
-    } else {
-      setShortlisted(shortlisted.filter((item) => item.id !== answer.id));
-      setShortlistedIds(shortlistedIds.filter((id) => id !== answer.id));
-    }
-  };
-  const changeCheck = (answer) => {
-    if (allowCheck(answer)) {
-      addRemoveAnswerToShortlistedArray(answer);
-    } else {
-      showErrorMessage(
-        'You already have 3 shortlisted please remove one first',
-      );
-    }
-  };
-  const onSubmitShortlisted = () => {
-    shortlistAnswer(shortlistedIds)
-      .then(() => {
-        submitShortlisted(questionDetails.id).then(() => {
-          showSuccessMessage('Candidates will be sent to the client!');
-          history.push(RoutesPaths.Admin.Services);
-        });
-      })
-      .catch(() => {
-        showErrorMessage('Something went wrong!');
-      });
-  };
-  const getShortlistedAnswers = (answers) => {
-    setShortlisted(answers.filter((item) => item.state === 'shortlisted'));
-  };
 
   if (isLoading) {
     return <LoadingCircle />;
@@ -138,64 +78,7 @@ const QuestionDetailsPage = () => {
           </CardFooter>
         </Card>
       </GridItem>
-      {!!shortlisted.length && (
-        <GridItem xs={12}>
-          <Card>
-            <CardHeader color='primary'>
-              <Typography component={'h4'} id={'shortlistedAnswer-header'}>
-                Shortlisted
-              </Typography>
-            </CardHeader>
-            {shortlisted?.map((answer, index) => (
-              <Box
-                mx={4}
-                id={'shortlisted' + answer.referenceNumber}
-                key={`shortlistedAnswer-${index}`}>
-                <AnswerView
-                  answer={answer}
-                  index={index}
-                  setRating={setRating}
-                  changeCheck={changeCheck}
-                  isShortListed={true}
-                  showShortListOption={
-                    questionDetails.state === QUESTION_STATUS.shortlisting
-                  }
-                />
-              </Box>
-            ))}
-            {questionDetails.state === QUESTION_STATUS.shortlisting && (
-              <Box m={2} display='flex' justifyContent='flex-end'>
-                <SubmitButton
-                  id={'notify'}
-                  className={classes.rollbackButton}
-                  onClick={() => onSubmitShortlisted()}
-                  buttonText={'send to candidates'}
-                />
-              </Box>
-            )}
-          </Card>
-        </GridItem>
-      )}
-      {!isNewQuestion && questionDetails.answers && (
-        <GridItem xs={12}>
-          {questionDetails.answers?.map((answer, index) => (
-            <div id={answer.referenceNumber} key={`answer-${index}`}>
-              <AnswerView
-                answer={answer}
-                index={index}
-                setRating={setRating}
-                changeCheck={changeCheck}
-                showShortListOption={
-                  questionDetails.state === QUESTION_STATUS.shortlisting
-                }
-                isShortListed={shortlisted.some(
-                  (item) => item.id === answer.id,
-                )}
-              />
-            </div>
-          ))}
-        </GridItem>
-      )}
+      <AnswersContainer />
     </GridContainer>
   );
 };
