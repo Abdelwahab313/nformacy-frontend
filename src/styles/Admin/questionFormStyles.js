@@ -11,14 +11,15 @@ export const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
   },
   footerButtons: {
-    justifyContent: 'flex-end',
     display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-end',
   },
   saveQuestionBtn: {
-    flexBasis: '100%', 
-    textAlign: 'right', 
-    marginTop: 20, 
-    maxWidth: '100%'
+    flexBasis: '100%',
+    textAlign: 'right',
+    marginTop: 20,
+    maxWidth: '100%',
   },
   buttonMargin: {
     marginRight: '10px',
@@ -29,8 +30,8 @@ export const useStyles = makeStyles((theme) => ({
   countDown: {
     marginLeft: theme.spacing(2),
   },
-  countDownText:{
-    fontSize:'1vw',
+  countDownText: {
+    fontSize: '1vw',
     [theme.breakpoints.down('xs')]: {
       fontSize: '4vw',
     },
@@ -108,7 +109,7 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: '0.5vw',
     [theme.breakpoints.down('xs')]: {
       maxWidth: '70vw',
-      marginTop: '2vw'
+      marginTop: '2vw',
     },
   },
   flipMove: {
@@ -121,5 +122,5 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       marginTop: '12vw',
     },
-  }
+  },
 }));

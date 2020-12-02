@@ -30,7 +30,6 @@ const useStyles = makeStyles(() => ({
   buttonsContainer: {
     flexBasis: '100%',
     textAlign: 'right',
-    marginTop: 20,
     maxWidth: '100%',
   },
   buttonMargin: {

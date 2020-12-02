@@ -26,6 +26,7 @@ const RichTextEditor = ({  initialContent, onContentChange, onImageUpload, disab
           'undo redo link image | formatselect | bold italic backcolor forecolor | \
         alignleft aligncenter alignright alignjustify | \
         bullist numlist outdent indent | removeformat | wordcount',
+        elementpath: false,
         file_picker_callback: function(cb) {
           const input = document.createElement('input');
           input.setAttribute('type', 'file');

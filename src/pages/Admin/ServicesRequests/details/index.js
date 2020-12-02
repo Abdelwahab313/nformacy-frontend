@@ -11,16 +11,12 @@ import {
   returnToClient,
   generateQuestion,
 } from 'apis/servicesAPI';
-import ServiceRequestForm from '../../../../templates/services/ServiceRequestForm';
-import CardFooter from 'components/card/CardFooter';
-import { makeStyles } from '@material-ui/core/styles';
+import ServiceRequestForm from 'templates/services/ServiceRequestForm';
 import { Typography } from '@material-ui/core';
-import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import { useSnackBar } from 'context/SnackBarContext';
 import { RoutesPaths } from 'constants/routesPath';
 
 const ServiceDetails = () => {
-  const classes = useStyles();
   const [serviceRequest, setServiceRequest] = useState({});
   const location = useLocation();
 
@@ -96,40 +92,25 @@ const ServiceDetails = () => {
             serviceRequest={serviceRequest}
             setServiceRequest={setServiceRequest}
             viewOnly
+            primaryButton={{
+              id: 'generateQuestionButton',
+              onClick: () => {
+                handleGenerateQuestion();
+              },
+              buttonText: 'Generate Question',
+            }}
+            secondaryButton={{
+              id: 'returnToClientButton',
+              buttonText: 'Return to Client',
+              onClick: () => {
+                handleReturnToClient();
+              },
+            }}
           />
-          <CardFooter className={classes.footerButtons}>
-            <ActionButtonsContainer
-              primaryButton={{
-                id: 'generateQuestionButton',
-                onClick: () => {
-                  handleGenerateQuestion();
-                },
-                buttonText: 'Generate Question',
-              }}
-              secondaryButton={{
-                id: 'returnToClientButton',
-                buttonText: 'Return to Client',
-                onClick: () => {
-                  handleReturnToClient();
-                },
-              }}
-            />
-          </CardFooter>
         </Card>
       </GridItem>
     </GridContainer>
   );
 };
-
-const useStyles = makeStyles((theme) => ({
-  item: {
-    marginRight: theme.spacing(3),
-    backgroundColor: theme.palette.secondary.main,
-    borderRadius: 16,
-  },
-  link: {
-    textDecoration: 'none',
-  },
-}));
 
 export default ServiceDetails;
