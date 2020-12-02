@@ -133,7 +133,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   mainContainer: {
     padding: theme.spacing(3),
-    margin: theme.spacing(2),
+    margin: `${theme.spacing(2)}px 0`,
     backgroundColor: '#fafafa',
     borderRadius: '4vw',
   },
