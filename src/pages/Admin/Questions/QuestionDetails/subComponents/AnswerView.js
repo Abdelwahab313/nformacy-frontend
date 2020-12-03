@@ -124,7 +124,7 @@ const AnswerView = ({
               />
             ))}
           </GridItem>
-          {answerState == 'accepted' && showShortListOption && (
+          {answerState == 'accepted' && !!answer.rating && showShortListOption && (
             <GridItem xs={12} className={classes.answerRowStyles}>
               <FormControlLabel
                 control={

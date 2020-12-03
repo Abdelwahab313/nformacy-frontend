@@ -5,14 +5,17 @@ import SubmitButton from 'components/buttons/SubmitButton';
 import Collapse from '@material-ui/core/Collapse';
 import CustomTypography from 'components/typography/Typography';
 import { lightOrange, lightTurquoise, lighterPink } from 'styles/colors';
+import MeetingTimeSelectorCalendarDialog from 'components/calendarDialogs/MeetingTime/MeetingTimeSelectorCalendarDialog';
+import { getUserName } from 'core/user';
 
-const getUserName = (user) => {
-  return `${user?.firstName[0]}. ${user?.lastName}`;
-};
-
-const ShortlistCandidate = ({ candidates }) => {
+const ShortlistCandidate = ({ candidates, serviceId }) => {
   const classes = useStyles();
-  const [focusedItem, setFocusedItem] = useState('');
+  const [focusedCandidate, setFocusedCandidate] = useState('');
+  const [selectedCandidate, setSelectedCandidate] = useState('');
+  const closeCalendar = () => {
+    setSelectedCandidate('');
+  };
+
   const shortlistedContainerColors = [lightOrange, lightTurquoise, lighterPink];
   return (
     <Grid
@@ -25,13 +28,24 @@ const ShortlistCandidate = ({ candidates }) => {
             <CandidateItem
               bgcolor={shortlistedContainerColors[index]}
               candidate={candidate}
-              isFocused={candidate.id === focusedItem}
-              setFocusedItem={setFocusedItem}
-              onCandidateClick={() => {}}
+              isFocused={candidate.id === focusedCandidate}
+              setFocusedCandidate={setFocusedCandidate}
+              onCandidateClick={() => {
+                setSelectedCandidate(candidate);
+              }}
             />
           </Box>
         </Grid>
       ))}
+
+      {!!selectedCandidate && (
+        <MeetingTimeSelectorCalendarDialog
+          open={!!selectedCandidate}
+          onClose={closeCalendar}
+          serviceId={serviceId}
+          candidate={selectedCandidate}
+        />
+      )}
     </Grid>
   );
 };
@@ -39,7 +53,7 @@ const ShortlistCandidate = ({ candidates }) => {
 const CandidateItem = ({
   candidate,
   isFocused,
-  setFocusedItem,
+  setFocusedCandidate,
   onCandidateClick,
   bgcolor,
 }) => {
@@ -51,8 +65,8 @@ const CandidateItem = ({
       <Collapse in={isFocused} collapsedHeight={350} timeout={500}>
         <Grid
           container
-          onMouseEnter={() => setFocusedItem(candidate.id)}
-          onMouseLeave={() => setFocusedItem('')}>
+          onMouseEnter={() => setFocusedCandidate(candidate.id)}
+          onMouseLeave={() => setFocusedCandidate('')}>
           <Box style={{ backgroundColor: bgcolor }}>
             <Grid item xs={12} md={12}>
               <img

@@ -35,7 +35,10 @@ const QuestionDetails = () => {
           />
           {questionDetails.assignmentType === 'call' &&
             questionDetails.candidates?.length > 0 && (
-              <ShortlistCandidate candidates={questionDetails.candidates} />
+              <ShortlistCandidate
+                candidates={questionDetails.candidates}
+                serviceId={questionDetails.serviceId}
+              />
             )}
           {questionDetails.assignmentType === 'question' &&
             !!questionDetails.answers && (
