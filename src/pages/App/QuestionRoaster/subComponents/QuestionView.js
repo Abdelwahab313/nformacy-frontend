@@ -46,14 +46,16 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
       id={'questionCardContainer'}
       dir={directions[questionLocale]}>
       <Grid container className={classes.questionContainer}>
-        {!!questionDetails.thumbnailUrl && <Grid className={classes.imgContainer} item md={3} xs={12}>
-          <img
-            id={`question-${questionDetails.referenceNumber}-thumbnail`}
-            className={classes.image}
-            src={questionDetails.thumbnailUrl}
-            alt={fixedTranslation('questionRoaster:questionAltImg')}
-          />
-        </Grid>}
+        {!!questionDetails.thumbnailUrl && (
+          <Grid className={classes.imgContainer} item md={3} xs={12}>
+            <img
+              id={`question-${questionDetails.referenceNumber}-thumbnail`}
+              className={classes.image}
+              src={questionDetails.thumbnailUrl}
+              alt={fixedTranslation('questionRoaster:questionAltImg')}
+            />
+          </Grid>
+        )}
 
         <Grid item md={!!questionDetails.thumbnailUrl ? 9 : 12} xs={12}>
           <Grid container className={classes.questionTextWrapper}>
@@ -89,37 +91,39 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
               md={3}
               xs={6}
               id={`question-${questionDetails.referenceNumber}-currentActionTime`}>
-              <Grid
-                container
-                direction={'column'}
-                spacing={2}
-                className={classes.timeContainer}>
-                <Grid item md={12} xs={12}>
-                  <Typography
-                    className={classes.closedQuestion}
-                    id={`question-${questionDetails.referenceNumber}-closeIn`}>
-                    {fixedTranslation('questionRoaster:closeIn')}
-                  </Typography>
-                </Grid>
-                <Grid item md={12} xs={12} >
-                  <Box mx="auto">
-                  <Countdown
-                    date={questionDetails.currentActionTime}
-                    renderer={(props) => (
-                      <CountdownBoxShape
-                        translation={fixedTranslation}
-                        {...props}
+              {!!questionDetails.currentActionTime && (
+                <Grid
+                  container
+                  direction={'column'}
+                  spacing={2}
+                  className={classes.timeContainer}>
+                  <Grid item md={12} xs={12}>
+                    <Typography
+                      className={classes.closedQuestion}
+                      id={`question-${questionDetails.referenceNumber}-closeIn`}>
+                      {fixedTranslation('questionRoaster:closeIn')}
+                    </Typography>
+                  </Grid>
+                  <Grid item md={12} xs={12}>
+                    <Box mx='auto'>
+                      <Countdown
+                        date={questionDetails.currentActionTime}
+                        renderer={(props) => (
+                          <CountdownBoxShape
+                            translation={fixedTranslation}
+                            {...props}
+                          />
+                        )}
+                        className={classes.questionCountDown}
                       />
-                    )}
-                    className={classes.questionCountDown}
-                  />
-                  </Box>
+                    </Box>
+                  </Grid>
                 </Grid>
-              </Grid>
+              )}
             </Grid>
             {/* =======Major and Minor======= */}
             <Grid item md={12} xs={12} className={classes.flexContainer}>
-              <QuestionFieldsChips questionDetails={questionDetails}/>
+              <QuestionFieldsChips questionDetails={questionDetails} />
             </Grid>
             {/* =======Content======= */}
             <Grid item md={12} xs={12}>

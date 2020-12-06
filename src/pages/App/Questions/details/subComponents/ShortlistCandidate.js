@@ -9,6 +9,7 @@ import MeetingTimeSelectorCalendarDialog from 'components/calendarDialogs/Meetin
 import { getUserName } from 'core/user';
 import Card from 'components/card/Card';
 import CardHeader from 'components/card/CardHeader';
+import { useTranslation } from 'react-i18next';
 
 const ShortlistCandidate = ({ candidates, serviceId }) => {
   const classes = useStyles();
@@ -67,6 +68,8 @@ const CandidateItem = ({
   bgcolor,
 }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
+
   const defaultImage = require('../../../../../assets/emptyavatar.jpg');
 
   return (
@@ -108,7 +111,7 @@ const CandidateItem = ({
                   onClick={() => onCandidateClick()}
                   buttonText={
                     <CustomTypography variant='body1'>
-                      Book Candidate
+                      {t('bookCandidate')}
                     </CustomTypography>
                   }
                 />

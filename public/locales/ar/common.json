@@ -44,5 +44,18 @@
   "Invalid Email or password": "خطأ في البريد الالكتروني او كلمه المرور",
   "questionDetails": "تفاصيل السؤال",
   "callTheExpert": "اتصل بالخبير",
-  "consultant": "الخبير"
+  "consultant": "الخبير",
+  "questionAltImg": "صورة السؤال",
+  "closeIn": "يُغلق في خلال",
+  "day": "يوم",
+  "hour": "ساعة",
+  "minute": "دقيقة",
+  "answer": "إجابة",
+  "chooseLanguage": "إختر لغة",
+  "english": "الانجليزية",
+  "englishShortcut": "EN",
+  "arabic": "العربية",
+  "arabicShortcut": "ع",
+  "all": "الكل",
+  "clearAll": "إعادة الكل"
 }

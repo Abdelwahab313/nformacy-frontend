@@ -25,6 +25,9 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '1.00vw',
     },
   },
+  postSubmissionContainer: {
+    height: '100vh',
+  },
   subtext: {
     alignSelf: 'flex-end',
     fontSize: '1.190vw',

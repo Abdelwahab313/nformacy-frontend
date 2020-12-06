@@ -9,30 +9,27 @@ import { useTranslation } from 'react-i18next';
 import CustomTypography from 'components/typography/Typography';
 import { useHistory } from 'react-router';
 
-const services = [
+const services = (t) => [
   {
     name: 'call',
-    title: 'Call the Expert',
-    description:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    title: t('callServiceTitle'),
+    description: t('callServiceDescription'),
     icon: require('../../../../assets/client-call.svg'),
-    btnTxt: 'Request a Call',
+    btnTxt: t('callServiceButton'),
   },
   {
     name: 'question',
-    title: 'Assign a Consultant',
-    description:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    title: t('questionServiceTitle'),
+    description: t('questionServiceDescription'),
     icon: require('../../../../assets/consultant.png'),
-    btnTxt: 'Start the process',
+    btnTxt: t('questionServiceButton'),
   },
   {
     name: 'project',
-    title: 'It’s a Project',
-    description:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    title: t('projectServiceTitle'),
+    description: t('projectServiceDescription'),
     icon: require('../../../../assets/client-project.svg'),
-    btnTxt: 'Start the process',
+    btnTxt: t('projectServiceButton'),
   },
 ];
 
@@ -58,7 +55,7 @@ const AvailableServices = () => {
         className={classes.threeBtnsContainer}
         justify='space-between'
         spacing={4}>
-        {services.map((service) => (
+        {services(t).map((service) => (
           <Grid item xs={4} md={4}>
             <Box className={[classes.askQuestionBox, classes.clientThreeBtns]}>
               <MobileServiceItem
@@ -126,7 +123,10 @@ const ServiceItem = ({
           <CustomTypography variant='h6' fontWeight='bold'>
             {service.title}
           </CustomTypography>
-          <CustomTypography variant='body1' fontWeight='light' className={classes.serviceDesc}>
+          <CustomTypography
+            variant='body1'
+            fontWeight='light'
+            className={classes.serviceDesc}>
             {service.description}
           </CustomTypography>
         </Grid>

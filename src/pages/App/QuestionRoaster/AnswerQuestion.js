@@ -93,7 +93,7 @@ const AnswerQuestion = () => {
               />
               <SubmitButton
                 onClick={onSubmitAnswer}
-                buttonText={'Submit'}
+                buttonText={t('submit')}
                 disabled={false}
               />
             </Grid>

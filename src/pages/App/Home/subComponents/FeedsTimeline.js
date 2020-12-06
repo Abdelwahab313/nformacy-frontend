@@ -13,7 +13,7 @@ const FeedsTimeline = () => {
   return (
     <Box mt={6}>
       <HomePageCard
-        title={'Feeds Timeline'}
+        title={t('feedsTimeline')}
         viewMoreText={t('viewAll')}
         viewMoreUrl={RoutesPaths.App.Services}>
         <Grid

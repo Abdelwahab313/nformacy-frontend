@@ -4,11 +4,12 @@ import { Grid } from '@material-ui/core';
 import { useStyles } from '../../../styles/successStyle';
 import SubmitButton from '../../../components/buttons/SubmitButton';
 import { useHistory } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 const PostSubmissionNote = () => {
-
   const classes = useStyles();
   const history = useHistory();
+  const { t } = useTranslation();
 
   function handleClickHome() {
     history.push('/');
@@ -18,15 +19,32 @@ const PostSubmissionNote = () => {
   }
 
   return (
-    <Grid container justify={'center'} alignItems={'center'} style={{height: '100vh'}}>
+    <Grid
+      container
+      justify={'center'}
+      alignItems={'center'}
+      className={classes.postSubmissionContainer}>
       <Grid item xs={12} sm={10}>
-        <Typography id={'thankYouNote'} gutterBottom className={classes.successText}>
-          Thank you for your answer
+        <Typography
+          id={'thankYouNote'}
+          gutterBottom
+          className={classes.successText}>
+          {t('thankYouForYourAnswer')}
         </Typography>
       </Grid>
       <Grid item xs={12} sm={10} className={classes.navButtonsContainer}>
-        <SubmitButton id={'redirectToQuestionRoaster'} buttonText={'Question Roaster'} onClick={handleClickQuestionRoaster} className={classes.navButtons}/>
-        <SubmitButton id={'redirectToHome'} buttonText={'Homepage'} onClick={handleClickHome} className={classes.navButtons}/>
+        <SubmitButton
+          id={'redirectToQuestionRoaster'}
+          buttonText={t('questionRoaster')}
+          onClick={handleClickQuestionRoaster}
+          className={classes.navButtons}
+        />
+        <SubmitButton
+          id={'redirectToHome'}
+          buttonText={t('Homepage')}
+          onClick={handleClickHome}
+          className={classes.navButtons}
+        />
       </Grid>
     </Grid>
   );
