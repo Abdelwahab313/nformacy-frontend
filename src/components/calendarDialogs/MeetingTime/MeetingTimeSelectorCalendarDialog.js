@@ -17,7 +17,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import SubmitButton from '../../buttons/SubmitButton';
 import { scheduleMeeting } from 'apis/meetingsAPI';
 import { useSnackBar } from 'context/SnackBarContext';
-import { getUserName } from 'core/user';
+import { getUserName, parseFreeDates } from 'core/user';
 
 const MeetingTimeSelectorCalendarDialog = ({
   open,
@@ -35,7 +35,10 @@ const MeetingTimeSelectorCalendarDialog = ({
 
   const selectedDayTimeRange =
     !!localState.selectedDay &&
-    candidate?.freeDates[formatDayAsKey(localState.selectedDay)].intervals;
+    !!candidate.freeDates &&
+    parseFreeDates(candidate.freeDates)[
+      formatDayAsKey(localState.selectedDay)
+    ][0];
 
   const handleTimeChange = (selectedDateTime) => {
     setLocalState((previousLocalState) => ({
@@ -45,7 +48,7 @@ const MeetingTimeSelectorCalendarDialog = ({
     }));
   };
   const handleSelectDay = ({ selectedDay, isAvailableDay }) => {
-    // console.log(selectedDay, isAvailableDay);
+    console.log('selected day --------', selectedDay, isAvailableDay);
     if (isAvailableDay) {
       setLocalState((previousLocalState) => ({
         ...previousLocalState,
@@ -84,7 +87,7 @@ const MeetingTimeSelectorCalendarDialog = ({
       maxWidth={'lg'}
       id={'calendar-dialog'}>
       <DialogTitle id='dialog-title'>
-        {'Please Pick Available Date to Schedule the Call'}
+        {'Please Pick a time to Schedule the Call'}
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2} className={classes.dialogMargin}>

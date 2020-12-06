@@ -10,6 +10,7 @@ import { calendarStyles } from '../styles/calendarStyles';
 import { formatDayAsKey, isSameDate } from '../../../services/dateTimeParser';
 import { darkBlue } from '../../../styles/colors';
 import CustomTypography from 'components/typography/Typography';
+import { parseFreeDates } from 'core/user';
 
 const useStyles = makeStyles(calendarStyles);
 
@@ -37,7 +38,10 @@ const TimeTableCell = React.memo(
     const classes = useStyles({ name: 'Cell' });
     const isSelectedDay = !!selectedDay && isSameDate(startDate, selectedDay);
 
-    const isAvailableDay = formatDayAsKey(startDate) in availableDates;
+    // const 
+    // todo this will be changed
+    const isAvailableDay =
+      formatDayAsKey(startDate) in parseFreeDates(availableDates);
 
     const dayClicked = () => {
       onDayClick && onDayClick({ selectedDay: startDate, isAvailableDay });
