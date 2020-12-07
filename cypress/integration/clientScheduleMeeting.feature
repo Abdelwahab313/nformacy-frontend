@@ -9,6 +9,6 @@ Feature: Client schedule call
     When  I click on first shortlisted
     Then  A calendar should be displayed
     When  I fill meeting time
-    And   I click submit
+    And   I click submit meeting time
     Then  Meeting will be scheduled
 

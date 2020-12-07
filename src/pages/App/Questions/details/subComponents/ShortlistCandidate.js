@@ -33,7 +33,7 @@ const ShortlistCandidate = ({ candidates, serviceId }) => {
         className={classes.shortlistContainer}>
         {candidates.map((candidate, index) => (
           <Grid item xs={12} md={3}>
-            <Box>
+            <Box className={'shortlistedConsultants'}>
               <CandidateItem
                 bgcolor={shortlistedContainerColors[index]}
                 candidate={candidate}

@@ -109,7 +109,7 @@ const MeetingTimeSelectorCalendarDialog = ({
             <Grid item>
               {!!localState.selectedDay && !!selectedDayTimeSlots.length > 0 && (
                 <Fragment>
-                  <Box>
+                  <Box id={'meetingTimePickerContainer'}>
                     <Typography variant='h6' align='center'>
                       {`Your call will be in ${selectedDayFormatted}`}
                     </Typography>
@@ -140,6 +140,7 @@ const MeetingTimeSelectorCalendarDialog = ({
                 Cancel
               </Button>
               <SubmitButton
+                id={'confirmBtnCalendar'}
                 disabled={!localState.isUpdatedTime}
                 onClick={() => onSubmitDate()}
                 variant='contained'

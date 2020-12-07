@@ -1,29 +1,29 @@
 import { When } from 'cypress-cucumber-preprocessor/steps';
 
-When(/^I select ask the expert option$/, function() {
+When(/^I select ask the expert option$/, function () {
   cy.get('#service-question-btn').click();
 });
 
-When(/^I should be navigated to question service form$/, function() {
+When(/^I should be navigated to question service form$/, function () {
   cy.get('#create-service-request-header').contains('Ask the Expert');
 });
 
 Given(
   /^I have a call service request with shortlisted consultants$/,
-  function() {
+  function () {
     cy.wrap('4000107').as('serviceId');
   },
 );
 
-Given(/^I click on the service action$/, function() {
+Given(/^I click on the service action$/, function () {
   cy.get(`tr[reference-number="${this.serviceId}"] .action`).click();
 });
 
-Given(/^I should navigate to question details$/, function() {
+Given(/^I should navigate to question details$/, function () {
   cy.location('pathname').should('match', /\/questions\/view$/);
 });
 
-When(/^I fill the service form$/, function() {
+When(/^I fill the service form$/, function () {
   const givenTitle = 'test question title';
   cy.wrap(givenTitle).as('questionTitle');
   cy.get('#title').type(givenTitle);
@@ -45,6 +45,6 @@ When(/^I fill the service form$/, function() {
   });
 });
 
-When(/^I click on submit service button$/, function() {
+When(/^I click on submit service button$/, function () {
   cy.get('#submitQuestionButtonButton').click();
 });
