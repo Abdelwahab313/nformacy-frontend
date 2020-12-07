@@ -18,6 +18,8 @@ import SubmitButton from '../../buttons/SubmitButton';
 import { scheduleMeeting } from 'apis/meetingsAPI';
 import { useSnackBar } from 'context/SnackBarContext';
 import { getUserName, parseFreeDates } from 'core/user';
+import { RoutesPaths } from 'constants/routesPath';
+import { useHistory } from 'react-router';
 
 const MeetingTimeSelectorCalendarDialog = ({
   open,
@@ -33,6 +35,7 @@ const MeetingTimeSelectorCalendarDialog = ({
   });
 
   const { showSuccessMessage } = useSnackBar();
+  const history = useHistory();
 
   const selectedDayTimeSlots =
     !!localState.selectedDay &&
@@ -63,7 +66,8 @@ const MeetingTimeSelectorCalendarDialog = ({
           `Meeting has been scheduled successfully with ${getUserName(
             candidate,
           )}`,
-        );
+          );
+          history.push(RoutesPaths.App.Home);
       },
     );
     onClose();
