@@ -1,34 +1,45 @@
 import React from 'react';
 import { Container } from '@material-ui/core';
-import { selectStyle } from '../../../styles/formsStyles';
+import moment from 'moment';
 import ReactSelectMaterialUi from 'react-select-material-ui';
 import Typography from '@material-ui/core/Typography';
+import { selectStyle } from 'styles/formsStyles';
 
-const calculateTimeSlotsOptions = (startTime, endTime) => {
-  let timeSlots = [];
-  let time = startTime;
-  while (time < endTime) {
-    const timeSlotOption = {
-      label: time.format('LT'),
-      value: time.toDate(),
-    };
-    timeSlots.push(timeSlotOption);
-    time.add('30', 'minutes');
-  }
-  return timeSlots;
+const calculateTimeSlotsOptions = (selectedDay, selectedDayTimeSlots) => {
+  let timeOptions = [];
+  selectedDayTimeSlots.forEach((timeSlot) => {
+    let startTime = moment(`${selectedDay} ${timeSlot.from}`);
+    let endTime = moment(`${selectedDay} ${timeSlot.to}`);
+
+    while (startTime < endTime) {
+      const timeSlotOption = {
+        label: startTime.format('LT'),
+        value: startTime.toDate(),
+      };
+      timeOptions.push(timeSlotOption);
+      startTime.add('30', 'minutes');
+    }
+  });
+
+  return timeOptions;
 };
 
 const MeetingTimePicker = ({
-  startTime,
-  endTime,
+  selectedDay,
+  selectedDayTimeSlots,
   handleTimeChange,
   selectedTime = '',
 }) => {
-  const timesRange = calculateTimeSlotsOptions(startTime, endTime);
+  const timesRange = calculateTimeSlotsOptions(
+    selectedDay,
+    selectedDayTimeSlots,
+  );
 
   return (
     <Container>
-      <Typography gutterBottom>Select Time from those Available List</Typography>
+      <Typography gutterBottom>
+        Select Time from those Available List
+      </Typography>
       <ReactSelectMaterialUi
         id={'available-time'}
         fullWidth={true}

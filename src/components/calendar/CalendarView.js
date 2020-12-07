@@ -83,7 +83,7 @@ const Appointment = withStyles(calendarStyles, {
 const CalendarView = ({
   availableDates,
   selectedDay,
-  isInteractable,
+  canBookDate,
   isMinimized,
   onDayClick,
   containerStyle,
@@ -118,11 +118,11 @@ const CalendarView = ({
     <Paper
       id={'calendar-view'}
       className={classNames([containerStyle, classes.paperBackground])}>
-      <Scheduler data={isInteractable ? [] : availableDates}>
+      <Scheduler data={canBookDate ? [] : availableDates}>
         <ViewState defaultCurrentDate={Date.now()} />
 
         <CustomMonthView
-          {...{ availableDates, selectedDay, isInteractable, onDayClick }}
+          {...{ availableDates, selectedDay, canBookDate, onDayClick }}
         />
         <Appointments
           appointmentComponent={(props) => (

@@ -28,38 +28,36 @@ const MeetingTimeSelectorCalendarDialog = ({
   const classes = useStyles();
   const [localState, setLocalState] = useState({
     selectedDay: '',
+    selectedTime: '',
     isUpdatedTime: false,
   });
 
   const { showSuccessMessage } = useSnackBar();
 
-  const selectedDayTimeRange =
+  const selectedDayTimeSlots =
     !!localState.selectedDay &&
     !!candidate.freeDates &&
-    parseFreeDates(candidate.freeDates)[
-      formatDayAsKey(localState.selectedDay)
-    ][0];
+    parseFreeDates(candidate.freeDates)[localState.selectedDay];
 
   const handleTimeChange = (selectedDateTime) => {
     setLocalState((previousLocalState) => ({
       ...previousLocalState,
       isUpdatedTime: true,
-      selectedDay: selectedDateTime,
+      selectedTime: selectedDateTime,
     }));
   };
   const handleSelectDay = ({ selectedDay, isAvailableDay }) => {
-    console.log('selected day --------', selectedDay, isAvailableDay);
     if (isAvailableDay) {
       setLocalState((previousLocalState) => ({
         ...previousLocalState,
         isUpdatedTime: false,
-        selectedDay: selectedDay,
+        selectedDay: formatDayAsKey(selectedDay),
       }));
     }
   };
 
-  const onSelectDate = () => {
-    scheduleMeeting(serviceId, candidate.id, localState.selectedDay).then(
+  const onSubmitDate = () => {
+    scheduleMeeting(serviceId, candidate.id, localState.selectedTime).then(
       () => {
         showSuccessMessage(
           `Meeting has been scheduled successfully with ${getUserName(
@@ -71,14 +69,12 @@ const MeetingTimeSelectorCalendarDialog = ({
     onClose();
   };
 
-  // console.log('availableDates ----------------', candidate?.freeDates);
-
   const selectedDayFormatted =
     !!localState.selectedDay &&
     moment(localState.selectedDay).format('DD-MM-YYYY');
   const selectedTimeText =
     localState.isUpdatedTime &&
-    `at ${moment(localState.selectedDay).format('LT')}`;
+    `at ${moment(localState.selectedTime).format('LT')}`;
 
   return (
     <Dialog
@@ -95,7 +91,7 @@ const MeetingTimeSelectorCalendarDialog = ({
           <Grid item xs>
             <CalendarView
               availableDates={!!candidate.freeDates ? candidate.freeDates : []}
-              isInteractable
+              canBookDate
               selectedDay={localState.selectedDay}
               onDayClick={handleSelectDay}
             />
@@ -107,7 +103,7 @@ const MeetingTimeSelectorCalendarDialog = ({
             alignItems={'center'}
             xs={4}>
             <Grid item>
-              {localState.selectedDay && (
+              {!!localState.selectedDay && !!selectedDayTimeSlots.length > 0 && (
                 <Fragment>
                   <Box>
                     <Typography variant='h6' align='center'>
@@ -119,14 +115,8 @@ const MeetingTimeSelectorCalendarDialog = ({
                   </Box>
                   <Box mt={8}>
                     <MeetingTimePicker
-                      startTime={moment(
-                        `${selectedDayFormatted} ${selectedDayTimeRange.from}`,
-                        'DD-MM-YYYY hh:mm',
-                      )}
-                      endTime={moment(
-                        `${selectedDayFormatted} ${selectedDayTimeRange.to}`,
-                        'DD-MM-YYYY hh:mm',
-                      )}
+                      selectedDay={localState.selectedDay}
+                      selectedDayTimeSlots={selectedDayTimeSlots}
                       selectedTime={moment(localState.selectedDay).toDate()}
                       handleTimeChange={handleTimeChange}
                     />
@@ -147,7 +137,7 @@ const MeetingTimeSelectorCalendarDialog = ({
               </Button>
               <SubmitButton
                 disabled={!localState.isUpdatedTime}
-                onClick={() => onSelectDate(localState.selectedDay)}
+                onClick={() => onSubmitDate()}
                 variant='contained'
                 size='large'
                 className={classes.margin}
