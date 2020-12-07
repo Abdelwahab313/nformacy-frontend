@@ -70,7 +70,7 @@ const ActivityTable = () => {
               </TableHead>
               <TableBody>
                 {services.map((service) => (
-                  <StyledTableRow key={service.id}>
+                  <StyledTableRow reference-number={service.referenceNumber} key={service.id}>
                     <StyledTableCell scope='row'>
                       {
                         questionTypesOfAssignment.filter(
@@ -97,7 +97,7 @@ const ActivityTable = () => {
                         )}`,
                       )}
                     </StyledTableCell>
-                    <StyledTableCell className={classes.desktopVisible}>
+                    <StyledTableCell className={[classes.desktopVisible, 'action']}>
                       <ServiceActionLink
                         status={service.state}
                         serviceId={service.id}
