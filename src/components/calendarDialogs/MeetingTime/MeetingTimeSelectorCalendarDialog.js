@@ -57,7 +57,7 @@ const MeetingTimeSelectorCalendarDialog = ({
   };
 
   const onSubmitDate = () => {
-    scheduleMeeting(serviceId, candidate.id, localState.selectedTime).then(
+    scheduleMeeting(serviceId).then(
       () => {
         showSuccessMessage(
           `Meeting has been scheduled successfully with ${getUserName(

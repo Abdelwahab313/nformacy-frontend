@@ -9,7 +9,6 @@ import AnswerQuestion from 'pages/App/QuestionRoaster/AnswerQuestion';
 import ServiceRequestDetails from 'pages/App/ServiceRequests/details';
 import EditProfile from 'pages/App/Profile/Profile';
 import MeetingsPage from 'pages/App/Meeting';
-import MeetingDetailsPage from 'pages/App/Meeting/MeetingDetailsPage';
 import PostSubmissionNote from 'pages/App/QuestionRoaster/PostSubmissionNote';
 import AllNotifications from 'pages/Admin/Dashboard/AllNotifications';
 import ServicesPage from 'pages/App/ServiceRequests/list';
@@ -54,11 +53,6 @@ const appRoutes = [
   {
     path: RoutesPaths.App.Meetings,
     component: MeetingsPage,
-    exact: true,
-  },
-  {
-    path: RoutesPaths.App.MeetingDetails,
-    component: MeetingDetailsPage,
     exact: true,
   },
   {

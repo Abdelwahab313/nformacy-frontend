@@ -17,6 +17,7 @@ const SERVICE_STATUS = {
   questionStarted: 'question_started',
   clientSelection: 'client_selection',
   answersCollected: 'answers_collected',
+  callScheduled: 'call_scheduled',
 };
 
 const serviceActions = {
@@ -71,6 +72,14 @@ const serviceActions = {
     },
     action: {
       client: 'client_answersCollected_action',
+    },
+  },
+  [SERVICE_STATUS.callScheduled]: {
+    status: {
+      client: 'client_callScheduled_status',
+      admin: 'admin_callScheduled_status',
+    },
+    action: {
     },
   },
 };

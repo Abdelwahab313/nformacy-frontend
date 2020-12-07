@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_BASE_URL } from '../settings';
-import { camelizeKeys, decamelizeKeys } from 'humps';
+import { camelizeKeys } from 'humps';
 
 const fetchAllMeetings = () => {
   return axios({
@@ -16,11 +16,10 @@ const fetchMeetingDetails = (meetingId) => {
   });
 };
 
-const scheduleMeeting = (meetingId, freelancerId, scheduledTime) => {
+const scheduleMeeting = (serviceId) => {
   return axios({
     method: 'post',
-    url: `${API_BASE_URL}/meeting/${meetingId}/schedule_meeting`,
-    data: decamelizeKeys({ freelancerId, scheduledTime }),
+    url: `${API_BASE_URL}/services/${serviceId}/book_call`,
   }).then((response) => camelizeKeys(response));
 };
 
