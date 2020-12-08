@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import Direction from 'components/grid/Direction';
 import ShortlistCandidate from 'pages/App/ServiceRequests/details/subComponents/ShortlistCandidate';
 import { fetchServiceDetails } from 'apis/servicesAPI';
+import { SERVICE_STATUS } from 'constants/questionStatus';
 
 const ServiceDetails = () => {
   const location = useLocation();
@@ -33,13 +34,17 @@ const ServiceDetails = () => {
             questionDetails={serviceDetails?.question}
             isSubmitVisible={false}
           />
-          {serviceDetails.assignmentType === 'call' &&
+          {serviceDetails.state === SERVICE_STATUS.clientSelection &&
             serviceDetails.candidates?.length > 0 && (
               <ShortlistCandidate
                 candidates={serviceDetails?.candidates}
                 serviceId={serviceDetails.id}
               />
             )}
+
+          {serviceDetails.state === SERVICE_STATUS.callScheduled && (
+            <pre>{JSON.stringify(serviceDetails?.meeting)}</pre>
+          )}
           {serviceDetails.assignmentType === 'question' &&
             !!serviceDetails?.question.answers && (
               <GridItem xs={12}>

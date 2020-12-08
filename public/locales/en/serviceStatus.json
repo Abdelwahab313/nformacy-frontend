@@ -19,5 +19,6 @@
   "client_clientSelection_status": "Client Selection",
   "client_shortlisting_action": "Select from Candidates",
   "client_callScheduled_status": "Call Scheduled",
-  "admin_callScheduled_status": "Call Scheduled"
+  "admin_callScheduled_status": "Call Scheduled",
+  "client_callScheduled_action": "View Meeting Details"
 }

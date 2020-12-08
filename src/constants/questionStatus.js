@@ -80,6 +80,7 @@ const serviceActions = {
       admin: 'admin_callScheduled_status',
     },
     action: {
+      client: 'client_callScheduled_action',
     },
   },
 };
