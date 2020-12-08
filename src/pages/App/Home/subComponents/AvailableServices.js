@@ -40,7 +40,7 @@ const AvailableServices = () => {
   const [focusedItem, setFocusedItem] = useState('');
 
   const navigatToServiceForm = (type) => {
-    history.push(RoutesPaths.App.ServiceRequestDetails, {
+    history.push(RoutesPaths.App.EditServiceRequest, {
       service: { assignmentType: type },
     });
   };

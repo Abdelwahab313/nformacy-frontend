@@ -6,13 +6,13 @@ import { RoutesPaths } from 'constants/routesPath';
 import QuestionRoaster from 'pages/App/QuestionRoaster/QuestionRoasterView';
 import HomePage from 'pages/App/Home';
 import AnswerQuestion from 'pages/App/QuestionRoaster/AnswerQuestion';
-import ServiceRequestDetails from 'pages/App/ServiceRequests/details';
+import EditServiceRequest from 'pages/App/ServiceRequests/edit';
 import EditProfile from 'pages/App/Profile/Profile';
 import MeetingsPage from 'pages/App/Meeting';
 import PostSubmissionNote from 'pages/App/QuestionRoaster/PostSubmissionNote';
 import AllNotifications from 'pages/Admin/Dashboard/AllNotifications';
 import ServicesPage from 'pages/App/ServiceRequests/list';
-import QuestionDetails from 'pages/App/Questions/details';
+import ServiceDetails from 'pages/App/ServiceRequests/details';
 
 const appRoutes = [
   {
@@ -26,8 +26,8 @@ const appRoutes = [
     exact: true,
   },
   {
-    path: RoutesPaths.App.QuestionsDetails,
-    component: QuestionDetails,
+    path: RoutesPaths.App.ServiceDetails,
+    component: ServiceDetails,
     exact: true,
   },
   {
@@ -36,8 +36,8 @@ const appRoutes = [
     exact: false,
   },
   {
-    path: RoutesPaths.App.ServiceRequestDetails,
-    component: ServiceRequestDetails,
+    path: RoutesPaths.App.EditServiceRequest,
+    component: EditServiceRequest,
     exact: true,
   },
   {

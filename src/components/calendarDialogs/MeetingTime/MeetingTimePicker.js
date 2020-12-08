@@ -17,7 +17,7 @@ const calculateTimeSlotsOptions = (selectedDay, selectedDayTimeSlots) => {
         value: startTime.toDate(),
       };
       timeOptions.push(timeSlotOption);
-      startTime.add('30', 'minutes');
+      startTime.add('1', 'hours');
     }
   });
 

@@ -9,7 +9,7 @@ export const getQuestionDetailsLink = (questionId) => {
   return {
     pathname: authManager.isAdmin()
       ? RoutesPaths.Admin.QuestionsDetails
-      : RoutesPaths.App.QuestionsDetails,
+      : RoutesPaths.App.ServiceDetails,
     state: {
       questionId: questionId,
     },
@@ -20,7 +20,7 @@ export const getServiceDetailsLink = (serviceId) => {
   return {
     pathname: authManager.isAdmin()
       ? RoutesPaths.Admin.ServiceDetails
-      : RoutesPaths.App.ServiceRequestDetails,
+      : RoutesPaths.App.EditServiceRequest,
     state: {
       service: {
         serviceId: serviceId,
