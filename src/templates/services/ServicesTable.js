@@ -194,7 +194,10 @@ const getColumnsOptions = (classes, t) => {
           return (
             <LinkText
               data-reference={tableMeta.rowData[0]}
-              to={getQuestionDetailsLink(tableMeta.rowData[8])}>
+              to={getQuestionDetailsLink(
+                tableMeta.rowData[8],
+                tableMeta.rowData[0],
+              )}>
               <TextCroppedWithTooltip text={`#${value}`} />
             </LinkText>
           );

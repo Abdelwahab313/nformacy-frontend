@@ -23,8 +23,10 @@ const ServiceActionLink = ({
     return '';
   }
 
-  const redirectURL = !!questionId
-    ? getQuestionDetailsLink(questionId)
+  const hasRelatedQuestion = !!questionId;
+
+  const redirectURL = hasRelatedQuestion
+    ? getQuestionDetailsLink(questionId, serviceId)
     : getServiceDetailsLink(serviceId);
   return (
     <LinkText to={redirectURL}>

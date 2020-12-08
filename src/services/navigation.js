@@ -5,12 +5,13 @@ import authManager from 'services/authManager';
 
 export const history = createHistory();
 
-export const getQuestionDetailsLink = (questionId) => {
+export const getQuestionDetailsLink = (questionId, serviceId) => {
   return {
     pathname: authManager.isAdmin()
       ? RoutesPaths.Admin.QuestionsDetails
       : RoutesPaths.App.ServiceDetails,
     state: {
+      serviceId: serviceId,
       questionId: questionId,
     },
   };

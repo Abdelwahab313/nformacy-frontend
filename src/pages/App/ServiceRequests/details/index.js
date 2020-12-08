@@ -2,7 +2,6 @@ import React from 'react';
 import { useLocation } from 'react-router';
 
 import LoadingCircle from 'components/progress/LoadingCircle';
-import { fetchQuestionDetails } from 'apis/questionsAPI';
 import useFetchData from 'hooks/useFetchData';
 import { Grid } from '@material-ui/core';
 import QuestionView from 'pages/App/QuestionRoaster/subComponents/QuestionView';
@@ -12,13 +11,14 @@ import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import Direction from 'components/grid/Direction';
 import ShortlistCandidate from 'pages/App/ServiceRequests/details/subComponents/ShortlistCandidate';
+import { fetchServiceDetails } from 'apis/servicesAPI';
 
 const ServiceDetails = () => {
   const location = useLocation();
-  const questionId = location?.state?.questionId;
+  const serviceId = location?.state?.serviceId;
   const { t } = useTranslation();
-  const { fetchedData: questionDetails, isLoading } = useFetchData(() =>
-    fetchQuestionDetails(questionId),
+  const { fetchedData: serviceDetails, isLoading } = useFetchData(() =>
+    fetchServiceDetails(serviceId),
   );
   if (isLoading) {
     return <LoadingCircle />;
@@ -30,20 +30,20 @@ const ServiceDetails = () => {
         <Grid item xs={10} sm={10}>
           <BreadcrumbsCustomSeparator pageName={t('serviceDetails')} />
           <QuestionView
-            questionDetails={questionDetails}
+            questionDetails={serviceDetails?.question}
             isSubmitVisible={false}
           />
-          {questionDetails.assignmentType === 'call' &&
-            questionDetails.candidates?.length > 0 && (
+          {serviceDetails.assignmentType === 'call' &&
+            serviceDetails.candidates?.length > 0 && (
               <ShortlistCandidate
-                candidates={questionDetails.candidates}
-                serviceId={questionDetails.serviceId}
+                candidates={serviceDetails?.candidates}
+                serviceId={serviceDetails.id}
               />
             )}
-          {questionDetails.assignmentType === 'question' &&
-            !!questionDetails.answers && (
+          {serviceDetails.assignmentType === 'question' &&
+            !!serviceDetails?.question.answers && (
               <GridItem xs={12}>
-                {questionDetails.answers?.map((answer, index) => (
+                {serviceDetails?.question.answers?.map((answer, index) => (
                   <div id={answer.referenceNumber} key={`answer-${index}`}>
                     <AnswerView
                       answer={answer}
