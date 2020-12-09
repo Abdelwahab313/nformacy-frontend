@@ -54,7 +54,7 @@ const ServiceDetails = () => {
               <Card className={classes.noShadow}>
                 <CardHeader color='primary'>
                   <Typography component={'h4'} id={'confirmedCandidate'}>
-                    Shortlist Candidate
+                    {t('joinMeeting')}
                   </Typography>
                 </CardHeader>
                 <Grid

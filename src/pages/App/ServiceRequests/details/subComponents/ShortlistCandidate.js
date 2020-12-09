@@ -6,6 +6,7 @@ import MeetingTimeSelectorCalendarDialog from 'components/calendarDialogs/Meetin
 import Card from 'components/card/Card';
 import CardHeader from 'components/card/CardHeader';
 import CandidateItem from './CandidateItem';
+import { useTranslation } from 'react-i18next';
 
 const ShortlistCandidate = ({ candidates, serviceId }) => {
   const classes = useStyles();
@@ -14,13 +15,14 @@ const ShortlistCandidate = ({ candidates, serviceId }) => {
   const closeCalendar = () => {
     setSelectedCandidate('');
   };
+  const { t } = useTranslation();
 
   const shortlistedContainerColors = [lightOrange, lightTurquoise, lighterPink];
   return (
     <Card className={classes.noShadow}>
       <CardHeader color='primary'>
         <Typography component={'h4'} id={'Shortlist'}>
-          Shortlist Candidate
+          {t('shortlistCandidate')}
         </Typography>
       </CardHeader>
       <Grid
