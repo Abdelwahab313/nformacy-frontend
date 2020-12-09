@@ -29,7 +29,7 @@ import { updateUser } from '../../../pages/auth/context/authActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Icon from '@material-ui/core/Icon';
 
-const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
+const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
   const classes = useStyles();
   const [{ currentUser }, dispatch] = useAuth();
   const [availableDates, setAvailableDates] = useState(
@@ -244,6 +244,7 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog, onSubmit }) => {
               onUpdateAvailableDays={updateAvailableDays}
               containerStyle={classes.cardBorder}
               isEditable={true}
+              events={currentUser?.events}
               availableDates={availableDates}
             />
             <Box mt={3}>

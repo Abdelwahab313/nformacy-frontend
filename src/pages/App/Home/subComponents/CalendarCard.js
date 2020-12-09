@@ -17,6 +17,7 @@ const CalendarCard = ({ currentUser }) => {
   const { t } = useTranslation();
 
   const availableDates = !!currentUser.freeDates ? currentUser.freeDates : [];
+  const events = !!currentUser.events ? currentUser.events : [];
   const openCalendarDialog = () => {
     setIsCalendarDialog(true);
   };
@@ -27,7 +28,11 @@ const CalendarCard = ({ currentUser }) => {
         <Typography variant={'h6'} gutterBottom>
           {t('calendarOfEvents')}
         </Typography>
-        <CalendarView isMinimized availableDates={availableDates} />
+        <CalendarView
+          isMinimized
+          availableDates={availableDates}
+          events={events}
+        />
         {authManager.isNormalUser() && (
           <Box m={1}>
             <SubmitButton

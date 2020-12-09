@@ -36,7 +36,6 @@ const AppointmentHeader = withStyles(appointmentHeaderStyles, {
 })(({ appointmentData, classes, ...restProps }) => (
   <AppointmentTooltip.Header {...restProps} appointmentData={appointmentData}>
     <IconButton
-      /* eslint-disable-next-line no-alert */
       onClick={() => {
         restProps.onOpenButtonClick();
         restProps.onHide();
@@ -46,7 +45,6 @@ const AppointmentHeader = withStyles(appointmentHeaderStyles, {
       <EditIcon />
     </IconButton>
     <IconButton
-      /* eslint-disable-next-line no-alert */
       onClick={restProps.onDeleteButtonClick}
       className={classes.commandButton}
       id={`delete-${appointmentData.id}`}>
@@ -82,6 +80,7 @@ const Appointment = withStyles(calendarStyles, {
 
 const CalendarView = ({
   availableDates,
+  events,
   selectedDay,
   canBookDate,
   isMinimized,
@@ -118,7 +117,7 @@ const CalendarView = ({
     <Paper
       id={'calendar-view'}
       className={classNames([containerStyle, classes.paperBackground])}>
-      <Scheduler data={canBookDate ? [] : availableDates}>
+      <Scheduler data={canBookDate ? [] : [...availableDates, ...events]}>
         <ViewState defaultCurrentDate={Date.now()} />
 
         <CustomMonthView
