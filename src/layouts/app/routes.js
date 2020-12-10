@@ -13,6 +13,7 @@ import PostSubmissionNote from 'pages/App/QuestionRoaster/PostSubmissionNote';
 import AllNotifications from 'pages/Admin/Dashboard/AllNotifications';
 import ServicesPage from 'pages/App/ServiceRequests/list';
 import ServiceDetails from 'pages/App/ServiceRequests/details';
+import FreelancersAnswersPage from 'pages/App/FreelancersAnswers/list';
 
 const appRoutes = [
   {
@@ -43,6 +44,11 @@ const appRoutes = [
   {
     path: RoutesPaths.App.Services,
     component: ServicesPage,
+    exact: true,
+  },
+  {
+    path: RoutesPaths.App.AnswersList,
+    component: FreelancersAnswersPage,
     exact: true,
   },
   {

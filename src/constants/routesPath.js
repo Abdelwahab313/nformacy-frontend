@@ -31,5 +31,6 @@ export const RoutesPaths = {
     MeetingDetails: '/meeting/edit',
     AllNotifications: '/notifications',
     Services: '/services/list',
+    AnswersList: '/answers/list',
   },
 };

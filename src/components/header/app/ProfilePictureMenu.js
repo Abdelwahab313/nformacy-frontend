@@ -7,11 +7,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { Link } from 'react-router-dom';
 import HomeIcon from '@material-ui/icons/Home';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import VideoCallIcon from '@material-ui/icons/VideoCall';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import HelpIcon from '@material-ui/icons/Help';
 import { darkBlue } from 'styles/colors';
+import { RoutesPaths } from 'constants/routesPath';
+import authManager from 'services/authManager';
 
 const StyledMenu = withStyles({
   paper: {
@@ -47,8 +48,7 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
       anchorEl={anchorEl}
       keepMounted
       open={Boolean(anchorEl)}
-      onClose={handleClose}
-    >
+      onClose={handleClose}>
       <MenuItem
         id={'home'}
         key={'home'}
@@ -56,9 +56,9 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
         component={Link}
         to={'/'}>
         <ListItemIcon>
-          <HomeIcon color={'secondary'}/>
+          <HomeIcon color={'secondary'} />
         </ListItemIcon>
-        <StyledListText primary={'Home'}/>
+        <StyledListText primary={'Home'} />
       </MenuItem>
 
       <MenuItem
@@ -68,9 +68,9 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
         component={Link}
         to={'/user/edit'}>
         <ListItemIcon>
-          <AccountBoxIcon color={'secondary'}/>
+          <AccountBoxIcon color={'secondary'} />
         </ListItemIcon>
-        <StyledListText primary={'Profile'}/>
+        <StyledListText primary={'Profile'} />
       </MenuItem>
 
       <MenuItem
@@ -80,34 +80,38 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
         component={Link}
         to={'/questions'}>
         <ListItemIcon>
-          <HelpIcon color={'secondary'}/>
+          <HelpIcon color={'secondary'} />
         </ListItemIcon>
-        <StyledListText primary={'Question Roaster'}/>
+        <StyledListText primary={'Question Roaster'} />
       </MenuItem>
 
-      <MenuItem
-        id={'meeting'}
-        key={'Meeting'}
-        onClick={() => handleClose()}
-        component={Link}
-        to={'/meeting/list'}>
-        <ListItemIcon>
-          <VideoCallIcon color={'secondary'}/>
-        </ListItemIcon>
-        <StyledListText primary={'Meeting'}/>
-      </MenuItem>
+      {authManager.isClient() && (
+        <MenuItem
+          id={'services'}
+          key={'Services'}
+          onClick={() => handleClose()}
+          component={Link}
+          to={RoutesPaths.App.Services}>
+          <ListItemIcon>
+            <BusinessCenterIcon color={'secondary'} />
+          </ListItemIcon>
+          <StyledListText primary={'Services'} />
+        </MenuItem>
+      )}
 
-      <MenuItem
-        id={'services'}
-        key={'Services'}
-        onClick={() => handleClose()}
-        component={Link}
-        to={'/services/list'}>
-        <ListItemIcon>
-          <BusinessCenterIcon color={'secondary'}/>
-        </ListItemIcon>
-        <StyledListText primary={'Services'}/>
-      </MenuItem>
+      {authManager.isNormalUser() && (
+        <MenuItem
+          id={'services'}
+          key={'Answers'}
+          onClick={() => handleClose()}
+          component={Link}
+          to={RoutesPaths.App.AnswersList}>
+          <ListItemIcon>
+            <BusinessCenterIcon color={'secondary'} />
+          </ListItemIcon>
+          <StyledListText primary={'Answers'} />
+        </MenuItem>
+      )}
 
       <MenuItem
         id={'logout'}
@@ -116,9 +120,9 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
         component={Link}
         to={'/logout'}>
         <ListItemIcon>
-          <ExitToAppIcon color={'secondary'}/>
+          <ExitToAppIcon color={'secondary'} />
         </ListItemIcon>
-        <StyledListText primary={'logout'}/>
+        <StyledListText primary={'logout'} />
       </MenuItem>
     </StyledMenu>
   );

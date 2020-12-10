@@ -2,6 +2,13 @@ import axios from 'axios';
 import { API_BASE_URL } from '../settings';
 import { camelizeKeys, decamelizeKeys } from 'humps';
 
+export const fetchFreelancerAnswers = () => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/answers/freelancer_answers`,
+  }).then((response) => camelizeKeys(response));
+};
+
 export const rateAnswer = (answerId, rating) => {
   return axios({
     method: 'post',
