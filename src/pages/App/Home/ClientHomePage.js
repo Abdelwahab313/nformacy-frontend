@@ -5,7 +5,7 @@ import useStyles from './styles/HomePageStyles';
 import CalendarCard from './subComponents/CalendarCard';
 import { useAuth } from '../../auth/context/auth';
 import AvailableServiceSection from './subComponents/AvailableServices';
-import ActivityTable from './subComponents/ActivityTable';
+import ClientActivityTable from './subComponents/ClientActivityTable';
 import FeedsTimeline from './subComponents/FeedsTimeline';
 import Direction from 'components/grid/Direction';
 import LibraryCard from './subComponents/LibraryCard';
@@ -41,7 +41,7 @@ const ClientHomePage = () => {
               <AvailableServiceSection />
             </Grid>
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
-              <ActivityTable />
+              <ClientActivityTable />
             </Grid>
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
               <CalendarLibraryForMobile />

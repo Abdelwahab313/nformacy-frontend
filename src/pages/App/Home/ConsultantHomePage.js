@@ -4,7 +4,6 @@ import ProfileSummaryCard from './subComponents/ProfileSummaryCard';
 import useStyles from './styles/HomePageStyles';
 import CalendarCard from './subComponents/CalendarCard';
 import { useAuth } from '../../auth/context/auth';
-import ActivityTable from './subComponents/ActivityTable';
 import FeedsTimeline from './subComponents/FeedsTimeline';
 import Direction from 'components/grid/Direction';
 import LibraryCard from './subComponents/LibraryCard';
@@ -13,6 +12,7 @@ import HomeHeadBar from './subComponents/HomeHeadBar';
 import ConsultantQuestionRoaster from './subComponents/ConsultantQuestionRoaster';
 import PointsBox from './subComponents/PointsBox';
 import RankBox from './subComponents/RankBox';
+import ConsultantActivityTable from './subComponents/ConsultantActivityTable';
 
 const ConsultantHomePage = () => {
   const classes = useStyles();
@@ -39,7 +39,7 @@ const ConsultantHomePage = () => {
               </Grid>
             </Grid>
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
-              <ActivityTable />
+              <ConsultantActivityTable />
             </Grid>
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
               <CalendarLibraryForMobile />

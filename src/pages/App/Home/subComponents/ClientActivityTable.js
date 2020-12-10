@@ -41,7 +41,7 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-const ActivityTable = () => {
+const ClientActivityTable = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const { fetchedData: services, isLoading } = useFetchData(
@@ -130,4 +130,4 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   }
 }));
-export default ActivityTable;
+export default ClientActivityTable;
