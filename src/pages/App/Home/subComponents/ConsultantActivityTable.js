@@ -89,12 +89,12 @@ const ConsultantActivityTable = () => {
               <TableBody>
                 {answers.map((answer) => (
                   <StyledTableRow
-                    reference-number={answer.question.service.referenceNumber}
-                    key={answer.question.service.id}>
+                    reference-number={answer?.question?.service?.referenceNumber}
+                    key={answer?.question?.service?.id}>
                     <StyledTableCell>
                       <ServiceRefIdLink
-                        serviceId={answer.question.service.id}
-                        referenceId={answer.question.service.referenceNumber}
+                        serviceId={answer?.question?.service?.id}
+                        referenceId={answer?.question?.service?.referenceNumber}
                       />
                     </StyledTableCell>
                     <StyledTableCell scope='row'>
@@ -102,16 +102,16 @@ const ConsultantActivityTable = () => {
                         questionTypesOfAssignment.filter(
                           (assignmentOption) =>
                             assignmentOption.value ===
-                            answer.question.service.assignmentType,
+                            answer?.question?.service?.assignmentType,
                         )[0]?.label
                       }
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
-                      {answer.question.service.title}
+                      {answer?.question?.service?.title}
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
                       {formattedDateTimeNoSeconds(
-                        new Date(answer.question.service.createdAt),
+                        new Date(answer?.question?.service?.createdAt),
                       )}
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
@@ -127,7 +127,7 @@ const ConsultantActivityTable = () => {
                       className={[classes.desktopVisible, 'action']}>
                       <ServiceActionLink
                         status={answer.state}
-                        serviceId={answer.question.service.id}
+                        serviceId={answer?.question?.service?.id}
                         questionId={answer.question.id}
                         questionState={answer.question.state}
                       />
