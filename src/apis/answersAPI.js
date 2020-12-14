@@ -9,6 +9,30 @@ export const fetchFreelancerAnswers = () => {
   }).then((response) => camelizeKeys(response));
 };
 
+export const createAnswer = (answer) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/answers`,
+    data: decamelizeKeys({ ...answer }),
+  }).then((response) => camelizeKeys(response));
+};
+
+export const updateAnswer = (answer) => {
+  return axios({
+    method: 'put',
+    url: `${API_BASE_URL}/answers/${answer.id}`,
+    data: decamelizeKeys({ ...answer }),
+  }).then((response) => camelizeKeys(response));
+};
+
+export const submitAnswer = (answer) => {
+  if (!!answer.id) {
+    return updateAnswer(answer);
+  } else {
+    return createAnswer(answer);
+  }
+};
+
 export const rateAnswer = (answerId, rating) => {
   return axios({
     method: 'post',

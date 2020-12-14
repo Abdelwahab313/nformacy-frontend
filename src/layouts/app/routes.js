@@ -5,7 +5,7 @@ import { RoutesPaths } from 'constants/routesPath';
 // core components/views for AdminLayout layout
 import QuestionRoaster from 'pages/App/QuestionRoaster/QuestionRoasterView';
 import HomePage from 'pages/App/Home';
-import AnswerQuestion from 'pages/App/QuestionRoaster/AnswerQuestion';
+import AnswerQuestion from 'pages/App/FreelancersAnswers/edit';
 import EditServiceRequest from 'pages/App/ServiceRequests/edit';
 import EditProfile from 'pages/App/Profile/Profile';
 import MeetingsPage from 'pages/App/Meeting';

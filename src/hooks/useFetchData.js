@@ -23,7 +23,7 @@ const useFetchData = (fetchApi) => {
     setLoading(true);
     return fetchApi()
       .then((res) => {
-        setFetchedData(res.data)
+        setFetchedData(res.data);
       })
       .catch((reason) => {
         handleApiErrors(reason);
@@ -37,19 +37,10 @@ const useFetchData = (fetchApi) => {
     getData();
   }, []);
 
-  const refresh = (fetchApi) => {
-    setLoading(true);
-    fetchApi()
-      .then((res) => setFetchedData(res.data))
-      .catch((reason) => handleApiErrors(reason))
-      .finally(() => setLoading(false));
-  };
-
   return {
     isLoading,
     fetchedData,
     errorMessage,
-    refresh,
   };
 };
 

@@ -197,5 +197,7 @@
   "shortlistCandidate": "Shortlist Candidate",
   "joinMeeting": "Join Meeting",
   "answersList": "Answers List",
-  "time": "Time"
+  "time": "Time",
+  "answerSubmitted": "Answer has been submitted successfully",
+  "answerSaved": "Answer has been saved for later"
 }

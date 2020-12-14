@@ -14,6 +14,7 @@ import directions from '../../../../constants/direction';
 import DEFAULT_LOCALES from '../../../../constants/locale';
 import { useTranslation } from 'react-i18next';
 import QuestionFieldsChips from './QuestionFieldsChips';
+import { RoutesPaths } from 'constants/routesPath';
 
 const LANGUAGES_LOCALES_MAPPER = {
   english: 'en',
@@ -33,8 +34,8 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
   const questionLocale = LANGUAGES_LOCALES_MAPPER[questionDetails.language];
   const fixedTranslation = i18n.getFixedT(questionLocale);
 
-  function handleEditClick(questionReference) {
-    history.push(`/question/answer/${questionReference}`, { questionDetails });
+  function handleEditClick() {
+    history.push(RoutesPaths.App.AnswerQuestion, { questionDetails });
   }
 
   return (
@@ -161,7 +162,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
                   className={classes.submitButton}
                   id={`question-${questionDetails.referenceNumber}-submit`}
                   onClick={() =>
-                    handleEditClick(questionDetails.referenceNumber)
+                    handleEditClick()
                   }
                   buttonText={fixedTranslation('questionRoaster:answer')}
                   disabled={false}
