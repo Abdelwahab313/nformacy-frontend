@@ -1,6 +1,5 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
 import Grow from '@material-ui/core/Grow';
 import WorkExperience from '../../../components/forms/WorkExperience';
 import Education from '../../../components/forms/Education';
@@ -21,16 +20,6 @@ const StepThree = () => {
         alignItems='flex-start'
         justify='center'
         spacing={5}>
-        <Hidden smDown>
-          <Grow in={true} timeout={2000}>
-            <Grid item xs={12} sm={3}>
-              <img
-                src={require('../../../assets/11564-scanner-animation.gif')}
-                width={'100%'}
-              />
-            </Grid>
-          </Grow>
-        </Hidden>
         <Grow in={true} timeout={3500}>
           <Grid
             container

@@ -32,5 +32,6 @@ export const RoutesPaths = {
     AllNotifications: '/notifications',
     Services: '/services/list',
     AnswersList: '/answers/list',
+    UserTypeSelection: '/user/type',
   },
 };

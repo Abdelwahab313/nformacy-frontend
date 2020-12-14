@@ -9,7 +9,12 @@ import CreatableSelect from 'react-select/creatable';
 import { industries } from '../../constants/dropDownOptions';
 import ErrorMessage from '../errors/ErrorMessage';
 import React from 'react';
-import { dividerStyle, sectionContainerStyles, selectStyle, useStyles } from '../../styles/formsStyles';
+import {
+  dividerStyle,
+  sectionContainerStyles,
+  selectStyle,
+  useStyles,
+} from '../../styles/formsStyles';
 import ReactTooltip from 'react-tooltip';
 import t from '../../locales/en/freelancerProfile.json';
 import AssignmentPreferences from './AssignmentPreferences';
@@ -22,14 +27,17 @@ function FieldsOfSpecialization() {
     <Container style={sectionContainerStyles}>
       <Grid container alignItems='center'>
         <Grid item xs>
-          <Typography id={'fieldsOfSpecializationTitle'} gutterBottom className={classes.sectionHeaderStyles}>
+          <Typography
+            id={'fieldsOfSpecializationTitle'}
+            gutterBottom
+            className={classes.sectionHeaderStyles}>
             {t['fieldsOfSpecialization']}
           </Typography>
         </Grid>
       </Grid>
-      <Divider variant='middle' style={dividerStyle}/>
-      <ReactTooltip globalEventOff={'click'}/>
-      <FieldsOfExperience/>
+      <Divider variant='middle' style={dividerStyle} />
+      <ReactTooltip globalEventOff={'click'} />
+      <FieldsOfExperience />
       <Container maxWidth={false} className={classes.formControl}>
         <div className={classes.formHeader}>
           <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
@@ -51,13 +59,11 @@ function FieldsOfSpecialization() {
             <CreatableSelect
               defaultValue={
                 !!user.current.industriesOfExperience
-                  ? user.current.industriesOfExperience.map(
-                  (userIndustry) => {
-                    return industries.find(
-                      (industry) => userIndustry === industry.value,
-                    );
-                  },
-                  )
+                  ? user.current.industriesOfExperience.map((userIndustry) => {
+                      return industries.find(
+                        (industry) => userIndustry === industry.value,
+                      );
+                    })
                   : []
               }
               styles={selectStyle}
@@ -66,9 +72,9 @@ function FieldsOfSpecialization() {
             />
           }
         />
-        <ErrorMessage errorField={errors.industriesOfExperience}/>
+        <ErrorMessage errorField={errors.industriesOfExperience} />
       </Container>
-      <AssignmentPreferences/>
+      <AssignmentPreferences />
     </Container>
   );
 }

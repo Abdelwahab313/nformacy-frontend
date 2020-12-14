@@ -7,13 +7,14 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStyles } from '../../styles/formsStyles';
 import { signup } from '../../apis/userAPI';
 import { useAuth } from '../auth/context/auth';
-import { Redirect } from 'react-router';
+import {useHistory } from 'react-router';
 import authManager from '../../services/authManager';
 import { Grid } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import t from '../../locales/en/signUp.json';
 import { updateUser } from '../auth/context/authActions';
 import clsx from 'clsx';
+import { RoutesPaths } from 'constants/routesPath';
 
 const Register = () => {
   const {
@@ -31,6 +32,7 @@ const Register = () => {
   const [registerSucceeded, setRegisterSucceeded] = useState(false);
   const [, dispatch] = useAuth();
   const classes = useStyles();
+  const history = useHistory();
 
   const repeatVal = (passwordRepeat) =>
     passwordRepeat === getValues().password || 'Passwords do not match';
@@ -75,7 +77,9 @@ const Register = () => {
   }
 
   if (registerSucceeded) {
-    return <Redirect push to='/user/profile' />;
+
+    history.push(RoutesPaths.App.UserTypeSelection);
+    // return <Redirect push to='/user/profile' />;
   }
   return (
     <Grid
@@ -91,17 +95,12 @@ const Register = () => {
           <Typography className={classes.pageHeaderStyle}>
             {t['signUp']}
           </Typography>
-          <div className={classes.headerWithBackground}>
-            <Typography className={classes.signUpHeaderStyle}>
-              {t['bePartOfTheFastedGrowingTalentCommunity']}
-            </Typography>
-          </div>
         </Grid>
       </Grid>
-      <Grid container justify={'space-evenly'} alignContent={'center'}>
+      <Grid container justify={'space-evenly'} alignItems={'center'}>
         <CssBaseline />
-        <Grid item xs={12} md={3}>
-          <img src={require('../../assets/Airplane.gif')} width={'100%'} />
+        <Grid item xs={12} md={4}>
+          <img src={require('../../assets/handshake.png')} width={'100%'} />
         </Grid>
         <Grid item xs={12} md={6} className={classes.paper}>
           <form

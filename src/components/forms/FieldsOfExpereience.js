@@ -7,6 +7,7 @@ import { useStyles } from 'styles/formsStyles';
 import ErrorMessage from '../errors/ErrorMessage';
 import t from '../../locales/en/freelancerProfile.json';
 import FieldsSelect from '../inputs/FieldsSelect/FieldsSelect';
+import CustomTypography from 'components/typography/Typography';
 
 const FieldsOfExperience = () => {
   const { errors, watch, setValue, register } = useFormContext();
@@ -40,6 +41,9 @@ const FieldsOfExperience = () => {
                 fontSize='small'
               />
             </div>
+            <CustomTypography variant='body1' fontWeight='light' className={classes.removeNestedText} gutterBottom>
+              {t['experiencedInHint']}
+            </CustomTypography>
             <MajorField />
             <ErrorMessage errorField={errors.majorFieldsOfExperience} />
           </Container>
@@ -57,6 +61,9 @@ const FieldsOfExperience = () => {
                 fontSize='small'
               />
             </div>
+            <CustomTypography variant='body1' fontWeight='light' className={classes.removeNestedText} gutterBottom>
+              {t['specificallyInHint']}
+            </CustomTypography>
             <Field />
             <ErrorMessage errorField={errors.specificFieldsOfExperience} />
           </Container>

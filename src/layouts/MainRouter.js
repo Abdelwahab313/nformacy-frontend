@@ -9,6 +9,7 @@ import AdminLayout from 'layouts/admin/AdminLayout';
 import FreeLancerProfileForm from 'pages/App/FreelancerProfile/FreelancerProfileForm';
 import Success from 'pages/App/FreelancerProfile/success';
 import Layout from 'layouts/app/AppLayout';
+import UserTypeSelection from 'pages/App/register/UserTypeSelection';
 
 const MainRouter = () => {
   return (
@@ -18,6 +19,10 @@ const MainRouter = () => {
       <Route path={RoutesPaths.App.Logout} component={Logout} />
       <Route path={RoutesPaths.Admin.Login} component={Login} />
       <PrivateRoute path={RoutesPaths.Admin.Home} component={AdminLayout} />
+      <PrivateRoute
+        path={RoutesPaths.App.UserTypeSelection}
+        component={UserTypeSelection}
+      />
       <PrivateRoute
         path={RoutesPaths.App.FreelancerProfile}
         component={FreeLancerProfileForm}

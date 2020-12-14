@@ -14,6 +14,7 @@ import AllNotifications from 'pages/Admin/Dashboard/AllNotifications';
 import ServicesPage from 'pages/App/ServiceRequests/list';
 import ServiceDetails from 'pages/App/ServiceRequests/details';
 import FreelancersAnswersPage from 'pages/App/FreelancersAnswers/list';
+import UserTypeSelection from 'pages/App/register/UserTypeSelection';
 
 const appRoutes = [
   {
@@ -69,6 +70,11 @@ const appRoutes = [
   {
     path: RoutesPaths.App.AllNotifications,
     component: AllNotifications,
+    exact: true,
+  },
+  {
+    path: RoutesPaths.App.UserTypeSelection,
+    component: UserTypeSelection,
     exact: true,
   },
 ];
