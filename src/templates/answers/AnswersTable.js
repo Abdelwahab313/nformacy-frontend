@@ -17,7 +17,7 @@ import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip
 import { getServiceStatus } from 'core/serviceStatus';
 import ByTimeField from 'pages/Admin/Questions/list/subComponents/ByTimeField';
 import { getServiceDetailsLink } from 'services/navigation';
-import ServiceActionLink from './ServiceActionLink';
+import ServiceActionLink from '../services/ServiceActionLink';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -224,7 +224,6 @@ const AnswersTable = ({ answers }) => {
   //   const { service, ...questionData } = question;
   //   return { ...answerData, question: questionData, service: service };
   // });
-  // console.log('answersToDisplay--------', answersToDisplay);
   const columns = getColumnsOptions(classes, t);
 
   const tableOptions = {

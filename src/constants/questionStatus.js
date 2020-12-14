@@ -20,6 +20,69 @@ const SERVICE_STATUS = {
   callScheduled: 'call_scheduled',
 };
 
+const ANSWER_STATUS = {
+  draft: 'draft',
+  pending: 'pending',
+  accepted: 'accepted',
+  rejected: 'rejected',
+  rated: 'rated',
+  shortlisted: 'shortlisted',
+  clientSelected: 'client_selected',
+};
+
+const answerActions = {
+  [ANSWER_STATUS.draft]: {
+    status: {
+      displayString: 'answer_draft_status',
+    },
+    action: {
+      freelancer: 'answer_draft_action',
+    },
+  },
+  [ANSWER_STATUS.pending]: {
+    status: {
+      displayString: 'answer_pending_status',
+    },
+    action: {},
+  },
+  [ANSWER_STATUS.accepted]: {
+    status: {
+      displayString: 'answer_accepted_status',
+    },
+    action: {},
+  },
+  [ANSWER_STATUS.rejected]: {
+    status: {
+      displayString: 'answer_rejected_status',
+    },
+    action: {},
+  },
+  [ANSWER_STATUS.rated]: {
+    status: {
+      displayString: 'answer_rated_status',
+    },
+    action: {
+      freelancer: 'answer_rated_action',
+    },
+  },
+  [ANSWER_STATUS.shortlisted]: {
+    status: {
+      displayString: 'answer_shortlisted_status',
+    },
+    action: {
+      freelancer: 'answer_shortlisted_action',
+    },
+  },
+  [ANSWER_STATUS.clientSelected]: {
+    status: {
+      displayString: 'answer_clientSelected_status',
+    },
+    action: {
+      freelancer: 'answer_clientSelected_action',
+    },
+  },
+};
+
 const serviceActions = {
   [SERVICE_STATUS.draft]: {
     status: {
@@ -173,4 +236,6 @@ export {
   SERVICE_STATUS,
   questionStatusActions,
   serviceActions,
+  ANSWER_STATUS,
+  answerActions,
 };

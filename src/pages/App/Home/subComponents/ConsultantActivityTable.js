@@ -13,12 +13,13 @@ import { questionTypesOfAssignment } from 'constants/dropDownOptions';
 import { ServiceRefIdLink } from 'templates/services/ServicesTable';
 import { useTranslation } from 'react-i18next';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
-import ServiceActionLink from 'templates/services/ServiceActionLink';
 import HomePageCard from './HomePageCard';
 import { RoutesPaths } from 'constants/routesPath';
 import { fetchFreelancerAnswers } from 'apis/answersAPI';
 import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
 import FieldsChips from 'components/chips/FieldsChips';
+import FreelancerAnswerActionLink from 'templates/answers/FreelancerAnswerActionLink';
+import { getAnswerState } from 'core/answerStatus';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -122,15 +123,12 @@ const ConsultantActivityTable = () => {
                         text={`#${answer.referenceNumber}`}
                       />
                     </StyledTableCell>
-                    <StyledTableCell>{answer.state}</StyledTableCell>
+                    <StyledTableCell>
+                      {getAnswerState(answer.state)}
+                    </StyledTableCell>
                     <StyledTableCell
                       className={[classes.desktopVisible, 'action']}>
-                      <ServiceActionLink
-                        status={answer.state}
-                        serviceId={answer?.question?.service?.id}
-                        questionId={answer.question.id}
-                        questionState={answer.question.state}
-                      />
+                      <FreelancerAnswerActionLink answerStatus={answer.state} />
                     </StyledTableCell>
                     <StyledTableCell>time</StyledTableCell>
                   </StyledTableRow>

@@ -10,7 +10,7 @@ import { Box } from '@material-ui/core';
 import Direction from 'components/grid/Direction';
 import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
-import AnswersTable from 'templates/services/AnswersTable';
+import AnswersTable from 'templates/answers/AnswersTable';
 import { fetchFreelancerAnswers } from 'apis/answersAPI';
 
 

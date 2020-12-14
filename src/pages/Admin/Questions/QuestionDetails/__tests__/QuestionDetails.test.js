@@ -31,7 +31,7 @@ jest.mock('apis/questionsAPI', () => ({
       answers: [
         {
           content: 'test content',
-          createdAt: '2020-10-14T09:25:55.689Z',
+          createdAt: '2020-11-14T09:25:55.689Z',
         },
       ],
     },
