@@ -33,7 +33,7 @@ const ANSWER_STATUS = {
 const answerActions = {
   [ANSWER_STATUS.draft]: {
     status: {
-      displayString: 'Draft',
+      displayString: 'answer_draft_status',
     },
     action: {
       freelancer: 'answer_draft_action',
@@ -41,25 +41,25 @@ const answerActions = {
   },
   [ANSWER_STATUS.pending]: {
     status: {
-      displayString: 'Answer Pending',
+      displayString: 'answer_pending_status',
     },
     action: {},
   },
   [ANSWER_STATUS.accepted]: {
     status: {
-      displayString: 'Answer Accepted',
+      displayString: 'answer_accepted_status',
     },
     action: {},
   },
   [ANSWER_STATUS.rejected]: {
     status: {
-      displayString: 'Answer Rejected',
+      displayString: 'answer_rejected_status',
     },
     action: {},
   },
   [ANSWER_STATUS.rated]: {
     status: {
-      displayString: 'Answer Rated',
+      displayString: 'answer_rated_status',
     },
     action: {
       freelancer: 'answer_rated_action',
@@ -67,7 +67,7 @@ const answerActions = {
   },
   [ANSWER_STATUS.shortlisted]: {
     status: {
-      displayString: 'Shortlisted',
+      displayString: 'answer_shortlisted_status',
     },
     action: {
       freelancer: 'answer_shortlisted_action',
@@ -75,7 +75,7 @@ const answerActions = {
   },
   [ANSWER_STATUS.clientSelected]: {
     status: {
-      displayString: 'Client Selected',
+      displayString: 'answer_client_selected_status',
     },
     action: {
       freelancer: 'answer_clientSelected_action',

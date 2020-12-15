@@ -1,4 +1,11 @@
 {
+  "answer_draft_status": "Draft",
+  "answer_pending_status": "Answer Pending",
+  "answer_accepted_status": "Answer Accepted",
+  "answer_rejected_status": "Answer Rejected",
+  "answer_rated_status": "Answer Rated",
+  "answer_shortlisted_status": "Shortlisted",
+  "answer_client_selected_status": "Client Selected",
   "answer_draft_action": "Complete your Answer",
   "answer_rated_action": "View Rating",
   "answer_shortlisted_action": "Update Your Availability on Calendar",

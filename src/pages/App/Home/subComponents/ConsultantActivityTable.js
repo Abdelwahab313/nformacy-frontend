@@ -124,7 +124,7 @@ const ConsultantActivityTable = () => {
                       />
                     </StyledTableCell>
                     <StyledTableCell>
-                      {getAnswerState(answer.state)}
+                      {t(`answerStatus:${getAnswerState(answer.state)}`)}
                     </StyledTableCell>
                     <StyledTableCell
                       className={[classes.desktopVisible, 'action']}>
