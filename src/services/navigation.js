@@ -30,7 +30,7 @@ export const getServiceDetailsLink = (serviceId) => {
   };
 };
 
-export const redirectToAnswerQuestion = (questionId) => {
+export const getAnswerQuestionLink = (questionId) => {
   return {
     pathname: RoutesPaths.App.AnswerQuestion,
     state: {
