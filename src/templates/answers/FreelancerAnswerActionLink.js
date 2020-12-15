@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 
-import LinkText from 'components/typography/LinkText';
 import { getAnswerAction } from 'core/answerStatus';
 import { useHistory } from 'react-router';
-import { RoutesPaths } from 'constants/routesPath';
+import { Box } from '@material-ui/core';
+import { ANSWER_STATUS } from 'constants/questionStatus';
+import { getAnswerQuestionLink } from 'services/navigation';
+import AvailableTimesCalendarDialog from 'components/calendarDialogs/AvailableTimes/AvailableTimesCalendarDialog';
 
 const FreelancerAnswerActionLink = ({ answerStatus, questionId }) => {
+  const [isCalendarDialogOpen, setIsCalendarDialog] = useState(false);
+
   const { t } = useTranslation();
   const history = useHistory();
   const actionNeeded = getAnswerAction(answerStatus);
@@ -17,45 +21,44 @@ const FreelancerAnswerActionLink = ({ answerStatus, questionId }) => {
     return '';
   }
 
-  // const answerAction = {
-  //   [ANSWER_STATUS.draft]: {
-  //     onClick: () => {
-  //       history.push({
-  //         pathname: RoutesPaths.App.AnswerQuestion,
-  //         state: {
-  //           questionDetails: {
-  //             id: questionId,
-  //           },
-  //         },
-  //       })
-  //     }
-  //   },
-  //   [ANSWER_STATUS.rated]: {
-  //     onClick: () => { history.push(getAnswerQuestionLink(questionId)) }
-  //   },
-  //   [ANSWER_STATUS.shortlisted]: {
-  //     onClick: () => { history.push(getAnswerQuestionLink(questionId)) }
-  //   },
-  //   [ANSWER_STATUS.clientSelected]: {
-  //     onClick: () => { history.push(getAnswerQuestionLink(questionId)) }
-  //   }
-  // }
+  const answerAction = {
+    [ANSWER_STATUS.draft]: {
+      onClick: () => {
+        history.push(getAnswerQuestionLink(questionId));
+      },
+    },
+    [ANSWER_STATUS.rated]: {
+      onClick: () => {
+        history.push(getAnswerQuestionLink(questionId));
+      },
+    },
+    [ANSWER_STATUS.shortlisted]: {
+      onClick: () => {
+        setIsCalendarDialog(true);
+      },
+    },
+    [ANSWER_STATUS.clientSelected]: {
+      onClick: () => {
+        history.push(getAnswerQuestionLink(questionId));
+      },
+    },
+  };
+
   return (
-    <LinkText onClick={() => {
-      history.push({
-        pathname: RoutesPaths.App.AnswerQuestion,
-        state: {
-          questionDetails: {
-            id: questionId,
-          },
-        },
-      })
-    }}>
-      <StyledStatusChip
-        className={'state'}
-        label={t(`answerStatus:${actionNeeded}`)}
+    <>
+      <Box onClick={() => answerAction[answerStatus]?.onClick()}>
+        <StyledStatusChip
+          className={'state'}
+          label={t(`answerStatus:${actionNeeded}`)}
+        />
+      </Box>
+      <AvailableTimesCalendarDialog
+        open={isCalendarDialogOpen}
+        closeDialog={() => {
+          setIsCalendarDialog(false);
+        }}
       />
-    </LinkText>
+    </>
   );
 };
 
