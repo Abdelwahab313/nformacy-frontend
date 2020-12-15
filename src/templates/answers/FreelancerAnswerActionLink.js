@@ -6,16 +6,21 @@ import Chip from '@material-ui/core/Chip';
 
 import LinkText from 'components/typography/LinkText';
 import { getAnswerAction } from 'core/answerStatus';
+import { redirectToAnswerQuestion } from 'services/navigation';
+import { ANSWER_STATUS } from 'constants/questionStatus';
 
-const FreelancerAnswerActionLink = ({ answerStatus }) => {
+const FreelancerAnswerActionLink = ({ answerStatus, questionId }) => {
   const { t } = useTranslation();
   const actionNeeded = getAnswerAction(answerStatus);
   if (!actionNeeded) {
     return '';
   }
 
+  const redirectURL = answerStatus === ANSWER_STATUS.draft
+    ? redirectToAnswerQuestion(questionId) : ''
+
   return (
-    <LinkText to={{}}>
+    <LinkText to={redirectURL}>
       <StyledStatusChip
         className={'state'}
         label={t(`answerStatus:${actionNeeded}`)}

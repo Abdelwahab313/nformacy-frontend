@@ -33,7 +33,7 @@ const ANSWER_STATUS = {
 const answerActions = {
   [ANSWER_STATUS.draft]: {
     status: {
-      displayString: 'answer_draft_status',
+      displayString: 'Draft',
     },
     action: {
       freelancer: 'answer_draft_action',
@@ -41,25 +41,25 @@ const answerActions = {
   },
   [ANSWER_STATUS.pending]: {
     status: {
-      displayString: 'answer_pending_status',
+      displayString: 'Answer Pending',
     },
     action: {},
   },
   [ANSWER_STATUS.accepted]: {
     status: {
-      displayString: 'answer_accepted_status',
+      displayString: 'Answer Accepted',
     },
     action: {},
   },
   [ANSWER_STATUS.rejected]: {
     status: {
-      displayString: 'answer_rejected_status',
+      displayString: 'Answer Rejected',
     },
     action: {},
   },
   [ANSWER_STATUS.rated]: {
     status: {
-      displayString: 'answer_rated_status',
+      displayString: 'Answer Rated',
     },
     action: {
       freelancer: 'answer_rated_action',
@@ -67,7 +67,7 @@ const answerActions = {
   },
   [ANSWER_STATUS.shortlisted]: {
     status: {
-      displayString: 'answer_shortlisted_status',
+      displayString: 'Shortlisted',
     },
     action: {
       freelancer: 'answer_shortlisted_action',
@@ -75,7 +75,7 @@ const answerActions = {
   },
   [ANSWER_STATUS.clientSelected]: {
     status: {
-      displayString: 'answer_clientSelected_status',
+      displayString: 'Client Selected',
     },
     action: {
       freelancer: 'answer_clientSelected_action',
@@ -234,8 +234,8 @@ const questionStatusActions = {
 export {
   QUESTION_STATUS,
   SERVICE_STATUS,
+  ANSWER_STATUS,
   questionStatusActions,
   serviceActions,
-  ANSWER_STATUS,
   answerActions,
 };

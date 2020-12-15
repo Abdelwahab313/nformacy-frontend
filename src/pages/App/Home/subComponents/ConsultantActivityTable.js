@@ -90,12 +90,12 @@ const ConsultantActivityTable = () => {
               <TableBody>
                 {answers.map((answer) => (
                   <StyledTableRow
-                    reference-number={answer?.question?.service?.referenceNumber}
+                    reference-number={answer?.question?.referenceNumber}
                     key={answer?.question?.service?.id}>
                     <StyledTableCell>
                       <ServiceRefIdLink
                         serviceId={answer?.question?.service?.id}
-                        referenceId={answer?.question?.service?.referenceNumber}
+                        referenceId={answer?.question?.referenceNumber}
                       />
                     </StyledTableCell>
                     <StyledTableCell scope='row'>
@@ -103,16 +103,16 @@ const ConsultantActivityTable = () => {
                         questionTypesOfAssignment.filter(
                           (assignmentOption) =>
                             assignmentOption.value ===
-                            answer?.question?.service?.assignmentType,
+                            answer?.question?.assignmentType,
                         )[0]?.label
                       }
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
-                      {answer?.question?.service?.title}
+                      {answer?.question?.title}
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
                       {formattedDateTimeNoSeconds(
-                        new Date(answer?.question?.service?.createdAt),
+                        new Date(answer?.question?.createdAt),
                       )}
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
@@ -128,7 +128,7 @@ const ConsultantActivityTable = () => {
                     </StyledTableCell>
                     <StyledTableCell
                       className={[classes.desktopVisible, 'action']}>
-                      <FreelancerAnswerActionLink answerStatus={answer.state} />
+                      <FreelancerAnswerActionLink answerStatus={answer.state} questionId={answer.question.id} />
                     </StyledTableCell>
                     <StyledTableCell>time</StyledTableCell>
                   </StyledTableRow>
