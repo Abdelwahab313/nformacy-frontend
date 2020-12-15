@@ -79,6 +79,14 @@ const fetchUserDetails = () => {
   }).then((response) => camelizeKeys(response));
 }
 
+const addUserRole = (role) => {
+  return axios({
+    method: 'put',
+    url: `${API_BASE_URL}/users/add_role`,
+    data: { role },
+  }).then((response) => camelizeKeys(response));
+};
+
 export {
   signup,
   updateProfile,
@@ -88,5 +96,6 @@ export {
   fetchAdvisersList,
   changeLocaleAPI,
   fetchCurrentUserFields,
-  fetchUserDetails
+  fetchUserDetails,
+  addUserRole
 };
