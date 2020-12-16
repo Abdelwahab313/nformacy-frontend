@@ -97,26 +97,6 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
   },
-  fieldNameFilterStyles: {
-    border: 'solid 1px',
-    height: '40px',
-    margin: '2px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: '10px',
-    cursor: 'pointer',
-    fontSize: '1.190vw',
-    [theme.breakpoints.up('lg')]: {
-      fontSize: '1.00vw',
-    },
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '2.604vw',
-    },
-    [theme.breakpoints.down('xs')]: {
-      fontSize: '4vw',
-    },
-  },
   questionsCategoriesContainerDesktop: {
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
@@ -147,43 +127,11 @@ export const useStyles = makeStyles((theme) => ({
   flexContainer: {
     display: 'flex',
   },
-  questionFieldsStyles: {
-    minHeight: '40px',
-    display: 'flex',
-    alignItems: 'center',
-    fontSize: '1.190vw',
-    [theme.breakpoints.up('lg')]: {
-      fontSize: '1.00vw',
-    },
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '2.604vw',
-    },
-    [theme.breakpoints.down('xs')]: {
-      fontSize: '4vw',
-    },
-  },
-  questionFieldLabel: {
-    marginRight: '10px',
-    fontSize: '1.190vw',
-    [theme.breakpoints.up('lg')]: {
-      fontSize: '1.00vw',
-    },
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '2.604vw',
-    },
-    [theme.breakpoints.down('xs')]: {
-      fontSize: '4vw',
-    },
-  },
   progressContainer: {
     position: 'absolute',
     left: '50%',
     top: '50%',
     transform: 'translate(-50%, -50%)',
-  },
-  attachButtonStyle: {
-    backgroundColor: darkBlue,
-    color: white,
   },
   attachmentUploaderContainer: {
     display: 'flex',

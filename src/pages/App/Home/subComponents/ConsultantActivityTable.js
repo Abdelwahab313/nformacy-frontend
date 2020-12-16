@@ -9,7 +9,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import useFetchData from 'hooks/useFetchData';
-import { ServiceRefIdLink } from 'templates/services/ServicesTable';
 import { useTranslation } from 'react-i18next';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 import HomePageCard from './HomePageCard';
@@ -97,10 +96,7 @@ const ConsultantActivityTable = () => {
                     reference-number={answer?.question?.referenceNumber}
                     key={answer?.question?.service?.id}>
                     <StyledTableCell>
-                      <ServiceRefIdLink
-                        serviceId={answer?.question?.service?.id}
-                        referenceId={answer?.question?.service?.referenceNumber}
-                      />
+                      {`#${answer.question?.service?.referenceNumber}`}
                     </StyledTableCell>
                     <StyledTableCell scope='row'>
                       {t(answer?.question?.assignmentType)}
