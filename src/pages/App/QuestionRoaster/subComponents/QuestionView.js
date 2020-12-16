@@ -15,6 +15,7 @@ import DEFAULT_LOCALES from '../../../../constants/locale';
 import { useTranslation } from 'react-i18next';
 import QuestionFieldsChips from './QuestionFieldsChips';
 import { RoutesPaths } from 'constants/routesPath';
+import CustomTypography from 'components/typography/Typography';
 
 const LANGUAGES_LOCALES_MAPPER = {
   english: 'en',
@@ -131,13 +132,16 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
               <Grid
                 id={`question-${questionDetails.referenceNumber}-content`}
                 className={classes.questionContentField}>
-                <ShowMore>
-                  <div
-                    dangerouslySetInnerHTML={createMarkup(
-                      getFirstParagraph(questionDetails.content),
-                    )}
-                  />
-                </ShowMore>
+                <CustomTypography
+                  variant='body1'>
+                  <ShowMore>
+                    <div
+                      dangerouslySetInnerHTML={createMarkup(
+                        getFirstParagraph(questionDetails.content),
+                      )}
+                    />
+                  </ShowMore>
+                </CustomTypography>
               </Grid>
             </Grid>
             {/* ======Icon and Button======== */}
@@ -172,7 +176,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
           </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </Grid >
   );
 };
 
