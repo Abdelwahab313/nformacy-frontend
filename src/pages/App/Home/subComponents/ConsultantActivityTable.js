@@ -9,7 +9,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import useFetchData from 'hooks/useFetchData';
-import { questionTypesOfAssignment } from 'constants/dropDownOptions';
 import { ServiceRefIdLink } from 'templates/services/ServicesTable';
 import { useTranslation } from 'react-i18next';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
@@ -21,6 +20,8 @@ import FieldsChips from 'components/chips/FieldsChips';
 import FreelancerAnswerActionLink from 'templates/answers/FreelancerAnswerActionLink';
 import { getAnswerState } from 'core/answerStatus';
 import FreelancerAnswerTime from 'templates/answers/FreelancerAnswerTime';
+import { getAnswerQuestionLink } from 'services/navigation';
+import LinkText from 'components/typography/LinkText';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -28,12 +29,12 @@ const StyledTableCell = withStyles((theme) => ({
     color: theme.palette.common.white,
     textAlign: 'center',
     fontWeight: 'bold',
-    whiteSpace: 'nowrap'
+    whiteSpace: 'nowrap',
   },
   body: {
     fontSize: 14,
     textAlign: 'center',
-    whiteSpace: 'nowrap'
+    whiteSpace: 'nowrap',
   },
 }))(TableCell);
 
@@ -98,20 +99,16 @@ const ConsultantActivityTable = () => {
                     <StyledTableCell>
                       <ServiceRefIdLink
                         serviceId={answer?.question?.service?.id}
-                        referenceId={answer?.question?.referenceNumber}
+                        referenceId={answer?.question?.service?.referenceNumber}
                       />
                     </StyledTableCell>
                     <StyledTableCell scope='row'>
-                      {
-                        questionTypesOfAssignment.filter(
-                          (assignmentOption) =>
-                            assignmentOption.value ===
-                            answer?.question?.assignmentType,
-                        )[0]?.label
-                      }
+                      {t(answer?.question?.assignmentType)}
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
-                      {answer?.question?.title}
+                      <LinkText to={getAnswerQuestionLink(answer.question?.id)}>
+                        <TextCroppedWithTooltip text={answer.question?.title} />
+                      </LinkText>
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
                       {formattedDateTimeNoSeconds(
@@ -122,9 +119,11 @@ const ConsultantActivityTable = () => {
                       <FieldsChips fields={answer?.question?.fields} />
                     </StyledTableCell>
                     <StyledTableCell>
-                      <TextCroppedWithTooltip
-                        text={`#${answer.referenceNumber}`}
-                      />
+                      <LinkText to={getAnswerQuestionLink(answer.question?.id)}>
+                        <TextCroppedWithTooltip
+                          text={`#${answer.referenceNumber}`}
+                        />
+                      </LinkText>
                     </StyledTableCell>
                     <StyledTableCell>
                       {t(`answerStatus:${getAnswerState(answer.state)}`)}
@@ -137,9 +136,13 @@ const ConsultantActivityTable = () => {
                       />
                     </StyledTableCell>
                     <StyledTableCell>
-                      <FreelancerAnswerTime
-                        currentActionTime={answer?.question?.currentActionTime}
-                      />
+                      {!!answer?.question?.currentActionTime ? (
+                        <FreelancerAnswerTime
+                          currentActionTime={
+                            answer?.question?.currentActionTime
+                          }
+                        />
+                      ) : null}
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}
