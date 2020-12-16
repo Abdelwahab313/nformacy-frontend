@@ -132,8 +132,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
               <Grid
                 id={`question-${questionDetails.referenceNumber}-content`}
                 className={classes.questionContentField}>
-                <CustomTypography
-                  variant='body1'>
+                <CustomTypography variant='body1'>
                   <ShowMore>
                     <div
                       dangerouslySetInnerHTML={createMarkup(

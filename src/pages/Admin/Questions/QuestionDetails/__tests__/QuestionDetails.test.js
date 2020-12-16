@@ -32,6 +32,11 @@ jest.mock('apis/questionsAPI', () => ({
         {
           content: 'test content',
           createdAt: '2020-11-14T09:25:55.689Z',
+          user: {
+            firstName: 'ali',
+            lastName: 'ahmed',
+            referenceNumber: '123'
+          }
         },
       ],
     },

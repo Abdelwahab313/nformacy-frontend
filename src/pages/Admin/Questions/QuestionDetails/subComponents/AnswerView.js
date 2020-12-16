@@ -24,6 +24,7 @@ import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 import useLocale from 'hooks/localization/useLocale';
 import { useTranslation } from 'react-i18next';
 import { Checkbox, FormControlLabel } from '@material-ui/core';
+import { getUserName } from 'core/user';
 
 const AnswerView = ({
   answer,
@@ -91,18 +92,20 @@ const AnswerView = ({
             )}
           </GridItem>
           <GridItem xs={12} className={classes.answerRowStyles}>
-            <Grid container className={classes.answerFieldStyle}>
-              <Typography className={classes.answerFieldLabel}>
-                {`${t('consultant')}:`}
-              </Typography>
-              <Tooltip
-                title={<Typography># {answer.userReferenceNumber}</Typography>}>
-                <Typography>{answer.userName}</Typography>
-              </Tooltip>
-              <Typography className={classes.countDown}>
-                {formattedDateMonthAndDay(new Date(answer.createdAt), local)}
-              </Typography>
-            </Grid>
+            {!authManager.isNormalUser() && (
+              <Grid container className={classes.answerFieldStyle}>
+                <Typography className={classes.answerFieldLabel}>
+                  {`${t('consultant')}:`}
+                </Typography>
+                <Tooltip
+                  title={<Typography># {answer.user.referenceNumber}</Typography>}>
+                  <Typography>{getUserName(answer.user)}</Typography>
+                </Tooltip>
+                <Typography className={classes.countDown}>
+                  {formattedDateMonthAndDay(new Date(answer.createdAt), local)}
+                </Typography>
+              </Grid>
+            )}
           </GridItem>
           <GridItem xs={12} className={classes.answerRowStyles}>
             <Grid item className={classes.answerContent}>
@@ -185,7 +188,7 @@ const AnswerView = ({
               <SubmitButton
                 id={`call-${answer.referenceNumber}`}
                 className={classes.rollbackButton}
-                onClick={() => {}}
+                onClick={() => { }}
                 buttonText={t('callTheExpert')}
               />
             )}
