@@ -60,7 +60,7 @@ const AnswerForm = ({ questionId, savedAnswer }) => {
   };
 
   return (
-    <Paper elevation={3} className={classes.primaryBoarder}>
+    <Paper elevation={3} className={classes.richEditorMargin}>
       <Grid container className={classes.questionContainer}>
         <Grid item xs={12}>
           <RichTextEditorForm

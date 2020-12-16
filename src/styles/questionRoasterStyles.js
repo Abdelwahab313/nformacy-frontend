@@ -135,7 +135,7 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     margin: `${theme.spacing(2)}px 0`,
     backgroundColor: '#fafafa',
-    borderRadius: '4vw',
+    borderRadius: '2vw',
   },
   questionContainer: {
     marginTop: theme.spacing(2),
@@ -476,6 +476,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   answerContainer: { marginTop: '10px' },
   primaryBoarder: { border: `solid 1px ${darkBlue}` },
+  richEditorMargin: { margin: '30px 0' },
   containerStart: { justifyContent: 'flex-start', padding: theme.spacing(1) },
   containerEnd: {
     display: 'flex',
