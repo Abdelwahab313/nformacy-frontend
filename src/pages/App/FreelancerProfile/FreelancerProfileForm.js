@@ -18,16 +18,18 @@ import StepTwo from './StepTwo';
 import StepThree from './StepThree';
 import {
   activateFreelancer,
-  updateProfile,
   uploadCV,
 } from '../../../apis/userAPI';
 import { useHistory } from 'react-router-dom';
-import t from '../../../locales/en/freelancerProfile.json';
 import Hidden from '@material-ui/core/Hidden';
 import BackDialog from './BackDialog';
+import t from '../../../locales/en/freelancerProfile.json';
+import ClientStepOne from 'components/forms/ClientStepOne';
+import ClientStepTwo from 'components/forms/ClientStepTwo';
 
 const FreeLancerProfileForm = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
+  const userRole = user.current.roles[0].name;
   const {
     register,
     errors,
@@ -119,13 +121,11 @@ const FreeLancerProfileForm = () => {
       setLoading(true);
       activateFreelancer(userToBeSubmitted)
         .then((response) => {
-          console.log('activateFreelancer', response.data);
           localStorage.setItem('user', JSON.stringify(response.data));
           if (cv?.length === 0 || cv === undefined) {
             history.push('/user/success');
           }
         })
-        .catch((error) => {})
         .finally(() => {
           if (cv?.length === 0 || cv === undefined) {
             setLoading(false);
@@ -139,13 +139,11 @@ const FreeLancerProfileForm = () => {
 
         uploadCV(formData, user.current.id)
           .then((response) => {
-            console.log('uploadCV', response.data);
             const userFromStorage = JSON.parse(localStorage.getItem('user'));
             userFromStorage.cv = response.data.cv;
             localStorage.setItem('user', JSON.stringify(userFromStorage));
             history.push('/user/success');
           })
-          .catch((error) => {})
           .finally(() => setLoading(false));
       }
     } else if (cv?.length === 0 || cv === undefined) {
@@ -203,8 +201,10 @@ const FreeLancerProfileForm = () => {
           cv={cv}
           setCV={setCV}
           watch={watch}>
-          {activeStep === 0 && <StepOne />}
-          {activeStep === 1 && <StepTwo />}
+          {activeStep === 0 && userRole === 'freelancer' && <StepOne />}
+          {activeStep === 0 && userRole === 'client' && <ClientStepOne />}
+          {activeStep === 1 && userRole === 'freelancer' && <StepTwo />}
+          {activeStep === 1 && userRole === 'client' && <ClientStepTwo />}
           {activeStep === 2 && <StepThree />}
         </FormContext>
         <Grid
