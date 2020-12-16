@@ -106,14 +106,8 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: false,
         sort: true,
-        customBodyRender: (value, tableMeta) => {
-          return (
-            <LinkText
-              data-reference={tableMeta.rowData[0]}
-              to={getServiceDetailsLink(tableMeta.rowData[0])}>
-              <TextCroppedWithTooltip text={value} />
-            </LinkText>
-          );
+        customBodyRender: (value) => {
+          return <TextCroppedWithTooltip text={value} />;
         },
       },
     },

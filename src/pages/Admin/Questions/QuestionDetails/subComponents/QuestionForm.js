@@ -4,7 +4,11 @@ import CardBody from '../../../../../components/card/CardBody';
 import GridContainer from '../../../../../components/grid/GridContainer';
 import GridItem from '../../../../../components/grid/GridItem';
 import CustomInput from '../../../../../components/inputs/CustomInput';
-import { industries, questionLanguages, questionTypesOfAssignment } from '../../../../../constants/dropDownOptions';
+import {
+  industries,
+  questionLanguages,
+  questionTypesOfAssignment,
+} from '../../../../../constants/dropDownOptions';
 import humanizedTimeSpan from '../../../../../services/humanizedTimeSpan';
 import { useStyles } from '../../../../../styles/Admin/questionFormStyles';
 import RichTextEditorForm from '../../../../../components/forms/RichTextEditorForm';
@@ -31,17 +35,24 @@ import {
 } from 'apis/questionsAPI';
 import authManager from '../../../../../services/authManager';
 import { useQuestionContext } from '../context';
-import { setEmptyMessage, setErrorMessage, setSuccessMessage, updateQuestionDetails } from '../context/questionAction';
+import {
+  setEmptyMessage,
+  setErrorMessage,
+  setSuccessMessage,
+  updateQuestionDetails,
+} from '../context/questionAction';
 import SuccessSnackBar from 'components/snackbar/SuccessSnackBar';
 import ImageUploadWithPreview from 'components/inputs/FileUpload/ImageUploadWithPreview';
 import FieldsSelect from '../../../../../components/inputs/FieldsSelect/FieldsSelect';
+import { QUESTION_STATUS } from 'constants/questionStatus';
+import { getAdminQuestionsDashboardLink } from 'services/navigation';
 
 const noActionStates = [
-  'pending_assignment',
-  'pending_deployment_to_roaster',
-  'freelancer_answers',
-  'answers_rating',
-  'closed',
+  QUESTION_STATUS.pendingAssignment,
+  QUESTION_STATUS.pendingDeploymentToRoaster,
+  QUESTION_STATUS.freelancerAnswers,
+  QUESTION_STATUS.answersRating,
+  QUESTION_STATUS.closed,
 ];
 
 const QuestionForm = ({ isNewQuestion }) => {
@@ -58,7 +69,7 @@ const QuestionForm = ({ isNewQuestion }) => {
 
   let history = useHistory();
   const navigatToDashboard = () => {
-    history.push('/admin/questions');
+    history.push(getAdminQuestionsDashboardLink());
   };
 
   const onAcceptAssignment = () => {
@@ -221,13 +232,12 @@ const QuestionForm = ({ isNewQuestion }) => {
           onChangeQuestionField('fields', newOptions);
         }}>
         {({ MajorField, Field }) => (
-
           <GridContainer className={classes.inputsRow}>
             <GridItem xs={12} sm={12} md={3}>
-              <MajorField/>
+              <MajorField />
             </GridItem>
             <GridItem xs={12} sm={12} md={3}>
-              <Field/>
+              <Field />
             </GridItem>
             <GridItem xs={12} sm={12} md={3}>
               <DropdownSelectField
@@ -334,26 +344,27 @@ const QuestionForm = ({ isNewQuestion }) => {
           </GridItem>
         </GridContainer>
       )}
-      {authManager.isAdviser() && questionDetails.state === 'review_and_edit' && (
-        <GridContainer className={classes.inputsRow} alignItems={'center'}>
-          <InputLabel
-            className={classes.countDown}
-            color={'primary'}
-            htmlFor={'reviewAndEditTime'}>
-            Remaining time to review and Edit:
-          </InputLabel>
-          <GridItem xs={12} sm={12} md={3}>
-            <Typography
-              noWrap
-              className={classes.currentActionTime}></Typography>
-            <QuestionCountDown
-              id={'reviewAndEditTime'}
-              className={classes.countDownText}
-              date={questionDetails?.currentActionTime}
-            />
-          </GridItem>
-        </GridContainer>
-      )}
+      {authManager.isAdviser() &&
+        questionDetails.state === QUESTION_STATUS.reviewAndEdit && (
+          <GridContainer className={classes.inputsRow} alignItems={'center'}>
+            <InputLabel
+              className={classes.countDown}
+              color={'primary'}
+              htmlFor={'reviewAndEditTime'}>
+              Remaining time to review and Edit:
+            </InputLabel>
+            <GridItem xs={12} sm={12} md={3}>
+              <Typography
+                noWrap
+                className={classes.currentActionTime}></Typography>
+              <QuestionCountDown
+                id={'reviewAndEditTime'}
+                className={classes.countDownText}
+                date={questionDetails?.currentActionTime}
+              />
+            </GridItem>
+          </GridContainer>
+        )}
       <GridContainer className={classes.inputsRow}>
         <GridItem xs={12} sm={12} md={12}>
           <InputLabel className={classes.contentTitle}>
@@ -392,32 +403,33 @@ const QuestionForm = ({ isNewQuestion }) => {
               </GridItem>
             )}
             {!(
-              questionDetails?.state === 'pending_adviser_acceptance' &&
+              questionDetails?.state ===
+                QUESTION_STATUS.pendingAdviserAcceptance &&
               currentUser?.id === questionDetails?.assignedAdviserId
             ) &&
-            !(
-              authManager.isAdviser() &&
-              noActionStates.includes(questionDetails.state)
-            ) && (
-              <Grid
-                item
-                xs={6}
-                className={`${questionRoasterClasses.answerButtonsContainer} ${classes.attachmentContainer}`}>
-                <AttachmentUploader
-                  containerClassName={
-                    questionRoasterClasses.attachmentUploaderContainer
-                  }
-                  attachments={questionDetails.attachments}
-                  attachmentsGroupsId={questionDetails.attachmentsGroupsId}
-                  setAttachmentsGroupsId={(attachmentsGroupsId) => {
-                    onChangeQuestionField(
-                      'attachmentsGroupsId',
-                      attachmentsGroupsId,
-                    );
-                  }}
-                />
-              </Grid>
-            )}
+              !(
+                authManager.isAdviser() &&
+                noActionStates.includes(questionDetails.state)
+              ) && (
+                <Grid
+                  item
+                  xs={6}
+                  className={`${questionRoasterClasses.answerButtonsContainer} ${classes.attachmentContainer}`}>
+                  <AttachmentUploader
+                    containerClassName={
+                      questionRoasterClasses.attachmentUploaderContainer
+                    }
+                    attachments={questionDetails.attachments}
+                    attachmentsGroupsId={questionDetails.attachmentsGroupsId}
+                    setAttachmentsGroupsId={(attachmentsGroupsId) => {
+                      onChangeQuestionField(
+                        'attachmentsGroupsId',
+                        attachmentsGroupsId,
+                      );
+                    }}
+                  />
+                </Grid>
+              )}
             {!(
               authManager.isAdviser() &&
               noActionStates.includes(questionDetails.state)
@@ -431,19 +443,20 @@ const QuestionForm = ({ isNewQuestion }) => {
                 onSendToAdminClicked={onSendToAdminClicked}
               />
             )}
-            {questionDetails?.state === 'pending_adviser_acceptance' &&
-            currentUser?.id === questionDetails?.assignedAdviserId && (
-              <AcceptAndRejectActionButtons
-                acceptButtonProps={{
-                  id: 'acceptButton',
-                  onClick: onAcceptAssignment,
-                }}
-                rejectButtonProps={{
-                  id: 'rejectButton',
-                  onClick: onRejectAssignment,
-                }}
-              />
-            )}
+            {questionDetails?.state ===
+              QUESTION_STATUS.pendingAdviserAcceptance &&
+              currentUser?.id === questionDetails?.assignedAdviserId && (
+                <AcceptAndRejectActionButtons
+                  acceptButtonProps={{
+                    id: 'acceptButton',
+                    onClick: onAcceptAssignment,
+                  }}
+                  rejectButtonProps={{
+                    id: 'rejectButton',
+                    onClick: onRejectAssignment,
+                  }}
+                />
+              )}
           </Grid>
         </GridItem>
       </GridContainer>

@@ -4,7 +4,9 @@ import { updateFetchedQuestions } from '../context/questionsRoasterAction';
 import { useQuestionRoasterContext } from '../context';
 
 const hasField = (question, selectedFields) => {
-  return question.fields.some((field) => selectedFields.includes(field.majorFieldId));
+  return question.fields.some((field) =>
+    selectedFields.includes(field.majorFieldId),
+  );
 };
 
 export const filterQuestionsByFields = (questions, fieldsFilters) => {
@@ -32,7 +34,7 @@ const useQuestionsFilter = () => {
     setLoading(true);
     fetchOpenedQuestions()
       .then((response) => {
-        updateFetchedQuestions(dispatch, response.data.reverse());
+        updateFetchedQuestions(dispatch, response.data);
       })
       .finally(() => setLoading(false));
   }, []);

@@ -30,6 +30,14 @@ export const getServiceDetailsLink = (serviceId) => {
   };
 };
 
+export const getAdminQuestionsDashboardLink = () => {
+  if (authManager.isAdviser()) {
+    return RoutesPaths.Admin.Questions;
+  } else {
+    return RoutesPaths.Admin.Services;
+  }
+};
+
 export const getAnswerQuestionLink = (questionId) => {
   return {
     pathname: RoutesPaths.App.AnswerQuestion,

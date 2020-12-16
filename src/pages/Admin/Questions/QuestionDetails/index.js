@@ -18,6 +18,7 @@ import { QuestionProvider, useQuestionContext } from './context';
 import { Typography } from '@material-ui/core';
 import { updateQuestionDetails } from './context/questionAction';
 import AnswersContainer from './subComponents/AnswersContainer';
+import { getAdminQuestionsDashboardLink } from 'services/navigation';
 
 const QuestionDetailsPage = () => {
   const classes = useStyles();
@@ -48,7 +49,7 @@ const QuestionDetailsPage = () => {
     setIsLoadingForUpdating(true);
     approveQuestion(questionDetails.id)
       .then(() => {
-        history.push('/admin/questions');
+        history.push(getAdminQuestionsDashboardLink());
       })
       .finally(() => setIsLoadingForUpdating(false));
   };

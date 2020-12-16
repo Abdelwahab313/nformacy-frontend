@@ -6,10 +6,16 @@ import Typography from '@material-ui/core/Typography';
 
 const TextCroppedWithTooltip = ({ text }) => {
   const classes = useStyles();
+  const MaxCharNumber = 30;
+  if (!text) {
+    return '';
+  }
   return (
     <Tooltip title={<Typography variant={'caption'}>{text}</Typography>} arrow>
       <Typography noWrap variant={'body2'} className={classes.tooltip}>
-        {text}
+        {text.length > MaxCharNumber
+          ? `${text.substring(0, MaxCharNumber)} ....`
+          : text}
       </Typography>
     </Tooltip>
   );

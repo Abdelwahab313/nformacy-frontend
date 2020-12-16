@@ -4,7 +4,6 @@ import MUIDataTable from 'mui-datatables';
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
-import Tooltip from '@material-ui/core/Tooltip';
 import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
 
@@ -17,6 +16,7 @@ import ByTimeField from './subComponents/ByTimeField';
 import { useStyles } from '../../../../styles/Admin/questionTableStyles';
 import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
+import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
 
 export const COLUMN_NAMES = {
   id: 'id',
@@ -66,18 +66,6 @@ export const getIndexForColumn = (columnName, columns) => {
 };
 
 const getColumnsFor = (isAdviser, classes) => {
-  const TextCroppedWithTooltip = ({ text }) => {
-    return (
-      <Tooltip
-        title={<Typography variant={'caption'}>{text}</Typography>}
-        arrow>
-        <Typography noWrap variant={'body2'} className={classes.tooltip}>
-          {text}
-        </Typography>
-      </Tooltip>
-    );
-  };
-
   const defaultColumnOption = {
     customHeadLabelRender: ({ label }) => (
       <Grid className={classes.columnHeader}>{label}</Grid>
@@ -223,7 +211,9 @@ const getColumnsFor = (isAdviser, classes) => {
         sort: false,
         customBodyRender: (value, tableMeta) => {
           const actionNeeded =
-            questionStatusActions[value].action[isAdviser ? 'adviser' : 'admin'];
+            questionStatusActions[value].action[
+              isAdviser ? 'adviser' : 'admin'
+            ];
 
           if (!actionNeeded) {
             return '';

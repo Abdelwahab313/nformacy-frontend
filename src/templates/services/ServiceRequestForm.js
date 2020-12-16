@@ -53,6 +53,11 @@ const ServiceRequestForm = ({
   const isNewServiceRequest = !serviceRequest.id;
   const isDraftServiceRequest =
     !!serviceRequest.state && serviceRequest.state === SERVICE_STATUS.draft;
+  const hideComment =
+    isNewServiceRequest ||
+    isDraftServiceRequest ||
+    (authManager.isClient() && !serviceRequest.comment);
+  const noActionForm = serviceRequest?.question?.id;
   const { t } = useTranslation();
   const questionTypesOfAssignment = questionTypesOfAssignmentTranslated(t);
   const onChangeField = (name, value) => {
@@ -171,7 +176,7 @@ const ServiceRequestForm = ({
           </GridItem>
 
           <GridItem xs={12} sm={12} md={12}>
-            {!isNewServiceRequest && !isDraftServiceRequest && (
+            {!hideComment && (
               <TextField
                 label={t('comment')}
                 id='comment'
@@ -212,21 +217,25 @@ const ServiceRequestForm = ({
         </GridContainer>
       </CardBody>
       <CardFooter className={classes.footerButtons}>
-        {serviceRequest.assignmentType === 'call' && (
-          <Grid item xs={6}>
-            <AttachmentUploader
-              attachments={serviceRequest.attachments}
-              attachmentsGroupsId={serviceRequest.attachmentsGroupsId}
-              setAttachmentsGroupsId={(attachmentsGroupsId) => {
-                onChangeField('attachmentsGroupsId', attachmentsGroupsId);
-              }}
-            />
-          </Grid>
+        {serviceRequest.assignmentType === 'call' &&
+          authManager.isClient() &&
+          !noActionForm && (
+            <Grid item xs={6}>
+              <AttachmentUploader
+                attachments={serviceRequest.attachments}
+                attachmentsGroupsId={serviceRequest.attachmentsGroupsId}
+                setAttachmentsGroupsId={(attachmentsGroupsId) => {
+                  onChangeField('attachmentsGroupsId', attachmentsGroupsId);
+                }}
+              />
+            </Grid>
+          )}
+        {!noActionForm && (
+          <ActionButtonsContainer
+            primaryButton={primaryButton}
+            secondaryButton={secondaryButton}
+          />
         )}
-        <ActionButtonsContainer
-          primaryButton={primaryButton}
-          secondaryButton={secondaryButton}
-        />
       </CardFooter>
     </Fragment>
   );
