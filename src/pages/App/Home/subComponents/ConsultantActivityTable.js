@@ -20,6 +20,7 @@ import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip
 import FieldsChips from 'components/chips/FieldsChips';
 import FreelancerAnswerActionLink from 'templates/answers/FreelancerAnswerActionLink';
 import { getAnswerState } from 'core/answerStatus';
+import FreelancerAnswerTime from 'templates/answers/FreelancerAnswerTime';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -27,10 +28,12 @@ const StyledTableCell = withStyles((theme) => ({
     color: theme.palette.common.white,
     textAlign: 'center',
     fontWeight: 'bold',
+    whiteSpace: 'nowrap'
   },
   body: {
     fontSize: 14,
     textAlign: 'center',
+    whiteSpace: 'nowrap'
   },
 }))(TableCell);
 
@@ -116,7 +119,7 @@ const ConsultantActivityTable = () => {
                       )}
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
-                      <FieldsChips fields={answer.question.fields} />
+                      <FieldsChips fields={answer?.question?.fields} />
                     </StyledTableCell>
                     <StyledTableCell>
                       <TextCroppedWithTooltip
@@ -128,9 +131,16 @@ const ConsultantActivityTable = () => {
                     </StyledTableCell>
                     <StyledTableCell
                       className={[classes.desktopVisible, 'action']}>
-                      <FreelancerAnswerActionLink answerStatus={answer.state} questionId={answer.question.id} />
+                      <FreelancerAnswerActionLink
+                        answerStatus={answer.state}
+                        questionId={answer.question.id}
+                      />
                     </StyledTableCell>
-                    <StyledTableCell>time</StyledTableCell>
+                    <StyledTableCell>
+                      <FreelancerAnswerTime
+                        currentActionTime={answer?.question?.currentActionTime}
+                      />
+                    </StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>

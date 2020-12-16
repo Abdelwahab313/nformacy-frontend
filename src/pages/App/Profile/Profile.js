@@ -11,9 +11,12 @@ import EducationAndCertificationSection from './profileSections/EducationAndCert
 import WorkExperienceSection from './profileSections/WorkExperienceSection';
 import SummarySection from './profileSections/SummarySection';
 import CVSection from './profileSections/CVSection';
+import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
+import { useTranslation } from 'react-i18next';
 
 const Profile = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Container component='main' maxWidth={false} dir='ltr'>
@@ -25,8 +28,8 @@ const Profile = () => {
         alignContent={'center'}
         className={classes.profileContainer}
         spacing={5}>
-        <Grid item sm={1} />
         <Grid item xs={12} sm={8}>
+          <BreadcrumbsCustomSeparator pageName={t('profile')} />
           <BasicInfoSection />
           <SummarySection />
           <PersonalInfoSection />

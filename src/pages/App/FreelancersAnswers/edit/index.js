@@ -6,11 +6,13 @@ import { fetchQuestionDetails } from 'apis/questionsAPI';
 import useFetchData from 'hooks/useFetchData';
 import AnswerForm from './subComponents/AnswerForm';
 import LoadingCircle from 'components/progress/LoadingCircle';
+import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
+import { useTranslation } from 'react-i18next';
 
 const AnswerQuestion = () => {
   const location = useLocation();
   const questionId = location.state.questionDetails?.id;
-
+  const { t } = useTranslation();
   const { fetchedData: questionDetails, isLoading } = useFetchData(() =>
     fetchQuestionDetails(questionId),
   );
@@ -26,6 +28,7 @@ const AnswerQuestion = () => {
       alignContent={'center'}
       id={'answer-question-page'}>
       <Grid item xs={12} sm={10}>
+        <BreadcrumbsCustomSeparator pageName={t('answerQuestion')} />
         <QuestionView
           questionDetails={questionDetails}
           isSubmitVisible={false}

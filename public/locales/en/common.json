@@ -199,5 +199,7 @@
   "answersList": "Answers List",
   "time": "Time",
   "answerSubmitted": "Answer has been submitted successfully",
-  "answerSaved": "Answer has been saved for later"
+  "answerSaved": "Answer has been saved for later",
+  "answerQuestion": "Answer Question",
+  "profile": "Profile"
 }
