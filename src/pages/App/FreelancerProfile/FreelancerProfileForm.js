@@ -16,7 +16,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Grid from '@material-ui/core/Grid';
 import StepTwo from './StepTwo';
 import StepThree from './StepThree';
-import { activateFreelancer, uploadCV } from '../../../apis/userAPI';
+import { completeFreelancerProfile, completeClientProfile, uploadCV } from '../../../apis/userAPI';
 import { useHistory } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import BackDialog from './BackDialog';
@@ -107,8 +107,20 @@ const FreeLancerProfileForm = () => {
     }
   };
 
-  const onSubmitClient = () => {
-    // console.log("userData ----------", userData)
+  const onSubmitClient = (userData) => {
+    const userToBeSubmitted = {
+      ...user.current,
+      ...userData
+    };
+    setLoading(true);
+    completeClientProfile(userToBeSubmitted)
+      .then((response) => {
+        localStorage.setItem('user', JSON.stringify(response.data));
+        history.push('/user/success');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const onSubmitFreelancer = (userData) => {
@@ -128,7 +140,7 @@ const FreeLancerProfileForm = () => {
     const nestedFieldsValid = validateNestedFields(userToBeSubmitted);
     if (nestedFieldsValid && cv?.length > 0) {
       setLoading(true);
-      activateFreelancer(userToBeSubmitted)
+      completeFreelancerProfile(userToBeSubmitted)
         .then((response) => {
           localStorage.setItem('user', JSON.stringify(response.data));
           if (cv?.length === 0 || cv === undefined) {

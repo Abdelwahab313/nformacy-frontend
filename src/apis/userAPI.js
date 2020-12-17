@@ -26,10 +26,18 @@ const changeLocaleAPI = (userId, locale) => {
   }).then((response) => camelizeKeys(response));
 };
 
-const activateFreelancer = (user) => {
+const completeClientProfile = (user) => {
   return axios({
     method: 'put',
-    url: `${API_BASE_URL}/users/activate`,
+    url: `${API_BASE_URL}/users/complete_client_profile`,
+    data: decamelizeKeys({ ...user }),
+  }).then((response) => camelizeKeys(response));
+};
+
+const completeFreelancerProfile = (user) => {
+  return axios({
+    method: 'put',
+    url: `${API_BASE_URL}/users/complete_freelancer_profile`,
     data: decamelizeKeys({ ...user }),
   }).then((response) => camelizeKeys(response));
 };
@@ -63,7 +71,6 @@ const fetchAdvisersList = () => {
   }).then((response) => camelizeKeys(response));
 };
 
-
 const fetchCurrentUserFields = (locale) => {
   return axios({
     method: 'get',
@@ -77,7 +84,7 @@ const fetchUserDetails = () => {
     method: 'get',
     url: `${API_BASE_URL}/users/me`,
   }).then((response) => camelizeKeys(response));
-}
+};
 
 const addUserRole = (role) => {
   return axios({
@@ -92,10 +99,11 @@ export {
   updateProfile,
   updateProfilePicture,
   uploadCV,
-  activateFreelancer,
+  completeFreelancerProfile,
   fetchAdvisersList,
   changeLocaleAPI,
   fetchCurrentUserFields,
   fetchUserDetails,
-  addUserRole
+  addUserRole,
+  completeClientProfile,
 };
