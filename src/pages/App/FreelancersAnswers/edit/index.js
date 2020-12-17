@@ -1,15 +1,15 @@
 import React from 'react';
 import { useLocation } from 'react-router';
 import { Grid } from '@material-ui/core';
-import QuestionView from '../../QuestionRoaster/subComponents/QuestionView';
 import { fetchQuestionDetails } from 'apis/questionsAPI';
 import useFetchData from 'hooks/useFetchData';
 import AnswerForm from './subComponents/AnswerForm';
 import LoadingCircle from 'components/progress/LoadingCircle';
-import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import AnswerView from 'pages/Admin/Questions/QuestionDetails/subComponents/AnswerView';
 import { ANSWER_STATUS } from 'constants/questionStatus';
+import QuestionDetailedView from './subComponents/QuestionDetailedView';
+import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 
 const AnswerQuestion = () => {
   const location = useLocation();
@@ -32,10 +32,9 @@ const AnswerQuestion = () => {
       alignContent={'center'}
       id={'answer-question-page'}>
       <Grid item xs={12} sm={10}>
-        <BreadcrumbsCustomSeparator pageName={t('answerQuestion')} />
-        <QuestionView
+        <BreadcrumbsCustomSeparator pageName={t('answersCount')} />
+        <QuestionDetailedView
           questionDetails={questionDetails}
-          isSubmitVisible={false}
         />
       </Grid>
       <Grid item xs={12} sm={10}>
