@@ -107,8 +107,8 @@ const FreeLancerProfileForm = () => {
     }
   };
 
-  const onSubmitClient = (userData) => {
-    
+  const onSubmitClient = () => {
+    // console.log("userData ----------", userData)
   };
 
   const onSubmitFreelancer = (userData) => {

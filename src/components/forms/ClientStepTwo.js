@@ -66,7 +66,7 @@ const ClientStepTwo = () => {
                 </div>
                 <FormControl fullWidth id='organizational-select'>
                   <Controller
-                    name='organizationalLevel'
+                    name='organizationLevel'
                     rules={{ required: t('requiredMessage') }}
                     control={control}
                     defaultValue={0}
@@ -74,6 +74,7 @@ const ClientStepTwo = () => {
                     as={
                       <ReactSelectMaterialUi
                         fullWidth={true}
+                        name='organizationLevel'
                         placeholder={t('selectYourOrganizationalLevel')}
                         SelectProps={{
                           styles: selectStyle,
@@ -92,8 +93,9 @@ const ClientStepTwo = () => {
               <TextField
                 fullWidth
                 label={t('jobTitle')}
+                name={'jobTitle'}
                 variant='outlined'
-                id={'work-experience-title'}
+                id={'jobTitle-field'}
                 InputProps={{
                   classes: {
                     notchedOutline: classes.textField,
@@ -110,7 +112,7 @@ const ClientStepTwo = () => {
                 fullWidth
                 label={t('company')}
                 variant='outlined'
-                name={'experiences[0][company]'}
+                name={'company'}
                 id={'work-experience-company-0'}
                 InputProps={{
                   classes: {
