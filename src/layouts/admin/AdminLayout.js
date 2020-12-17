@@ -63,7 +63,7 @@ export default function AdminLayout({ ...rest }) {
       <Sidebar
         id={'adminSidebar'}
         routes={adminRoutes.filter((route) => !!route.hasDashboardLink)}
-        logoText={'Medad'}
+        logoText={'Nformacy'}
         logo={logo}
         image={bgImage}
         handleDrawerToggle={handleDrawerToggle}

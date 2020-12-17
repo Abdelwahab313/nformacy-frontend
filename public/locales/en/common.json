@@ -203,5 +203,6 @@
   "answerQuestion": "Answer Question",
   "profile": "Profile",
   "organizationalLevel": "Organizational Level",
-  "selectYourOrganizationalLevel":"Select Your Organizational Level"
+  "selectYourOrganizationalLevel":"Select Your Organizational Level",
+  "workInformation":"Work Information"
 }

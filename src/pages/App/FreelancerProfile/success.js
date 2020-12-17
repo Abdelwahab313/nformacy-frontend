@@ -27,7 +27,7 @@ const Success = () => {
           when is your preferred time to receive our welcome call?<br/>
           <span className={classes.subtext}>Rada Hrout
           <br/>
-          Medad Co. Founder</span>
+          Nformacy Co. Founder</span>
         </Typography>
         <Grid container justify={'center'} style={{marginTop: '50px'}}>
           <Grid item xs={10} sm={6} style={{ display: 'flex', justifyContent: 'center' }}>

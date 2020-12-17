@@ -16,20 +16,17 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Grid from '@material-ui/core/Grid';
 import StepTwo from './StepTwo';
 import StepThree from './StepThree';
-import {
-  activateFreelancer,
-  uploadCV,
-} from '../../../apis/userAPI';
+import { activateFreelancer, uploadCV } from '../../../apis/userAPI';
 import { useHistory } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import BackDialog from './BackDialog';
 import t from '../../../locales/en/freelancerProfile.json';
 import ClientStepOne from 'components/forms/ClientStepOne';
 import ClientStepTwo from 'components/forms/ClientStepTwo';
+import authManager from 'services/authManager';
 
 const FreeLancerProfileForm = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
-  const userRole = user.current.roles[0].name;
   const {
     register,
     errors,
@@ -102,7 +99,19 @@ const FreeLancerProfileForm = () => {
     return educations.length !== 0 && experiences.length !== 0;
   }
 
-  const onSubmit = (userData) => {
+  const onSubmit = (userDate) => {
+    if (authManager.isNormalUser()) {
+      onSubmitFreelancer(userDate);
+    } else {
+      onSubmitClient(userDate);
+    }
+  };
+
+  const onSubmitClient = (userData) => {
+    
+  };
+
+  const onSubmitFreelancer = (userData) => {
     const userToBeSubmitted = {
       ...user.current,
       id: user.current.id,
@@ -201,11 +210,12 @@ const FreeLancerProfileForm = () => {
           cv={cv}
           setCV={setCV}
           watch={watch}>
-          {activeStep === 0 && userRole === 'freelancer' && <StepOne />}
-          {activeStep === 0 && userRole === 'client' && <ClientStepOne />}
-          {activeStep === 1 && userRole === 'freelancer' && <StepTwo />}
-          {activeStep === 1 && userRole === 'client' && <ClientStepTwo />}
+          {activeStep === 0 && authManager.isNormalUser() && <StepOne />}
+          {activeStep === 1 && authManager.isNormalUser() && <StepTwo />}
           {activeStep === 2 && <StepThree />}
+
+          {activeStep === 0 && authManager.isClient() && <ClientStepOne />}
+          {activeStep === 1 && authManager.isClient() && <ClientStepTwo />}
         </FormContext>
         <Grid
           item
@@ -227,18 +237,7 @@ const FreeLancerProfileForm = () => {
               {t['back']}
             </Button>
           )}
-          {activeStep !== 2 && (
-            <Button
-              id='nextButton'
-              disabled={stepValid() || loading}
-              onClick={proceedToNextStep}
-              variant='contained'
-              style={nextButtonStyles(stepValid() || loading)}
-              endIcon={<ArrowForwardIosIcon />}>
-              {t['next']}
-            </Button>
-          )}
-          {activeStep === 2 && (
+          {activeStep === 2 || (activeStep === 1 && authManager.isClient()) ? (
             <Button
               id='submitButton'
               type='submit'
@@ -247,6 +246,16 @@ const FreeLancerProfileForm = () => {
               style={nextButtonStyles(loading)}
               endIcon={<DoneIcon />}>
               {t['submit']}
+            </Button>
+          ) : (
+            <Button
+              id='nextButton'
+              disabled={stepValid() || loading}
+              onClick={proceedToNextStep}
+              variant='contained'
+              style={nextButtonStyles(stepValid() || loading)}
+              endIcon={<ArrowForwardIosIcon />}>
+              {t['next']}
             </Button>
           )}
         </Grid>

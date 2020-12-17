@@ -8,8 +8,9 @@ import PersonIcon from '@material-ui/icons/Person';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import SettingsIcon from '@material-ui/icons/Settings';
 import StepConnector from '@material-ui/core/StepConnector';
-import { lighterPink, lightPink, darkBlue } from '../../../styles/colors';
-import t from '../../../locales/en/freelancerProfile.json';
+import { lighterPink, lightPink, darkBlue } from 'styles/colors';
+import authManager from 'services/authManager';
+import { useTranslation } from 'react-i18next';
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -88,13 +89,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function getSteps() {
-  return [t['personalInfo'], t['specializationAndPreferences'], t['resume']];
+function getSteps(t) {
+  if (authManager.isClient()) {
+    return [t('personalInfo'), t('workInformation')];
+  } else {
+    return [t('personalInfo'), t('specializationAndPreferences'), t('resume')];
+  }
 }
 
 const StepsIndicator = (props) => {
   const classes = useStyles();
-  const steps = getSteps();
+  const { t } = useTranslation();
+  const steps = getSteps(t);
   return (
     <div className={classes.root}>
       <Stepper
@@ -103,7 +109,11 @@ const StepsIndicator = (props) => {
         connector={<ColorlibConnector />}>
         {steps.map((label) => (
           <Step key={label}>
-            <StepLabel StepIconComponent={ColorlibStepIcon} style={{color: 'red'}}>{label}</StepLabel>
+            <StepLabel
+              StepIconComponent={ColorlibStepIcon}
+              style={{ color: 'red' }}>
+              {label}
+            </StepLabel>
           </Step>
         ))}
       </Stepper>
