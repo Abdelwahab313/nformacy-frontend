@@ -1,13 +1,11 @@
-
-deploy-prod:
+deploy-build-ui:
 	echo "********* building docker image"
-	docker build -f Dockerfile-prod --tag dashboard:prod .
+	docker build -f Dockerfile-prod --tag nformacyui:prod .
 	echo "********* running docker image"
-	docker run -d --name=dashboard -p 80:80 --rm dashboard:prod
+	docker run -d --name=nformacyUI -p 80:80 --rm nformacyui:prod
 
-dev-image:
+deploy-nginx:
 	echo "********* building docker image"
-	docker build -f Dockerfile-dev --tag dashboard:dev .
+	docker build -f Dockerfile-nginx --tag nformacyui:prod .
 	echo "********* running docker image"
-	docker run -v ${pwd}:/app -v /app/node_modules -p 80:3000 --rm dashboard:dev
-	
+	docker run -d --name=nformacyUI -p 80:80 --rm nformacyui:prod

@@ -1,5 +1,5 @@
 # build environment
-FROM node:12.13.0-stretch as build
+FROM node:12-stretch as build
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 ENV REACT_APP_ENV staging
