@@ -48,3 +48,14 @@ export const getAnswerQuestionLink = (questionId) => {
     },
   };
 };
+
+export const getAnswerQuestionLinkForAdmin = (questionId) => {
+  return {
+    pathname: RoutesPaths.Admin.QuestionsDetails,
+    state: {
+      questionDetails: {
+        id: questionId,
+      },
+    },
+  };
+};

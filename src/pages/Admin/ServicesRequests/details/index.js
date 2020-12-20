@@ -15,6 +15,9 @@ import ServiceRequestForm from 'templates/services/ServiceRequestForm';
 import { Typography } from '@material-ui/core';
 import { useSnackBar } from 'context/SnackBarContext';
 import { RoutesPaths } from 'constants/routesPath';
+import LinkText from 'components/typography/LinkText';
+import authManager from 'services/authManager';
+import { getAnswerQuestionLinkForAdmin } from 'services/navigation';
 
 const ServiceDetails = () => {
   const [serviceRequest, setServiceRequest] = useState({});
@@ -50,7 +53,7 @@ const ServiceDetails = () => {
         navigateToQuestionDetails(createdQuestionId);
         showSuccessMessage(t('questionGenerated'));
       })
-      .catch(() => {});
+      .catch(() => { });
   };
 
   const handleReturnToClient = () => {
@@ -60,7 +63,7 @@ const ServiceDetails = () => {
           showSuccessMessage(t('commentSubmitted'));
           navigatToDashboard();
         })
-        .catch(() => {});
+        .catch(() => { });
     }
   };
 
@@ -87,6 +90,16 @@ const ServiceDetails = () => {
             <Typography component={'h4'} id={'post-service-page-header'}>
               {isNewService ? 'Add Service' : 'Edit Service'}
             </Typography>
+            {!!serviceRequest.question?.id &&
+              (
+                <Typography component={'h4'}>
+                  <LinkText to={getAnswerQuestionLinkForAdmin(serviceRequest.question.id)}>
+                    {serviceRequest &&
+                      authManager.isAdmin() && 'Related Question'}
+                  </LinkText>
+                </Typography>
+              )
+            }
           </CardHeader>
           <ServiceRequestForm
             serviceRequest={serviceRequest}
