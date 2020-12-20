@@ -370,9 +370,9 @@ export const selectStyle = {
   control: (provided) => ({
     ...provided,
     borderRadius: 5,
-    borderBottom: `solid 1px ${darkBlue}`,
+    borderBottom: `solid 1px ${lightGrey}`,
     borderWidth: 1,
-    borderColor: darkBlue,
+    borderColor: lightGrey,
     '&:hover': { color: darkBlue },
   }),
   indicatorSeparator: () => ({

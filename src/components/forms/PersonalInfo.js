@@ -1,4 +1,3 @@
-import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -20,7 +19,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import countryList from 'react-select-country-list';
 import 'react-phone-input-2/lib/bootstrap.css';
 import PhoneInput from 'react-phone-input-2';
-import { darkBlue } from '../../styles/colors';
+import { darkBlue, lightGrey } from '../../styles/colors';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -144,7 +143,7 @@ const PersonalInfo = () => {
           as={
             <PhoneInput
               preferredCountries={['jo', 'eg']}
-              inputStyle={{ width: '100%', borderColor: darkBlue }}
+              inputStyle={{ width: '100%', borderColor: lightGrey }}
               inputProps={{
                 id: 'mobile_number',
                 name: 'mobile_number',
