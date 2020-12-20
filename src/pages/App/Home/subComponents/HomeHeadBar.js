@@ -28,7 +28,7 @@ const HomeHeadBar = () => {
           variant='h3'
           component='h3'
           className={classes.headerCardTxt}>
-          {currentUser.firstName + ' ' + currentUser.lastName +' Work-Space'}
+          {currentUser.firstName + ' ' + currentUser.lastName + ' Work-Space'}
         </Typography>
       </Card>
       <Box className={classes.profileMobile}>
@@ -52,7 +52,7 @@ const HomeHeadBar = () => {
             variant='body2'
             fontWeight='bold'
             className={classes.orangeText}>
-            {t('points')}
+            {` ${t('points')}`}
           </CustomTypography>
         </CustomTypography>
       </Box>

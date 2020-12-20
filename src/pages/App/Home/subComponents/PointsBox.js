@@ -31,7 +31,7 @@ const PointsBox = () => {
           width={'25%'}
         />
         <CustomTypography variant='body1' fontWeight='bold'>
-          {`${t('youHave')}${t('points')}`}
+          {`${t('youHave')} 0 ${t('points')}`}
         </CustomTypography>
         <SubmitButton
           id={'proceedBtn'}

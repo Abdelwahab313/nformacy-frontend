@@ -15,6 +15,7 @@ import CustomTypography from 'components/typography/Typography';
 import { getAnswerState } from 'core/answerStatus';
 import FreelancerAnswerActionLink from './FreelancerAnswerActionLink';
 import FreelancerAnswerTime from './FreelancerAnswerTime';
+import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
 
 const formatAnswersToTable = (answers) => {
   return answers.map((answer) => ({
@@ -175,6 +176,24 @@ const getColumnsOptions = (classes, t) => {
         ),
         customBodyRender: (currentActionTime) => {
           return <FreelancerAnswerTime currentActionTime={currentActionTime} />;
+        },
+      },
+    },
+    {
+      name: 'questionTime',
+      label: t('alarm'),
+      options: {
+        ...defaultColumnOption,
+        filter: false,
+        sort: true,
+        customBodyRender: (currentActionTime) => {
+          return (
+            <QuestionRemainingTimeAlarm
+              remainingTime={currentActionTime}
+              totalActionHours={10}
+              className={'alarm'}
+            />
+          );
         },
       },
     },

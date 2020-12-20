@@ -24,7 +24,7 @@ const QuestionDetailsPage = () => {
   const [{ questionDetails }, dispatch] = useQuestionContext();
   const [isLoadingForUpdating, setIsLoadingForUpdating] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  let history = useHistory();
+  const history = useHistory();
 
   const location = useLocation();
   const questionId = location?.state?.questionId;
