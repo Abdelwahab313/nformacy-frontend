@@ -137,6 +137,14 @@ export const useStyles = makeStyles((theme) => ({
     borderWidth: '1px',
     borderColor: `${darkBlue} !important`,
   },
+  registerTextField: {
+    borderWidth: '1px',
+    borderColor: lightGrey,
+    '&:hover': {
+      borderColor: `${darkBlue} !important`,
+      color: darkBlue,
+    },
+  },
   fieldLabelStylesDesktop: {
     fontSize: '1.190vw',
     fontWeight: 'bold',
@@ -302,8 +310,8 @@ export const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'space-evenly',
   },
-  sectionContainerPaddingLeft:{
-    paddingLeft: '45px'
+  sectionContainerPaddingLeft: {
+    paddingLeft: '45px',
   },
   loadingContainer: {
     display: 'flex',

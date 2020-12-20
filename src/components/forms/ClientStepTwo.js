@@ -98,7 +98,7 @@ const ClientStepTwo = () => {
                 id={'jobTitle-field'}
                 InputProps={{
                   classes: {
-                    notchedOutline: classes.textField,
+                    notchedOutline: classes.registerTextField,
                   },
                 }}
                 inputRef={register({ required: t('requiredMessage') })}
@@ -116,7 +116,7 @@ const ClientStepTwo = () => {
                 id={'work-experience-company-0'}
                 InputProps={{
                   classes: {
-                    notchedOutline: classes.textField,
+                    notchedOutline: classes.registerTextField,
                   },
                 }}
                 inputRef={register({ required: t('requiredMessage') })}
