@@ -14,12 +14,23 @@ exports[`should match snapshot 1`] = `
         <div
           class="cardHeader primaryCardHeader"
         >
-          <h4
-            class="MuiTypography-root MuiTypography-body1"
-            id="post-question-page-header"
+          <div
+            class="MuiGrid-root MuiGrid-container"
           >
-            Edit Question
-          </h4>
+            <div
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-md-6"
+            >
+              <h4
+                class="MuiTypography-root MuiTypography-body1"
+                id="post-question-page-header"
+              >
+                Edit Question
+              </h4>
+            </div>
+            <div
+              class="MuiGrid-root MuiGrid-item MuiGrid-grid-md-6"
+            />
+          </div>
         </div>
         <div
           class="cardBody"

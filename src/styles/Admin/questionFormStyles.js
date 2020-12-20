@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { overlayColor } from 'styles/colors';
+import { overlayColor, white } from 'styles/colors';
 
 export const useStyles = makeStyles((theme) => ({
   cardTitleWhite: {
@@ -123,4 +123,9 @@ export const useStyles = makeStyles((theme) => ({
       marginTop: '12vw',
     },
   },
+  relatedService: {
+    float: 'right',
+    color: white,
+    textDecoration: 'none'
+  }
 }));

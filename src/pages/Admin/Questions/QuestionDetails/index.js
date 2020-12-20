@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// @material-ui/core components
-// core components
 import GridItem from 'components/grid/GridItem.js';
 import GridContainer from 'components/grid/GridContainer.js';
 import Button from 'components/buttons/RegularButton.js';
@@ -15,10 +13,11 @@ import QuestionForm from './subComponents/QuestionForm';
 import { useStyles } from 'styles/Admin/questionFormStyles';
 import authManager from 'services/authManager';
 import { QuestionProvider, useQuestionContext } from './context';
-import { Typography } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 import { updateQuestionDetails } from './context/questionAction';
 import AnswersContainer from './subComponents/AnswersContainer';
-import { getAdminQuestionsDashboardLink } from 'services/navigation';
+import { getAdminQuestionsDashboardLink, getServiceDetailsLink } from 'services/navigation';
+import LinkText from 'components/typography/LinkText';
 
 const QuestionDetailsPage = () => {
   const classes = useStyles();
@@ -30,6 +29,7 @@ const QuestionDetailsPage = () => {
   const location = useLocation();
   const questionId = location?.state?.questionId;
   const isNewQuestion = !questionId;
+
   useEffect(() => {
     setIsLoading(true);
     fetchQuestionDetails(questionId)
@@ -59,9 +59,23 @@ const QuestionDetailsPage = () => {
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color='primary'>
-            <Typography component={'h4'} id={'post-question-page-header'}>
-              {isNewQuestion ? 'Add Question' : 'Edit Question'}
-            </Typography>
+            <Grid container>
+              <Grid item md={6}>
+                <Typography component={'h4'} id={'post-question-page-header'}>
+                  {isNewQuestion ? 'Add Question' : 'Edit Question'}
+                </Typography>
+              </Grid>
+              <Grid item md={6}>
+                {!!questionDetails.serviceId && (
+                  <Typography component={'h4'} id={'post-question-page-header'}>
+                    <LinkText to={getServiceDetailsLink(questionDetails.serviceId)} className={classes.relatedService}>
+                      {authManager.isAdmin() && 'Related Service'}
+                    </LinkText>
+                  </Typography>
+                )}
+              </Grid>
+            </Grid>
+
           </CardHeader>
           <QuestionForm isNewQuestion={isNewQuestion} />
           <CardFooter className={classes.footerButtons}>

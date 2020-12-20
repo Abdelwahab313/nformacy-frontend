@@ -12,14 +12,16 @@ import {
   generateQuestion,
 } from 'apis/servicesAPI';
 import ServiceRequestForm from 'templates/services/ServiceRequestForm';
-import { Typography } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 import { useSnackBar } from 'context/SnackBarContext';
 import { RoutesPaths } from 'constants/routesPath';
 import LinkText from 'components/typography/LinkText';
 import authManager from 'services/authManager';
 import { getAnswerQuestionLinkForAdmin } from 'services/navigation';
+import { useStyles } from 'styles/Admin/questionFormStyles';
 
 const ServiceDetails = () => {
+  const classes = useStyles();
   const [serviceRequest, setServiceRequest] = useState({});
   const location = useLocation();
 
@@ -87,19 +89,23 @@ const ServiceDetails = () => {
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color='primary'>
-            <Typography component={'h4'} id={'post-service-page-header'}>
-              {isNewService ? 'Add Service' : 'Edit Service'}
-            </Typography>
-            {!!serviceRequest.question?.id &&
-              (
-                <Typography component={'h4'}>
-                  <LinkText to={getAnswerQuestionLinkForAdmin(serviceRequest.question.id)}>
-                    {serviceRequest &&
-                      authManager.isAdmin() && 'Related Question'}
-                  </LinkText>
+            <Grid container>
+              <Grid item md={6} xs={6}>
+                <Typography component={'h4'} id={'post-service-page-header'}>
+                  {isNewService ? 'Add Service' : 'Edit Service'}
                 </Typography>
-              )
-            }
+              </Grid>
+              <Grid item md={6} xs={6}>
+                {!!serviceRequest.question?.id && (
+                  <Typography component={'h4'}>
+                    <LinkText to={getAnswerQuestionLinkForAdmin(serviceRequest.question.id)} className={classes.relatedService}>
+                      {authManager.isAdmin() && 'Related Question'}
+                    </LinkText>
+                  </Typography>
+                )
+                }
+              </Grid>
+            </Grid>
           </CardHeader>
           <ServiceRequestForm
             serviceRequest={serviceRequest}
