@@ -9,7 +9,6 @@ import AnswerQuestion from 'pages/App/FreelancersAnswers/edit';
 import EditServiceRequest from 'pages/App/ServiceRequests/edit';
 import EditProfile from 'pages/App/Profile/Profile';
 import MeetingsPage from 'pages/App/Meeting';
-import PostSubmissionNote from 'pages/App/QuestionRoaster/PostSubmissionNote';
 import AllNotifications from 'pages/Admin/Dashboard/AllNotifications';
 import ServicesPage from 'pages/App/ServiceRequests/list';
 import ServiceDetails from 'pages/App/ServiceRequests/details';
@@ -60,11 +59,6 @@ const appRoutes = [
   {
     path: RoutesPaths.App.Meetings,
     component: MeetingsPage,
-    exact: true,
-  },
-  {
-    path: RoutesPaths.App.SubmitAnswerNote,
-    component: PostSubmissionNote,
     exact: true,
   },
   {

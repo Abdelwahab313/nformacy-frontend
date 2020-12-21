@@ -12,6 +12,7 @@ import {
   selectStyle,
   useStyles,
   greyDividerStyle,
+  checkboxStyle,
 } from '../../styles/formsStyles';
 import FormControl from '@material-ui/core/FormControl';
 import ReactSelectMaterialUi from 'react-select-material-ui';
@@ -25,14 +26,15 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ReactTooltip from 'react-tooltip';
 import IconTint from 'react-icon-tint';
 import Hidden from '@material-ui/core/Hidden';
-import t from '../../locales/en/freelancerProfile.json';
 import FieldsOfExperience from './FieldsOfExpereience';
-import { Grow } from '@material-ui/core';
+import { Checkbox, Grow } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 const ClientStepOne = () => {
   const { errors, control, user } = useFormContext();
   const [countries] = useState(countryList().getData());
   const classes = useStyles();
+  const { t } = useTranslation();
   const radiosStyles = radioStyle();
 
   return (
@@ -53,7 +55,7 @@ const ClientStepOne = () => {
                   <Typography
                     gutterBottom
                     className={classes.sectionHeaderStyles}>
-                    {t['personalInfo']}
+                    {t('personalInfo')}
                   </Typography>
                 </Grid>
               </Grid>
@@ -63,7 +65,7 @@ const ClientStepOne = () => {
                   <Typography
                     gutterBottom
                     className={classes.fieldLabelStylesDesktop}>
-                    {t['gender']}
+                    {t('gender')}
                   </Typography>
                   <Controller
                     name='gender'
@@ -82,7 +84,7 @@ const ClientStepOne = () => {
                               icon={<span className={radiosStyles.icon} />}
                             />
                           }
-                          label={t['male']}
+                          label={t('male')}
                           defaultValue={user?.current?.gender}
                         />
                         <Hidden mdDown>
@@ -106,12 +108,12 @@ const ClientStepOne = () => {
                               icon={<span className={radiosStyles.icon} />}
                             />
                           }
-                          label={t['female']}
+                          label={t('female')}
                         />
                       </RadioGroup>
                     }
                     control={control}
-                    rules={{ required: t['requiredMessage'] }}
+                    rules={{ required: t('requiredMessage') }}
                   />
                   <ErrorMessage errorField={errors.gender} />
                 </FormControl>
@@ -121,11 +123,11 @@ const ClientStepOne = () => {
                   <Typography
                     gutterBottom
                     className={classes.fieldLabelStylesDesktop}>
-                    {t['country']}
+                    {t('country')}
                   </Typography>
                   <HelpIcon
                     className={classes.formHeaderIcon}
-                    data-tip={t['selectCountryOfResidenceMessage']}
+                    data-tip={t('selectCountryOfResidenceMessage')}
                     color='primary'
                     fontSize='small'
                   />
@@ -133,13 +135,13 @@ const ClientStepOne = () => {
                 <FormControl fullWidth id='country-select'>
                   <Controller
                     name='country'
-                    rules={{ required: t['requiredMessage'] }}
+                    rules={{ required: t('requiredMessage') }}
                     control={control}
                     defaultValue={!user.current.country && 0}
                     as={
                       <ReactSelectMaterialUi
                         fullWidth={true}
-                        placeholder={t['selectCountryMessage']}
+                        placeholder={t('selectCountryMessage')}
                         SelectProps={{
                           styles: selectStyle,
                         }}
@@ -152,6 +154,30 @@ const ClientStepOne = () => {
                 <ErrorMessage errorField={errors.country} />
               </Container>
               <FieldsOfExperience />
+
+              <Container maxWidth={false} className={classes.formControl}>
+                <FormControl fullWidth id='country-select'>
+                  <Controller
+                    name={'isEmployed'}
+                    valueName='checked'
+                    defaultValue={false}
+                    type='checkbox'
+                    control={control}
+                    as={
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            id={'isEmployed-field'}
+                            style={checkboxStyle}
+                          />
+                        }
+                        label={t('isEmployed')}
+                      />
+                    }
+                  />
+                </FormControl>
+                <ErrorMessage errorField={errors.country} />
+              </Container>
             </Container>
           </Paper>
         </Grid>

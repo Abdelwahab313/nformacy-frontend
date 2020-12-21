@@ -15,7 +15,11 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Grid from '@material-ui/core/Grid';
 import StepTwo from './StepTwo';
 import StepThree from './StepThree';
-import { completeFreelancerProfile, completeClientProfile, uploadCV } from '../../../apis/userAPI';
+import {
+  completeFreelancerProfile,
+  completeClientProfile,
+  uploadCV,
+} from '../../../apis/userAPI';
 import { useHistory } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import BackDialog from './BackDialog';
@@ -109,7 +113,7 @@ const FreeLancerProfileForm = () => {
   const onSubmitClient = (userData) => {
     const userToBeSubmitted = {
       ...user.current,
-      ...userData
+      ...userData,
     };
     setLoading(true);
     completeClientProfile(userToBeSubmitted)
@@ -196,6 +200,7 @@ const FreeLancerProfileForm = () => {
     setIsDialogueOpen(false);
   };
 
+  const isClientEmployed = watch('isEmployed');
   return (
     <div className={classes.freelancerProfileContainer}>
       <Hidden smDown>
@@ -231,8 +236,14 @@ const FreeLancerProfileForm = () => {
         <Grid
           item
           className={[classes.buttonsContainer, classes.nextBtnContainer]}
-          className={activeStep === 0 ? classes.nextBtnContainer : [classes.nextBtnContainer, classes.nextBtnContainerFlexEnd]}
-          xs={12} sm={7} lg={5}>
+          className={
+            activeStep === 0
+              ? classes.nextBtnContainer
+              : [classes.nextBtnContainer, classes.nextBtnContainerFlexEnd]
+          }
+          xs={12}
+          sm={7}
+          lg={5}>
           {activeStep !== 0 && (
             <Button
               onClick={getBackToPreviousStep}
@@ -243,7 +254,7 @@ const FreeLancerProfileForm = () => {
               {t['back']}
             </Button>
           )}
-          {activeStep === 2 || (activeStep === 1 && authManager.isClient()) ? (
+          {activeStep === 2 || (authManager.isClient() && activeStep === 1 ||  !isClientEmployed) ? (
             <Button
               id='submitButton'
               type='submit'
@@ -254,16 +265,16 @@ const FreeLancerProfileForm = () => {
               {t['submit']}
             </Button>
           ) : (
-              <Button
-                id='nextButton'
-                disabled={stepValid() || loading}
-                onClick={proceedToNextStep}
-                variant='contained'
-                style={nextButtonStyles(stepValid() || loading)}
-                endIcon={<ArrowForwardIosIcon />}>
-                {t['next']}
-              </Button>
-            )}
+            <Button
+              id='nextButton'
+              disabled={stepValid() || loading}
+              onClick={proceedToNextStep}
+              variant='contained'
+              style={nextButtonStyles(stepValid() || loading)}
+              endIcon={<ArrowForwardIosIcon />}>
+              {t['next']}
+            </Button>
+          )}
         </Grid>
       </form>
       <BackDialog

@@ -47,6 +47,11 @@ export const useStyles = makeStyles((theme) => ({
   navButtonsContainer: {
     textAlign: 'center',
   },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '50px',
+  },
   navButtons: {
     margin: '10px',
     cursor: 'pointer',

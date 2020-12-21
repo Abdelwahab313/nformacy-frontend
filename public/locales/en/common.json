@@ -204,5 +204,7 @@
   "profile": "Profile",
   "organizationalLevel": "Organizational Level",
   "selectYourOrganizationalLevel": "Select Your Organizational Level",
-  "workInformation": "Work Information"
+  "workInformation": "Work Information",
+  "isEmployed": "Are you currently Employed?",
+  "selectCountryMessage": "Select country"
 }
