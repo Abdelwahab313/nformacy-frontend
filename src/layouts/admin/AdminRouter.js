@@ -19,7 +19,10 @@ const AdminRouter = () => {
           />
         );
       })}
-      <Redirect from={RoutesPaths.Admin.Home} to={RoutesPaths.Admin.Dashboard}/>
+      <Redirect
+        from={RoutesPaths.Admin.Home}
+        to={RoutesPaths.Admin.Dashboard}
+      />
     </Switch>
   );
 };

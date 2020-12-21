@@ -1,12 +1,9 @@
 import React, { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core';
-import { withRouter } from 'react-router-dom';
 
 import AppHeader from 'components/header/app/Header';
 
-import AppRouter from 'layouts/app/AppRouter';
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     flexDirection: 'row',
@@ -15,16 +12,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AppLayout() {
+function AppLayout(Component) {
   const classes = useStyles();
   return (
     <Fragment>
-      <AppHeader/>
+      <AppHeader />
       <div className={classes.root}>
-        <AppRouter/>
+        <Component />
       </div>
     </Fragment>
   );
 }
 
-export default withRouter(AppLayout);
+export default AppLayout;

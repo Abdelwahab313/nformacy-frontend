@@ -9,6 +9,8 @@ import useNotification from '../../../../hooks/notifications/useNotification';
 import NotificationsIcon from './NotificationsIcon';
 import NotificationList from './NotificationList';
 import { useHeaderStyles } from '../../../../styles/Admin/headerStyles';
+import authManager from 'services/authManager';
+import { NotificationsProvider } from 'hooks/notifications/context';
 
 const useStyles = makeStyles(styles);
 export const notificationsListId = 'notification-menu-list-grow';
@@ -48,4 +50,16 @@ const Notifications = () => {
   );
 };
 
-export default Notifications;
+const WithNotification = (props) => {
+  const { user } = authManager.retrieveUserToken();
+  return (
+    <NotificationsProvider
+      initialNotifications={user?.notifications}
+      unreadCount={user?.unreadNotifications}>
+      <Notifications {...props} />
+    </NotificationsProvider>
+  );
+};
+
+
+export default WithNotification;

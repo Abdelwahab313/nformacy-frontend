@@ -4,7 +4,8 @@ import { useQuery } from 'react-query';
 import { fetchAllNotifications } from '../../../apis/notifications';
 import LoadingCircle from '../../../components/progress/LoadingCircle';
 import NotificationCard from '../../../components/notificationCard/NotificationCard';
-
+import authManager from 'services/authManager';
+import { NotificationsProvider } from 'hooks/notifications/context';
 
 const AllNotifications = () => {
   const { isLoading, data } = useQuery(
@@ -26,4 +27,15 @@ const AllNotifications = () => {
   );
 };
 
-export default AllNotifications;
+const WithNotification = (props) => {
+  const { user } = authManager.retrieveUserToken();
+  return (
+    <NotificationsProvider
+      initialNotifications={user?.notifications}
+      unreadCount={user?.unreadNotifications}>
+      <AllNotifications {...props} />
+    </NotificationsProvider>
+  );
+};
+
+export default WithNotification;

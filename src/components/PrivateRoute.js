@@ -3,7 +3,6 @@ import { Redirect, Route } from 'react-router-dom';
 import authManager from '../services/authManager';
 import { useLocation } from 'react-router';
 import { RoutesPaths } from 'constants/routesPath';
-import { NotificationsProvider } from '../hooks/notifications/context';
 
 function PrivateRoute({ component: Component, provider: Provider, ...rest }) {
   const location = useLocation();
@@ -12,14 +11,8 @@ function PrivateRoute({ component: Component, provider: Provider, ...rest }) {
     ? RoutesPaths.Admin.Login
     : RoutesPaths.App.Login;
 
-  const { authToken, user } = authManager.retrieveUserToken();
-  const WithNotifications = ({ children }) => (
-    <NotificationsProvider
-      initialNotifications={user?.notifications}
-      unreadCount={user?.unreadNotifications}>
-      {children}
-    </NotificationsProvider>
-  );
+  const { authToken } = authManager.retrieveUserToken();
+
   if (!authToken) {
     return (
       <Route
@@ -39,14 +32,10 @@ function PrivateRoute({ component: Component, provider: Provider, ...rest }) {
         render={(props) =>
           Provider ? (
             <Provider>
-              <WithNotifications>
-                <Component {...props} />
-              </WithNotifications>
+              <Component {...props} />
             </Provider>
           ) : (
-            <WithNotifications>
-              <Component {...props} />
-            </WithNotifications>
+            <Component {...props} />
           )
         }
       />
