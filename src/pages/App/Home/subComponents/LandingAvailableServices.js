@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Box, Grid } from '@material-ui/core';
 import useStyles from '../styles/HomePageStyles';
 import SubmitButton from 'components/buttons/SubmitButton';
-import Collapse from '@material-ui/core/Collapse';
 import { RoutesPaths } from 'constants/routesPath';
 import { useTranslation } from 'react-i18next';
 import CustomTypography from 'components/typography/Typography';
@@ -14,6 +13,7 @@ const services = (t) => [
     title: t('askServiceTitle'),
     description: t('askServiceDescription'),
     icon: require('../../../../assets/question.svg'),
+    WhiteIcon: require('../../../../assets/question.svg'),
     btnTxt: t('askServiceButton'),
   },
   {
@@ -21,6 +21,7 @@ const services = (t) => [
     title: t('callServiceTitle'),
     description: t('callServiceDescription'),
     icon: require('../../../../assets/client-call.svg'),
+    WhiteIcon: require('../../../../assets/white-client-call.svg'),
     btnTxt: t('callServiceButton'),
   },
   {
@@ -28,6 +29,7 @@ const services = (t) => [
     title: t('questionServiceTitle'),
     description: t('questionServiceDescription'),
     icon: require('../../../../assets/consultant.png'),
+    WhiteIcon: require('../../../../assets/white-consultant.svg'),
     btnTxt: t('questionServiceButton'),
   },
   {
@@ -35,6 +37,7 @@ const services = (t) => [
     title: t('projectServiceTitle'),
     description: t('projectServiceDescription'),
     icon: require('../../../../assets/client-project.svg'),
+    WhiteIcon: require('../../../../assets/white-client-project.svg'),
     btnTxt: t('projectServiceButton'),
   },
 ];
@@ -56,10 +59,14 @@ const LandingAvailableServices = () => {
       container
       className={classes.threeBtnsContainer}
       justify='space-between'
-      spacing={4}>
+      spacing={6}>
       {services(t).map((service) => (
         <Grid item xs={6} md={6}>
-          <Box className={[classes.askQuestionBox, classes.clientThreeBtns]}>
+          <Box
+            className={[
+              classes.askQuestionBox,
+              classes.LandingClientThreeBtns,
+            ]}>
             <MobileServiceItem
               service={service}
               onServiceClick={() => navigatToServiceForm(service.name)}
@@ -111,45 +118,38 @@ const ServiceItem = ({
 }) => {
   const classes = useStyles();
   return (
-    <Collapse
-      in={isFocused}
-      collapsedHeight={200}
-      timeout={500}
-      className={classes.desktopVisible}>
-      <Grid
-        container
-        onMouseEnter={() => setFocusedItem(service.name)}
-        onMouseLeave={() => setFocusedItem('')}>
-        <Grid item xs={8} md={9}>
-          <CustomTypography variant='h6' fontWeight='bold'>
-            {service.title}
-          </CustomTypography>
-          <CustomTypography
-            variant='body1'
-            fontWeight='light'
-            className={classes.serviceDesc}>
-            {service.description}
-          </CustomTypography>
-        </Grid>
-        <Grid item xs={3} md={3}>
-          <img src={service.icon} className={classes.clientImg} />
-        </Grid>
-        <Grid container xs={12}>
-          {isFocused && (
-            <SubmitButton
-              id={'proceedBtn'}
-              onClick={() => onServiceClick()}
-              className={[classes.proceedBtn, classes.startProcessBtn]}
-              buttonText={
-                <CustomTypography variant='body1'>
-                  {service.btnTxt}
-                </CustomTypography>
-              }
-            />
-          )}
-        </Grid>
+    <Grid
+      container
+      onMouseEnter={() => setFocusedItem(service.name)}
+      onMouseLeave={() => setFocusedItem('')}>
+      <Grid item xs={8} md={9}>
+        <CustomTypography variant='h6' fontWeight='bold'>
+          {service.title}
+        </CustomTypography>
+        <CustomTypography variant='body1' fontWeight='light'>
+          {service.description}
+        </CustomTypography>
       </Grid>
-    </Collapse>
+      <Grid item xs={3} md={3}>
+        <img
+          src={isFocused ? service.icon : service.WhiteIcon}
+          className={classes.clientImg}
+          tintColor='red'
+        />
+      </Grid>
+      <Grid container xs={12}>
+        <SubmitButton
+          id={'proceedBtn'}
+          onClick={() => onServiceClick()}
+          className={[classes.proceedBtn, classes.startProcessBtn]}
+          buttonText={
+            <CustomTypography variant='body1'>
+              {service.btnTxt}
+            </CustomTypography>
+          }
+        />
+      </Grid>
+    </Grid>
   );
 };
 

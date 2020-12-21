@@ -1,5 +1,12 @@
 import { makeStyles } from '@material-ui/core';
-import { lightOrange, grey, whiteLilac } from 'styles/colors';
+import {
+  lightOrange,
+  grey,
+  whiteLilac,
+  darkBlue,
+  white,
+  black,
+} from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
   mobileVisible: {
@@ -170,6 +177,22 @@ const useStyles = makeStyles((theme) => ({
   clientThreeBtns: {
     minWidth: '29.5%',
     backgroundColor: '#ffffff',
+    [theme.breakpoints.down('md')]: {
+      padding: '10px',
+      fontSize: 'smaller',
+    },
+  },
+  LandingClientThreeBtns: {
+    minWidth: '29.5%',
+    backgroundColor: darkBlue,
+    color: white,
+    padding: theme.spacing(4),
+    transition: 'all 1s',
+    '&:hover': {
+      backgroundColor: white,
+      color: black,
+      transform: 'scale(1.2)',
+    },
     [theme.breakpoints.down('md')]: {
       padding: '10px',
       fontSize: 'smaller',

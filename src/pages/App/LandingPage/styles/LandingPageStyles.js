@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import { white, darkBlue, lightGrey } from 'styles/colors';
+import { white, darkBlue, lighterGrey } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
   landingContainer: {
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     color: `${darkBlue} !important`,
   },
   ourSolutionContainer: {
-    background: lightGrey,
+    background: lighterGrey,
   },
 }));
 
