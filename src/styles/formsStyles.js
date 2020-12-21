@@ -242,7 +242,7 @@ export const useStyles = makeStyles((theme) => ({
     padding: '0 !important',
   },
   buttonsContainer: {
-    marginTop: '50px !important',
+    marginTop: '40px !important',
   },
   stepTwoContainer: {
     [theme.breakpoints.down('sm')]: {
@@ -368,6 +368,18 @@ export const useStyles = makeStyles((theme) => ({
     width: 'fit-content',
     height: 'fit-content',
   },
+  nextBtnContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: '10px',
+    alignSelf: 'center',
+    width: '100%',
+    marginTop: '40px !important'
+  },
+  nextBtnContainerFlexEnd: {
+    justifyContent: 'space-between',
+  }
 }));
 
 export const selectStyle = {
@@ -506,15 +518,6 @@ export const formStyle = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-};
-
-export const navigationButtonsContainer = {
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  marginTop: '10px',
-  alignSelf: 'center',
-  width: '100%',
 };
 
 export const iconStyle = {

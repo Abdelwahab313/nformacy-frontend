@@ -4,7 +4,6 @@ import StepOne from './StepOne';
 import StepsIndicator from './StepsIndicator';
 import {
   formStyle,
-  navigationButtonsContainer,
   nextButtonStyles,
   stepIndicatorStyles,
   useStyles,
@@ -231,14 +230,9 @@ const FreeLancerProfileForm = () => {
         </FormContext>
         <Grid
           item
-          className={classes.buttonsContainer}
-          xs={12}
-          md={10}
-          style={
-            activeStep === 0
-              ? { ...navigationButtonsContainer, justifyContent: 'flex-end' }
-              : navigationButtonsContainer
-          }>
+          className={[classes.buttonsContainer, classes.nextBtnContainer]}
+          className={activeStep === 0 ? classes.nextBtnContainer : [classes.nextBtnContainer, classes.nextBtnContainerFlexEnd]}
+          xs={12} sm={7} lg={5}>
           {activeStep !== 0 && (
             <Button
               onClick={getBackToPreviousStep}
@@ -260,16 +254,16 @@ const FreeLancerProfileForm = () => {
               {t['submit']}
             </Button>
           ) : (
-            <Button
-              id='nextButton'
-              disabled={stepValid() || loading}
-              onClick={proceedToNextStep}
-              variant='contained'
-              style={nextButtonStyles(stepValid() || loading)}
-              endIcon={<ArrowForwardIosIcon />}>
-              {t['next']}
-            </Button>
-          )}
+              <Button
+                id='nextButton'
+                disabled={stepValid() || loading}
+                onClick={proceedToNextStep}
+                variant='contained'
+                style={nextButtonStyles(stepValid() || loading)}
+                endIcon={<ArrowForwardIosIcon />}>
+                {t['next']}
+              </Button>
+            )}
         </Grid>
       </form>
       <BackDialog
