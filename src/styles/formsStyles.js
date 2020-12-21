@@ -476,6 +476,9 @@ export const checkboxStyle = {
 export const dividerStyle = {
   backgroundColor: lightPink,
 };
+export const greyDividerStyle = {
+  backgroundColor: lightGrey,
+};
 
 export const stepIndicatorStyles = {
   container: {

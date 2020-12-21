@@ -7,11 +7,11 @@ import ErrorMessage from '../errors/ErrorMessage';
 import React, { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import {
-  dividerStyle,
   radioStyle,
   sectionContainerStyles,
   selectStyle,
   useStyles,
+  greyDividerStyle,
 } from '../../styles/formsStyles';
 import FormControl from '@material-ui/core/FormControl';
 import ReactSelectMaterialUi from 'react-select-material-ui';
@@ -57,7 +57,7 @@ const ClientStepOne = () => {
                   </Typography>
                 </Grid>
               </Grid>
-              <Divider variant='middle' style={dividerStyle} />
+              <Divider variant='middle' style={greyDividerStyle} />
               <Container maxWidth={false} className={classes.formControl}>
                 <FormControl fullWidth className={classes.formControl}>
                   <Typography

@@ -8,7 +8,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import SettingsIcon from '@material-ui/icons/Settings';
 import StepConnector from '@material-ui/core/StepConnector';
-import { lighterPink, lightPink, darkBlue } from 'styles/colors';
+import { lightGrey, lighterGrey, darkBlue } from 'styles/colors';
 import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
 
@@ -29,14 +29,14 @@ const ColorlibConnector = withStyles({
   line: {
     height: 3,
     border: 0,
-    backgroundColor: lighterPink,
+    backgroundColor: lighterGrey,
     borderRadius: 1,
   },
 })(StepConnector);
 
 const useColorlibStepIconStyles = makeStyles({
   root: {
-    backgroundColor: lightPink,
+    backgroundColor: lightGrey,
     zIndex: 1,
     color: '#fff',
     width: 50,
@@ -110,8 +110,7 @@ const StepsIndicator = (props) => {
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel
-              StepIconComponent={ColorlibStepIcon}
-              style={{ color: 'red' }}>
+              StepIconComponent={ColorlibStepIcon}>
               {label}
             </StepLabel>
           </Step>
