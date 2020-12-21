@@ -27,6 +27,7 @@ import t from '../../../locales/en/freelancerProfile.json';
 import ClientStepOne from 'components/forms/ClientStepOne';
 import ClientStepTwo from 'components/forms/ClientStepTwo';
 import authManager from 'services/authManager';
+import { RoutesPaths } from 'constants/routesPath';
 
 const FreeLancerProfileForm = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -119,7 +120,7 @@ const FreeLancerProfileForm = () => {
     completeClientProfile(userToBeSubmitted)
       .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));
-        history.push('/user/success');
+        history.push(RoutesPaths.App.Home, {isRecentlyRegistered: true});
       })
       .finally(() => {
         setLoading(false);
@@ -254,7 +255,8 @@ const FreeLancerProfileForm = () => {
               {t['back']}
             </Button>
           )}
-          {activeStep === 2 || (authManager.isClient() && activeStep === 1 ||  !isClientEmployed) ? (
+          {activeStep === 2 ||
+          (authManager.isClient() && activeStep === 1) || !isClientEmployed ? (
             <Button
               id='submitButton'
               type='submit'
