@@ -37,7 +37,7 @@ const Success = () => {
           </Typography>
         </Grid>
         <Grid item className={classes.buttonContainer}>
-          <SubmitButton href={RoutesPaths.App.Home} buttonText='Home' />
+          <SubmitButton href={RoutesPaths.App.Dashboard} buttonText='Home' />
         </Grid>
       </Grid>
     </Grid>

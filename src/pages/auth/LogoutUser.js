@@ -6,11 +6,11 @@ import { logoutUser } from './context/authActions';
 import { RoutesPaths } from 'constants/routesPath';
 
 const Logout = () => {
-  const [_, dispatch] = useAuth();
+  const [, dispatch] = useAuth();
   const [logoutSuccess, setLogoutSuccess] = useState(false);
   const location = useLocation();
   const isAdminLogin = location.pathname.indexOf('admin') > -1;
-  const postLogoutRoute = isAdminLogin ? RoutesPaths.Admin.Home : RoutesPaths.App.Home;
+  const postLogoutRoute = isAdminLogin ? RoutesPaths.Admin.Home : RoutesPaths.App.Dashboard;
 
   useEffect(() => {
     setLogoutSuccess(true);

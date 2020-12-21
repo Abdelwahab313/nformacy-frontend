@@ -23,7 +23,7 @@ const appRoutes = [
     exact: true,
   },
   {
-    path: RoutesPaths.App.Home,
+    path: RoutesPaths.App.Dashboard,
     component: HomePage,
     exact: true,
   },

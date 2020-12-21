@@ -15,7 +15,11 @@ import LandingPage from 'pages/App/LandingPage/LandingPage';
 const MainRouter = () => {
   return (
     <Switch>
-      <PrivateRoute path={RoutesPaths.App.LandingPage} component={LandingPage} />
+      <PrivateRoute
+        path={RoutesPaths.App.LandingPage}
+        component={LandingPage}
+        exact
+      />
       <Route path={RoutesPaths.App.Login} component={Login} />
       <Route path={RoutesPaths.App.Signup} component={Register} />
       <Route path={RoutesPaths.App.Logout} component={Logout} />
@@ -33,7 +37,7 @@ const MainRouter = () => {
         path={RoutesPaths.App.FreelancerSuccess}
         component={Success}
       />
-      <PrivateRoute path={RoutesPaths.App.Home} component={Layout} />
+      <PrivateRoute path={'/'} component={Layout} />
     </Switch>
   );
 };

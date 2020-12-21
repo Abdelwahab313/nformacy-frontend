@@ -120,7 +120,9 @@ const FreeLancerProfileForm = () => {
     completeClientProfile(userToBeSubmitted)
       .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));
-        history.push(RoutesPaths.App.Home, {isRecentlyRegistered: true});
+        history.push(RoutesPaths.App.Dashboard, {
+          isRecentlyRegistered: false,
+        });
       })
       .finally(() => {
         setLoading(false);
@@ -256,7 +258,8 @@ const FreeLancerProfileForm = () => {
             </Button>
           )}
           {activeStep === 2 ||
-          (authManager.isClient() && activeStep === 1) || !isClientEmployed ? (
+          (authManager.isClient() && activeStep === 1) ||
+          (authManager.isClient() && !isClientEmployed) ? (
             <Button
               id='submitButton'
               type='submit'

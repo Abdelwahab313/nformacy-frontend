@@ -5,6 +5,7 @@ import { fetchQuestionDetails } from 'apis/questionsAPI';
 import QuestionDetails from '../index';
 import { Router } from 'react-router';
 import { createMemoryHistory } from 'history';
+import { RoutesPaths } from 'constants/routesPath';
 
 jest.mock('apis/questionsAPI', () => ({
   __esModule: true, // this property makes it work
@@ -35,8 +36,8 @@ jest.mock('apis/questionsAPI', () => ({
           user: {
             firstName: 'ali',
             lastName: 'ahmed',
-            referenceNumber: '123'
-          }
+            referenceNumber: '123',
+          },
         },
       ],
     },
@@ -56,7 +57,7 @@ jest.mock('context/SnackBarContext', () => ({
 
 it('should match snapshot', async () => {
   const history = createMemoryHistory();
-  history.push('/', { questionId: 1 });
+  history.push(RoutesPaths.App.Dashboard, { questionId: 1 });
   const { asFragment } = render(
     <Router history={history}>
       <AuthProvider>

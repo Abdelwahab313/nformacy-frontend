@@ -54,7 +54,7 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
         key={'home'}
         onClick={() => handleClose()}
         component={Link}
-        to={'/'}>
+        to={RoutesPaths.App.Dashboard}>
         <ListItemIcon>
           <HomeIcon color={'secondary'} />
         </ListItemIcon>

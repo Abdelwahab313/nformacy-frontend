@@ -10,6 +10,7 @@ import useLocale from '../../hooks/localization/useLocale';
 import DIRECTIONS from '../../constants/direction';
 import Direction from 'components/grid/Direction';
 import { useTranslation } from 'react-i18next';
+import { RoutesPaths } from 'constants/routesPath';
 
 const BreadcrumbsCustomSeparator = ({ pageName }) => {
   const classes = useStyles();
@@ -30,15 +31,10 @@ const BreadcrumbsCustomSeparator = ({ pageName }) => {
               )
             }
             aria-label='breadcrumb'>
-            <Link color='inherit' href='/'>
-              <Typography
-                id={'home-breadcrumb'}>
-                {t('common:home')}
-              </Typography>
+            <Link color='inherit' href={RoutesPaths.App.Dashboard}>
+              <Typography id={'home-breadcrumb'}>{t('common:home')}</Typography>
             </Link>
-            <Typography color={'primary'}>
-              {pageName}
-            </Typography>
+            <Typography color={'primary'}>{pageName}</Typography>
           </Breadcrumbs>
         </div>
       </Grid>

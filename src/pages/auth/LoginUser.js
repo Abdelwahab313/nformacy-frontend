@@ -32,7 +32,7 @@ const Login = () => {
   const isAdminLogin = location.pathname.indexOf('admin') > -1;
   const postLoginRoute = isAdminLogin
     ? RoutesPaths.Admin.Home
-    : RoutesPaths.App.Home;
+    : RoutesPaths.App.Dashboard;
   const referer = location.state
     ? location.state.referer || postLoginRoute
     : postLoginRoute;

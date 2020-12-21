@@ -67,7 +67,7 @@ const MeetingTimeSelectorCalendarDialog = ({
             candidate,
           )}`,
           );
-          history.push(RoutesPaths.App.Home);
+          history.push(RoutesPaths.App.Dashboard);
       },
     );
     onClose();
