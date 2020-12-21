@@ -14,8 +14,14 @@ import ServicesPage from 'pages/App/ServiceRequests/list';
 import ServiceDetails from 'pages/App/ServiceRequests/details';
 import FreelancersAnswersPage from 'pages/App/FreelancersAnswers/list';
 import UserTypeSelection from 'pages/App/register/UserTypeSelection';
+import LandingPage from 'pages/App/LandingPage/LandingPage';
 
 const appRoutes = [
+  {
+    path: RoutesPaths.App.LandingPage,
+    component: LandingPage,
+    exact: true,
+  },
   {
     path: RoutesPaths.App.Home,
     component: HomePage,
