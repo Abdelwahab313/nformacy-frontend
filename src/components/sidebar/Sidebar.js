@@ -14,10 +14,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import AdminNavbarLinks from 'components/header/admin/AdminNavbarLinks.js';
 import { PermissibleRender } from '@brainhubeu/react-permissible';
 
-import styles from 'assets/jss/material-dashboard-react/components/sidebarStyle.js';
 import authManager from '../../services/authManager';
+import SidebarStyles from './SidebarStyles';
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(SidebarStyles);
 
 export default function Sidebar(props) {
   const classes = useStyles();

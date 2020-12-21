@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import PrivateRoute from 'components/PrivateRoute';
 import appRoutes from './routes';
+import NotFoundPage from 'pages/NotFoundPage';
 
 const AppRouter = () => {
   return (
@@ -28,6 +29,7 @@ const AppRouter = () => {
             />
           );
         })}
+        <Route path={'/'} component={NotFoundPage} />
       </Switch>
     </div>
   );

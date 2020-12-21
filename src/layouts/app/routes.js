@@ -16,6 +16,7 @@ import ServicesPage from 'pages/App/ServiceRequests/list';
 import ServiceDetails from 'pages/App/ServiceRequests/details';
 import FreelancersAnswersPage from 'pages/App/FreelancersAnswers/list';
 import { RoutesPaths } from 'constants/routesPath';
+import NotFoundPage from 'pages/NotFoundPage';
 
 const appRoutes = [
   {
@@ -142,6 +143,12 @@ const appRoutes = [
     component: UserTypeSelection,
     includeLayout: true,
     public: false,
+  },
+  {
+    path: RoutesPaths.App.NotFound,
+    component: NotFoundPage,
+    includeLayout: false,
+    public: true,
   },
 ];
 

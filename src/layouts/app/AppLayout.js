@@ -12,14 +12,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function AppLayout(Component) {
+function AppLayout({ children }) {
   const classes = useStyles();
   return (
     <Fragment>
       <AppHeader />
-      <div className={classes.root}>
-        <Component />
-      </div>
+      <div className={classes.root}>{children}</div>
     </Fragment>
   );
 }

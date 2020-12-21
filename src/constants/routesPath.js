@@ -34,5 +34,6 @@ export const RoutesPaths = {
     Services: '/services/list',
     AnswersList: '/answers/list',
     UserTypeSelection: '/user/type',
+    NotFound: '/error',
   },
 };
