@@ -24,8 +24,8 @@ const HowWeWorkSection = () => {
           </CustomTypography>
         </Box>
       </Grid>
-      <Grid item xs={12} className={classes.subTextMargin}>
-        <Grid container direction='row' justify='center' className={classes.subTextMargin}>
+      <Grid item xs={12} className={classes.stepsContainerMargin}>
+        <Grid container direction='row' justify='center'>
           {/* sign_up */}
           <Grid item xs={4} md={2}>
             <Box textAlign='center'>
@@ -33,10 +33,16 @@ const HowWeWorkSection = () => {
                 className={classes.howWorkIcon}
                 src={require('../../../assets/landing/Sign_up.svg')}
               />
-              <CustomTypography variant='h6' fontWeight='bold'>
+              <CustomTypography
+                variant='h6'
+                fontWeight='bold'
+                className={classes.workMainTextPadding}>
                 Sign up
               </CustomTypography>
-              <CustomTypography variant='body1' fontWeight='light'>
+              <CustomTypography
+                variant='body1'
+                fontWeight='light'
+                className={classes.workSubTextPadding}>
                 Fill in the short registration form and get instant access to
                 nformacy network of experts.
               </CustomTypography>
@@ -50,10 +56,16 @@ const HowWeWorkSection = () => {
                 className={classes.howWorkIcon}
                 src={require('../../../assets/landing/Access_Desk_Space.svg')}
               />
-              <CustomTypography variant='h6' fontWeight='bold'>
+              <CustomTypography
+                variant='h6'
+                fontWeight='bold'
+                className={classes.workMainTextPadding}>
                 Access Desk Space
               </CustomTypography>
-              <CustomTypography variant='body1' fontWeight='light'>
+              <CustomTypography
+                variant='body1'
+                fontWeight='light'
+                className={classes.workSubTextPadding}>
                 Access your personal desk space and start receiving business
                 publications in the fields of your interest.
               </CustomTypography>
@@ -67,10 +79,16 @@ const HowWeWorkSection = () => {
                 className={classes.howWorkIcon}
                 src={require('../../../assets/landing/Ask_Questions.svg')}
               />
-              <CustomTypography variant='h6' fontWeight='bold'>
+              <CustomTypography
+                variant='h6'
+                fontWeight='bold'
+                className={classes.workMainTextPadding}>
                 Ask Questions
               </CustomTypography>
-              <CustomTypography variant='body1' fontWeight='light'>
+              <CustomTypography
+                variant='body1'
+                fontWeight='light'
+                className={classes.workSubTextPadding}>
                 Ask any business question and start receiving real time
                 answerers from our pool of experts.
               </CustomTypography>
@@ -84,10 +102,16 @@ const HowWeWorkSection = () => {
                 className={classes.howWorkIcon}
                 src={require('../../../assets/landing/Choose_your_Services.svg')}
               />
-              <CustomTypography variant='h6' fontWeight='bold'>
+              <CustomTypography
+                variant='h6'
+                fontWeight='bold'
+                className={classes.workMainTextPadding}>
                 Choose your Services
               </CustomTypography>
-              <CustomTypography variant='body1' fontWeight='light'>
+              <CustomTypography
+                variant='body1'
+                fontWeight='light'
+                className={classes.workSubTextPadding}>
                 Choose your solution and submit your request which will go
                 through a leading screening process to match you with a short
                 list of best fit consultants to choose from your ideal match.
@@ -102,10 +126,16 @@ const HowWeWorkSection = () => {
                 className={classes.howWorkIcon}
                 src={require('../../../assets/landing/Pay.svg')}
               />
-              <CustomTypography variant='h6' fontWeight='bold'>
+              <CustomTypography
+                variant='h6'
+                fontWeight='bold'
+                className={classes.workMainTextPadding}>
                 Pay
               </CustomTypography>
-              <CustomTypography variant='body1' fontWeight='light'>
+              <CustomTypography
+                variant='body1'
+                fontWeight='light'
+                className={classes.workSubTextPadding}>
                 Charge your wallet and buy bundles and packages according to
                 your needs and budget.
               </CustomTypography>
@@ -119,10 +149,16 @@ const HowWeWorkSection = () => {
                 className={classes.howWorkIcon}
                 src={require('../../../assets/landing/Manage_your_Space.svg')}
               />
-              <CustomTypography variant='h6' fontWeight='bold'>
+              <CustomTypography
+                variant='h6'
+                fontWeight='bold'
+                className={classes.workMainTextPadding}>
                 Manage your Space
               </CustomTypography>
-              <CustomTypography variant='body1' fontWeight='light'>
+              <CustomTypography
+                variant='body1'
+                fontWeight='light'
+                className={classes.workSubTextPadding}>
                 Access and track your nformacy activities, requests, and
                 assignments. Get all your advisory needs in one view.
               </CustomTypography>

@@ -14,7 +14,7 @@ const OurSolutionsSection = () => {
       justify='center'
       className={[
         classes.landingSectionsContainerPadding,
-        classes.ourSolutionContainer,
+        classes.lighterGrayContainer,
       ]}>
       <Grid item xs={12}>
         <Box textAlign='center'>

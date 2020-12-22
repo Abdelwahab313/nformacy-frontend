@@ -94,7 +94,7 @@ const MobileServiceItem = ({ service, onServiceClick }) => {
       <Grid item xs={3} md={3}>
         <img src={service.icon} className={classes.clientImg} />
       </Grid>
-      <Grid container xs={12}>
+      <Grid container>
         <SubmitButton
           id={'proceedBtn'}
           onClick={() => onServiceClick()}
@@ -136,7 +136,7 @@ const ServiceItem = ({
           className={classes.clientImg}
         />
       </Grid>
-      <Grid container xs={12}>
+      <Grid container>
         <SubmitButton
           id={'proceedBtn'}
           onClick={() => onServiceClick()}

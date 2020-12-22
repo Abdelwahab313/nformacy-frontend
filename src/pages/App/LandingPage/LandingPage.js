@@ -1,6 +1,7 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
 import HowWeWorkSection from './HowWeWorkSection';
+import AreasOfSpeciality from './AreasOfSpeciality';
 import LandingRollerSection from './LandingRollerSection';
 import OurSolutionsSection from './OurSolutionsSection';
 import useStyles from './styles/LandingPageStyles';
@@ -13,6 +14,7 @@ const LandingPage = () => {
       <LandingRollerSection />
       <OurSolutionsSection />
       <HowWeWorkSection />
+      <AreasOfSpeciality />
     </Grid>
   );
 };

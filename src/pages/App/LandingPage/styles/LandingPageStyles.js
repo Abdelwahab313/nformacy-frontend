@@ -37,11 +37,46 @@ const useStyles = makeStyles((theme) => ({
     background: `${white} !important`,
     color: `${darkBlue} !important`,
   },
-  ourSolutionContainer: {
+  lighterGrayContainer: {
     background: lighterGrey,
+  },
+  stepsContainerMargin: {
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(2),
+  },
+  workMainTextPadding: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+  workSubTextPadding: {
+    padding: theme.spacing(1),
   },
   howWorkIcon: {
     height: 65,
+  },
+  specialityFieldPadding: {
+    paddingTop: theme.spacing(5),
+    paddingBottom: theme.spacing(2),
+  },
+  specialityField: {
+    background: white,
+    borderRadius: '11px',
+    maxWidth: '31%',
+    marginTop: theme.spacing(4),
+  },
+  itemBullet: {
+    minWidth: 20,
+  },
+  circleDot: {
+    width: 12,
+  },
+  itemText: {
+    padding: 0,
+    alignItems: 'flex-start',
+    // textAlign: 'center',
+  },
+  noMarginTop: {
+    marginTop: 0,
   },
 }));
 
