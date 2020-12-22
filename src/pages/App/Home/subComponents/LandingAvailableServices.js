@@ -12,8 +12,8 @@ const services = (t) => [
     name: 'ask',
     title: t('askServiceTitle'),
     description: t('askServiceDescription'),
-    icon: require('../../../../assets/question.svg'),
-    WhiteIcon: require('../../../../assets/question.svg'),
+    icon: require('../../../../assets/ask_experts.svg'),
+    WhiteIcon: require('../../../../assets/white_ask_experts.svg'),
     btnTxt: t('askServiceButton'),
   },
   {
@@ -134,7 +134,6 @@ const ServiceItem = ({
         <img
           src={isFocused ? service.icon : service.WhiteIcon}
           className={classes.clientImg}
-          tintColor='red'
         />
       </Grid>
       <Grid container xs={12}>

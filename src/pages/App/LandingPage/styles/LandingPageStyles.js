@@ -40,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
   ourSolutionContainer: {
     background: lighterGrey,
   },
+  howWorkIcon: {
+    height: 65,
+  },
 }));
 
 export default useStyles;
