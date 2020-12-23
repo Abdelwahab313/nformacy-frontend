@@ -21,6 +21,12 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  flexDesktopVisible: {
+    display: 'flex',
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
+  },
   card: {
     maxWidth: 345,
     margin: '0 auto 24px',
@@ -174,6 +180,11 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  mobileServicesContainerPadding: {
+    [theme.breakpoints.down('md')]: {
+      padding: '4px !important',
+    },
+  },
   clientThreeBtns: {
     minWidth: '29.5%',
     backgroundColor: '#ffffff',
@@ -216,11 +227,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 50,
     [theme.breakpoints.down('md')]: {
       backgroundColor: 'transparent !important',
-      color: 'rgb(18 87 115) !important',
       border: 'none',
       boxShadow: 'none !important',
       whiteSpace: 'nowrap',
       marginTop: 0,
+    },
+  },
+  startProcessBtnPrimaryColor: {
+    [theme.breakpoints.down('md')]: {
+      color: 'rgb(18 87 115) !important',
     },
   },
   largeProfilePic: {

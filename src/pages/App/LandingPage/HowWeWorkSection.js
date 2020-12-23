@@ -42,7 +42,7 @@ const HowWeWorkSection = () => {
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={classes.workSubTextPadding}>
+                className={[classes.workSubTextPadding, classes.desktopVisible]}>
                 Fill in the short registration form and get instant access to
                 nformacy network of experts.
               </CustomTypography>
@@ -65,7 +65,7 @@ const HowWeWorkSection = () => {
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={classes.workSubTextPadding}>
+                className={[classes.workSubTextPadding, classes.desktopVisible]}>
                 Access your personal desk space and start receiving business
                 publications in the fields of your interest.
               </CustomTypography>
@@ -88,7 +88,7 @@ const HowWeWorkSection = () => {
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={classes.workSubTextPadding}>
+                className={[classes.workSubTextPadding, classes.desktopVisible]}>
                 Ask any business question and start receiving real time
                 answerers from our pool of experts.
               </CustomTypography>
@@ -111,7 +111,7 @@ const HowWeWorkSection = () => {
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={classes.workSubTextPadding}>
+                className={[classes.workSubTextPadding, classes.desktopVisible]}>
                 Choose your solution and submit your request which will go
                 through a leading screening process to match you with a short
                 list of best fit consultants to choose from your ideal match.
@@ -135,7 +135,7 @@ const HowWeWorkSection = () => {
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={classes.workSubTextPadding}>
+                className={[classes.workSubTextPadding, classes.desktopVisible]}>
                 Charge your wallet and buy bundles and packages according to
                 your needs and budget.
               </CustomTypography>
@@ -158,7 +158,7 @@ const HowWeWorkSection = () => {
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={classes.workSubTextPadding}>
+                className={[classes.workSubTextPadding, classes.desktopVisible]}>
                 Access and track your nformacy activities, requests, and
                 assignments. Get all your advisory needs in one view.
               </CustomTypography>

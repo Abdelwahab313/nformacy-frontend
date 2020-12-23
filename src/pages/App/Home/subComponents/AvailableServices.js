@@ -56,7 +56,7 @@ const AvailableServices = () => {
         justify='space-between'
         spacing={4}>
         {services(t).map((service) => (
-          <Grid item xs={4} md={4}>
+          <Grid item xs={4} md={4} className={classes.mobileServicesContainerPadding}>
             <Box className={[classes.askQuestionBox, classes.clientThreeBtns]}>
               <MobileServiceItem
                 service={service}
@@ -90,7 +90,11 @@ const MobileServiceItem = ({ service, onServiceClick }) => {
         <SubmitButton
           id={'proceedBtn'}
           onClick={() => onServiceClick()}
-          className={[classes.proceedBtn, classes.startProcessBtn]}
+          className={[
+            classes.proceedBtn,
+            classes.startProcessBtn,
+            classes.startProcessBtnPrimaryColor,
+          ]}
           buttonText={
             <CustomTypography variant='caption'>
               {service.btnTxt}

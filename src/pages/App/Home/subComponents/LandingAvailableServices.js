@@ -92,7 +92,7 @@ const MobileServiceItem = ({ service, onServiceClick }) => {
         <CustomTypography variant='body2'>{service.title}</CustomTypography>
       </Grid>
       <Grid item xs={3} md={3}>
-        <img src={service.icon} className={classes.clientImg} />
+        <img src={service.WhiteIcon} className={classes.clientImg} />
       </Grid>
       <Grid container>
         <SubmitButton
@@ -120,6 +120,7 @@ const ServiceItem = ({
   return (
     <Grid
       container
+      className={classes.flexDesktopVisible}
       onMouseEnter={() => setFocusedItem(service.name)}
       onMouseLeave={() => setFocusedItem('')}>
       <Grid item xs={8} md={9}>

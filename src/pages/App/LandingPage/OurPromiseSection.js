@@ -18,7 +18,7 @@ const OurPromiseSection = () => {
         classes.lighterGrayContainer,
       ]}>
       <Grid item xs={12}>
-        <Box textAlign='center' className={classes.specialityFieldPadding}>
+        <Box textAlign='center'>
           <CustomTypography variant='h4' fontWeight='bold'>
             Our Promise
           </CustomTypography>
@@ -31,15 +31,12 @@ const OurPromiseSection = () => {
             item
             xs={4}
             md={4}
-            className={[classes.specialityField, classes.fitContent]}>
+            className={[classes.promiseField, classes.fitContent]}>
             <Box textAlign='left' className={classes.specialityFieldPadding}>
               <CustomTypography
                 variant='h6'
                 fontWeight='bold'
-                className={[
-                  classes.workMainTextPadding,
-                  classes.orangeMainText,
-                ]}>
+                className={classes.orangeMainText}>
                 The Best Among Great Consultants
               </CustomTypography>
               <Divider variant='middle' style={greyDividerStyle} />
@@ -74,15 +71,12 @@ const OurPromiseSection = () => {
             item
             xs={4}
             md={4}
-            className={[classes.specialityField, classes.fitContent]}>
+            className={[classes.promiseField, classes.fitContent]}>
             <Box textAlign='left' className={classes.specialityFieldPadding}>
               <CustomTypography
                 variant='h6'
                 fontWeight='bold'
-                className={[
-                  classes.workMainTextPadding,
-                  classes.orangeMainText,
-                ]}>
+                className={classes.orangeMainText}>
                 Quality is Assured
               </CustomTypography>
               <Divider variant='middle' style={greyDividerStyle} />
@@ -112,15 +106,12 @@ const OurPromiseSection = () => {
             item
             xs={4}
             md={4}
-            className={[classes.specialityField, classes.fitContent]}>
+            className={[classes.promiseField, classes.fitContent]}>
             <Box textAlign='left' className={classes.specialityFieldPadding}>
               <CustomTypography
                 variant='h6'
                 fontWeight='bold'
-                className={[
-                  classes.workMainTextPadding,
-                  classes.orangeMainText,
-                ]}>
+                className={classes.orangeMainText}>
                 We Understand Your Needs
               </CustomTypography>
               <Divider variant='middle' style={greyDividerStyle} />

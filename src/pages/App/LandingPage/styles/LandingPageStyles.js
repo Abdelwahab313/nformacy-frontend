@@ -8,6 +8,9 @@ const useStyles = makeStyles((theme) => ({
   },
   landingSectionsContainerPadding: {
     padding: theme.spacing(11),
+    [theme.breakpoints.down('md')]: {
+      padding: theme.spacing(1),
+    },
   },
   mainCtaBtn: {
     marginTop: '12px',
@@ -37,6 +40,10 @@ const useStyles = makeStyles((theme) => ({
     background: `${white} !important`,
     color: `${darkBlue} !important`,
   },
+  orangeCtaBtn: {
+    background: `${lightOrange} !important`,
+    color: `${white} !important`,
+  },
   lighterGrayContainer: {
     background: lighterGrey,
   },
@@ -49,20 +56,45 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(1),
   },
   workSubTextPadding: {
-    padding: theme.spacing(1),
+    padding: ['2px', theme.spacing(1)],
   },
   howWorkIcon: {
     height: 65,
   },
   specialityFieldPadding: {
-    paddingTop: theme.spacing(5),
+    paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(2),
+  },
+  relativeBox: {
+    position: 'relative',
+    width: '31%',
+    marginBottom: 40,
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+    },
   },
   specialityField: {
     background: white,
     borderRadius: '11px',
-    maxWidth: '31%',
     marginTop: theme.spacing(4),
+    height: 250,
+    overflow: 'hidden',
+    transition: 'all 1s',
+    '&:hover': {
+      transform: 'scale(1.2)',
+      height: 'fit-content',
+      position: 'absolute',
+      zIndex: 2,
+      left: 0,
+      right: 0,
+      margin: 'auto',
+    },
+  },
+  promiseField: {
+    background: white,
+    borderRadius: '11px',
+    marginTop: theme.spacing(4),
+    maxWidth: '31%',
   },
   itemBullet: {
     minWidth: 20,
@@ -79,10 +111,21 @@ const useStyles = makeStyles((theme) => ({
   },
   orangeMainText: {
     color: lightOrange,
-    padding: theme.spacing(2),
+    padding: [0, theme.spacing(2)],
+    textAlign: 'center',
   },
   fitContent: {
     height: 'fit-content',
+  },
+  primaryBoldTxt: {
+    color: darkBlue,
+    fontWeight: 'bold',
+  },
+  desktopVisible: {
+    display: 'block',
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
   },
 }));
 
