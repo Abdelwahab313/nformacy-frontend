@@ -1,22 +1,37 @@
 import React, { useState } from 'react';
-import { Grid } from '@material-ui/core';
-import starRate from '../../../../../assets/star.png';
-import filledStarRate from '../../../../../assets/filledStar.png';
+import { Grid, Box } from '@material-ui/core';
 import useStyles from '../styles/RatingStyles';
-import CustomTypography from 'components/typography/Typography';
+import { FaStar } from 'react-icons/fa';
 
-const Rating = ({ratingDescription}) => {
+const Rating = () => {
   const classes = useStyles();
-  const [selectedImg, setSelectedImg] = useState(false);
+  const [rating, setRating] = useState(null);
+  const [hover, setHover] = useState(null);
 
   return (
-    <Grid item xs={1} md={1}>
-      <div className={classes.circleRate}>
-        <img src={selectedImg ? filledStarRate : starRate} alt="React Logo"
-          width={30} height={30}
-          onClick={() => setSelectedImg(!selectedImg)} />
-      </div>
-      <CustomTypography variant='body2' alignContent={'center'} className={classes.rateDescription}>{ratingDescription}</CustomTypography>
+    <Grid container justify="space-evenly" className={classes.starRatingContainer}>
+      {[...Array(5)].map((star, i) => {
+        const ratingValue = i + 1;
+        return (
+          <Grid item xs className={classes.starsContainer}>
+            <label>
+              <input type="radio"
+                name="rating"
+                value={ratingValue}
+                className={classes.ratingRadioCheck}
+                onClick={() => setRating(ratingValue)} />
+
+              <Box className={classes.circleRate}>
+                <FaStar className={classes.star}
+                  color={ratingValue <= (hover || rating) ? '#ffc107' : '#e4e5e9'}
+                  size={30}
+                  onMouseEnter={() => setHover(ratingValue)}
+                  onMouseLeave={() => setHover(null)} />
+              </Box>
+            </label>
+          </Grid>
+        );
+      })}
     </Grid>
   );
 };
