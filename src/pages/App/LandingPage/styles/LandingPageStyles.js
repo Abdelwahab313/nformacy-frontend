@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import { white, darkBlue, lighterGrey } from 'styles/colors';
+import { white, darkBlue, lighterGrey, lightOrange } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
   landingContainer: {
@@ -73,10 +73,16 @@ const useStyles = makeStyles((theme) => ({
   itemText: {
     padding: 0,
     alignItems: 'flex-start',
-    // textAlign: 'center',
   },
   noMarginTop: {
     marginTop: 0,
+  },
+  orangeMainText: {
+    color: lightOrange,
+    padding: theme.spacing(2),
+  },
+  fitContent: {
+    height: 'fit-content',
   },
 }));
 

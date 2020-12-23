@@ -30,9 +30,9 @@ const ShowMoreComponent = () => {
   );
 };
 
-const MAXIMUM_NUMBER_OF_LINES = 2;
-const ShowMore = ({ children, ...restProps }) => {
+const ShowMore = ({ children, numberOfLines, ...restProps }) => {
   const classes = useStyles();
+  const MAXIMUM_NUMBER_OF_LINES = numberOfLines || 2;
 
   return (
     <ShowMoreText

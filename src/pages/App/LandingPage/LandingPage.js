@@ -5,6 +5,8 @@ import AreasOfSpeciality from './AreasOfSpeciality';
 import LandingRollerSection from './LandingRollerSection';
 import OurSolutionsSection from './OurSolutionsSection';
 import useStyles from './styles/LandingPageStyles';
+import OurPromiseSection from './OurPromiseSection';
+import GlobalCommunitySection from './GlobalCommunitySection';
 
 const LandingPage = () => {
   const classes = useStyles();
@@ -15,6 +17,8 @@ const LandingPage = () => {
       <OurSolutionsSection />
       <HowWeWorkSection />
       <AreasOfSpeciality />
+      <GlobalCommunitySection />
+      <OurPromiseSection />
     </Grid>
   );
 };
