@@ -4,30 +4,29 @@ import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from 'components/PrivateRoute';
 import appRoutes from './routes';
 import NotFoundPage from 'pages/NotFoundPage';
+import AppLayout from './AppLayout';
 
 const AppRouter = () => {
   return (
     <div>
       <Switch>
         {appRoutes.map((route, key) => {
-          if (!!route.public) {
-            return (
-              <Route
-                exact
-                path={route.path}
-                component={route.component}
-                key={key}
-              />
+          const { Component, path, isPublic, includeLayout } = route;
+          let Page;
+          if (!!includeLayout) {
+            Page = (props) => (
+              <AppLayout>
+                <Component {...props} />
+              </AppLayout>
             );
+          } else {
+            Page = Component;
           }
-          return (
-            <PrivateRoute
-              exact
-              path={route.path}
-              component={route.component}
-              key={key}
-            />
-          );
+
+          if (!!isPublic) {
+            return <Route exact path={path} component={Page} key={key} />;
+          }
+          return <PrivateRoute exact path={path} component={Page} key={key} />;
         })}
         <Route path={'/'} component={NotFoundPage} />
       </Switch>

@@ -20,7 +20,10 @@ const useFetchFreelancerActivities = () => {
 };
 
 const formatAnswersToTable = (answers) => {
-  return answers.map((answer) => ({
+  if (!(answers?.length >= 0)) {
+    return [];
+  }
+  return answers?.map((answer) => ({
     activityType: 'answer',
     id: answer.id,
     questionId: answer.question.id,
@@ -39,7 +42,10 @@ const formatAnswersToTable = (answers) => {
 };
 
 const formatMeetingsToTable = (meetings) => {
-  return meetings.map((meeting) => ({
+  if (!(meetings?.length >= 0)) {
+    return [];
+  }
+  return meetings?.map((meeting) => ({
     activityType: 'meeting',
     id: meeting.serviceId,
     questionId: meeting.service.question.id,

@@ -21,134 +21,134 @@ import NotFoundPage from 'pages/NotFoundPage';
 const appRoutes = [
   {
     path: RoutesPaths.App.LandingPage,
-    component: LandingPage,
+    Component: LandingPage,
     includeLayout: false,
-    public: true,
+    isPublic: true,
   },
   {
     path: RoutesPaths.App.Login,
-    component: Login,
+    Component: Login,
     includeLayout: false,
-    public: true,
+    isPublic: true,
   },
   {
     path: RoutesPaths.App.Signup,
-    component: Register,
+    Component: Register,
     includeLayout: false,
-    public: true,
+    isPublic: true,
   },
   {
     path: RoutesPaths.App.Logout,
-    component: Logout,
+    Component: Logout,
     includeLayout: false,
-    public: true,
+    isPublic: true,
   },
   {
     path: RoutesPaths.App.UserTypeSelection,
-    component: UserTypeSelection,
+    Component: UserTypeSelection,
     includeLayout: false,
-    public: false,
+    isPublic: false,
   },
   {
     path: RoutesPaths.App.FreelancerProfile,
-    component: FreeLancerProfileForm,
+    Component: FreeLancerProfileForm,
     includeLayout: false,
-    public: false,
+    isPublic: false,
   },
   {
     path: RoutesPaths.App.FreelancerSuccess,
-    component: Success,
+    Component: Success,
     includeLayout: false,
-    public: false,
+    isPublic: false,
   },
   {
     path: RoutesPaths.App.LandingPage,
-    component: LandingPage,
+    Component: LandingPage,
     includeLayout: true,
-    public: false,
+    isPublic: false,
   },
 
   {
     path: RoutesPaths.App.Dashboard,
-    component: HomePage,
+    Component: HomePage,
     includeLayout: true,
-    public: false,
+    isPublic: false,
   },
 
   {
     path: RoutesPaths.App.Questions,
-    component: QuestionRoaster,
+    Component: QuestionRoaster,
     includeLayout: true,
-    public: false,
+    isPublic: false,
   },
 
   {
     path: RoutesPaths.App.ServiceDetails,
-    component: ServiceDetails,
+    Component: ServiceDetails,
     includeLayout: true,
-    public: false,
+    isPublic: false,
   },
 
   {
     path: RoutesPaths.App.AnswerQuestion,
-    component: AnswerQuestion,
+    Component: AnswerQuestion,
     includeLayout: true,
-    public: false,
+    isPublic: false,
   },
 
   {
     path: RoutesPaths.App.EditServiceRequest,
-    component: EditServiceRequest,
+    Component: EditServiceRequest,
     includeLayout: true,
-    public: false,
+    isPublic: false,
   },
 
   {
     path: RoutesPaths.App.Services,
-    component: ServicesPage,
+    Component: ServicesPage,
     includeLayout: true,
-    public: false,
+    isPublic: false,
   },
 
   {
     path: RoutesPaths.App.ActivitiesList,
-    component: FreelancersActivitiesPage,
+    Component: FreelancersActivitiesPage,
     includeLayout: true,
-    public: false,
+    isPublic: false,
   },
 
   {
     path: RoutesPaths.App.EditProfile,
-    component: EditProfile,
+    Component: EditProfile,
     includeLayout: true,
-    public: false,
+    isPublic: false,
   },
 
   {
     path: RoutesPaths.App.Meetings,
-    component: MeetingsPage,
+    Component: MeetingsPage,
     includeLayout: true,
-    public: false,
+    isPublic: false,
   },
 
   {
     path: RoutesPaths.App.AllNotifications,
-    component: AllNotifications,
+    Component: AllNotifications,
     includeLayout: true,
-    public: false,
+    isPublic: false,
   },
 
   {
     path: RoutesPaths.App.UserTypeSelection,
-    component: UserTypeSelection,
+    Component: UserTypeSelection,
     includeLayout: true,
-    public: false,
+    isPublic: false,
   },
   {
     path: RoutesPaths.App.NotFound,
-    component: NotFoundPage,
+    Component: NotFoundPage,
     includeLayout: false,
-    public: true,
+    isPublic: true,
   },
 ];
 
