@@ -198,7 +198,7 @@
   "confirmPassword": "Confirm Password",
   "register": "Register",
   "shortlistCandidate": "Shortlist Candidate",
-  "joinMeeting": "Join Meeting",
+  "joinMeeting": "Your meeting will be at ",
   "answersList": "Answers List",
   "time": "Time",
   "answerSubmitted": "Answer has been submitted successfully",
@@ -211,7 +211,7 @@
   "isEmployed": "Are you currently Employed?",
   "selectCountryMessage": "Select country",
   "activityId": "Activity Id",
-  "screening_call" : "Screening for Call",
-  "screening_project" : "Screening for Project",
-  "screening_question" : "Question"
+  "screening_call": "Screening for Call",
+  "screening_project": "Screening for Project",
+  "screening_question": "Question"
 }
