@@ -1,26 +1,11 @@
 import React from 'react';
 
 import MUIDataTable from 'mui-datatables';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-
-import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
-import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
-
-import { questionTypesOfAssignment } from 'constants/dropDownOptions';
 import { useStyles } from 'styles/Admin/questionTableStyles';
-import FieldsChips from 'components/chips/FieldsChips';
 import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
-import LinkText from 'components/typography/LinkText';
-import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
-import { getServiceStatus } from 'core/serviceStatus';
-import ByTimeField from 'pages/Admin/Questions/list/subComponents/ByTimeField';
-import {
-  getQuestionDetailsLink,
-  getServiceDetailsLink,
-} from 'services/navigation';
-import ServiceActionLink from './ServiceActionLink';
+import parseServicesToTableRows from './parseServicesToTableRows';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -40,24 +25,16 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'referenceNumber',
+      name: 'serviceRef',
       label: t('serviceReferenceNumber'),
       options: {
         ...defaultColumnOption,
         filter: false,
         sort: true,
-        customBodyRender: (referenceId, tableMeta) => {
-          return (
-            <ServiceRefIdLink
-              serviceId={tableMeta.rowData[0]}
-              referenceId={referenceId}
-            />
-          );
-        },
       },
     },
     {
-      name: 'userId',
+      name: 'clientId',
       label: t('clientId'),
       options: {
         ...defaultColumnOption,
@@ -67,18 +44,12 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'assignmentType',
+      name: 'requestType',
       label: t('assignmentType'),
       options: {
         ...defaultColumnOption,
         filter: true,
         sort: true,
-        customBodyRender: (value) => {
-          const assignmentLabel = questionTypesOfAssignment.filter(
-            (assignmentOption) => assignmentOption.value === value,
-          )[0]?.label;
-          return assignmentLabel;
-        },
       },
     },
     {
@@ -87,16 +58,7 @@ const getColumnsOptions = (classes, t) => {
       options: {
         ...defaultColumnOption,
         filter: false,
-        customBodyRender: (value) => {
-          return (
-            <Typography
-              className={classes.nowrapText}
-              variant='body2'
-              gutterBottom>
-              {formattedDateTimeNoSeconds(new Date(value))}
-            </Typography>
-          );
-        },
+        sort: true,
       },
     },
     {
@@ -106,9 +68,6 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: false,
         sort: true,
-        customBodyRender: (value) => {
-          return <TextCroppedWithTooltip text={value} />;
-        },
       },
     },
     {
@@ -116,9 +75,8 @@ const getColumnsOptions = (classes, t) => {
       label: t('fields'),
       options: {
         ...defaultColumnOption,
-        filter: false,
+        filter: true,
         filterType: 'multiselect',
-        customBodyRender: (fields) => <FieldsChips fields={fields} />,
       },
     },
     {
@@ -126,35 +84,8 @@ const getColumnsOptions = (classes, t) => {
       label: t('languageField'),
       options: {
         ...defaultColumnOption,
-        filter: false,
-        customBodyRender: (value) => {
-          return (
-            <Typography
-              className={classes.answersCount}
-              variant='body1'
-              gutterBottom>
-              {value?.toUpperCase()}
-            </Typography>
-          );
-        },
-      },
-    },
-    {
-      name: 'questionId',
-      label: t('serviceQuestionId'),
-      options: {
-        ...defaultColumnOption,
-        filter: false,
-        display: false,
-      },
-    },
-    {
-      name: 'questionState',
-      label: t('Question State'),
-      options: {
-        display: false,
-        filter: false,
-        sort: false,
+        filter: true,
+        sort: true,
       },
     },
     {
@@ -163,75 +94,39 @@ const getColumnsOptions = (classes, t) => {
       options: {
         ...defaultColumnOption,
         filter: false,
+        sort: true,
         display: authManager.isAdmin(),
-        customBodyRender: (value) => {
-          return (
-            <Typography
-              className={classes.answersCount}
-              variant='body1'
-              gutterBottom>
-              {value}
-            </Typography>
-          );
-        },
       },
     },
     {
-      name: 'questionReferenceId',
-      label: t('serviceReferenceId'),
+      name: 'questionRef',
+      label: t('questionRef'),
       options: {
         ...defaultColumnOption,
         filter: false,
         display: authManager.isAdmin(),
-        customBodyRender: (value, tableMeta) => {
-          if (!value) return '';
-          return (
-            <LinkText
-              data-reference={tableMeta.rowData[0]}
-              to={getQuestionDetailsLink(
-                tableMeta.rowData[8],
-                tableMeta.rowData[0],
-              )}>
-              <TextCroppedWithTooltip text={`#${value}`} />
-            </LinkText>
-          );
-        },
       },
     },
     {
-      name: 'state',
+      name: 'status',
       label: t('state'),
       options: {
         ...defaultColumnOption,
         filter: true,
         sort: true,
-        customBodyRender: (status, tableMeta) => {
-          const statusString = getServiceStatus(status, tableMeta.rowData[9]);
-          return t(`serviceStatus:${statusString}`);
-        },
       },
     },
     {
-      name: 'state',
+      name: 'action',
       label: t('actionNeeded'),
       options: {
         ...defaultColumnOption,
         filter: true,
         sort: false,
-        customBodyRender: (status, tableMeta) => {
-          return (
-            <ServiceActionLink
-              status={status}
-              serviceId={tableMeta.rowData[0]}
-              questionId={tableMeta.rowData[8]}
-              questionState={tableMeta.rowData[9]}
-            />
-          );
-        },
       },
     },
     {
-      name: 'currentActionTime',
+      name: 'actionTime',
       options: {
         filter: false,
         display: authManager.isAdmin(),
@@ -239,34 +134,15 @@ const getColumnsOptions = (classes, t) => {
         customHeadLabelRender: () => (
           <Grid className={classes.currentActionTimeContainer}>By Time</Grid>
         ),
-        customBodyRender: (currentActionTime, tableMeta) => {
-          return currentActionTime ? (
-            <ByTimeField
-              currentActionTime={currentActionTime}
-              referenceId={tableMeta.rowData[0]}
-              questionId={tableMeta.rowData[8]}
-            />
-          ) : null;
-        },
       },
     },
     {
-      name: 'currentActionTime',
+      name: 'alarm',
       label: t('alarm'),
       options: {
         ...defaultColumnOption,
         filter: false,
         sort: true,
-        customBodyRender: (currentActionTime, tableMeta) => {
-          return (
-            <QuestionRemainingTimeAlarm
-              remainingTime={currentActionTime}
-              totalActionHours={10}
-              className={'alarm'}
-              data-reference={tableMeta.rowData[0]}
-            />
-          );
-        },
       },
     },
   ];
@@ -274,18 +150,11 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-export const ServiceRefIdLink = ({ serviceId, referenceId }) => {
-  return (
-    <LinkText data-reference={serviceId} to={getServiceDetailsLink(serviceId)}>
-      <TextCroppedWithTooltip text={`#${referenceId}`} />
-    </LinkText>
-  );
-};
-
 const ServicesTable = ({ services }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
+  const servicesRows = parseServicesToTableRows(services, t);
 
   const tableOptions = {
     filterType: 'checkbox',
@@ -303,7 +172,7 @@ const ServicesTable = ({ services }) => {
   return (
     <MUIDataTable
       title={t('serviceRequestList')}
-      data={services}
+      data={servicesRows}
       columns={columns}
       options={tableOptions}
     />

@@ -10,14 +10,11 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import useFetchData from 'hooks/useFetchData';
 import { fetchClientServices } from 'apis/servicesAPI';
-import { questionTypesOfAssignment } from 'constants/dropDownOptions';
-import { getServiceStatus } from 'core/serviceStatus';
-import { ServiceRefIdLink } from 'templates/services/ServicesTable';
 import { useTranslation } from 'react-i18next';
-import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
-import ServiceActionLink from 'templates/services/ServiceActionLink';
 import HomePageCard from './HomePageCard';
 import { RoutesPaths } from 'constants/routesPath';
+import LoadingCircle from 'components/progress/LoadingCircle';
+import parseServicesToTableRows from 'templates/services/parseServicesToTableRows';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -47,7 +44,9 @@ const ClientActivityTable = () => {
   const { fetchedData: services, isLoading } = useFetchData(
     fetchClientServices,
   );
+  const servicesRows = parseServicesToTableRows(services, t);
   if (isLoading) {
+    return <LoadingCircle />;
   }
   return (
     <HomePageCard
@@ -62,48 +61,37 @@ const ClientActivityTable = () => {
                 <TableRow>
                   <StyledTableCell>{t('activityType')}</StyledTableCell>
                   <StyledTableCell>{t('refNo')}</StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>{t('title')}</StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>{t('requestDate')}</StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('title')}
+                  </StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('requestDate')}
+                  </StyledTableCell>
                   <StyledTableCell>{t('state')}</StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>{t('actionNeeded')}</StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('actionNeeded')}
+                  </StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {services.map((service) => (
-                  <StyledTableRow reference-number={service.referenceNumber} key={service.id}>
+                {servicesRows.map((service) => (
+                  <StyledTableRow
+                    reference-number={service.serviceRef}
+                    key={service.id}>
                     <StyledTableCell scope='row'>
-                      {
-                        questionTypesOfAssignment.filter(
-                          (assignmentOption) =>
-                            assignmentOption.value === service.assignmentType,
-                        )[0]?.label
-                      }
+                      {service.requestType}
                     </StyledTableCell>
-                    <StyledTableCell>
-                      <ServiceRefIdLink
-                        serviceId={service.id}
-                        referenceId={service.referenceNumber}
-                      />
-                    </StyledTableCell>
-                    <StyledTableCell className={classes.desktopVisible}>{service.title}</StyledTableCell>
+                    <StyledTableCell>{service.serviceRef}</StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
-                      {formattedDateTimeNoSeconds(new Date(service.createdAt))}
+                      {service.title}
                     </StyledTableCell>
-                    <StyledTableCell>
-                      {t(
-                        `serviceStatus:${getServiceStatus(
-                          service.state,
-                          service.questionState,
-                        )}`,
-                      )}
+                    <StyledTableCell className={classes.desktopVisible}>
+                      {service.createdAt}
                     </StyledTableCell>
-                    <StyledTableCell className={[classes.desktopVisible, 'action']}>
-                      <ServiceActionLink
-                        status={service.state}
-                        serviceId={service.id}
-                        questionId={service.questionId}
-                        questionState={service.questionState}
-                      />
+                    <StyledTableCell>{service.status}</StyledTableCell>
+                    <StyledTableCell
+                      className={[classes.desktopVisible, 'action']}>
+                      {service.action}
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}
@@ -124,10 +112,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'table-cell',
     [theme.breakpoints.down('xs')]: {
       display: 'none',
-    }
+    },
   },
   activityTable: {
     width: '100%',
-  }
+  },
 }));
 export default ClientActivityTable;
