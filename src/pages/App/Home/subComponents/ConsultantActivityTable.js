@@ -9,18 +9,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { useTranslation } from 'react-i18next';
-import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 import HomePageCard from './HomePageCard';
 import { RoutesPaths } from 'constants/routesPath';
-import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
-import FieldsChips from 'components/chips/FieldsChips';
-import FreelancerAnswerActionLink from 'templates/answers/FreelancerAnswerActionLink';
-import { getAnswerState } from 'core/answerStatus';
-import FreelancerAnswerTime from 'templates/answers/FreelancerAnswerTime';
-import { getAnswerQuestionLink } from 'services/navigation';
-import LinkText from 'components/typography/LinkText';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import useFetchFreelancerActivities from 'hooks/useFetchFreelancerActivities';
+import parseActivitiesToTableRow from 'templates/activities/parseActivitiesToTable';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -51,6 +44,7 @@ const ConsultantActivityTable = () => {
   const { t } = useTranslation();
 
   const { activities, isLoading } = useFetchFreelancerActivities();
+  const parsedActivitiesToTable = parseActivitiesToTableRow(activities, t);
 
   if (isLoading) {
     return <LoadingCircle />;
@@ -67,9 +61,7 @@ const ConsultantActivityTable = () => {
             <Table stickyHeader aria-label='My Activity Table'>
               <TableHead>
                 <TableRow>
-                  <StyledTableCell>
-                    {t('serviceReferenceNumber')}
-                  </StyledTableCell>
+                  <StyledTableCell>{t('activityId')}</StyledTableCell>
                   <StyledTableCell>{t('assignmentType')}</StyledTableCell>
                   <StyledTableCell className={classes.desktopVisible}>
                     {t('title')}
@@ -90,49 +82,40 @@ const ConsultantActivityTable = () => {
                   <StyledTableCell className={classes.desktopVisible}>
                     {t('time')}
                   </StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('alarm')}
+                  </StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {activities.map((dataRow) => (
+                {parsedActivitiesToTable.map((dataRow) => (
                   <StyledTableRow
-                    reference-number={dataRow.questionId}
-                    key={dataRow.serviceId}>
-                    <StyledTableCell>{`#${dataRow.serviceRef}`}</StyledTableCell>
-                    <StyledTableCell scope='row'>
-                      {t(dataRow?.assignmentType)}
+                    reference-number={dataRow.activityId}
+                    key={dataRow.id}>
+                    <StyledTableCell>{dataRow.activityId}</StyledTableCell>
+                    <StyledTableCell>{dataRow.requestType}</StyledTableCell>
+                    <StyledTableCell className={classes.desktopVisible}>
+                      {dataRow.title}
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
-                      <LinkText to={getAnswerQuestionLink(dataRow.questionId)}>
-                        <TextCroppedWithTooltip text={dataRow.title} />
-                      </LinkText>
+                      {dataRow.date}
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
-                      {formattedDateTimeNoSeconds(new Date(dataRow.createdAt))}
+                      {dataRow.fields}
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
-                      <FieldsChips fields={dataRow.fields} />
+                      {dataRow.answerRef}
                     </StyledTableCell>
-                    <StyledTableCell className={classes.desktopVisible}>
-                      <LinkText to={getAnswerQuestionLink(dataRow.questionId)}>
-                        {`#${dataRow.answerRef}`}
-                      </LinkText>
-                    </StyledTableCell>
-                    <StyledTableCell>
-                      {t(`answerStatus:${getAnswerState(dataRow.answerState)}`)}
-                    </StyledTableCell>
+                    <StyledTableCell>{dataRow.status}</StyledTableCell>
                     <StyledTableCell
                       className={[classes.desktopVisible, 'action']}>
-                      <FreelancerAnswerActionLink
-                        answerStatus={dataRow.answerState}
-                        questionId={dataRow.questionId}
-                      />
+                      {dataRow.action}
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
-                      {!!dataRow?.questionTime ? (
-                        <FreelancerAnswerTime
-                          currentActionTime={dataRow?.questionTime}
-                        />
-                      ) : null}
+                      {dataRow.time}
+                    </StyledTableCell>
+                    <StyledTableCell className={classes.desktopVisible}>
+                      {dataRow.timeAlarm}
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}

@@ -209,5 +209,9 @@
   "selectYourOrganizationalLevel": "Select Your Organizational Level",
   "workInformation": "Work Information",
   "isEmployed": "Are you currently Employed?",
-  "selectCountryMessage": "Select country"
+  "selectCountryMessage": "Select country",
+  "activityId": "Activity Id",
+  "screening_call" : "Screening for Call",
+  "screening_project" : "Screening for Project",
+  "screening_question" : "Question"
 }

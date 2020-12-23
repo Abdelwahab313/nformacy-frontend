@@ -2,20 +2,12 @@ import React from 'react';
 
 import MUIDataTable from 'mui-datatables';
 import Grid from '@material-ui/core/Grid';
-import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 
 import { useStyles } from 'styles/Admin/questionTableStyles';
-import FieldsChips from 'components/chips/FieldsChips';
 import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
-import LinkText from 'components/typography/LinkText';
-import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
-import { getAnswerQuestionLink } from 'services/navigation';
-import CustomTypography from 'components/typography/Typography';
-import { getAnswerState } from 'core/answerStatus';
-import FreelancerAnswerActionLink from './FreelancerAnswerActionLink';
-import FreelancerAnswerTime from './FreelancerAnswerTime';
-import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
+
+import parseActivitiesToTableRow from 'templates/activities/parseActivitiesToTable';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -55,27 +47,21 @@ const getColumnsOptions = (classes, t) => {
     },
     // display data
     {
-      name: 'serviceRef',
+      name: 'activityId',
       label: t('serviceReferenceNumber'),
       options: {
         ...defaultColumnOption,
         filter: false,
         sort: true,
-        customBodyRender: (referenceId) => {
-          return referenceId;
-        },
       },
     },
     {
-      name: 'assignmentType',
+      name: 'requestType',
       label: t('assignmentType'),
       options: {
         ...defaultColumnOption,
         filter: true,
         sort: true,
-        customBodyRender: (value) => {
-          return t(value);
-        },
       },
     },
     {
@@ -85,31 +71,15 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: false,
         sort: true,
-        customBodyRender: (value, tableMeta) => {
-          return (
-            <LinkText to={getAnswerQuestionLink(tableMeta.rowData[1])}>
-              <TextCroppedWithTooltip text={value} />
-            </LinkText>
-          );
-        },
       },
     },
     {
-      name: 'createdAt',
+      name: 'date',
       label: t('postDate'),
       options: {
         ...defaultColumnOption,
         filter: false,
-        customBodyRender: (value) => {
-          return (
-            <CustomTypography
-              className={classes.nowrapText}
-              variant='body2'
-              gutterBottom>
-              {formattedDateTimeNoSeconds(new Date(value))}
-            </CustomTypography>
-          );
-        },
+        sort: true,
       },
     },
     {
@@ -119,66 +89,43 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: false,
         filterType: 'multiselect',
-        customBodyRender: (fields) => <FieldsChips fields={fields} />,
       },
     },
     {
-      name: 'answerState',
+      name: 'status',
       label: t('state'),
       options: {
         ...defaultColumnOption,
         filter: true,
         sort: true,
-        customBodyRender: (answerState) =>
-          t(`answerStatus:${getAnswerState(answerState)}`),
       },
     },
     {
-      name: 'answerState',
+      name: 'action',
       label: t('actionNeeded'),
       options: {
         ...defaultColumnOption,
         filter: true,
         sort: false,
-        customBodyRender: (answerState, tableMeta) => {
-          return (
-            <FreelancerAnswerActionLink
-              answerStatus={answerState}
-              questionId={tableMeta.rowData[1]}
-            />
-          );
-        },
       },
     },
     {
-      name: 'questionTime',
+      name: 'time',
       options: {
         filter: false,
         sort: true,
         customHeadLabelRender: () => (
           <Grid className={classes.currentActionTimeContainer}>By Time</Grid>
         ),
-        customBodyRender: (currentActionTime) => {
-          return <FreelancerAnswerTime currentActionTime={currentActionTime} />;
-        },
       },
     },
     {
-      name: 'questionTime',
+      name: 'timeAlarm',
       label: t('alarm'),
       options: {
         ...defaultColumnOption,
         filter: false,
         sort: true,
-        customBodyRender: (currentActionTime) => {
-          return (
-            <QuestionRemainingTimeAlarm
-              remainingTime={currentActionTime}
-              totalActionHours={10}
-              className={'alarm'}
-            />
-          );
-        },
       },
     },
   ];
@@ -191,6 +138,7 @@ const AnswersTable = ({ activities }) => {
   const { t } = useTranslation();
 
   const columns = getColumnsOptions(classes, t);
+  const activitiesTableView = parseActivitiesToTableRow(activities, t);
 
   const tableOptions = {
     filterType: 'checkbox',
@@ -208,7 +156,7 @@ const AnswersTable = ({ activities }) => {
   return (
     <MUIDataTable
       title={t('answersList')}
-      data={activities}
+      data={activitiesTableView}
       columns={columns}
       options={tableOptions}
     />

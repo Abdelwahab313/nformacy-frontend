@@ -140,10 +140,12 @@ const serviceActions = {
   [SERVICE_STATUS.callScheduled]: {
     status: {
       client: 'client_callScheduled_status',
+      freelancer: 'client_callScheduled_status',
       admin: 'admin_callScheduled_status',
     },
     action: {
       client: 'client_callScheduled_action',
+      freelancer: 'client_callScheduled_action',
     },
   },
 };
