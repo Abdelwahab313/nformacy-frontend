@@ -32,7 +32,7 @@ export const RoutesPaths = {
     MeetingDetails: '/meeting/edit',
     AllNotifications: '/notifications',
     Services: '/services/list',
-    AnswersList: '/answers/list',
+    ActivitiesList: '/activities/list',
     UserTypeSelection: '/user/type',
     NotFound: '/error',
   },

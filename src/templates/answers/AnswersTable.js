@@ -17,23 +17,6 @@ import FreelancerAnswerActionLink from './FreelancerAnswerActionLink';
 import FreelancerAnswerTime from './FreelancerAnswerTime';
 import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
 
-const formatAnswersToTable = (answers) => {
-  return answers.map((answer) => ({
-    id: answer.id,
-    questionId: answer.question.id,
-    answerState: answer.state,
-    questionState: answer.question.state,
-    serviceState: answer.question.service?.referenceNumber,
-    serviceReferenceNumber: answer.question.service?.referenceNumber,
-    questionTime: answer.question.currentActionTime,
-    assignmentType: answer.question.assignmentType,
-    title: answer.question.title,
-    createdAt: answer.question.createdAt,
-    // fields: answer.question.fields,
-    fields: () => <FieldsChips fields={answer.question.fields} />,
-  }));
-};
-
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
     customHeadLabelRender: ({ label }) => (
@@ -72,7 +55,7 @@ const getColumnsOptions = (classes, t) => {
     },
     // display data
     {
-      name: 'serviceReferenceNumber',
+      name: 'serviceRef',
       label: t('serviceReferenceNumber'),
       options: {
         ...defaultColumnOption,
@@ -136,6 +119,7 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: false,
         filterType: 'multiselect',
+        customBodyRender: (fields) => <FieldsChips fields={fields} />,
       },
     },
     {
@@ -202,11 +186,10 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const AnswersTable = ({ answers }) => {
+const AnswersTable = ({ activities }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const answersFormatted = formatAnswersToTable(answers);
   const columns = getColumnsOptions(classes, t);
 
   const tableOptions = {
@@ -225,7 +208,7 @@ const AnswersTable = ({ answers }) => {
   return (
     <MUIDataTable
       title={t('answersList')}
-      data={answersFormatted}
+      data={activities}
       columns={columns}
       options={tableOptions}
     />

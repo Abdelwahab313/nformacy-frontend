@@ -8,12 +8,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import useFetchData from 'hooks/useFetchData';
 import { useTranslation } from 'react-i18next';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 import HomePageCard from './HomePageCard';
 import { RoutesPaths } from 'constants/routesPath';
-import { fetchFreelancerAnswers } from 'apis/answersAPI';
 import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
 import FieldsChips from 'components/chips/FieldsChips';
 import FreelancerAnswerActionLink from 'templates/answers/FreelancerAnswerActionLink';
@@ -21,6 +19,8 @@ import { getAnswerState } from 'core/answerStatus';
 import FreelancerAnswerTime from 'templates/answers/FreelancerAnswerTime';
 import { getAnswerQuestionLink } from 'services/navigation';
 import LinkText from 'components/typography/LinkText';
+import LoadingCircle from 'components/progress/LoadingCircle';
+import useFetchFreelancerActivities from 'hooks/useFetchFreelancerActivities';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -49,16 +49,18 @@ const StyledTableRow = withStyles((theme) => ({
 const ConsultantActivityTable = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const { fetchedData: answers, isLoading } = useFetchData(
-    fetchFreelancerAnswers,
-  );
+
+  const { activities, isLoading } = useFetchFreelancerActivities();
+
   if (isLoading) {
+    return <LoadingCircle />;
   }
+
   return (
     <HomePageCard
       title={t('myActivityTableTitle')}
       viewMoreText={t('viewAll')}
-      viewMoreUrl={RoutesPaths.App.AnswersList}>
+      viewMoreUrl={RoutesPaths.App.ActivitiesList}>
       <Grid container>
         <Grid item md={12} className={classes.activityTable}>
           <TableContainer component={Paper} className={classes.tableContainer}>
@@ -91,52 +93,44 @@ const ConsultantActivityTable = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {answers.map((answer) => (
+                {activities.map((dataRow) => (
                   <StyledTableRow
-                    reference-number={answer?.question?.referenceNumber}
-                    key={answer?.question?.service?.id}>
-                    <StyledTableCell>
-                      {`#${answer.question?.service?.referenceNumber}`}
-                    </StyledTableCell>
+                    reference-number={dataRow.questionId}
+                    key={dataRow.serviceId}>
+                    <StyledTableCell>{`#${dataRow.serviceRef}`}</StyledTableCell>
                     <StyledTableCell scope='row'>
-                      {t(answer?.question?.assignmentType)}
+                      {t(dataRow?.assignmentType)}
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
-                      <LinkText to={getAnswerQuestionLink(answer.question?.id)}>
-                        <TextCroppedWithTooltip text={answer.question?.title} />
+                      <LinkText to={getAnswerQuestionLink(dataRow.questionId)}>
+                        <TextCroppedWithTooltip text={dataRow.title} />
                       </LinkText>
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
-                      {formattedDateTimeNoSeconds(
-                        new Date(answer?.question?.createdAt),
-                      )}
+                      {formattedDateTimeNoSeconds(new Date(dataRow.createdAt))}
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
-                      <FieldsChips fields={answer?.question?.fields} />
+                      <FieldsChips fields={dataRow.fields} />
                     </StyledTableCell>
-                    <StyledTableCell>
-                      <LinkText to={getAnswerQuestionLink(answer.question?.id)}>
-                        <TextCroppedWithTooltip
-                          text={`#${answer.referenceNumber}`}
-                        />
+                    <StyledTableCell className={classes.desktopVisible}>
+                      <LinkText to={getAnswerQuestionLink(dataRow.questionId)}>
+                        {`#${dataRow.answerRef}`}
                       </LinkText>
                     </StyledTableCell>
                     <StyledTableCell>
-                      {t(`answerStatus:${getAnswerState(answer.state)}`)}
+                      {t(`answerStatus:${getAnswerState(dataRow.answerState)}`)}
                     </StyledTableCell>
                     <StyledTableCell
                       className={[classes.desktopVisible, 'action']}>
                       <FreelancerAnswerActionLink
-                        answerStatus={answer.state}
-                        questionId={answer.question.id}
+                        answerStatus={dataRow.answerState}
+                        questionId={dataRow.questionId}
                       />
                     </StyledTableCell>
-                    <StyledTableCell>
-                      {!!answer?.question?.currentActionTime ? (
+                    <StyledTableCell className={classes.desktopVisible}>
+                      {!!dataRow?.questionTime ? (
                         <FreelancerAnswerTime
-                          currentActionTime={
-                            answer?.question?.currentActionTime
-                          }
+                          currentActionTime={dataRow?.questionTime}
                         />
                       ) : null}
                     </StyledTableCell>

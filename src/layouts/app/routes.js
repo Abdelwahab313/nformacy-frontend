@@ -14,7 +14,7 @@ import MeetingsPage from 'pages/App/Meeting';
 import AllNotifications from 'pages/Admin/Dashboard/AllNotifications';
 import ServicesPage from 'pages/App/ServiceRequests/list';
 import ServiceDetails from 'pages/App/ServiceRequests/details';
-import FreelancersAnswersPage from 'pages/App/FreelancersAnswers/list';
+import FreelancersActivitiesPage from 'pages/App/FreelancersAnswers/list';
 import { RoutesPaths } from 'constants/routesPath';
 import NotFoundPage from 'pages/NotFoundPage';
 
@@ -111,8 +111,8 @@ const appRoutes = [
   },
 
   {
-    path: RoutesPaths.App.AnswersList,
-    component: FreelancersAnswersPage,
+    path: RoutesPaths.App.ActivitiesList,
+    component: FreelancersActivitiesPage,
     includeLayout: true,
     public: false,
   },

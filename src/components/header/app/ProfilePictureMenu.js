@@ -105,7 +105,7 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
           key={'Answers'}
           onClick={() => handleClose()}
           component={Link}
-          to={RoutesPaths.App.AnswersList}>
+          to={RoutesPaths.App.ActivitiesList}>
           <ListItemIcon>
             <BusinessCenterIcon color={'secondary'} />
           </ListItemIcon>
