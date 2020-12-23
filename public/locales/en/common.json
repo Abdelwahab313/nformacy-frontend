@@ -216,5 +216,10 @@
   "screening_question": "Question",
   "showExpert": "Call the Expert",
   "hideExpert": "Hide Expert Details",
-  "bookAMeeting": "Book a meeting"
+  "bookAMeeting": "Book a meeting",
+  "oneStar": "Didn’t get what I was looking for",
+  "twoStars": "Partially covered what I wanted",
+  "threeStars": "Exactly what I wanted",
+  "fourStars": "Yes, and few more",
+  "fiveStars": "Yes, and a lot more"
 }

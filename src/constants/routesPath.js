@@ -27,6 +27,7 @@ export const RoutesPaths = {
     AnswerQuestion: '/question/answer',
     ServiceDetails: '/services/details',
     Rating: '/services/rating',
+    EvaluationAfterCall: '/services/evaluation',
     EditServiceRequest: '/service/edit',
     EditProfile: '/user/edit',
     Meetings: '/meeting/list',

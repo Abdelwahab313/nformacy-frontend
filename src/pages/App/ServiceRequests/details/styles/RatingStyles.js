@@ -9,6 +9,12 @@ const useStyles = makeStyles(() => ({
     height: '40px',
     borderRadius: '50%',
     border: '1px solid #000',
+    margin: 'auto'
+  },
+  rateDescription: {
+    width: '50%',
+    margin: 'auto',
+    textAlign:'center'
   }
 }));
 

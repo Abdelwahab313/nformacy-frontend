@@ -15,6 +15,7 @@ import AllNotifications from 'pages/Admin/Dashboard/AllNotifications';
 import ServicesPage from 'pages/App/ServiceRequests/list';
 import ServiceDetails from 'pages/App/ServiceRequests/details';
 import Rating from 'pages/App/ServiceRequests/details/subComponents/Rating';
+import EvaluationAfterCall from 'pages/App/ServiceRequests/details/subComponents/EvaluationAfterCall';
 import FreelancersActivitiesPage from 'pages/App/FreelancersAnswers/list';
 import { RoutesPaths } from 'constants/routesPath';
 import NotFoundPage from 'pages/NotFoundPage';
@@ -93,6 +94,13 @@ const appRoutes = [
   {
     path: RoutesPaths.App.Rating,
     component: Rating,
+    includeLayout: true,
+    public: false,
+  },
+
+  {
+    path: RoutesPaths.App.EvaluationAfterCall,
+    component: EvaluationAfterCall,
     includeLayout: true,
     public: false,
   },
