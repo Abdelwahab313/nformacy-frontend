@@ -3,12 +3,14 @@ import { Grid } from '@material-ui/core';
 import CustomTypography from 'components/typography/Typography';
 import Rating from './Rating';
 import { useTranslation } from 'react-i18next';
-import useStyles from '../styles/RatingStyles';
+import useStyles from './styles/RatingStyles';
+import { CallEvaluationProvider, useCallEvaluationContext } from './context';
 
 
-const EvaluationAfterCall = () => {
+const CallEvaluation = () => {
   const { t } = useTranslation();
   const classes = useStyles();
+  const [{ ratingEvaluations }] = useCallEvaluationContext();
 
   return (
     <Grid container>
@@ -40,15 +42,30 @@ const EvaluationAfterCall = () => {
       </Grid>
 
       <Grid item xs={12}>
-        <Rating evaluationQuestion={t('recievedAnswer')} />
-        <Rating evaluationQuestion={t('expertKnowledge')} />
-        <Rating evaluationQuestion={t('expertCommunication')} />
-        <Rating evaluationQuestion={t('callArrangements')} />
-        <Rating evaluationQuestion={t('serviceRecomendation')} />
+        {Object.keys(ratingEvaluations).map((evaluationKey) => {
+          return (
+            <Rating evaluationKey={evaluationKey} />
+          );
+        })}
       </Grid>
 
     </Grid>
   );
 };
 
-export default EvaluationAfterCall;
+const defaultClientCallEvaluation = {
+  'recievedAnswer': 0,
+  'expertKnowledge': 0,
+  'expertCommunication': 0,
+  'callArrangements': 0,
+  'serviceRecomendation': 0
+}
+const CallEvaluationPage = () => {
+  return (
+    <CallEvaluationProvider initialValue={{ ratingEvaluations: defaultClientCallEvaluation }} >
+      <CallEvaluation />
+    </CallEvaluationProvider >
+  );
+};
+
+export default CallEvaluationPage;

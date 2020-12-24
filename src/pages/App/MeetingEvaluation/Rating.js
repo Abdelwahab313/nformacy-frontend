@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
 import { Grid, Box } from '@material-ui/core';
-import useStyles from '../styles/RatingStyles';
+import useStyles from './styles/RatingStyles';
 import { FaStar } from 'react-icons/fa';
 import CustomTypography from 'components/typography/Typography';
+// import { useCallEvaluationContext } from './context';
+import { useTranslation } from 'react-i18next';
 
-const Rating = ({ evaluationQuestion }) => {
+const Rating = ({ evaluationKey }) => {
   const classes = useStyles();
   const [rating, setRating] = useState(null);
+  const { t } = useTranslation();
+  // const [{ ratingEvaluations }, dispatch] = useCallEvaluationContext();
+  
+  
+// const rating = ratingEvaluations(evaluationKey);
 
   return (
     <Grid container justify='center'>
       <Grid item md={4} className={classes.evaluationQuestion}>
-        <CustomTypography fontWeight="bold" variant="body1">{evaluationQuestion}</CustomTypography>
+        <CustomTypography fontWeight="bold" variant="body1">{t(evaluationKey)}</CustomTypography>
       </Grid>
 
       <Grid item md={8}>

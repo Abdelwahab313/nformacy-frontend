@@ -14,8 +14,8 @@ import MeetingsPage from 'pages/App/Meeting';
 import AllNotifications from 'pages/Admin/Dashboard/AllNotifications';
 import ServicesPage from 'pages/App/ServiceRequests/list';
 import ServiceDetails from 'pages/App/ServiceRequests/details';
-import Rating from 'pages/App/ServiceRequests/details/subComponents/Rating';
-import EvaluationAfterCall from 'pages/App/ServiceRequests/details/subComponents/EvaluationAfterCall';
+import Rating from 'pages/App/MeetingEvaluation/Rating';
+import CallEvaluation from 'pages/App/MeetingEvaluation/CallEvaluation';
 import FreelancersActivitiesPage from 'pages/App/FreelancersAnswers/list';
 import { RoutesPaths } from 'constants/routesPath';
 import NotFoundPage from 'pages/NotFoundPage';
@@ -99,12 +99,11 @@ const appRoutes = [
   },
 
   {
-    path: RoutesPaths.App.EvaluationAfterCall,
-    component: EvaluationAfterCall,
+    path: RoutesPaths.App.CallEvaluation,
+    component: CallEvaluation,
     includeLayout: true,
     public: false,
   },
-
 
   {
     path: RoutesPaths.App.AnswerQuestion,

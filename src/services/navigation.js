@@ -9,7 +9,7 @@ export const getQuestionDetailsLink = (questionId, serviceId) => {
   return {
     pathname: authManager.isAdmin()
       ? RoutesPaths.Admin.QuestionsDetails
-      : RoutesPaths.App.EvaluationAfterCall,
+      : RoutesPaths.App.CallEvaluation,
     state: {
       serviceId: serviceId,
       questionId: questionId,
