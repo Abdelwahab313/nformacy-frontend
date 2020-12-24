@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { useStyles } from 'styles/questionRoasterStyles';
-import QuestionFieldsChips from 'pages/App/QuestionRoaster/subComponents/QuestionFieldsChips';
+import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
 import CustomTypography from 'components/typography/Typography';
 import ShowMore from 'components/typography/ShowMore';
 import createMarkup from 'services/markup';
@@ -77,7 +77,7 @@ const QuestionDetailedView = ({ questionDetails }) => {
           <Grid container>
             {/* =======Major and Minor======= */}
             <Grid item md={12} xs={12} className={classes.flexContainer}>
-              <QuestionFieldsChips questionDetails={questionDetails} />
+              <ColoredFieldsChips fields={questionDetails.fields} />
             </Grid>
             {/* =======Content======= */}
             <Grid item md={12} xs={12}>

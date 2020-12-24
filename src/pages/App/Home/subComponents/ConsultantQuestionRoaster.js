@@ -4,7 +4,7 @@ import useStyles from '../styles/HomePageStyles';
 import { useTranslation } from 'react-i18next';
 import SubmitButton from 'components/buttons/SubmitButton';
 import ShowMore from 'components/typography/ShowMore';
-import QuestionFieldsChips from '../../QuestionRoaster/subComponents/QuestionFieldsChips';
+import ColoredFieldsChips from '../../../../components/chips/ColoredFieldsChips';
 
 import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 import CustomTypography from 'components/typography/Typography';
@@ -66,7 +66,7 @@ const ConsultantQuestionRoaster = () => {
                     />
                   </ShowMore>
                 </CustomTypography>
-                <QuestionFieldsChips questionDetails={question} />
+                <ColoredFieldsChips fields={question.fields} />
               </Grid>
 
               {!!question.thumbnailUrl && (

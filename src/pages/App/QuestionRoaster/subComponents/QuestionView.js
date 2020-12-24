@@ -13,7 +13,7 @@ import ShowMore from '../../../../components/typography/ShowMore';
 import directions from '../../../../constants/direction';
 import DEFAULT_LOCALES from '../../../../constants/locale';
 import { useTranslation } from 'react-i18next';
-import QuestionFieldsChips from './QuestionFieldsChips';
+import ColoredFieldsChips from '../../../../components/chips/ColoredFieldsChips';
 import { RoutesPaths } from 'constants/routesPath';
 import CustomTypography from 'components/typography/Typography';
 
@@ -125,7 +125,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
             </Grid>
             {/* =======Major and Minor======= */}
             <Grid item md={12} xs={12} className={classes.flexContainer}>
-              <QuestionFieldsChips questionDetails={questionDetails} />
+              <ColoredFieldsChips fields={questionDetails.fields} />
             </Grid>
             {/* =======Content======= */}
             <Grid item md={12} xs={12}>
@@ -164,9 +164,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
                 <SubmitButton
                   className={classes.submitButton}
                   id={`question-${questionDetails.referenceNumber}-submit`}
-                  onClick={() =>
-                    handleEditClick()
-                  }
+                  onClick={() => handleEditClick()}
                   buttonText={fixedTranslation('questionRoaster:answer')}
                   disabled={false}
                 />
@@ -175,7 +173,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
           </Grid>
         </Grid>
       </Grid>
-    </Grid >
+    </Grid>
   );
 };
 

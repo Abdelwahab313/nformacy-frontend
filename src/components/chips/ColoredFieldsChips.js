@@ -1,12 +1,12 @@
 import React from 'react';
 import { Grid, Tooltip } from '@material-ui/core';
-import { useStyles } from '../../../../styles/questionRoasterStyles';
+import { useStyles } from 'styles/questionRoasterStyles';
 import styled from 'styled-components';
 import Chip from '@material-ui/core/Chip';
-import * as colors from '../../../../styles/colors';
-import useFieldsFetcher from '../../../../hooks/useFieldsFetcher';
-import { groupFieldsByMajorFieldId } from '../../../../core/fields';
-import LoadingCircle from '../../../../components/progress/LoadingCircle';
+import * as colors from 'styles/colors';
+import useFieldsFetcher from 'hooks/useFieldsFetcher';
+import { groupFieldsByMajorFieldId } from 'core/fields';
+import LoadingCircle from 'components/progress/LoadingCircle';
 import CustomTypography from 'components/typography/Typography';
 
 const StyledFilterChip = styled(Chip)`
@@ -28,7 +28,7 @@ const isInSecondSequence = (number) => {
   return false;
 };
 
-const QuestionFieldsChips = ({ questionDetails }) => {
+const ColoredFieldsChips = ({ fields }) => {
   const classes = useStyles();
   const { fields: fieldsLabels, loading } = useFieldsFetcher();
 
@@ -40,10 +40,8 @@ const QuestionFieldsChips = ({ questionDetails }) => {
     );
   }
 
-  const groupedFields = groupFieldsByMajorFieldId(
-    fieldsLabels,
-    questionDetails.fields,
-  );
+  const groupedFields = groupFieldsByMajorFieldId(fieldsLabels, fields);
+  
   return (
     <Grid className={classes.fieldContainer}>
       {groupedFields?.map((majorField, key) => (
@@ -52,10 +50,7 @@ const QuestionFieldsChips = ({ questionDetails }) => {
             title={
               <CustomTypography variant='body1'>
                 {majorField.subfields.map((field, key) => (
-                  <Grid
-                    key={key}
-                    id={`questionSubFields-${questionDetails.referenceNumber}-${key}`}
-                    item>
+                  <Grid key={key} id={`questionSubFields-${key}`} item>
                     {field.label}
                   </Grid>
                 ))}
@@ -68,7 +63,7 @@ const QuestionFieldsChips = ({ questionDetails }) => {
               label={
                 <CustomTypography
                   variant='body1'
-                  id={`questionMajorFields-${questionDetails.referenceNumber}-${key}`}
+                  id={`questionMajorFields-${key}`}
                   className={classes.fieldChipText}>
                   {majorField.majorFieldLabel}
                 </CustomTypography>
@@ -81,4 +76,4 @@ const QuestionFieldsChips = ({ questionDetails }) => {
   );
 };
 
-export default QuestionFieldsChips;
+export default ColoredFieldsChips;
