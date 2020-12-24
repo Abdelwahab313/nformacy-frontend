@@ -221,5 +221,10 @@
   "twoStars": "Partially covered what I wanted",
   "threeStars": "Exactly what I wanted",
   "fourStars": "Yes, and few more",
-  "fiveStars": "Yes, and a lot more"
+  "fiveStars": "Yes, and a lot more",
+  "recievedAnswer": "1. I received the answers I was looking for:",
+  "expertKnowledge": "The experts’ knowledge was:",
+  "expertCommunication": "The expert’s communication style:",
+  "callArrangements": "The call arrangement process was:",
+  "serviceRecomendation": "I will recommend this service to my friends and colleagues:"
 }

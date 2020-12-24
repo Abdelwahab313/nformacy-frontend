@@ -40,15 +40,11 @@ const EvaluationAfterCall = () => {
       </Grid>
 
       <Grid item xs={12}>
-        <Grid container justify='center'>
-          <Grid item md={4} className={classes.evaluationQuestion}>
-            <CustomTypography fontWeight="bold" variant="body1">1. I received the answers I was looking for:</CustomTypography>
-          </Grid>
-
-          <Grid item md={8}>
-            <Rating ratingDescription={t('oneStar')} />
-          </Grid>
-        </Grid>
+        <Rating evaluationQuestion={t('recievedAnswer')} />
+        <Rating evaluationQuestion={t('expertKnowledge')} />
+        <Rating evaluationQuestion={t('expertCommunication')} />
+        <Rating evaluationQuestion={t('callArrangements')} />
+        <Rating evaluationQuestion={t('serviceRecomendation')} />
       </Grid>
 
     </Grid>
