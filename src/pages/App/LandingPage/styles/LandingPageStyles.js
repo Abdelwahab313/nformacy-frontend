@@ -116,6 +116,8 @@ const useStyles = makeStyles((theme) => ({
   },
   fitContent: {
     height: 'fit-content',
+    minHeight: 230,
+    position: 'relative',
   },
   primaryBoldTxt: {
     color: darkBlue,
@@ -126,6 +128,10 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       display: 'none',
     },
+  },
+  golbalSectionDivider: {
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(3),
   },
 }));
 

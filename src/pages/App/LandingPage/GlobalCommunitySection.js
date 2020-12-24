@@ -25,7 +25,12 @@ const GlobalCommunitySection = () => {
           </CustomTypography>
         </Box>
       </Grid>
-      <Grid item md={4} className={classes.subTextMargin}></Grid>
+      <Grid item md={4} className={classes.subTextMargin}>
+        <img
+          className={classes.firstSectionImg}
+          src={require('../../../assets/landing/left_map.svg')}
+        />
+      </Grid>
       <Grid item md={4} className={classes.subTextMargin}>
         <Box textAlign={'center'}>
           <CustomTypography variant='h5' className={classes.subTextMargin}>
@@ -36,7 +41,11 @@ const GlobalCommunitySection = () => {
             className={classes.primaryBoldTxt}>
             Why to join us
           </LinkText>
-          <Divider variant='middle' style={greyDividerStyle} />
+          <Divider
+            variant='middle'
+            style={greyDividerStyle}
+            className={classes.golbalSectionDivider}
+          />
           <CustomTypography variant='h5' className={classes.subTextMargin}>
             Join Our Community and Be Part of the Most Dynamic and Reliable
             Network of Independent Experts
@@ -53,7 +62,12 @@ const GlobalCommunitySection = () => {
           />
         </Box>
       </Grid>
-      <Grid item md={4} className={classes.subTextMargin}></Grid>
+      <Grid item md={4} className={classes.subTextMargin}>
+        <img
+          className={classes.firstSectionImg}
+          src={require('../../../assets/landing/right_map.svg')}
+        />
+      </Grid>
     </Grid>
   );
 };

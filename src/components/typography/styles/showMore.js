@@ -13,6 +13,12 @@ const useStyles = makeStyles((theme) => ({
   anchor: {
     color: colors.darkBlue,
   },
+  noTxtIcon: {
+    position: 'absolute',
+    bottom: 5,
+    right: 8,
+    padding: 20,
+  },
 }));
 
 export default useStyles;

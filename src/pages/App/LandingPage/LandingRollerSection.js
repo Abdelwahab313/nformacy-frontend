@@ -80,7 +80,7 @@ const LandingRollerSection = () => {
           />
         </Box>
       </Grid>
-      <Grid item xs={12} md={11} className={classes.platformBrief}>
+      <Grid item xs={12} md={12} className={classes.platformBrief}>
         <CustomTypography
           variant='h4'
           fontWeight='bold'
