@@ -25,6 +25,7 @@ import useLocale from 'hooks/localization/useLocale';
 import { useTranslation } from 'react-i18next';
 import { Checkbox, FormControlLabel } from '@material-ui/core';
 import { getUserName } from 'core/user';
+import AnswerOwner from './AnswerOwner';
 
 const AnswerView = ({
   answer,
@@ -39,6 +40,7 @@ const AnswerView = ({
   const { local } = useLocale();
   const { t } = useTranslation();
   const [answerState, setAnswerState] = useState(answer.state);
+  const [showAnswerOwnerCard, setShowAnswerOwnerCard] = useState(false);
 
   const onChangeRating = (index, newValue) => {
     setRating(index, newValue);
@@ -79,17 +81,18 @@ const AnswerView = ({
             )}
           </GridItem>
           <GridItem xs={2} className={classes.answerRowStyles}>
-            {authManager.isAdmin() && (
-              <Grid
-                id={answer.referenceNumber}
-                container
-                className={classes.answerFieldStyle}>
-                <Typography className={classes.answerFieldLabel}>
-                  # Answer:
-                </Typography>
-                <Typography> {answer.referenceNumber} </Typography>
-              </Grid>
-            )}
+            {authManager.isAdmin() ||
+              (authManager.isClient() && (
+                <Grid
+                  id={answer.referenceNumber}
+                  container
+                  className={classes.answerFieldStyle}>
+                  <Typography className={classes.answerFieldLabel}>
+                    # Answer:
+                  </Typography>
+                  <Typography> {answer.referenceNumber} </Typography>
+                </Grid>
+              ))}
           </GridItem>
           <GridItem xs={12} className={classes.answerRowStyles}>
             {!authManager.isNormalUser() && (
@@ -98,7 +101,9 @@ const AnswerView = ({
                   {`${t('consultant')}:`}
                 </Typography>
                 <Tooltip
-                  title={<Typography># {answer.user.referenceNumber}</Typography>}>
+                  title={
+                    <Typography># {answer.user.referenceNumber}</Typography>
+                  }>
                   <Typography>{getUserName(answer.user)}</Typography>
                 </Tooltip>
                 <Typography className={classes.countDown}>
@@ -188,12 +193,15 @@ const AnswerView = ({
               <SubmitButton
                 id={`call-${answer.referenceNumber}`}
                 className={classes.rollbackButton}
-                onClick={() => { }}
-                buttonText={t('callTheExpert')}
+                onClick={() => {
+                  setShowAnswerOwnerCard(!showAnswerOwnerCard);
+                }}
+                buttonText={t('showExpert')}
               />
             )}
           </Grid>
         </GridContainer>
+        {!!showAnswerOwnerCard && <AnswerOwner user={answer.user} />}
         <Divider variant='middle' className={classes.divider} />
       </div>
     </Fragment>
