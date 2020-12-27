@@ -8,7 +8,7 @@ const useStyles = makeStyles(() => ({
     width: '40px',
     height: '40px',
     borderRadius: '50%',
-    border: '2px solid #d3d3d3',
+    border: '1px solid #d3d3d3',
     margin: 'auto'
   },
   starRatingContainer: {
@@ -20,18 +20,24 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     display: 'flex',
     textAlign: 'center',
-    width: '50%'
+    width: '50%',
+    margin: '30px 0'
   },
   ratingRadioCheck: {
     display: 'none'
   },
   evaluationQuestion: {
     display: 'flex',
-    justifyContent: 'center'
+    // justifyContent: 'center'
   },
   starsContainer: {
     justifyContent: 'center',
-    display: 'flex'
+    display: 'flex',
+    marginBottom: 20
+  },
+  callEvaluationContainer: {
+    margin: 'auto',
+    width: '95%'
   }
 }));
 

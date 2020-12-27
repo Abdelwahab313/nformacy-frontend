@@ -223,8 +223,8 @@
   "fourStars": "Yes, and few more",
   "fiveStars": "Yes, and a lot more",
   "recievedAnswer": "1. I received the answers I was looking for:",
-  "expertKnowledge": "The experts’ knowledge was:",
-  "expertCommunication": "The expert’s communication style:",
-  "callArrangements": "The call arrangement process was:",
-  "serviceRecomendation": "I will recommend this service to my friends and colleagues:"
+  "expertKnowledge": "2. The experts’ knowledge was:",
+  "expertCommunication": "3. The expert’s communication style:",
+  "callArrangements": "4. The call arrangement process was:",
+  "serviceRecomendation": "5. I will recommend this service to my friends and colleagues:"
 }

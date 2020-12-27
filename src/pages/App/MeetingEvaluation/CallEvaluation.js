@@ -5,6 +5,7 @@ import Rating from './Rating';
 import { useTranslation } from 'react-i18next';
 import useStyles from './styles/RatingStyles';
 import { CallEvaluationProvider, useCallEvaluationContext } from './context';
+import authManager from 'services/authManager';
 
 
 const CallEvaluation = () => {
@@ -13,7 +14,7 @@ const CallEvaluation = () => {
   const [{ ratingEvaluations }] = useCallEvaluationContext();
 
   return (
-    <Grid container>
+    <Grid container className={classes.callEvaluationContainer}>
       <Grid item xs={12} alignItems={'center'} justifyContent={'center'}>
         <Grid container>
 
@@ -59,10 +60,15 @@ const defaultClientCallEvaluation = {
   'expertCommunication': 0,
   'callArrangements': 0,
   'serviceRecomendation': 0
-}
+};
+const defaultFreelancerCallEvaluation = {
+
+};
+
 const CallEvaluationPage = () => {
+  const defaultEvaluation = authManager.isClient() ? defaultClientCallEvaluation : defaultFreelancerCallEvaluation
   return (
-    <CallEvaluationProvider initialValue={{ ratingEvaluations: defaultClientCallEvaluation }} >
+    <CallEvaluationProvider initialValue={{ ratingEvaluations: defaultEvaluation }} >
       <CallEvaluation />
     </CallEvaluationProvider >
   );
