@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer } from 'react';
+import CallEvaluationActionTypes from './actionTypes';
 // import CallEvaluationActionTypes from './actionTypes';
 
 const defaultValues = {
@@ -28,7 +29,9 @@ const useCallEvaluationContext = () => {
 
 const CallEvaluationReducer = (state, action) => {
   switch (action.type) {
-
+    case CallEvaluationActionTypes.UPDATE_EVALUATION:
+      const updatedRating = { ...state.ratingEvaluations, ...action.payload };
+      return { ...state, ratingEvaluations: updatedRating };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }

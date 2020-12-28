@@ -1,20 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Grid, Box } from '@material-ui/core';
 import useStyles from './styles/RatingStyles';
 import { FaStar } from 'react-icons/fa';
 import CustomTypography from 'components/typography/Typography';
 // import { useCallEvaluationContext } from './context';
 import { useTranslation } from 'react-i18next';
+import { useCallEvaluationContext } from './context';
+import { updateEvaluationForm } from './context/callEvaluationAction';
 
 const Rating = ({ evaluationKey }) => {
   const classes = useStyles();
-  const isRecommendedService = evaluationKey === "serviceRecomendation";
-  const [rating, setRating] = useState(null);
+  const isRecommendedService = evaluationKey === 'serviceRecomendation';
   const { t } = useTranslation();
-  // const [{ ratingEvaluations }, dispatch] = useCallEvaluationContext();
+  const [{ ratingEvaluations }, dispatch] = useCallEvaluationContext();
 
-
-  // const rating = ratingEvaluations(evaluationKey);
+  const rating = ratingEvaluations[evaluationKey];
+  const setRating = (ratingValue) => {
+    updateEvaluationForm(dispatch, { ...ratingEvaluations, [evaluationKey]: ratingValue });
+  };
 
   return (
     <Grid container justify='center'>
