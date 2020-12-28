@@ -28,16 +28,29 @@ const useStyles = makeStyles(() => ({
   },
   evaluationQuestion: {
     display: 'flex',
-    // justifyContent: 'center'
   },
   starsContainer: {
     justifyContent: 'center',
     display: 'flex',
     marginBottom: 20
   },
+  commentField: {
+    backgroundColor: '#125773',
+    marginTop: 30,
+  },
+  inputFieldColor: {
+    color: '#ffffff'
+  },
+  evaluationComment: {
+    marginTop: '15%'
+  },
   callEvaluationContainer: {
     margin: 'auto',
     width: '95%'
+  },
+  submitEvaluationBtnContainer: {
+    float: 'right',
+    marginTop: '30px'
   }
 }));
 

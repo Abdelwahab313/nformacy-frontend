@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, TextField, Button } from '@material-ui/core';
 import CustomTypography from 'components/typography/Typography';
 import Rating from './Rating';
 import { useTranslation } from 'react-i18next';
@@ -50,6 +50,34 @@ const CallEvaluation = () => {
         })}
       </Grid>
 
+      <Grid item xs={12} className={classes.evaluationComment}>
+        <CustomTypography fontWeight="bold" variant="body1">Comments:</CustomTypography>
+        <form className={classes.form} >
+          <TextField
+            className={classes.commentField}
+            variant='outlined'
+            fullWidth
+            InputProps={{
+              classes: {
+                input: classes.inputFieldColor
+              }
+            }}
+            onChange={() => {
+            }}
+            autoFocus
+          />
+          <div className={classes.submitEvaluationBtnContainer}>
+            <Button
+              type='submit'
+              variant='contained'
+              color='primary'
+              className={classes.submitEvaluationBtn}>
+              {t('submit')}
+            </Button>
+          </div>
+        </form>
+      </Grid>
+
     </Grid>
   );
 };
@@ -62,7 +90,10 @@ const defaultClientCallEvaluation = {
   'serviceRecomendation': 0
 };
 const defaultFreelancerCallEvaluation = {
-
+  'freelanceClientQuestion': 0,
+  'freelanceClientProfessional': 0,
+  'freelanceCallArrangment': 0,
+  'freelanceSatisfaction': 0
 };
 
 const CallEvaluationPage = () => {

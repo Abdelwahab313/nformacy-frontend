@@ -226,5 +226,9 @@
   "expertKnowledge": "2. The experts’ knowledge was:",
   "expertCommunication": "3. The expert’s communication style:",
   "callArrangements": "4. The call arrangement process was:",
-  "serviceRecomendation": "5. I will recommend this service to my friends and colleagues:"
+  "serviceRecomendation": "5. I will recommend this service to my friends and colleagues:",
+  "freelanceClientQuestion": "1. The Client Questions were within the call topic:",
+  "freelanceClientProfessional": "2. The Client was professional through the call:",
+  "freelanceCallArrangment": "3. The call arrangement process was:",
+  "freelanceSatisfaction": "4. Overall my satisfaction level of the call service:"
 }
