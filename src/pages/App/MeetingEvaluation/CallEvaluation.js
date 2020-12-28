@@ -6,13 +6,17 @@ import { useTranslation } from 'react-i18next';
 import useStyles from './styles/RatingStyles';
 import { CallEvaluationProvider, useCallEvaluationContext } from './context';
 import authManager from 'services/authManager';
+import { updateEvaluationComment } from './context/callEvaluationAction';
 
 
 const CallEvaluation = () => {
   const { t } = useTranslation();
   const classes = useStyles();
-  const [{ ratingEvaluations }] = useCallEvaluationContext();
+  const [{ ratingEvaluations, comment }, dispatch] = useCallEvaluationContext();
 
+  const setComment = (comment) => {
+    updateEvaluationComment(dispatch, comment);
+  };
   return (
     <Grid container className={classes.callEvaluationContainer}>
       <Grid item xs={12} alignItems={'center'} justifyContent={'center'}>
@@ -52,18 +56,13 @@ const CallEvaluation = () => {
 
       <Grid item xs={12} className={classes.evaluationComment}>
         <CustomTypography fontWeight="bold" variant="body1">Comments:</CustomTypography>
-        <form className={classes.form} >
+        <div className={classes.form} >
           <TextField
             className={classes.commentField}
             variant='outlined'
             fullWidth
-            InputProps={{
-              classes: {
-                input: classes.inputFieldColor
-              }
-            }}
-            onChange={() => {
-            }}
+            value={comment}
+            onChange={(event) => setComment(event.target.value)}
             autoFocus
           />
           <div className={classes.submitEvaluationBtnContainer}>
@@ -75,7 +74,7 @@ const CallEvaluation = () => {
               {t('submit')}
             </Button>
           </div>
-        </form>
+        </div>
       </Grid>
 
     </Grid>

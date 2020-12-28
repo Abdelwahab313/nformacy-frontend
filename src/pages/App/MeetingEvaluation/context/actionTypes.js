@@ -1,5 +1,6 @@
 const CallEvaluationActionTypes = {
-    UPDATE_EVALUATION: 'UPDATE_EVALUATION',
+    UPDATE_RATINGS: 'UPDATE_RATINGS',
+    UPDATE_COMMENT: 'UPDATE_COMMENT',
 };
 
 export default CallEvaluationActionTypes;

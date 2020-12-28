@@ -2,7 +2,14 @@ import CallEvaluationActionTypes from "./actionTypes";
 
 export const updateEvaluationForm = (dispatch, ratingEvaluations) => {
   dispatch({
-    type: CallEvaluationActionTypes.UPDATE_EVALUATION,
+    type: CallEvaluationActionTypes.UPDATE_RATINGS,
     payload: ratingEvaluations,
+  });
+};
+
+export const updateEvaluationComment = (dispatch, comment) => {
+  dispatch({
+    type: CallEvaluationActionTypes.UPDATE_COMMENT,
+    payload: comment,
   });
 };
