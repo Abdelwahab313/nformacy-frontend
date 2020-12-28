@@ -26,9 +26,17 @@ const Rating = ({ evaluationKey }) => {
         <Grid container justify="space-evenly" className={classes.starRatingContainer}>
           {[...Array(5)].map((star, i) => {
             const ratingValue = i + 1;
+            const ratingStarsValue = () => {
+              if (ratingValue === 1) {
+                return 'I Will Not';
+              } else if (ratingValue === 5) {
+                return 'Definitely I Will';
+              }
+              return null;
+            };
             return (
               <Grid item xs className={classes.starsContainer}>
-                <label>
+                <label align={'center'}>
                   <input type="radio"
                     name="rating"
                     value={ratingValue}
@@ -41,7 +49,7 @@ const Rating = ({ evaluationKey }) => {
                       size={30} />
                   </Box>
                   {!!isRecommendedService && (
-                    <CustomTypography align={'center'}>I will</CustomTypography>
+                    <CustomTypography align={'center'}>{ratingStarsValue()}</CustomTypography>
                   )}
                 </label>
               </Grid>

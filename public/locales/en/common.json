@@ -230,5 +230,7 @@
   "freelanceClientQuestion": "1. The Client Questions were within the call topic:",
   "freelanceClientProfessional": "2. The Client was professional through the call:",
   "freelanceCallArrangment": "3. The call arrangement process was:",
-  "freelanceSatisfaction": "4. Overall my satisfaction level of the call service:"
+  "freelanceSatisfaction": "4. Overall my satisfaction level of the call service:",
+  "willNot": "I Will Not",
+  "definitelyWill": "Definitely I Will"
 }
