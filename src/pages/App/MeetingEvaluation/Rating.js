@@ -8,12 +8,13 @@ import { useTranslation } from 'react-i18next';
 
 const Rating = ({ evaluationKey }) => {
   const classes = useStyles();
+  const isRecommendedService = evaluationKey === "serviceRecomendation";
   const [rating, setRating] = useState(null);
   const { t } = useTranslation();
   // const [{ ratingEvaluations }, dispatch] = useCallEvaluationContext();
-  
-  
-// const rating = ratingEvaluations(evaluationKey);
+
+
+  // const rating = ratingEvaluations(evaluationKey);
 
   return (
     <Grid container justify='center'>
@@ -39,6 +40,9 @@ const Rating = ({ evaluationKey }) => {
                       color={ratingValue <= rating ? '#ffc107' : '#e4e5e9'}
                       size={30} />
                   </Box>
+                  {!!isRecommendedService && (
+                    <CustomTypography align={'center'}>I will</CustomTypography>
+                  )}
                 </label>
               </Grid>
             );
