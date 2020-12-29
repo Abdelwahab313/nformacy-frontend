@@ -92,7 +92,7 @@ const appRoutes = [
 
   {
     path: RoutesPaths.App.CallEvaluation,
-    component: CallEvaluationPage,
+    Component: CallEvaluationPage,
     includeLayout: true,
     public: false,
   },
