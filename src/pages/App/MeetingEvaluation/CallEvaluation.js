@@ -7,16 +7,29 @@ import useStyles from './styles/RatingStyles';
 import { CallEvaluationProvider, useCallEvaluationContext } from './context';
 import authManager from 'services/authManager';
 import { updateEvaluationComment } from './context/callEvaluationAction';
+import { useLocation, useHistory } from 'react-router';
+import { RoutesPaths } from 'constants/routesPath';
+import { submitEvaluation } from 'apis/callEvaluationAPI';
 
 
 const CallEvaluation = () => {
   const { t } = useTranslation();
   const classes = useStyles();
   const [{ ratingEvaluations, comment }, dispatch] = useCallEvaluationContext();
+  const history = useHistory();
+  const location = useLocation();
+  const meetingId = location?.state?.meetingId;
 
   const setComment = (comment) => {
     updateEvaluationComment(dispatch, comment);
   };
+
+  const onSubmitEvaluation = () => {
+    submitEvaluation(meetingId, ratingEvaluations, comment).then(
+      () => { history.push(RoutesPaths.App.Dashboard); },
+    );
+  };
+
   return (
     <Grid container className={classes.callEvaluationContainer}>
       <Grid item xs={12} alignItems={'center'} justifyContent={'center'}>
@@ -70,6 +83,7 @@ const CallEvaluation = () => {
               type='submit'
               variant='contained'
               color='primary'
+              onClick={() => onSubmitEvaluation()}
               className={classes.submitEvaluationBtn}>
               {t('submit')}
             </Button>

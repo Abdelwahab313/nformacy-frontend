@@ -38,11 +38,13 @@ const useStyles = makeStyles(() => ({
     marginTop: 30,
   },
   evaluationComment: {
-    marginTop: '15%'
+    position: 'absolute',
+    bottom: 0,
+    width: '80%'
   },
   callEvaluationContainer: {
     margin: 'auto',
-    width: '95%'
+    width: '80%'
   },
   submitEvaluationBtnContainer: {
     float: 'right',
