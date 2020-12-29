@@ -23,7 +23,7 @@ const appRoutes = [
   {
     path: RoutesPaths.App.LandingPage,
     Component: LandingPage,
-    includeLayout: false,
+    includeLayout: true,
     isPublic: true,
   },
   {

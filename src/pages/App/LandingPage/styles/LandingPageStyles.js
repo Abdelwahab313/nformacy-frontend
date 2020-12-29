@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   landingSectionsContainerPadding: {
     padding: theme.spacing(11),
     [theme.breakpoints.down('md')]: {
-      padding: theme.spacing(1),
+      padding: [theme.spacing(6), theme.spacing(2)],
     },
   },
   rollerSection: {
@@ -132,6 +132,10 @@ const useStyles = makeStyles((theme) => ({
       margin: '16px auto',
     },
   },
+  promiseFieldDescTxt: {
+    fontWeight: 300,
+    lineHeight: 1.7,
+  },
   itemBullet: {
     minWidth: 20,
   },
@@ -189,6 +193,8 @@ const useStyles = makeStyles((theme) => ({
   },
   tileItem: {
     width: '33% !important',
+    padding: '0px !important',
+    marginTop: theme.spacing(5),
     [theme.breakpoints.down('md')]: {
       width: '50% !important',
     },

@@ -1,6 +1,10 @@
 import { fade, makeStyles } from '@material-ui/core/styles';
+import { black, darkOrange, grey } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
+  html: {
+    scrollBehavior: 'smooth',
+  },
   grow: {
     flexGrow: 1,
   },
@@ -14,9 +18,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   headerBackground: {
-     backgroundColor: theme.palette.common.white,
-     color: theme.palette.primary.main,
-     padding:theme.spacing(1),
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.primary.main,
+    padding: theme.spacing(1),
   },
   search: {
     position: 'relative',
@@ -70,6 +74,28 @@ const useStyles = makeStyles((theme) => ({
   },
   languageButton: {
     margin: `0 ${theme.spacing(1)}px`,
+  },
+  desktopVisible: {
+    display: 'block',
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
+  },
+  mobileVisible: {
+    display: 'none',
+    [theme.breakpoints.down('md')]: {
+      display: 'block',
+    },
+  },
+  menuItemText: {
+    textDecoration: 'none',
+    padding: theme.spacing(1),
+    color: grey,
+    '&:hover': {
+      color: black,
+      textDecoration: 'underline',
+      textDecorationColor: darkOrange,
+    },
   },
 }));
 

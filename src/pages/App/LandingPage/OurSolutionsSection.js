@@ -17,7 +17,7 @@ const OurSolutionsSection = () => {
         classes.lighterGrayContainer,
       ]}>
       <Grid item xs={10} md={12}>
-        <Box textAlign='center'>
+        <Box textAlign='center' id='our_solution'>
           <CustomTypography variant='h4' fontWeight='bold'>
             Our Solutions
           </CustomTypography>
@@ -28,7 +28,7 @@ const OurSolutionsSection = () => {
         </Box>
       </Grid>
       <Grid item xs={12} className={classes.subTextMargin}>
-        <LandingAvailableServices/>
+        <LandingAvailableServices />
       </Grid>
     </Grid>
   );

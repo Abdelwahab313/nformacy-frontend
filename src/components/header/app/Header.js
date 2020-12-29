@@ -14,6 +14,8 @@ import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import DIRECTION from '../../../constants/direction';
 import Notifications from '../admin/notifications';
+import { Link } from 'react-router-dom';
+import LinkText from 'components/typography/LinkText';
 
 export default function MainHeader() {
   const classes = useStyles();
@@ -27,19 +29,49 @@ export default function MainHeader() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleMobileMenuOpen = () => {
+  const ScrollToSection = (sectionId) => {
+    document.getElementById(sectionId).scrollIntoView({behavior: 'smooth'});
   };
+  const handleMobileMenuOpen = () => {};
 
   const menuId = 'primary-search-account-menu';
   const mobileMenuId = 'primary-search-account-menu-mobile';
 
   return (
     <div className={classes.grow} dir={DIRECTION[locale]}>
-      <AppBar className={classes.headerBackground} id={'header'} position='static'>
+      <AppBar
+        className={classes.headerBackground}
+        id={'header'}
+        position='static'>
         <Toolbar>
+          <Link href={'/'}>
+            <img
+              src={require('../../../assets/desktop_nformacy_logo.svg')}
+              className={classes.desktopVisible}
+            />
+            <img
+              src={require('../../../assets/mobile_nformacy_logo.svg')}
+              className={classes.mobileVisible}
+            />
+          </Link>
+          <Link href='#' className={classes.menuItemText}>
+            Home
+          </Link>
+          <Link href='#' className={classes.menuItemText}>
+            About
+          </Link>
+          <LinkText onClick={()=>ScrollToSection('our_solution')} className={classes.menuItemText}>
+            Solutions
+          </LinkText>
+          <Link href='#' className={classes.menuItemText}>
+            Consultants
+          </Link>
+          <Link href='#' className={classes.menuItemText}>
+            Knowledge Hub
+          </Link>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
-              <SearchIcon/>
+              <SearchIcon />
             </div>
             <InputBase
               placeholder='Search…'
@@ -50,14 +82,14 @@ export default function MainHeader() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
-          <div className={classes.grow}/>
+          <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label='show 4 new mails' color='inherit'>
-              <StarsIcon/>
+              <StarsIcon />
             </IconButton>
 
             <IconButton aria-label='show 17 new notifications' color='inherit'>
-              <Notifications/>
+              <Notifications />
             </IconButton>
 
             <IconButton
@@ -67,10 +99,14 @@ export default function MainHeader() {
               aria-haspopup='true'
               onClick={handleProfileMenuOpen}
               color='inherit'>
-              <AccountCircle/>
+              <AccountCircle />
             </IconButton>
-            <Button id={'switchLang'} variant={'contained'} color={'primary'} className={classes.languageButton}
-                    onClick={toggleLocale}>
+            <Button
+              id={'switchLang'}
+              variant={'contained'}
+              color={'primary'}
+              className={classes.languageButton}
+              onClick={toggleLocale}>
               {t('language')}
             </Button>
           </div>
@@ -81,7 +117,7 @@ export default function MainHeader() {
               aria-haspopup='true'
               onClick={handleMobileMenuOpen}
               color='inherit'>
-              <MoreIcon/>
+              <MoreIcon />
             </IconButton>
           </div>
         </Toolbar>

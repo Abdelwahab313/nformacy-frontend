@@ -1,23 +1,65 @@
 import React, { Fragment } from 'react';
-import { makeStyles } from '@material-ui/core';
+import { Fab, makeStyles, Toolbar, Zoom } from '@material-ui/core';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 
 import AppHeader from 'components/header/app/Header';
+import Footer from 'components/footer/Footer';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
     height: '100%',
   },
+  toTopIcon: {
+    position: 'fixed',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
 }));
+function ScrollTop(props) {
+  const { children, window } = props;
+  const classes = useStyles();
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+    disableHysteresis: true,
+    threshold: 100,
+  });
 
-function AppLayout({ children }) {
+  const handleClick = (event) => {
+    const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
+
+    if (anchor) {
+      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
+  return (
+    <Zoom in={trigger}>
+      <div onClick={handleClick} role="presentation" className={classes.toTopIcon}>
+        {children}
+      </div>
+    </Zoom>
+  );
+}
+function AppLayout({ children,  props}) {
   const classes = useStyles();
   return (
     <Fragment>
       <AppHeader />
+      <Toolbar id="back-to-top-anchor" />
       <div className={classes.root}>{children}</div>
+      <Footer />
+      <ScrollTop {...props}>
+        <Fab color="secondary" size="small" aria-label="scroll back to top">
+          <KeyboardArrowUpIcon />
+        </Fab>
+      </ScrollTop>
     </Fragment>
   );
 }

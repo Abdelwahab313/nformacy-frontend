@@ -86,7 +86,7 @@ const AdvisoryBoardSection = () => {
             </GridListTile>
             {/* end advisor */}
             {/* advisor */}
-            <GridListTile key={'img1'} className={classes.tileItem}>
+            <GridListTile key={'img2'} className={classes.tileItem}>
               <img
                 src={require('../../../assets/emptyavatar.jpg')}
                 alt={'title'}
@@ -133,7 +133,7 @@ const AdvisoryBoardSection = () => {
             </GridListTile>
             {/* end advisor */}
             {/* advisor */}
-            <GridListTile key={'img1'} className={classes.tileItem}>
+            <GridListTile key={'img3'} className={classes.tileItem}>
               <img
                 src={require('../../../assets/emptyavatar.jpg')}
                 alt={'title'}
@@ -180,7 +180,7 @@ const AdvisoryBoardSection = () => {
             </GridListTile>
             {/* end advisor */}
             {/* advisor */}
-            <GridListTile key={'img1'} className={classes.tileItem}>
+            <GridListTile key={'img4'} className={classes.tileItem}>
               <img
                 src={require('../../../assets/emptyavatar.jpg')}
                 alt={'title'}
@@ -227,7 +227,7 @@ const AdvisoryBoardSection = () => {
             </GridListTile>
             {/* end advisor */}
             {/* advisor */}
-            <GridListTile key={'img1'} className={classes.tileItem}>
+            <GridListTile key={'img5'} className={classes.tileItem}>
               <img
                 src={require('../../../assets/emptyavatar.jpg')}
                 alt={'title'}
@@ -274,7 +274,7 @@ const AdvisoryBoardSection = () => {
             </GridListTile>
             {/* end advisor */}
             {/* advisor */}
-            <GridListTile key={'img1'} className={classes.tileItem}>
+            <GridListTile key={'img6'} className={classes.tileItem}>
               <img
                 src={require('../../../assets/emptyavatar.jpg')}
                 alt={'title'}
