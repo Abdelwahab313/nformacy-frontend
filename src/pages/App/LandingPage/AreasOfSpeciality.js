@@ -48,7 +48,7 @@ const AreasOfSpeciality = () => {
                   className={classes.workMainTextPadding}>
                   Strategic Management
                 </CustomTypography>
-                <Box className={classes.workSubTextPadding}>
+                <Box className={[classes.workSubTextPadding, classes.desktopVisible]}>
                   <List>
                     <ListItem
                       dense={true}
@@ -184,7 +184,7 @@ const AreasOfSpeciality = () => {
                   className={classes.workMainTextPadding}>
                   Financial Management
                 </CustomTypography>
-                <Box className={classes.workSubTextPadding}>
+                <Box className={[classes.workSubTextPadding, classes.desktopVisible]}>
                   <List>
                     <ListItem
                       dense={true}
@@ -336,7 +336,7 @@ const AreasOfSpeciality = () => {
                   className={classes.workMainTextPadding}>
                   Organization and Human Resources Management
                 </CustomTypography>
-                <Box className={classes.workSubTextPadding}>
+                <Box className={[classes.workSubTextPadding, classes.desktopVisible]}>
                   <List>
                     <ListItem
                       dense={true}
@@ -504,7 +504,7 @@ const AreasOfSpeciality = () => {
                   className={classes.workMainTextPadding}>
                   Digitization
                 </CustomTypography>
-                <Box className={classes.workSubTextPadding}>
+                <Box className={[classes.workSubTextPadding, classes.desktopVisible]}>
                   <List>
                     <ListItem
                       dense={true}
@@ -624,7 +624,7 @@ const AreasOfSpeciality = () => {
                   className={classes.workMainTextPadding}>
                   Startups and Entrepreneurship
                 </CustomTypography>
-                <Box className={classes.workSubTextPadding}>
+                <Box className={[classes.workSubTextPadding, classes.desktopVisible]}>
                   <List>
                     <ListItem
                       dense={true}
@@ -776,7 +776,7 @@ const AreasOfSpeciality = () => {
                   className={classes.workMainTextPadding}>
                   Marketing and Customer Journey
                 </CustomTypography>
-                <Box className={classes.workSubTextPadding}>
+                <Box className={[classes.workSubTextPadding, classes.desktopVisible]}>
                   <List>
                     <ListItem
                       dense={true}

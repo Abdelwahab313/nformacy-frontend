@@ -368,6 +368,9 @@ const useStyles = makeStyles((theme) => ({
       width: 60,
     },
   },
+  mobileLandingServiceContainer: {
+    padding: [4, 12],
+  },
 }));
 
 export default useStyles;

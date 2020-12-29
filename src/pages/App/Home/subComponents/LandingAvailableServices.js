@@ -55,13 +55,13 @@ const LandingAvailableServices = () => {
   };
 
   return (
-    <Grid
-      container
-      className={classes.threeBtnsContainer}
-      justify='space-between'
-      spacing={6}>
+    <Grid container justify='space-between'>
       {services(t).map((service) => (
-        <Grid item xs={6} md={6}>
+        <Grid
+          item
+          xs={6}
+          md={6}
+          className={classes.mobileLandingServiceContainer}>
           <Box
             className={[
               classes.askQuestionBox,

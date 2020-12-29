@@ -18,20 +18,36 @@ const GlobalCommunitySection = () => {
       direction='row'
       justify='center'
       className={classes.landingSectionsContainerPadding}>
-      <Grid item xs={12}>
+      <Grid item xs={12} className={classes.headerCommunitySectionOrder}>
         <Box textAlign='center'>
           <CustomTypography variant='h4' fontWeight='bold'>
             Our Global Community of Subject Matter Experts
           </CustomTypography>
         </Box>
       </Grid>
-      <Grid item md={4} className={classes.subTextMargin}>
-        <img
-          className={classes.firstSectionImg}
-          src={require('../../../assets/landing/left_map.svg')}
-        />
+      <Grid
+        item
+        xs={6}
+        md={4}
+        className={[
+          classes.subTextMargin,
+          classes.leftMapCommunitySectionOrder,
+        ]}>
+        <Box className={classes.subTextMargin}>
+          <img
+            className={classes.firstSectionImg}
+            src={require('../../../assets/landing/left_map.svg')}
+          />
+        </Box>
       </Grid>
-      <Grid item md={4} className={classes.subTextMargin}>
+      <Grid
+        item
+        xs={10}
+        md={4}
+        className={[
+          classes.subTextMargin,
+          classes.betweenMapCommunitySectionOrder,
+        ]}>
         <Box textAlign={'center'}>
           <CustomTypography variant='h5' className={classes.subTextMargin}>
             nformacy brings consultancy closer to Experts and Clients
@@ -62,11 +78,20 @@ const GlobalCommunitySection = () => {
           />
         </Box>
       </Grid>
-      <Grid item md={4} className={classes.subTextMargin}>
-        <img
-          className={classes.firstSectionImg}
-          src={require('../../../assets/landing/right_map.svg')}
-        />
+      <Grid
+        item
+        xs={6}
+        md={4}
+        className={[
+          classes.subTextMargin,
+          classes.rightMapCommunitySectionOrder,
+        ]}>
+        <Box className={classes.subTextMargin}>
+          <img
+            className={classes.firstSectionImg}
+            src={require('../../../assets/landing/right_map.svg')}
+          />
+        </Box>
       </Grid>
     </Grid>
   );

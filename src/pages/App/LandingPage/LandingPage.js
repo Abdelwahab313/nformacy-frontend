@@ -7,6 +7,7 @@ import OurSolutionsSection from './OurSolutionsSection';
 import useStyles from './styles/LandingPageStyles';
 import OurPromiseSection from './OurPromiseSection';
 import GlobalCommunitySection from './GlobalCommunitySection';
+import AdvisoryBoardSection from './AdvisoryBoardSection';
 
 const LandingPage = () => {
   const classes = useStyles();
@@ -19,6 +20,7 @@ const LandingPage = () => {
       <AreasOfSpeciality />
       <GlobalCommunitySection />
       <OurPromiseSection />
+      <AdvisoryBoardSection />
     </Grid>
   );
 };

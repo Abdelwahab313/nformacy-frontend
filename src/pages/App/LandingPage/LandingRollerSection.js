@@ -12,7 +12,7 @@ const LandingRollerSection = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setSliderItem((prevState) => !prevState);
-    }, 7000);
+    }, 700000);
     return () => clearInterval(interval);
   }, []);
 
@@ -23,7 +23,7 @@ const LandingRollerSection = () => {
       justify='center'
       alignItems='flex-end'
       className={classes.landingSectionsContainerPadding}>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={10} md={6} className={classes.rollerSection}>
         <Slide direction={'right'} in={sliderItem} timeout={500}>
           <Box>
             {sliderItem && (
@@ -60,13 +60,13 @@ const LandingRollerSection = () => {
           </Box>
         </Slide>
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={6} className={classes.imgSection}>
         <img
           className={classes.firstSectionImg}
           src={require('../../../assets/landing/nformacy_Illustrations@1x.png')}
         />
       </Grid>
-      <Grid item xs={12} md={3}>
+      <Grid item xs={10} md={3} className={classes.ctaSection}>
         <Box textAlign='center'>
           <SubmitButton
             id={'serveBtn'}
@@ -80,7 +80,7 @@ const LandingRollerSection = () => {
           />
         </Box>
       </Grid>
-      <Grid item xs={12} md={12} className={classes.platformBrief}>
+      <Grid item xs={10} md={12} className={classes.platformBrief}>
         <CustomTypography
           variant='h4'
           fontWeight='bold'

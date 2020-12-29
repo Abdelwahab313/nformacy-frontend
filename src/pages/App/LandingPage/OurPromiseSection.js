@@ -29,7 +29,7 @@ const OurPromiseSection = () => {
           {/* Great Consultants */}
           <Grid
             item
-            xs={4}
+            xs={11}
             md={4}
             className={[classes.promiseField, classes.fitContent]}>
             <Box textAlign='left' className={classes.specialityFieldPadding}>
@@ -69,7 +69,7 @@ const OurPromiseSection = () => {
           {/* Quality is Assured  */}
           <Grid
             item
-            xs={4}
+            xs={11}
             md={4}
             className={[classes.promiseField, classes.fitContent]}>
             <Box textAlign='left' className={classes.specialityFieldPadding}>
@@ -104,7 +104,7 @@ const OurPromiseSection = () => {
           {/* We Understand Your Needs */}
           <Grid
             item
-            xs={4}
+            xs={11}
             md={4}
             className={[classes.promiseField, classes.fitContent]}>
             <Box textAlign='left' className={classes.specialityFieldPadding}>
