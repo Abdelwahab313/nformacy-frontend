@@ -7,6 +7,11 @@ import { Router } from 'react-router';
 import { createMemoryHistory } from 'history';
 import { RoutesPaths } from 'constants/routesPath';
 
+jest.mock('components/calendar/CalendarView.js', () => ({
+  __esModule: true, // this property makes it work
+  default: 'mockedDefaultExport',
+}));
+
 jest.mock('apis/questionsAPI', () => ({
   __esModule: true, // this property makes it work
   default: 'mockedDefaultExport',

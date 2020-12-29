@@ -3,9 +3,11 @@ import { Box, Grid } from '@material-ui/core';
 import CandidateItem from 'pages/App/ServiceRequests/details/subComponents/CandidateItem';
 import { lighterPink } from 'styles/colors';
 import MeetingTimeSelectorCalendarDialog from 'components/calendarDialogs/MeetingTime/MeetingTimeSelectorCalendarDialog';
+import { useTranslation } from 'react-i18next';
 
 const AnswerOwner = ({ user }) => {
   const [showCalendar, setShowCalendar] = useState(false);
+  const { t } = useTranslation();
 
   const closeCalendar = () => {
     setShowCalendar(false);
@@ -26,7 +28,7 @@ const AnswerOwner = ({ user }) => {
               onCandidateClick={() => {
                 setShowCalendar(true);
               }}
-              buttonText={'join meeting'}
+              buttonText={t('bookAMeeting')}
             />
           </Box>
         </Grid>

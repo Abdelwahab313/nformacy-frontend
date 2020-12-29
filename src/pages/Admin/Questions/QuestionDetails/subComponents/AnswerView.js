@@ -23,7 +23,7 @@ import ShowMore from 'components/typography/ShowMore';
 import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 import useLocale from 'hooks/localization/useLocale';
 import { useTranslation } from 'react-i18next';
-import { Checkbox, FormControlLabel } from '@material-ui/core';
+import { Checkbox, Collapse, FormControlLabel } from '@material-ui/core';
 import { getUserName } from 'core/user';
 import AnswerOwner from './AnswerOwner';
 
@@ -196,12 +196,16 @@ const AnswerView = ({
                 onClick={() => {
                   setShowAnswerOwnerCard(!showAnswerOwnerCard);
                 }}
-                buttonText={t('showExpert')}
+                buttonText={
+                  showAnswerOwnerCard ? t('hideExpert') : t('showExpert')
+                }
               />
             )}
           </Grid>
         </GridContainer>
-        {!!showAnswerOwnerCard && <AnswerOwner user={answer.user} />}
+        <Collapse in={!!showAnswerOwnerCard}>
+          {!!showAnswerOwnerCard && <AnswerOwner user={answer.user} />}
+        </Collapse>
         <Divider variant='middle' className={classes.divider} />
       </div>
     </Fragment>

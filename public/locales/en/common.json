@@ -214,5 +214,7 @@
   "screening_call": "Screening for Call",
   "screening_project": "Screening for Project",
   "screening_question": "Question",
-  "showExpert": "Show Expert"
+  "showExpert": "Call the Expert",
+  "hideExpert": "Hide Expert Details",
+  "bookAMeeting": "Book a meeting"
 }
