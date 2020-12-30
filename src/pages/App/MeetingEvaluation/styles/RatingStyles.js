@@ -38,9 +38,9 @@ const useStyles = makeStyles(() => ({
     marginTop: 30,
   },
   evaluationComment: {
-    position: 'absolute',
     bottom: 0,
-    width: '80%'
+    width: '80%',
+    marginTop: '10%'
   },
   callEvaluationContainer: {
     margin: 'auto',

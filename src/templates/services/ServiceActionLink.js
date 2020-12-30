@@ -9,13 +9,16 @@ import { getServiceAction } from 'core/serviceStatus';
 import {
   getQuestionDetailsLink,
   getServiceDetailsLink,
+  getCallEvaluationLink,
 } from 'services/navigation';
+import { SERVICE_STATUS } from 'constants/questionStatus';
 
 const ServiceActionLink = ({
   status,
   serviceId,
   questionId,
   questionState,
+  meetingId
 }) => {
   const { t } = useTranslation();
   const actionNeeded = getServiceAction(status, questionState);
@@ -25,11 +28,19 @@ const ServiceActionLink = ({
 
   const hasRelatedQuestion = !!questionId;
 
-  const redirectURL = hasRelatedQuestion
-    ? getQuestionDetailsLink(questionId, serviceId)
-    : getServiceDetailsLink(serviceId);
+  let redirectURL = () => {
+    if (status === SERVICE_STATUS.callFinished) {
+      return getCallEvaluationLink(meetingId);
+    }
+    else if (hasRelatedQuestion) {
+      return getQuestionDetailsLink(questionId, serviceId);
+    }
+    else {
+      return getServiceDetailsLink(serviceId);
+    }
+  };
   return (
-    <LinkText to={redirectURL}>
+    <LinkText to={redirectURL()}>
       <StyledStatusChip
         data-status={status}
         className={'state'}

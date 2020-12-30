@@ -52,8 +52,8 @@ const parseServicesToTableRows = (services, t) => {
         {`#${service.questionReferenceId}`}
       </LinkText>
     ) : (
-      ''
-    ),
+        ''
+      ),
     status: t(
       `serviceStatus:${getServiceStatus(service.state, service.questionState)}`,
     ),
@@ -63,6 +63,7 @@ const parseServicesToTableRows = (services, t) => {
         serviceId={service.id}
         questionId={service.questionId}
         questionState={service.questionState}
+        meetingId={service.meetingId}
       />
     ),
     actionTime: !!service.currentActionTime ? (

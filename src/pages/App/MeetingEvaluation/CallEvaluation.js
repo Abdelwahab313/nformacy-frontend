@@ -10,6 +10,7 @@ import { updateEvaluationComment } from './context/callEvaluationAction';
 import { useLocation, useHistory } from 'react-router';
 import { RoutesPaths } from 'constants/routesPath';
 import { submitEvaluation } from 'apis/callEvaluationAPI';
+import { useSnackBar } from 'context/SnackBarContext';
 
 
 const CallEvaluation = () => {
@@ -19,6 +20,7 @@ const CallEvaluation = () => {
   const history = useHistory();
   const location = useLocation();
   const meetingId = location?.state?.meetingId;
+  const { showSuccessMessage } = useSnackBar();
 
   const setComment = (comment) => {
     updateEvaluationComment(dispatch, comment);
@@ -26,7 +28,12 @@ const CallEvaluation = () => {
 
   const onSubmitEvaluation = () => {
     submitEvaluation(meetingId, ratingEvaluations, comment).then(
-      () => { history.push(RoutesPaths.App.Dashboard); },
+      () => {
+        showSuccessMessage(
+          'Your evaluation submitted successfully',
+          );
+        history.push(RoutesPaths.App.Dashboard);
+      },
     );
   };
 
@@ -110,7 +117,7 @@ const defaultFreelancerCallEvaluation = {
 };
 
 const CallEvaluationPage = () => {
-  const defaultEvaluation = authManager.isClient() ? defaultClientCallEvaluation : defaultFreelancerCallEvaluation
+  const defaultEvaluation = authManager.isClient() ? defaultClientCallEvaluation : defaultFreelancerCallEvaluation;
   return (
     <CallEvaluationProvider initialValue={{ ratingEvaluations: defaultEvaluation }} >
       <CallEvaluation />

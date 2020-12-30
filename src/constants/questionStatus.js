@@ -18,6 +18,8 @@ const SERVICE_STATUS = {
   clientSelection: 'client_selection',
   answersCollected: 'answers_collected',
   callScheduled: 'call_scheduled',
+  callFinished: 'call_finished',
+  
 };
 
 const ANSWER_STATUS = {
@@ -146,6 +148,17 @@ const serviceActions = {
     action: {
       client: 'client_callScheduled_action',
       freelancer: 'client_callScheduled_action',
+    },
+  },
+  [SERVICE_STATUS.callFinished]: {
+    status: {
+      client: 'client_callFinished_status',
+      freelancer: 'client_callFinished_status',
+      admin: 'admin_callFinished_status',
+    },
+    action: {
+      client: 'client_callFinished_action',
+      freelancer: 'client_callFinished_action',
     },
   },
 };
