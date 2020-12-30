@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
     bottom: theme.spacing(2),
     right: theme.spacing(2),
   },
+  topBar: {
+    minHeight: 0,
+  },
 }));
 function ScrollTop(props) {
   const { children, window } = props;
@@ -32,7 +35,9 @@ function ScrollTop(props) {
   });
 
   const handleClick = (event) => {
-    const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
+    const anchor = (event.target.ownerDocument || document).querySelector(
+      '#back-to-top-anchor',
+    );
 
     if (anchor) {
       anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -41,22 +46,25 @@ function ScrollTop(props) {
 
   return (
     <Zoom in={trigger}>
-      <div onClick={handleClick} role="presentation" className={classes.toTopIcon}>
+      <div
+        onClick={handleClick}
+        role='presentation'
+        className={classes.toTopIcon}>
         {children}
       </div>
     </Zoom>
   );
 }
-function AppLayout({ children,  props}) {
+function AppLayout({ children, props }) {
   const classes = useStyles();
   return (
     <Fragment>
       <AppHeader />
-      <Toolbar id="back-to-top-anchor" />
+      <Toolbar className={classes.topBar} id='back-to-top-anchor' />
       <div className={classes.root}>{children}</div>
       <Footer />
       <ScrollTop {...props}>
-        <Fab color="secondary" size="small" aria-label="scroll back to top">
+        <Fab color='secondary' size='small' aria-label='scroll back to top'>
           <KeyboardArrowUpIcon />
         </Fab>
       </ScrollTop>

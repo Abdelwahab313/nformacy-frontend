@@ -14,14 +14,24 @@ import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import DIRECTION from '../../../constants/direction';
 import Notifications from '../admin/notifications';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import LinkText from 'components/typography/LinkText';
+import { Box } from '@material-ui/core';
+import { RoutesPaths } from 'constants/routesPath';
+import authManager from 'services/authManager';
+import SubmitButton from 'components/buttons/SubmitButton';
+import { useHistory } from 'react-router';
+
 
 export default function MainHeader() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { t } = useTranslation();
   const { locale, toggleLocale } = useLocale();
+  const location = useLocation();
+  const { authToken } = authManager.retrieveUserToken();
+  const history = useHistory();
+
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -30,7 +40,7 @@ export default function MainHeader() {
     setAnchorEl(null);
   };
   const ScrollToSection = (sectionId) => {
-    document.getElementById(sectionId).scrollIntoView({behavior: 'smooth'});
+    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
   };
   const handleMobileMenuOpen = () => {};
 
@@ -44,66 +54,90 @@ export default function MainHeader() {
         id={'header'}
         position='static'>
         <Toolbar>
-          <Link href={'/'}>
-            <img
-              src={require('../../../assets/desktop_nformacy_logo.svg')}
-              className={classes.desktopVisible}
-            />
-            <img
-              src={require('../../../assets/mobile_nformacy_logo.svg')}
-              className={classes.mobileVisible}
-            />
-          </Link>
-          <Link href='#' className={classes.menuItemText}>
-            Home
-          </Link>
-          <Link href='#' className={classes.menuItemText}>
-            About
-          </Link>
-          <LinkText onClick={()=>ScrollToSection('our_solution')} className={classes.menuItemText}>
-            Solutions
-          </LinkText>
-          <Link href='#' className={classes.menuItemText}>
-            Consultants
-          </Link>
-          <Link href='#' className={classes.menuItemText}>
-            Knowledge Hub
-          </Link>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+          <Box className={classes.mobileLogoContainer}>
+            <Link href={'/'} className={classes.logoImage}>
+              <img
+                src={require('../../../assets/desktop_nformacy_logo.svg')}
+                className={classes.desktopVisible}
+              />
+              <img
+                src={require('../../../assets/mobile_nformacy_logo.svg')}
+                className={classes.mobileVisible}
+              />
+            </Link>
+          </Box>
+          {location.pathname === RoutesPaths.App.LandingPage && (
+            <Box className={classes.sectionDesktop}>
+              <Link href='#' className={classes.menuItemText}>
+                Home
+              </Link>
+              <Link href='#' className={classes.menuItemText}>
+                About
+              </Link>
+              <LinkText
+                onClick={() => ScrollToSection('our_solution')}
+                className={classes.menuItemText}>
+                Solutions
+              </LinkText>
+              <Link href='#' className={classes.menuItemText}>
+                Consultants
+              </Link>
+              <Link href='#' className={classes.menuItemText}>
+                Knowledge Hub
+              </Link>
+            </Box>
+          )}
+          <Box className={classes.sectionDesktop}>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder='Search…'
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+              />
             </div>
-            <InputBase
-              placeholder='Search…'
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
+          </Box>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label='show 4 new mails' color='inherit'>
-              <StarsIcon />
-            </IconButton>
+            {authToken ? (
+              <Box>
+                <IconButton aria-label='show 4 new mails' color='inherit'>
+                  <StarsIcon />
+                </IconButton>
 
-            <IconButton aria-label='show 17 new notifications' color='inherit'>
-              <Notifications />
-            </IconButton>
+                <IconButton
+                  aria-label='show 17 new notifications'
+                  color='inherit'>
+                  <Notifications />
+                </IconButton>
 
-            <IconButton
-              edge='end'
-              aria-label='account of current user'
-              aria-controls={menuId}
-              aria-haspopup='true'
-              onClick={handleProfileMenuOpen}
-              color='inherit'>
-              <AccountCircle />
-            </IconButton>
+                <IconButton
+                  edge='end'
+                  aria-label='account of current user'
+                  aria-controls={menuId}
+                  aria-haspopup='true'
+                  onClick={handleProfileMenuOpen}
+                  color='inherit'>
+                  <AccountCircle />
+                </IconButton>
+              </Box>
+            ) : (
+              <Box>
+                <SubmitButton
+                  id={'LoginBtn'}
+                  onClick={() => history.push(RoutesPaths.App.Login)}
+                  className={classes.orangeCtaBtn}
+                  buttonText={'login'}
+                />
+              </Box>
+            )}
             <Button
               id={'switchLang'}
-              variant={'contained'}
               color={'primary'}
               className={classes.languageButton}
               onClick={toggleLocale}>

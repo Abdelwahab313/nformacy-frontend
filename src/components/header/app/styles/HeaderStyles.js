@@ -1,5 +1,5 @@
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { black, darkOrange, grey } from 'styles/colors';
+import { black, darkOrange, grey, lightOrange, white } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
   html: {
@@ -96,6 +96,20 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: 'underline',
       textDecorationColor: darkOrange,
     },
+  },
+  mobileLogoContainer: {
+    margin: [0, theme.spacing(4)],
+    [theme.breakpoints.down('md')]: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      width: 27,
+      margin: 'auto',
+    },
+  },
+  orangeCtaBtn: {
+    background: `${lightOrange} !important`,
+    color: `${white} !important`,
   },
 }));
 
