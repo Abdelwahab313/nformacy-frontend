@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, TextField, Button } from '@material-ui/core';
+import { Grid, Button, TextareaAutosize } from '@material-ui/core';
 import CustomTypography from 'components/typography/Typography';
 import Rating from './Rating';
 import { useTranslation } from 'react-i18next';
@@ -31,7 +31,7 @@ const CallEvaluation = () => {
       () => {
         showSuccessMessage(
           'Your evaluation submitted successfully',
-          );
+        );
         history.push(RoutesPaths.App.Dashboard);
       },
     );
@@ -77,13 +77,12 @@ const CallEvaluation = () => {
       <Grid item xs={12} className={classes.evaluationComment}>
         <CustomTypography fontWeight="bold" variant="body1">Comments:</CustomTypography>
         <div className={classes.form} >
-          <TextField
+          <TextareaAutosize
+            rowsMax={5}
+            rowsMin={2}
             className={classes.commentField}
-            variant='outlined'
-            fullWidth
             value={comment}
             onChange={(event) => setComment(event.target.value)}
-            autoFocus
           />
           <div className={classes.submitEvaluationBtnContainer}>
             <Button

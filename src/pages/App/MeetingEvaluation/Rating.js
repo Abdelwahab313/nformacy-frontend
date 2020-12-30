@@ -52,7 +52,7 @@ const Rating = ({ evaluationKey }) => {
                       size={30} />
                   </Box>
                   {!!isRecommendedService && (
-                    <CustomTypography align={'center'}>{ratingStarsValue()}</CustomTypography>
+                    <CustomTypography align={'center'} className={classes.recommendationStyle}>{ratingStarsValue()}</CustomTypography>
                   )}
                 </label>
               </Grid>

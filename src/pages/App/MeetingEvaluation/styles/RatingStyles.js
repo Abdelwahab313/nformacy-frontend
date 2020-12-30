@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     textAlign: 'center',
     width: '50%',
-    margin: '30px 0'
+    margin: '40px 0'
   },
   ratingRadioCheck: {
     display: 'none'
@@ -36,19 +36,25 @@ const useStyles = makeStyles(() => ({
   },
   commentField: {
     marginTop: 30,
+    minWidth: '98%',
+    maxWidth: '100%'
+
   },
   evaluationComment: {
     bottom: 0,
     width: '80%',
-    marginTop: '10%'
+    marginTop: '9%'
   },
   callEvaluationContainer: {
     margin: 'auto',
-    width: '80%'
+    width: '80%',
   },
   submitEvaluationBtnContainer: {
     float: 'right',
     marginTop: '30px'
+  },
+  recommendationStyle: {
+    marginTop: 15
   }
 }));
 
