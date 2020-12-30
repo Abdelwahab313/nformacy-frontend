@@ -11,7 +11,10 @@ const HowWeWorkSection = () => {
       container
       direction='row'
       justify='center'
-      className={classes.landingSectionsContainerPadding}>
+      className={[
+        classes.landingSectionsContainerPadding,
+        classes.desktopVisible,
+      ]}>
       <Grid item xs={10} md={12}>
         <Box textAlign='center'>
           <CustomTypography variant='h4' fontWeight='bold'>
@@ -27,7 +30,7 @@ const HowWeWorkSection = () => {
       <Grid item xs={12} className={classes.stepsContainerMargin}>
         <Grid container direction='row' justify='center'>
           {/* sign_up */}
-          <Grid item xs={4} md={2}>
+          <Grid item md={2}>
             <Box textAlign='center'>
               <img
                 className={classes.howWorkIcon}
@@ -42,7 +45,10 @@ const HowWeWorkSection = () => {
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={[classes.workSubTextPadding, classes.desktopVisible]}>
+                className={[
+                  classes.workSubTextPadding,
+                  classes.desktopVisible,
+                ]}>
                 Fill in the short registration form and get instant access to
                 nformacy network of experts.
               </CustomTypography>
@@ -50,7 +56,7 @@ const HowWeWorkSection = () => {
           </Grid>
           {/* end sign_up */}
           {/* Access Desk Space */}
-          <Grid item xs={4} md={2}>
+          <Grid item md={2}>
             <Box textAlign='center'>
               <img
                 className={classes.howWorkIcon}
@@ -65,38 +71,18 @@ const HowWeWorkSection = () => {
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={[classes.workSubTextPadding, classes.desktopVisible]}>
+                className={[
+                  classes.workSubTextPadding,
+                  classes.desktopVisible,
+                ]}>
                 Access your personal desk space and start receiving business
                 publications in the fields of your interest.
               </CustomTypography>
             </Box>
           </Grid>
           {/* end Access Desk Space */}
-          {/* Ask Questions */}
-          <Grid item xs={4} md={2}>
-            <Box textAlign='center'>
-              <img
-                className={classes.howWorkIcon}
-                src={require('../../../assets/landing/Ask_Questions.svg')}
-              />
-              <CustomTypography
-                variant='h6'
-                fontWeight='bold'
-                className={classes.workMainTextPadding}>
-                Ask Questions
-              </CustomTypography>
-              <CustomTypography
-                variant='body1'
-                fontWeight='light'
-                className={[classes.workSubTextPadding, classes.desktopVisible]}>
-                Ask any business question and start receiving real time
-                answerers from our pool of experts.
-              </CustomTypography>
-            </Box>
-          </Grid>
-          {/* end Ask Questions */}
           {/* Choose your Services */}
-          <Grid item xs={4} md={2}>
+          <Grid item md={2}>
             <Box textAlign='center'>
               <img
                 className={classes.howWorkIcon}
@@ -111,7 +97,10 @@ const HowWeWorkSection = () => {
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={[classes.workSubTextPadding, classes.desktopVisible]}>
+                className={[
+                  classes.workSubTextPadding,
+                  classes.desktopVisible,
+                ]}>
                 Choose your solution and submit your request which will go
                 through a leading screening process to match you with a short
                 list of best fit consultants to choose from your ideal match.
@@ -120,7 +109,7 @@ const HowWeWorkSection = () => {
           </Grid>
           {/* end Choose your Services */}
           {/* Pay */}
-          <Grid item xs={4} md={2}>
+          <Grid item md={2}>
             <Box textAlign='center'>
               <img
                 className={classes.howWorkIcon}
@@ -135,7 +124,10 @@ const HowWeWorkSection = () => {
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={[classes.workSubTextPadding, classes.desktopVisible]}>
+                className={[
+                  classes.workSubTextPadding,
+                  classes.desktopVisible,
+                ]}>
                 Charge your wallet and buy bundles and packages according to
                 your needs and budget.
               </CustomTypography>
@@ -143,7 +135,7 @@ const HowWeWorkSection = () => {
           </Grid>
           {/* end Pay */}
           {/* Manage your Space */}
-          <Grid item xs={4} md={2}>
+          <Grid item md={2}>
             <Box textAlign='center'>
               <img
                 className={classes.howWorkIcon}
@@ -158,7 +150,10 @@ const HowWeWorkSection = () => {
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={[classes.workSubTextPadding, classes.desktopVisible]}>
+                className={[
+                  classes.workSubTextPadding,
+                  classes.desktopVisible,
+                ]}>
                 Access and track your nformacy activities, requests, and
                 assignments. Get all your advisory needs in one view.
               </CustomTypography>

@@ -76,12 +76,36 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
   },
+  MobileWorkMainTextPadding: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(1),
+  },
+  mobileFirstStep: {
+    marginLeft: '-60px',
+  },
+  mobileSecondStep: {
+    marginLeft: '-30px',
+  },
   workSubTextPadding: {
     padding: ['2px', theme.spacing(1)],
     textAlign: 'center',
   },
   howWorkIcon: {
     height: 65,
+  },
+  MobileHowWorkIcon: {
+    height: 30,
+  },
+  mobileStep: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    borderRadius: 30,
+    background: lighterGrey,
+    padding: [theme.spacing(1), theme.spacing(2)],
+    width: 200,
+    marginBottom: theme.spacing(2),
+    textAlign: 'left',
   },
   specialityFieldPadding: {
     paddingTop: theme.spacing(4),
@@ -167,6 +191,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
     [theme.breakpoints.down('md')]: {
       display: 'none',
+    },
+  },
+  mobileHowWorkVisible: {
+    display: 'none',
+    [theme.breakpoints.down('md')]: {
+      display: 'flex',
+      alignItems: 'center',
     },
   },
   headerCommunitySectionOrder: {

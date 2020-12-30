@@ -8,6 +8,7 @@ import useStyles from './styles/LandingPageStyles';
 import OurPromiseSection from './OurPromiseSection';
 import GlobalCommunitySection from './GlobalCommunitySection';
 import AdvisoryBoardSection from './AdvisoryBoardSection';
+import MobileHowWeWorkSection from './MobileHowWeWorkSection';
 
 const LandingPage = () => {
   const classes = useStyles();
@@ -17,6 +18,7 @@ const LandingPage = () => {
       <LandingRollerSection />
       <OurSolutionsSection />
       <HowWeWorkSection />
+      <MobileHowWeWorkSection />
       <AreasOfSpeciality />
       <GlobalCommunitySection />
       <OurPromiseSection />
