@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core';
+import { darkBlue } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
   circleRate: {
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
   commentField: {
     marginTop: 30,
-    minWidth: '98%',
+    minWidth: '100%',
     maxWidth: '100%'
 
   },
@@ -64,6 +65,9 @@ const useStyles = makeStyles((theme) => ({
   centerText: {
     textAlign: 'center'
   },
+  submitEvaluationBtn: {
+    padding: '15px 35px'
+  },
   callEvaluationStarsContainer: {
     [theme.breakpoints.down('sm')]: {
       justifyContent: 'normal',
@@ -71,6 +75,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   ratingDescriptionContainer: {
+    color: darkBlue,
     [theme.breakpoints.down('sm')]: {
       display: 'none'
     },

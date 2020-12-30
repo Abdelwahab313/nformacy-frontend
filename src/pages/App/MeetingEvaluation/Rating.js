@@ -19,7 +19,7 @@ const Rating = ({ evaluationKey }) => {
   };
 
   return (
-    <Grid container justify='center' className= {classes.callEvaluationStarsContainer}>
+    <Grid container justify='center' className={classes.callEvaluationStarsContainer}>
       <Grid item md={4} sm={6} className={classes.evaluationQuestion}>
         <CustomTypography fontWeight="bold" variant="body1">{t(evaluationKey)}</CustomTypography>
       </Grid>

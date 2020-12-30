@@ -41,19 +41,19 @@ const CallEvaluation = () => {
           <Grid item xs={8} className={classes.ratingDescriptionContainer}>
             <Grid container justify='space-evenly'>
               <Grid item xs className={classes.ratingDescription}>
-                <CustomTypography>{t('oneStar')}</CustomTypography>
+                <CustomTypography variant="body1" fontWeight='bold'>{t('oneStar')}</CustomTypography>
               </Grid>
               <Grid item xs className={classes.ratingDescription}>
-                <CustomTypography>{t('twoStars')}</CustomTypography>
+                <CustomTypography variant="body1" fontWeight='bold'>{t('twoStars')}</CustomTypography>
               </Grid>
               <Grid item xs className={classes.ratingDescription}>
-                <CustomTypography>{t('threeStars')}</CustomTypography>
+                <CustomTypography variant="body1" fontWeight='bold'>{t('threeStars')}</CustomTypography>
               </Grid>
               <Grid item xs className={classes.ratingDescription}>
-                <CustomTypography>{t('fourStars')}</CustomTypography>
+                <CustomTypography variant="body1" fontWeight='bold'>{t('fourStars')}</CustomTypography>
               </Grid>
               <Grid item xs className={classes.ratingDescription}>
-                <CustomTypography>{t('fiveStars')}</CustomTypography>
+                <CustomTypography variant="body1" fontWeight='bold'>{t('fiveStars')}</CustomTypography>
               </Grid>
             </Grid>
           </Grid>
