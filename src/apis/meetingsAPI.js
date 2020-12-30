@@ -24,11 +24,11 @@ const scheduleMeetingForCallService = (serviceId, callTime, candidateId) => {
   }).then((response) => camelizeKeys(response));
 };
 
-const scheduleMeetingWithFreelancer = (callTime, candidateId) => {
+const scheduleMeetingWithFreelancer = (callTime, freelancerId) => {
   return axios({
     method: 'post',
     url: `${API_BASE_URL}/meetings`,
-    data: decamelizeKeys({ callTime, candidateId }),
+    data: decamelizeKeys({ callTime, freelancerId }),
   }).then((response) => camelizeKeys(response));
 };
 

@@ -29,7 +29,7 @@ const MeetingDetailsSection = ({ meeting }) => {
           <Box className={'shortlistedConsultants'}>
             <CandidateItem
               bgcolor={lighterPink}
-              candidate={meeting.user}
+              candidate={meeting.freelancer}
               isFocused={true}
               setFocusedCandidate={() => {}}
               onCandidateClick={() => {
