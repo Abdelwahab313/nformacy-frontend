@@ -61,8 +61,9 @@ const parseActivitiesToTableRow = (activities, t) => {
         <ServiceActionLink
           serviceId={activity.serviceId}
           questionId={activity.questionId}
-          status={activity.answerState}
+          status={activity.serviceState}
           questionState={activity.questionState}
+          meetingId={activity.meetingId}
         />
       ),
     time: !!activity?.questionTime ? (

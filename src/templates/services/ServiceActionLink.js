@@ -18,7 +18,7 @@ const ServiceActionLink = ({
   serviceId,
   questionId,
   questionState,
-  meetingId
+  meetingId,
 }) => {
   const { t } = useTranslation();
   const actionNeeded = getServiceAction(status, questionState);
@@ -31,11 +31,9 @@ const ServiceActionLink = ({
   let redirectURL = () => {
     if (status === SERVICE_STATUS.callFinished) {
       return getCallEvaluationLink(meetingId);
-    }
-    else if (hasRelatedQuestion) {
+    } else if (hasRelatedQuestion) {
       return getQuestionDetailsLink(questionId, serviceId);
-    }
-    else {
+    } else {
       return getServiceDetailsLink(serviceId);
     }
   };

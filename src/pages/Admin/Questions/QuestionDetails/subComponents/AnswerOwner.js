@@ -4,14 +4,32 @@ import CandidateItem from 'pages/App/ServiceRequests/details/subComponents/Candi
 import { lighterPink } from 'styles/colors';
 import MeetingTimeSelectorCalendarDialog from 'components/calendarDialogs/MeetingTime/MeetingTimeSelectorCalendarDialog';
 import { useTranslation } from 'react-i18next';
+import { useSnackBar } from 'context/SnackBarContext';
+import { getUserName } from 'core/user';
+import { RoutesPaths } from 'constants/routesPath';
+import { useHistory } from 'react-router';
+import { scheduleMeetingWithFreelancer } from 'apis/meetingsAPI';
 
 const AnswerOwner = ({ user }) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const { t } = useTranslation();
+  const { showSuccessMessage } = useSnackBar();
+  const history = useHistory();
 
   const closeCalendar = () => {
     setShowCalendar(false);
   };
+
+  const onSubmitDate = (selectedTime) => {
+    scheduleMeetingWithFreelancer(selectedTime, user.id).then(() => {
+      showSuccessMessage(
+        `Meeting has been scheduled successfully with ${getUserName(user)}`,
+      );
+      history.push(RoutesPaths.App.Dashboard);
+    });
+    closeCalendar();
+  };
+
   if (!user) {
     return '';
   }
@@ -36,7 +54,7 @@ const AnswerOwner = ({ user }) => {
       <MeetingTimeSelectorCalendarDialog
         open={showCalendar}
         onClose={closeCalendar}
-        serviceId={1}
+        onSubmitDate={onSubmitDate}
         candidate={user}
       />
     </Fragment>

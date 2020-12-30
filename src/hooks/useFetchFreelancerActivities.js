@@ -50,6 +50,7 @@ const formatMeetingsToActivity = (meetings) => {
     activityType: 'meeting',
     serviceId: meeting.serviceId,
     questionId: meeting.service.question.id,
+    meetingId: meeting.id,
     questionRef: meeting.service.question.referenceNumber,
     answerRef: null,
     answerState: null,

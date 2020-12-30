@@ -11,20 +11,16 @@ import {
 } from '@material-ui/core';
 import CalendarView from '../../calendar/CalendarView';
 import MeetingTimePicker from './MeetingTimePicker';
-import { formatDayAsKey } from '../../../services/dateTimeParser';
+import { formatDayAsKey } from 'services/dateTimeParser';
 import Transition from '../../animations/Transition';
 import { makeStyles } from '@material-ui/core/styles';
 import SubmitButton from '../../buttons/SubmitButton';
-import { scheduleMeeting } from 'apis/meetingsAPI';
-import { useSnackBar } from 'context/SnackBarContext';
-import { getUserName, parseFreeDates } from 'core/user';
-import { RoutesPaths } from 'constants/routesPath';
-import { useHistory } from 'react-router';
+import { parseFreeDates } from 'core/user';
 
 const MeetingTimeSelectorCalendarDialog = ({
   open,
   onClose,
-  serviceId,
+  onSubmitDate,
   candidate,
 }) => {
   const classes = useStyles();
@@ -33,9 +29,6 @@ const MeetingTimeSelectorCalendarDialog = ({
     selectedTime: '',
     isUpdatedTime: false,
   });
-
-  const { showSuccessMessage } = useSnackBar();
-  const history = useHistory();
 
   const selectedDayTimeSlots =
     !!localState.selectedDay &&
@@ -57,20 +50,6 @@ const MeetingTimeSelectorCalendarDialog = ({
         selectedDay: formatDayAsKey(selectedDay),
       }));
     }
-  };
-
-  const onSubmitDate = () => {
-    scheduleMeeting(serviceId, localState.selectedTime, candidate.id).then(
-      () => {
-        showSuccessMessage(
-          `Meeting has been scheduled successfully with ${getUserName(
-            candidate,
-          )}`,
-          );
-          history.push(RoutesPaths.App.Dashboard);
-      },
-    );
-    onClose();
   };
 
   const selectedDayFormatted =
@@ -142,7 +121,7 @@ const MeetingTimeSelectorCalendarDialog = ({
               <SubmitButton
                 id={'confirmBtnCalendar'}
                 disabled={!localState.isUpdatedTime}
-                onClick={() => onSubmitDate()}
+                onClick={() => onSubmitDate(localState.selectedTime)}
                 variant='contained'
                 size='large'
                 className={classes.margin}

@@ -7,15 +7,35 @@ import Card from 'components/card/Card';
 import CardHeader from 'components/card/CardHeader';
 import CandidateItem from './CandidateItem';
 import { useTranslation } from 'react-i18next';
+import { scheduleMeetingForCallService } from 'apis/meetingsAPI';
+import { useSnackBar } from 'context/SnackBarContext';
+import { useHistory } from 'react-router';
+import { RoutesPaths } from 'constants/routesPath';
+import { getUserName } from 'core/user';
 
 const ShortlistCandidate = ({ candidates, serviceId }) => {
   const classes = useStyles();
   const [focusedCandidate, setFocusedCandidate] = useState('');
   const [selectedCandidate, setSelectedCandidate] = useState('');
+  const { t } = useTranslation();
+  const { showSuccessMessage } = useSnackBar();
+  const history = useHistory();
+
   const closeCalendar = () => {
     setSelectedCandidate('');
   };
-  const { t } = useTranslation();
+
+  const onSubmitDate = (selectedTime) => {
+    scheduleMeetingForCallService(serviceId, selectedTime, selectedCandidate.id).then(() => {
+      showSuccessMessage(
+        `Meeting has been scheduled successfully with ${getUserName(
+          selectedCandidate,
+        )}`,
+      );
+      history.push(RoutesPaths.App.Dashboard);
+    });
+    closeCalendar();
+  };
 
   const shortlistedContainerColors = [lightOrange, lightTurquoise, lighterPink];
   return (
@@ -49,7 +69,7 @@ const ShortlistCandidate = ({ candidates, serviceId }) => {
           <MeetingTimeSelectorCalendarDialog
             open={!!selectedCandidate}
             onClose={closeCalendar}
-            serviceId={serviceId}
+            onSubmitDate={onSubmitDate}
             candidate={selectedCandidate}
           />
         )}

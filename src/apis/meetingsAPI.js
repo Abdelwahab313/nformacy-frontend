@@ -16,7 +16,7 @@ const fetchMeetingDetails = (meetingId) => {
   });
 };
 
-const scheduleMeeting = (serviceId, callTime, candidateId) => {
+const scheduleMeetingForCallService = (serviceId, callTime, candidateId) => {
   return axios({
     method: 'post',
     url: `${API_BASE_URL}/services/${serviceId}/book_call`,
@@ -24,4 +24,17 @@ const scheduleMeeting = (serviceId, callTime, candidateId) => {
   }).then((response) => camelizeKeys(response));
 };
 
-export { fetchAllMeetings, fetchMeetingDetails, scheduleMeeting };
+const scheduleMeetingWithFreelancer = (callTime, candidateId) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/meetings`,
+    data: decamelizeKeys({ callTime, candidateId }),
+  }).then((response) => camelizeKeys(response));
+};
+
+export {
+  fetchAllMeetings,
+  fetchMeetingDetails,
+  scheduleMeetingForCallService,
+  scheduleMeetingWithFreelancer,
+};
