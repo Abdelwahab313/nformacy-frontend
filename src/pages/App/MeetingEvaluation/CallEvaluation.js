@@ -44,7 +44,7 @@ const CallEvaluation = () => {
 
           <Grid item xs={4}></Grid>
 
-          <Grid item xs={8}>
+          <Grid item xs={8} className={classes.ratingDescriptionContainer}>
             <Grid container justify="space-evenly">
               <Grid item xs className={classes.ratingDescription}>
                 <CustomTypography>{t('oneStar')}</CustomTypography>

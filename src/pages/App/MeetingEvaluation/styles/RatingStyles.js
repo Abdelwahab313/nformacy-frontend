@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   circleRate: {
     display: 'inline-flex',
     alignItems: 'center',
@@ -32,7 +32,11 @@ const useStyles = makeStyles(() => ({
   starsContainer: {
     justifyContent: 'center',
     display: 'flex',
-    marginBottom: 20
+    marginBottom: 20,
+    [theme.breakpoints.down('sm')]: {
+      margin: 7,
+      textAlign: 'center',
+    }
   },
   commentField: {
     marginTop: 30,
@@ -43,7 +47,8 @@ const useStyles = makeStyles(() => ({
   evaluationComment: {
     bottom: 0,
     width: '80%',
-    marginTop: '9%'
+    marginTop: '9%',
+    marginBottom: 30,
   },
   callEvaluationContainer: {
     margin: 'auto',
@@ -55,6 +60,20 @@ const useStyles = makeStyles(() => ({
   },
   recommendationStyle: {
     marginTop: 15
+  },
+  centerText: {
+    textAlign: 'center'
+  },
+  callEvaluationStarsContainer: {
+    [theme.breakpoints.down('sm')]: {
+      justifyContent: 'normal',
+      marginTop: 30
+    }
+  },
+  ratingDescriptionContainer: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    },
   }
 }));
 

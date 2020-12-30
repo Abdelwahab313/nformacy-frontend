@@ -3,7 +3,6 @@ import { Grid, Box } from '@material-ui/core';
 import useStyles from './styles/RatingStyles';
 import { FaStar } from 'react-icons/fa';
 import CustomTypography from 'components/typography/Typography';
-// import { useCallEvaluationContext } from './context';
 import { useTranslation } from 'react-i18next';
 import { useCallEvaluationContext } from './context';
 import { updateEvaluationForm } from './context/callEvaluationAction';
@@ -20,12 +19,12 @@ const Rating = ({ evaluationKey }) => {
   };
 
   return (
-    <Grid container justify='center'>
-      <Grid item md={4} className={classes.evaluationQuestion}>
+    <Grid container justify='center' className= {classes.callEvaluationStarsContainer}>
+      <Grid item md={4} sm={6} className={classes.evaluationQuestion}>
         <CustomTypography fontWeight="bold" variant="body1">{t(evaluationKey)}</CustomTypography>
       </Grid>
 
-      <Grid item md={8}>
+      <Grid item md={8} sm={6}>
         <Grid container justify="space-evenly" className={classes.starRatingContainer}>
           {[...Array(5)].map((star, i) => {
             const ratingValue = i + 1;
@@ -38,7 +37,7 @@ const Rating = ({ evaluationKey }) => {
               return null;
             };
             return (
-              <Grid item xs className={classes.starsContainer}>
+              <Grid item xs className={evaluationKey === 'serviceRecomendation' ? classes.centerText : classes.starsContainer}>
                 <label align={'center'}>
                   <input type="radio"
                     name="rating"
