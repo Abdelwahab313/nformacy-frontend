@@ -5,6 +5,7 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 
 import AppHeader from 'components/header/app/Header';
 import Footer from 'components/footer/Footer';
+import { lightOrange, white } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
   },
   topBar: {
     minHeight: 0,
+  },
+  btnScroll:{
+    background: lightOrange,
+    color: white,
   },
 }));
 function ScrollTop(props) {
@@ -64,7 +69,7 @@ function AppLayout({ children, props }) {
       <div className={classes.root}>{children}</div>
       <Footer />
       <ScrollTop {...props}>
-        <Fab color='secondary' size='small' aria-label='scroll back to top'>
+        <Fab className={classes.btnScroll} color='secondary' size='small' aria-label='scroll back to top'>
           <KeyboardArrowUpIcon />
         </Fab>
       </ScrollTop>
