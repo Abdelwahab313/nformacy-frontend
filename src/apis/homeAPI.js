@@ -8,3 +8,10 @@ export const fetchFreelancerActivities = () => {
     url: `${API_BASE_URL}/home/freelancer_dashboard`,
   }).then((response) => camelizeKeys(response));
 };
+
+export const fetchClientActivities = () => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/home/client_dashboard`,
+  }).then((response) => camelizeKeys(response));
+};

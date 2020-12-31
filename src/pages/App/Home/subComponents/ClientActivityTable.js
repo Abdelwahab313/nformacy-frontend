@@ -8,13 +8,12 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import useFetchData from 'hooks/useFetchData';
-import { fetchClientServices } from 'apis/servicesAPI';
 import { useTranslation } from 'react-i18next';
 import HomePageCard from './HomePageCard';
 import { RoutesPaths } from 'constants/routesPath';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import parseServicesToTableRows from 'templates/services/parseServicesToTableRows';
+import useFetchClientActivities from 'hooks/useFetchClientActivities';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -41,9 +40,7 @@ const StyledTableRow = withStyles((theme) => ({
 const ClientActivityTable = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const { fetchedData: services, isLoading } = useFetchData(
-    fetchClientServices,
-  );
+  const { activities: services, isLoading } = useFetchClientActivities()
   const servicesRows = parseServicesToTableRows(services, t);
   if (isLoading) {
     return <LoadingCircle />;

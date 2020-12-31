@@ -15,6 +15,7 @@ import useFetchData from 'hooks/useFetchData';
 import { fetchServiceDetails } from 'apis/servicesAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
+import { getUserName } from 'core/user';
 
 const CallEvaluation = () => {
   const { t } = useTranslation();
@@ -36,13 +37,15 @@ const CallEvaluation = () => {
   if (isLoading) {
     return <LoadingCircle />;
   }
-  const meetingDate = formattedDateTimeNoSeconds(new Date(service.meeting.callTime));
-  const freelancerCallEvaluation = service.meeting.freelancer;
-  const clientCallEvaluation = service.meeting.client;
-  const freelancerName = freelancerCallEvaluation.firstName + ' ' + freelancerCallEvaluation.lastName;
-  const clientName = clientCallEvaluation.firstName + ' ' + clientCallEvaluation.lastName;
-
-  const onSubmitEvaluation = () => {
+  const meetingDate = formattedDateTimeNoSeconds(
+    new Date(service.meeting.callTime),
+  );
+ 
+  const userName = authManager.isClient()
+    ? getUserName(service.meeting.freelancer)
+    : getUserName(service.meeting.client);
+ 
+    const onSubmitEvaluation = () => {
     submitEvaluation(meetingId, ratingEvaluations, comment).then(() => {
       showSuccessMessage('Your evaluation submitted successfully');
       history.push(RoutesPaths.App.Dashboard);
@@ -51,11 +54,13 @@ const CallEvaluation = () => {
 
   return (
     <Grid container className={classes.callEvaluationContainer}>
-
       <Grid item={12}>
-        <CustomTypography className={classes.callEvaluationHeader} fontWeight='bold' variant="h5">
-          How did your call on {' '} {meetingDate} with {' '}
-          {authManager.isClient() ? freelancerName : clientName} go?
+        <CustomTypography
+          className={classes.callEvaluationHeader}
+          fontWeight='bold'
+          variant='h5'>
+          How did your call on {meetingDate} with{' '}
+          {userName} go?
         </CustomTypography>
       </Grid>
 
@@ -66,19 +71,29 @@ const CallEvaluation = () => {
           <Grid item xs={8} className={classes.ratingDescriptionContainer}>
             <Grid container justify='space-evenly'>
               <Grid item xs className={classes.ratingDescription}>
-                <CustomTypography variant="body1" fontWeight='bold'>{t('oneStar')}</CustomTypography>
+                <CustomTypography variant='body1' fontWeight='bold'>
+                  {t('oneStar')}
+                </CustomTypography>
               </Grid>
               <Grid item xs className={classes.ratingDescription}>
-                <CustomTypography variant="body1" fontWeight='bold'>{t('twoStars')}</CustomTypography>
+                <CustomTypography variant='body1' fontWeight='bold'>
+                  {t('twoStars')}
+                </CustomTypography>
               </Grid>
               <Grid item xs className={classes.ratingDescription}>
-                <CustomTypography variant="body1" fontWeight='bold'>{t('threeStars')}</CustomTypography>
+                <CustomTypography variant='body1' fontWeight='bold'>
+                  {t('threeStars')}
+                </CustomTypography>
               </Grid>
               <Grid item xs className={classes.ratingDescription}>
-                <CustomTypography variant="body1" fontWeight='bold'>{t('fourStars')}</CustomTypography>
+                <CustomTypography variant='body1' fontWeight='bold'>
+                  {t('fourStars')}
+                </CustomTypography>
               </Grid>
               <Grid item xs className={classes.ratingDescription}>
-                <CustomTypography variant="body1" fontWeight='bold'>{t('fiveStars')}</CustomTypography>
+                <CustomTypography variant='body1' fontWeight='bold'>
+                  {t('fiveStars')}
+                </CustomTypography>
               </Grid>
             </Grid>
           </Grid>

@@ -1,5 +1,8 @@
 import React from 'react';
-import { getQuestionDetailsLink, getServiceDetailsLink } from 'services/navigation';
+import {
+  getQuestionDetailsLink,
+  getServiceDetailsLink,
+} from 'services/navigation';
 import LinkText from 'components/typography/LinkText';
 import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
 import FieldsChips from 'components/chips/FieldsChips';
@@ -13,15 +16,18 @@ import ByTimeField from 'pages/Admin/Questions/list/subComponents/ByTimeField';
 
 const parseServicesToTableRows = (services, t) => {
   return services?.map((service) => ({
-    id: service.id,
+    serviceId: service.serviceId,
     serviceRef: (
       <ServiceRefIdLink
-        serviceId={service.id}
-        referenceId={service.referenceNumber}
+        serviceId={service.serviceId}
+        referenceId={service.serviceRef}
       />
     ),
     clientId: service.userId,
-    requestType: t(service.assignmentType),
+    requestType:
+      service.activityType === 'meeting'
+        ? t('call')
+        : t(`screening_${service.assignmentType}`),
     createdAt: (
       <CustomTypography variant='body2' gutterBottom>
         {formattedDateTimeNoSeconds(new Date(service.createdAt))}
@@ -45,22 +51,27 @@ const parseServicesToTableRows = (services, t) => {
         {service.answersCount}
       </Typography>
     ),
-    questionRef: !!service.questionReferenceId ? (
+    questionRef: !!service.questionRef ? (
       <LinkText
-        data-reference={service.referenceNumber}
-        to={getQuestionDetailsLink(service.questionId, service.id)}>
-        {`#${service.questionReferenceId}`}
+        data-reference={service.serviceRef}
+        to={getQuestionDetailsLink(service.questionId, service.serviceId)}>
+        {`#${service.questionRef}`}
       </LinkText>
     ) : (
-        ''
-      ),
-    status: t(
-      `serviceStatus:${getServiceStatus(service.state, service.questionState)}`,
+      ''
     ),
+    status: !!service.serviceState
+      ? t(
+          `serviceStatus:${getServiceStatus(
+            service.serviceState,
+            service.questionState,
+          )}`,
+        )
+      : '',
     action: (
       <ServiceActionLink
-        status={service.state}
-        serviceId={service.id}
+        status={service.serviceState}
+        serviceId={service.serviceId}
         questionId={service.questionId}
         questionState={service.questionState}
         meetingId={service.meetingId}
@@ -69,7 +80,7 @@ const parseServicesToTableRows = (services, t) => {
     actionTime: !!service.currentActionTime ? (
       <ByTimeField
         currentActionTime={service?.currentActionTime}
-        referenceId={service.id}
+        referenceId={service.serviceId}
         questionId={service.questionId}
       />
     ) : null,
@@ -78,13 +89,16 @@ const parseServicesToTableRows = (services, t) => {
         remainingTime={service.currentActionTime}
         totalActionHours={10}
         className={'alarm'}
-        data-reference={service.id}
+        data-reference={service.serviceId}
       />
     ),
   }));
 };
 
 export const ServiceRefIdLink = ({ serviceId, referenceId }) => {
+  if (!referenceId) {
+    return '';
+  }
   return (
     <LinkText data-reference={serviceId} to={getServiceDetailsLink(serviceId)}>
       <TextCroppedWithTooltip text={`#${referenceId}`} />

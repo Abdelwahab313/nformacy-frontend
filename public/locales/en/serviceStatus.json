@@ -7,7 +7,7 @@
   "client_returned_status": "Review and Send",
   "client_questionStarted_status": "In Progress",
   "client_answersCollected_status": "Screening Process",
-  "client_evaluationClosed_status": "Evaluation Closed",
+  "client_evaluationClosed_status": "Evaluation Submitted",
   "admin_pending_status": "Request Verification",
   "admin_returned_status": "Client Review",
   "admin_pending_action": "Verify Request",
