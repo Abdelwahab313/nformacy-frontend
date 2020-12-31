@@ -18,11 +18,18 @@ import FreelancersActivitiesPage from 'pages/App/FreelancersAnswers/list';
 import CallEvaluationPage from 'pages/App/MeetingEvaluation/CallEvaluation';
 import { RoutesPaths } from 'constants/routesPath';
 import NotFoundPage from 'pages/NotFoundPage';
+import ContactUsPage from 'pages/App/ContactUs/ContactUsPage';
 
 const appRoutes = [
   {
     path: RoutesPaths.App.LandingPage,
     Component: LandingPage,
+    includeLayout: true,
+    isPublic: true,
+  },
+  {
+    path: RoutesPaths.App.ContactUs,
+    Component: ContactUsPage,
     includeLayout: true,
     isPublic: true,
   },

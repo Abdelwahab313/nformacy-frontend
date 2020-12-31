@@ -22,6 +22,7 @@ export const RoutesPaths = {
     FreelancerSuccess: '/user/success',
     SubmitAnswerNote: '/answer/success',
     LandingPage: '/',
+    ContactUs: '/contactUs',
     Dashboard: '/dashboard',
     Questions: '/questions',
     AnswerQuestion: '/question/answer',

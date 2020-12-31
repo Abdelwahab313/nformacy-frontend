@@ -22,7 +22,6 @@ import authManager from 'services/authManager';
 import SubmitButton from 'components/buttons/SubmitButton';
 import { useHistory } from 'react-router';
 
-
 export default function MainHeader() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -31,8 +30,6 @@ export default function MainHeader() {
   const location = useLocation();
   const { authToken } = authManager.retrieveUserToken();
   const history = useHistory();
-
-
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -66,7 +63,8 @@ export default function MainHeader() {
               />
             </Link>
           </Box>
-          {location.pathname === RoutesPaths.App.LandingPage && (
+          {(location.pathname === RoutesPaths.App.LandingPage ||
+            location.pathname === RoutesPaths.App.ContactUs) && (
             <Box className={classes.sectionDesktop}>
               <Link href='#' className={classes.menuItemText}>
                 Home
