@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { fetchFreelancerActivities } from 'apis/homeAPI';
 import useFetchData from './useFetchData';
+import { SERVICE_STATUS } from 'constants/questionStatus';
 
 const useFetchFreelancerActivities = () => {
   const { fetchedData, isLoading } = useFetchData(fetchFreelancerActivities);
@@ -55,7 +56,7 @@ const formatMeetingsToActivity = (meetings) => {
     answerRef: null,
     answerState: null,
     questionState: meeting.service.question.state,
-    serviceState: meeting.service.state,
+    serviceState: checkStatusForEvaluation(meeting.service.state, meeting.freelancerEvaluationId),
     serviceRef: meeting.service?.referenceNumber,
     questionTime: meeting.service.question.currentActionTime,
     assignmentType: meeting.service.assignmentType,
@@ -65,4 +66,12 @@ const formatMeetingsToActivity = (meetings) => {
   }));
 };
 
+const checkStatusForEvaluation = (state, evaluationId) => {
+  if (state === SERVICE_STATUS.callFinished && !!evaluationId) {
+    return SERVICE_STATUS.closed;
+  }
+  else {
+    return state;
+  }
+};
 export default useFetchFreelancerActivities;

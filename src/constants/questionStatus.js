@@ -19,7 +19,7 @@ const SERVICE_STATUS = {
   answersCollected: 'answers_collected',
   callScheduled: 'call_scheduled',
   callFinished: 'call_finished',
-  
+  closed: 'closed',
 };
 
 const ANSWER_STATUS = {
@@ -160,6 +160,14 @@ const serviceActions = {
       client: 'client_callFinished_action',
       freelancer: 'client_callFinished_action',
     },
+  },
+  [SERVICE_STATUS.closed]: {
+    status: {
+      client: 'client_evaluationClosed_status',
+      freelancer: 'client_evaluationClosed_status',
+      admin: 'admin_evaluationClosed_status',
+    },
+    action: {},
   },
 };
 

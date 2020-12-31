@@ -22,9 +22,9 @@ const AnswerQuestion = () => {
   if (isLoading) {
     return <LoadingCircle />;
   }
-  const answer = questionDetails?.answers[0]
-  const answerStatus = answer?.state
-  const isEditableanswer = !answerStatus || answerStatus === ANSWER_STATUS.draft
+  const answer = questionDetails?.answers[0];
+  const answerStatus = answer?.state;
+  const isEditableanswer = !answerStatus || answerStatus === ANSWER_STATUS.draft;
   return (
     <Grid
       container
