@@ -30,7 +30,7 @@ const ServiceActionLink = ({
 
   let redirectURL = () => {
     if (status === SERVICE_STATUS.callFinished) {
-      return getCallEvaluationLink(meetingId);
+      return getCallEvaluationLink(meetingId, serviceId);
     } else if (hasRelatedQuestion) {
       return getQuestionDetailsLink(questionId, serviceId);
     } else {

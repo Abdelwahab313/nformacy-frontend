@@ -11,6 +11,10 @@ import { useLocation, useHistory } from 'react-router';
 import { RoutesPaths } from 'constants/routesPath';
 import { submitEvaluation } from 'apis/callEvaluationAPI';
 import { useSnackBar } from 'context/SnackBarContext';
+import useFetchData from 'hooks/useFetchData';
+import { fetchServiceDetails } from 'apis/servicesAPI';
+import LoadingCircle from 'components/progress/LoadingCircle';
+import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 
 const CallEvaluation = () => {
   const { t } = useTranslation();
@@ -19,11 +23,24 @@ const CallEvaluation = () => {
   const history = useHistory();
   const location = useLocation();
   const meetingId = location?.state?.meetingId;
+  const serviceId = location?.state?.serviceId;
   const { showSuccessMessage } = useSnackBar();
 
   const setComment = (comment) => {
     updateEvaluationComment(dispatch, comment);
   };
+  const { fetchedData: service, isLoading } = useFetchData(() =>
+    fetchServiceDetails(serviceId),
+  );
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+  const meetingDate = formattedDateTimeNoSeconds(new Date(service.meeting.callTime));
+  const freelancerCallEvaluation = service.meeting.freelancer;
+  const clientCallEvaluation = service.meeting.client;
+  const freelancerName = freelancerCallEvaluation.firstName + ' ' + freelancerCallEvaluation.lastName;
+  const clientName = clientCallEvaluation.firstName + ' ' + clientCallEvaluation.lastName;
 
   const onSubmitEvaluation = () => {
     submitEvaluation(meetingId, ratingEvaluations, comment).then(() => {
@@ -34,6 +51,14 @@ const CallEvaluation = () => {
 
   return (
     <Grid container className={classes.callEvaluationContainer}>
+
+      <Grid item={12}>
+        <CustomTypography className={classes.callEvaluationHeader} fontWeight='bold' variant="h5">
+          How did your call on {' '} {meetingDate} with {' '}
+          {authManager.isClient() ? freelancerName : clientName} go?
+        </CustomTypography>
+      </Grid>
+
       <Grid item xs={12} alignItems={'center'} justifyContent={'center'}>
         <Grid container>
           <Grid item xs={4}></Grid>

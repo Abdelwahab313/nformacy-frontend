@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import { darkBlue } from 'styles/colors';
+import { darkBlue, darkOrange } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
   circleRate: {
@@ -79,6 +79,10 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       display: 'none'
     },
+  },
+  callEvaluationHeader: {
+    color: darkOrange,
+    marginTop: 40
   }
 }));
 

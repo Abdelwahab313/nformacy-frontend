@@ -60,11 +60,12 @@ export const getAnswerQuestionLinkForAdmin = (questionId) => {
   };
 };
 
-export const getCallEvaluationLink = (meetingId) => {
+export const getCallEvaluationLink = (meetingId, serviceId) => {
   return {
     pathname: RoutesPaths.App.CallEvaluation,
     state: {
       meetingId: meetingId,
+      serviceId: serviceId
     },
   };
 };
