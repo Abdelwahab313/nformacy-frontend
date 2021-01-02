@@ -38,7 +38,6 @@ const TimeTableCell = React.memo(
     const classes = useStyles({ name: 'Cell' });
     const isSelectedDay = !!selectedDay && isSameDate(startDate, selectedDay);
 
-
     const isAvailableDay =
       formatDayAsKey(startDate) in parseFreeDates(availableDates);
 
@@ -122,14 +121,14 @@ const CustomMonthView = ({
 }) => {
   useEffect(() => {
     // remove invalid other month row
-    document.getElementById('invalidRow').parentElement.remove();
+    return document.getElementById('invalidRow')?.parentElement.remove();
   }, []);
   return (
     <MonthView
       timeTableCellComponent={(props) => (
         <TimeTableCell
           {...props}
-          availableDates={canBookDate ?  availableDates : [] }
+          availableDates={canBookDate ? availableDates : []}
           selectedDay={selectedDay}
           canBookDate={canBookDate}
           onDayClick={onDayClick}
