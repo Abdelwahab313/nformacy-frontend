@@ -37,9 +37,10 @@ const ServiceDetails = () => {
                 serviceId={serviceDetails.id}
               />
             )}
-
-          {serviceDetails.state === SERVICE_STATUS.callScheduled &&
-            serviceDetails.candidates?.length >= 1 && (
+          
+          {(serviceDetails.state === SERVICE_STATUS.callScheduled || serviceDetails.state === SERVICE_STATUS.callFinished) &&
+            serviceDetails.candidates?.length >= 0 && 
+            (
               <MeetingDetailsSection meeting={serviceDetails?.meeting} />
             )}
           {serviceDetails.assignmentType === 'question' &&

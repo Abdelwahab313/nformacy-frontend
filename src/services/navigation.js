@@ -21,6 +21,16 @@ export const getServiceDetailsLink = (serviceId) => {
   return {
     pathname: authManager.isAdmin()
       ? RoutesPaths.Admin.ServiceDetails
+      : RoutesPaths.App.ServiceDetails,
+    state: {
+      serviceId: serviceId,
+    },
+  };
+};
+export const getEditServiceDetailsLink = (serviceId) => {
+  return {
+    pathname: authManager.isAdmin()
+      ? RoutesPaths.Admin.ServiceDetails
       : RoutesPaths.App.EditServiceRequest,
     state: {
       service: {

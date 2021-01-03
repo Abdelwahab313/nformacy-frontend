@@ -2,6 +2,7 @@ import React from 'react';
 import {
   getQuestionDetailsLink,
   getServiceDetailsLink,
+  getEditServiceDetailsLink,
 } from 'services/navigation';
 import LinkText from 'components/typography/LinkText';
 import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
@@ -13,6 +14,10 @@ import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTim
 import CustomTypography from 'components/typography/Typography';
 import { Typography } from '@material-ui/core';
 import ByTimeField from 'pages/Admin/Questions/list/subComponents/ByTimeField';
+import { fetchServiceDetails } from 'apis/servicesAPI';
+import useFetchData from 'hooks/useFetchData';
+import { SERVICE_STATUS } from 'constants/questionStatus';
+import LoadingCircle from 'components/progress/LoadingCircle';
 
 const parseServicesToTableRows = (services, t) => {
   return services?.map((service) => ({
@@ -58,15 +63,15 @@ const parseServicesToTableRows = (services, t) => {
         {`#${service.questionRef}`}
       </LinkText>
     ) : (
-      ''
-    ),
+        ''
+      ),
     status: !!service.serviceState
       ? t(
-          `serviceStatus:${getServiceStatus(
-            service.serviceState,
-            service.questionState,
-          )}`,
-        )
+        `serviceStatus:${getServiceStatus(
+          service.serviceState,
+          service.questionState,
+        )}`,
+      )
       : '',
     action: (
       <ServiceActionLink
@@ -96,11 +101,28 @@ const parseServicesToTableRows = (services, t) => {
 };
 
 export const ServiceRefIdLink = ({ serviceId, referenceId }) => {
+
+  const { fetchedData: serviceDetails, isLoading } = useFetchData(() =>
+    fetchServiceDetails(serviceId),
+  );
+
+  let redirectURL = () => {
+    if (serviceDetails.state === SERVICE_STATUS.callFinished) {
+      return getServiceDetailsLink(serviceId);
+    } else {
+      return getEditServiceDetailsLink(serviceId);
+    }
+  };
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+
   if (!referenceId) {
     return '';
   }
   return (
-    <LinkText data-reference={serviceId} to={getServiceDetailsLink(serviceId)}>
+    <LinkText data-reference={serviceId} to={redirectURL()}>
       <TextCroppedWithTooltip text={`#${referenceId}`} />
     </LinkText>
   );
