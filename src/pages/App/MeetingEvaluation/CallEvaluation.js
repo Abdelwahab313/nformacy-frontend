@@ -16,6 +16,7 @@ import { fetchServiceDetails } from 'apis/servicesAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 import { getUserName } from 'core/user';
+import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 
 const CallEvaluation = () => {
   const { t } = useTranslation();
@@ -40,12 +41,12 @@ const CallEvaluation = () => {
   const meetingDate = formattedDateTimeNoSeconds(
     new Date(service.meeting.callTime),
   );
- 
+
   const userName = authManager.isClient()
     ? getUserName(service.meeting.freelancer)
     : getUserName(service.meeting.client);
- 
-    const onSubmitEvaluation = () => {
+
+  const onSubmitEvaluation = () => {
     submitEvaluation(meetingId, ratingEvaluations, comment).then(() => {
       showSuccessMessage('Your evaluation submitted successfully');
       history.push(RoutesPaths.App.Dashboard);
@@ -54,6 +55,9 @@ const CallEvaluation = () => {
 
   return (
     <Grid container className={classes.callEvaluationContainer}>
+
+      <BreadcrumbsCustomSeparator pageName={t('callEvaluation')} />
+
       <Grid item={12}>
         <CustomTypography
           className={classes.callEvaluationHeader}
