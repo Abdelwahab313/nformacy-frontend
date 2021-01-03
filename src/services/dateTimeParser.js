@@ -70,6 +70,9 @@ export const formattedDateMonthAndDay = (date, locale = LOCALES.en) => {
     month: 'short',
     day: '2-digit',
   });
+  if (isNaN(date.getTime())) {
+    return '';
+  }
   return dateTimeFormat.format(date);
 };
 
