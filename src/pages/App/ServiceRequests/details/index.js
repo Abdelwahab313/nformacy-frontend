@@ -30,6 +30,12 @@ const ServiceDetails = () => {
         <Grid item xs={10} sm={10}>
           <BreadcrumbsCustomSeparator pageName={t('serviceDetails')} />
           <ServiceView serviceDetails={serviceDetails} />
+          {!!serviceDetails?.meeting && (
+            <MeetingDetailsSection
+              serviceState={serviceDetails?.state}
+              meeting={serviceDetails?.meeting}
+            />
+          )}
           {serviceDetails.state === SERVICE_STATUS.clientSelection &&
             serviceDetails.candidates?.length > 0 && (
               <ShortlistCandidate
@@ -38,14 +44,6 @@ const ServiceDetails = () => {
               />
             )}
 
-          {(serviceDetails.state === SERVICE_STATUS.callScheduled ||
-            serviceDetails.state === SERVICE_STATUS.callFinished) &&
-            !!serviceDetails?.meeting && (
-              <MeetingDetailsSection
-                serviceState={serviceDetails?.state}
-                meeting={serviceDetails?.meeting}
-              />
-            )}
           {serviceDetails.assignmentType === 'question' &&
             !!serviceDetails?.question.answers && (
               <AnswersSection answers={serviceDetails?.question.answers} />

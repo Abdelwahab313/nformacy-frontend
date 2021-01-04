@@ -40,6 +40,7 @@ const formatServicesToActivity = (services) => {
     questionState: service.question?.state,
     serviceState: service?.state,
     currentActionTime: service.question?.currentActionTime,
+    meetingId: service.meeting?.id,
   }));
 };
 
@@ -60,19 +61,23 @@ const formatMeetingsToActivity = (meetings) => {
     answersCount: '',
     questionRef: meeting.service?.question?.referenceNumber,
     questionId: meeting.service?.question.id,
-    questionState: meeting.service?.question?.state,
-    serviceState: checkStatusForEvaluation(meeting.service?.state, meeting.clientEvaluationId),
+    questionState: '',
+    serviceState: checkStatusForEvaluation(
+      meeting.service?.state,
+      meeting.clientEvaluationId,
+    ),
     currentActionTime: meeting.service?.question?.currentActionTime,
     meetingId: meeting.id,
   }));
 };
 
-
 const checkStatusForEvaluation = (state, evaluationId) => {
+  if (state === SERVICE_STATUS.questionStarted) {
+    return SERVICE_STATUS.callScheduled;
+  }
   if (state === SERVICE_STATUS.callFinished && !!evaluationId) {
     return SERVICE_STATUS.closed;
-  }
-  else {
+  } else {
     return state;
   }
 };
