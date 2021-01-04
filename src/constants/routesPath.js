@@ -13,6 +13,7 @@ export const RoutesPaths = {
     ServiceDetails: '/admin/services/edit',
     Logout: '/admin/logout',
     PostQuestion: '/admin/postQuestion',
+    ViewEvaluations: '/admin/viewEvaluations',
   },
   App: {
     Login: '/login',

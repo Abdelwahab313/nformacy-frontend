@@ -127,5 +127,8 @@ export const useStyles = makeStyles((theme) => ({
     float: 'right',
     color: white,
     textDecoration: 'none'
+  },
+  viewEvaluations: {
+    float: 'right'
   }
 }));

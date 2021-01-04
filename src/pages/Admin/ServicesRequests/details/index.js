@@ -17,9 +17,10 @@ import { useSnackBar } from 'context/SnackBarContext';
 import { RoutesPaths } from 'constants/routesPath';
 import LinkText from 'components/typography/LinkText';
 import authManager from 'services/authManager';
-import { getAnswerQuestionLinkForAdmin } from 'services/navigation';
+import { getAnswerQuestionLinkForAdmin, getCallEvaluationView } from 'services/navigation';
 import { useStyles } from 'styles/Admin/questionFormStyles';
 import MeetingDetailsSection from 'pages/App/ServiceRequests/details/subComponents/MeetingDetailsSection';
+import SubmitButton from 'components/buttons/SubmitButton';
 
 const ServiceDetails = () => {
   const classes = useStyles();
@@ -83,7 +84,9 @@ const ServiceDetails = () => {
   if (isLoading) {
     return <LoadingCircle />;
   }
-
+  const handleClick = () => {
+    return history.push(getCallEvaluationView());
+  };
   return (
     <GridContainer justifyContent={'center'}>
       <GridItem xs={12} sm={12} md={12}>
@@ -133,6 +136,15 @@ const ServiceDetails = () => {
           <MeetingDetailsSection
             serviceState={serviceRequest?.state}
             meeting={serviceRequest?.meetings[0]}
+          />
+        )}
+      </GridItem>
+      <GridItem xs={12}>
+        {!!serviceRequest.meeting && (
+          <SubmitButton
+            className={classes.viewEvaluations}
+            onClick={() => { handleClick(); }}
+            buttonText={t('viewEvaluations')}
           />
         )}
       </GridItem>

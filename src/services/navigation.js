@@ -82,3 +82,10 @@ export const getCallEvaluationLink = (meetingId, serviceId) => {
     },
   };
 };
+
+export const getCallEvaluationView = () => {
+  return {
+    pathname: RoutesPaths.Admin.ViewEvaluations,
+    state: {},
+  };
+};
