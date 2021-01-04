@@ -19,7 +19,7 @@ import QuestionDetails from 'pages/Admin/Questions/QuestionDetails';
 import ServicesList from 'pages/Admin/ServicesRequests/list';
 import ServiceDetails from 'pages/Admin/ServicesRequests/details';
 import authManager from 'services/authManager';
-import ViewEvaluations from 'pages/App/MeetingEvaluation/ViewEvaluations';
+import ViewEvaluationsPage from 'pages/App/MeetingEvaluation/ViewEvaluations';
 
 const adminRoutes = [
   {
@@ -44,9 +44,9 @@ const adminRoutes = [
     hasDashboardLink: false,
   },
   {
-    path: RoutesPaths.Admin.ViewEvaluations,
+    path: RoutesPaths.Admin.ViewEvaluationsPage,
     name: 'View Evaluations',
-    component: ViewEvaluations,
+    component: ViewEvaluationsPage,
     hasDashboardLink: false,
   },
   {

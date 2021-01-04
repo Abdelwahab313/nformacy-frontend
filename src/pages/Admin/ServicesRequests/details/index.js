@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import GridContainer from 'components/grid/GridContainer.js';
 import GridItem from 'components/grid/GridItem.js';
 import Card from 'components/card/Card.js';
@@ -131,23 +131,24 @@ const ServiceDetails = () => {
           />
         </Card>
       </GridItem>
-      <GridItem xs={12}>
-        {!!serviceRequest.meetings[0] && (
-          <MeetingDetailsSection
-            serviceState={serviceRequest?.state}
-            meeting={serviceRequest?.meetings[0]}
-          />
-        )}
-      </GridItem>
-      <GridItem xs={12}>
-        {!!serviceRequest.meeting && (
-          <SubmitButton
-            className={classes.viewEvaluations}
-            onClick={() => { handleClick(); }}
-            buttonText={t('viewEvaluations')}
-          />
-        )}
-      </GridItem>
+      {!!serviceRequest.meetings?.length > 0 && (
+        <Fragment>
+
+          <GridItem xs={12}>
+            <MeetingDetailsSection
+              serviceState={serviceRequest?.state}
+              meeting={serviceRequest?.meetings[0]}
+            />
+          </GridItem>
+          <GridItem xs={12}>
+            <SubmitButton
+              className={classes.viewEvaluations}
+              onClick={() => { handleClick(); }}
+              buttonText={t('viewEvaluations')}
+            />
+          </GridItem>
+        </Fragment>
+      )}
     </GridContainer>
   );
 };
