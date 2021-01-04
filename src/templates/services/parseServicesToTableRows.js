@@ -7,23 +7,21 @@ import {
 import LinkText from 'components/typography/LinkText';
 import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
 import FieldsChips from 'components/chips/FieldsChips';
-import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
+import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 import { getServiceStatus } from 'core/serviceStatus';
 import ServiceActionLink from 'templates/services/ServiceActionLink';
 import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
 import CustomTypography from 'components/typography/Typography';
 import { Typography } from '@material-ui/core';
 import ByTimeField from 'pages/Admin/Questions/list/subComponents/ByTimeField';
-import { fetchServiceDetails } from 'apis/servicesAPI';
-import useFetchData from 'hooks/useFetchData';
-import { SERVICE_STATUS } from 'constants/questionStatus';
-import LoadingCircle from 'components/progress/LoadingCircle';
+import { EDITABLE_SERVICE_STATUS } from 'constants/questionStatus';
 
 const parseServicesToTableRows = (services, t) => {
   return services?.map((service) => ({
     serviceId: service.serviceId,
     serviceRef: (
       <ServiceRefIdLink
+        serviceState={service.serviceState}
         serviceId={service.serviceId}
         referenceId={service.serviceRef}
       />
@@ -35,24 +33,18 @@ const parseServicesToTableRows = (services, t) => {
         : t(`screening_${service.assignmentType}`),
     createdAt: (
       <CustomTypography variant='body2' gutterBottom>
-        {formattedDateTimeNoSeconds(new Date(service.createdAt))}
+        {formattedDateMonthAndDay(new Date(service.createdAt))}
       </CustomTypography>
     ),
     title: <TextCroppedWithTooltip text={service.title} />,
     fields: <FieldsChips fields={service.fields} />,
     language: (
-      <Typography
-        // className={classes.answersCount}
-        variant='body1'
-        gutterBottom>
+      <Typography variant='body1' gutterBottom>
         {service.language?.toUpperCase()}
       </Typography>
     ),
     answersCount: (
-      <Typography
-        // className={classes.answersCount}
-        variant='body1'
-        gutterBottom>
+      <Typography variant='body1' gutterBottom>
         {service.answersCount}
       </Typography>
     ),
@@ -63,15 +55,15 @@ const parseServicesToTableRows = (services, t) => {
         {`#${service.questionRef}`}
       </LinkText>
     ) : (
-        ''
-      ),
+      ''
+    ),
     status: !!service.serviceState
       ? t(
-        `serviceStatus:${getServiceStatus(
-          service.serviceState,
-          service.questionState,
-        )}`,
-      )
+          `serviceStatus:${getServiceStatus(
+            service.serviceState,
+            service.questionState,
+          )}`,
+        )
       : '',
     action: (
       <ServiceActionLink
@@ -100,23 +92,14 @@ const parseServicesToTableRows = (services, t) => {
   }));
 };
 
-export const ServiceRefIdLink = ({ serviceId, referenceId }) => {
-
-  const { fetchedData: serviceDetails, isLoading } = useFetchData(() =>
-    fetchServiceDetails(serviceId),
-  );
-
+export const ServiceRefIdLink = ({ serviceState, serviceId, referenceId }) => {
   let redirectURL = () => {
-    if (serviceDetails.state === SERVICE_STATUS.callFinished) {
-      return getServiceDetailsLink(serviceId);
-    } else {
+    if (EDITABLE_SERVICE_STATUS.includes(serviceState)) {
       return getEditServiceDetailsLink(serviceId);
+    } else {
+      return getServiceDetailsLink(serviceId);
     }
   };
-
-  if (isLoading) {
-    return <LoadingCircle />;
-  }
 
   if (!referenceId) {
     return '';

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useSnackBar } from 'context/SnackBarContext';
 import { getUserName } from 'core/user';
 import { RoutesPaths } from 'constants/routesPath';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { scheduleMeetingWithFreelancer } from 'apis/meetingsAPI';
 
 const AnswerOwner = ({ user }) => {
@@ -15,13 +15,15 @@ const AnswerOwner = ({ user }) => {
   const { t } = useTranslation();
   const { showSuccessMessage } = useSnackBar();
   const history = useHistory();
+  const location = useLocation();
+  const serviceId = location?.state?.serviceId;
 
   const closeCalendar = () => {
     setShowCalendar(false);
   };
 
   const onSubmitDate = (selectedTime) => {
-    scheduleMeetingWithFreelancer(selectedTime, user.id).then(() => {
+    scheduleMeetingWithFreelancer(serviceId, selectedTime, user.id).then(() => {
       showSuccessMessage(
         `Meeting has been scheduled successfully with ${getUserName(user)}`,
       );

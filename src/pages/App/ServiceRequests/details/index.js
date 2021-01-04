@@ -37,11 +37,14 @@ const ServiceDetails = () => {
                 serviceId={serviceDetails.id}
               />
             )}
-          
-          {(serviceDetails.state === SERVICE_STATUS.callScheduled || serviceDetails.state === SERVICE_STATUS.callFinished) &&
-            serviceDetails.candidates?.length >= 0 && 
-            (
-              <MeetingDetailsSection meeting={serviceDetails?.meeting} />
+
+          {(serviceDetails.state === SERVICE_STATUS.callScheduled ||
+            serviceDetails.state === SERVICE_STATUS.callFinished) &&
+            !!serviceDetails?.meeting && (
+              <MeetingDetailsSection
+                serviceState={serviceDetails?.state}
+                meeting={serviceDetails?.meeting}
+              />
             )}
           {serviceDetails.assignmentType === 'question' &&
             !!serviceDetails?.question.answers && (

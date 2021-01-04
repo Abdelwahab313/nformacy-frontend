@@ -22,6 +22,12 @@ const SERVICE_STATUS = {
   closed: 'closed',
 };
 
+const EDITABLE_SERVICE_STATUS = [
+  SERVICE_STATUS.draft,
+  SERVICE_STATUS.pending,
+  SERVICE_STATUS.returned,
+];
+
 const ANSWER_STATUS = {
   draft: 'draft',
   pending: 'pending',
@@ -258,6 +264,7 @@ export {
   QUESTION_STATUS,
   SERVICE_STATUS,
   ANSWER_STATUS,
+  EDITABLE_SERVICE_STATUS,
   questionStatusActions,
   serviceActions,
   answerActions,

@@ -24,6 +24,9 @@ export const getServiceDetailsLink = (serviceId) => {
       : RoutesPaths.App.ServiceDetails,
     state: {
       serviceId: serviceId,
+      service: {
+        serviceId: serviceId,
+      },
     },
   };
 };

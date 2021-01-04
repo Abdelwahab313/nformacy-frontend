@@ -16,19 +16,29 @@ const fetchMeetingDetails = (meetingId) => {
   });
 };
 
-const scheduleMeetingForCallService = (serviceId, callTime, candidateId) => {
+const scheduleMeetingForCallService = (serviceId, callTime, freelancerId) => {
   return axios({
     method: 'post',
-    url: `${API_BASE_URL}/services/${serviceId}/book_call`,
-    data: decamelizeKeys({ callTime, candidateId }),
+    url: `${API_BASE_URL}/meetings/book_call`,
+    data: decamelizeKeys({
+      callType: 'call_service',
+      serviceId,
+      callTime,
+      freelancerId,
+    }),
   }).then((response) => camelizeKeys(response));
 };
 
-const scheduleMeetingWithFreelancer = (callTime, freelancerId) => {
+const scheduleMeetingWithFreelancer = (serviceId, callTime, freelancerId) => {
   return axios({
     method: 'post',
-    url: `${API_BASE_URL}/meetings`,
-    data: decamelizeKeys({ callTime, freelancerId }),
+    url: `${API_BASE_URL}/meetings/book_call`,
+    data: decamelizeKeys({
+      callType: 'question_service',
+      serviceId,
+      callTime,
+      freelancerId,
+    }),
   }).then((response) => camelizeKeys(response));
 };
 
