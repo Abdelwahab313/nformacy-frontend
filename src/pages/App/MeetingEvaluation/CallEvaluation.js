@@ -39,12 +39,12 @@ const CallEvaluation = () => {
     return <LoadingCircle />;
   }
   const meetingDate = formattedDateTimeNoSeconds(
-    new Date(service.meeting.callTime),
+    new Date(service.meetings[0].callTime),
   );
 
   const userName = authManager.isClient()
-    ? getUserName(service.meeting.freelancer)
-    : getUserName(service.meeting.client);
+    ? getUserName(service.meetings[0].freelancer)
+    : getUserName(service.meetings[0].client);
 
   const onSubmitEvaluation = () => {
     submitEvaluation(meetingId, ratingEvaluations, comment).then(() => {

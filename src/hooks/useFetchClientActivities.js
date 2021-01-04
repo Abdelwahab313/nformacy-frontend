@@ -40,7 +40,7 @@ const formatServicesToActivity = (services) => {
     questionState: service.question?.state,
     serviceState: service?.state,
     currentActionTime: service.question?.currentActionTime,
-    meetingId: service.meeting?.id,
+    meetingId: service.meetings[0]?.id,
   }));
 };
 

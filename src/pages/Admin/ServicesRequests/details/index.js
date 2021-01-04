@@ -129,10 +129,10 @@ const ServiceDetails = () => {
         </Card>
       </GridItem>
       <GridItem xs={12}>
-        {!!serviceRequest.meeting && (
+        {!!serviceRequest.meetings[0] && (
           <MeetingDetailsSection
             serviceState={serviceRequest?.state}
-            meeting={serviceRequest?.meeting}
+            meeting={serviceRequest?.meetings[0]}
           />
         )}
       </GridItem>

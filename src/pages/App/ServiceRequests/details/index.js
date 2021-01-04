@@ -30,10 +30,10 @@ const ServiceDetails = () => {
         <Grid item xs={10} sm={10}>
           <BreadcrumbsCustomSeparator pageName={t('serviceDetails')} />
           <ServiceView serviceDetails={serviceDetails} />
-          {!!serviceDetails?.meeting && (
+          {!!serviceDetails?.meetings[0] && (
             <MeetingDetailsSection
               serviceState={serviceDetails?.state}
-              meeting={serviceDetails?.meeting}
+              meeting={serviceDetails?.meetings[0]}
             />
           )}
           {serviceDetails.state === SERVICE_STATUS.clientSelection &&
