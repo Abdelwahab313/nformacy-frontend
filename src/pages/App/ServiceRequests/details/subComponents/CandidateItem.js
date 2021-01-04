@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { getUserName } from 'core/user';
 import { Box, Grid } from '@material-ui/core';
 import useStyles from '../styles/ShortlistCandidate';
+import authManager from 'services/authManager';
 
 const CandidateItem = ({
   candidate,
@@ -17,7 +18,7 @@ const CandidateItem = ({
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-
+  const isAdmin = authManager.isAdmin();
   const defaultImage = require('../../../../../assets/emptyavatar.jpg');
 
   return (
@@ -52,7 +53,7 @@ const CandidateItem = ({
               </CustomTypography>
             </Grid>
             <Grid container justify='center' xs={12}>
-              {isFocused && (
+              {isFocused && !isAdmin && (
                 <SubmitButton
                   id={'proceedBtn'}
                   className={classes.desktopVisible}
@@ -64,16 +65,20 @@ const CandidateItem = ({
                   }
                 />
               )}
-              <SubmitButton
-                id={'proceedBtn'}
-                className={classes.mobileVisible}
-                onClick={() => onCandidateClick()}
-                buttonText={
-                  <CustomTypography variant='body1'>
-                    {buttonText ? buttonText : t('bookCandidate')}
-                  </CustomTypography>
-                }
-              />
+              {
+                !isAdmin ? (
+                  <SubmitButton
+                    id={'proceedBtn'}
+                    className={classes.mobileVisible}
+                    onClick={() => onCandidateClick()}
+                    buttonText={
+                      <CustomTypography variant='body1'>
+                        {buttonText ? buttonText : t('bookCandidate')}
+                      </CustomTypography>
+                    }
+                  />
+                ) : ''
+              }
             </Grid>
           </Box>
         </Grid>

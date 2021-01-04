@@ -73,6 +73,24 @@ const MeetingDetailsSection = ({ serviceState, meeting }) => {
             />
           </Box>
         </Grid>
+        {
+          !!isAdmin && (
+            <Grid item xs={12} md={3}>
+              <Box className={'shortlistedConsultants'}>
+                <CandidateItem
+                  bgcolor={lighterPink}
+                  candidate={meeting.client}
+                  isFocused={true}
+                  setFocusedCandidate={() => { }}
+                  onCandidateClick={() => handleClick()}
+                  buttonText={
+                    !!isMeetingFinished ? 'Rate the Call' : 'join meeting'
+                  }
+                />
+              </Box>
+            </Grid>
+          )
+        }
       </Grid>
     </Card>
   );
