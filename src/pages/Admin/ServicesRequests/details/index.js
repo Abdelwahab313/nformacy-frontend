@@ -19,6 +19,7 @@ import LinkText from 'components/typography/LinkText';
 import authManager from 'services/authManager';
 import { getAnswerQuestionLinkForAdmin } from 'services/navigation';
 import { useStyles } from 'styles/Admin/questionFormStyles';
+import MeetingDetailsSection from 'pages/App/ServiceRequests/details/subComponents/MeetingDetailsSection';
 
 const ServiceDetails = () => {
   const classes = useStyles();
@@ -57,7 +58,6 @@ const ServiceDetails = () => {
       })
       .catch(() => { });
   };
-
   const handleReturnToClient = () => {
     if (!!validate(serviceRequest)) {
       returnToClient(serviceId, serviceRequest.comment)
@@ -127,6 +127,14 @@ const ServiceDetails = () => {
             }}
           />
         </Card>
+      </GridItem>
+      <GridItem xs={12}>
+        {!!serviceRequest.meeting && (
+          <MeetingDetailsSection
+            serviceState={serviceRequest?.state}
+            meeting={serviceRequest?.meeting}
+          />
+        )}
       </GridItem>
     </GridContainer>
   );

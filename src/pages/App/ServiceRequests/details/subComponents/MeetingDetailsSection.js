@@ -10,6 +10,7 @@ import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 import { SERVICE_STATUS } from 'constants/questionStatus';
 import { useLocation } from 'react-router';
 import { getCallEvaluationLink, history } from 'services/navigation';
+import authManager from 'services/authManager';
 
 const MeetingDetailsSection = ({ serviceState, meeting }) => {
   const classes = useStyles();
@@ -28,17 +29,30 @@ const MeetingDetailsSection = ({ serviceState, meeting }) => {
     }
   };
 
+  const isAdmin = authManager.isAdmin();
+
+  const handleMeetingHeader = () => {
+    if (!!isMeetingFinished && !!isAdmin) {
+      return `${t('meetingForAdmin')} ${formattedDateTimeNoSeconds(
+        new Date(meeting?.callTime),
+      )}`;
+    }
+    else if (!!isMeetingFinished) {
+      return `${t('meetingDetails')} ${formattedDateTimeNoSeconds(
+        new Date(meeting?.callTime),
+      )}`;
+    }
+    else {
+      return `${t('joinMeeting')} ${formattedDateTimeNoSeconds(
+        new Date(meeting?.callTime),
+      )}`;
+    }
+  };
   return (
     <Card className={classes.noShadow}>
       <CardHeader color='primary'>
         <Typography component={'h4'} id={'confirmedCandidate'}>
-          {!!isMeetingFinished
-            ? `${t('meetingDetails')} ${formattedDateTimeNoSeconds(
-                new Date(meeting?.callTime),
-              )}`
-            : `${t('joinMeeting')} ${formattedDateTimeNoSeconds(
-                new Date(meeting?.callTime),
-              )}`}
+          {handleMeetingHeader()}
         </Typography>
       </CardHeader>
       <Grid
@@ -51,7 +65,7 @@ const MeetingDetailsSection = ({ serviceState, meeting }) => {
               bgcolor={lighterPink}
               candidate={meeting.freelancer}
               isFocused={true}
-              setFocusedCandidate={() => {}}
+              setFocusedCandidate={() => { }}
               onCandidateClick={() => handleClick()}
               buttonText={
                 !!isMeetingFinished ? 'Rate the Call' : 'join meeting'
