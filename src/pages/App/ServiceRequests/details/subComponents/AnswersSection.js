@@ -7,7 +7,7 @@ import CardHeader from 'components/card/CardHeader';
 import Card from 'components/card/Card';
 import { useTranslation } from 'react-i18next';
 
-const AnswersSection = ({ answers }) => {
+const AnswersSection = ({ answers, meetingsUsersIds }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -22,7 +22,12 @@ const AnswersSection = ({ answers }) => {
       <Grid container className={classes.shortlistContainer}>
         {answers?.map((answer, index) => (
           <GridItem xs={12} id={answer.referenceNumber} key={`answer-${index}`}>
-            <AnswerView answer={answer} index={index} setRating={() => {}} />
+            <AnswerView
+              answer={answer}
+              index={index}
+              setRating={() => {}}
+              showScheduleMeeting={!meetingsUsersIds.includes(answer.userId)}
+            />
           </GridItem>
         ))}
       </Grid>

@@ -35,6 +35,7 @@ const AnswerView = ({
   isShortListed,
   showShortListOption,
   showAcceptAction,
+  showScheduleMeeting,
 }) => {
   const classes = useStyles();
   const { local } = useLocale();
@@ -189,7 +190,7 @@ const AnswerView = ({
                   buttonText={t('rollback')}
                 />
               )}
-            {authManager.isClient() && (
+            {authManager.isClient() && showScheduleMeeting && (
               <SubmitButton
                 id={`call-${answer.referenceNumber}`}
                 className={classes.rollbackButton}

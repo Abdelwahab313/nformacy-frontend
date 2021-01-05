@@ -12,6 +12,8 @@ import { SERVICE_STATUS } from 'constants/questionStatus';
 import AnswersSection from './subComponents/AnswersSection';
 import MeetingDetailsSection from './subComponents/MeetingDetailsSection';
 import ServiceView from './subComponents/ServiceView';
+import GridContainer from 'components/grid/GridContainer';
+import GridItem from 'components/grid/GridItem';
 
 const ServiceDetails = () => {
   const location = useLocation();
@@ -24,18 +26,25 @@ const ServiceDetails = () => {
     return <LoadingCircle />;
   }
 
+  const meetingsUsersIds = serviceDetails?.meetings?.map(
+    (meeting) => meeting.freelancerId,
+  );
   return (
     <Direction>
       <Grid container alignItems={'center'} justify={'center'}>
         <Grid item xs={10} sm={10}>
           <BreadcrumbsCustomSeparator pageName={t('serviceDetails')} />
           <ServiceView serviceDetails={serviceDetails} />
-          {!!serviceDetails?.meetings[0] && (
-            <MeetingDetailsSection
-              serviceState={serviceDetails?.state}
-              meeting={serviceDetails?.meetings[0]}
-            />
-          )}
+          <GridContainer>
+            {serviceDetails?.meetings?.map((meeting) => (
+              <GridItem xs={6}>
+                <MeetingDetailsSection
+                  serviceState={serviceDetails?.state}
+                  meeting={meeting}
+                />
+              </GridItem>
+            ))}
+          </GridContainer>
           {serviceDetails.state === SERVICE_STATUS.clientSelection &&
             serviceDetails.candidates?.length > 0 && (
               <ShortlistCandidate
@@ -46,7 +55,10 @@ const ServiceDetails = () => {
 
           {serviceDetails.assignmentType === 'question' &&
             !!serviceDetails?.question.answers && (
-              <AnswersSection answers={serviceDetails?.question.answers} />
+              <AnswersSection
+                answers={serviceDetails?.question.answers}
+                meetingsUsersIds={meetingsUsersIds}
+              />
             )}
         </Grid>
       </Grid>
