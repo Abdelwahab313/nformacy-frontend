@@ -49,6 +49,9 @@ const parseActivitiesToTableRow = (activities, t) => {
             `serviceStatus:${getServiceStatus(
               activity.serviceState,
               activity.questionState,
+              activity.meetingState,
+              activity.hasEvaluationSubmitted,
+              !!activity.meetingId,
             )}`,
           ),
     action:
@@ -64,6 +67,8 @@ const parseActivitiesToTableRow = (activities, t) => {
           status={activity.serviceState}
           questionState={activity.questionState}
           meetingId={activity.meetingId}
+          meetingState={activity.meetingState}
+          hasEvaluationSubmitted={activity.hasEvaluationSubmitted}
         />
       ),
     time: !!activity?.questionTime ? (

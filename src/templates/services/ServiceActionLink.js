@@ -12,6 +12,7 @@ import {
   getCallEvaluationLink,
 } from 'services/navigation';
 import { SERVICE_STATUS } from 'constants/questionStatus';
+import { getMeetingAction } from 'core/meeting';
 
 const ServiceActionLink = ({
   status,
@@ -19,17 +20,24 @@ const ServiceActionLink = ({
   questionId,
   questionState,
   meetingId,
+  meetingState,
+  hasEvaluationSubmitted,
 }) => {
   const { t } = useTranslation();
-  const actionNeeded = getServiceAction(status, questionState);
+  const hasRelatedQuestion = !!questionId;
+  const hasRelatedMeeting = !!meetingId;
+  let actionNeeded;
+  if (hasRelatedMeeting) {
+    actionNeeded = getMeetingAction(meetingState, hasEvaluationSubmitted);
+  } else {
+    actionNeeded = getServiceAction(status, questionState);
+  }
   if (!actionNeeded) {
     return '';
   }
 
-  const hasRelatedQuestion = !!questionId;
-
   let redirectURL = () => {
-    if (status === SERVICE_STATUS.callFinished) {
+    if (meetingState === SERVICE_STATUS.callFinished) {
       return getCallEvaluationLink(meetingId, serviceId);
     } else if (hasRelatedQuestion) {
       return getQuestionDetailsLink(questionId, serviceId);

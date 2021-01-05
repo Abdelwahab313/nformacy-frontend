@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { fetchClientActivities } from 'apis/homeAPI';
 import useFetchData from './useFetchData';
-import { SERVICE_STATUS } from 'constants/questionStatus';
 
 const useFetchClientActivities = () => {
   const { fetchedData, isLoading } = useFetchData(fetchClientActivities);
@@ -40,7 +39,10 @@ const formatServicesToActivity = (services) => {
     questionState: service.question?.state,
     serviceState: service?.state,
     currentActionTime: service.question?.currentActionTime,
-    meetingId: service.meetings[0]?.id,
+    meetingId: service.assignmentType === 'call' && service.meetings[0]?.id,
+    meetingState: service.meetings[0]?.state,
+    meetingRef: service.meetings[0]?.referenceNumber,
+    hasEvaluationSubmitted: !!service.meetings[0]?.clientEvaluationId,
   }));
 };
 
@@ -62,23 +64,13 @@ const formatMeetingsToActivity = (meetings) => {
     questionRef: meeting.service?.question?.referenceNumber,
     questionId: meeting.service?.question.id,
     questionState: '',
-    serviceState: checkStatusForEvaluation(
-      meeting.service?.state,
-      meeting.clientEvaluationId,
-    ),
+    serviceState: meeting.service?.state,
+    meetingState: meeting.state,
     currentActionTime: meeting.service?.question?.currentActionTime,
     meetingId: meeting.id,
+    meetingRef: meeting.referenceNumber,
+    hasEvaluationSubmitted: !!meeting.clientEvaluationId,
   }));
 };
 
-const checkStatusForEvaluation = (state, evaluationId) => {
-  if (state === SERVICE_STATUS.questionStarted) {
-    return SERVICE_STATUS.callScheduled;
-  }
-  if (state === SERVICE_STATUS.callFinished && !!evaluationId) {
-    return SERVICE_STATUS.closed;
-  } else {
-    return state;
-  }
-};
 export default useFetchClientActivities;

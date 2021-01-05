@@ -19,7 +19,7 @@ const AnswersSection = ({ answers }) => {
         </Typography>
       </CardHeader>
 
-      <Grid container>
+      <Grid container className={classes.shortlistContainer}>
         {answers?.map((answer, index) => (
           <GridItem xs={12} id={answer.referenceNumber} key={`answer-${index}`}>
             <AnswerView answer={answer} index={index} setRating={() => {}} />

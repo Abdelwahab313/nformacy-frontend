@@ -5,8 +5,18 @@ import {
   SERVICE_STATUS,
 } from 'constants/questionStatus';
 import authManager from 'services/authManager';
+import { getMeetingState } from './meeting';
 
-export const getServiceStatus = (status, questionState) => {
+export const getServiceStatus = (
+  status,
+  questionState,
+  meetingState,
+  hasEvaluationSubmitted,
+  hasRelatedMeeting,
+) => {
+  if (!!hasRelatedMeeting) {
+    return getMeetingState(meetingState, hasEvaluationSubmitted);
+  }
   if (isAnsweringState(questionState) && authManager.isClient()) {
     return 'client_collecting_answers_status';
   }

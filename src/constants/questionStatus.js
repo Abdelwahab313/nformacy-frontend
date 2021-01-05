@@ -22,6 +22,11 @@ const SERVICE_STATUS = {
   closed: 'closed',
 };
 
+const MEETING_STATUS = {
+  callScheduled: 'call_scheduled',
+  callFinished: 'call_finished',
+};
+
 const EDITABLE_SERVICE_STATUS = [
   SERVICE_STATUS.draft,
   SERVICE_STATUS.pending,
@@ -145,7 +150,10 @@ const serviceActions = {
       client: 'client_answersCollected_action',
     },
   },
-  [SERVICE_STATUS.callScheduled]: {
+};
+
+const meetingStatusActions = {
+  [MEETING_STATUS.callScheduled]: {
     status: {
       client: 'client_callScheduled_status',
       freelancer: 'client_callScheduled_status',
@@ -156,7 +164,7 @@ const serviceActions = {
       freelancer: 'client_callScheduled_action',
     },
   },
-  [SERVICE_STATUS.callFinished]: {
+  [MEETING_STATUS.callFinished]: {
     status: {
       client: 'client_callFinished_status',
       freelancer: 'client_callFinished_status',
@@ -265,6 +273,7 @@ export {
   SERVICE_STATUS,
   ANSWER_STATUS,
   EDITABLE_SERVICE_STATUS,
+  meetingStatusActions,
   questionStatusActions,
   serviceActions,
   answerActions,
