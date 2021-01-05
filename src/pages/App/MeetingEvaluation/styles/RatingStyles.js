@@ -42,7 +42,8 @@ const useStyles = makeStyles((theme) => ({
   commentField: {
     marginTop: 30,
     minWidth: '100%',
-    maxWidth: '100%'
+    maxWidth: '100%',
+    marginBottom: 50
   },
   evaluationComment: {
     bottom: 0,
