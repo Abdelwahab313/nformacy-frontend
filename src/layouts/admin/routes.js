@@ -19,7 +19,7 @@ import QuestionDetails from 'pages/Admin/Questions/QuestionDetails';
 import ServicesList from 'pages/Admin/ServicesRequests/list';
 import ServiceDetails from 'pages/Admin/ServicesRequests/details';
 import authManager from 'services/authManager';
-import ViewEvaluationsPage from 'pages/App/MeetingEvaluation/ViewEvaluations';
+import Evaluations from 'pages/Admin/Evaluations';
 
 const adminRoutes = [
   {
@@ -47,7 +47,7 @@ const adminRoutes = [
     path: RoutesPaths.Admin.Evaluations,
     name: 'View Evaluations',
     icon: QuestionAnswerIcon,
-    component: ViewEvaluationsPage,
+    component: Evaluations,
     hasDashboardLink: false,
   },
   {
