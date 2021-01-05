@@ -27,7 +27,7 @@ const Evaluations = () => {
           <Grid container>
             <Grid item md={6} xs={6}>
               <Typography component={'h4'} id={'post-service-page-header'}>
-                {'Client Evaluations'}
+                {`${meeting.client.firstName + ' ' + meeting.client.lastName}'s Evaluation`}
               </Typography>
             </Grid>
           </Grid>
@@ -45,7 +45,7 @@ const Evaluations = () => {
           <Grid container>
             <Grid item md={6} xs={6}>
               <Typography component={'h4'} id={'post-service-page-header'}>
-                {'Freelancer Evaluations'}
+                {`${meeting.freelancer.firstName + ' ' + meeting.freelancer.lastName}'s Evaluation`}
               </Typography>
             </Grid>
           </Grid>
