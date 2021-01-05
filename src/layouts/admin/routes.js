@@ -44,8 +44,9 @@ const adminRoutes = [
     hasDashboardLink: false,
   },
   {
-    path: RoutesPaths.Admin.ViewEvaluationsPage,
+    path: RoutesPaths.Admin.Evaluations,
     name: 'View Evaluations',
+    icon: QuestionAnswerIcon,
     component: ViewEvaluationsPage,
     hasDashboardLink: false,
   },

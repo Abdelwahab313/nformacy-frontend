@@ -32,8 +32,13 @@ const CallEvaluationReducer = (state, action) => {
     case CallEvaluationActionTypes.UPDATE_RATINGS:
       const updatedRating = { ...state.ratingEvaluations, ...action.payload };
       return { ...state, ratingEvaluations: updatedRating };
+      
     case CallEvaluationActionTypes.UPDATE_COMMENT:
       return { ...state, comment: action.payload };
+
+    case CallEvaluationActionTypes.UPDATE_RATINGS_VIEWS:
+      const updatedRatingView = { ...state.ratingEvaluations, ...action.payload };
+      return { ...state, ratingEvaluations: updatedRatingView };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }

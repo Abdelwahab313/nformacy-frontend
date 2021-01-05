@@ -12,8 +12,8 @@ const fetchAllMeetings = () => {
 const fetchMeetingDetails = (meetingId) => {
   return axios({
     method: 'get',
-    url: `${API_BASE_URL}/meeting/${meetingId}`,
-  });
+    url: `${API_BASE_URL}/meetings/${meetingId}`,
+  }).then((response) => camelizeKeys(response));
 };
 
 const scheduleMeetingForCallService = (serviceId, callTime, freelancerId) => {

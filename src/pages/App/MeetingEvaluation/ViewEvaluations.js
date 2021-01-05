@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import useStyles from './styles/RatingStyles';
@@ -6,16 +6,50 @@ import CustomTypography from 'components/typography/Typography';
 import Rating from './Rating';
 import { useCallEvaluationContext, CallEvaluationProvider } from './context';
 import authManager from 'services/authManager';
+import LoadingCircle from 'components/progress/LoadingCircle';
+import { fetchMeetingDetails } from 'apis/meetingsAPI';
+import { updateCallEvaluationData } from './context/callEvaluationAction';
+import { useLocation } from 'react-router';
 
 
 const ViewEvaluations = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const [{ ratingEvaluations }] = useCallEvaluationContext();
+  const [{ ratingEvaluations }, dispatch] = useCallEvaluationContext();
+  const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
+  const meetingId = location?.state?.meetingId;
 
+  useEffect(() => {
+    setIsLoading(true);
+    fetchMeetingDetails(meetingId)
+      .then((response) => {
+        updateCallEvaluationData(dispatch, response.data.clientEvaluation.ratingsQuestions);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
   return (
     <Fragment>
       <Grid item xs={12} alignItems={'center'} justifyContent={'center'}>
+
+        {/* <GridItem xs={12} sm={12} md={12}>
+          <CardHeader color='primary'>
+            <Grid container>
+              <Grid item md={6} xs={6}>
+                <Typography component={'h4'} id={'post-service-page-header'}>
+                  {'client evaluations'}
+                </Typography>
+              </Grid>
+            </Grid>
+          </CardHeader>
+        </GridItem> */}
+
         <Grid container>
           <Grid item xs={4}></Grid>
 

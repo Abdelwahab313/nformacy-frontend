@@ -67,7 +67,9 @@ const CallEvaluation = () => {
           {userName} go?
         </CustomTypography>
       </Grid>
+
       <ViewEvaluations />
+
       <Grid item xs={12} className={classes.evaluationComment}>
         <CustomTypography fontWeight='bold' variant='body1'>
           Comments:

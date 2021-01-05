@@ -85,7 +85,7 @@ const ServiceDetails = () => {
     return <LoadingCircle />;
   }
   const handleClick = () => {
-    return history.push(getCallEvaluationView());
+    return history.push(getCallEvaluationView(serviceRequest?.meetings[0].id));
   };
   return (
     <GridContainer justifyContent={'center'}>

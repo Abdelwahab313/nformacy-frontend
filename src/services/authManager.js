@@ -72,11 +72,11 @@ class AuthManager {
 
   getUserRole = () => {
     const loadedUserString = localStorage.getItem('user');
-    if(!loadedUserString) { 
-      return ''
+    if (!loadedUserString) {
+      return '';
     }
     const user = !!loadedUserString ? JSON.parse(loadedUserString) : undefined;
-    const roles =  user.roles.map((role) => role.name);
+    const roles = user.roles.map((role) => role.name);
 
     if (roles.includes('admin')) {
       return 'admin';
@@ -87,7 +87,7 @@ class AuthManager {
     } else if (roles.includes('freelancer')) {
       return 'freelancer';
     } else {
-      return ''
+      return '';
     }
   }
 
