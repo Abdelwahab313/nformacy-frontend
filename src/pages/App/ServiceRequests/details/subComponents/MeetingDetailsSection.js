@@ -12,14 +12,15 @@ import { useLocation } from 'react-router';
 import { getCallEvaluationLink, history } from 'services/navigation';
 import authManager from 'services/authManager';
 
-const MeetingDetailsSection = ({ serviceState, meeting }) => {
+const MeetingDetailsSection = ({ meeting }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const location = useLocation();
   const serviceId = location?.state?.serviceId;
   const meetingId = meeting.id;
+  const meetingStatus = meeting.state;
 
-  const isMeetingFinished = serviceState === SERVICE_STATUS.callFinished;
+  const isMeetingFinished = meetingStatus === SERVICE_STATUS.callFinished;
 
   const handleClick = () => {
     if (!!isMeetingFinished) {
@@ -32,15 +33,17 @@ const MeetingDetailsSection = ({ serviceState, meeting }) => {
   const isAdmin = authManager.isAdmin();
 
   const handleMeetingHeader = () => {
-    if (!!isMeetingFinished && !!isAdmin) {
-      return `${t('meetingForAdmin')} ${formattedDateTimeNoSeconds(
-        new Date(meeting?.callTime),
-      )}`;
-    }
-    else if (!!isMeetingFinished) {
-      return `${t('meetingDetails')} ${formattedDateTimeNoSeconds(
-        new Date(meeting?.callTime),
-      )}`;
+    if (!!isMeetingFinished) {
+      if (!!isAdmin) {
+        return `${t('meetingForAdmin')} ${formattedDateTimeNoSeconds(
+          new Date(meeting?.callTime),
+        )}`;
+      }
+      else {
+        return `${t('meetingDetails')} ${formattedDateTimeNoSeconds(
+          new Date(meeting?.callTime),
+        )}`;
+      }
     }
     else {
       return `${t('joinMeeting')} ${formattedDateTimeNoSeconds(

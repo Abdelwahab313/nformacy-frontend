@@ -39,7 +39,6 @@ const ServiceDetails = () => {
             {serviceDetails?.meetings?.map((meeting) => (
               <GridItem xs={6}>
                 <MeetingDetailsSection
-                  serviceState={serviceDetails?.state}
                   meeting={meeting}
                 />
               </GridItem>

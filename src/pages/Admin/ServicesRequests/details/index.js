@@ -136,7 +136,6 @@ const ServiceDetails = () => {
 
           <GridItem xs={12}>
             <MeetingDetailsSection
-              serviceState={serviceRequest?.state}
               meeting={serviceRequest?.meetings[0]}
             />
           </GridItem>
