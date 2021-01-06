@@ -18,9 +18,9 @@ const MeetingDetailsSection = ({ meeting }) => {
   const location = useLocation();
   const serviceId = location?.state?.serviceId;
   const meetingId = meeting.id;
-  const meetingStatus = meeting.state;
+  const meetingState = meeting.state;
 
-  const isMeetingFinished = meetingStatus === SERVICE_STATUS.callFinished;
+  const isMeetingFinished = meetingState === SERVICE_STATUS.callFinished;
 
   const handleClick = () => {
     if (!!isMeetingFinished) {
