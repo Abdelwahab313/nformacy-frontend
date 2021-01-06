@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import GridContainer from 'components/grid/GridContainer';
 import ViewEvaluations from 'pages/App/MeetingEvaluation/ViewEvaluations';
 import { useLocation } from 'react-router';
@@ -9,10 +9,15 @@ import GridItem from 'components/grid/GridItem';
 import CardHeader from 'components/card/CardHeader';
 import { Grid, Typography } from '@material-ui/core';
 import CommentBox from 'pages/App/MeetingEvaluation/CommentBox';
+import CustomTypography from 'components/typography/Typography';
+import { useTranslation } from 'react-i18next';
+import useStyles from '../../App/MeetingEvaluation/styles/RatingStyles';
 
 const Evaluations = () => {
   const location = useLocation();
   const meetingId = location?.state?.meetingId;
+  const classes = useStyles();
+  const { t } = useTranslation();
   const { fetchedData: meeting, isLoading } = useFetchData(() => {
     return fetchMeetingDetails(meetingId);
   });
@@ -32,12 +37,14 @@ const Evaluations = () => {
             </Grid>
           </Grid>
         </CardHeader>
-        {!!meeting?.clientEvaluation && (
-          <ViewEvaluations
-            ratingEvaluations={meeting?.clientEvaluation?.ratingsQuestions}
-          />
-        )}
-        <CommentBox comment={meeting?.clientEvaluation?.comment} disabled />
+        {!!meeting?.clientEvaluation ? (
+          <Fragment>
+            <ViewEvaluations
+              ratingEvaluations={meeting?.clientEvaluation?.ratingsQuestions}
+            />
+            <CommentBox comment={meeting?.clientEvaluation?.comment} disabled />
+          </Fragment>
+        ) : (<CustomTypography variant="body1" className={classes.notSumbmittedEvaluation}>{t('clientNotSumbitEvaluation')}</CustomTypography>)}
       </GridItem>
 
       <GridItem xs={12} sm={12} md={12}>
@@ -51,12 +58,14 @@ const Evaluations = () => {
           </Grid>
         </CardHeader>
 
-        {!!meeting?.freelancerEvaluation && (
-          <ViewEvaluations
-            ratingEvaluations={meeting?.freelancerEvaluation?.ratingsQuestions}
-          />
-        )}
-        <CommentBox comment={meeting?.freelancerEvaluation?.comment} disabled />
+        {!!meeting?.freelancerEvaluation ? (
+          <Fragment>
+            <ViewEvaluations
+              ratingEvaluations={meeting?.freelancerEvaluation?.ratingsQuestions}
+            />
+            <CommentBox comment={meeting?.freelancerEvaluation?.comment} disabled />
+          </Fragment>
+        ) : (<CustomTypography variant="body1" className={classes.notSumbmittedEvaluation}>{t('freelancerNotSumbitEvaluation')}</CustomTypography>)}
       </GridItem>
     </GridContainer>
   );

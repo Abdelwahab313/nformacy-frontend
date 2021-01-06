@@ -237,5 +237,7 @@
   "definitelyWill": "Definitely I Will",
   "callEvaluation": "Call Evaluation",
   "viewEvaluations": "View Evaluations",
-  "answers": "Answers"
+  "answers": "Answers",
+  "clientNotSumbitEvaluation": "The Client has not submitted the evaluation yet!",
+  "freelancerNotSumbitEvaluation": "The Freelancer has not submitted the evaluation yet!"
 }

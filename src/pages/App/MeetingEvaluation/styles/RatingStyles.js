@@ -83,6 +83,12 @@ const useStyles = makeStyles((theme) => ({
   callEvaluationHeader: {
     color: darkOrange,
     marginTop: 40
+  },
+  notSumbmittedEvaluation: {
+    margin: '5% 0',
+    [theme.breakpoints.down('sm')]: {
+      margin: '10% 0',
+    },
   }
 }));
 
