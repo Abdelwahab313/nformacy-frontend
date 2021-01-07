@@ -8,7 +8,7 @@
   "client_questionStarted_status": "In Progress",
   "client_answersCollected_status": "Screening Process",
   "client_evaluationClosed_status": "Evaluation Submitted",
-  "admin_evaluationClosed_status": "closed",
+  "admin_evaluationClosed_status": "Closed",
   "admin_pending_status": "Request Verification",
   "admin_returned_status": "Client Review",
   "admin_pending_action": "Verify Request",

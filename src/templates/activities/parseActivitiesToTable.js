@@ -15,19 +15,18 @@ import CustomTypography from 'components/typography/Typography';
 const parseActivitiesToTableRow = (activities, t) => {
   return activities?.map((activity) => ({
     id: `#${activity.answerId}`,
-    activityId:
-      activity.activityType === 'answer'
-        ? `#${activity.questionRef}`
-        : `#${activity.serviceRef}`,
+    activityId: (
+      <LinkText to={getAnswerQuestionLink(activity.questionId)}>
+        {activity.activityType === 'answer'
+          ? `#${activity.questionRef}`
+          : `#${activity.serviceRef}`}
+      </LinkText>
+    ),
     requestType:
       activity.activityType === 'answer'
         ? t(`screening_${activity.assignmentType}`)
         : t('call'),
-    title: (
-      <LinkText to={getAnswerQuestionLink(activity.questionId)}>
-        <TextCroppedWithTooltip text={activity.title} />
-      </LinkText>
-    ),
+    title: <TextCroppedWithTooltip text={activity.title} />,
     date: (
       <CustomTypography variant='body2' gutterBottom>
         {formattedDateTimeNoSeconds(new Date(activity.createdAt))}{' '}
