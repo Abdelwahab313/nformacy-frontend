@@ -6,6 +6,7 @@ import {
   lightPink,
   darkBlue,
   white,
+  lightOrange,
 } from './colors';
 
 export const useStyles = makeStyles((theme) => ({
@@ -115,7 +116,8 @@ export const useStyles = makeStyles((theme) => ({
   },
   signupLink: {
     margin: theme.spacing(1),
-    color: darkBlue,
+    color: lightOrange,
+    fontSize: 'initial',
   },
   hintContainer: {
     borderRadius: '5%',
@@ -375,11 +377,11 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: '10px',
     alignSelf: 'center',
     width: '100%',
-    marginTop: '40px !important'
+    marginTop: '40px !important',
   },
   nextBtnContainerFlexEnd: {
     justifyContent: 'space-between',
-  }
+  },
 }));
 
 export const selectStyle = {

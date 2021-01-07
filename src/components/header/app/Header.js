@@ -14,15 +14,17 @@ import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import DIRECTION from '../../../constants/direction';
 import Notifications from '../admin/notifications';
-import { Link, useLocation } from 'react-router-dom';
-import LinkText from 'components/typography/LinkText';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Box } from '@material-ui/core';
 import { RoutesPaths } from 'constants/routesPath';
 import authManager from 'services/authManager';
 import SubmitButton from 'components/buttons/SubmitButton';
 import { useHistory } from 'react-router';
+import AppMenu from './AppMenu';
+import appRoutes from 'layouts/app/routes';
 
 export default function MainHeader() {
+  const menuList = appRoutes.filter((route) => !!route.hasDashboardLink);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { t } = useTranslation();
@@ -36,9 +38,6 @@ export default function MainHeader() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const ScrollToSection = (sectionId) => {
-    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-  };
   const handleMobileMenuOpen = () => {};
 
   const menuId = 'primary-search-account-menu';
@@ -51,6 +50,7 @@ export default function MainHeader() {
         id={'header'}
         position='static'>
         <Toolbar>
+          <AppMenu menuList={menuList} />
           <Box className={classes.mobileLogoContainer}>
             <Link href={'/'} className={classes.logoImage}>
               <img
@@ -66,26 +66,50 @@ export default function MainHeader() {
           {(location.pathname === RoutesPaths.App.LandingPage ||
             location.pathname === RoutesPaths.App.ContactUs) && (
             <Box className={classes.sectionDesktop}>
-              <Link href='#' className={classes.menuItemText}>
+              <NavLink
+                exact
+                to={RoutesPaths.App.LandingPage}
+                className={classes.menuItemText}
+                activeClassName={classes.active}>
                 Home
-              </Link>
-              <Link href='#' className={classes.menuItemText}>
+              </NavLink>
+              <NavLink
+                to={RoutesPaths.App.NotFound}
+                className={classes.menuItemText}
+                activeClassName={classes.active}>
                 About
-              </Link>
-              <LinkText
-                onClick={() => ScrollToSection('our_solution')}
+              </NavLink>
+              <NavLink
+                to={RoutesPaths.App.ContactUs}
+                className={classes.menuItemText}
+                activeClassName={classes.active}>
+                Contact Us
+              </NavLink>
+              <NavLink
+                to={RoutesPaths.App.NotFound}
                 className={classes.menuItemText}>
                 Solutions
-              </LinkText>
-              <Link href='#' className={classes.menuItemText}>
+              </NavLink>
+              <NavLink
+                to={RoutesPaths.App.NotFound}
+                className={classes.menuItemText}>
                 Consultants
-              </Link>
-              <Link href='#' className={classes.menuItemText}>
+              </NavLink>
+              <NavLink
+                to={RoutesPaths.App.NotFound}
+                className={classes.menuItemText}>
                 Knowledge Hub
-              </Link>
+              </NavLink>
             </Box>
           )}
-          <Box className={classes.sectionDesktop}>
+          <Box
+            className={[
+              classes.sectionDesktop,
+              location.pathname === RoutesPaths.App.LandingPage ||
+              location.pathname === RoutesPaths.App.ContactUs
+                ? classes.LandingSearchContainer
+                : '',
+            ]}>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />

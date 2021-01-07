@@ -2,11 +2,14 @@ import { Box, Grid, Slide } from '@material-ui/core';
 import { ArrowForward } from '@material-ui/icons';
 import SubmitButton from 'components/buttons/SubmitButton';
 import CustomTypography from 'components/typography/Typography';
+import { RoutesPaths } from 'constants/routesPath';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import useStyles from './styles/LandingPageStyles';
 
 const LandingRollerSection = () => {
   const classes = useStyles();
+  const history = useHistory();
   const [sliderItem, setSliderItem] = useState(true);
 
   useEffect(() => {
@@ -70,7 +73,7 @@ const LandingRollerSection = () => {
         <Box textAlign='center'>
           <SubmitButton
             id={'serveBtn'}
-            onClick={() => {}}
+            onClick={() => history.push(RoutesPaths.App.Signup)}
             className={classes.mainCtaBtn}
             buttonText={
               <CustomTypography variant='body1' className={classes.flexClass}>

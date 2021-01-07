@@ -1,4 +1,5 @@
 import { Box, Grid } from '@material-ui/core';
+import LinkText from 'components/typography/LinkText';
 import CustomTypography from 'components/typography/Typography';
 import React from 'react';
 import LandingAvailableServices from '../Home/subComponents/LandingAvailableServices';
@@ -29,6 +30,13 @@ const OurSolutionsSection = () => {
       </Grid>
       <Grid item xs={12} className={classes.subTextMargin}>
         <LandingAvailableServices />
+      </Grid>
+      <Grid item xs={10} md={3}>
+        <Box textAlign='center' className={classes.mainCtaBtn}>
+          <LinkText to={''} className={classes.primaryBoldTxt}>
+            Read More
+          </LinkText>
+        </Box>
       </Grid>
     </Grid>
   );

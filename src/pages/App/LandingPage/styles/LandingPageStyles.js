@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
   whiteCtaBtn: {
     background: `${white} !important`,
     color: `${darkBlue} !important`,
+    textTransform: 'none',
   },
   orangeCtaBtn: {
     background: `${lightOrange} !important`,
@@ -182,6 +183,10 @@ const useStyles = makeStyles((theme) => ({
     height: 'fit-content',
     minHeight: 230,
     position: 'relative',
+    [theme.breakpoints.down('md')]: {
+      minHeight: 'initial',
+      paddingBottom: theme.spacing(2),
+    },
   },
   primaryBoldTxt: {
     color: darkBlue,
@@ -191,6 +196,12 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
     [theme.breakpoints.down('md')]: {
       display: 'none',
+    },
+  },
+  mobileVisible: {
+    display: 'none',
+    [theme.breakpoints.down('md')]: {
+      display: 'block',
     },
   },
   mobileHowWorkVisible: {
@@ -228,6 +239,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(5),
     [theme.breakpoints.down('md')]: {
       width: '50% !important',
+      height: '250px !important',
     },
   },
   tileBarContainer: {

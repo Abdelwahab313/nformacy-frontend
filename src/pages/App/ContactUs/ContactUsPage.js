@@ -1,4 +1,5 @@
 import { Box, Card, CardMedia, Grid } from '@material-ui/core';
+import SubmitButton from 'components/buttons/SubmitButton';
 import CustomTypography from 'components/typography/Typography';
 import React from 'react';
 import useStyles from './styles/ContactUsPageStyles';
@@ -31,23 +32,28 @@ const ContactUsPage = () => {
               src={require('../../../assets/contactUs/customer_support.png')}
             />
             <CustomTypography
-              variant={'body1'}
+              variant={'body2'}
               fontWeight={'bold'}
               gutterBottom>
               Customer Support
             </CustomTypography>
             <CustomTypography
-              variant={'body1'}
+              variant={'body2'}
               fontWeight={'bold'}
               gutterBottom>
               800-585-0774
             </CustomTypography>
-            <CustomTypography
-              variant={'body1'}
-              fontWeight={'bold'}
-              gutterBottom>
-              Chat with Support Manager
-            </CustomTypography>
+            <SubmitButton
+              disabled
+              id={'chatBtn'}
+              onClick={() => {}}
+              className={[classes.mainCtaBtn, classes.noTextTransform]}
+              buttonText={
+                <CustomTypography variant={'body2'} fontWeight={'bold'}>
+                  Chat with Support Manager
+                </CustomTypography>
+              }
+            />
           </Box>
         </Grid>
         <Grid item xs={6}>
@@ -57,23 +63,27 @@ const ContactUsPage = () => {
               src={require('../../../assets/contactUs/have_project.png')}
             />
             <CustomTypography
-              variant={'body1'}
+              variant={'body2'}
               fontWeight={'bold'}
               gutterBottom>
               I have a Project
             </CustomTypography>
             <CustomTypography
-              variant={'body1'}
+              variant={'body2'}
               fontWeight={'bold'}
               gutterBottom>
               800-585-0774
             </CustomTypography>
-            <CustomTypography
-              variant={'body1'}
-              fontWeight={'bold'}
-              gutterBottom>
-              Request a Meeting
-            </CustomTypography>
+            <SubmitButton
+              id={'serveBtn'}
+              onClick={() => {}}
+              className={[classes.mainCtaBtn, classes.noTextTransform]}
+              buttonText={
+                <CustomTypography variant={'body2'} fontWeight={'bold'}>
+                  Request a Meeting
+                </CustomTypography>
+              }
+            />
           </Box>
         </Grid>
       </Box>
@@ -89,31 +99,31 @@ const ContactUsPage = () => {
         <Grid item xs={6}>
           <Box textAlign={'left'} padding={2}>
             <CustomTypography
-              variant={'body1'}
+              variant={'body2'}
               fontWeight={'bold'}
               gutterBottom>
               Corporate Headquarters:
             </CustomTypography>
             <CustomTypography
-              variant={'body1'}
+              variant={'body2'}
               fontWeight={'bold'}
               gutterBottom>
               nformacy
             </CustomTypography>
             <CustomTypography
-              variant={'body1'}
+              variant={'body2'}
               fontWeight={'bold'}
               gutterBottom>
               345 Park Avenue San Jose, CA 95110-2704
             </CustomTypography>
             <CustomTypography
-              variant={'body1'}
+              variant={'body2'}
               fontWeight={'bold'}
               gutterBottom>
               Tel: 408-536-6000
             </CustomTypography>
             <CustomTypography
-              variant={'body1'}
+              variant={'body2'}
               fontWeight={'bold'}
               gutterBottom>
               Fax: 408-537-6000

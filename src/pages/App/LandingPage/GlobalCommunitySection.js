@@ -8,9 +8,11 @@ import LinkText from 'components/typography/LinkText';
 import SubmitButton from 'components/buttons/SubmitButton';
 import { RoutesPaths } from 'constants/routesPath';
 import { ArrowForward } from '@material-ui/icons';
+import { useHistory } from 'react-router';
 
 const GlobalCommunitySection = () => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <Grid
@@ -67,8 +69,8 @@ const GlobalCommunitySection = () => {
             Network of Independent Experts
           </CustomTypography>
           <SubmitButton
-            id={'briefBtn'}
-            onClick={() => {}}
+            id={'registerBtn'}
+            onClick={() => history.push(RoutesPaths.App.Signup)}
             className={[classes.mainCtaBtn, classes.orangeCtaBtn]}
             buttonText={
               <CustomTypography variant='body1' className={classes.flexClass}>

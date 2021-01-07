@@ -35,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
       height: 175,
     },
   },
+  noTextTransform: {
+    textTransform: 'none',
+  },
 }));
 
 export default useStyles;

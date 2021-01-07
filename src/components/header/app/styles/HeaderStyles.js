@@ -111,6 +111,18 @@ const useStyles = makeStyles((theme) => ({
     background: `${lightOrange} !important`,
     color: `${white} !important`,
   },
+  LandingSearchContainer: {
+    position: 'absolute',
+    right: 170,
+  },
+  list: {
+    width: 250,
+  },
+  active: {
+    color: black,
+    textDecoration: 'underline',
+    textDecorationColor: darkOrange,
+  },
 }));
 
 export default useStyles;

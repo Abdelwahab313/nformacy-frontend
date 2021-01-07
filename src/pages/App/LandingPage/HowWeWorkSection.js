@@ -28,7 +28,7 @@ const HowWeWorkSection = () => {
         </Box>
       </Grid>
       <Grid item xs={12} className={classes.stepsContainerMargin}>
-        <Grid container direction='row' justify='center'>
+        <Grid container direction='row' justify='space-between'>
           {/* sign_up */}
           <Grid item md={2}>
             <Box textAlign='center'>

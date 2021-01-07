@@ -39,27 +39,29 @@ const OurPromiseSection = () => {
                 className={classes.orangeMainText}>
                 The Best Among Great Consultants
               </CustomTypography>
-              <Divider variant='middle' style={greyDividerStyle} />
+              <Divider
+                variant='middle'
+                style={greyDividerStyle}
+                className={classes.desktopVisible}
+              />
               <Box
                 className={[
                   classes.workSubTextPadding,
                   classes.promiseFieldDescTxt,
+                  classes.desktopVisible,
                 ]}>
                 <ShowMore withTxt={false} numberOfLines={4}>
-                  <span>
-                    In nformacy we make sure that the right consultant <br />
-                    is hired for you, using our special screening and
-                    <br />
-                    matching process designed to address your specific
-                    requirements. Most sourcing and recruitment platforms use
-                    lagging indicators as previous performance, customer
-                    feedback or background to match you with the consultants,
-                    unfortunately these measures don’t assess the potential of
-                    the consultant or his/her capability to deliver what you
-                    need. In nformacy we use an intelligent questioning tool
-                    tailored based on your specific needs to elect the best fit
-                    among the bests.
-                  </span>
+                  In nformacy we make sure that the right consultant <br />
+                  is hired for you, using our special screening and
+                  <br />
+                  matching process designed to address your specific
+                  requirements. Most sourcing and recruitment platforms use
+                  lagging indicators as previous performance, customer feedback
+                  or background to match you with the consultants, unfortunately
+                  these measures don’t assess the potential of the consultant or
+                  his/her capability to deliver what you need. In nformacy we
+                  use an intelligent questioning tool tailored based on your
+                  specific needs to elect the best fit among the bests.
                 </ShowMore>
               </Box>
             </Box>
@@ -78,11 +80,16 @@ const OurPromiseSection = () => {
                 className={classes.orangeMainText}>
                 Quality is Assured
               </CustomTypography>
-              <Divider variant='middle' style={greyDividerStyle} />
+              <Divider
+                variant='middle'
+                style={greyDividerStyle}
+                className={classes.desktopVisible}
+              />
               <Box
                 className={[
                   classes.workSubTextPadding,
                   classes.promiseFieldDescTxt,
+                  classes.desktopVisible,
                 ]}>
                 <ShowMore withTxt={false} numberOfLines={4}>
                   <span>
@@ -111,11 +118,16 @@ const OurPromiseSection = () => {
                 className={classes.orangeMainText}>
                 We Understand Your Needs
               </CustomTypography>
-              <Divider variant='middle' style={greyDividerStyle} />
+              <Divider
+                variant='middle'
+                style={greyDividerStyle}
+                className={classes.desktopVisible}
+              />
               <Box
                 className={[
                   classes.workSubTextPadding,
                   classes.promiseFieldDescTxt,
+                  classes.desktopVisible,
                 ]}>
                 <ShowMore withTxt={false} numberOfLines={4}>
                   In your journey towards growth and success <br />

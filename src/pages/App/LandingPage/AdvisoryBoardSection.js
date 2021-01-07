@@ -4,10 +4,8 @@ import {
   GridList,
   GridListTile,
   GridListTileBar,
-  IconButton,
 } from '@material-ui/core';
 import CustomTypography from 'components/typography/Typography';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import React from 'react';
 import useStyles from './styles/LandingPageStyles';
 
@@ -75,13 +73,6 @@ const AdvisoryBoardSection = () => {
                     </CustomTypography>
                   </Box>
                 }
-                actionIcon={
-                  <IconButton
-                    className={classes.tileIcon}
-                    aria-label={'Linkedin'}>
-                    <LinkedInIcon />
-                  </IconButton>
-                }
               />
             </GridListTile>
             {/* end advisor */}
@@ -121,13 +112,6 @@ const AdvisoryBoardSection = () => {
                       with nformacy.
                     </CustomTypography>
                   </Box>
-                }
-                actionIcon={
-                  <IconButton
-                    className={classes.tileIcon}
-                    aria-label={'Linkedin'}>
-                    <LinkedInIcon />
-                  </IconButton>
                 }
               />
             </GridListTile>
@@ -169,13 +153,6 @@ const AdvisoryBoardSection = () => {
                     </CustomTypography>
                   </Box>
                 }
-                actionIcon={
-                  <IconButton
-                    className={classes.tileIcon}
-                    aria-label={'Linkedin'}>
-                    <LinkedInIcon />
-                  </IconButton>
-                }
               />
             </GridListTile>
             {/* end advisor */}
@@ -215,13 +192,6 @@ const AdvisoryBoardSection = () => {
                       with nformacy.
                     </CustomTypography>
                   </Box>
-                }
-                actionIcon={
-                  <IconButton
-                    className={classes.tileIcon}
-                    aria-label={'Linkedin'}>
-                    <LinkedInIcon />
-                  </IconButton>
                 }
               />
             </GridListTile>
@@ -263,13 +233,6 @@ const AdvisoryBoardSection = () => {
                     </CustomTypography>
                   </Box>
                 }
-                actionIcon={
-                  <IconButton
-                    className={classes.tileIcon}
-                    aria-label={'Linkedin'}>
-                    <LinkedInIcon />
-                  </IconButton>
-                }
               />
             </GridListTile>
             {/* end advisor */}
@@ -309,13 +272,6 @@ const AdvisoryBoardSection = () => {
                       with nformacy.
                     </CustomTypography>
                   </Box>
-                }
-                actionIcon={
-                  <IconButton
-                    className={classes.tileIcon}
-                    aria-label={'Linkedin'}>
-                    <LinkedInIcon />
-                  </IconButton>
                 }
               />
             </GridListTile>
