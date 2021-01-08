@@ -86,8 +86,9 @@ export default function MainHeader() {
                 Contact Us
               </NavLink>
               <NavLink
-                to={RoutesPaths.App.NotFound}
-                className={classes.menuItemText}>
+                to={RoutesPaths.App.Solutions}
+                className={classes.menuItemText}
+                activeClassName={classes.active}>
                 Solutions
               </NavLink>
               <NavLink

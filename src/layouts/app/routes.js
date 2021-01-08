@@ -21,6 +21,7 @@ import CallEvaluationPage from 'pages/App/MeetingEvaluation/CallEvaluation';
 import { RoutesPaths } from 'constants/routesPath';
 import NotFoundPage from 'pages/NotFoundPage';
 import ContactUsPage from 'pages/App/ContactUs/ContactUsPage';
+import SolutionsPage from 'pages/App/Solutions/SolutionsPage';
 
 const appRoutes = [
   {
@@ -37,6 +38,15 @@ const appRoutes = [
     name: 'Contact us',
     icon: DashboardIcon,
     Component: ContactUsPage,
+    includeLayout: true,
+    isPublic: true,
+    hasDashboardLink: true,
+  },
+  {
+    path: RoutesPaths.App.Solutions,
+    name: 'Solutions',
+    icon: DashboardIcon,
+    Component: SolutionsPage,
     includeLayout: true,
     isPublic: true,
     hasDashboardLink: true,
