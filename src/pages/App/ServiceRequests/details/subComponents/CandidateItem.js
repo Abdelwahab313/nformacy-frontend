@@ -7,6 +7,7 @@ import { getUserName } from 'core/user';
 import { Box, Grid } from '@material-ui/core';
 import useStyles from '../styles/ShortlistCandidate';
 import authManager from 'services/authManager';
+import ShowMore from 'components/typography/ShowMore';
 
 const CandidateItem = ({
   candidate,
@@ -50,7 +51,9 @@ const CandidateItem = ({
                 variant='body1'
                 fontWeight='light'
                 className={classes.candidateDesc}>
-                {candidate.summary}
+                <ShowMore>
+                  {candidate.summary}
+                </ShowMore>
               </CustomTypography>
             </Grid>
             <Grid container justify='center' xs={12}>
