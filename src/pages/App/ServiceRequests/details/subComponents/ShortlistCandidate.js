@@ -50,7 +50,7 @@ const ShortlistCandidate = ({ candidates, serviceId }) => {
         justify='space-evenly'
         className={classes.shortlistContainer}>
         {candidates.map((candidate, index) => (
-          <Grid item xs={12} md={3}>
+          <Grid Grid item xs={12} md={3} >
             <Box className={'shortlistedConsultants'}>
               <CandidateItem
                 bgcolor={shortlistedContainerColors[index]}
@@ -74,7 +74,7 @@ const ShortlistCandidate = ({ candidates, serviceId }) => {
           />
         )}
       </Grid>
-    </Card>
+    </Card >
   );
 };
 

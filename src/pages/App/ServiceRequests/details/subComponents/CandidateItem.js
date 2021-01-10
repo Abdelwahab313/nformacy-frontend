@@ -14,7 +14,8 @@ const CandidateItem = ({
   setFocusedCandidate,
   onCandidateClick,
   bgcolor,
-  buttonText
+  buttonText,
+  clientType = ''
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -66,7 +67,7 @@ const CandidateItem = ({
                 />
               )}
               {
-                !isAdmin ? (
+                !isAdmin && (
                   <SubmitButton
                     id={'proceedBtn'}
                     className={classes.mobileVisible}
@@ -77,8 +78,13 @@ const CandidateItem = ({
                       </CustomTypography>
                     }
                   />
-                ) : ''
+                )
               }
+            </Grid>
+            <Grid item xs={12}>
+              {!!isAdmin && (
+                <CustomTypography>{clientType}</CustomTypography>
+              )}
             </Grid>
           </Box>
         </Grid>

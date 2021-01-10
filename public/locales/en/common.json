@@ -239,5 +239,7 @@
   "viewEvaluations": "View Evaluations",
   "answers": "Answers",
   "clientNotSumbitEvaluation": "The Client has not submitted the evaluation yet!",
-  "freelancerNotSumbitEvaluation": "The Freelancer has not submitted the evaluation yet!"
+  "freelancerNotSumbitEvaluation": "The Freelancer has not submitted the evaluation yet!",
+  "client": "Client",
+  "freelancer": "Freelancer"
 }

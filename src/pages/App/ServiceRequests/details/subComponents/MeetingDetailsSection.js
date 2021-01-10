@@ -73,6 +73,7 @@ const MeetingDetailsSection = ({ meeting }) => {
               buttonText={
                 !!isMeetingFinished ? 'Rate the Call' : 'join meeting'
               }
+              clientType={t('freelancer')}
             />
           </Box>
         </Grid>
@@ -89,6 +90,7 @@ const MeetingDetailsSection = ({ meeting }) => {
                   buttonText={
                     !!isMeetingFinished ? 'Rate the Call' : 'join meeting'
                   }
+                  clientType={t('client')}
                 />
               </Box>
             </Grid>

@@ -32,7 +32,7 @@ const Evaluations = () => {
           <Grid container>
             <Grid item md={6} xs={6}>
               <Typography component={'h4'} id={'post-service-page-header'}>
-                {`${meeting.client.firstName + ' ' + meeting.client.lastName}'s Evaluation`}
+                {`${meeting.client.firstName + ' ' + meeting.client.lastName}'s Evaluation` + ' ' + `(${t('client')})`}
               </Typography>
             </Grid>
           </Grid>
@@ -52,7 +52,7 @@ const Evaluations = () => {
           <Grid container>
             <Grid item md={6} xs={6}>
               <Typography component={'h4'} id={'post-service-page-header'}>
-                {`${meeting.freelancer.firstName + ' ' + meeting.freelancer.lastName}'s Evaluation`}
+                {`${meeting.freelancer.firstName + ' ' + meeting.freelancer.lastName}'s Evaluation` + ' ' + `(${t('freelancer')})`}
               </Typography>
             </Grid>
           </Grid>
