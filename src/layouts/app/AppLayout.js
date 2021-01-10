@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'row',
+    minHeight: '700px',
     width: '100%',
     height: '100%',
   },
