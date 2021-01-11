@@ -39,7 +39,7 @@ export const createOrUpdateService = (service) => {
   else {
     return createService(service);
   }
-}
+};
 
 export const fetchServiceDetails = (serviceId) => {
   return axios({

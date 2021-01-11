@@ -38,6 +38,7 @@
   "serviceQuestionId": "Question Roaster Id",
   "questionRef": "Question Reference Id",
   "answersCount": "Answers",
+  "answersDetails": "Answers Details",
   "state": "Status",
   "actionNeeded": "Action Needed",
   "alarm": "Alarm",
