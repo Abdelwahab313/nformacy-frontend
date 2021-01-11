@@ -17,10 +17,14 @@ import { useSnackBar } from 'context/SnackBarContext';
 import { RoutesPaths } from 'constants/routesPath';
 import LinkText from 'components/typography/LinkText';
 import authManager from 'services/authManager';
-import { getAnswerQuestionLinkForAdmin, getCallEvaluationView } from 'services/navigation';
+import {
+  getAnswerQuestionLinkForAdmin,
+  getCallEvaluationView,
+} from 'services/navigation';
 import { useStyles } from 'styles/Admin/questionFormStyles';
 import MeetingDetailsSection from 'pages/App/ServiceRequests/details/subComponents/MeetingDetailsSection';
 import SubmitButton from 'components/buttons/SubmitButton';
+import { MEETING_STATUS } from 'constants/questionStatus';
 
 const ServiceDetails = () => {
   const classes = useStyles();
@@ -57,7 +61,7 @@ const ServiceDetails = () => {
         navigateToQuestionDetails(createdQuestionId);
         showSuccessMessage(t('questionGenerated'));
       })
-      .catch(() => { });
+      .catch(() => {});
   };
   const handleReturnToClient = () => {
     if (!!validate(serviceRequest)) {
@@ -66,7 +70,7 @@ const ServiceDetails = () => {
           showSuccessMessage(t('commentSubmitted'));
           navigatToDashboard();
         })
-        .catch(() => { });
+        .catch(() => {});
     }
   };
 
@@ -101,12 +105,15 @@ const ServiceDetails = () => {
               <Grid item md={6} xs={6}>
                 {!!serviceRequest.question?.id && (
                   <Typography component={'h4'}>
-                    <LinkText to={getAnswerQuestionLinkForAdmin(serviceRequest.question.id)} className={classes.relatedService}>
+                    <LinkText
+                      to={getAnswerQuestionLinkForAdmin(
+                        serviceRequest.question.id,
+                      )}
+                      className={classes.relatedService}>
                       {authManager.isAdmin() && 'Related Question'}
                     </LinkText>
                   </Typography>
-                )
-                }
+                )}
               </Grid>
             </Grid>
           </CardHeader>
@@ -131,23 +138,32 @@ const ServiceDetails = () => {
           />
         </Card>
       </GridItem>
-      {!!serviceRequest.meetings?.length > 0 && (
-        <Fragment>
+      {!!serviceRequest.meetings?.length > 0 &&
+        serviceRequest.meetings?.map((meeting) => (
+          <Fragment>
+            <GridItem xs={12}>
+              <MeetingDetailsSection meeting={meeting} />
+            </GridItem>
 
-          <GridItem xs={12}>
-            <MeetingDetailsSection
-              meeting={serviceRequest?.meetings[0]}
-            />
-          </GridItem>
-          <GridItem xs={12}>
-            <SubmitButton
-              className={classes.viewEvaluations}
-              onClick={() => { handleClick(); }}
-              buttonText={t('viewEvaluations')}
-            />
-          </GridItem>
-        </Fragment>
-      )}
+            <GridItem xs={12}>
+              {meeting.state === MEETING_STATUS.callFinished ? (
+                <SubmitButton
+                  className={classes.viewEvaluations}
+                  onClick={() => {
+                    handleClick();
+                  }}
+                  buttonText={t('viewEvaluations')}
+                />
+              ) : (
+                <SubmitButton
+                  className={classes.viewEvaluations}
+                  onClick={() => {}}
+                  buttonText={t('joinMeetingBtn')}
+                />
+              )}
+            </GridItem>
+          </Fragment>
+        ))}
     </GridContainer>
   );
 };

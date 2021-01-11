@@ -30,23 +30,16 @@ const MeetingDetailsSection = ({ meeting }) => {
     }
   };
 
-  const isAdmin = authManager.isAdmin();
+  const showFreelancerSection = !authManager.isNormalUser();
+  const showClientSection = !authManager.isClient();
 
   const handleMeetingHeader = () => {
     if (!!isMeetingFinished) {
-      if (!!isAdmin) {
-        return `${t('meetingForAdmin')} ${formattedDateTimeNoSeconds(
-          new Date(meeting?.callTime),
-        )}`;
-      }
-      else {
-        return `${t('meetingDetails')} ${formattedDateTimeNoSeconds(
-          new Date(meeting?.callTime),
-        )}`;
-      }
-    }
-    else {
-      return `${t('joinMeeting')} ${formattedDateTimeNoSeconds(
+      return `${t('pastMeetingHeader')} ${formattedDateTimeNoSeconds(
+        new Date(meeting?.callTime),
+      )}`;
+    } else {
+      return `${t('fututreMeetingHeader')} ${formattedDateTimeNoSeconds(
         new Date(meeting?.callTime),
       )}`;
     }
@@ -62,40 +55,40 @@ const MeetingDetailsSection = ({ meeting }) => {
         container
         justify='space-evenly'
         className={classes.shortlistContainer}>
-        <Grid item xs={12} md={3}>
-          <Box className={'shortlistedConsultants'}>
-            <CandidateItem
-              bgcolor={lighterPink}
-              candidate={meeting.freelancer}
-              isFocused={true}
-              setFocusedCandidate={() => { }}
-              onCandidateClick={() => handleClick()}
-              buttonText={
-                !!isMeetingFinished ? 'Rate the Call' : 'join meeting'
-              }
-              clientType={t('freelancer')}
-            />
-          </Box>
-        </Grid>
-        {
-          !!isAdmin && (
-            <Grid item xs={12} md={3}>
-              <Box className={'shortlistedConsultants'}>
-                <CandidateItem
-                  bgcolor={lighterPink}
-                  candidate={meeting.client}
-                  isFocused={true}
-                  setFocusedCandidate={() => { }}
-                  onCandidateClick={() => handleClick()}
-                  buttonText={
-                    !!isMeetingFinished ? 'Rate the Call' : 'join meeting'
-                  }
-                  clientType={t('client')}
-                />
-              </Box>
-            </Grid>
-          )
-        }
+        {!!showFreelancerSection && (
+          <Grid item xs={12} md={3}>
+            <Box className={'shortlistedConsultants'}>
+              <CandidateItem
+                bgcolor={lighterPink}
+                candidate={meeting.freelancer}
+                isFocused={true}
+                setFocusedCandidate={() => {}}
+                onCandidateClick={() => handleClick()}
+                buttonText={
+                  !!isMeetingFinished ? 'Rate the Call' : 'join meeting'
+                }
+                clientType={t('freelancer')}
+              />
+            </Box>
+          </Grid>
+        )}
+        {!!showClientSection && (
+          <Grid item xs={12} md={3}>
+            <Box className={'shortlistedConsultants'}>
+              <CandidateItem
+                bgcolor={lighterPink}
+                candidate={meeting.client}
+                isFocused={true}
+                setFocusedCandidate={() => {}}
+                onCandidateClick={() => handleClick()}
+                buttonText={
+                  !!isMeetingFinished ? 'Rate the Call' : 'join meeting'
+                }
+                clientType={t('client')}
+              />
+            </Box>
+          </Grid>
+        )}
       </Grid>
     </Card>
   );

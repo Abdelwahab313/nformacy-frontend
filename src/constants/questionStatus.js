@@ -273,6 +273,7 @@ export {
   SERVICE_STATUS,
   ANSWER_STATUS,
   EDITABLE_SERVICE_STATUS,
+  MEETING_STATUS,
   meetingStatusActions,
   questionStatusActions,
   serviceActions,

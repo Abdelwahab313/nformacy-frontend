@@ -199,9 +199,8 @@
   "confirmPassword": "Confirm Password",
   "register": "Register",
   "shortlistCandidate": "Shortlist Candidate",
-  "joinMeeting": "Your meeting will be at ",
-  "meetingDetails": "Your meeting was at ",
-  "meetingForAdmin": "The meeting was at ",
+  "pastMeetingHeader": "Meeting was at",
+  "fututreMeetingHeader": "Meeting will be at",
   "answersList": "Answers List",
   "time": "Time",
   "answerSubmitted": "Answer has been submitted successfully",
@@ -242,5 +241,6 @@
   "clientNotSumbitEvaluation": "The Client has not submitted the evaluation yet!",
   "freelancerNotSumbitEvaluation": "The Freelancer has not submitted the evaluation yet!",
   "client": "Client",
-  "freelancer": "Freelancer"
+  "freelancer": "Freelancer",
+  "joinMeetingBtn": "Join Meeting"
 }
