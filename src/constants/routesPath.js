@@ -38,6 +38,5 @@ export const RoutesPaths = {
     ActivitiesList: '/activities/list',
     UserTypeSelection: '/user/type',
     NotFound: '/error',
-    FreelancerAnswersDetails: '/services/freelancerAnswersDetails',
   },
 };

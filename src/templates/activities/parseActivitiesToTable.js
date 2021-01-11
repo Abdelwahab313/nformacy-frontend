@@ -1,5 +1,5 @@
 import React from 'react';
-import { getAnswerQuestionLink } from 'services/navigation';
+import { getAnswerQuestionLink, getServiceDetailsLink } from 'services/navigation';
 import LinkText from 'components/typography/LinkText';
 import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
 import { getAnswerState } from 'core/answerStatus';
@@ -16,13 +16,17 @@ import MeetingAlarm from 'components/feedback/MeetingAlarm';
 const parseActivitiesToTableRow = (activities, t) => {
   return activities?.map((activity) => ({
     id: `#${activity.answerId}`,
-    activityId: (
-      <LinkText to={getAnswerQuestionLink(activity.questionId)}>
-        {activity.activityType === 'answer'
-          ? `#${activity.questionRef}`
-          : `#${activity.serviceRef}`}
-      </LinkText>
-    ),
+    activityId:
+      activity.activityType === 'answer' ? (
+        <LinkText to={getAnswerQuestionLink(activity.questionId)}>
+          {`#${activity.questionRef}`}
+        </LinkText>
+      ) : (
+        <LinkText to={getServiceDetailsLink(activity.serviceId)}>
+          {`#${activity.serviceRef}`}
+        </LinkText>
+      ),
+
     requestType:
       activity.activityType === 'answer'
         ? t(`screening_${activity.assignmentType}`)

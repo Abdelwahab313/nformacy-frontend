@@ -21,7 +21,6 @@ import CallEvaluationPage from 'pages/App/MeetingEvaluation/CallEvaluation';
 import { RoutesPaths } from 'constants/routesPath';
 import NotFoundPage from 'pages/NotFoundPage';
 import ContactUsPage from 'pages/App/ContactUs/ContactUsPage';
-import FreelancerAnswersDetails from 'pages/App/FreelancersAnswers/edit/FrelancerAnswersDetails';
 
 const appRoutes = [
   {
@@ -230,15 +229,6 @@ const appRoutes = [
     name: 'Not Found',
     icon: DashboardIcon,
     Component: NotFoundPage,
-    includeLayout: false,
-    isPublic: true,
-    hasDashboardLink: false,
-  },
-  {
-    path: RoutesPaths.App.FreelancerAnswersDetails,
-    name: 'Answers Details',
-    icon: DashboardIcon,
-    Component: FreelancerAnswersDetails,
     includeLayout: false,
     isPublic: true,
     hasDashboardLink: false,
