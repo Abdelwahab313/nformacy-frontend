@@ -3,20 +3,17 @@ import GridItem from 'components/grid/GridItem';
 
 import Card from 'components/card/Card';
 import CardBody from 'components/card/CardBody';
-import ServicesTable from '../../../../templates/services/ServicesTable';
-import useFetchData from 'hooks/useFetchData';
-import { fetchClientServices } from 'apis/servicesAPI';
+import ServicesTable from 'templates/services/ServicesTable';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { Box } from '@material-ui/core';
 import Direction from 'components/grid/Direction';
 import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
+import useFetchClientActivities from 'hooks/useFetchClientActivities';
 
 const ServicesPage = () => {
   const { t } = useTranslation();
-  const { fetchedData: services, isLoading } = useFetchData(
-    fetchClientServices,
-  );
+  const { activities: services, isLoading } = useFetchClientActivities();
 
   if (isLoading) {
     return <LoadingCircle />;

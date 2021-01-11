@@ -42,6 +42,7 @@ const formatServicesToActivity = (services) => {
     meetingId: service.assignmentType === 'call' && service.meetings[0]?.id,
     meetingState: service.meetings[0]?.state,
     meetingRef: service.meetings[0]?.referenceNumber,
+    meetingTime: service.meetings[0]?.callTime,
     hasEvaluationSubmitted: !!service.meetings[0]?.clientEvaluationId,
   }));
 };
@@ -69,6 +70,7 @@ const formatMeetingsToActivity = (meetings) => {
     currentActionTime: meeting.service?.question?.currentActionTime,
     meetingId: meeting.id,
     meetingRef: meeting.referenceNumber,
+    meetingTime: meeting.callTime,
     hasEvaluationSubmitted: !!meeting.clientEvaluationId,
   }));
 };

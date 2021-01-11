@@ -11,6 +11,7 @@ import { getServiceStatus } from 'core/serviceStatus';
 import ServiceActionLink from 'templates/services/ServiceActionLink';
 import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
 import CustomTypography from 'components/typography/Typography';
+import MeetingAlarm from 'components/feedback/MeetingAlarm';
 
 const parseActivitiesToTableRow = (activities, t) => {
   return activities?.map((activity) => ({
@@ -70,16 +71,25 @@ const parseActivitiesToTableRow = (activities, t) => {
           hasEvaluationSubmitted={activity.hasEvaluationSubmitted}
         />
       ),
-    time: !!activity?.questionTime ? (
-      <FreelancerAnswerTime currentActionTime={activity?.questionTime} />
-    ) : null,
-    timeAlarm: (
-      <QuestionRemainingTimeAlarm
-        remainingTime={activity?.questionTime}
-        totalActionHours={10}
-        className={'alarm'}
+    time: (
+      <FreelancerAnswerTime
+        currentActionTime={
+          activity.type === 'answer'
+            ? activity?.questionTime
+            : activity?.meetingTime
+        }
       />
     ),
+    timeAlarm:
+      activity.type === 'answer' ? (
+        <QuestionRemainingTimeAlarm
+          remainingTime={activity?.questionTime}
+          totalActionHours={10}
+          className={'alarm'}
+        />
+      ) : (
+        <MeetingAlarm meetingTime={activity.meetingTime} />
+      ),
   }));
 };
 

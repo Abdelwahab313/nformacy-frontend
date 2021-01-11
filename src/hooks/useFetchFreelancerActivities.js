@@ -64,6 +64,7 @@ const formatMeetingsToActivity = (meetings) => {
     fields: meeting.service.question.fields,
     meetingState: meeting.state,
     meetingRef: meeting.referenceNumber,
+    meetingTime: meeting.callTime,
     hasEvaluationSubmitted: !!meeting.freelancerEvaluationId,
   }));
 };

@@ -13,8 +13,9 @@ import ServiceActionLink from 'templates/services/ServiceActionLink';
 import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
 import CustomTypography from 'components/typography/Typography';
 import { Typography } from '@material-ui/core';
-import ByTimeField from 'pages/Admin/Questions/list/subComponents/ByTimeField';
 import { EDITABLE_SERVICE_STATUS } from 'constants/questionStatus';
+import QuestionCountDown from 'components/counters/QuestionCountDown';
+import MeetingAlarm from 'components/feedback/MeetingAlarm';
 
 const parseServicesToTableRows = (services, t) => {
   return services?.map((service) => ({
@@ -79,21 +80,29 @@ const parseServicesToTableRows = (services, t) => {
         hasEvaluationSubmitted={service.hasEvaluationSubmitted}
       />
     ),
-    actionTime: !!service.currentActionTime ? (
-      <ByTimeField
-        currentActionTime={service?.currentActionTime}
-        referenceId={service.serviceId}
-        questionId={service.questionId}
-      />
-    ) : null,
-    alarm: (
-      <QuestionRemainingTimeAlarm
-        remainingTime={service.currentActionTime}
-        totalActionHours={10}
-        className={'alarm'}
-        data-reference={service.serviceId}
+    actionTime: (
+      <QuestionCountDown
+        date={
+          service.activityType === 'meeting'
+            ? service?.meetingTime
+            : service?.currentActionTime
+        }
+        data-date={service?.meetingTime}
+        showIcon={false}
+        className={'currentActionTime'}
       />
     ),
+    alarm:
+      service.activityType === 'meeting' ? (
+        <MeetingAlarm meetingTime={service.meetingTime} />
+      ) : (
+        <QuestionRemainingTimeAlarm
+          remainingTime={service.currentActionTime}
+          totalActionHours={10}
+          className={'alarm'}
+          data-reference={service.serviceId}
+        />
+      ),
   }));
 };
 
