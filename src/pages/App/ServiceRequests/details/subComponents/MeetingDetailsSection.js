@@ -44,14 +44,13 @@ const MeetingDetailsSection = ({ meeting }) => {
       )}`;
     }
   };
-
   const handleClientMeetingBtn = () => {
     if (!!isMeetingFinished) {
-      if (!!meeting.clientEvaluationId) {
-        return 'Rate the Call';
+      if (!!meeting.freelancerEvaluationId) {
+        return 'View Evaluation';
       }
       else {
-        return 'View Evaluation';
+        return 'Rate the Call';
       }
     }
     else {
@@ -60,11 +59,11 @@ const MeetingDetailsSection = ({ meeting }) => {
   };
   const handleFreelancerMeetingBtn = () => {
     if (!!isMeetingFinished) {
-      if (!!meeting.freelancerEvaluationId) {
-        return 'Rate the Call';
+      if (!!meeting.clientEvaluationId) {
+        return 'View Evaluation';
       }
       else {
-        return 'View Evaluation';
+        return 'Rate the Call';
       }
     }
     else {
