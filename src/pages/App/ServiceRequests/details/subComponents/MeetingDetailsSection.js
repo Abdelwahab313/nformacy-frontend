@@ -44,6 +44,33 @@ const MeetingDetailsSection = ({ meeting }) => {
       )}`;
     }
   };
+
+  const handleClientMeetingBtn = () => {
+    if (!!isMeetingFinished) {
+      if (!!meeting.clientEvaluationId) {
+        return 'Rate the Call';
+      }
+      else {
+        return 'View Evaluation';
+      }
+    }
+    else {
+      return 'join meeting';
+    }
+  };
+  const handleFreelancerMeetingBtn = () => {
+    if (!!isMeetingFinished) {
+      if (!!meeting.freelancerEvaluationId) {
+        return 'Rate the Call';
+      }
+      else {
+        return 'View Evaluation';
+      }
+    }
+    else {
+      return 'join meeting';
+    }
+  };
   return (
     <Card className={classes.noShadow}>
       <CardHeader color='primary'>
@@ -62,11 +89,9 @@ const MeetingDetailsSection = ({ meeting }) => {
                 bgcolor={lighterPink}
                 candidate={meeting.freelancer}
                 isFocused={true}
-                setFocusedCandidate={() => {}}
+                setFocusedCandidate={() => { }}
                 onCandidateClick={() => handleClick()}
-                buttonText={
-                  !!isMeetingFinished ? 'Rate the Call' : 'join meeting'
-                }
+                buttonText={handleFreelancerMeetingBtn()}
                 clientType={t('freelancer')}
               />
             </Box>
@@ -79,11 +104,9 @@ const MeetingDetailsSection = ({ meeting }) => {
                 bgcolor={lighterPink}
                 candidate={meeting.client}
                 isFocused={true}
-                setFocusedCandidate={() => {}}
+                setFocusedCandidate={() => { }}
                 onCandidateClick={() => handleClick()}
-                buttonText={
-                  !!isMeetingFinished ? 'Rate the Call' : 'join meeting'
-                }
+                buttonText={handleClientMeetingBtn()}
                 clientType={t('client')}
               />
             </Box>
