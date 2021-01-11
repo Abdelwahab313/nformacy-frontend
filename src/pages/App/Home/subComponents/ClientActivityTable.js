@@ -21,10 +21,12 @@ const StyledTableCell = withStyles((theme) => ({
     color: theme.palette.common.white,
     textAlign: 'center',
     fontWeight: 'bold',
+    whiteSpace: 'nowrap',
   },
   body: {
     fontSize: 14,
     textAlign: 'center',
+    // borderRight: '1px solid black',
   },
 }))(TableCell);
 
@@ -40,7 +42,7 @@ const StyledTableRow = withStyles((theme) => ({
 const ClientActivityTable = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const { activities: services, isLoading } = useFetchClientActivities()
+  const { activities: services, isLoading } = useFetchClientActivities();
   const servicesRows = parseServicesToTableRows(services, t);
   if (isLoading) {
     return <LoadingCircle />;
@@ -68,6 +70,12 @@ const ClientActivityTable = () => {
                   <StyledTableCell className={classes.desktopVisible}>
                     {t('actionNeeded')}
                   </StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('time')}
+                  </StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('alarm')}
+                  </StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -89,6 +97,12 @@ const ClientActivityTable = () => {
                     <StyledTableCell
                       className={[classes.desktopVisible, 'action']}>
                       {service.action}
+                    </StyledTableCell>
+                    <StyledTableCell className={classes.desktopVisible}>
+                      {service.actionTime}
+                    </StyledTableCell>
+                    <StyledTableCell className={classes.desktopVisible}>
+                      {service.alarm}
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}

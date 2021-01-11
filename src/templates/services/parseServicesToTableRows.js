@@ -20,24 +20,31 @@ import MeetingAlarm from 'components/feedback/MeetingAlarm';
 const parseServicesToTableRows = (services, t) => {
   return services?.map((service) => ({
     serviceId: service.serviceId,
-    serviceRef: (
-      <ServiceRefIdLink
-        serviceState={service.serviceState}
-        serviceId={service.serviceId}
-        referenceId={service.serviceRef}
-      />
-    ),
+    serviceRef:
+      service.activityType === 'meeting' ? (
+        <ServiceRefIdLink
+          serviceState={service.serviceState}
+          serviceId={service.serviceId}
+          referenceId={service.meetingRef}
+        />
+      ) : (
+        <ServiceRefIdLink
+          serviceState={service.serviceState}
+          serviceId={service.serviceId}
+          referenceId={service.serviceRef}
+        />
+      ),
     clientId: service.userId,
     requestType:
       service.activityType === 'meeting'
         ? t('call')
-        : t(`screening_${service.assignmentType}`),
+        : t(`${service.assignmentType}`),
     createdAt: (
       <CustomTypography variant='body2' gutterBottom>
         {formattedDateMonthAndDay(new Date(service.createdAt))}
       </CustomTypography>
     ),
-    title: <TextCroppedWithTooltip text={service.title} />,
+    title: <TextCroppedWithTooltip text={service.title} maxChar={15} />,
     fields: <FieldsChips fields={service.fields} />,
     language: (
       <Typography variant='body1' gutterBottom>

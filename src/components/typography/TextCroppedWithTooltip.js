@@ -4,9 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 
-const TextCroppedWithTooltip = ({ text }) => {
+const TextCroppedWithTooltip = ({ text, maxChar }) => {
   const classes = useStyles();
-  const MaxCharNumber = 30;
+  const MaxCharNumber = !!maxChar ? maxChar : 30;
   if (!text) {
     return '';
   }
