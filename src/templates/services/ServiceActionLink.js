@@ -10,8 +10,9 @@ import {
   getQuestionDetailsLink,
   getServiceDetailsLink,
   getCallEvaluationLink,
+  getEditServiceDetailsLink,
 } from 'services/navigation';
-import { SERVICE_STATUS } from 'constants/questionStatus';
+import { EDITABLE_SERVICE_STATUS, SERVICE_STATUS } from 'constants/questionStatus';
 import { getMeetingAction } from 'core/meeting';
 
 const ServiceActionLink = ({
@@ -41,7 +42,9 @@ const ServiceActionLink = ({
       return getCallEvaluationLink(meetingId, serviceId);
     } else if (hasRelatedQuestion) {
       return getQuestionDetailsLink(questionId, serviceId);
-    } else {
+    } else if (EDITABLE_SERVICE_STATUS.includes(status)) {
+        return getEditServiceDetailsLink(serviceId);
+      } else {
       return getServiceDetailsLink(serviceId);
     }
   };
