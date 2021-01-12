@@ -24,5 +24,6 @@
   "client_callScheduled_status": "Call Scheduled",
   "admin_callScheduled_status": "Call Scheduled",
   "client_callScheduled_action": "View Meeting Details",
-  "client_callFinished_action": "Submit Evaluation"
+  "client_callFinished_action": "Submit Evaluation",
+  "admin_callFinished_status": "Call Finished"
 }
