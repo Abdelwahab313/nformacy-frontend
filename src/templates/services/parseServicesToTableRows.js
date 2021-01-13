@@ -82,8 +82,8 @@ const parseServicesToTableRows = (services, t) => {
         serviceId={service.serviceId}
         questionId={service.questionId}
         questionState={service.questionState}
-        meetingId={service.meetingId}
-        meetingState={service.meetingState}
+        meetingId={service.activityType === 'meeting' && service.meetingId}
+        meetingState={service.activityType === 'meeting' && service.meetingState}
         hasEvaluationSubmitted={service.hasEvaluationSubmitted}
       />
     ),
