@@ -16,7 +16,8 @@ const CandidateItem = ({
   onCandidateClick,
   bgcolor,
   buttonText,
-  clientType = ''
+  clientType = '',
+  isDisabled = false
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -59,6 +60,7 @@ const CandidateItem = ({
             <Grid container justify='center' xs={12}>
               {isFocused && !isAdmin && (
                 <SubmitButton
+                  disabled={isDisabled}
                   id={'proceedBtn'}
                   className={classes.desktopVisible}
                   onClick={() => onCandidateClick()}

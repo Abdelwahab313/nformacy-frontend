@@ -79,3 +79,6 @@ export const formattedDateMonthAndDay = (date, locale = LOCALES.en) => {
 export const getTimeDiffInHoursFromNow = (remainingTime) => {
   return moment.duration(moment(remainingTime).diff(moment())).asHours();
 };
+export const getTimeDiffInMinutesFromNow = (remainingTime) => {
+  return moment.duration(moment(remainingTime).diff(moment())).asMinutes();
+};

@@ -43,7 +43,7 @@ const CallEvaluation = () => {
   );
   const isEvaluationSumbitted = useMemo(
     () => {
-      if (!authManager.isClient()) {
+      if (authManager.isClient()) {
         return !!meeting.clientEvaluation;
       }
       else {

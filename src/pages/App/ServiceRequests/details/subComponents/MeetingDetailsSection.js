@@ -6,7 +6,7 @@ import CandidateItem from './CandidateItem';
 import CardHeader from 'components/card/CardHeader';
 import Card from 'components/card/Card';
 import useStyles from '../styles/ShortlistCandidate';
-import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
+import { formattedDateTimeNoSeconds, getTimeDiffInMinutesFromNow } from 'services/dateTimeParser';
 import { SERVICE_STATUS } from 'constants/questionStatus';
 import { useLocation } from 'react-router';
 import { getCallEvaluationLink, history } from 'services/navigation';
@@ -21,6 +21,8 @@ const MeetingDetailsSection = ({ meeting }) => {
   const meetingState = meeting.state;
 
   const isMeetingFinished = meetingState === SERVICE_STATUS.callFinished;
+  const remainingMinitues = getTimeDiffInMinutesFromNow(meeting.callTime);
+  const isGreaterThanFifteenMinutes = remainingMinitues >= 15;
 
   const handleClick = () => {
     if (!!isMeetingFinished) {
@@ -92,6 +94,7 @@ const MeetingDetailsSection = ({ meeting }) => {
                 onCandidateClick={() => handleClick()}
                 buttonText={handleFreelancerMeetingBtn()}
                 clientType={t('freelancer')}
+                isDisabled={!!isGreaterThanFifteenMinutes ? true : false}
               />
             </Box>
           </Grid>
@@ -107,6 +110,7 @@ const MeetingDetailsSection = ({ meeting }) => {
                 onCandidateClick={() => handleClick()}
                 buttonText={handleClientMeetingBtn()}
                 clientType={t('client')}
+                isDisabled={!!isGreaterThanFifteenMinutes ? true : false}
               />
             </Box>
           </Grid>
