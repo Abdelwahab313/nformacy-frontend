@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { fetchFreelancerActivities } from 'apis/homeAPI';
 import useFetchData from './useFetchData';
+import { MEETING_STATUS } from 'constants/questionStatus';
 
 const useFetchFreelancerActivities = () => {
   const { fetchedData, isLoading } = useFetchData(fetchFreelancerActivities);
@@ -64,7 +65,7 @@ const formatMeetingsToActivity = (meetings) => {
     fields: meeting.service.question.fields,
     meetingState: meeting.state,
     meetingRef: meeting.referenceNumber,
-    meetingTime: meeting.callTime,
+    meetingTime: (meeting.state === MEETING_STATUS.callScheduled) && meeting.callTime,
     hasEvaluationSubmitted: !!meeting.freelancerEvaluationId,
   }));
 };

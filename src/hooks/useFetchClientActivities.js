@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { fetchClientActivities } from 'apis/homeAPI';
 import useFetchData from './useFetchData';
+import { MEETING_STATUS } from 'constants/questionStatus';
 
 const useFetchClientActivities = () => {
   const { fetchedData, isLoading } = useFetchData(fetchClientActivities);
@@ -70,7 +71,7 @@ const formatMeetingsToActivity = (meetings) => {
     currentActionTime: meeting.service?.question?.currentActionTime,
     meetingId: meeting.id,
     meetingRef: meeting.referenceNumber,
-    meetingTime: meeting.callTime,
+    meetingTime: (meeting.state === MEETING_STATUS.callScheduled) && meeting.callTime,
     hasEvaluationSubmitted: !!meeting.clientEvaluationId,
   }));
 };
