@@ -7,6 +7,7 @@ import {
   darkBlue,
   white,
   lightOrange,
+  darkOrange
 } from './colors';
 
 export const useStyles = makeStyles((theme) => ({
@@ -103,7 +104,13 @@ export const useStyles = makeStyles((theme) => ({
   submit: {
     marginTop: theme.spacing(5),
   },
-
+  signupButton: {
+    marginTop: theme.spacing(2),
+    backgroundColor: lightOrange,
+    '&:hover': {
+      backgroundColor: darkOrange
+    }
+  },
   progressContainer: {
     position: 'absolute',
     left: '50%',
@@ -115,9 +122,29 @@ export const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
   signupLink: {
+    color: white,
+    fontSize: 'initial',
+    textDecoration: 'none'
+  },
+  forgetPasswordLink: {
     margin: theme.spacing(1),
     color: lightOrange,
     fontSize: 'initial',
+    textAlign: 'right',
+    width: '100%'
+  },
+  newUser: {
+    marginTop: theme.spacing(4),
+    width: '100%',
+    textAlign: 'center',
+    borderBottom: '1px solid #d1d0d0',
+    lineHeight: '0.1em',
+    margin: '10px 0 20px',
+    zIndex: 999
+  },
+  newUserText: {
+    background: white,
+    padding: '0 10px',
   },
   hintContainer: {
     borderRadius: '5%',
@@ -354,12 +381,12 @@ export const useStyles = makeStyles((theme) => ({
   },
   logInButtonContainer: {
     display: 'flex',
-    width: '40%',
+    width: '100%',
     justifySelf: 'center',
   },
   signUpButtonContainer: {
     display: 'flex',
-    width: '40%',
+    width: '100%',
     alignSelf: 'flex-end',
   },
   headerWithBackground: {

@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Redirect, useLocation } from 'react-router';
+import { Redirect, useLocation, useHistory } from 'react-router';
 import { useAuth } from './context/auth';
 import ErrorDialog from '../../components/errors/ErrorDialog';
 import { useStyles } from 'styles/formsStyles';
@@ -16,6 +16,7 @@ import { updateUser } from './context/authActions';
 import { RoutesPaths } from 'constants/routesPath';
 import { useTranslation } from 'react-i18next';
 import useLocale from '../../hooks/localization/useLocale';
+import CustomTypography from 'components/typography/Typography';
 
 const Login = () => {
   const classes = useStyles();
@@ -29,6 +30,8 @@ const Login = () => {
   const location = useLocation();
   const { setLocale } = useLocale();
   const { t } = useTranslation();
+  const history = useHistory();
+
   const isAdminLogin = location.pathname.indexOf('admin') > -1;
   const postLoginRoute = isAdminLogin
     ? RoutesPaths.Admin.Home
@@ -73,14 +76,14 @@ const Login = () => {
   const { authToken } = authManager.retrieveUserToken();
   if (loginSuccess || authToken) {
     if (referer.pathname === RoutesPaths.App.Logout || referer.pathname === RoutesPaths.Admin.Logout) {
-      return <Redirect push to={postLoginRoute}/>;
+      return <Redirect push to={postLoginRoute} />;
     }
-    return <Redirect push to={referer}/>;
+    return <Redirect push to={referer} />;
   }
   if (loading) {
     return (
       <div className={classes.progressContainer}>
-        <CircularProgress/>
+        <CircularProgress />
       </div>
     );
   }
@@ -93,7 +96,7 @@ const Login = () => {
         container
         alignContent='center'
         className={classes.loginInTitleContainer}>
-        <Grid item xs={1}/>
+        <Grid item xs={1} />
         <Grid item xs={10}>
           <Typography className={classes.pageHeaderStyle}>
             {t('Login')}
@@ -110,7 +113,7 @@ const Login = () => {
             }}
           />
         )}
-        <CssBaseline/>
+        <CssBaseline />
         <Grid item xs={12} md={3}>
           <img
             src={require('../../assets/22759-girl-on-a-scooter.gif')}
@@ -161,8 +164,8 @@ const Login = () => {
                 {t('Invalid Email or password')}
               </span>
             )}
-            <a className={classes.signupLink} href={'signup'}>
-              Don't have account signup now!
+            <a className={classes.forgetPasswordLink} href={'forgetPassword'}>
+              {t('forgetPassword')}
             </a>
             <div className={classes.logInButtonContainer}>
               <Button
@@ -175,10 +178,25 @@ const Login = () => {
                 {t('Login')}
               </Button>
             </div>
+            <CustomTypography className={classes.newUser}>
+              <span className={classes.newUserText}>New User?</span>
+            </CustomTypography>
+            <div className={classes.signUpButtonContainer}>
+              <Button
+                id='signup'
+                fullWidth
+                variant='contained'
+                onClick={() => history.push(RoutesPaths.App.Signup)}
+                className={[classes.submit, classes.signupButton]}>
+                <a className={classes.signupLink}>
+                  {t('signup')}
+                </a>
+              </Button>
+            </div>
           </form>
         </Grid>
       </Grid>
-    </Grid>
+    </Grid >
   );
 };
 
