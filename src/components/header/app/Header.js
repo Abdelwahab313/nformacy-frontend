@@ -42,7 +42,11 @@ export default function MainHeader() {
 
   const menuId = 'primary-search-account-menu';
   const mobileMenuId = 'primary-search-account-menu-mobile';
-
+  const showHeaderNav =
+    location.pathname === RoutesPaths.App.LandingPage ||
+    location.pathname === RoutesPaths.App.ContactUs ||
+    location.pathname === RoutesPaths.App.Solutions ||
+    location.pathname === RoutesPaths.App.TermsAndConditions;
   return (
     <div className={classes.grow} dir={DIRECTION[locale]}>
       <AppBar
@@ -63,8 +67,22 @@ export default function MainHeader() {
               />
             </Link>
           </Box>
-          {(location.pathname === RoutesPaths.App.LandingPage ||
-            location.pathname === RoutesPaths.App.ContactUs) && (
+          <Box className={classes.sectionDesktop}>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder='Search…'
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </div>
+          </Box>
+          {showHeaderNav && (
             <Box className={classes.sectionDesktop}>
               <NavLink
                 exact
@@ -86,8 +104,9 @@ export default function MainHeader() {
                 Contact Us
               </NavLink>
               <NavLink
-                to={RoutesPaths.App.NotFound}
-                className={classes.menuItemText}>
+                to={RoutesPaths.App.Solutions}
+                className={classes.menuItemText}
+                activeClassName={classes.active}>
                 Solutions
               </NavLink>
               <NavLink
@@ -102,28 +121,6 @@ export default function MainHeader() {
               </NavLink>
             </Box>
           )}
-          <Box
-            className={[
-              classes.sectionDesktop,
-              location.pathname === RoutesPaths.App.LandingPage ||
-              location.pathname === RoutesPaths.App.ContactUs
-                ? classes.LandingSearchContainer
-                : '',
-            ]}>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder='Search…'
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </div>
-          </Box>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             {authToken ? (

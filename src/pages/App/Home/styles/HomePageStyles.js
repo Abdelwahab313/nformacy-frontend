@@ -6,6 +6,8 @@ import {
   darkBlue,
   white,
   black,
+  darkOrange,
+  mediumTurquoise,
 } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
@@ -62,6 +64,9 @@ const useStyles = makeStyles((theme) => ({
   },
   orangeText: {
     color: lightOrange,
+  },
+  darkBlueText: {
+    color: darkBlue,
   },
   darkBackground: {
     backgroundColor: theme.palette.secondary.dark,
@@ -370,6 +375,69 @@ const useStyles = makeStyles((theme) => ({
   },
   mobileLandingServiceContainer: {
     padding: [4, 12],
+  },
+  solutionsPageServiceIcon: {
+    margin: 'auto',
+    height: '80%',
+    [theme.breakpoints.down('md')]: {
+      height: 140,
+      margin: '24px auto',
+    },
+  },
+  darkOrangeBG: {
+    backgroundColor: darkOrange,
+  },
+  mediumTurquoiseBG: {
+    backgroundColor: mediumTurquoise,
+  },
+  lightOrangeBG: {
+    backgroundColor: lightOrange,
+  },
+  darkBlueBG: {
+    backgroundColor: darkBlue,
+  },
+  flexClass: {
+    display: 'flex',
+  },
+  imgContainerHeight: {
+    minHeight: 440,
+  },
+  whiteCtaBtn: {
+    background: `${white} !important`,
+    color: `${darkBlue} !important`,
+    textTransform: 'none',
+    padding: theme.spacing(2),
+    width: 240,
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(1),
+      width: 210,
+    },
+  },
+  serviceDetailsBox: {
+    backgroundColor: white,
+    borderRadius: 20,
+    border: '1px solid #ecedf0',
+    minHeight: 440,
+    overflow: 'hidden',
+    [theme.breakpoints.down('sm')]: {
+      margin: '10px 0',
+      borderRadius: 10,
+      minHeight: 'initial',
+    },
+  },
+  flexDirectionBox: {
+    flexDirection: 'row-reverse',
+  },
+  pointBullet: {
+    width: 13,
+    height: 13,
+    margin: [0, theme.spacing(2)],
+  },
+  pointBulletMargin: {
+    margin: [theme.spacing(2), 0],
+  },
+  mobileServicePadding: {
+    padding: [theme.spacing(2), theme.spacing(1)],
   },
 }));
 

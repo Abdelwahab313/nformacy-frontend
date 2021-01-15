@@ -8,7 +8,7 @@ import {
   stepIndicatorStyles,
   useStyles,
 } from '../../../styles/formsStyles';
-import { Button } from '@material-ui/core';
+import { Box, Button, Checkbox, FormControlLabel } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
@@ -28,6 +28,7 @@ import ClientStepOne from 'components/forms/ClientStepOne';
 import ClientStepTwo from 'components/forms/ClientStepTwo';
 import authManager from 'services/authManager';
 import { RoutesPaths } from 'constants/routesPath';
+import LinkText from 'components/typography/LinkText';
 
 const FreeLancerProfileForm = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -61,6 +62,7 @@ const FreeLancerProfileForm = () => {
   const [cv, setCV] = useState();
   const [isBackDialogueOpen, setIsDialogueOpen] = useState(false);
   const [isConfirmedBack, setIsConfirmedBack] = useState(false);
+  const [isTermsChecked, setIsTermsChecked] = useState(false);
   const stepsFields = [
     ['gender', 'country', 'mobileNumber', 'currentEmploymentStatus'],
     [
@@ -202,6 +204,9 @@ const FreeLancerProfileForm = () => {
     setIsConfirmedBack(false);
     setIsDialogueOpen(false);
   };
+  const onTermsChecked = () => {
+    setIsTermsChecked(!isTermsChecked);
+  };
 
   const isClientEmployed = watch('isEmployed');
   return (
@@ -260,15 +265,39 @@ const FreeLancerProfileForm = () => {
           {activeStep === 2 ||
           (authManager.isClient() && activeStep === 1) ||
           (authManager.isClient() && !isClientEmployed) ? (
-            <Button
-              id='submitButton'
-              type='submit'
-              disabled={loading}
-              variant='contained'
-              style={nextButtonStyles(loading)}
-              endIcon={<DoneIcon />}>
-              {t['submit']}
-            </Button>
+            <Box
+              display={'flex'}
+              width={'100%'}
+              justifyContent={'space-between'}
+              margin={'0 16px'}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    onChange={onTermsChecked}
+                    name='termsChecked'
+                    color='primary'
+                  />
+                }
+                label={
+                  <LinkText
+                    className={classes.termsLinkColor}
+                    to={RoutesPaths.App.TermsAndConditions}>
+                    I agree to the terms and conditions of the website
+                  </LinkText>
+                }
+              />
+              {isTermsChecked && (
+                <Button
+                  id='submitButton'
+                  type='submit'
+                  disabled={loading}
+                  variant='contained'
+                  style={nextButtonStyles(loading)}
+                  endIcon={<DoneIcon />}>
+                  {t['submit']}
+                </Button>
+              )}
+            </Box>
           ) : (
             <Button
               id='nextButton'

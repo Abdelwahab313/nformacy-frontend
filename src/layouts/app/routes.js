@@ -21,6 +21,8 @@ import CallEvaluationPage from 'pages/App/MeetingEvaluation/CallEvaluation';
 import { RoutesPaths } from 'constants/routesPath';
 import NotFoundPage from 'pages/NotFoundPage';
 import ContactUsPage from 'pages/App/ContactUs/ContactUsPage';
+import SolutionsPage from 'pages/App/Solutions/SolutionsPage';
+import TermsAndConditionsPage from 'pages/App/TermsAndConditions/TermsAndConditionsPage';
 
 const appRoutes = [
   {
@@ -42,6 +44,24 @@ const appRoutes = [
     hasDashboardLink: true,
   },
   {
+    path: RoutesPaths.App.Solutions,
+    name: 'Solutions',
+    icon: DashboardIcon,
+    Component: SolutionsPage,
+    includeLayout: true,
+    isPublic: true,
+    hasDashboardLink: true,
+  },
+  {
+    path: RoutesPaths.App.TermsAndConditions,
+    name: 'Terms And Conditions',
+    icon: DashboardIcon,
+    Component: TermsAndConditionsPage,
+    includeLayout: true,
+    isPublic: true,
+    hasDashboardLink: false,
+  },
+  {
     path: RoutesPaths.App.Login,
     name: 'Login',
     icon: DashboardIcon,
@@ -57,7 +77,7 @@ const appRoutes = [
     Component: Register,
     includeLayout: false,
     isPublic: true,
-    hasDashboardLink: true,
+    hasDashboardLink: false,
   },
   {
     path: RoutesPaths.App.Logout,
@@ -66,7 +86,7 @@ const appRoutes = [
     Component: Logout,
     includeLayout: false,
     isPublic: true,
-    hasDashboardLink: true,
+    hasDashboardLink: false,
   },
   {
     path: RoutesPaths.App.UserTypeSelection,
@@ -84,7 +104,7 @@ const appRoutes = [
     Component: FreeLancerProfileForm,
     includeLayout: false,
     isPublic: false,
-    hasDashboardLink: true,
+    hasDashboardLink: false,
   },
   {
     path: RoutesPaths.App.FreelancerSuccess,
@@ -95,16 +115,6 @@ const appRoutes = [
     isPublic: false,
     hasDashboardLink: false,
   },
-  {
-    path: RoutesPaths.App.LandingPage,
-    name: 'Home',
-    icon: DashboardIcon,
-    Component: LandingPage,
-    includeLayout: true,
-    isPublic: false,
-    hasDashboardLink: true,
-  },
-
   {
     path: RoutesPaths.App.Dashboard,
     name: 'Dashboard',
@@ -122,7 +132,7 @@ const appRoutes = [
     Component: QuestionRoaster,
     includeLayout: true,
     isPublic: false,
-    hasDashboardLink: true,
+    hasDashboardLink: false,
   },
 
   {
@@ -172,7 +182,7 @@ const appRoutes = [
     Component: ServicesPage,
     includeLayout: true,
     isPublic: false,
-    hasDashboardLink: true,
+    hasDashboardLink: false,
   },
 
   {
@@ -202,7 +212,7 @@ const appRoutes = [
     Component: MeetingsPage,
     includeLayout: true,
     isPublic: false,
-    hasDashboardLink: true,
+    hasDashboardLink: false,
   },
 
   {
@@ -212,7 +222,7 @@ const appRoutes = [
     Component: AllNotifications,
     includeLayout: true,
     isPublic: false,
-    hasDashboardLink: true,
+    hasDashboardLink: false,
   },
 
   {

@@ -1,5 +1,11 @@
 import { makeStyles } from '@material-ui/core';
-import { white, darkBlue, lighterGrey, lightOrange } from 'styles/colors';
+import {
+  white,
+  darkBlue,
+  lighterGrey,
+  lightOrange,
+  whiteLilac,
+} from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
   landingContainer: {
@@ -10,6 +16,12 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(11),
     [theme.breakpoints.down('md')]: {
       padding: [theme.spacing(6), theme.spacing(2)],
+    },
+  },
+  serveYouPadding:{
+    padding: theme.spacing(6),
+    [theme.breakpoints.down('md')]: {
+      padding: [theme.spacing(3), theme.spacing(1)],
     },
   },
   rollerSection: {
@@ -67,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     color: `${white} !important`,
   },
   lighterGrayContainer: {
-    background: lighterGrey,
+    background: whiteLilac,
   },
   stepsContainerMargin: {
     marginTop: theme.spacing(5),

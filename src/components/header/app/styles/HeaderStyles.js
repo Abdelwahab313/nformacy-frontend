@@ -29,11 +29,9 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
       width: 'auto',
     },
   },
@@ -60,7 +58,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   sectionDesktop: {
-    marginRight: theme.spacing(4),
     display: 'none',
     [theme.breakpoints.up('md')]: {
       display: 'flex',
@@ -91,14 +88,14 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     padding: theme.spacing(1),
     color: grey,
+    fontSize: 18,
     '&:hover': {
       color: black,
-      textDecoration: 'underline',
-      textDecorationColor: darkOrange,
+      fontSize: 20,
     },
   },
   mobileLogoContainer: {
-    margin: [0, theme.spacing(4)],
+    marginLeft: theme.spacing(4),
     [theme.breakpoints.down('md')]: {
       position: 'absolute',
       left: 0,
@@ -119,9 +116,7 @@ const useStyles = makeStyles((theme) => ({
     width: 250,
   },
   active: {
-    color: black,
-    textDecoration: 'underline',
-    textDecorationColor: darkOrange,
+    color: darkOrange,
   },
 }));
 

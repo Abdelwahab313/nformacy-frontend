@@ -1,12 +1,10 @@
 import { Box, Grid } from '@material-ui/core';
-import LinkText from 'components/typography/LinkText';
 import CustomTypography from 'components/typography/Typography';
-import { RoutesPaths } from 'constants/routesPath';
 import React from 'react';
-import LandingAvailableServices from '../Home/subComponents/LandingAvailableServices';
+import SolutionsAvailableServices from '../Home/subComponents/SolutionsAvailableServices';
 import useStyles from './styles/LandingPageStyles';
 
-const OurSolutionsSection = () => {
+const OurSolutionsPageServicesSection = () => {
   const classes = useStyles();
 
   return (
@@ -30,17 +28,10 @@ const OurSolutionsSection = () => {
         </Box>
       </Grid>
       <Grid item xs={12} className={classes.subTextMargin}>
-        <LandingAvailableServices />
-      </Grid>
-      <Grid item xs={10} md={3}>
-        <Box textAlign='center' className={classes.mainCtaBtn}>
-          <LinkText to={RoutesPaths.App.Solutions} className={classes.primaryBoldTxt}>
-            Read More
-          </LinkText>
-        </Box>
+        <SolutionsAvailableServices />
       </Grid>
     </Grid>
   );
 };
 
-export default OurSolutionsSection;
+export default OurSolutionsPageServicesSection;
