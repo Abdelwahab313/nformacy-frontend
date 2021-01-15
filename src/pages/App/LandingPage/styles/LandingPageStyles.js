@@ -18,6 +18,12 @@ const useStyles = makeStyles((theme) => ({
       padding: [theme.spacing(6), theme.spacing(2)],
     },
   },
+  serveYouPadding:{
+    padding: theme.spacing(6),
+    [theme.breakpoints.down('md')]: {
+      padding: [theme.spacing(3), theme.spacing(1)],
+    },
+  },
   rollerSection: {
     order: 1,
     [theme.breakpoints.down('md')]: {

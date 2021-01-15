@@ -5,6 +5,7 @@ import AreasOfSpeciality from '../LandingPage/AreasOfSpeciality';
 import HowWeWorkSection from '../LandingPage/HowWeWorkSection';
 import MobileHowWeWorkSection from '../LandingPage/MobileHowWeWorkSection';
 import OurSolutionsPageServicesSection from '../LandingPage/OurSolutionsPageServicesSection';
+import ServeYouBtnSection from '../LandingPage/ServeYouBtnSection';
 import useStyles from './styles/SolutionsPageStyles';
 
 const SolutionsPage = () => {
@@ -48,6 +49,7 @@ const SolutionsPage = () => {
       <HowWeWorkSection />
       <MobileHowWeWorkSection />
       <AreasOfSpeciality />
+      <ServeYouBtnSection />
     </Grid>
   );
 };

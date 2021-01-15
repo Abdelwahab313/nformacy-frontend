@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowForward } from '@material-ui/icons';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { Box, Grid } from '@material-ui/core';
 import useStyles from '../styles/HomePageStyles';
 import SubmitButton from 'components/buttons/SubmitButton';
@@ -45,7 +46,7 @@ const SolutionsAvailableServices = () => {
       point_2: t('questionServicePoint_2'),
       point_3: t('questionServicePoint_3'),
       WhiteIcon: require('../../../../assets/white-consultant.svg'),
-      icon: require('../../../../assets/white_ask_experts.svg'),
+      icon: require('../../../../assets/lightOrangeConsultant.svg'),
       btnTxt: t('questionServiceButton'),
       bGColorClass: classes.lightOrangeBG,
     },
@@ -101,10 +102,11 @@ const MobileServiceItem = ({ service, onServiceClick }) => {
           <CustomTypography
             variant='body1'
             fontWeight='bold'
+            gutterBottom
             className={classes.darkBlueText}>
             {service.title}
           </CustomTypography>
-          <CustomTypography variant='body1'>
+          <CustomTypography variant='body1' align={'justify'}>
             {service.subTitle}
           </CustomTypography>
         </Box>
@@ -157,30 +159,46 @@ const ServiceItem = ({ service, index, onServiceClick }) => {
           <CustomTypography
             variant='h5'
             fontWeight='bold'
+            gutterBottom
             className={classes.darkBlueText}>
             {service.title}
           </CustomTypography>
           <CustomTypography variant='h6' fontWeight='bold'>
             {service.subTitle}
           </CustomTypography>
-          <CustomTypography
-            variant='body1'
-            fontWeight='light'
-            className={classes.pointBulletMargin}>
-            {service.point_1}
-          </CustomTypography>
-          <CustomTypography
-            variant='body1'
-            fontWeight='light'
-            className={classes.pointBulletMargin}>
-            {service.point_2}
-          </CustomTypography>
-          <CustomTypography
-            variant='body1'
-            fontWeight='light'
-            className={classes.pointBulletMargin}>
-            {service.point_3}
-          </CustomTypography>
+          <Box display={'flex'} alignItems={'baseline'}>
+            {service.point_1 && (
+              <FiberManualRecordIcon className={classes.pointBullet} />
+            )}
+            <CustomTypography
+              variant='body1'
+              fontWeight='light'
+              className={classes.pointBulletMargin}>
+              {service.point_1}
+            </CustomTypography>
+          </Box>
+          <Box display={'flex'} alignItems={'baseline'}>
+            {service.point_2 && (
+              <FiberManualRecordIcon className={classes.pointBullet} />
+            )}
+            <CustomTypography
+              variant='body1'
+              fontWeight='light'
+              className={classes.pointBulletMargin}>
+              {service.point_2}
+            </CustomTypography>
+          </Box>
+          <Box display={'flex'} alignItems={'baseline'}>
+            {service.point_3 && (
+              <FiberManualRecordIcon className={classes.pointBullet} />
+            )}
+            <CustomTypography
+              variant='body1'
+              fontWeight='light'
+              className={classes.pointBulletMargin}>
+              {service.point_3}
+            </CustomTypography>
+          </Box>
           <Grid container direction={'row-reverse'}>
             <SubmitButton
               id={'proceedBtn'}

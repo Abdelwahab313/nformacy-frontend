@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import CopyrightIcon from '@material-ui/icons/Copyright';
 import { greyDividerStyle } from 'styles/formsStyles';
 import useStyles from './styles/FooterStyles';
+import LinkText from 'components/typography/LinkText';
+import { RoutesPaths } from 'constants/routesPath';
 
 const Footer = () => {
   const classes = useStyles();
@@ -17,21 +19,27 @@ const Footer = () => {
       className={classes.footerContainer}>
       <Grid item xs={6} md={3}>
         <Box textAlign={'center'} mb={5}>
-          <CustomTypography variant={'body1'} fontWeight={'bold'} gutterBottom>Contact Us</CustomTypography>
+          <CustomTypography variant={'body1'} fontWeight={'bold'} gutterBottom>
+            Contact Us
+          </CustomTypography>
           <CustomTypography variant={'body1'}>Rada@Rada.life</CustomTypography>
           <CustomTypography variant={'body1'}>+962-778002882</CustomTypography>
         </Box>
       </Grid>
       <Grid item xs={6} md={3}>
         <Box textAlign={'center'} mb={5}>
-          <CustomTypography variant={'body1'} fontWeight={'bold'} gutterBottom>Visit Us</CustomTypography>
+          <CustomTypography variant={'body1'} fontWeight={'bold'} gutterBottom>
+            Visit Us
+          </CustomTypography>
           <CustomTypography variant={'body1'}>Address here</CustomTypography>
           <CustomTypography variant={'body1'}>Amman / Jordan</CustomTypography>
         </Box>
       </Grid>
       <Grid item xs={6} md={3}>
         <Box textAlign={'center'}>
-          <CustomTypography variant={'body1'} fontWeight={'bold'} gutterBottom>Social Media</CustomTypography>
+          <CustomTypography variant={'body1'} fontWeight={'bold'} gutterBottom>
+            Social Media
+          </CustomTypography>
           <Link href={'#'} className={classes.socialMediaIcon}>
             <img src={require('../../assets/landing/Facebook.svg')} />
           </Link>
@@ -45,10 +53,14 @@ const Footer = () => {
       </Grid>
       <Grid item xs={6} md={3}>
         <Box textAlign={'center'}>
-          <CustomTypography variant={'body1'} fontWeight={'bold'} gutterBottom>Privacy Policy</CustomTypography>
-          <CustomTypography variant={'body1'}>
-            Terms and conditions
+          <CustomTypography variant={'body1'} fontWeight={'bold'} gutterBottom>
+            Privacy Policy
           </CustomTypography>
+          <LinkText to={RoutesPaths.App.TermsAndConditions}>
+            <CustomTypography variant={'body1'}>
+              Terms and conditions
+            </CustomTypography>
+          </LinkText>
         </Box>
       </Grid>
       <Divider

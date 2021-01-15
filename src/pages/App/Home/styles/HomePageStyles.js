@@ -378,6 +378,11 @@ const useStyles = makeStyles((theme) => ({
   },
   solutionsPageServiceIcon: {
     margin: 'auto',
+    height: '80%',
+    [theme.breakpoints.down('md')]: {
+      height: 140,
+      margin: '24px auto',
+    },
   },
   darkOrangeBG: {
     backgroundColor: darkOrange,
@@ -422,6 +427,11 @@ const useStyles = makeStyles((theme) => ({
   },
   flexDirectionBox: {
     flexDirection: 'row-reverse',
+  },
+  pointBullet: {
+    width: 13,
+    height: 13,
+    margin: [0, theme.spacing(2)],
   },
   pointBulletMargin: {
     margin: [theme.spacing(2), 0],

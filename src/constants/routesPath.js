@@ -25,6 +25,7 @@ export const RoutesPaths = {
     LandingPage: '/',
     ContactUs: '/contactUs',
     Solutions: '/solutions',
+    TermsAndConditions: '/terms',
     Dashboard: '/dashboard',
     Questions: '/questions',
     AnswerQuestion: '/question/answer',

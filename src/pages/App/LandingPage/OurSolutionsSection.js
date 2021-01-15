@@ -1,6 +1,7 @@
 import { Box, Grid } from '@material-ui/core';
 import LinkText from 'components/typography/LinkText';
 import CustomTypography from 'components/typography/Typography';
+import { RoutesPaths } from 'constants/routesPath';
 import React from 'react';
 import LandingAvailableServices from '../Home/subComponents/LandingAvailableServices';
 import useStyles from './styles/LandingPageStyles';
@@ -33,7 +34,7 @@ const OurSolutionsSection = () => {
       </Grid>
       <Grid item xs={10} md={3}>
         <Box textAlign='center' className={classes.mainCtaBtn}>
-          <LinkText to={''} className={classes.primaryBoldTxt}>
+          <LinkText to={RoutesPaths.App.Solutions} className={classes.primaryBoldTxt}>
             Read More
           </LinkText>
         </Box>

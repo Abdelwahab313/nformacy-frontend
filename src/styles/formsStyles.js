@@ -382,6 +382,10 @@ export const useStyles = makeStyles((theme) => ({
   nextBtnContainerFlexEnd: {
     justifyContent: 'space-between',
   },
+  termsLinkColor: {
+    color: darkBlue,
+    '&:hover': { color: darkBlue },
+  },
 }));
 
 export const selectStyle = {
