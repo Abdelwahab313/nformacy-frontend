@@ -3,11 +3,13 @@ import LinkText from 'components/typography/LinkText';
 import CustomTypography from 'components/typography/Typography';
 import { RoutesPaths } from 'constants/routesPath';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import LandingAvailableServices from '../Home/subComponents/LandingAvailableServices';
 import useStyles from './styles/LandingPageStyles';
 
 const OurSolutionsSection = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Grid
@@ -21,11 +23,10 @@ const OurSolutionsSection = () => {
       <Grid item xs={10} md={12}>
         <Box textAlign='center' id='our_solution'>
           <CustomTypography variant='h4' fontWeight='bold'>
-            Our Solutions
+            {t('ourSolutions')}
           </CustomTypography>
           <CustomTypography variant='h5' className={classes.subTextMargin}>
-            Choose the solution that meets your consultancy needs, from a single
-            bite of advice up-to full project
+            {t('ourSolutionsDesc')}
           </CustomTypography>
         </Box>
       </Grid>
@@ -34,8 +35,10 @@ const OurSolutionsSection = () => {
       </Grid>
       <Grid item xs={10} md={3}>
         <Box textAlign='center' className={classes.mainCtaBtn}>
-          <LinkText to={RoutesPaths.App.Solutions} className={classes.primaryBoldTxt}>
-            Read More
+          <LinkText
+            to={RoutesPaths.App.Solutions}
+            className={classes.primaryBoldTxt}>
+            {t('seeMore')}
           </LinkText>
         </Box>
       </Grid>

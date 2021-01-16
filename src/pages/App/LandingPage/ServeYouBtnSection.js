@@ -4,12 +4,14 @@ import SubmitButton from 'components/buttons/SubmitButton';
 import CustomTypography from 'components/typography/Typography';
 import { RoutesPaths } from 'constants/routesPath';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 import useStyles from './styles/LandingPageStyles';
 
 const ServeYouBtnSection = () => {
   const classes = useStyles();
   const history = useHistory();
+  const { t } = useTranslation();
 
   return (
     <Grid
@@ -26,7 +28,7 @@ const ServeYouBtnSection = () => {
             className={classes.mainCtaBtn}
             buttonText={
               <CustomTypography variant='body1' className={classes.flexClass}>
-                Let us Serve You <ArrowForward />
+                {t('letusServeYou')} <ArrowForward />
               </CustomTypography>
             }
           />

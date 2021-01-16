@@ -1,10 +1,12 @@
 import { Box, Grid } from '@material-ui/core';
 import CustomTypography from 'components/typography/Typography';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import useStyles from './styles/LandingPageStyles';
 
 const MobileHowWeWorkSection = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Grid
@@ -18,7 +20,7 @@ const MobileHowWeWorkSection = () => {
       <Grid item xs={4}>
         <Box textAlign='center'>
           <CustomTypography variant='h4' fontWeight='bold'>
-            How we Work
+          {t('howWeWork')}
           </CustomTypography>
         </Box>
       </Grid>
@@ -37,7 +39,7 @@ const MobileHowWeWorkSection = () => {
                 variant='body2'
                 fontWeight='bold'
                 className={classes.MobileWorkMainTextPadding}>
-                Sign up
+                 {t('signUp')}
               </CustomTypography>
             </Box>
           </Grid>
@@ -55,7 +57,7 @@ const MobileHowWeWorkSection = () => {
                 variant='body2'
                 fontWeight='bold'
                 className={classes.MobileWorkMainTextPadding}>
-                Access Desk Space
+               {t('accessDeskSpace')}
               </CustomTypography>
             </Box>
           </Grid>
@@ -71,7 +73,7 @@ const MobileHowWeWorkSection = () => {
                 variant='body2'
                 fontWeight='bold'
                 className={classes.MobileWorkMainTextPadding}>
-                Choose your Services
+                 {t('chooseYourServices')}
               </CustomTypography>
             </Box>
           </Grid>
@@ -89,7 +91,7 @@ const MobileHowWeWorkSection = () => {
                 variant='body2'
                 fontWeight='bold'
                 className={classes.MobileWorkMainTextPadding}>
-                Pay
+                 {t('pay')}
               </CustomTypography>
             </Box>
           </Grid>
@@ -107,7 +109,7 @@ const MobileHowWeWorkSection = () => {
                 variant='body2'
                 fontWeight='bold'
                 className={classes.MobileWorkMainTextPadding}>
-                Manage your Space
+                {t('manageYourSpace')}
               </CustomTypography>
             </Box>
           </Grid>

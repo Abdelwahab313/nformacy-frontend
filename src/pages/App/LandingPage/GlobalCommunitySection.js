@@ -9,10 +9,12 @@ import SubmitButton from 'components/buttons/SubmitButton';
 import { RoutesPaths } from 'constants/routesPath';
 import { ArrowForward } from '@material-ui/icons';
 import { useHistory } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 const GlobalCommunitySection = () => {
   const classes = useStyles();
   const history = useHistory();
+  const { t } = useTranslation();
 
   return (
     <Grid
@@ -23,7 +25,7 @@ const GlobalCommunitySection = () => {
       <Grid item xs={12} className={classes.headerCommunitySectionOrder}>
         <Box textAlign='center'>
           <CustomTypography variant='h4' fontWeight='bold'>
-            Our Global Community of Subject Matter Experts
+            {t('ourGlobalCommunityOfSubjectMatterExperts')}
           </CustomTypography>
         </Box>
       </Grid>
@@ -52,12 +54,12 @@ const GlobalCommunitySection = () => {
         ]}>
         <Box textAlign={'center'}>
           <CustomTypography variant='h5' className={classes.subTextMargin}>
-            nformacy brings consultancy closer to Experts and Clients
+            {t('nformacyBringsConsultancyCloser')}
           </CustomTypography>
           <LinkText
             to={RoutesPaths.App.Signup}
             className={classes.primaryBoldTxt}>
-            Why to join us
+            {t('whyToJoinUs')}
           </LinkText>
           <Divider
             variant='middle'
@@ -65,8 +67,7 @@ const GlobalCommunitySection = () => {
             className={classes.golbalSectionDivider}
           />
           <CustomTypography variant='h5' className={classes.subTextMargin}>
-            Join Our Community and Be Part of the Most Dynamic and Reliable
-            Network of Independent Experts
+           {t('joinOurCommunityAndBePart')}
           </CustomTypography>
           <SubmitButton
             id={'registerBtn'}
@@ -74,7 +75,7 @@ const GlobalCommunitySection = () => {
             className={[classes.mainCtaBtn, classes.orangeCtaBtn]}
             buttonText={
               <CustomTypography variant='body1' className={classes.flexClass}>
-                Register <ArrowForward />
+                {t('register')} <ArrowForward />
               </CustomTypography>
             }
           />

@@ -26,6 +26,7 @@ export const RoutesPaths = {
     ContactUs: '/contactUs',
     Solutions: '/solutions',
     TermsAndConditions: '/terms',
+    About: '/about',
     Dashboard: '/dashboard',
     Questions: '/questions',
     AnswerQuestion: '/question/answer',

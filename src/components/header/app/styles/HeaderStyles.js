@@ -88,10 +88,12 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     padding: theme.spacing(1),
     color: grey,
+    transition: 'all 0.3s ease-out',
     fontSize: 18,
     '&:hover': {
       color: black,
       fontSize: 20,
+      transition: 'all 0.3s ease-in',
     },
   },
   mobileLogoContainer: {

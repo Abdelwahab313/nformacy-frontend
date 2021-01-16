@@ -214,20 +214,6 @@ const ServiceItem = ({ service, index, onServiceClick }) => {
           </Grid>
         </Box>
       </Grid>
-
-      {/* <Grid container direction={'row-reverse'}>
-        <SubmitButton
-          id={'proceedBtn'}
-          onClick={() => onServiceClick()}
-          className={classes.whiteCtaBtn}
-          buttonText={
-            <CustomTypography variant='body1' className={classes.flexClass}>
-              {service.btnTxt}
-              <ArrowForward />
-            </CustomTypography>
-          }
-        />
-      </Grid> */}
     </Grid>
   );
 };

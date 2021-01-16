@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
       padding: [theme.spacing(6), theme.spacing(2)],
     },
   },
-  serveYouPadding:{
+  serveYouPadding: {
     padding: theme.spacing(6),
     [theme.breakpoints.down('md')]: {
       padding: [theme.spacing(3), theme.spacing(1)],
@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
   },
   workSubTextPadding: {
     padding: ['2px', theme.spacing(1)],
-    textAlign: 'center',
+    textAlign: 'justify',
   },
   howWorkIcon: {
     height: 65,
@@ -170,6 +170,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   promiseFieldDescTxt: {
+    textAlign: 'justify',
+    padding: [theme.spacing(1), theme.spacing(2)],
     fontWeight: 300,
     lineHeight: 1.7,
   },
@@ -272,6 +274,16 @@ const useStyles = makeStyles((theme) => ({
   },
   tileSpacing: {
     paddingTop: 4,
+  },
+  ourValueItem: {
+    border: '1px solid #ecedf0',
+    borderRadius: 20,
+    backgroundColor: white,
+    padding: [theme.spacing(5), theme.spacing(2)],
+    margin: theme.spacing(3),
+    [theme.breakpoints.down('md')]: {
+      minWidth: '100%',
+    },
   },
 }));
 

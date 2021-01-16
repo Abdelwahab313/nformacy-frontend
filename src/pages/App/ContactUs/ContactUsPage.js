@@ -2,10 +2,12 @@ import { Box, Card, CardMedia, Grid } from '@material-ui/core';
 import SubmitButton from 'components/buttons/SubmitButton';
 import CustomTypography from 'components/typography/Typography';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import useStyles from './styles/ContactUsPageStyles';
 
 const ContactUsPage = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Grid container justify='center'>
@@ -21,7 +23,7 @@ const ContactUsPage = () => {
           variant='h3'
           fontWeight={'bold'}
           className={classes.headerCardTxt}>
-          Connect With Us
+          {t('connectWithUs')}
         </CustomTypography>
       </Card>
       <Box className={classes.blocksContainer}>
@@ -35,7 +37,7 @@ const ContactUsPage = () => {
               variant={'body2'}
               fontWeight={'bold'}
               gutterBottom>
-              Customer Support
+              {t('customerSupport')}
             </CustomTypography>
             <CustomTypography
               variant={'body2'}
@@ -50,7 +52,7 @@ const ContactUsPage = () => {
               className={[classes.mainCtaBtn, classes.noTextTransform]}
               buttonText={
                 <CustomTypography variant={'body2'} fontWeight={'bold'}>
-                  Chat with Support Manager
+                  {t('chatWithSupportManager')}
                 </CustomTypography>
               }
             />
@@ -66,7 +68,7 @@ const ContactUsPage = () => {
               variant={'body2'}
               fontWeight={'bold'}
               gutterBottom>
-              I have a Project
+              {t('haveProject')}
             </CustomTypography>
             <CustomTypography
               variant={'body2'}
@@ -80,7 +82,7 @@ const ContactUsPage = () => {
               className={[classes.mainCtaBtn, classes.noTextTransform]}
               buttonText={
                 <CustomTypography variant={'body2'} fontWeight={'bold'}>
-                  Request a Meeting
+                  {t('requestMeeting')}
                 </CustomTypography>
               }
             />
@@ -102,7 +104,7 @@ const ContactUsPage = () => {
               variant={'body2'}
               fontWeight={'bold'}
               gutterBottom>
-              Corporate Headquarters:
+              {t('corporateHeadquarters')}
             </CustomTypography>
             <CustomTypography
               variant={'body2'}
@@ -120,13 +122,13 @@ const ContactUsPage = () => {
               variant={'body2'}
               fontWeight={'bold'}
               gutterBottom>
-              Tel: 408-536-6000
+              {t('tel')} 408-536-6000
             </CustomTypography>
             <CustomTypography
               variant={'body2'}
               fontWeight={'bold'}
               gutterBottom>
-              Fax: 408-537-6000
+              {t('fax')} 408-537-6000
             </CustomTypography>
           </Box>
         </Grid>

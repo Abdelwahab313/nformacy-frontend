@@ -2,14 +2,13 @@ import { Box, Card, CardMedia, Grid } from '@material-ui/core';
 import CustomTypography from 'components/typography/Typography';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import AreasOfSpeciality from '../LandingPage/AreasOfSpeciality';
-import HowWeWorkSection from '../LandingPage/HowWeWorkSection';
-import MobileHowWeWorkSection from '../LandingPage/MobileHowWeWorkSection';
-import OurSolutionsPageServicesSection from '../LandingPage/OurSolutionsPageServicesSection';
+import AboutUsGalleryDescription from '../LandingPage/AboutUsGalleryDescription';
+import OurPromiseSection from '../LandingPage/OurPromiseSection';
+import OurValuesSection from '../LandingPage/OurValuesSection';
 import ServeYouBtnSection from '../LandingPage/ServeYouBtnSection';
-import useStyles from './styles/SolutionsPageStyles';
+import useStyles from './styles/AboutPageStyles';
 
-const SolutionsPage = () => {
+const AboutPage = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -27,23 +26,32 @@ const SolutionsPage = () => {
           variant='h3'
           fontWeight={'bold'}
           className={classes.headerCardTxt}>
-          {t('solutions')}
+          {t('about')}
         </CustomTypography>
       </Card>
       <Grid item xs={10} md={10}>
         <Box textAlign={'center'} marginY={10}>
+          <CustomTypography variant='h4' fontWeight='bold' gutterBottom>
+            {t('aboutDescriptionTitle')}
+          </CustomTypography>
           <CustomTypography variant='h5'>
-            {t('solutionsPageDesc')}
+            {t('aboutDescription')}
           </CustomTypography>
         </Box>
       </Grid>
-      <OurSolutionsPageServicesSection />
-      <HowWeWorkSection />
-      <MobileHowWeWorkSection />
-      <AreasOfSpeciality />
+      <Grid item xs={12} className={classes.orangeBg}>
+        <Box width={'80%'} textAlign={'center'} marginY={10} marginX={'auto'}>
+          <CustomTypography variant='h4' fontWeight='bold'>
+            {t('aboutOurPassion')}
+          </CustomTypography>
+        </Box>
+      </Grid>
+      <OurValuesSection />
+      <AboutUsGalleryDescription />
+      <OurPromiseSection />
       <ServeYouBtnSection />
     </Grid>
   );
 };
 
-export default SolutionsPage;
+export default AboutPage;

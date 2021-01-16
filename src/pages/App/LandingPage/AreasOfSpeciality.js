@@ -4,10 +4,12 @@ import ListItem from '@material-ui/core/ListItem';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import CustomTypography from 'components/typography/Typography';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import useStyles from './styles/LandingPageStyles';
 
 const AreasOfSpeciality = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Grid
@@ -21,12 +23,10 @@ const AreasOfSpeciality = () => {
       <Grid item xs={12}>
         <Box textAlign='center'>
           <CustomTypography variant='h4' fontWeight='bold'>
-            Our Fields of Specialty
+            {t('ourFieldsOfSpecialty')}
           </CustomTypography>
           <CustomTypography variant='h5' className={classes.subTextMargin}>
-            nformacy community of subject matter experts is here to support you
-            in your consultancy projects, interim hiring’s, and advisory
-            services in the below fields and more.
+            {t('ourFieldsOfSpecialtyDesc')}
           </CustomTypography>
         </Box>
       </Grid>
@@ -46,9 +46,13 @@ const AreasOfSpeciality = () => {
                   variant='h6'
                   fontWeight='bold'
                   className={classes.workMainTextPadding}>
-                  Strategic Management
+                  {t('strategicManagement')}
                 </CustomTypography>
-                <Box className={[classes.workSubTextPadding, classes.desktopVisible]}>
+                <Box
+                  className={[
+                    classes.workSubTextPadding,
+                    classes.desktopVisible,
+                  ]}>
                   <List>
                     <ListItem
                       dense={true}
@@ -63,7 +67,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Corporate Strategy Design and Execution'
+                        primary={t('corporateStrategyDesignAndExecution')}
                       />
                     </ListItem>
                     <ListItem
@@ -79,7 +83,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Change Management: we help be ahead of the change'
+                        primary={t('changeManagement')}
                       />
                     </ListItem>
                     <ListItem
@@ -95,7 +99,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Corporate Risk Management: identify the potential risk factors and mitigate them'
+                        primary={t('corporateRiskManagement')}
                       />
                     </ListItem>
                     <ListItem
@@ -111,7 +115,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Operating Model Transformation, take your business to the next level and maximize your efficiency and market reach'
+                        primary={t('operatingModelTransformation')}
                       />
                     </ListItem>
                     <ListItem
@@ -127,7 +131,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Business Planning, translate your vision into actionable plan with measurable milestones'
+                        primary={t('businessPlanning')}
                       />
                     </ListItem>
                     <ListItem
@@ -143,7 +147,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Organization Performance Optimization, deploy the right tools for performance management and enhancement '
+                        primary={t('organizationPerformanceOptimization')}
                       />
                     </ListItem>
                     <ListItem
@@ -159,7 +163,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Leadership and teams’ development'
+                        primary={t('leadershipAndTeams')}
                       />
                     </ListItem>
                   </List>
@@ -182,9 +186,13 @@ const AreasOfSpeciality = () => {
                   variant='h6'
                   fontWeight='bold'
                   className={classes.workMainTextPadding}>
-                  Financial Management
+                  {t('financialManagement')}
                 </CustomTypography>
-                <Box className={[classes.workSubTextPadding, classes.desktopVisible]}>
+                <Box
+                  className={[
+                    classes.workSubTextPadding,
+                    classes.desktopVisible,
+                  ]}>
                   <List>
                     <ListItem
                       dense={true}
@@ -199,7 +207,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Agile Financial Strategy, move to more agile financial planning and be ready for the market shifts'
+                        primary={t('agileFinancialStrategy')}
                       />
                     </ListItem>
                     <ListItem
@@ -215,7 +223,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Financial Analytics, build the right algorithms and patterns to support your decision-making process'
+                        primary={t('financialAnalytics')}
                       />
                     </ListItem>
                     <ListItem
@@ -231,7 +239,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Finance Technology (Fintech), from design to deployment'
+                        primary={t('financeTechnology')}
                       />
                     </ListItem>
                     <ListItem
@@ -247,7 +255,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Financial Planning and Modeling'
+                        primary={t('financialPlanning')}
                       />
                     </ListItem>
                     <ListItem
@@ -263,7 +271,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Cost Management'
+                        primary={t('costManagement')}
                       />
                     </ListItem>
                     <ListItem
@@ -279,7 +287,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Banking Solutions, all aspects of the banking industry and lending technologies'
+                        primary={t('bankingSolutions')}
                       />
                     </ListItem>
                     <ListItem
@@ -295,7 +303,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Insurance and assets management'
+                        primary={t('insuranceAndAssetsManagement')}
                       />
                     </ListItem>
                     <ListItem
@@ -311,7 +319,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Risk Management and Mitigation'
+                        primary={t('riskManagementAndMitigation')}
                       />
                     </ListItem>
                   </List>
@@ -334,9 +342,13 @@ const AreasOfSpeciality = () => {
                   variant='h6'
                   fontWeight='bold'
                   className={classes.workMainTextPadding}>
-                  Organization and Human Resources Management
+                  {t('organizationAndHumanResourcesManagement')}
                 </CustomTypography>
-                <Box className={[classes.workSubTextPadding, classes.desktopVisible]}>
+                <Box
+                  className={[
+                    classes.workSubTextPadding,
+                    classes.desktopVisible,
+                  ]}>
                   <List>
                     <ListItem
                       dense={true}
@@ -351,7 +363,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Organization and People strategy design and execution'
+                        primary={t('organizationAndPeopleStrategy')}
                       />
                     </ListItem>
                     <ListItem
@@ -367,7 +379,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='HR Data Management, build the right HR metrics to have deeper insights about your organizations’ performance and culture'
+                        primary={t('hrDataManagement')}
                       />
                     </ListItem>
                     <ListItem
@@ -383,7 +395,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Performance Management system design, top-down KPI’s alignment, policies and procedures'
+                        primary={t('performanceManagement')}
                       />
                     </ListItem>
                     <ListItem
@@ -399,7 +411,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Organization Culture assessment and uplifting'
+                        primary={t('organizationCulture')}
                       />
                     </ListItem>
                     <ListItem
@@ -415,7 +427,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Employees’ Wellbeing & Engagement programs'
+                        primary={t('employeesWellbeing')}
                       />
                     </ListItem>
                     <ListItem
@@ -431,7 +443,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Agile Organization design and restructuring'
+                        primary={t('agileOrganizationDesign')}
                       />
                     </ListItem>
                     <ListItem
@@ -447,7 +459,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Reward Design and Optimization'
+                        primary={t('rewardDesignAndOptimization')}
                       />
                     </ListItem>
                     <ListItem
@@ -463,7 +475,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='HR Technology selection and deployment'
+                        primary={t('hrTechnologySelection')}
                       />
                     </ListItem>
                     <ListItem
@@ -479,7 +491,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Talent Management and Succession Planning systems design and implementation'
+                        primary={t('talentManagement')}
                       />
                     </ListItem>
                   </List>
@@ -502,9 +514,13 @@ const AreasOfSpeciality = () => {
                   variant='h6'
                   fontWeight='bold'
                   className={classes.workMainTextPadding}>
-                  Digitization
+                  {t('digitization')}
                 </CustomTypography>
-                <Box className={[classes.workSubTextPadding, classes.desktopVisible]}>
+                <Box
+                  className={[
+                    classes.workSubTextPadding,
+                    classes.desktopVisible,
+                  ]}>
                   <List>
                     <ListItem
                       dense={true}
@@ -519,7 +535,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Digital Transformation Strategy design and implantation'
+                        primary={t('digitalTransformationStrategyDesign')}
                       />
                     </ListItem>
                     <ListItem
@@ -535,7 +551,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Data Analytics and BigData'
+                        primary={t('dataAnalyticsAndBigData')}
                       />
                     </ListItem>
                     <ListItem
@@ -551,7 +567,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Operating Model Digitization'
+                        primary={t('operatingModelDigitization')}
                       />
                     </ListItem>
                     <ListItem
@@ -567,7 +583,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='AI and Machine Learning'
+                        primary={t('aiAndMachineLearning')}
                       />
                     </ListItem>
                     <ListItem
@@ -583,7 +599,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='FinTech'
+                        primary={t('finTech')}
                       />
                     </ListItem>
                     <ListItem
@@ -599,7 +615,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Management Technologies and tools'
+                        primary={t('managementTechnologiesAndTools')}
                       />
                     </ListItem>
                   </List>
@@ -622,9 +638,13 @@ const AreasOfSpeciality = () => {
                   variant='h6'
                   fontWeight='bold'
                   className={classes.workMainTextPadding}>
-                  Startups and Entrepreneurship
+                  {t('startupsAndEntrepreneurship')}
                 </CustomTypography>
-                <Box className={[classes.workSubTextPadding, classes.desktopVisible]}>
+                <Box
+                  className={[
+                    classes.workSubTextPadding,
+                    classes.desktopVisible,
+                  ]}>
                   <List>
                     <ListItem
                       dense={true}
@@ -639,7 +659,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Start up cycle from ideation to scaling up'
+                        primary={t('startUpCycle')}
                       />
                     </ListItem>
                     <ListItem
@@ -655,7 +675,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Lean Start up strategies'
+                        primary={t('leanStartUpStrategies')}
                       />
                     </ListItem>
                     <ListItem
@@ -671,7 +691,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Business Planning'
+                        primary={t('finTechBusinessPlanning')}
                       />
                     </ListItem>
                     <ListItem
@@ -687,7 +707,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Financial Modeling'
+                        primary={t('financialModeling')}
                       />
                     </ListItem>
                     <ListItem
@@ -703,7 +723,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Vendors Management'
+                        primary={t('vendorsManagement')}
                       />
                     </ListItem>
                     <ListItem
@@ -719,7 +739,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Funds and Capital Sourcing'
+                        primary={t('fundsAndCapitalSourcing')}
                       />
                     </ListItem>
                     <ListItem
@@ -735,7 +755,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='The Legal Aspects for starting a new venture'
+                        primary={t('legalAspectsForStarting')}
                       />
                     </ListItem>
                     <ListItem
@@ -751,7 +771,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Launch and Marketing strategies'
+                        primary={t('launchAndMarketingStrategies')}
                       />
                     </ListItem>
                   </List>
@@ -774,9 +794,13 @@ const AreasOfSpeciality = () => {
                   variant='h6'
                   fontWeight='bold'
                   className={classes.workMainTextPadding}>
-                  Marketing and Customer Journey
+                  {t('marketingAndCustomerJourney')}
                 </CustomTypography>
-                <Box className={[classes.workSubTextPadding, classes.desktopVisible]}>
+                <Box
+                  className={[
+                    classes.workSubTextPadding,
+                    classes.desktopVisible,
+                  ]}>
                   <List>
                     <ListItem
                       dense={true}
@@ -791,7 +815,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Design Thinking'
+                        primary={t('designThinking')}
                       />
                     </ListItem>
                     <ListItem
@@ -807,7 +831,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Marketing Strategy design and implementation'
+                        primary={t('marketingStrategyDesignAndImplementation')}
                       />
                     </ListItem>
                     <ListItem
@@ -823,7 +847,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Media and Public Relations'
+                        primary={t('mediaAndPublicRelations')}
                       />
                     </ListItem>
                     <ListItem
@@ -839,7 +863,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Advertising and Digital Marketing'
+                        primary={t('advertisingAndDigitalMarketing')}
                       />
                     </ListItem>
                     <ListItem
@@ -855,7 +879,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Product Design'
+                        primary={t('productDesign')}
                       />
                     </ListItem>
                     <ListItem
@@ -871,7 +895,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Customer Care'
+                        primary={t('customerCare')}
                       />
                     </ListItem>
                     <ListItem
@@ -887,7 +911,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Customers’ Channels Management'
+                        primary={t('customersChannelsManagement')}
                       />
                     </ListItem>
                     <ListItem
@@ -903,7 +927,7 @@ const AreasOfSpeciality = () => {
                       </ListItemIcon>
                       <ListItemText
                         className={classes.noMarginTop}
-                        primary='Market Intelligence'
+                        primary={t('marketIntelligence')}
                       />
                     </ListItem>
                   </List>

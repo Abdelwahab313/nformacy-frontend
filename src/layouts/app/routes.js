@@ -23,6 +23,7 @@ import NotFoundPage from 'pages/NotFoundPage';
 import ContactUsPage from 'pages/App/ContactUs/ContactUsPage';
 import SolutionsPage from 'pages/App/Solutions/SolutionsPage';
 import TermsAndConditionsPage from 'pages/App/TermsAndConditions/TermsAndConditionsPage';
+import AboutPage from 'pages/App/about/AboutPage';
 
 const appRoutes = [
   {
@@ -60,6 +61,15 @@ const appRoutes = [
     includeLayout: true,
     isPublic: true,
     hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.App.About,
+    name: 'About',
+    icon: DashboardIcon,
+    Component: AboutPage,
+    includeLayout: true,
+    isPublic: true,
+    hasDashboardLink: true,
   },
   {
     path: RoutesPaths.App.Login,

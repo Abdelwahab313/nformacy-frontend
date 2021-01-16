@@ -7,9 +7,11 @@ import { greyDividerStyle } from 'styles/formsStyles';
 import useStyles from './styles/FooterStyles';
 import LinkText from 'components/typography/LinkText';
 import { RoutesPaths } from 'constants/routesPath';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Grid
@@ -20,7 +22,7 @@ const Footer = () => {
       <Grid item xs={6} md={3}>
         <Box textAlign={'center'} mb={5}>
           <CustomTypography variant={'body1'} fontWeight={'bold'} gutterBottom>
-            Contact Us
+            {t('contactUs')}
           </CustomTypography>
           <CustomTypography variant={'body1'}>Rada@Rada.life</CustomTypography>
           <CustomTypography variant={'body1'}>+962-778002882</CustomTypography>
@@ -29,7 +31,7 @@ const Footer = () => {
       <Grid item xs={6} md={3}>
         <Box textAlign={'center'} mb={5}>
           <CustomTypography variant={'body1'} fontWeight={'bold'} gutterBottom>
-            Visit Us
+            {t('visitUs')}
           </CustomTypography>
           <CustomTypography variant={'body1'}>Address here</CustomTypography>
           <CustomTypography variant={'body1'}>Amman / Jordan</CustomTypography>
@@ -38,7 +40,7 @@ const Footer = () => {
       <Grid item xs={6} md={3}>
         <Box textAlign={'center'}>
           <CustomTypography variant={'body1'} fontWeight={'bold'} gutterBottom>
-            Social Media
+            {t('socialMedia')}
           </CustomTypography>
           <Link href={'#'} className={classes.socialMediaIcon}>
             <img src={require('../../assets/landing/Facebook.svg')} />
@@ -54,11 +56,11 @@ const Footer = () => {
       <Grid item xs={6} md={3}>
         <Box textAlign={'center'}>
           <CustomTypography variant={'body1'} fontWeight={'bold'} gutterBottom>
-            Privacy Policy
+            {t('privacyPolicy')}
           </CustomTypography>
           <LinkText to={RoutesPaths.App.TermsAndConditions}>
             <CustomTypography variant={'body1'}>
-              Terms and conditions
+              {t('termsAndConditions')}
             </CustomTypography>
           </LinkText>
         </Box>
@@ -81,7 +83,7 @@ const Footer = () => {
         </Link>
         <CustomTypography variant='body1' className={classes.flexClass}>
           <CopyrightIcon />
-          2020 by NFormacy. All rights reserved.
+          {t('allRightsReserved')}
         </CustomTypography>
       </Box>
     </Grid>

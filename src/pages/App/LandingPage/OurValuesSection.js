@@ -4,7 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useStyles from './styles/LandingPageStyles';
 
-const HowWeWorkSection = () => {
+const OurValuesSection = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -15,22 +15,19 @@ const HowWeWorkSection = () => {
       justify='center'
       className={[
         classes.landingSectionsContainerPadding,
-        classes.desktopVisible,
+        classes.lighterGrayContainer,
       ]}>
       <Grid item xs={10} md={12}>
         <Box textAlign='center'>
           <CustomTypography variant='h4' fontWeight='bold'>
-            {t('howWeWork')}
-          </CustomTypography>
-          <CustomTypography variant='h5' className={classes.subTextMargin}>
-            {t('howWeWorkDesc')}
+            {t('ourValues')}
           </CustomTypography>
         </Box>
       </Grid>
       <Grid item xs={12} className={classes.stepsContainerMargin}>
-        <Grid container direction='row' justify='space-between'>
-          {/* sign_up */}
-          <Grid item md={2}>
+        <Grid container direction='row' justify='center'>
+          {/* future */}
+          <Grid item md={3} className={classes.ourValueItem}>
             <Box textAlign='center'>
               <img
                 className={classes.howWorkIcon}
@@ -40,124 +37,109 @@ const HowWeWorkSection = () => {
                 variant='h6'
                 fontWeight='bold'
                 className={classes.workMainTextPadding}>
-                {t('signUp')}
+                {t('futureLooking')}
               </CustomTypography>
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={[
-                  classes.workSubTextPadding,
-                  classes.desktopVisible,
-                ]}>
-                {t('signUpDesc')}
+                className={[classes.workSubTextPadding]}>
+                {t('futureLookingDesc')}
               </CustomTypography>
             </Box>
           </Grid>
-          {/* end sign_up */}
-          {/* Access Desk Space */}
-          <Grid item md={2}>
+          {/* end future */}
+          {/* Simplicity */}
+          <Grid item md={3} className={classes.ourValueItem}>
             <Box textAlign='center'>
               <img
                 className={classes.howWorkIcon}
-                src={require('../../../assets/landing/Access_Desk_Space.svg')}
+                src={require('../../../assets/landing/Sign_up.svg')}
               />
               <CustomTypography
                 variant='h6'
                 fontWeight='bold'
                 className={classes.workMainTextPadding}>
-                {t('accessDeskSpace')}
+                {t('simplicity')}
               </CustomTypography>
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={[
-                  classes.workSubTextPadding,
-                  classes.desktopVisible,
-                ]}>
-                {t('accessDeskSpaceDesc')}
+                className={[classes.workSubTextPadding]}>
+                {t('simplicityDesc')}
               </CustomTypography>
             </Box>
           </Grid>
-          {/* end Access Desk Space */}
-          {/* Choose your Services */}
-          <Grid item md={2}>
+          {/* end Simplicity */}
+          {/* integrity */}
+          <Grid item md={3} className={classes.ourValueItem}>
             <Box textAlign='center'>
               <img
                 className={classes.howWorkIcon}
-                src={require('../../../assets/landing/Choose_your_Services.svg')}
+                src={require('../../../assets/landing/Sign_up.svg')}
               />
               <CustomTypography
                 variant='h6'
                 fontWeight='bold'
                 className={classes.workMainTextPadding}>
-                {t('chooseYourServices')}
+                {t('integrity')}
               </CustomTypography>
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={[
-                  classes.workSubTextPadding,
-                  classes.desktopVisible,
-                ]}>
-                {t('chooseYourServicesDesc')}
+                className={[classes.workSubTextPadding]}>
+                {t('integrityDesc')}
               </CustomTypography>
             </Box>
           </Grid>
-          {/* end Choose your Services */}
-          {/* Pay */}
-          <Grid item md={2}>
+          {/* end integrity */}
+          {/* reliability */}
+          <Grid item md={3} className={classes.ourValueItem}>
             <Box textAlign='center'>
               <img
                 className={classes.howWorkIcon}
-                src={require('../../../assets/landing/Pay.svg')}
+                src={require('../../../assets/landing/Sign_up.svg')}
               />
               <CustomTypography
                 variant='h6'
                 fontWeight='bold'
                 className={classes.workMainTextPadding}>
-                {t('pay')}
+                {t('reliability')}
               </CustomTypography>
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={[
-                  classes.workSubTextPadding,
-                  classes.desktopVisible,
-                ]}>
-                {t('payDesc')}
+                className={[classes.workSubTextPadding]}>
+                {t('reliabilityDesc')}
               </CustomTypography>
             </Box>
           </Grid>
-          {/* end Pay */}
-          {/* Manage your Space */}
-          <Grid item md={2}>
+          {/* end reliability */}
+          {/* quality */}
+          <Grid item md={3} className={classes.ourValueItem}>
             <Box textAlign='center'>
               <img
                 className={classes.howWorkIcon}
-                src={require('../../../assets/landing/Manage_your_Space.svg')}
+                src={require('../../../assets/landing/Sign_up.svg')}
               />
               <CustomTypography
                 variant='h6'
                 fontWeight='bold'
                 className={classes.workMainTextPadding}>
-                {t('manageYourSpace')}
+                {t('quality')}
               </CustomTypography>
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={[
-                  classes.workSubTextPadding,
-                  classes.desktopVisible,
-                ]}>
-                {t('manageYourSpaceDesc')}
+                className={[classes.workSubTextPadding]}>
+                {t('qualityDesc')}
               </CustomTypography>
             </Box>
           </Grid>
-          {/* end Manage your Space */}
+          {/* end quality */}
         </Grid>
       </Grid>
     </Grid>
   );
 };
 
-export default HowWeWorkSection;
+export default OurValuesSection;
