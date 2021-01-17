@@ -1,68 +1,65 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Grid, Typography } from '@material-ui/core';
-import { useForm } from 'react-hook-form';
-import ErrorDialog from '../../components/errors/ErrorDialog';
 import { useStyles } from 'styles/formsStyles';
 import { useTranslation } from 'react-i18next';
+import useForm from 'pages/FormValidation/useForm';
+import validate from 'pages/FormValidation/validateInfo';
 
-const ForgetPassword = () => {
+const ResetPassword = () => {
   const classes = useStyles();
-  const { register, errors } = useForm();
-  const [loginFailed, setLoginFailed] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [showError, setShowError] = useState(false);
   const { t } = useTranslation();
+  const { handleChange, values, handleSubmit, errors } = useForm(validate);
 
-  const handleTextChange = () => {
-    setLoginFailed(false);
-  };
   return (
     <Grid
       container
       className={classes.logInPageContainer}
       alignContent={'center'}>
       <Grid container justify={'space-evenly'} alignContent={'center'}>
-        {showError && (
-          <ErrorDialog
-            message={errorMessage}
-            close={() => {
-              setShowError(false);
-              setErrorMessage();
-            }}
-          />
-        )}
         <CssBaseline />
         <Grid item xs={12} md={6} className={[classes.paper, classes.forgetPasswordForm]}>
           <Typography className={[classes.pageHeaderStyle, classes.forgetPasswordHeader]}>
-            {t('forgetPassword')}
+            {t('resetPassword')}
           </Typography>
           <form
             id='loginUserForm'
             className={classes.form}
-            noValidate
-            onSubmit={() => { }}>
+            onSubmit={handleSubmit}>
             <TextField
               variant='outlined'
               margin='normal'
-              inputRef={register({ required: true })}
               fullWidth
-              onChange={handleTextChange}
-              id='email'
-              label={t('Email')}
-              name='email'
-              autoComplete='email'
-              error={!!errors.email}
-              autoFocus
+              name='password'
+              label={t('password')}
+              type='password'
+              id='password'
+              onChange={handleChange}
+              autoComplete='current-password'
+              value={values.password}
             />
-            {errors.email && (
-              <span className={classes.error}>{t('Email empty error')}</span>
+            {errors.password && (
+              <span className={classes.error}>
+                {errors.password}
+              </span>
             )}
-            {loginFailed && (
-              <span id={'loginFailedMessage'} className={classes.error}>
-                {t('Invalid Email or password')}
+            <TextField
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              name='confirmPassword'
+              label={t('confirmPassword')}
+              type='password'
+              id='confirmPassword'
+              onChange={handleChange}
+              autoComplete='current-password'
+              value={values.confirmPassword}
+            />
+            {errors.confirmPassword && (
+              <span className={classes.error}>
+                {errors.confirmPassword}
               </span>
             )}
             <div className={classes.logInButtonContainer}>
@@ -83,4 +80,4 @@ const ForgetPassword = () => {
   );
 };
 
-export default ForgetPassword;
+export default ResetPassword;

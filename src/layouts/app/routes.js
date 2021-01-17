@@ -25,7 +25,8 @@ import SolutionsPage from 'pages/App/Solutions/SolutionsPage';
 import TermsAndConditionsPage from 'pages/App/TermsAndConditions/TermsAndConditionsPage';
 import AboutPage from 'pages/App/about/AboutPage';
 import ConsultantsPage from 'pages/App/Consultants/ConsultantsPage';
-import ForgetPassword from 'pages/ForgetPassword/ForgetPassword';
+import ForgetPassword from 'pages/ForgetPassword';
+import ResetPassword from 'pages/ResetPassword';
 
 const appRoutes = [
   {
@@ -105,6 +106,15 @@ const appRoutes = [
     name: 'Forget password',
     icon: DashboardIcon,
     Component: ForgetPassword,
+    includeLayout: false,
+    isPublic: true,
+    hasDashboardLink: true,
+  },
+  {
+    path: RoutesPaths.App.ResetPassword,
+    name: 'Reset password',
+    icon: DashboardIcon,
+    Component: ResetPassword,
     includeLayout: false,
     isPublic: true,
     hasDashboardLink: true,

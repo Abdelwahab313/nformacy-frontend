@@ -140,7 +140,7 @@ const Login = () => {
               autoFocus
             />
             {errors.email && (
-              <span className={classes.error}>{t('Email empty error')}</span>
+              <span className={classes.error}>{t('emailEmptyError')}</span>
             )}
             <TextField
               variant='outlined'
