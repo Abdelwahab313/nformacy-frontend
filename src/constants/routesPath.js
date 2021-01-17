@@ -18,6 +18,7 @@ export const RoutesPaths = {
   App: {
     Login: '/login',
     Signup: '/signup',
+    ForgetPassword: '/ForgetPassword',
     Logout: '/logout',
     FreelancerProfile: '/user/profile',
     FreelancerSuccess: '/user/success',

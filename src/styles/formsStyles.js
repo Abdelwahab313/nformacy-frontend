@@ -142,6 +142,19 @@ export const useStyles = makeStyles((theme) => ({
     margin: '10px 0 20px',
     zIndex: 999
   },
+  forgetPasswordHeader: {
+    color: darkOrange,
+    marginBottom: 20
+  },
+  forgetPasswordForm: {
+    border: '1px solid #ccc',
+    boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+    padding: 80,
+    marginTop: 0,
+    [theme.breakpoints.down('xs')]: {
+      padding: 50,
+    },
+  },
   newUserText: {
     background: white,
     padding: '0 10px',

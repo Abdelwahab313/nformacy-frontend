@@ -25,6 +25,7 @@ import SolutionsPage from 'pages/App/Solutions/SolutionsPage';
 import TermsAndConditionsPage from 'pages/App/TermsAndConditions/TermsAndConditionsPage';
 import AboutPage from 'pages/App/about/AboutPage';
 import ConsultantsPage from 'pages/App/Consultants/ConsultantsPage';
+import ForgetPassword from 'pages/ForgetPassword/ForgetPassword';
 
 const appRoutes = [
   {
@@ -98,6 +99,15 @@ const appRoutes = [
     includeLayout: false,
     isPublic: true,
     hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.App.ForgetPassword,
+    name: 'Forget password',
+    icon: DashboardIcon,
+    Component: ForgetPassword,
+    includeLayout: false,
+    isPublic: true,
+    hasDashboardLink: true,
   },
   {
     path: RoutesPaths.App.Logout,
