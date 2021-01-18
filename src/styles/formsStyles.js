@@ -320,10 +320,7 @@ export const useStyles = makeStyles((theme) => ({
     color: grey,
   },
   logInPageContainer: {
-    padding: theme.spacing(5),
-    [theme.breakpoints.up('md')]: {
-      height: '100vh',
-    },
+    padding: theme.spacing(5)
   },
   alignRight: { alignSelf: 'center' },
   loginInTitleContainer: { height: 'fit-content', marginBottom: '50px' },
