@@ -10,6 +10,22 @@ const login = (user) => {
   }).then((response) => camelizeKeys(response));
 };
 
+const forgetPassword = (email) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/auth/forget_password`,
+    data: { email },
+  }).then((response) => camelizeKeys(response.data));
+}
+
+const resetPassword = (token, password) => {
+  return axios({
+    method: 'put',
+    url: `${API_BASE_URL}/auth/reset_password`,
+    data: { token,  password},
+  }).then((response) => camelizeKeys(response.data));
+}
+
 const logout = () => {
   return axios({
     method: 'post',
@@ -17,4 +33,4 @@ const logout = () => {
   });
 };
 
-export { login, logout };
+export { login, logout, forgetPassword, resetPassword };

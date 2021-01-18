@@ -1,11 +1,6 @@
-const validateInfo = (values) => {
-  let errors = {};
 
-  if (!values.email) {
-    errors.email = 'Email is Required!';
-  } else if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(values.email)) {
-    errors.email = 'Invalid Email!';
-  }
+const validateResetPasswordForm = (values) => {
+  let errors = {};
 
   if (!values.password) {
     errors.password = 'Password is Required!';
@@ -22,4 +17,17 @@ const validateInfo = (values) => {
   return errors;
 };
 
-export default validateInfo;
+const validateForgetPasswordForm = (values) => {
+  let errors = {};
+
+  if (!values.email) {
+    errors.email = 'Email is Required!';
+  } else if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(values.email)) {
+    errors.email = 'Invalid Email!';
+  }
+
+  return errors;
+
+}
+
+export {validateResetPasswordForm, validateForgetPasswordForm };

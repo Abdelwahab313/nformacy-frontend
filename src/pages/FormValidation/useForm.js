@@ -8,13 +8,19 @@ const useForm = (validate) => {
     const { name, value } = e.target;
     setValues({
       ...values,
-      [name]: value
+      [name]: value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, submitData) => {
     e.preventDefault();
-    setErrors(validate(values));
+    const errors = validate(values);
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+    } else {
+      setErrors(errors);
+      submitData();
+    }
   };
 
   return { handleChange, values, handleSubmit, errors };
