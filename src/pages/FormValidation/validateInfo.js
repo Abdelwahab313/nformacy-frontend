@@ -25,9 +25,7 @@ const validateForgetPasswordForm = (values) => {
   } else if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(values.email)) {
     errors.email = 'Invalid Email!';
   }
-
   return errors;
+};
 
-}
-
-export {validateResetPasswordForm, validateForgetPasswordForm };
+export { validateResetPasswordForm, validateForgetPasswordForm };

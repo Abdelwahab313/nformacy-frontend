@@ -10,6 +10,8 @@ export const RoutesPaths = {
     Icons: '/admin/icons',
     Notifications: '/admin/notifications',
     Services: '/admin/services',
+    Admins: '/admin/admins',
+    AddAdmin: '/admin/addAdmin',
     ServiceDetails: '/admin/services/edit',
     Logout: '/admin/logout',
     PostQuestion: '/admin/postQuestion',

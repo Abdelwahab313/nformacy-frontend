@@ -20,6 +20,8 @@ import ServicesList from 'pages/Admin/ServicesRequests/list';
 import ServiceDetails from 'pages/Admin/ServicesRequests/details';
 import authManager from 'services/authManager';
 import Evaluations from 'pages/Admin/Evaluations';
+import AdminsList from 'pages/Admin/Admins/list';
+import AddAdmin from 'pages/Admin/Admins/list/AddAdmin';
 
 const adminRoutes = [
   {
@@ -90,6 +92,20 @@ const adminRoutes = [
     icon: BusinessCenterIcon,
     component: ServicesList,
     hasDashboardLink: true,
+  },
+  {
+    path: RoutesPaths.Admin.Admins,
+    name: 'Admins',
+    icon: BusinessCenterIcon,
+    component: AdminsList,
+    hasDashboardLink: true,
+  },
+  {
+    path: RoutesPaths.Admin.AddAdmin,
+    name: 'Add Admin',
+    icon: BusinessCenterIcon,
+    component: AddAdmin,
+    hasDashboardLink: false,
   },
   {
     path: RoutesPaths.Admin.ServiceDetails,

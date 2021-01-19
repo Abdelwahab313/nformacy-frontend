@@ -388,5 +388,13 @@
   "WhoNformacyExpert": "Who is nformacy Expert",
   "signup": "signup",
   "forgetPassword": "Forgot Password?",
-  "resetPassword": "Reset Password"
+  "resetPassword": "Reset Password",
+  "adminsList": "Admins List",
+  "userName": "User Name",
+  "fieldsAssigned": "Fields Assigned",
+  "clientManager": "Client Manager",
+  "consultantManager": "Consultant Manager",
+  "advisorManager": "Advisor Manager",
+  "update": "Update",
+  "addAdminBtn": "Add New Admin"
 }
