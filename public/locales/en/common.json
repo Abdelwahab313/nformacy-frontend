@@ -396,5 +396,7 @@
   "consultantManager": "Consultant Manager",
   "advisorManager": "Advisor Manager",
   "update": "Update",
-  "addAdminBtn": "Add New Admin"
+  "addAdminBtn": "Add New Admin",
+  "firstname": "First Name",
+  "lastname": "Last Name"
 }

@@ -27,7 +27,6 @@ const AdminsList = () => {
         <SubmitButton
           id={'addAdminBtn'}
           onClick={() => history.push(RoutesPaths.Admin.AddAdmin)}
-          // onClick={() => { }}
           buttonText={
             <CustomTypography variant='body1'>
               {t('addAdminBtn')}
