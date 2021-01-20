@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GridContainer from '../../../../components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import CardHeader from 'components/card/CardHeader';
@@ -6,8 +6,10 @@ import { Grid, Typography } from '@material-ui/core';
 import AddAdminForm from './AddAdminForm';
 const AddAdmin = () => {
 
+  const [user, setUser] = useState('');
+
   const handleCreateAdmin = () => {
-    // console.log('=====+++++++++++++++======');
+    // console.log('=====+++++++++++++++====== form data', user);
   };
 
   return (
@@ -23,6 +25,8 @@ const AddAdmin = () => {
           </Grid>
         </CardHeader>
         <AddAdminForm
+          user={user}
+          setUser={setUser}
           viewOnly
           primaryButton={{
             id: 'createAdminButton',

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { industries } from 'constants/dropDownOptions';
 import humanizedTimeSpan from 'services/humanizedTimeSpan';
 import GridContainer from 'components/grid/GridContainer';
@@ -13,10 +13,9 @@ import { useTranslation } from 'react-i18next';
 import CardFooter from 'components/card/CardFooter';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 
-const AddAdminForm = ({ viewOnly, primaryButton }) => {
+const AddAdminForm = ({ viewOnly, primaryButton, user, setUser }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const [user, setUser] = useState('');
   const onChangeField = (name, value) => {
     setUser((prevData) => ({ ...prevData, [name]: value }));
   };
@@ -59,47 +58,72 @@ const AddAdminForm = ({ viewOnly, primaryButton }) => {
           )}
         </GridContainer>
         <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={12} md={3}>
+          <GridItem xs={12} sm={12} md={4}>
             <TextField
               label={t('firstname')}
               id='firstname'
               name='firstname'
               fullWidth
               value={user.firstname}
-              onChange={e => setUser(e.target.value)}
+              onChange={(e) => {
+                onChangeField('firstname', e.target.value);
+              }}
               variant='outlined'
             />
           </GridItem>
-          <GridItem xs={12} sm={12} md={3}>
+          <GridItem xs={12} sm={12} md={4}>
             <TextField
               label={t('lastname')}
               id='lastname'
               name='lastname'
               fullWidth
               value={user.lastname}
-              onChange={e => setUser(e.target.value)}
+              onChange={(e) => {
+                onChangeField('lastname', e.target.value);
+              }}
               variant='outlined'
             />
           </GridItem>
-          <GridItem xs={12} sm={12} md={3}>
+          <GridItem xs={12} sm={12} md={4}>
             <TextField
               label={t('email')}
               id='email'
               name='email'
               fullWidth
               value={user.email}
-              onChange={e => setUser(e.target.value)}
+              onChange={(e) => {
+                onChangeField('email', e.target.value);
+              }}
               variant='outlined'
             />
           </GridItem>
-          <GridItem xs={12} sm={12} md={3}>
+        </GridContainer>
+        <GridContainer className={classes.inputsRow}>
+          <GridItem xs={12} sm={12} md={6}>
             <TextField
               label={t('password')}
               id='password'
               name='password'
               fullWidth
+              type='password'
               value={user.password}
-              onChange={e => setUser(e.target.value)}
+              onChange={(e) => {
+                onChangeField('password', e.target.value);
+              }}
+              variant='outlined'
+            />
+          </GridItem>
+          <GridItem xs={12} sm={12} md={6}>
+            <TextField
+              label={t('confirmPassword')}
+              id='confirmPassword'
+              name='confirmPassword'
+              fullWidth
+              type='password'
+              value={user.confirmPassword}
+              onChange={(e) => {
+                onChangeField('confirmPassword', e.target.value);
+              }}
               variant='outlined'
             />
           </GridItem>
