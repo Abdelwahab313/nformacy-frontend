@@ -31,11 +31,8 @@ const AddAdminForm = ({ viewOnly, primaryButton, user, setUser }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const onChangeField = (name, value) => {
-    setUser((prevData) => ({ ...prevData, [name]: value }));
-  };
-  const handleCheckbox = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.checked });
+  const onChangeField = (name, checked) => {
+    setUser((prevData) => ({ ...prevData, [name]: checked }));
   };
 
   return (
@@ -178,7 +175,10 @@ const AddAdminForm = ({ viewOnly, primaryButton, user, setUser }) => {
           <GridItem xs={12} sm={12} md={4}>
             <FormControlLabel
               control={<AdminCheckbox checked={user.isRequestManager}
-                onChange={handleCheckbox}
+                // onChange={handleCheckbox}
+                onChange={(e) => {
+                  onChangeField('isRequestManager', e.target.checked);
+                }}
                 name="isRequestManager" />}
               label="Requests Manager"
             />
@@ -186,7 +186,10 @@ const AddAdminForm = ({ viewOnly, primaryButton, user, setUser }) => {
           <GridItem xs={12} sm={12} md={4}>
             <FormControlLabel
               control={<AdminCheckbox checked={user.isQuestionRoasterManager}
-                onChange={handleCheckbox}
+                // onChange={handleCheckbox}
+                onChange={(e) => {
+                  onChangeField('isQuestionRoasterManager', e.target.checked);
+                }}
                 name="isQuestionRoasterManager" />}
               label="Question Roaster Manager"
             />
@@ -194,7 +197,10 @@ const AddAdminForm = ({ viewOnly, primaryButton, user, setUser }) => {
           <GridItem xs={12} sm={12} md={4}>
             <FormControlLabel
               control={<AdminCheckbox checked={user.isAdvisorManager}
-                onChange={handleCheckbox}
+                // onChange={handleCheckbox}
+                onChange={(e) => {
+                  onChangeField('isAdvisorManager', e.target.checked);
+                }}
                 name="isAdvisorManager" />}
               label="Advisor Manager"
             />
@@ -202,7 +208,10 @@ const AddAdminForm = ({ viewOnly, primaryButton, user, setUser }) => {
           <GridItem xs={12} sm={12} md={4}>
             <FormControlLabel
               control={<AdminCheckbox checked={user.isClientManager}
-                onChange={handleCheckbox}
+                // onChange={handleCheckbox}
+                onChange={(e) => {
+                  onChangeField('isClientManager', e.target.checked);
+                }}
                 name="isClientManager" />}
               label="Client Manager"
             />
@@ -210,7 +219,10 @@ const AddAdminForm = ({ viewOnly, primaryButton, user, setUser }) => {
           <GridItem xs={12} sm={12} md={4}>
             <FormControlLabel
               control={<AdminCheckbox checked={user.isConsultantManager}
-                onChange={handleCheckbox}
+                // onChange={handleCheckbox}
+                onChange={(e) => {
+                  onChangeField('isConsultantManager', e.target.checked);
+                }}
                 name="isConsultantManager" />}
               label="Consultant Manager"
             />
