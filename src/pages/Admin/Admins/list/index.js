@@ -10,20 +10,16 @@ import CustomTypography from 'components/typography/Typography';
 import { useTranslation } from 'react-i18next';
 import { RoutesPaths } from 'constants/routesPath';
 import { useHistory } from 'react-router';
+import { useStyles } from 'styles/Admin/questionFormStyles';
 
 const AdminsList = () => {
   const { t } = useTranslation();
   const history = useHistory();
+  const classes = useStyles();
+
   return (
     <GridContainer>
-      <GridItem xs={12} sm={12} md={12}>
-        <Card plain>
-          <CardBody id='questionsList'>
-            <AdminsTable />
-          </CardBody>
-        </Card>
-      </GridItem>
-      <GridItem xs={12} sm={12} md={12}>
+      <GridItem xs={12} sm={12} md={12} className={classes.addAdminBtn}>
         <SubmitButton
           id={'addAdminBtn'}
           onClick={() => history.push(RoutesPaths.Admin.AddAdmin)}
@@ -33,6 +29,13 @@ const AdminsList = () => {
             </CustomTypography>
           }
         />
+      </GridItem>
+      <GridItem xs={12} sm={12} md={12}>
+        <Card plain>
+          <CardBody id='questionsList'>
+            <AdminsTable />
+          </CardBody>
+        </Card>
       </GridItem>
     </GridContainer>
   );

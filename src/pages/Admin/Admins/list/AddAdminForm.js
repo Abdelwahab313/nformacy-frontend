@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
 import CardFooter from 'components/card/CardFooter';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
-import { FormControlLabel, Checkbox } from '@material-ui/core';
+import { FormControlLabel, Checkbox, Box } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import { darkBlue } from 'styles/colors';
 import { lightBlue } from '@material-ui/core/colors';
@@ -171,63 +171,60 @@ const AddAdminForm = ({ viewOnly, primaryButton, user, setUser }) => {
           )}
         </FieldsSelect>
 
-        <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={12} md={4}>
-            <FormControlLabel
-              control={<AdminCheckbox checked={user.isRequestManager}
-                // onChange={handleCheckbox}
-                onChange={(e) => {
-                  onChangeField('isRequestManager', e.target.checked);
-                }}
-                name="isRequestManager" />}
-              label="Requests Manager"
-            />
-          </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
-            <FormControlLabel
-              control={<AdminCheckbox checked={user.isQuestionRoasterManager}
-                // onChange={handleCheckbox}
-                onChange={(e) => {
-                  onChangeField('isQuestionRoasterManager', e.target.checked);
-                }}
-                name="isQuestionRoasterManager" />}
-              label="Question Roaster Manager"
-            />
-          </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
-            <FormControlLabel
-              control={<AdminCheckbox checked={user.isAdvisorManager}
-                // onChange={handleCheckbox}
-                onChange={(e) => {
-                  onChangeField('isAdvisorManager', e.target.checked);
-                }}
-                name="isAdvisorManager" />}
-              label="Advisor Manager"
-            />
-          </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
-            <FormControlLabel
-              control={<AdminCheckbox checked={user.isClientManager}
-                // onChange={handleCheckbox}
-                onChange={(e) => {
-                  onChangeField('isClientManager', e.target.checked);
-                }}
-                name="isClientManager" />}
-              label="Client Manager"
-            />
-          </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
-            <FormControlLabel
-              control={<AdminCheckbox checked={user.isConsultantManager}
-                // onChange={handleCheckbox}
-                onChange={(e) => {
-                  onChangeField('isConsultantManager', e.target.checked);
-                }}
-                name="isConsultantManager" />}
-              label="Consultant Manager"
-            />
-          </GridItem>
-        </GridContainer>
+        <Box className={[classes.checkboxContainer, classes.inputsRow]}>
+          <GridContainer>
+            <GridItem xs={12} sm={12} md={4}>
+              <FormControlLabel
+                control={<AdminCheckbox checked={user.isRequestManager}
+                  onChange={(e) => {
+                    onChangeField('isRequestManager', e.target.checked);
+                  }}
+                  name="isRequestManager" />}
+                label="Requests Manager"
+              />
+            </GridItem>
+            <GridItem xs={12} sm={12} md={4}>
+              <FormControlLabel
+                control={<AdminCheckbox checked={user.isQuestionRoasterManager}
+                  onChange={(e) => {
+                    onChangeField('isQuestionRoasterManager', e.target.checked);
+                  }}
+                  name="isQuestionRoasterManager" />}
+                label="Question Roaster Manager"
+              />
+            </GridItem>
+            <GridItem xs={12} sm={12} md={4}>
+              <FormControlLabel
+                control={<AdminCheckbox checked={user.isAdvisorManager}
+                  onChange={(e) => {
+                    onChangeField('isAdvisorManager', e.target.checked);
+                  }}
+                  name="isAdvisorManager" />}
+                label="Advisor Manager"
+              />
+            </GridItem>
+            <GridItem xs={12} sm={12} md={4}>
+              <FormControlLabel
+                control={<AdminCheckbox checked={user.isClientManager}
+                  onChange={(e) => {
+                    onChangeField('isClientManager', e.target.checked);
+                  }}
+                  name="isClientManager" />}
+                label="Client Manager"
+              />
+            </GridItem>
+            <GridItem xs={12} sm={12} md={4}>
+              <FormControlLabel
+                control={<AdminCheckbox checked={user.isConsultantManager}
+                  onChange={(e) => {
+                    onChangeField('isConsultantManager', e.target.checked);
+                  }}
+                  name="isConsultantManager" />}
+                label="Consultant Manager"
+              />
+            </GridItem>
+          </GridContainer>
+        </Box>
       </CardBody>
       <CardFooter>
         <ActionButtonsContainer

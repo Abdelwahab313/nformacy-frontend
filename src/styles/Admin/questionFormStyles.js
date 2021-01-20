@@ -130,5 +130,13 @@ export const useStyles = makeStyles((theme) => ({
   },
   viewEvaluations: {
     float: 'right'
+  },
+  addAdminBtn: {
+    paddingLeft: '35px !important'
+  },
+  checkboxContainer: {
+    border: '1px solid #1257736b',
+    borderRadius: 7,
+    padding: 25
   }
 }));
