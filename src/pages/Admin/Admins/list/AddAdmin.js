@@ -6,7 +6,7 @@ import { Grid, Typography } from '@material-ui/core';
 import AddAdminForm from './AddAdminForm';
 const AddAdmin = () => {
 
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState({});
 
   const handleCreateAdmin = () => {
     // console.log('=====+++++++++++++++====== form data', user);
