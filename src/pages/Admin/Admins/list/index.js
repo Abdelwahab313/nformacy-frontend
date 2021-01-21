@@ -11,11 +11,21 @@ import { useTranslation } from 'react-i18next';
 import { RoutesPaths } from 'constants/routesPath';
 import { useHistory } from 'react-router';
 import { useStyles } from 'styles/Admin/questionFormStyles';
+import LoadingCircle from 'components/progress/LoadingCircle';
+import useFetchData from 'hooks/useFetchData';
+import { fetchAdmins } from 'apis/adminsAPI';
 
 const AdminsList = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const classes = useStyles();
+  const { fetchedData: admins, isLoading } = useFetchData(() => {
+    return fetchAdmins();
+  });
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
 
   return (
     <GridContainer>
@@ -33,7 +43,7 @@ const AdminsList = () => {
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
           <CardBody id='questionsList'>
-            <AdminsTable />
+            <AdminsTable admins={admins} />
           </CardBody>
         </Card>
       </GridItem>

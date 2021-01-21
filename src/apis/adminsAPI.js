@@ -9,3 +9,10 @@ export const addAdmin = (user) => {
     url: `${API_BASE_URL}/users/create_admin`,
   }).then((response) => camelizeKeys(response));
 };
+
+export const fetchAdmins = () => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/users/list_admins`,
+  }).then((response) => camelizeKeys(response));
+};

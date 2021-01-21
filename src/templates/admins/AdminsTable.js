@@ -24,32 +24,38 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'name',
-      label: t('name'),
+      name: 'firsName',
+      label: t('firstName'),
       options: {
         ...defaultColumnOption,
         filter: false,
-        display: authManager.isAdmin(),
         sort: true,
       },
     },
     {
-      name: 'userName',
-      label: t('userName'),
+      name: 'lastName',
+      label: t('lastName'),
       options: {
         ...defaultColumnOption,
         filter: false,
-        display: authManager.isAdmin(),
         sort: true,
       },
     },
     {
-      name: 'fieldsAssigned',
+      name: 'email',
+      label: t('email'),
+      options: {
+        ...defaultColumnOption,
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: 'fields',
       label: t('fieldsAssigned'),
       options: {
         ...defaultColumnOption,
         filter: true,
-        display: authManager.isAdmin(),
       },
     },
     {
@@ -58,7 +64,6 @@ const getColumnsOptions = (classes, t) => {
       options: {
         ...defaultColumnOption,
         filter: true,
-        display: authManager.isAdmin(),
         sort: true,
       },
     },
@@ -69,7 +74,6 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: false,
         sort: true,
-        display: authManager.isAdmin(),
       },
     },
     {
@@ -79,7 +83,6 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: false,
         sort: true,
-        display: authManager.isAdmin(),
       },
     },
     {
@@ -89,7 +92,6 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: false,
         sort: true,
-        display: authManager.isAdmin(),
       },
     },
     {
@@ -99,7 +101,6 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: false,
         sort: true,
-        display: authManager.isAdmin(),
       },
     },
   ];
@@ -107,7 +108,7 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const AdminsTable = () => {
+const AdminsTable = ({ admins }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
@@ -128,6 +129,7 @@ const AdminsTable = () => {
   return (
     <MUIDataTable
       title={t('adminsList')}
+      data={!!admins ? admins : []}
       columns={columns}
       options={tableOptions}
     />

@@ -398,5 +398,6 @@
   "update": "Update",
   "addAdminBtn": "Add New Admin",
   "firstname": "First Name",
-  "lastname": "Last Name"
+  "lastname": "Last Name",
+  "emailEmptyError": "Email Empty!"
 }
