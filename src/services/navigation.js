@@ -51,6 +51,12 @@ export const getAdminQuestionsDashboardLink = () => {
   }
 };
 
+export const getAdminsList = () => {
+  return {
+    pathname: RoutesPaths.Admin.Admins,
+  };
+};
+
 export const getAnswerQuestionLink = (questionId) => {
   return {
     pathname: RoutesPaths.App.AnswerQuestion,

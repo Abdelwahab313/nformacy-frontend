@@ -4,12 +4,22 @@ import GridItem from 'components/grid/GridItem';
 import CardHeader from 'components/card/CardHeader';
 import { Grid, Typography } from '@material-ui/core';
 import AddAdminForm from './AddAdminForm';
+import { getAdminsList } from 'services/navigation';
+import { addAdmin } from 'apis/adminsAPI';
+import { useHistory } from 'react-router';
+
 const AddAdmin = () => {
 
   const [user, setUser] = useState({});
+  const history = useHistory();
+  const navigatToAdminsList = () => {
+    history.push(getAdminsList());
+  };
 
   const handleCreateAdmin = () => {
-    // console.log('=====+++++++++++++++====== form data', user);
+    addAdmin(user).then(() => {
+      navigatToAdminsList();
+    });
   };
 
   return (
