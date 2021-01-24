@@ -439,6 +439,19 @@ const useStyles = makeStyles((theme) => ({
   mobileServicePadding: {
     padding: [theme.spacing(2), theme.spacing(1)],
   },
+  reasonDetailsBox: {
+    backgroundColor: white,
+    borderRadius: 20,
+    border: '1px solid #ecedf0',
+    minHeight: 300,
+    overflow: 'hidden',
+    margin: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      margin: '10px 0',
+      borderRadius: 10,
+      minHeight: 'initial',
+    },
+  },
 }));
 
 export default useStyles;

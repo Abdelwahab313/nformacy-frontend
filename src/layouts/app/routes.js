@@ -24,6 +24,7 @@ import ContactUsPage from 'pages/App/ContactUs/ContactUsPage';
 import SolutionsPage from 'pages/App/Solutions/SolutionsPage';
 import TermsAndConditionsPage from 'pages/App/TermsAndConditions/TermsAndConditionsPage';
 import AboutPage from 'pages/App/about/AboutPage';
+import ConsultantsPage from 'pages/App/Consultants/ConsultantsPage';
 
 const appRoutes = [
   {
@@ -49,6 +50,15 @@ const appRoutes = [
     name: 'Solutions',
     icon: DashboardIcon,
     Component: SolutionsPage,
+    includeLayout: true,
+    isPublic: true,
+    hasDashboardLink: true,
+  },
+  {
+    path: RoutesPaths.App.Consultants,
+    name: 'Consultants',
+    icon: DashboardIcon,
+    Component: ConsultantsPage,
     includeLayout: true,
     isPublic: true,
     hasDashboardLink: true,

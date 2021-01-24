@@ -29,10 +29,15 @@ const OurValuesSection = () => {
           {/* future */}
           <Grid item md={3} className={classes.ourValueItem}>
             <Box textAlign='center'>
-              <img
-                className={classes.howWorkIcon}
-                src={require('../../../assets/landing/Sign_up.svg')}
-              />
+              <Box
+                className={[
+                  classes.ourValuesIconContainer,
+                  classes.lightOrangeBG,
+                ]}>
+                <img
+                  src={require('../../../assets/about/Future_Looking.svg')}
+                />
+              </Box>
               <CustomTypography
                 variant='h6'
                 fontWeight='bold'
@@ -42,7 +47,7 @@ const OurValuesSection = () => {
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={[classes.workSubTextPadding]}>
+                >
                 {t('futureLookingDesc')}
               </CustomTypography>
             </Box>
@@ -51,10 +56,13 @@ const OurValuesSection = () => {
           {/* Simplicity */}
           <Grid item md={3} className={classes.ourValueItem}>
             <Box textAlign='center'>
-              <img
-                className={classes.howWorkIcon}
-                src={require('../../../assets/landing/Sign_up.svg')}
-              />
+              <Box
+                className={[
+                  classes.ourValuesIconContainer,
+                  classes.darkBlueBG,
+                ]}>
+                <img src={require('../../../assets/about/Simplicity.svg')} />
+              </Box>
               <CustomTypography
                 variant='h6'
                 fontWeight='bold'
@@ -64,7 +72,7 @@ const OurValuesSection = () => {
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={[classes.workSubTextPadding]}>
+                >
                 {t('simplicityDesc')}
               </CustomTypography>
             </Box>
@@ -73,10 +81,13 @@ const OurValuesSection = () => {
           {/* integrity */}
           <Grid item md={3} className={classes.ourValueItem}>
             <Box textAlign='center'>
-              <img
-                className={classes.howWorkIcon}
-                src={require('../../../assets/landing/Sign_up.svg')}
-              />
+              <Box
+                className={[
+                  classes.ourValuesIconContainer,
+                  classes.mediumTurquoiseBG,
+                ]}>
+                <img src={require('../../../assets/about/Integrity.svg')} />
+              </Box>
               <CustomTypography
                 variant='h6'
                 fontWeight='bold'
@@ -86,7 +97,7 @@ const OurValuesSection = () => {
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={[classes.workSubTextPadding]}>
+                >
                 {t('integrityDesc')}
               </CustomTypography>
             </Box>
@@ -95,10 +106,13 @@ const OurValuesSection = () => {
           {/* reliability */}
           <Grid item md={3} className={classes.ourValueItem}>
             <Box textAlign='center'>
-              <img
-                className={classes.howWorkIcon}
-                src={require('../../../assets/landing/Sign_up.svg')}
-              />
+              <Box
+                className={[
+                  classes.ourValuesIconContainer,
+                  classes.darkOrangeBG,
+                ]}>
+                <img src={require('../../../assets/about/Reliability.svg')} />
+              </Box>
               <CustomTypography
                 variant='h6'
                 fontWeight='bold'
@@ -108,7 +122,7 @@ const OurValuesSection = () => {
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={[classes.workSubTextPadding]}>
+                >
                 {t('reliabilityDesc')}
               </CustomTypography>
             </Box>
@@ -117,10 +131,13 @@ const OurValuesSection = () => {
           {/* quality */}
           <Grid item md={3} className={classes.ourValueItem}>
             <Box textAlign='center'>
-              <img
-                className={classes.howWorkIcon}
-                src={require('../../../assets/landing/Sign_up.svg')}
-              />
+              <Box
+                className={[
+                  classes.ourValuesIconContainer,
+                  classes.lightOrangeBG,
+                ]}>
+                <img src={require('../../../assets/about/Quality.svg')} />
+              </Box>
               <CustomTypography
                 variant='h6'
                 fontWeight='bold'
@@ -130,7 +147,7 @@ const OurValuesSection = () => {
               <CustomTypography
                 variant='body1'
                 fontWeight='light'
-                className={[classes.workSubTextPadding]}>
+                >
                 {t('qualityDesc')}
               </CustomTypography>
             </Box>

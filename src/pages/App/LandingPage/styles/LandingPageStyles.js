@@ -2,9 +2,11 @@ import { makeStyles } from '@material-ui/core';
 import {
   white,
   darkBlue,
+  darkOrange,
   lighterGrey,
   lightOrange,
   whiteLilac,
+  mediumTurquoise,
 } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
@@ -274,6 +276,27 @@ const useStyles = makeStyles((theme) => ({
   },
   tileSpacing: {
     paddingTop: 4,
+  },
+  ourValuesIconContainer: {
+    width: 70,
+    height: 70,
+    display: 'flex',
+    margin: 'auto',
+    borderRadius: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  lightOrangeBG: {
+    background: lightOrange,
+  },
+  darkBlueBG: {
+    background: darkBlue,
+  },
+  mediumTurquoiseBG: {
+    background: mediumTurquoise,
+  },
+  darkOrangeBG: {
+    background: darkOrange,
   },
   ourValueItem: {
     border: '1px solid #ecedf0',

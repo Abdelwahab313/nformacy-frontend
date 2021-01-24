@@ -47,6 +47,7 @@ export default function MainHeader() {
     location.pathname === RoutesPaths.App.ContactUs ||
     location.pathname === RoutesPaths.App.Solutions ||
     location.pathname === RoutesPaths.App.About ||
+    location.pathname === RoutesPaths.App.Consultants ||
     location.pathname === RoutesPaths.App.TermsAndConditions;
   return (
     <div className={classes.grow} dir={DIRECTION[locale]}>
@@ -111,8 +112,9 @@ export default function MainHeader() {
                 {t('solutions')}
               </NavLink>
               <NavLink
-                to={RoutesPaths.App.NotFound}
-                className={classes.menuItemText}>
+                to={RoutesPaths.App.Consultants}
+                className={classes.menuItemText}
+                activeClassName={classes.active}>
                 {t('consultants')}
               </NavLink>
               <NavLink
