@@ -12,6 +12,8 @@ export const RoutesPaths = {
     Services: '/admin/services',
     Admins: '/admin/admins',
     AddAdmin: '/admin/addAdmin',
+    Advisors: '/admin/advisors',
+    AddAdvisor: '/admin/addAdvisor',
     ServiceDetails: '/admin/services/edit',
     Logout: '/admin/logout',
     PostQuestion: '/admin/postQuestion',

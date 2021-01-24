@@ -390,6 +390,7 @@
   "forgetPassword": "Forgot Password?",
   "resetPassword": "Reset Password",
   "adminsList": "Admins List",
+  "advisorsList": "Advisors List",
   "userName": "User Name",
   "fieldsAssigned": "Fields Assigned",
   "clientManager": "Client Manager",
@@ -397,7 +398,15 @@
   "advisorManager": "Advisor Manager",
   "update": "Update",
   "addAdminBtn": "Add New Admin",
+  "addAdvisorBtn": "Add New Advisor",
   "firstname": "First Name",
   "lastname": "Last Name",
-  "emailEmptyError": "Email Empty!"
+  "emailEmptyError": "Email Empty!",
+  "dateJoined": "Date Joined",
+  "subFields": "Sub Fields",
+  "acceptedAssignment": "Accepted Assignment",
+  "deadlineAssignment": "Deadline Assignment",
+  "rating": "Rating",
+  "addNewAdmin": "Add a New Admin",
+  "addNewAdvisor": "Add a New Advisor"
 }

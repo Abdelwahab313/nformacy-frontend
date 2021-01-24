@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import GridContainer from '../../../../components/grid/GridContainer';
+import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import CardHeader from 'components/card/CardHeader';
 import { Grid, Typography } from '@material-ui/core';
-import AddAdminForm from './AddAdminForm';
+import AddAdvisorForm from './AddAdvisorForm';
 import { getAdminsList } from 'services/navigation';
 import { addAdmin } from 'apis/adminsAPI';
 import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
-const AddAdmin = () => {
+const AddAdvisor = () => {
 
   const [user, setUser] = useState({});
   const history = useHistory();
@@ -31,12 +31,12 @@ const AddAdmin = () => {
           <Grid container>
             <Grid item md={6} xs={6}>
               <Typography component={'h4'}>
-                {t('addNewAdmin')}
+                {t('addNewAdvisor')}
               </Typography>
             </Grid>
           </Grid>
         </CardHeader>
-        <AddAdminForm
+        <AddAdvisorForm
           user={user}
           setUser={setUser}
           viewOnly
@@ -45,7 +45,7 @@ const AddAdmin = () => {
             onClick: () => {
               handleCreateAdmin();
             },
-            buttonText: 'Create Admin',
+            buttonText: 'Create Advisor',
           }}
         />
       </GridItem>
@@ -53,4 +53,4 @@ const AddAdmin = () => {
   );
 };
 
-export default AddAdmin;
+export default AddAdvisor;

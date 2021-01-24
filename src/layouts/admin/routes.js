@@ -1,6 +1,7 @@
 // @material-ui/icons
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Person from '@material-ui/icons/Person';
+import PeopleIcon from '@material-ui/icons/People';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import BubbleChart from '@material-ui/icons/BubbleChart';
 import Notifications from '@material-ui/icons/Notifications';
@@ -22,6 +23,8 @@ import authManager from 'services/authManager';
 import Evaluations from 'pages/Admin/Evaluations';
 import AdminsList from 'pages/Admin/Admins/list';
 import AddAdmin from 'pages/Admin/Admins/list/AddAdmin';
+import AdvisorsList from 'pages/Admin/Advisors';
+import AddAdvisor from 'pages/Admin/Advisors/AddAdvisor';
 
 const adminRoutes = [
   {
@@ -96,8 +99,15 @@ const adminRoutes = [
   {
     path: RoutesPaths.Admin.Admins,
     name: 'Admins',
-    icon: BusinessCenterIcon,
+    icon: PeopleIcon,
     component: AdminsList,
+    hasDashboardLink: true,
+  },
+  {
+    path: RoutesPaths.Admin.Advisors,
+    name: 'Advisors',
+    icon: PeopleIcon,
+    component: AdvisorsList,
     hasDashboardLink: true,
   },
   {
@@ -105,6 +115,13 @@ const adminRoutes = [
     name: 'Add Admin',
     icon: BusinessCenterIcon,
     component: AddAdmin,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.Admin.AddAdvisor,
+    name: 'Add Advisor',
+    icon: BusinessCenterIcon,
+    component: AddAdvisor,
     hasDashboardLink: false,
   },
   {
