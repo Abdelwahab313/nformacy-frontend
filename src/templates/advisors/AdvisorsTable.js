@@ -25,8 +25,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'name',
-      label: t('name'),
+      name: 'firstName',
+      label: t('firstName'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -34,8 +34,17 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'userName',
-      label: t('userName'),
+      name: 'lastName',
+      label: t('lastName'),
+      options: {
+        ...defaultColumnOption,
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: 'email',
+      label: t('email'),
       options: {
         ...defaultColumnOption,
         filter: false,

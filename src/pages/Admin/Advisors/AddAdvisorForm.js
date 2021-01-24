@@ -62,26 +62,26 @@ const AddAdvisorForm = ({ viewOnly, primaryButton, user, setUser }) => {
         <GridContainer className={classes.inputsRow}>
           <GridItem xs={12} sm={12} md={4}>
             <TextField
-              label={t('firstname')}
-              id='firstname'
-              name='firstname'
+              label={t('firstName')}
+              id='firstName'
+              name='firstName'
               fullWidth
               value={user.firstname}
               onChange={(e) => {
-                onChangeField('firstname', e.target.value);
+                onChangeField('firstName', e.target.value);
               }}
               variant='outlined'
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <TextField
-              label={t('lastname')}
-              id='lastname'
-              name='lastname'
+              label={t('lastName')}
+              id='lastName'
+              name='lastName'
               fullWidth
               value={user.lastname}
               onChange={(e) => {
-                onChangeField('lastname', e.target.value);
+                onChangeField('lastName', e.target.value);
               }}
               variant='outlined'
             />

@@ -4,10 +4,10 @@ import GridItem from 'components/grid/GridItem';
 import CardHeader from 'components/card/CardHeader';
 import { Grid, Typography } from '@material-ui/core';
 import AddAdvisorForm from './AddAdvisorForm';
-import { getAdminsList } from 'services/navigation';
-import { addAdmin } from 'apis/adminsAPI';
+import { getAdvisorsList } from 'services/navigation';
 import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
+import { addAdvisor } from 'apis/advisorAPI';
 
 const AddAdvisor = () => {
 
@@ -15,11 +15,11 @@ const AddAdvisor = () => {
   const history = useHistory();
   const { t } = useTranslation();
   const navigatToAdminsList = () => {
-    history.push(getAdminsList());
+    history.push(getAdvisorsList());
   };
 
   const handleCreateAdmin = () => {
-    addAdmin(user).then(() => {
+    addAdvisor(user).then(() => {
       navigatToAdminsList();
     });
   };

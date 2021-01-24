@@ -57,6 +57,12 @@ export const getAdminsList = () => {
   };
 };
 
+export const getAdvisorsList = () => {
+  return {
+    pathname: RoutesPaths.Admin.Advisors,
+  };
+};
+
 export const getAnswerQuestionLink = (questionId) => {
   return {
     pathname: RoutesPaths.App.AnswerQuestion,

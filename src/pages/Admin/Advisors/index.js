@@ -11,16 +11,16 @@ import { useHistory } from 'react-router';
 import { useStyles } from 'styles/Admin/questionFormStyles';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import useFetchData from 'hooks/useFetchData';
-import { fetchAdmins } from 'apis/adminsAPI';
 import Card from 'components/card/Card';
 import AdvisorsTable from 'templates/advisors/AdvisorsTable';
+import { fetchAdvisors } from 'apis/advisorAPI';
 
 const AdvisorsList = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const classes = useStyles();
   const { fetchedData: advisors, isLoading } = useFetchData(() => {
-    return fetchAdmins();
+    return fetchAdvisors();
   });
 
   if (isLoading) {
