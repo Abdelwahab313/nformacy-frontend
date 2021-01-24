@@ -14,9 +14,10 @@ import CardFooter from 'components/card/CardFooter';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 
 
-const AddAdvisorForm = ({ viewOnly, primaryButton, user, setUser }) => {
+const AddAdvisorForm = ({ primaryButton, user, setUser }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const isNewForm = !user.id;
 
   const onChangeField = (name, checked) => {
     setUser((prevData) => ({ ...prevData, [name]: checked }));
@@ -26,7 +27,7 @@ const AddAdvisorForm = ({ viewOnly, primaryButton, user, setUser }) => {
     <Fragment>
       <CardBody>
         <GridContainer>
-          {(viewOnly) && (
+          {!isNewForm && (
             <GridItem xs={12} sm={12} md={2}>
               <CustomInput
                 labelText={t('referenceId')}
@@ -42,7 +43,7 @@ const AddAdvisorForm = ({ viewOnly, primaryButton, user, setUser }) => {
               />
             </GridItem>
           )}
-          {(viewOnly) && (
+          {!isNewForm && (
             <GridItem xs={12} sm={12} md={3}>
               <CustomInput
                 labelText={t('postDate')}
@@ -66,7 +67,7 @@ const AddAdvisorForm = ({ viewOnly, primaryButton, user, setUser }) => {
               id='firstName'
               name='firstName'
               fullWidth
-              value={user.firstname}
+              value={user.firstName}
               onChange={(e) => {
                 onChangeField('firstName', e.target.value);
               }}
@@ -79,7 +80,7 @@ const AddAdvisorForm = ({ viewOnly, primaryButton, user, setUser }) => {
               id='lastName'
               name='lastName'
               fullWidth
-              value={user.lastname}
+              value={user.lastName}
               onChange={(e) => {
                 onChangeField('lastName', e.target.value);
               }}
@@ -146,11 +147,18 @@ const AddAdvisorForm = ({ viewOnly, primaryButton, user, setUser }) => {
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
                 <DropdownSelectField
-                  fieldId='industry'
-                  fieldName='industry'
+                  multiple
+                  fieldId='industriesOfExperience'
+                  fieldName='industriesOfExperience'
                   fieldOptions={industries}
-                  fieldValue={user.industry}
-                  onFieldChange={(option) => onChangeField('industry', option)}
+                  fieldValue={
+                    !!user.industriesOfExperience
+                      ? user.industriesOfExperience
+                      : []
+                  }
+                  onFieldChange={(option) =>
+                    onChangeField('industriesOfExperience', option)
+                  }
                   fieldLabel={t('industry')}
                 />
               </GridItem>

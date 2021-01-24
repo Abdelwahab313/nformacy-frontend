@@ -5,6 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import { useStyles } from 'styles/Admin/questionTableStyles';
 import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
+import { Chip } from '@material-ui/core';
+import FieldsChips from 'components/chips/FieldsChips';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -78,7 +80,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'industry',
+      name: 'industriesOfExperience',
       label: t('industry'),
       options: {
         ...defaultColumnOption,
@@ -127,10 +129,23 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
+const parseAdvisorsTableData = (advisors) => {
+  return advisors?.map((advisor) => ({
+    ...advisor,
+    industriesOfExperience: advisor.industriesOfExperience?.map((industry) => (
+      <div key={industry.value}>
+        <Chip label={industry.label} key={industry.value} />
+      </div>
+    )),
+    fields: <FieldsChips fields={advisor.fields} />,
+  }));
+};
+
 const AdvisorsTable = ({ advisors }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
+  const advisorsRows = parseAdvisorsTableData(advisors);
 
   const tableOptions = {
     filterType: 'checkbox',
@@ -148,7 +163,7 @@ const AdvisorsTable = ({ advisors }) => {
   return (
     <MUIDataTable
       title={t('advisorsList')}
-      data={!!advisors ? advisors : []}
+      data={!!advisorsRows ? advisorsRows : []}
       columns={columns}
       options={tableOptions}
     />
