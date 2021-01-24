@@ -5,6 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import { useStyles } from 'styles/Admin/questionTableStyles';
 import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
+import { Chip } from '@material-ui/core';
+import FieldsChips from 'components/chips/FieldsChips';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -24,7 +26,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'firsName',
+      name: 'firstName',
       label: t('firstName'),
       options: {
         ...defaultColumnOption,
@@ -59,7 +61,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'industry',
+      name: 'industriesOfExperience',
       label: t('industry'),
       options: {
         ...defaultColumnOption,
@@ -108,11 +110,23 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
+const parseAdminsTableData = (admins) => {
+  return admins?.map((admin) => ({
+    ...admin,
+    industriesOfExperience: admin.industriesOfExperience?.map((industry) => (
+      <div key={industry.value}>
+        <Chip label={industry.label} key={industry.value} />
+      </div>
+    )),
+    fields: <FieldsChips fields={admin.fields} />,
+  }));
+};
+
 const AdminsTable = ({ admins }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
-
+  const adminsRows = parseAdminsTableData(admins);
   const tableOptions = {
     filterType: 'checkbox',
     selectableRows: 'none',
@@ -129,7 +143,7 @@ const AdminsTable = ({ admins }) => {
   return (
     <MUIDataTable
       title={t('adminsList')}
-      data={!!admins ? admins : []}
+      data={!!adminsRows ? adminsRows : []}
       columns={columns}
       options={tableOptions}
     />
