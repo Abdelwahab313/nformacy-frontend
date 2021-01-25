@@ -376,6 +376,14 @@
   "corporateHeadquarters": "Corporate Headquarters:",
   "tel": "Tel:",
   "fax": "Fax:",
-  "joinNformacy": "Why to Join nformacy"
-  
+  "joinNformacy": "Why to Join nformacy",
+  "reasonOne": "Reason number one",
+  "reasonOneDesc": "You will have your own personal space where you will, receive updates on potential leads, track your activities and applications, and monitor your collected points and rewards. ",
+  "reasonTwo": "Reason number two",
+  "reasonTwoDesc": "You will access special services dedicated for our network as, financial and tax reporting, specialized learning programs, discounts to big international events, discounts to technology tools and system and more…   ",
+  "reasonThree": "Reason number three",
+  "reasonThreeDesc": "You will have the say in the screening process for any project because it will be based on your application and answers not the profile and history  ",
+  "reasonFour": "Reason number four",
+  "reasonFourDesc": "Your efforts will always be rewarded even for all the activities you do on the platform in the screening and project application phases ",
+  "WhoNformacyExpert": "Who is nformacy Expert"
 }

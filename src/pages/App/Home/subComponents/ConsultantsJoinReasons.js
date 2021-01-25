@@ -9,31 +9,31 @@ const ConsultantsJoinReasons = () => {
   const { t } = useTranslation();
   const Reasons = (t) => [
     {
-      title: t('askServiceTitle'),
-      Description: t('askServiceSubTitle'),
-      icon: require('../../../../assets/darkOrangeAskExperts.svg'),
+      title: t('reasonOne'),
+      Description: t('reasonOneDesc'),
+      icon: require('../../../../assets/consultant/track_monitor.svg'),
     },
     {
-      title: t('askServiceTitle'),
-      Description: t('askServiceSubTitle'),
-      icon: require('../../../../assets/darkOrangeAskExperts.svg'),
+      title: t('reasonTwo'),
+      Description: t('reasonTwoDesc'),
+      icon: require('../../../../assets/consultant/special_services.svg'),
     },
     {
-      title: t('askServiceTitle'),
-      Description: t('askServiceSubTitle'),
-      icon: require('../../../../assets/darkOrangeAskExperts.svg'),
+      title: t('reasonThree'),
+      Description: t('reasonThreeDesc'),
+      icon: require('../../../../assets/consultant/Answers.svg'),
     },
     {
-      title: t('askServiceTitle'),
-      Description: t('askServiceSubTitle'),
-      icon: require('../../../../assets/darkOrangeAskExperts.svg'),
+      title: t('reasonFour'),
+      Description: t('reasonFourDesc'),
+      icon: require('../../../../assets/consultant/reward.svg'),
     },
   ];
 
   return (
     <Grid container justify='space-between'>
       {Reasons(t).map((reason) => (
-        <Grid item xs={6} md={6}>
+        <Grid item xs={12} md={6}>
           <Box className={classes.reasonDetailsBox}>
             <MobileReasonItem reason={reason} />
             <ReasonItem reason={reason} />
@@ -65,7 +65,7 @@ const MobileReasonItem = ({ reason }) => {
         </Box>
       </Grid>
       <Grid item xs={3} className={classes.flexClass}>
-        <img src={reason.icon} className={classes.solutionsPageServiceIcon} />
+        <img src={reason.icon} className={classes.reasonIcon} />
       </Grid>
     </Grid>
   );
@@ -89,8 +89,8 @@ const ReasonItem = ({ reason }) => {
           </CustomTypography>
         </Box>
       </Grid>
-      <Grid item xs={3} md={3} className={classes.flexClass}>
-        <img src={reason.icon} className={classes.solutionsPageServiceIcon} />
+      <Grid item xs={3} md={3} className={[classes.flexClass, classes.reasonDetailsImgContainer]}>
+        <img src={reason.icon} className={classes.reasonIcon} />
       </Grid>
     </Grid>
   );

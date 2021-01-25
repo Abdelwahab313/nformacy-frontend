@@ -295,6 +295,9 @@ const useStyles = makeStyles((theme) => ({
   mediumTurquoiseBG: {
     background: mediumTurquoise,
   },
+  mediumTurquoiseTxt: {
+    color: mediumTurquoise,
+  },
   darkOrangeBG: {
     background: darkOrange,
   },

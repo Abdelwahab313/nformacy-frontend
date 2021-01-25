@@ -452,6 +452,17 @@ const useStyles = makeStyles((theme) => ({
       minHeight: 'initial',
     },
   },
+  reasonDetailsImgContainer: {
+    height: 300,
+  },
+  reasonIcon: {
+    margin: 'auto',
+    height: 150,
+    [theme.breakpoints.down('md')]: {
+      height: 115,
+      margin: '32px auto',
+    },
+  },
 }));
 
 export default useStyles;
