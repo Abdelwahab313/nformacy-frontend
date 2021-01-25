@@ -408,5 +408,10 @@
   "adminRef": "Admin Reference",
   "advisorRef": "Adviser Reference",
   "editAdmin": "Edit Admin",
-  "editAdviser": "Edit Adviser"
+  "editAdviser": "Edit Adviser",
+  "requestsManager": "Requests Manager",
+  "questionsManager": "Question Roaster Manager",
+  "advisorsManager": "Advisors Manager",
+  "clientsManager": "Clients Manager",
+  "consultantsManager": "Consultant Manager"
 }

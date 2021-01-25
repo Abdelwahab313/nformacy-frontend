@@ -9,6 +9,8 @@ import { Chip } from '@material-ui/core';
 import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
 import { getAdminDetails } from 'services/navigation';
+import { ADMIN_ROLES } from 'constants/userRoles';
+import CheckBox from 'components/inputs/CheckBox';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -73,8 +75,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'clientManager',
-      label: t('clientManager'),
+      name: ADMIN_ROLES.clientsManager,
+      label: t(ADMIN_ROLES.clientsManager),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -82,8 +84,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'consultantManager',
-      label: t('consultantManager'),
+      name: ADMIN_ROLES.consultantsManager,
+      label: t(ADMIN_ROLES.consultantsManager),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -91,8 +93,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'advisorManager',
-      label: t('advisorManager'),
+      name: ADMIN_ROLES.advisorsManager,
+      label: t(ADMIN_ROLES.advisorsManager),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -100,8 +102,17 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'update',
-      label: t('update'),
+      name: ADMIN_ROLES.requestsManager,
+      label: t(ADMIN_ROLES.requestsManager),
+      options: {
+        ...defaultColumnOption,
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: ADMIN_ROLES.questionsManager,
+      label: t(ADMIN_ROLES.questionsManager),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -126,7 +137,41 @@ const parseAdminsTableData = (admins) => {
       <LinkText to={getAdminDetails(admin.id)}>
         {admin.referenceNumber}
       </LinkText>,
+    [ADMIN_ROLES.clientsManager]: (
+      <AdminRoleCheck
+        assignedRoles={admin.assignedRoles}
+        role={ADMIN_ROLES.clientsManager}
+      />
+    ),
+    [ADMIN_ROLES.consultantsManager]: (
+      <AdminRoleCheck
+        assignedRoles={admin.assignedRoles}
+        role={ADMIN_ROLES.consultantsManager}
+      />
+    ),
+    [ADMIN_ROLES.advisorsManager]: (
+      <AdminRoleCheck
+        assignedRoles={admin.assignedRoles}
+        role={ADMIN_ROLES.advisorsManager}
+      />
+    ),
+    [ADMIN_ROLES.requestsManager]: (
+      <AdminRoleCheck
+        assignedRoles={admin.assignedRoles}
+        role={ADMIN_ROLES.requestsManager}
+      />
+    ),
+    [ADMIN_ROLES.questionsManager]: (
+      <AdminRoleCheck
+        assignedRoles={admin.assignedRoles}
+        role={ADMIN_ROLES.questionsManager}
+      />
+    ),
   }));
+};
+
+const AdminRoleCheck = ({ assignedRoles, role }) => {
+  return <CheckBox checked={!!assignedRoles?.includes(role)} disabled />;
 };
 
 const AdminsTable = ({ admins }) => {
