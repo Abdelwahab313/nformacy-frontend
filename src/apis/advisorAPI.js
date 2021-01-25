@@ -16,3 +16,10 @@ export const fetchAdvisors = () => {
     url: `${API_BASE_URL}/users/list_advisers`,
   }).then((response) => camelizeKeys(response));
 };
+
+export const fetchAdviserDetails = (adviserId) => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/users/${adviserId}`,
+  }).then((response) => camelizeKeys(response));
+};

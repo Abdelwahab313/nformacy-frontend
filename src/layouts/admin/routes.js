@@ -26,6 +26,7 @@ import AddAdmin from 'pages/Admin/Admins/list/AddAdmin';
 import AdvisorsList from 'pages/Admin/Advisors';
 import AddAdvisor from 'pages/Admin/Advisors/AddAdvisor';
 import AdminDetails from 'pages/Admin/Admins/edit/subComponents/AdminDetails';
+import AdvisersDetails from 'pages/Admin/Advisors/edit/subComponent/AdviserDetails';
 
 const adminRoutes = [
   {
@@ -123,6 +124,13 @@ const adminRoutes = [
     name: 'Admin Details',
     icon: BusinessCenterIcon,
     component: AdminDetails,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.Admin.AdvisersDetails,
+    name: 'Adviser Details',
+    icon: BusinessCenterIcon,
+    component: AdvisersDetails,
     hasDashboardLink: false,
   },
   {

@@ -23,7 +23,6 @@ const AddAdminForm = ({ primaryButton, user, setUser }) => {
     setUser((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  // console.log('user==============', user);
   return (
     <Fragment>
       <CardBody>

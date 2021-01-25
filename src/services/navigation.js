@@ -112,3 +112,12 @@ export const getAdminDetails = (adminId) => {
     },
   };
 };
+
+export const getAdvisorDetails = (adviserId) => {
+  return {
+    pathname: RoutesPaths.Admin.AdvisersDetails,
+    state: {
+      adviserId: adviserId,
+    },
+  };
+};

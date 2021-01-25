@@ -406,5 +406,7 @@
   "addNewAdmin": "Add a New Admin",
   "addNewAdvisor": "Add a New Advisor",
   "adminRef": "Admin Reference",
-  "editAdmin": "Edit Admin"
+  "advisorRef": "Adviser Reference",
+  "editAdmin": "Edit Admin",
+  "editAdviser": "Edit Adviser"
 }

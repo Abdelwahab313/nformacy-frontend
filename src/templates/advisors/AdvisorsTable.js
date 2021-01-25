@@ -7,6 +7,8 @@ import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
 import { Chip } from '@material-ui/core';
 import FieldsChips from 'components/chips/FieldsChips';
+import LinkText from 'components/typography/LinkText';
+import { getAdvisorDetails } from 'services/navigation';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -17,8 +19,8 @@ const getColumnsOptions = (classes, t) => {
 
   const columns = [
     {
-      name: 'id',
-      label: t('id'),
+      name: 'advisorRef',
+      label: t('advisorRef'),
       options: {
         ...defaultColumnOption,
         display: true,
@@ -84,7 +86,7 @@ const getColumnsOptions = (classes, t) => {
       label: t('industry'),
       options: {
         ...defaultColumnOption,
-        filter: false,
+        filter: true,
         sort: true,
       },
     },
@@ -138,6 +140,10 @@ const parseAdvisorsTableData = (advisors) => {
       </div>
     )),
     fields: <FieldsChips fields={advisor.fields} />,
+    advisorRef:
+      <LinkText to={getAdvisorDetails(advisor.id)}>
+        {advisor.referenceNumber}
+      </LinkText>,
   }));
 };
 
