@@ -405,5 +405,6 @@
   "rating": "Rating",
   "addNewAdmin": "Add a New Admin",
   "addNewAdvisor": "Add a New Advisor",
-  "adminRef": "Admin Reference"
+  "adminRef": "Admin Reference",
+  "editAdmin": "Edit Admin"
 }

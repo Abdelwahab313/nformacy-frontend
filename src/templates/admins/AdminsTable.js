@@ -22,6 +22,7 @@ const getColumnsOptions = (classes, t) => {
       name: 'adminRef',
       label: t('adminRef'),
       options: {
+        ...defaultColumnOption,
         display: true,
         filter: false,
         sort: false,
@@ -121,9 +122,10 @@ const parseAdminsTableData = (admins) => {
       </div>
     )),
     fields: <FieldsChips fields={admin.fields} />,
-    adminRef: <LinkText to={getAdminDetails(admin.id)}>
-      {admin.referenceNumber}
-    </LinkText>,
+    adminRef:
+      <LinkText to={getAdminDetails(admin.id)}>
+        {admin.referenceNumber}
+      </LinkText>,
   }));
 };
 

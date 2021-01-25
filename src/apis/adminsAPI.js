@@ -16,3 +16,10 @@ export const fetchAdmins = () => {
     url: `${API_BASE_URL}/users/list_admins`,
   }).then((response) => camelizeKeys(response));
 };
+
+export const fetchAdminDetails = (adminId) => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/users/${adminId}`,
+  }).then((response) => camelizeKeys(response));
+};
