@@ -43,3 +43,11 @@ const addOverLapSlot = (existingSlots, timeSlot) => {
 
   return existingSlots;
 };
+
+export const parseSelectedRoles = (rolesObject) => {
+  const selectedRoles = Object.keys(rolesObject).filter(
+    (role) => !!rolesObject[role],
+  );
+
+  return selectedRoles;
+};

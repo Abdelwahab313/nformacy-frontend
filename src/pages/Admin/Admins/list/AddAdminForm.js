@@ -12,30 +12,18 @@ import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
 import CardFooter from 'components/card/CardFooter';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
-import { FormControlLabel, Checkbox, Box } from '@material-ui/core';
-import { withStyles } from '@material-ui/styles';
-import { darkBlue } from 'styles/colors';
-import { lightBlue } from '@material-ui/core/colors';
-
-const AdminCheckbox = withStyles({
-  root: {
-    color: lightBlue,
-    '&$checked': {
-      color: darkBlue,
-    },
-  },
-  checked: {},
-})((props) => <Checkbox color='default' {...props} />);
+import AdminRoles from '../edit/subComponents/AdminRoles';
 
 const AddAdminForm = ({ primaryButton, user, setUser }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const isNewForm = !user.id;
 
-  const onChangeField = (name, checked) => {
-    setUser((prevData) => ({ ...prevData, [name]: checked }));
+  const onChangeField = (name, value) => {
+    setUser((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  // console.log('user==============', user);
   return (
     <Fragment>
       <CardBody>
@@ -179,83 +167,10 @@ const AddAdminForm = ({ primaryButton, user, setUser }) => {
           )}
         </FieldsSelect>
 
-        <Box className={[classes.checkboxContainer, classes.inputsRow]}>
-          <GridContainer>
-            <GridItem xs={12} sm={12} md={4}>
-              <FormControlLabel
-                control={
-                  <AdminCheckbox
-                    checked={user.isRequestManager}
-                    onChange={(e) => {
-                      onChangeField('isRequestManager', e.target.checked);
-                    }}
-                    name='isRequestManager'
-                  />
-                }
-                label='Requests Manager'
-              />
-            </GridItem>
-            <GridItem xs={12} sm={12} md={4}>
-              <FormControlLabel
-                control={
-                  <AdminCheckbox
-                    checked={user.isQuestionRoasterManager}
-                    onChange={(e) => {
-                      onChangeField(
-                        'isQuestionRoasterManager',
-                        e.target.checked,
-                      );
-                    }}
-                    name='isQuestionRoasterManager'
-                  />
-                }
-                label='Question Roaster Manager'
-              />
-            </GridItem>
-            <GridItem xs={12} sm={12} md={4}>
-              <FormControlLabel
-                control={
-                  <AdminCheckbox
-                    checked={user.isAdvisorManager}
-                    onChange={(e) => {
-                      onChangeField('isAdvisorManager', e.target.checked);
-                    }}
-                    name='isAdvisorManager'
-                  />
-                }
-                label='Advisor Manager'
-              />
-            </GridItem>
-            <GridItem xs={12} sm={12} md={4}>
-              <FormControlLabel
-                control={
-                  <AdminCheckbox
-                    checked={user.isClientManager}
-                    onChange={(e) => {
-                      onChangeField('isClientManager', e.target.checked);
-                    }}
-                    name='isClientManager'
-                  />
-                }
-                label='Client Manager'
-              />
-            </GridItem>
-            <GridItem xs={12} sm={12} md={4}>
-              <FormControlLabel
-                control={
-                  <AdminCheckbox
-                    checked={user.isConsultantManager}
-                    onChange={(e) => {
-                      onChangeField('isConsultantManager', e.target.checked);
-                    }}
-                    name='isConsultantManager'
-                  />
-                }
-                label='Consultant Manager'
-              />
-            </GridItem>
-          </GridContainer>
-        </Box>
+        <AdminRoles
+          roles={!!user.roles ? user.roles : {}}
+          setRoles={(roles) => onChangeField('roles', roles)}
+        />
       </CardBody>
       <CardFooter>
         <ActionButtonsContainer primaryButton={primaryButton} />

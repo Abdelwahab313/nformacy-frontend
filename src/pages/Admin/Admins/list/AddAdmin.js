@@ -8,6 +8,7 @@ import { getAdminsList } from 'services/navigation';
 import { addAdmin } from 'apis/adminsAPI';
 import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
+import { parseSelectedRoles } from 'core/user';
 
 const AddAdmin = () => {
 
@@ -19,7 +20,7 @@ const AddAdmin = () => {
   };
 
   const handleCreateAdmin = () => {
-    addAdmin(user).then(() => {
+    addAdmin({...user, roles: parseSelectedRoles(user.roles)}).then(() => {
       navigatToAdminsList();
     });
   };
