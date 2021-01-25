@@ -167,7 +167,7 @@ const AddAdminForm = ({ primaryButton, user, setUser }) => {
         </FieldsSelect>
 
         <AdminRoles
-          roles={!!user.roles ? user.roles : {}}
+          roles={!!user.roles ? user.roles : []}
           setRoles={(roles) => onChangeField('roles', roles)}
         />
       </CardBody>

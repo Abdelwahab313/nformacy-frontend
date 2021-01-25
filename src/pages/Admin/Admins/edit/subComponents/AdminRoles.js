@@ -12,8 +12,14 @@ const AdminRoles = ({ roles, setRoles }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const onChangeRole = (role, isChecked) => {
-    setRoles({ ...roles, [role]: isChecked });
+  const onChangeRole = (clickedRole, isChecked) => {
+    let newRoles;
+    if (!!isChecked) {
+      newRoles = [...roles, clickedRole];
+    } else {
+      newRoles = roles.filter((role) => role !== clickedRole);
+    }
+    setRoles([...newRoles]);
   };
 
   return (
@@ -21,7 +27,7 @@ const AdminRoles = ({ roles, setRoles }) => {
       <GridContainer>
         {Object.keys(ADMIN_ROLES).map((role) => (
           <RoleCheck
-            isChecked={roles[role]}
+            isChecked={roles.includes(role)}
             onChange={(e) => onChangeRole(role, e.target.checked)}
             label={t(role)}
           />

@@ -8,10 +8,8 @@ import { getAdminsList } from 'services/navigation';
 import { addAdmin } from 'apis/adminsAPI';
 import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { parseSelectedRoles } from 'core/user';
 
 const AddAdmin = () => {
-
   const [user, setUser] = useState({});
   const history = useHistory();
   const { t } = useTranslation();
@@ -20,7 +18,7 @@ const AddAdmin = () => {
   };
 
   const handleCreateAdmin = () => {
-    addAdmin({...user, roles: parseSelectedRoles(user.roles)}).then(() => {
+    addAdmin({ ...user }).then(() => {
       navigatToAdminsList();
     });
   };
@@ -31,9 +29,7 @@ const AddAdmin = () => {
         <CardHeader color='primary'>
           <Grid container>
             <Grid item md={6} xs={6}>
-              <Typography component={'h4'}>
-                {t('addNewAdmin')}
-              </Typography>
+              <Typography component={'h4'}>{t('addNewAdmin')}</Typography>
             </Grid>
           </Grid>
         </CardHeader>
