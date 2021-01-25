@@ -404,5 +404,6 @@
   "deadlineAssignment": "Deadline Assignment",
   "rating": "Rating",
   "addNewAdmin": "Add a New Admin",
-  "addNewAdvisor": "Add a New Advisor"
+  "addNewAdvisor": "Add a New Advisor",
+  "adminRef": "Admin Reference"
 }

@@ -7,6 +7,8 @@ import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
 import { Chip } from '@material-ui/core';
 import FieldsChips from 'components/chips/FieldsChips';
+import LinkText from 'components/typography/LinkText';
+import { getAdminDetails } from 'services/navigation';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -17,8 +19,8 @@ const getColumnsOptions = (classes, t) => {
 
   const columns = [
     {
-      name: 'id',
-      label: t('id'),
+      name: 'adminRef',
+      label: t('adminRef'),
       options: {
         display: true,
         filter: false,
@@ -119,6 +121,9 @@ const parseAdminsTableData = (admins) => {
       </div>
     )),
     fields: <FieldsChips fields={admin.fields} />,
+    adminRef: <LinkText to={getAdminDetails(admin.id)}>
+      {admin.referenceNumber}
+    </LinkText>,
   }));
 };
 

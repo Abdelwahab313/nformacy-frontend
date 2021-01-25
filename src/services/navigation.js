@@ -103,3 +103,12 @@ export const getCallEvaluationView = (meetingId) => {
     },
   };
 };
+
+export const getAdminDetails = (adminId) => {
+  return {
+    pathname: RoutesPaths.Admin.AdminDetails,
+    state: {
+      adminId: adminId,
+    },
+  };
+};

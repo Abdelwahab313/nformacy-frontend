@@ -25,6 +25,7 @@ import AdminsList from 'pages/Admin/Admins/list';
 import AddAdmin from 'pages/Admin/Admins/list/AddAdmin';
 import AdvisorsList from 'pages/Admin/Advisors';
 import AddAdvisor from 'pages/Admin/Advisors/AddAdvisor';
+import AdminDetails from 'pages/Admin/Admins/edit/subComponents/AdminDetails';
 
 const adminRoutes = [
   {
@@ -115,6 +116,13 @@ const adminRoutes = [
     name: 'Add Admin',
     icon: BusinessCenterIcon,
     component: AddAdmin,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.Admin.AdminDetails,
+    name: 'Admin Details',
+    icon: BusinessCenterIcon,
+    component: AdminDetails,
     hasDashboardLink: false,
   },
   {
