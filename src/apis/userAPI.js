@@ -10,10 +10,10 @@ const signup = (user) => {
   }).then((response) => camelizeKeys(response));
 };
 
-const updateProfile = (user, userId) => {
+const updateProfile = (user) => {
   return axios({
     method: 'put',
-    url: `${API_BASE_URL}/users/${userId}`,
+    url: `${API_BASE_URL}/users/update_profile`,
     data: decamelizeKeys({ ...user }),
   }).then((response) => camelizeKeys(response));
 };
@@ -42,10 +42,10 @@ const completeFreelancerProfile = (user) => {
   }).then((response) => camelizeKeys(response));
 };
 
-const updateProfilePicture = (user, userId) => {
+const updateProfilePicture = (user) => {
   return axios({
     method: 'put',
-    url: `${API_BASE_URL}/users/${userId}`,
+    url: `${API_BASE_URL}/users/update_profile`,
     data: user,
     headers: {
       accept: 'application/json',
@@ -53,10 +53,10 @@ const updateProfilePicture = (user, userId) => {
   }).then((response) => camelizeKeys(response));
 };
 
-const uploadCV = (cv, userId) => {
+const uploadCV = (cv) => {
   return axios({
     method: 'put',
-    url: `${API_BASE_URL}/users/${userId}`,
+    url: `${API_BASE_URL}/users/update_profile`,
     data: cv,
     headers: {
       accept: 'application/json',

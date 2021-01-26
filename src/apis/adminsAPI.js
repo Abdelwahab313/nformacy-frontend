@@ -23,3 +23,11 @@ export const fetchAdminDetails = (adminId) => {
     url: `${API_BASE_URL}/users/${adminId}`,
   }).then((response) => camelizeKeys(response));
 };
+
+export const updateAdmin = (adminId, user) => {
+  return axios({
+    method: 'put',
+    url: `${API_BASE_URL}/users/${adminId}`,
+    data: decamelizeKeys({ ...user }),
+  }).then((response) => camelizeKeys(response));
+};

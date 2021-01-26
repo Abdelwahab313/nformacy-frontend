@@ -7,8 +7,9 @@ import { Typography, Grid } from '@material-ui/core';
 import AddAdminForm from '../../list/AddAdminForm';
 import { useTranslation } from 'react-i18next';
 import LoadingCircle from 'components/progress/LoadingCircle';
-import { fetchAdminDetails } from 'apis/adminsAPI';
-import { useLocation } from 'react-router';
+import { fetchAdminDetails, updateAdmin } from 'apis/adminsAPI';
+import { useLocation, useHistory } from 'react-router';
+import { getAdminsList } from 'services/navigation';
 
 const AdminDetails = () => {
   const { t } = useTranslation();
@@ -16,7 +17,11 @@ const AdminDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
   const adminId = location?.state?.adminId;
+  const history = useHistory();
 
+  const navigatToAdminsList = () => {
+    history.push(getAdminsList());
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -32,6 +37,14 @@ const AdminDetails = () => {
   if (isLoading) {
     return <LoadingCircle />;
   }
+
+  const onSubmitAdmin = () => {
+    updateAdmin(adminId, {
+      ...user,
+    }).then(() => {
+      navigatToAdminsList();
+    });
+  };
 
   return (
     <GridContainer justifyContent={'center'}>
@@ -52,7 +65,7 @@ const AdminDetails = () => {
             viewOnly
             primaryButton={{
               id: 'createAdminButton',
-              onClick: () => { },
+              onClick: onSubmitAdmin,
               buttonText: 'Apply Changes',
             }}
           />
