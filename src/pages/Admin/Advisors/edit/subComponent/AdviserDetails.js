@@ -6,9 +6,10 @@ import CardHeader from 'components/card/CardHeader.js';
 import { Typography, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import AddAdvisorForm from '../../AddAdvisorForm';
-import { fetchAdviserDetails } from 'apis/advisorAPI';
+import { fetchAdviserDetails, updateAdviser } from 'apis/advisorAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
-import { useLocation } from 'react-router';
+import { useLocation, useHistory } from 'react-router';
+import { getAdvisorsList } from 'services/navigation';
 
 const AdvisersDetails = () => {
   const { t } = useTranslation();
@@ -16,6 +17,11 @@ const AdvisersDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
   const adviserId = location?.state?.adviserId;
+  const history = useHistory();
+
+  const navigatToAdvisersList = () => {
+    history.push(getAdvisorsList());
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -31,6 +37,13 @@ const AdvisersDetails = () => {
   if (isLoading) {
     return <LoadingCircle />;
   }
+  const onSubmitAdviser = () => {
+    updateAdviser(adviserId, {
+      ...user,
+    }).then(() => {
+      navigatToAdvisersList();
+    });
+  };
 
   return (
     <GridContainer justifyContent={'center'}>
@@ -51,7 +64,7 @@ const AdvisersDetails = () => {
             viewOnly
             primaryButton={{
               id: 'createAdminButton',
-              onClick: () => { },
+              onClick: onSubmitAdviser,
               buttonText: 'Apply Changes',
             }}
           />

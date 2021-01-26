@@ -23,3 +23,11 @@ export const fetchAdviserDetails = (adviserId) => {
     url: `${API_BASE_URL}/users/${adviserId}`,
   }).then((response) => camelizeKeys(response));
 };
+
+export const updateAdviser = (adviserId, user) => {
+  return axios({
+    method: 'put',
+    url: `${API_BASE_URL}/users/${adviserId}`,
+    data: decamelizeKeys({ ...user }),
+  }).then((response) => camelizeKeys(response));
+};
