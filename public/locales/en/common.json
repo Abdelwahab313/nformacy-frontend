@@ -397,6 +397,7 @@
   "update": "Update",
   "addAdminBtn": "Add New Admin",
   "addClientBtn": "Add New Client",
+  "addConsultantBtn": "Add New Consultant",
   "addAdvisorBtn": "Add New Advisor",
   "emailEmptyError": "Email Empty!",
   "dateJoined": "Date Joined",
@@ -416,6 +417,7 @@
   "clientsManager": "Clients Manager",
   "consultantsManager": "Consultant Manager",
   "clientRef": "Client Reference",
+  "consultantRef": "Consultant Reference",
   "location": "Location",
   "organization": "Organization",
   "fieldsOfInterest": "Fields of Interest",
@@ -423,5 +425,11 @@
   "pointsUsed": "Points Used",
   "balance": "Balance",
   "level": "Level",
-  "clientsList": "Clients List"
+  "clientsList": "Clients List",
+  "consultantsList": "Consultants List",
+  "preference": "Preference",
+  "numOfAnswers": "Number of Answers",
+  "numOfCalls": "Number of Calls",
+  "numOfDays": "Number of Days",
+  "grade": "Grade"
 }

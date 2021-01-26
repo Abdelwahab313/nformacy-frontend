@@ -28,6 +28,7 @@ import AddAdvisor from 'pages/Admin/Advisors/AddAdvisor';
 import AdminDetails from 'pages/Admin/Admins/edit/subComponents/AdminDetails';
 import AdvisersDetails from 'pages/Admin/Advisors/edit/subComponent/AdviserDetails';
 import ClientsList from 'pages/Admin/Clients/list';
+import ConsultantsList from 'pages/Admin/Consultants/list';
 
 const adminRoutes = [
   {
@@ -65,14 +66,14 @@ const adminRoutes = [
     hasDashboardLink: false,
   },
   {
-    path: RoutesPaths.Admin.User,
+    path: RoutesPaths.Admin.Consultants,
     name: 'Consultants',
     icon: Person,
-    component: Dashboard,
+    component: ConsultantsList,
     hasDashboardLink: true,
   },
   {
-    path: RoutesPaths.Admin.Icons,
+    path: RoutesPaths.Admin.Clients,
     name: 'Clients',
     icon: BubbleChart,
     component: ClientsList,
