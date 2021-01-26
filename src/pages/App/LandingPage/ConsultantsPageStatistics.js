@@ -13,7 +13,7 @@ const ConsultantsPageStatistics = () => {
       justify='center'
       alignItems='flex-end'
       className={classes.serveYouPadding}>
-      <Grid item xs={3} md={3}>
+      <Grid item xs={6} md={3}>
         <Box textAlign='center'>
           <CustomTypography
             variant='h1'
@@ -26,29 +26,29 @@ const ConsultantsPageStatistics = () => {
           </CustomTypography>
         </Box>
       </Grid>
-      <Grid item xs={3} md={3}>
+      <Grid item xs={6} md={3}>
         <Box textAlign='center'>
           <CustomTypography
             variant='h1'
             fontWeight='bold'
             className={classes.mediumTurquoiseTxt}>
-            +200
+            +30
           </CustomTypography>
           <CustomTypography variant='h4' fontWeight='bold'>
-            Consultants
+            Nationalities
           </CustomTypography>
         </Box>
       </Grid>
-      <Grid item xs={3} md={3}>
+      <Grid item xs={6} md={3}>
         <Box textAlign='center'>
           <CustomTypography
             variant='h1'
             fontWeight='bold'
             className={classes.mediumTurquoiseTxt}>
-            +200
+            +19
           </CustomTypography>
           <CustomTypography variant='h4' fontWeight='bold'>
-            Consultants
+            Spoken Languages
           </CustomTypography>
         </Box>
       </Grid>

@@ -5,10 +5,12 @@ import PrivateRoute from 'components/PrivateRoute';
 import appRoutes from './routes';
 import NotFoundPage from 'pages/NotFoundPage';
 import AppLayout from './AppLayout';
+import ScrollToTop from 'components/ScrollToTop/ScrollToTop';
 
 const AppRouter = () => {
   return (
     <div>
+      <ScrollToTop />
       <Switch>
         {appRoutes.map((route, key) => {
           const { Component, path, isPublic, includeLayout } = route;

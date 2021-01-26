@@ -8,7 +8,7 @@ const TermsAndConditionsPage = () => {
 
   return (
     <Grid container justify='center'>
-      <Card className={classes.headerCard}>
+          <Card className={classes.headerCard}>
         <CardMedia
           component='img'
           alt='Header'

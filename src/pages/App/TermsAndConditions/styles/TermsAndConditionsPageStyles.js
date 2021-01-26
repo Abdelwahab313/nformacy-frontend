@@ -4,6 +4,7 @@ const useStyles = makeStyles((theme) => ({
   headerCard: {
     position: 'relative',
     width: '100%',
+    maxHeight: 270,
   },
   headerCardImg: {
     height: 270,
