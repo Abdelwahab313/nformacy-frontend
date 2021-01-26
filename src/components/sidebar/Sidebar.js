@@ -12,29 +12,19 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 // core components
 import AdminNavbarLinks from 'components/header/admin/AdminNavbarLinks.js';
-import { PermissibleRender } from '@brainhubeu/react-permissible';
 
-import authManager from '../../services/authManager';
 import SidebarStyles from './SidebarStyles';
 
 const useStyles = makeStyles(SidebarStyles);
 
 export default function Sidebar(props) {
   const classes = useStyles();
-  const { user } = authManager.retrieveUserToken();
-  const navBarPermissions = user.permissions.map((perm) => perm.split(':')[0]);
   // verifies if routeName is the one active (in browser input)
   function activeRoute(routeName) {
     return window.location.href.indexOf(routeName) > -1;
   }
 
   const { color, logo, image, logoText, routes } = props;
-  const getSingularName = (string) => {
-    if (string.endsWith('s')) {
-      return string.slice(0, string.length - 1);
-    }
-    return string;
-  };
   let links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
@@ -48,31 +38,25 @@ export default function Sidebar(props) {
           [' ' + classes.whiteFont]: activeRoute(itemPath),
         });
         return (
-          <PermissibleRender
-            key={key}
-            oneperm={true}
-            userPermissions={navBarPermissions}
-            requiredPermissions={[getSingularName(prop.name), 'all']}>
-            <NavLink
-              to={itemPath}
-              className={classes.item}
-              activeClassName='active'>
-              <ListItem button className={classes.itemLink + listItemClasses}>
-                <prop.icon
-                  className={classNames(classes.itemIcon, whiteFontClasses, {
-                    [classes.itemIconRTL]: props.rtlActive,
-                  })}
-                />
-                <ListItemText
-                  primary={prop.name}
-                  className={classNames(classes.itemText, whiteFontClasses, {
-                    [classes.itemTextRTL]: props.rtlActive,
-                  })}
-                  disableTypography={true}
-                />
-              </ListItem>
-            </NavLink>
-          </PermissibleRender>
+          <NavLink
+            to={itemPath}
+            className={classes.item}
+            activeClassName='active'>
+            <ListItem button className={classes.itemLink + listItemClasses}>
+              <prop.icon
+                className={classNames(classes.itemIcon, whiteFontClasses, {
+                  [classes.itemIconRTL]: props.rtlActive,
+                })}
+              />
+              <ListItemText
+                primary={prop.name}
+                className={classNames(classes.itemText, whiteFontClasses, {
+                  [classes.itemTextRTL]: props.rtlActive,
+                })}
+                disableTypography={true}
+              />
+            </ListItem>
+          </NavLink>
         );
       })}
     </List>

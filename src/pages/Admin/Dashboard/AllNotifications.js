@@ -28,7 +28,7 @@ const AllNotifications = () => {
 };
 
 const WithNotification = (props) => {
-  const { user } = authManager.retrieveUserToken();
+  const user = authManager.retrieveCurrentUser();
   return (
     <NotificationsProvider
       initialNotifications={user?.notifications}

@@ -11,7 +11,7 @@ function PrivateRoute({ component: Component, provider: Provider, ...rest }) {
     ? RoutesPaths.Admin.Login
     : RoutesPaths.App.Login;
 
-  const { authToken } = authManager.retrieveUserToken();
+  const authToken = authManager.retrieveUserToken();
 
   if (!authToken) {
     return (

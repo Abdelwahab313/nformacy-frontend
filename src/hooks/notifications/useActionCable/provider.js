@@ -22,7 +22,7 @@ export const ActionCableProvider = ({ url, children }) => {
 
   useEffect(() => {
     if (!conn) {
-      const { authToken } = AuthManager.retrieveUserToken();
+      const authToken = AuthManager.retrieveUserToken();
       setConn(ActionCable.createConsumer(url, authToken));
     }
 

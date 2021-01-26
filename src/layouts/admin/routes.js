@@ -2,7 +2,6 @@
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Person from '@material-ui/icons/Person';
 import PeopleIcon from '@material-ui/icons/People';
-import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import BubbleChart from '@material-ui/icons/BubbleChart';
 import Notifications from '@material-ui/icons/Notifications';
 import Unarchive from '@material-ui/icons/Unarchive';
@@ -19,7 +18,6 @@ import Logout from 'pages/auth/LogoutUser';
 import QuestionDetails from 'pages/Admin/Questions/QuestionDetails';
 import ServicesList from 'pages/Admin/ServicesRequests/list';
 import ServiceDetails from 'pages/Admin/ServicesRequests/details';
-import authManager from 'services/authManager';
 import Evaluations from 'pages/Admin/Evaluations';
 import AdminsList from 'pages/Admin/Admins/list';
 import AddAdmin from 'pages/Admin/Admins/list/AddAdmin';
@@ -29,6 +27,7 @@ import AdminDetails from 'pages/Admin/Admins/edit/subComponents/AdminDetails';
 import AdvisersDetails from 'pages/Admin/Advisors/edit/subComponent/AdviserDetails';
 import ClientsList from 'pages/Admin/Clients/list';
 import ConsultantsList from 'pages/Admin/Consultants/list';
+import AdminGuardian from 'core/guardians/AdminGuardian';
 
 const adminRoutes = [
   {
@@ -36,14 +35,57 @@ const adminRoutes = [
     name: 'Dashboard',
     icon: DashboardIcon,
     component: Dashboard,
-    hasDashboardLink: true,
+    hasDashboardLink: AdminGuardian.showDashboardPanel(),
   },
   {
     path: RoutesPaths.Admin.Questions,
     name: 'Questions',
     icon: QuestionAnswerIcon,
     component: QuestionList,
-    hasDashboardLink: authManager.isAdviser(),
+    hasDashboardLink: AdminGuardian.showQuestionsPanel(),
+  },
+  {
+    path: RoutesPaths.Admin.Consultants,
+    name: 'Consultants',
+    icon: Person,
+    component: ConsultantsList,
+    hasDashboardLink: AdminGuardian.showConsultantsPanel(),
+  },
+  {
+    path: RoutesPaths.Admin.Clients,
+    name: 'Clients',
+    icon: BubbleChart,
+    component: ClientsList,
+    hasDashboardLink: AdminGuardian.showClientsPanel(),
+  },
+  {
+    path: RoutesPaths.Admin.Services,
+    name: 'Services',
+    icon: BusinessCenterIcon,
+    component: ServicesList,
+    hasDashboardLink: true,
+    hasDashboardLink: AdminGuardian.showRequestsPanel(),
+  },
+  {
+    path: RoutesPaths.Admin.Admins,
+    name: 'Admins',
+    icon: PeopleIcon,
+    component: AdminsList,
+    hasDashboardLink: AdminGuardian.isSuperAdmin(),
+  },
+  {
+    path: RoutesPaths.Admin.Advisors,
+    name: 'Advisors',
+    icon: PeopleIcon,
+    component: AdvisorsList,
+    hasDashboardLink: AdminGuardian.showAdvisersPanel(),
+  },
+  {
+    path: RoutesPaths.Admin.Notifications,
+    name: 'Notifications',
+    icon: Notifications,
+    component: AllNotifications,
+    hasDashboardLink: false,
   },
   {
     path: RoutesPaths.Admin.PostQuestion,
@@ -55,7 +97,6 @@ const adminRoutes = [
   {
     path: RoutesPaths.Admin.Evaluations,
     name: 'View Evaluations',
-    icon: QuestionAnswerIcon,
     component: Evaluations,
     hasDashboardLink: false,
   },
@@ -64,55 +105,6 @@ const adminRoutes = [
     name: 'Questions Details',
     component: QuestionDetails,
     hasDashboardLink: false,
-  },
-  {
-    path: RoutesPaths.Admin.Consultants,
-    name: 'Consultants',
-    icon: Person,
-    component: ConsultantsList,
-    hasDashboardLink: true,
-  },
-  {
-    path: RoutesPaths.Admin.Clients,
-    name: 'Clients',
-    icon: BubbleChart,
-    component: ClientsList,
-    hasDashboardLink: true,
-  },
-  {
-    path: RoutesPaths.Admin.Typography,
-    name: 'Meetings',
-    icon: LibraryBooks,
-    component: Dashboard,
-    hasDashboardLink: true,
-  },
-  {
-    path: RoutesPaths.Admin.Notifications,
-    name: 'Notifications',
-    icon: Notifications,
-    component: AllNotifications,
-    hasDashboardLink: true,
-  },
-  {
-    path: RoutesPaths.Admin.Services,
-    name: 'Services',
-    icon: BusinessCenterIcon,
-    component: ServicesList,
-    hasDashboardLink: true,
-  },
-  {
-    path: RoutesPaths.Admin.Admins,
-    name: 'Admins',
-    icon: PeopleIcon,
-    component: AdminsList,
-    hasDashboardLink: true,
-  },
-  {
-    path: RoutesPaths.Admin.Advisors,
-    name: 'Advisors',
-    icon: PeopleIcon,
-    component: AdvisorsList,
-    hasDashboardLink: true,
   },
   {
     path: RoutesPaths.Admin.AddAdmin,

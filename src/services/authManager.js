@@ -1,30 +1,46 @@
 import Axios from 'axios';
 
 class AuthManager {
+  constructor() {
+    this._currentUser = {};
+  }
+
   retrieveUserToken = () => {
     const loadedTokenString = localStorage.getItem('tokens');
     let authToken = !!loadedTokenString
       ? JSON.parse(loadedTokenString)
       : undefined;
     this.setAuthorizationHeader(authToken);
-    let user = undefined;
+    this.retrieveCurrentUser();
+    return authToken;
+  };
+
+  retrieveCurrentUser = () => {
     try {
       const loadedUserString = localStorage.getItem('user');
-      user = !!loadedUserString
+      const user = !!loadedUserString
         ? JSON.parse(loadedUserString)
         : undefined;
+      this.setCurrentUser(user);
+      return user;
     } catch (e) {
+      return false;
     }
-    return { authToken, user };
+  };
+
+  setCurrentUser = (user) => {
+    this._currentUser = user;
+  };
+
+  getCurrentUser = () => {
+    return this._currentUser;
   };
 
   isNormalUser = () => {
     let user;
     try {
       const loadedUserString = localStorage.getItem('user');
-      user = !!loadedUserString
-        ? JSON.parse(loadedUserString)
-        : undefined;
+      user = !!loadedUserString ? JSON.parse(loadedUserString) : undefined;
       return user.roles.some((role) => role.name === 'freelancer');
     } catch (e) {
       return false;
@@ -35,9 +51,7 @@ class AuthManager {
     let user;
     try {
       const loadedUserString = localStorage.getItem('user');
-      user = !!loadedUserString
-        ? JSON.parse(loadedUserString)
-        : undefined;
+      user = !!loadedUserString ? JSON.parse(loadedUserString) : undefined;
       return user.roles.some((role) => role.name === 'client');
     } catch (e) {
       return false;
@@ -48,9 +62,7 @@ class AuthManager {
     let user;
     try {
       const loadedUserString = localStorage.getItem('user');
-      user = !!loadedUserString
-        ? JSON.parse(loadedUserString)
-        : undefined;
+      user = !!loadedUserString ? JSON.parse(loadedUserString) : undefined;
       return user.roles.some((role) => role.name === 'admin');
     } catch (e) {
       return false;
@@ -61,9 +73,7 @@ class AuthManager {
     let user;
     try {
       const loadedUserString = localStorage.getItem('user');
-      user = !!loadedUserString
-        ? JSON.parse(loadedUserString)
-        : undefined;
+      user = !!loadedUserString ? JSON.parse(loadedUserString) : undefined;
       return user.roles.some((role) => role.name === 'adviser');
     } catch (e) {
       return false;
@@ -89,7 +99,7 @@ class AuthManager {
     } else {
       return '';
     }
-  }
+  };
 
   updateUserInLocalStorage = (currentUser, updatedFields) => {
     localStorage.setItem(

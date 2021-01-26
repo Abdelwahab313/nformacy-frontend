@@ -133,10 +133,11 @@ const parseAdminsTableData = (admins) => {
       </div>
     )),
     fields: <FieldsChips fields={admin.fields} />,
-    adminRef:
+    adminRef: (
       <LinkText to={getAdminDetails(admin.id)}>
         {admin.referenceNumber}
-      </LinkText>,
+      </LinkText>
+    ),
     [ADMIN_ROLES.clientsManager]: (
       <AdminRoleCheck
         assignedRoles={admin.assignedRoles}

@@ -25,7 +25,7 @@ const AdminRoles = ({ roles, setRoles }) => {
   return (
     <Box className={[classes.checkboxContainer, classes.inputsRow]}>
       <GridContainer>
-        {Object.keys(ADMIN_ROLES).map((role) => (
+        {Object.values(ADMIN_ROLES).map((role) => (
           <RoleCheck
             isChecked={roles.includes(role)}
             onChange={(e) => onChangeRole(role, e.target.checked)}

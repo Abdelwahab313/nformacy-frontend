@@ -73,7 +73,7 @@ const Login = () => {
     setLoginFailed(false);
   };
 
-  const { authToken } = authManager.retrieveUserToken();
+  const authToken = authManager.retrieveUserToken();
   if (loginSuccess || authToken) {
     if (referer.pathname === RoutesPaths.App.Logout || referer.pathname === RoutesPaths.Admin.Logout) {
       return <Redirect push to={postLoginRoute} />;

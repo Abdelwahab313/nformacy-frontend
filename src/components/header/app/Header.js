@@ -30,7 +30,7 @@ export default function MainHeader() {
   const { t } = useTranslation();
   const { locale, toggleLocale } = useLocale();
   const location = useLocation();
-  const { authToken } = authManager.retrieveUserToken();
+  const authToken = authManager.retrieveUserToken();
   const history = useHistory();
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);

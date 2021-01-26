@@ -27,9 +27,11 @@ const Notifications = () => {
         anchorEl={menuOpened}
         transition
         disablePortal
-        className={
-          classNames({ [classes.popperClose]: !menuOpened, [classes.popperNav]: true, [headerClasses.notificationMenu]: true })
-        }>
+        className={classNames({
+          [classes.popperClose]: !menuOpened,
+          [classes.popperNav]: true,
+          [headerClasses.notificationMenu]: true,
+        })}>
         {({ TransitionProps, placement }) => {
           return (
             <Grow
@@ -51,7 +53,7 @@ const Notifications = () => {
 };
 
 const WithNotification = (props) => {
-  const { user } = authManager.retrieveUserToken();
+  const user = authManager.retrieveCurrentUser();
   return (
     <NotificationsProvider
       initialNotifications={user?.notifications}
@@ -60,6 +62,5 @@ const WithNotification = (props) => {
     </NotificationsProvider>
   );
 };
-
 
 export default WithNotification;
