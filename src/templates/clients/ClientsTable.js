@@ -56,8 +56,24 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'fields',
-      label: t('fieldsAssigned'),
+      name: 'dateJoined',
+      label: t('dateJoined'),
+      options: {
+        ...defaultColumnOption,
+        filter: true,
+      },
+    },
+    {
+      name: 'location',
+      label: t('location'),
+      options: {
+        ...defaultColumnOption,
+        filter: true,
+      },
+    },
+    {
+      name: 'organization',
+      label: t('organization'),
       options: {
         ...defaultColumnOption,
         filter: true,
@@ -66,6 +82,60 @@ const getColumnsOptions = (classes, t) => {
     {
       name: 'industriesOfExperience',
       label: t('industry'),
+      options: {
+        ...defaultColumnOption,
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: 'fieldsOfInterest',
+      label: t('fieldsOfInterest'),
+      options: {
+        ...defaultColumnOption,
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: 'question',
+      label: t('question'),
+      options: {
+        ...defaultColumnOption,
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: 'days',
+      label: t('days'),
+      options: {
+        ...defaultColumnOption,
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: 'pointsUsed',
+      label: t('pointsUsed'),
+      options: {
+        ...defaultColumnOption,
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: 'balance',
+      label: t('balance'),
+      options: {
+        ...defaultColumnOption,
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: 'level',
+      label: t('level'),
       options: {
         ...defaultColumnOption,
         filter: true,

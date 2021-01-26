@@ -415,5 +415,13 @@
   "advisorsManager": "Advisors Manager",
   "clientsManager": "Clients Manager",
   "consultantsManager": "Consultant Manager",
-  "clientRef": "Client Reference"
+  "clientRef": "Client Reference",
+  "location": "Location",
+  "organization": "Organization",
+  "fieldsOfInterest": "Fields of Interest",
+  "days": "Days",
+  "pointsUsed": "Points Used",
+  "balance": "Balance",
+  "level": "Level",
+  "clientsList": "Clients List"
 }
