@@ -396,6 +396,7 @@
   "advisorManager": "Advisor Manager",
   "update": "Update",
   "addAdminBtn": "Add New Admin",
+  "addClientBtn": "Add New Client",
   "addAdvisorBtn": "Add New Advisor",
   "emailEmptyError": "Email Empty!",
   "dateJoined": "Date Joined",
@@ -413,5 +414,6 @@
   "questionsManager": "Question Roaster Manager",
   "advisorsManager": "Advisors Manager",
   "clientsManager": "Clients Manager",
-  "consultantsManager": "Consultant Manager"
+  "consultantsManager": "Consultant Manager",
+  "clientRef": "Client Reference"
 }
