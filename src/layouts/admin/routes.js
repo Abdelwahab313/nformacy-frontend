@@ -28,6 +28,7 @@ import AdvisersDetails from 'pages/Admin/Advisors/edit/subComponent/AdviserDetai
 import ClientsList from 'pages/Admin/Clients/list';
 import ConsultantsList from 'pages/Admin/Consultants/list';
 import AdminGuardian from 'core/guardians/AdminGuardian';
+import ClientsDetails from 'pages/Admin/Clients/edit/subComponents.js/ClientsDetails';
 
 const adminRoutes = [
   {
@@ -57,6 +58,13 @@ const adminRoutes = [
     icon: BubbleChart,
     component: ClientsList,
     hasDashboardLink: AdminGuardian.showClientsPanel(),
+  },
+  {
+    path: RoutesPaths.Admin.ClientsDetails,
+    name: 'Client Details',
+    icon: BusinessCenterIcon,
+    component: ClientsDetails,
+    hasDashboardLink: false,
   },
   {
     path: RoutesPaths.Admin.Services,

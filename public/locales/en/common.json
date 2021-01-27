@@ -435,5 +435,6 @@
   "dontHaveAccount": "I don’t have Account",
   "alreadyHaveAccount": "I already have account",
   "goLoginBtn": "Login",
-  "goSignupBtn": "Sign up"
+  "goSignupBtn": "Sign up",
+  "clientInfo": "Client Info"
 }

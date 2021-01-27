@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { Chip } from '@material-ui/core';
 import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
+import { getClientDetails } from 'services/navigation';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -156,7 +157,7 @@ const parseClientsTableData = (clients) => {
     )),
     fields: <FieldsChips fields={client.fields} />,
     clientRef:
-      <LinkText to={() => { }}>
+      <LinkText to={getClientDetails(client.id)}>
         {client.referenceNumber}
       </LinkText>,
   }));
