@@ -10,11 +10,16 @@ class GuardianBase {
   }
 
   getRoles() {
-    return this.getCurrentUser()?.roles?.map((role) => role.name);
+    if (!!this.getCurrentUser()?.roles) {
+      return this.getCurrentUser()?.roles?.map((role) => role.name);
+    } else {
+      // should throw exception that the page is undefined
+      return [];
+    }
   }
 
   isSuperAdmin() {
-    return this.getRoles().includes(SUPER_ADMIN);
+    return this.getRoles()?.includes(SUPER_ADMIN);
   }
 
   isAdviser() {
