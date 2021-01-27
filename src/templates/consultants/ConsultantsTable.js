@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 import { Chip } from '@material-ui/core';
 import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
-import { getAdminDetails } from 'services/navigation';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -155,17 +154,17 @@ const getColumnsOptions = (classes, t) => {
 };
 
 const parseConsultantsTableData = (consultants) => {
-  return consultants?.map((admin) => ({
-    ...admin,
-    industriesOfExperience: admin.industriesOfExperience?.map((industry) => (
+  return consultants?.map((consultant) => ({
+    ...consultant,
+    industriesOfExperience: consultant.industriesOfExperience?.map((industry) => (
       <div key={industry.value}>
         <Chip label={industry.label} key={industry.value} />
       </div>
     )),
-    fields: <FieldsChips fields={admin.fields} />,
-    adminRef:
-      <LinkText to={getAdminDetails(admin.id)}>
-        {admin.referenceNumber}
+    fields: <FieldsChips fields={consultant.fields} />,
+    consultantRef:
+      <LinkText to={() => { }}>
+        {consultant.referenceNumber}
       </LinkText>,
   }));
 };

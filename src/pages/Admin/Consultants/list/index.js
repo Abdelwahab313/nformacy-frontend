@@ -9,10 +9,20 @@ import CustomTypography from 'components/typography/Typography';
 import { useTranslation } from 'react-i18next';
 import { useStyles } from 'styles/Admin/questionFormStyles';
 import ConsultantsTable from 'templates/consultants/ConsultantsTable';
+import { fetchConsultants } from 'apis/consultantsAPI';
+import useFetchData from 'hooks/useFetchData';
+import LoadingCircle from 'components/progress/LoadingCircle';
 
 const ConsultantsList = () => {
   const { t } = useTranslation();
   const classes = useStyles();
+  const { fetchedData: consultants, isLoading } = useFetchData(() => {
+    return fetchConsultants();
+  });
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
 
   return (
     <GridContainer>
@@ -30,7 +40,7 @@ const ConsultantsList = () => {
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
           <CardBody id='questionsList'>
-            <ConsultantsTable clients={[]} />
+            <ConsultantsTable consultants={consultants} />
           </CardBody>
         </Card>
       </GridItem>
