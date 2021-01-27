@@ -179,7 +179,7 @@ const Login = () => {
               </Button>
             </div>
             <CustomTypography className={classes.newUser}>
-              <span className={classes.newUserText}>New User?</span>
+              <span className={classes.newUserText}>{t('dontHaveAccount')}</span>
             </CustomTypography>
             <div className={classes.signUpButtonContainer}>
               <Button
@@ -189,7 +189,7 @@ const Login = () => {
                 onClick={() => history.push(RoutesPaths.App.Signup)}
                 className={[classes.submit, classes.signupButton]}>
                 <a className={classes.signupLink}>
-                  {t('signup')}
+                  {t('goSignupBtn')}
                 </a>
               </Button>
             </div>

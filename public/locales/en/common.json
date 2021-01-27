@@ -431,5 +431,9 @@
   "numOfAnswers": "Number of Answers",
   "numOfCalls": "Number of Calls",
   "numOfDays": "Number of Days",
-  "grade": "Grade"
+  "grade": "Grade",
+  "dontHaveAccount": "I don’t have Account",
+  "alreadyHaveAccount": "I already have account",
+  "goLoginBtn": "Login",
+  "goSignupBtn": "Sign up"
 }

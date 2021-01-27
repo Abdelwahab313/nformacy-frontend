@@ -7,14 +7,15 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStyles } from '../../styles/formsStyles';
 import { signup } from '../../apis/userAPI';
 import { useAuth } from '../auth/context/auth';
-import {useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 import authManager from '../../services/authManager';
 import { Grid } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import t from '../../locales/en/signUp.json';
 import { updateUser } from '../auth/context/authActions';
 import clsx from 'clsx';
 import { RoutesPaths } from 'constants/routesPath';
+import CustomTypography from 'components/typography/Typography';
+import { useTranslation } from 'react-i18next';
 
 const Register = () => {
   const {
@@ -31,6 +32,7 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [registerSucceeded, setRegisterSucceeded] = useState(false);
   const [, dispatch] = useAuth();
+  const { t } = useTranslation();
   const classes = useStyles();
   const history = useHistory();
 
@@ -77,7 +79,6 @@ const Register = () => {
   }
 
   if (registerSucceeded) {
-
     history.push(RoutesPaths.App.UserTypeSelection);
     // return <Redirect push to='/user/profile' />;
   }
@@ -93,7 +94,7 @@ const Register = () => {
         <Grid item xs={1} />
         <Grid item xs={10}>
           <Typography className={classes.pageHeaderStyle}>
-            {t['signUp']}
+            {t('signUp')}
           </Typography>
         </Grid>
       </Grid>
@@ -114,7 +115,7 @@ const Register = () => {
               inputRef={register({ required: 'This field is required' })}
               fullWidth
               id='firstName'
-              label={t['FirstName']}
+              label={t('firstName')}
               name='firstName'
               autoComplete='name'
               error={!!errors.firstName}
@@ -134,7 +135,7 @@ const Register = () => {
               inputRef={register({ required: 'This field is required' })}
               fullWidth
               id='lastName'
-              label={t['LastName']}
+              label={t('lastName')}
               name='lastName'
               autoComplete='name'
               error={!!errors.lastName}
@@ -160,7 +161,7 @@ const Register = () => {
               })}
               fullWidth
               id='email'
-              label={t['email']}
+              label={t('email')}
               name='email'
               autoComplete='email'
               error={!!errors.email}
@@ -186,7 +187,7 @@ const Register = () => {
               })}
               fullWidth
               name='password'
-              label={t['password']}
+              label={t('password')}
               type='password'
               id='password'
               error={!!errors.password}
@@ -205,7 +206,7 @@ const Register = () => {
               })}
               fullWidth
               name='confirmPassword'
-              label={t['confirmPassword']}
+              label={t('confirmPassword')}
               type='password'
               id='confirmPassword'
               error={!!errors.confirmPassword}
@@ -223,7 +224,22 @@ const Register = () => {
                 variant='contained'
                 color='primary'
                 className={clsx([classes.submit, classes.alignRight])}>
-                {t['register']}
+                {t('signup')}
+              </Button>
+            </div>
+            <CustomTypography className={classes.newUser}>
+              <span className={classes.newUserText}>
+                {t('alreadyHaveAccount')}
+              </span>
+            </CustomTypography>
+            <div className={classes.signUpButtonContainer}>
+              <Button
+                id='signup'
+                fullWidth
+                variant='contained'
+                onClick={() => history.push(RoutesPaths.App.Login)}
+                className={[classes.submit, classes.signupButton]}>
+                <a className={classes.signupLink}>{t('goLoginBtn')}</a>
               </Button>
             </div>
           </form>
