@@ -3,6 +3,7 @@ import {
   getQuestionDetailsLink,
   getServiceDetailsLink,
   getEditServiceDetailsLink,
+  getClientDetails,
 } from 'services/navigation';
 import LinkText from 'components/typography/LinkText';
 import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
@@ -28,13 +29,18 @@ const parseServicesToTableRows = (services, t) => {
           referenceId={service.meetingRef}
         />
       ) : (
-        <ServiceRefIdLink
-          serviceState={service.serviceState}
-          serviceId={service.serviceId}
-          referenceId={service.serviceRef}
+          <ServiceRefIdLink
+            serviceState={service.serviceState}
+            serviceId={service.serviceId}
+            referenceId={service.serviceRef}
+          />
+        ),
+    clientId:
+      (
+        <ClientRefIdLink
+          clientId={service.userId}
         />
       ),
-    clientId: service.userId,
     requestType:
       service.activityType === 'meeting'
         ? t('call')
@@ -63,18 +69,18 @@ const parseServicesToTableRows = (services, t) => {
         {`#${service.questionRef}`}
       </LinkText>
     ) : (
-      ''
-    ),
+        ''
+      ),
     status: !!service.serviceState
       ? t(
-          `serviceStatus:${getServiceStatus(
-            service.serviceState,
-            service.questionState,
-            service.meetingState,
-            service.hasEvaluationSubmitted,
-            !!service.meetingId,
-          )}`,
-        )
+        `serviceStatus:${getServiceStatus(
+          service.serviceState,
+          service.questionState,
+          service.meetingState,
+          service.hasEvaluationSubmitted,
+          !!service.meetingId,
+        )}`,
+      )
       : '',
     action: (
       <ServiceActionLink
@@ -103,13 +109,13 @@ const parseServicesToTableRows = (services, t) => {
       service.activityType === 'meeting' ? (
         <MeetingAlarm meetingTime={service.meetingTime} />
       ) : (
-        <QuestionRemainingTimeAlarm
-          remainingTime={service.currentActionTime}
-          totalActionHours={10}
-          className={'alarm'}
-          data-reference={service.serviceId}
-        />
-      ),
+          <QuestionRemainingTimeAlarm
+            remainingTime={service.currentActionTime}
+            totalActionHours={10}
+            className={'alarm'}
+            data-reference={service.serviceId}
+          />
+        ),
   }));
 };
 
@@ -128,6 +134,20 @@ export const ServiceRefIdLink = ({ serviceState, serviceId, referenceId }) => {
   return (
     <LinkText data-reference={serviceId} to={redirectURL()}>
       <TextCroppedWithTooltip text={`#${referenceId}`} />
+    </LinkText>
+  );
+};
+
+export const ClientRefIdLink = ({ clientId }) => {
+  let redirectURL = () => {
+    return getClientDetails(clientId);
+  };
+  if (!clientId) {
+    return '';
+  }
+  return (
+    <LinkText data-reference={clientId} to={redirectURL()}>
+      <TextCroppedWithTooltip text={`#${clientId}`} />
     </LinkText>
   );
 };

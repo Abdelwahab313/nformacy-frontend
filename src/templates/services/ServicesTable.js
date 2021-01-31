@@ -35,7 +35,7 @@ const getColumnsOptions = (classes, t) => {
     },
     {
       name: 'clientId',
-      label: t('clientId'),
+      label: t('clientRef'),
       options: {
         ...defaultColumnOption,
         filter: false,

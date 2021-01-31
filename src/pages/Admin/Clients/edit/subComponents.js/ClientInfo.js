@@ -8,23 +8,18 @@ import Divider from '@material-ui/core/Divider';
 import { useStyles } from 'styles/formsStyles';
 import { useTranslation } from 'react-i18next';
 import LoadingCircle from 'components/progress/LoadingCircle';
-import { fetchClients } from 'apis/clientsAPI';
+import { fetchClientsDetails } from 'apis/clientsAPI';
 import useFetchData from 'hooks/useFetchData';
+import { useLocation } from 'react-router';
 
 const ClientInfo = () => {
-  // const [open, setOpen] = useState(false);
   const { t } = useTranslation();
   const classes = useStyles();
-
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
+  const location = useLocation();
+  const clientId = location?.state?.clientId;
 
   const { fetchedData: clients, isLoading } = useFetchData(() => {
-    return fetchClients();
+    return fetchClientsDetails(clientId);
   });
 
   if (isLoading) {
@@ -33,22 +28,6 @@ const ClientInfo = () => {
 
   return (
     <Grid item id='basicInfo'>
-      {/* <Dialog
-        TransitionComponent={Transition}
-        maxWidth='lg'
-        PaperProps={{ id: 'basicInfoDialog' }}
-        onClose={handleClose}
-        open={open}>
-        <DialogContent>
-          <Grid container>
-            <ClientForm
-              user={user}
-              closeDialog={handleClose}
-              // setProfilePic={setProfilePic}
-            />
-          </Grid>
-        </DialogContent>
-      </Dialog> */}
       <Paper className={classes.paperSection} elevation={3}>
         <Grid container justify={'space-between'}>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles} />
@@ -67,20 +46,11 @@ const ClientInfo = () => {
           </Grid>
         </Grid>
         <Divider variant='middle'
-        // style={dividerStyle} 
         />
         <Grid
           container
           spacing={5}
           className={classes.paperSectionContentStyles}>
-          {/* <Grid item xs={12} sm={3} className={classes.profilePhotoContainer}>
-            <img
-              id='profilePicture'
-              src={profilePic}
-              className={classes.largeProfilePic}
-              alt='Profile Picture'
-            />
-          </Grid> */}
           <Grid
             item
             xs={12}
@@ -99,7 +69,7 @@ const ClientInfo = () => {
                   id='firstNameValue'
                   gutterBottom
                   className={classes.fieldValueStyles}>
-                  {clients[0].firstName}
+                  {clients.firstName}
                 </Typography>
               </Grid>
             </Grid>
@@ -116,7 +86,7 @@ const ClientInfo = () => {
                   id='lastName'
                   gutterBottom
                   className={classes.fieldValueStyles}>
-                  {clients[0].lastName}
+                  {clients.lastName}
                 </Typography>
               </Grid>
             </Grid>
@@ -133,7 +103,7 @@ const ClientInfo = () => {
                   id='shortNameValue'
                   gutterBottom
                   className={classes.fieldValueStyles}>
-                  {clients[0].firstName ? clients[0].firstName.split('')[0] + ' ' + clients[0].lastName : ''}
+                  {clients.firstName ? clients.firstName.split('')[0] + ' ' + clients.lastName : ''}
                 </Typography>
               </Grid>
             </Grid>
@@ -150,7 +120,7 @@ const ClientInfo = () => {
                   id='referenceNumberValue'
                   gutterBottom
                   className={classes.fieldValueStyles}>
-                  {clients[0].referenceNumber}
+                  {clients.referenceNumber}
                 </Typography>
               </Grid>
             </Grid>
@@ -167,7 +137,7 @@ const ClientInfo = () => {
                   id='email'
                   gutterBottom
                   className={classes.fieldValueStyles}>
-                  {clients[0].email}
+                  {clients.email}
                 </Typography>
               </Grid>
             </Grid>
