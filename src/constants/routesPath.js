@@ -19,6 +19,7 @@ export const RoutesPaths = {
     AdvisersDetails: '/admin/advisors/edit',
     Clients: '/admin/clients',
     ClientsDetails: '/admin/clients/clientInfo',
+    ConsultantsDetails: '/admin/consultants/consultantInfo',
     Consultants: '/admin/consultants',
     ServiceDetails: '/admin/services/edit',
     Logout: '/admin/logout',

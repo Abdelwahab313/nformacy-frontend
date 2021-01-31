@@ -130,3 +130,12 @@ export const getClientDetails = (clientId) => {
     },
   };
 };
+
+export const getConsultantDetails = (consultantId) => {
+  return {
+    pathname: RoutesPaths.Admin.ConsultantsDetails,
+    state: {
+      consultantId: consultantId,
+    },
+  };
+};

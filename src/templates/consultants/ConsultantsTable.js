@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { Chip } from '@material-ui/core';
 import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
+import { getConsultantDetails } from 'services/navigation';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -163,7 +164,7 @@ const parseConsultantsTableData = (consultants) => {
     )),
     fields: <FieldsChips fields={consultant.fields} />,
     consultantRef:
-      <LinkText to={() => { }}>
+      <LinkText to={getConsultantDetails(consultant.id)}>
         {consultant.referenceNumber}
       </LinkText>,
   }));
