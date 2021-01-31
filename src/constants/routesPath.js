@@ -4,6 +4,7 @@ export const RoutesPaths = {
     Home: '/admin/',
     Dashboard: '/admin/dashboard',
     User: '/admin/user',
+    Calendar: '/admin/calendar',
     Questions: '/admin/questions',
     QuestionsDetails: '/admin/questions/edit',
     Typography: '/admin/typography',

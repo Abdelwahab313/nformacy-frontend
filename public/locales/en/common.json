@@ -436,5 +436,6 @@
   "alreadyHaveAccount": "I already have account",
   "goLoginBtn": "Login",
   "goSignupBtn": "Sign up",
-  "clientInfo": "Client Info"
+  "clientInfo": "Client Info",
+  "calendar": "Calendar"
 }

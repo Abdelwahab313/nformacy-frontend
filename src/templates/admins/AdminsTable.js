@@ -129,7 +129,11 @@ const parseAdminsTableData = (admins) => {
     ...admin,
     industriesOfExperience: admin.industriesOfExperience?.map((industry) => (
       <div key={industry.value}>
-        <Chip label={industry.label} key={industry.value} />
+        <Chip
+          style={{ margin: 2 }}
+          label={industry.label}
+          key={industry.value}
+        />
       </div>
     )),
     fields: <FieldsChips fields={admin.fields} />,

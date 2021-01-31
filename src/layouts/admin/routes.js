@@ -29,6 +29,8 @@ import ClientsList from 'pages/Admin/Clients/list';
 import ConsultantsList from 'pages/Admin/Consultants/list';
 import AdminGuardian from 'core/guardians/AdminGuardian';
 import ClientsDetails from 'pages/Admin/Clients/edit/subComponents.js/ClientsDetails';
+import { CalendarTodayOutlined } from '@material-ui/icons';
+import AdminCalendarDetails from 'pages/Admin/Calendar';
 
 const adminRoutes = [
   {
@@ -87,6 +89,13 @@ const adminRoutes = [
     icon: PeopleIcon,
     component: AdvisorsList,
     hasDashboardLink: AdminGuardian.showAdvisersPanel(),
+  },
+  {
+    path: RoutesPaths.Admin.Calendar,
+    name: 'Calendar',
+    icon: CalendarTodayOutlined,
+    component: AdminCalendarDetails,
+    hasDashboardLink: true,
   },
   {
     path: RoutesPaths.Admin.Notifications,
