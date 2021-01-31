@@ -37,9 +37,9 @@ const parseServicesToTableRows = (services, t) => {
         ),
     clientId:
       (
-        <ClientRefIdLink
-          clientId={service.userId}
-        />
+        <LinkText data-reference={service.userId} to={getClientDetails(service.userId)}>
+          <TextCroppedWithTooltip text={`#${service.userId}`} />
+        </LinkText>
       ),
     requestType:
       service.activityType === 'meeting'
@@ -134,20 +134,6 @@ export const ServiceRefIdLink = ({ serviceState, serviceId, referenceId }) => {
   return (
     <LinkText data-reference={serviceId} to={redirectURL()}>
       <TextCroppedWithTooltip text={`#${referenceId}`} />
-    </LinkText>
-  );
-};
-
-export const ClientRefIdLink = ({ clientId }) => {
-  let redirectURL = () => {
-    return getClientDetails(clientId);
-  };
-  if (!clientId) {
-    return '';
-  }
-  return (
-    <LinkText data-reference={clientId} to={redirectURL()}>
-      <TextCroppedWithTooltip text={`#${clientId}`} />
     </LinkText>
   );
 };
