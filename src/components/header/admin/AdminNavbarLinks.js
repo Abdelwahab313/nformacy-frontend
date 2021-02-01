@@ -23,6 +23,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { RoutesPaths } from 'constants/routesPath';
 import Notifications from './notifications';
 import { getAdminProfile } from 'services/navigation';
+import authManager from 'services/authManager';
 
 const useStyles = makeStyles(styles);
 
@@ -30,6 +31,8 @@ export default function AdminNavbarLinks() {
   const classes = useStyles();
   const [openProfile, setOpenProfile] = React.useState(null);
   const history = useHistory();
+  const currentUser = authManager.retrieveCurrentUser();
+
   const handleClickProfile = useCallback(
     (event) => {
       if (openProfile && openProfile.contains(event.target)) {
@@ -66,6 +69,7 @@ export default function AdminNavbarLinks() {
           <Search />
         </Button>
       </div>
+
       <Button
         color={window.innerWidth > 959 ? 'transparent' : 'white'}
         justIcon={window.innerWidth > 959}
@@ -77,7 +81,9 @@ export default function AdminNavbarLinks() {
           <p className={classes.linkText}>Dashboard</p>
         </Hidden>
       </Button>
+
       <Notifications />
+
       <div className={classes.manager}>
         <Button
           color={window.innerWidth > 959 ? 'transparent' : 'white'}
@@ -138,6 +144,8 @@ export default function AdminNavbarLinks() {
           )}
         </Poppers>
       </div>
+
+      <div className={classes.username}>{currentUser.firstName + ' ' + currentUser.lastName}</div>
     </div>
   );
 }
