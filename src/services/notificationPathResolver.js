@@ -14,6 +14,11 @@ const getPathForNotification = (notification) => {
         params: { questionId: notification.targetId },
       };
     }
+  } else if (notification.type === 'AnswerNotification') {
+    questionDetailsPath = {
+      path: RoutesPaths.Admin.QuestionsDetails,
+      params: { questionId: notification.targetId },
+    };
   }
   return questionDetailsPath;
 };
