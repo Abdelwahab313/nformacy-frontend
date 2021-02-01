@@ -139,3 +139,9 @@ export const getConsultantDetails = (consultantId) => {
     },
   };
 };
+
+export const getAdminProfile = () => {
+  return {
+    pathname: RoutesPaths.Admin.AdminProfile,
+  };
+};

@@ -32,6 +32,7 @@ import ClientsDetails from 'pages/Admin/Clients/edit/subComponents.js/ClientsDet
 import { CalendarTodayOutlined } from '@material-ui/icons';
 import AdminCalendarDetails from 'pages/Admin/Calendar';
 import ConsultantDetails from 'pages/Admin/Consultants/edit/subComponents/ConsultantDetails';
+import AdminProfile from 'pages/Admin/Admins/edit/subComponents/AdminProfile';
 
 const adminRoutes = [
   {
@@ -143,6 +144,13 @@ const adminRoutes = [
     name: 'Admin Details',
     icon: BusinessCenterIcon,
     component: AdminDetails,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.Admin.AdminProfile,
+    name: 'Admin Profile',
+    icon: BusinessCenterIcon,
+    component: AdminProfile,
     hasDashboardLink: false,
   },
   {

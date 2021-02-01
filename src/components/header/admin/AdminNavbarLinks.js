@@ -19,16 +19,17 @@ import CustomInput from 'components/inputs/CustomInput.js';
 import Button from 'components/buttons/RegularButton.js';
 
 import styles from 'assets/jss/material-dashboard-react/components/headerLinksStyle.js';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { RoutesPaths } from 'constants/routesPath';
 import Notifications from './notifications';
+import { getAdminProfile } from 'services/navigation';
 
 const useStyles = makeStyles(styles);
 
 export default function AdminNavbarLinks() {
   const classes = useStyles();
   const [openProfile, setOpenProfile] = React.useState(null);
-
+  const history = useHistory();
   const handleClickProfile = useCallback(
     (event) => {
       if (openProfile && openProfile.contains(event.target)) {
@@ -39,6 +40,11 @@ export default function AdminNavbarLinks() {
     },
     [setOpenProfile],
   );
+
+  const handleProfileBtn = () => {
+    return history.push(getAdminProfile());
+  };
+
   const handleCloseProfile = useCallback(() => {
     setOpenProfile(null);
   }, [setOpenProfile]);
@@ -108,7 +114,7 @@ export default function AdminNavbarLinks() {
                 <ClickAwayListener onClickAway={handleCloseProfile}>
                   <MenuList role='menu'>
                     <MenuItem
-                      onClick={handleCloseProfile}
+                      onClick={handleProfileBtn}
                       className={classes.dropdownItem}>
                       Profile
                     </MenuItem>

@@ -438,5 +438,6 @@
   "goSignupBtn": "Sign up",
   "clientInfo": "Client Info",
   "calendar": "Calendar",
-  "consultantInfo": "Consultant Info"
+  "consultantInfo": "Consultant Info",
+  "adminInfo": "Admin Info"
 }
