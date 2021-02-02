@@ -75,7 +75,10 @@ const Login = () => {
 
   const authToken = authManager.retrieveUserToken();
   if (loginSuccess || authToken) {
-    if (referer.pathname === RoutesPaths.App.Logout || referer.pathname === RoutesPaths.Admin.Logout) {
+    if (
+      referer.pathname === RoutesPaths.App.Logout ||
+      referer.pathname === RoutesPaths.Admin.Logout
+    ) {
       return <Redirect push to={postLoginRoute} />;
     }
     return <Redirect push to={referer} />;
@@ -99,7 +102,7 @@ const Login = () => {
         <Grid item xs={1} />
         <Grid item xs={10}>
           <Typography className={classes.pageHeaderStyle}>
-            {t('Login')}
+            {!!isAdminLogin ? t('loginAdminTitle') : t('loginTitle')}
           </Typography>
         </Grid>
       </Grid>
@@ -164,7 +167,9 @@ const Login = () => {
                 {t('Invalid Email or password')}
               </span>
             )}
-            <a className={classes.forgetPasswordLink} href={'forgetPassword'}>
+            <a
+              className={classes.forgetPasswordLink}
+              href={RoutesPaths.App.ForgetPassword}>
               {t('forgetPassword')}
             </a>
             <div className={classes.logInButtonContainer}>
@@ -178,25 +183,29 @@ const Login = () => {
                 {t('Login')}
               </Button>
             </div>
-            <CustomTypography className={classes.newUser}>
-              <span className={classes.newUserText}>{t('dontHaveAccount')}</span>
-            </CustomTypography>
-            <div className={classes.signUpButtonContainer}>
-              <Button
-                id='signup'
-                fullWidth
-                variant='contained'
-                onClick={() => history.push(RoutesPaths.App.Signup)}
-                className={[classes.submit, classes.signupButton]}>
-                <a className={classes.signupLink}>
-                  {t('goSignupBtn')}
-                </a>
-              </Button>
-            </div>
+            {!isAdminLogin && (
+              <>
+                <CustomTypography className={classes.newUser}>
+                  <span className={classes.newUserText}>
+                    {t('dontHaveAccount')}
+                  </span>
+                </CustomTypography>
+                <div className={classes.signUpButtonContainer}>
+                  <Button
+                    id='signup'
+                    fullWidth
+                    variant='contained'
+                    onClick={() => history.push(RoutesPaths.App.Signup)}
+                    className={[classes.submit, classes.signupButton]}>
+                    <a className={classes.signupLink}>{t('goSignupBtn')}</a>
+                  </Button>
+                </div>
+              </>
+            )}
           </form>
         </Grid>
       </Grid>
-    </Grid >
+    </Grid>
   );
 };
 

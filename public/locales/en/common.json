@@ -439,5 +439,7 @@
   "clientInfo": "Client Info",
   "calendar": "Calendar",
   "consultantInfo": "Consultant Info",
-  "adminInfo": "Admin Info"
+  "adminInfo": "Admin Info",
+  "loginTitle": "Login",
+  "loginAdminTitle": "Login to Admin Dashboard"
 }
