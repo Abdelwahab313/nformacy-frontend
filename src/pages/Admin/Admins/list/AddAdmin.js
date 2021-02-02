@@ -8,6 +8,7 @@ import { getAdminsList } from 'services/navigation';
 import { addAdmin } from 'apis/adminsAPI';
 import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
+import { useSnackBar } from 'context/SnackBarContext';
 
 const AddAdmin = () => {
   const [user, setUser] = useState({});
@@ -16,13 +17,42 @@ const AddAdmin = () => {
   const navigatToAdminsList = () => {
     history.push(getAdminsList());
   };
+  const { showSuccessMessage, showErrorMessage } = useSnackBar();
 
-  const handleCreateAdmin = () => {
-    addAdmin({ ...user }).then(() => {
-      navigatToAdminsList();
-    });
+  const validate = (user) => {
+    if (!user.firstName) {
+      showErrorMessage(t('requiredFirstName'));
+      return false;
+    }
+    if (!user.lastName) {
+      showErrorMessage(t('requiredLastName'));
+      return false;
+    }
+    if (!user.email) {
+      showErrorMessage(t('requiredEmail'));
+      return false;
+    }
+    if (!user.password) {
+      showErrorMessage(t('requiredPassword'));
+      return false;
+    }
+    if (!user.confirmPassword) {
+      showErrorMessage(t('requiredConfirmPassword'));
+      return false;
+    }
+    return true;
   };
 
+  const handleCreateAdmin = () => {
+    if (!!validate(user)) {
+      addAdmin({
+        ...user,
+      }).then(() => {
+        showSuccessMessage(t('adminAdded'));
+        navigatToAdminsList();
+      });
+    };
+  };
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>

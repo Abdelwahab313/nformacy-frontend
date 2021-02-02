@@ -441,5 +441,14 @@
   "consultantInfo": "Consultant Info",
   "adminInfo": "Admin Info",
   "loginTitle": "Login",
-  "loginAdminTitle": "Login to Admin Dashboard"
+  "loginAdminTitle": "Login to Admin Dashboard",
+  "requiredFirstName": "First Name is Required!",
+  "requiredLastName": "Last Name is Required!",
+  "requiredEmail": "Email is Required!",
+  "requiredPassword": "Password is Required!",
+  "requiredConfirmPassword": "Please confirm your Password!",
+  "adminUpdated": "Admin updated successfully.",
+  "adviserUpdated": "Adviser updated successfully.",
+  "adminAdded": "Admin added successfully.",
+  "adviserAdded": "Adviser added successfully."
 }

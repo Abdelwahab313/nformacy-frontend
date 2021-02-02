@@ -8,20 +8,51 @@ import { getAdvisorsList } from 'services/navigation';
 import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { addAdvisor } from 'apis/advisorAPI';
+import { useSnackBar } from 'context/SnackBarContext';
 
 const AddAdvisor = () => {
 
   const [user, setUser] = useState({});
   const history = useHistory();
   const { t } = useTranslation();
-  const navigatToAdminsList = () => {
+  const navigatToAdvisersList = () => {
     history.push(getAdvisorsList());
   };
+  const { showSuccessMessage, showErrorMessage } = useSnackBar();
 
-  const handleCreateAdmin = () => {
-    addAdvisor(user).then(() => {
-      navigatToAdminsList();
-    });
+  const validate = (user) => {
+    if (!user.firstName) {
+      showErrorMessage(t('requiredFirstName'));
+      return false;
+    }
+    if (!user.lastName) {
+      showErrorMessage(t('requiredLastName'));
+      return false;
+    }
+    if (!user.email) {
+      showErrorMessage(t('requiredEmail'));
+      return false;
+    }
+    if (!user.password) {
+      showErrorMessage(t('requiredPassword'));
+      return false;
+    }
+    if (!user.confirmPassword) {
+      showErrorMessage(t('requiredConfirmPassword'));
+      return false;
+    }
+    return true;
+  };
+
+  const handleCreateAdviser = () => {
+    if (!!validate(user)) {
+      addAdvisor({
+        ...user,
+      }).then(() => {
+        showSuccessMessage(t('adviserAdded'));
+        navigatToAdvisersList();
+      });
+    };
   };
 
   return (
@@ -41,9 +72,9 @@ const AddAdvisor = () => {
           setUser={setUser}
           viewOnly
           primaryButton={{
-            id: 'createAdminButton',
+            id: 'createAdviserButton',
             onClick: () => {
-              handleCreateAdmin();
+              handleCreateAdviser();
             },
             buttonText: 'Create Advisor',
           }}

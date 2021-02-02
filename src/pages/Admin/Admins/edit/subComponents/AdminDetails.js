@@ -10,6 +10,7 @@ import LoadingCircle from 'components/progress/LoadingCircle';
 import { fetchAdminDetails, updateAdmin } from 'apis/adminsAPI';
 import { useLocation, useHistory } from 'react-router';
 import { getAdminsList } from 'services/navigation';
+import { useSnackBar } from 'context/SnackBarContext';
 
 const AdminDetails = () => {
   const { t } = useTranslation();
@@ -18,6 +19,7 @@ const AdminDetails = () => {
   const location = useLocation();
   const adminId = location?.state?.adminId;
   const history = useHistory();
+  const { showSuccessMessage, showErrorMessage } = useSnackBar();
 
   const navigatToAdminsList = () => {
     history.push(getAdminsList());
@@ -37,13 +39,39 @@ const AdminDetails = () => {
   if (isLoading) {
     return <LoadingCircle />;
   }
+  const validate = (user) => {
+    if (!user.firstName) {
+      showErrorMessage(t('requiredFirstName'));
+      return false;
+    }
+    if (!user.lastName) {
+      showErrorMessage(t('requiredLastName'));
+      return false;
+    }
+    if (!user.email) {
+      showErrorMessage(t('requiredEmail'));
+      return false;
+    }
+    if (!user.password) {
+      showErrorMessage(t('requiredPassword'));
+      return false;
+    }
+    if (!user.confirmPassword) {
+      showErrorMessage(t('requiredConfirmPassword'));
+      return false;
+    }
+    return true;
+  };
 
   const onSubmitAdmin = () => {
-    updateAdmin(adminId, {
-      ...user,
-    }).then(() => {
-      navigatToAdminsList();
-    });
+    if (!!validate(user)) {
+      updateAdmin(adminId, {
+        ...user,
+      }).then(() => {
+        showSuccessMessage(t('adminUpdated'));
+        navigatToAdminsList();
+      });
+    };
   };
 
   return (

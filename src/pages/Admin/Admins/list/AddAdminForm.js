@@ -63,6 +63,7 @@ const AddAdminForm = ({ primaryButton, user, setUser }) => {
         <GridContainer className={classes.inputsRow}>
           <GridItem xs={12} sm={12} md={4}>
             <TextField
+              required
               label={t('firstName')}
               id='firstName'
               name='firstName'
@@ -76,6 +77,7 @@ const AddAdminForm = ({ primaryButton, user, setUser }) => {
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <TextField
+              required
               label={t('lastName')}
               id='lastName'
               name='lastName'
@@ -89,6 +91,7 @@ const AddAdminForm = ({ primaryButton, user, setUser }) => {
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <TextField
+              required
               label={t('email')}
               id='email'
               name='email'
@@ -104,6 +107,7 @@ const AddAdminForm = ({ primaryButton, user, setUser }) => {
         <GridContainer className={classes.inputsRow}>
           <GridItem xs={12} sm={12} md={6}>
             <TextField
+              required
               label={t('password')}
               id='password'
               name='password'
@@ -118,6 +122,7 @@ const AddAdminForm = ({ primaryButton, user, setUser }) => {
           </GridItem>
           <GridItem xs={12} sm={12} md={6}>
             <TextField
+              required
               label={t('confirmPassword')}
               id='confirmPassword'
               name='confirmPassword'

@@ -10,6 +10,7 @@ import { fetchAdviserDetails, updateAdviser } from 'apis/advisorAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { useLocation, useHistory } from 'react-router';
 import { getAdvisorsList } from 'services/navigation';
+import { useSnackBar } from 'context/SnackBarContext';
 
 const AdvisersDetails = () => {
   const { t } = useTranslation();
@@ -18,6 +19,7 @@ const AdvisersDetails = () => {
   const location = useLocation();
   const adviserId = location?.state?.adviserId;
   const history = useHistory();
+  const { showSuccessMessage, showErrorMessage } = useSnackBar();
 
   const navigatToAdvisersList = () => {
     history.push(getAdvisorsList());
@@ -37,12 +39,40 @@ const AdvisersDetails = () => {
   if (isLoading) {
     return <LoadingCircle />;
   }
+  const validate = (user) => {
+    if (!user.firstName) {
+      showErrorMessage(t('requiredFirstName'));
+      return false;
+    }
+    if (!user.lastName) {
+      showErrorMessage(t('requiredLastName'));
+      return false;
+    }
+    if (!user.email) {
+      showErrorMessage(t('requiredEmail'));
+      return false;
+    }
+    if (!user.password) {
+      showErrorMessage(t('requiredPassword'));
+      return false;
+    }
+    if (!user.confirmPassword) {
+      showErrorMessage(t('requiredConfirmPassword'));
+      return false;
+    }
+    return true;
+  };
+
   const onSubmitAdviser = () => {
-    updateAdviser(adviserId, {
-      ...user,
-    }).then(() => {
-      navigatToAdvisersList();
-    });
+    if (!!validate(user)) {
+      updateAdviser(adviserId, {
+        ...user,
+      }).then(() => {
+        showSuccessMessage(t('adviserUpdated'));
+        navigatToAdvisersList();
+      })
+        .catch(() => { });
+    }
   };
 
   return (
