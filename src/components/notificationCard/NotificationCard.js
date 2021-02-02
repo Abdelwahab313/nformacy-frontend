@@ -7,7 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import QuestionIcon from '../../assets/question.svg';
 import moment from 'moment';
 import React from 'react';
-import { t } from '../../locales/en/notifications';
+import { useTranslation } from 'react-i18next';
+import Notification from 'core/notifications/Notification';
 
 export const Circle = (props) => {
   const classes = useStyles();
@@ -18,6 +19,7 @@ export const Circle = (props) => {
 const NotificationCard = ({ notification }) => {
   const classes = useStyles();
   const { visitNotification } = useNotification();
+  const { t } = useTranslation();
 
   return (
     <ButtonBase
@@ -37,7 +39,7 @@ const NotificationCard = ({ notification }) => {
               [classes.iconOverlay]: notification.readAt,
             })}
           />
-          {t([notification.messageKey], notification.messageParameters)}
+          {Notification.getString(t, notification)}
         </Typography>
       </Grid>
       <Grid container direction='row' justify='space-between'>

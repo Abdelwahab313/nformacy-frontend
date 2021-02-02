@@ -1,14 +1,20 @@
 // libraries
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useMemo } from 'react';
 
 // ActionCableHooks
 import { ActionCableContext } from './context';
 import { ActionCableProvider } from './provider';
-import { useAuth } from '../../../pages/auth/context/auth';
+import authManager from 'services/authManager';
+import { NOTIFICATION_CHANNEL_IDENTIFIER } from 'settings';
 
-const useActionCable = (params, handlers = {}) => {
+const useActionCable = (handlers = {}) => {
   const { conn } = useContext(ActionCableContext);
-  const [{ currentUser }] = useAuth();
+  const currentUser = authManager.retrieveCurrentUser();
+
+  const params = useMemo(
+    () => ({ channel: NOTIFICATION_CHANNEL_IDENTIFIER }),
+    [],
+  );
 
   const diff = JSON.stringify({ params, url: conn && conn._url });
 

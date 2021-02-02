@@ -1,6 +1,6 @@
 import Poppers from '@material-ui/core/Popper';
 import classNames from 'classnames';
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import styles from '../../../../assets/jss/material-dashboard-react/components/headerLinksStyle';
 import Grow from '@material-ui/core/Grow';
@@ -18,10 +18,28 @@ export const notificationsListId = 'notification-menu-list-grow';
 const Notifications = () => {
   const classes = useStyles();
   const headerClasses = useHeaderStyles();
-  const { menuOpened } = useNotification();
+  const [menuOpened, setMenuOpened] = useState('');
+  useNotification();
+
+  const toggleMenu = (event) => {
+    if (!!menuOpened && menuOpened?.contains(event.target)) {
+      setMenuOpened(null);
+    } else {
+      setMenuOpened(event.currentTarget);
+    }
+  };
+
+  const closeMenu = () => {
+    setMenuOpened(null);
+  };
+
   return (
     <div className={classes.manager}>
-      <NotificationsIcon />
+      <NotificationsIcon
+        menuOpened={menuOpened}
+        toggleMenu={toggleMenu}
+        closeMenu={closeMenu}
+      />
       <Poppers
         open={Boolean(menuOpened)}
         anchorEl={menuOpened}
@@ -42,7 +60,7 @@ const Notifications = () => {
                   placement === 'bottom' ? 'center top' : 'center bottom',
               }}>
               <Paper>
-                <NotificationList />
+                <NotificationList closeMenu={closeMenu} />
               </Paper>
             </Grow>
           );

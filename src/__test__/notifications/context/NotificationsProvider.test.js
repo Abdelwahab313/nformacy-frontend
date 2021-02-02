@@ -3,7 +3,7 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import { AuthProvider } from '../../../pages/auth/context/auth';
 import useNotification from '../../../hooks/notifications/useNotification';
 import {
-  notificationActions,
+  NotificationActions,
   NotificationsProvider,
   useNotificationsContext,
 } from '../../../hooks/notifications/context';
@@ -15,11 +15,11 @@ import {history} from '../../../services/navigation';
 
 export const TestComponent = () => {
   const [
-    { notifications, unread, unreadCount, menuOpened },
+    { notifications, unread, unreadCount },
     dispatch,
   ] = useNotificationsContext();
 
-  return { dispatch, notifications, unread, unreadCount, menuOpened };
+  return { dispatch, notifications, unread, unreadCount };
 };
 
 const mock = new MockAdapter(axios);
@@ -63,7 +63,7 @@ describe('NotificationsProvider', () => {
 
       act(() =>
         dispatchToTestComponent({
-          type: notificationActions.notificationReceived,
+          type: NotificationActions.NOTIFICATION_RECIEVED,
           payload: { notification: NotificationMessage() },
         }),
       );
@@ -86,7 +86,7 @@ describe('NotificationsProvider', () => {
       });
       act(() =>
         result.current.dispatch({
-          type: notificationActions.notificationReceived,
+          type: NotificationActions.NOTIFICATION_RECIEVED,
           payload: { notification: sameNotification },
         }),
       );
@@ -97,7 +97,7 @@ describe('NotificationsProvider', () => {
     it('Should set notifications as unread when it dispatch receivedNotification action', () => {
       act(() =>
         dispatchToTestComponent({
-          type: notificationActions.notificationReceived,
+          type: NotificationActions.NOTIFICATION_RECIEVED,
           payload: { notification: NotificationMessage() },
         }),
       );
@@ -189,50 +189,12 @@ describe('NotificationsProvider', () => {
 
       act(() =>
         result.current.dispatch({
-          type: notificationActions.notificationVisited,
+          type: NotificationActions.NOTIFICATION_VISITED,
           payload: { notification: notificationAfterRead },
         }),
       );
 
       expect(result.current.unreadCount).toEqual(0);
-    });
-
-    it('close navigation menu', () => {
-      const notification = {
-        notificationId: 1,
-        targetId: 1,
-        readAt: null,
-        type: 'QuestionNotification',
-      };
-      const readAtTimeStamp = 4132987932;
-      const notificationAfterRead = {
-        notificationId: 1,
-        targetId: 1,
-        type: 'QuestionNotification',
-        readAt: readAtTimeStamp,
-      };
-      mock.onPost().reply(201, notificationAfterRead);
-      const wrapper = ({ children }) => (
-        <Router history={history}>
-          <AuthProvider>
-            <NotificationsProvider initialNotifications={[notification]}>
-              {children}
-            </NotificationsProvider>
-          </AuthProvider>
-        </Router>
-      );
-      const { result } = renderHook(() => TestComponent(), {
-        wrapper,
-      });
-
-      act(() =>
-        result.current.dispatch({
-          type: notificationActions.notificationVisited,
-          payload: { notification: notification },
-        }),
-      );
-
-      expect(result.current.menuOpened).toBe(null);
     });
   });
 

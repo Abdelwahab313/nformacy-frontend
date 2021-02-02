@@ -1,5 +1,5 @@
-import { RoutesPaths } from '../constants/routesPath';
-import authManager from './authManager';
+import { RoutesPaths } from '../../constants/routesPath';
+import authManager from '../../services/authManager';
 
 const getPathForNotification = (notification) => {
   let questionDetailsPath;

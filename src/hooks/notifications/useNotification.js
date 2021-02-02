@@ -1,7 +1,5 @@
-import { useMemo } from 'react';
 import useActionCable from './useActionCable';
-import { NOTIFICATION_CHANNEL_IDENTIFIER } from '../../settings';
-import { notificationActions, useNotificationsContext } from './context';
+import { NotificationActions, useNotificationsContext } from './context';
 import useToastListener from './useToastListener';
 import {
   fetchRecentNotifications,
@@ -12,18 +10,20 @@ import { useMutation, useQuery, useQueryCache } from 'react-query';
 const useNotification = () => {
   const queryCache = useQueryCache();
   const [
-    { menuOpened, notifications, unread, unreadCount },
+    { notifications, unread, unreadCount },
     dispatch,
   ] = useNotificationsContext();
+
   useQuery('notifications', fetchRecentNotifications, {
     onSuccess: (response) => {
       dispatch({
-        type: notificationActions.notificationsLoaded,
+        type: NotificationActions.NOTIFICATIONS_LOADED,
         payload: response.data,
       });
       queryCache.invalidateQueries('allNotifications');
     },
   });
+
   const [markRead] = useMutation(markNotificationRead, {
     onSuccess: () => queryCache.invalidateQueries('notifications'),
   });
@@ -31,7 +31,7 @@ const useNotification = () => {
   const notificationsHandler = {
     received(data) {
       dispatch({
-        type: notificationActions.notificationReceived,
+        type: NotificationActions.NOTIFICATION_RECIEVED,
         payload: {
           notification: data,
         },
@@ -39,36 +39,22 @@ const useNotification = () => {
     },
   };
 
-  const channelParams = useMemo(
-    () => ({ channel: NOTIFICATION_CHANNEL_IDENTIFIER }),
-    [],
-  );
   const visitNotification = (notification) => {
     markRead(notification.notificationId).then(() => {
       dispatch({
-        type: notificationActions.notificationVisited,
+        type: NotificationActions.NOTIFICATION_VISITED,
         payload: { notification: notification },
       });
     });
   };
 
-  useActionCable(channelParams, notificationsHandler);
+  useActionCable(notificationsHandler);
   useToastListener(visitNotification);
 
-  const toggleMenu = (event) => {
-    dispatch({ type: notificationActions.menuToggled, payload: event });
-  };
-
-  const closeNotification = () => {
-    dispatch({ type: notificationActions.menuClosed });
-  };
   return {
     notifications,
-    menuOpened,
     unread,
     unreadCount,
-    toggleMenu,
-    closeNotification,
     visitNotification,
   };
 };

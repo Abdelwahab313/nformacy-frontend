@@ -1,19 +1,18 @@
-import useNotification from '../../../../hooks/notifications/useNotification';
-import Button from '../../../buttons/RegularButton';
+import React from 'react';
+
+import Button from 'components/buttons/RegularButton';
 import Icon from '@material-ui/icons/Notifications';
 import Hidden from '@material-ui/core/Hidden';
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import styles from '../../../../assets/jss/material-dashboard-react/components/headerLinksStyle';
+import styles from 'assets/jss/material-dashboard-react/components/headerLinksStyle';
 import { notificationsListId } from './index';
-import { useNotificationsContext } from '../../../../hooks/notifications/context';
+import { useNotificationsContext } from 'hooks/notifications/context';
 
 const useStyles = makeStyles(styles);
 
-const NotificationsIcon = () => {
+const NotificationsIcon = ({ menuOpened, toggleMenu, closeMenu }) => {
   const classes = useStyles();
-  const { closeNotification, toggleMenu } = useNotification();
-  const [{ menuOpened, unread, unreadCount }] = useNotificationsContext();
+  const [{ unread, unreadCount }] = useNotificationsContext();
 
   return (
     <Button
@@ -32,7 +31,7 @@ const NotificationsIcon = () => {
         </span>
       )}
       <Hidden mdUp implementation='css'>
-        <p onClick={closeNotification} className={classes.linkText}>
+        <p onClick={closeMenu} className={classes.linkText}>
           Notification
         </p>
       </Hidden>

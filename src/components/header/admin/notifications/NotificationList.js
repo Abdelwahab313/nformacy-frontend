@@ -17,16 +17,16 @@ import moment from 'moment';
 import { Circle } from '../../../notificationCard/NotificationCard';
 import { useTranslation } from 'react-i18next';
 import authManager from '../../../../services/authManager';
+import Notification from 'core/notifications/Notification';
 
 const useStyles = makeStyles(styles);
 
-const NotificationsBody = () => {
+const NotificationsBody = ({ closeMenu }) => {
   const classes = useStyles();
   const notificationCardStyle = useMenuStyles();
   const { t } = useTranslation();
 
-  const [{ notifications }] = useNotificationsContext();
-  const { visitNotification } = useNotification();
+  const { notifications, visitNotification } = useNotification();
 
   if (!notifications) return null;
 
@@ -34,7 +34,10 @@ const NotificationsBody = () => {
     <ButtonBase
       key={key}
       data-target-id={notification.targetId}
-      onClick={() => visitNotification(notification)}
+      onClick={() => {
+        visitNotification(notification);
+        closeMenu();
+      }}
       className={
         notification.readAt ? classes.dropdownItem : classes.unreadItem
       }>
@@ -47,7 +50,7 @@ const NotificationsBody = () => {
               [classes.iconOverlay]: notification.readAt,
             })}
           />
-          {t(`notifications:${notification.messageKey}`, { referenceNumber: notification.messageParameters?.referenceNumber })}
+          {Notification.getString(t, notification)}
         </Typography>
         <Grid container direction='row' justify='space-between'>
           <Typography
@@ -60,7 +63,7 @@ const NotificationsBody = () => {
             {moment(notification.createdAt).fromNow()}
           </Typography>
           {!Boolean(notification.readAt) && (
-            <Circle className={notificationCardStyle.circle}/>
+            <Circle className={notificationCardStyle.circle} />
           )}
         </Grid>
       </Grid>
@@ -68,18 +71,15 @@ const NotificationsBody = () => {
   ));
 };
 
-const NotificationsHeader = () => {
+const NotificationsHeader = ({ closeMenu }) => {
   const classes = useStyles();
   const [{ notifications }] = useNotificationsContext();
-  const { closeNotification } = useNotification();
   const { t } = useTranslation();
   if (!notifications) return null;
   return (
     <Fragment>
       {notifications?.length === 0 && (
-        <MenuItem
-          onClick={closeNotification}
-          className={classes.noHoverMenuItem}>
+        <MenuItem onClick={closeMenu} className={classes.noHoverMenuItem}>
           {t('notifications:noNotifications')}
         </MenuItem>
       )}
@@ -102,8 +102,7 @@ const NotificationsFooter = () => {
   const navigateToAllNotifications = () => {
     if (authManager.isAdmin() || authManager.isAdviser()) {
       history.push('/admin/notifications');
-    }
-    else history.push('/notifications');
+    } else history.push('/notifications');
   };
   return (
     <Fragment>
@@ -118,16 +117,15 @@ const NotificationsFooter = () => {
   );
 };
 
-const NotificationList = () => {
-  const { closeNotification } = useNotification();
+const NotificationList = ({ closeMenu }) => {
   const classes = useMenuStyles();
 
   return (
-    <ClickAwayListener onClickAway={closeNotification}>
+    <ClickAwayListener onClickAway={closeMenu}>
       <MenuList role='menu' className={classes.menu}>
-        <NotificationsHeader/>
-        <NotificationsBody/>
-        <NotificationsFooter/>
+        <NotificationsHeader />
+        <NotificationsBody closeMenu={closeMenu} />
+        <NotificationsFooter />
       </MenuList>
     </ClickAwayListener>
   );

@@ -1,29 +1,28 @@
-import { notificationActions, useNotificationsContext } from './context';
+import { NotificationActions, useNotificationsContext } from './context';
 import { useEffect } from 'react';
-import { t } from '../../locales/en/notifications.js';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
+import Notification from 'core/notifications/Notification';
 
-const useToastListener = (onToastClick) => {
+const useToastListener = (visitNotification) => {
   const [
     { showToast, toastToBeDisplayed },
     dispatch,
   ] = useNotificationsContext();
+  const { t } = useTranslation();
 
-  const visitNotification = () => {
-    onToastClick(toastToBeDisplayed);
+  const onToastClick = () => {
+    visitNotification(toastToBeDisplayed);
   };
   useEffect(() => {
     if (showToast) {
-      toast(
-        t([toastToBeDisplayed.messageKey], toastToBeDisplayed.messageParameters),
-        {
-          toastId: toastToBeDisplayed.notificationId,
-          onClick: visitNotification,
-        },
-      );
-      dispatch({ type: notificationActions.toastCleared });
+      toast(Notification.getString(t, toastToBeDisplayed), {
+        toastId: toastToBeDisplayed.notificationId,
+        onClick: onToastClick,
+      });
+      dispatch({ type: NotificationActions.TOAST_CLEARED });
     }
-    return () => dispatch({ type: notificationActions.toastCleared });
+    return () => dispatch({ type: NotificationActions.TOAST_CLEARED });
   }, [showToast]);
 };
 

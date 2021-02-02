@@ -10,10 +10,11 @@ import { NotificationMessage } from '../../factory/notification';
 import { NotificationsProvider } from '../../../hooks/notifications/context';
 import { AuthProvider } from '../../../pages/auth/context/auth';
 import * as toastManager from 'react-toastify';
-import getPathForNotification from '../../../services/notificationPathResolver';
+import getPathForNotification from '../../../core/notifications/notificationPathResolver';
 import { RoutesPaths } from '../../../constants/routesPath';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
+import authManager from 'services/authManager';
 
 const createMessage = (notification = null) => {
   const sampleNotification = {
@@ -63,10 +64,9 @@ describe('Notifications', () => {
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
         const currentUser = { user: 'test' };
+        authManager.updateUserInLocalStorage(currentUser, {});
         const wrapper = ({ children }) => (
-          <AuthProvider initialValue={{ currentUser }}>
-            <NotificationsProvider>{children}</NotificationsProvider>
-          </AuthProvider>
+          <NotificationsProvider>{children}</NotificationsProvider>
         );
         const { result, waitForNextUpdate } = renderHook(
           () => useNotification(),
@@ -113,10 +113,9 @@ describe('Notifications', () => {
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
         const currentUser = { user: 'test' };
+        authManager.updateUserInLocalStorage(currentUser, {});
         const wrapper = ({ children }) => (
-          <AuthProvider initialValue={{ currentUser }}>
-            <NotificationsProvider>{children}</NotificationsProvider>
-          </AuthProvider>
+          <NotificationsProvider>{children}</NotificationsProvider>
         );
         const { result, waitForNextUpdate } = renderHook(
           () => useNotification(),
@@ -157,10 +156,9 @@ describe('Notifications', () => {
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
         const currentUser = { user: 'test' };
+        authManager.updateUserInLocalStorage(currentUser, {});
         const wrapper = ({ children }) => (
-          <AuthProvider initialValue={{ currentUser }}>
-            <NotificationsProvider>{children}</NotificationsProvider>
-          </AuthProvider>
+          <NotificationsProvider>{children}</NotificationsProvider>
         );
         const { result, waitForNextUpdate } = renderHook(
           () => useNotification(),
@@ -169,7 +167,6 @@ describe('Notifications', () => {
           },
         );
         await waitForNextUpdate();
-        result.current.toggleMenu({ currentTarget: 'a' });
         expect(result.current.unread).toEqual(false);
 
         mockServer.on('connection', (socket) => {
@@ -191,10 +188,9 @@ describe('Notifications', () => {
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
         const currentUser = { user: 'test' };
+        authManager.updateUserInLocalStorage(currentUser, {});
         const wrapper = ({ children }) => (
-          <AuthProvider initialValue={{ currentUser }}>
-            <NotificationsProvider>{children}</NotificationsProvider>
-          </AuthProvider>
+          <NotificationsProvider>{children}</NotificationsProvider>
         );
         const { result, waitForNextUpdate } = renderHook(
           () => useNotification(),
@@ -214,7 +210,7 @@ describe('Notifications', () => {
         });
       });
     });
-//flaky test
+    //flaky test
     it('should show toast when it receives new notification', async (testDone) => {
       const mockedNotification = NotificationMessage();
       const spy = jest.spyOn(toastManager, 'toast');
@@ -225,10 +221,9 @@ describe('Notifications', () => {
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
         const currentUser = { user: 'test' };
+        authManager.updateUserInLocalStorage(currentUser, {});
         const wrapper = ({ children }) => (
-          <AuthProvider initialValue={{ currentUser }}>
-            <NotificationsProvider>{children}</NotificationsProvider>
-          </AuthProvider>
+          <NotificationsProvider>{children}</NotificationsProvider>
         );
         const { result, waitForNextUpdate } = renderHook(
           () => useNotification(),
@@ -245,7 +240,7 @@ describe('Notifications', () => {
 
           expect(result.current.notifications.length).toEqual(1);
           expect(spy).toHaveBeenCalledWith(
-            "New Question Assigned to you #2",
+            'notifications:pending_adviser_acceptance',
             expect.objectContaining({
               toastId: mockedNotification.notification_id,
             }),
@@ -263,10 +258,9 @@ describe('Notifications', () => {
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
         const currentUser = { user: 'test' };
+        authManager.updateUserInLocalStorage(currentUser, {});
         const wrapper = ({ children }) => (
-          <AuthProvider initialValue={{ currentUser }}>
-            <NotificationsProvider>{children}</NotificationsProvider>
-          </AuthProvider>
+          <NotificationsProvider>{children}</NotificationsProvider>
         );
         const { result, waitForNextUpdate } = renderHook(
           () => useNotification(),
@@ -307,10 +301,9 @@ describe('Notifications', () => {
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
         const currentUser = { user: 'test' };
+        authManager.updateUserInLocalStorage(currentUser, {});
         const wrapper = ({ children }) => (
-          <AuthProvider initialValue={{ currentUser }}>
-            <NotificationsProvider>{children}</NotificationsProvider>
-          </AuthProvider>
+          <NotificationsProvider>{children}</NotificationsProvider>
         );
         const { result, waitForNextUpdate, waitForValueToChange } = renderHook(
           () => useNotification(),
@@ -337,10 +330,9 @@ describe('Notifications', () => {
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
         const currentUser = { user: 'test' };
+        authManager.updateUserInLocalStorage(currentUser, {});
         const wrapper = ({ children }) => (
-          <AuthProvider initialValue={{ currentUser }}>
-            <NotificationsProvider>{children}</NotificationsProvider>
-          </AuthProvider>
+          <NotificationsProvider>{children}</NotificationsProvider>
         );
         const { result, waitForNextUpdate, waitForValueToChange } = renderHook(
           () => useNotification(),
@@ -356,66 +348,6 @@ describe('Notifications', () => {
         expect(result.current.unreadCount).toEqual(0);
         expect(result.current.unread).toEqual(false);
       });
-    });
-  });
-
-  describe('Notifications menu', () => {
-    let result;
-    beforeEach(async () => {
-      cleanHookAndSocket();
-      mockServer = new Server(CHANNEL_URL);
-      const initialNotifications = createUserNotification(10);
-      const recentNotificationsResponse = {
-        notifications: initialNotifications,
-        unreadNotifications: 10,
-      };
-      mock.onGet().reply(200, recentNotificationsResponse);
-      await act(async () => {
-        const currentUser = { user: 'test' };
-        const wrapper = ({ children }) => (
-          <AuthProvider initialValue={{ currentUser }}>
-            <NotificationsProvider>{children}</NotificationsProvider>
-          </AuthProvider>
-        );
-        const rendered = renderHook(() => useNotification(), {
-          wrapper,
-        });
-        result = rendered.result;
-        await rendered.waitForNextUpdate();
-      });
-    });
-
-    it('Should close menu', () => {
-      act(() => result.current.toggleMenu({ currentTarget: 'a' }));
-      expect(result.current.menuOpened).toEqual('a');
-
-      act(() => result.current.closeNotification());
-
-      expect(result.current.menuOpened).toEqual(null);
-    });
-
-    it('toggleMenu Should close menu if menu is opened', async () => {
-      const currentTarget = { contains: () => true };
-      act(() => result.current.toggleMenu({ currentTarget: currentTarget }));
-      expect(result.current.menuOpened).toEqual(currentTarget);
-
-      act(() => result.current.toggleMenu({ target: 'a' }));
-
-      expect(result.current.menuOpened).toEqual(null);
-    });
-
-    it('should return path for notification of type QuestionNotification with required param for the path', () => {
-      const notification = { targetId: 1, type: 'QuestionNotification' };
-
-      const redirectionPath = getPathForNotification(notification);
-
-      const expectedPath = {
-        path: RoutesPaths.Admin.QuestionsDetails,
-        params: { questionId: notification.targetId },
-      };
-      expect(JSON.stringify(redirectionPath)).toEqual(
-        JSON.stringify(expectedPath),
-      );
     });
   });
 });

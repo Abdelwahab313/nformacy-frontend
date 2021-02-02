@@ -3,29 +3,24 @@ import { ActionCableProvider } from '../useActionCable';
 import { CHANNEL_URL } from '../../../settings';
 import {
   clearToast,
-  closeMenu,
   loadNotifications,
   receiveNotification,
-  toggleMenu,
   visitNotification,
 } from './actions';
 
 const defaultStates = {
   notifications: [],
-  menuOpened: null,
   unread: false,
   unreadCount: 0,
 };
 
 const NotificationsContext = React.createContext();
 
-export const notificationActions = {
-  notificationsLoaded: 'notificationsLoaded',
-  notificationReceived: 'notificationReceived',
-  notificationVisited: 'notificationVisited',
-  menuToggled: 'menuToggled',
-  menuClosed: 'menuClosed',
-  toastCleared: 'toastCleared',
+export const NotificationActions = {
+  NOTIFICATIONS_LOADED: 'NOTIFICATIONS_LOADED',
+  NOTIFICATION_RECIEVED: 'NOTIFICATION_RECIEVED',
+  NOTIFICATION_VISITED: 'NOTIFICATION_VISITED',
+  TOAST_CLEARED: 'TOAST_CLEARED',
 };
 
 export const useNotificationsContext = () => {
@@ -37,6 +32,7 @@ export const useNotificationsContext = () => {
   }
   return context;
 };
+
 const initContext = (initialValue) => {
   return initialValue || defaultStates;
 };
@@ -58,17 +54,13 @@ export const NotificationsProvider = ({ children }) => {
 
 const NotificationsReducer = (state, action) => {
   switch (action.type) {
-    case notificationActions.notificationsLoaded:
+    case NotificationActions.NOTIFICATIONS_LOADED:
       return loadNotifications(state, action);
-    case notificationActions.notificationReceived:
+    case NotificationActions.NOTIFICATION_RECIEVED:
       return receiveNotification(action, state);
-    case notificationActions.menuToggled:
-      return toggleMenu(state, action);
-    case notificationActions.menuClosed:
-      return closeMenu(state);
-    case notificationActions.notificationVisited:
+    case NotificationActions.NOTIFICATION_VISITED:
       return visitNotification(state, action);
-    case notificationActions.toastCleared:
+    case NotificationActions.TOAST_CLEARED:
       return clearToast(state);
     default:
       throw Error(
