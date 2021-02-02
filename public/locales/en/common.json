@@ -450,5 +450,6 @@
   "adminUpdated": "Admin updated successfully.",
   "adviserUpdated": "Adviser updated successfully.",
   "adminAdded": "Admin added successfully.",
-  "adviserAdded": "Adviser added successfully."
+  "adviserAdded": "Adviser added successfully.",
+  "passwordsNotMatching": "Passwords don't match!"
 }

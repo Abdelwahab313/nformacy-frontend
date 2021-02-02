@@ -40,6 +40,10 @@ const AddAdmin = () => {
       showErrorMessage(t('requiredConfirmPassword'));
       return false;
     }
+    if (user.password !== user.confirmPassword) {
+      showErrorMessage(t('passwordsNotMatching'));
+      return false;
+    }
     return true;
   };
 
