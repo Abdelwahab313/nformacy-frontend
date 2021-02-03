@@ -43,7 +43,8 @@ const MeetingTimeSelectorCalendarDialog = ({
     }));
   };
   const handleSelectDay = ({ selectedDay, isAvailableDay }) => {
-    if (isAvailableDay) {
+    const isValidDay = moment(selectedDay).isAfter();
+    if (isAvailableDay && !!isValidDay) {
       setLocalState((previousLocalState) => ({
         ...previousLocalState,
         isUpdatedTime: false,
