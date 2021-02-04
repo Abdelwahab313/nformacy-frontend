@@ -86,6 +86,7 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: true,
         sort: true,
+        display: false
       },
     },
     {
