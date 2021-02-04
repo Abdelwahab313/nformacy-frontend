@@ -83,6 +83,7 @@ const Login = () => {
     }
     return <Redirect push to={referer} />;
   }
+  
   if (loading) {
     return (
       <div className={classes.progressContainer}>

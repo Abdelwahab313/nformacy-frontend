@@ -9,12 +9,22 @@ export const getQuestionDetailsLink = (questionId, serviceId) => {
   return {
     pathname: authManager.isAdmin()
       ? RoutesPaths.Admin.QuestionsDetails
-      : RoutesPaths.App.ServiceDetails,
+      : RoutesPaths.App.AnswerQuestion,
     state: {
       serviceId: serviceId,
       questionId: questionId,
     },
   };
+};
+
+export const getQuestionDetails = (questionId) => {
+  if (authManager.isAdmin()) {
+    return getAnswerQuestionLinkForAdmin(questionId);
+  } else if (authManager.isNormalUser()) {
+    return getAnswerQuestionLink(questionId);
+  } else {
+    'unauthorzed_user'
+  }
 };
 
 export const getServiceDetailsLink = (serviceId) => {
@@ -75,13 +85,10 @@ export const getAnswerQuestionLink = (questionId) => {
 };
 
 export const getAnswerQuestionLinkForAdmin = (questionId) => {
+  // console.log('questionId ---------------', questionId);
   return {
     pathname: RoutesPaths.Admin.QuestionsDetails,
-    state: {
-      questionDetails: {
-        id: questionId,
-      },
-    },
+    state: { questionId },
   };
 };
 
@@ -90,7 +97,7 @@ export const getCallEvaluationLink = (meetingId, serviceId) => {
     pathname: RoutesPaths.App.CallEvaluation,
     state: {
       meetingId: meetingId,
-      serviceId: serviceId
+      serviceId: serviceId,
     },
   };
 };

@@ -752,11 +752,16 @@ exports[`should match snapshot 1`] = `
                 >
                   consultant:
                 </p>
-                <p
-                  class="MuiTypography-root MuiTypography-body1"
+                <a
+                  class="link"
+                  href="/admin/consultants/consultantInfo"
                 >
-                  a. ahmed
-                </p>
+                  <p
+                    class="MuiTypography-root MuiTypography-body1"
+                  >
+                    a. ahmed
+                  </p>
+                </a>
                 <p
                   class="MuiTypography-root countDown MuiTypography-body1"
                 >

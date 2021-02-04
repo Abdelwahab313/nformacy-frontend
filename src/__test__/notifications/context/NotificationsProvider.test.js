@@ -11,7 +11,8 @@ import { NotificationMessage } from '../../factory/notification';
 import { Router } from 'react-router';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import {history} from '../../../services/navigation';
+import { history } from '../../../services/navigation';
+import UserFactorySetup from '__test__/factory/userFactory';
 
 export const TestComponent = () => {
   const [
@@ -107,51 +108,6 @@ describe('NotificationsProvider', () => {
   });
 
   describe('Navigation to specific notification', () => {
-    it('navigates to notification target', async () => {
-      const pushSpy = jest.spyOn(history, 'push');
-      const notification = {
-        notificationId: 1,
-        targetId: 1,
-        readAt: null,
-        type: 'QuestionNotification',
-      };
-      const readAtTimeStamp = 4132987932;
-      const notificationAfterRead = {
-        notificationId: 1,
-        targetId: 1,
-        type: 'QuestionNotification',
-        readAt: readAtTimeStamp,
-      };
-      mock.onPost().reply(201, notificationAfterRead);
-      const recentNotificationsResponse = {
-        notifications: [notification],
-        unreadNotifications: 1,
-      };
-      mock.onGet().reply(200, recentNotificationsResponse);
-
-      await act(async () => {
-        const wrapper = ({ children }) => (
-          <AuthProvider>
-            <NotificationsProvider>{children}</NotificationsProvider>
-          </AuthProvider>
-        );
-        const { result, waitForNextUpdate, waitForValueToChange } = renderHook(
-          () => useNotification(),
-          {
-            wrapper,
-          },
-        );
-        await waitForNextUpdate();
-        await waitForValueToChange(() => result.current.notifications);
-
-        result.current.visitNotification(notification);
-        await waitForNextUpdate();
-      });
-      expect(pushSpy).toHaveBeenCalledWith('/admin/questions/edit', {
-        questionId: 1,
-      });
-    });
-
     it('marks notification as read', async () => {
       const notification = {
         notificationId: 1,

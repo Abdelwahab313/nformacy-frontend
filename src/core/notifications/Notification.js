@@ -23,8 +23,8 @@ class Notification {
   }
 
   static handleClicked(notification) {
-    const resolvedNotification = getPathForNotification(notification);
-    history.push(resolvedNotification.path, resolvedNotification.params);
+    const resolvedNotificationPath = getPathForNotification(notification);
+    history.replace(resolvedNotificationPath);
   }
 }
 

@@ -29,18 +29,19 @@ const parseServicesToTableRows = (services, t) => {
           referenceId={service.meetingRef}
         />
       ) : (
-          <ServiceRefIdLink
-            serviceState={service.serviceState}
-            serviceId={service.serviceId}
-            referenceId={service.serviceRef}
-          />
-        ),
-    clientId:
-      (
-        <LinkText data-reference={service.userId} to={getClientDetails(service.userId)}>
-          <TextCroppedWithTooltip text={`#${service.userId}`} />
-        </LinkText>
+        <ServiceRefIdLink
+          serviceState={service.serviceState}
+          serviceId={service.serviceId}
+          referenceId={service.serviceRef}
+        />
       ),
+    clientId: (
+      <LinkText
+        data-reference={service.userId}
+        to={getClientDetails(service.userId)}>
+        <TextCroppedWithTooltip text={`#${service.userId}`} />
+      </LinkText>
+    ),
     requestType:
       service.activityType === 'meeting'
         ? t('call')
@@ -57,11 +58,7 @@ const parseServicesToTableRows = (services, t) => {
         {service.language?.toUpperCase()}
       </Typography>
     ),
-    answersCount: (
-      <Typography variant='body1' gutterBottom>
-        {service.answersCount}
-      </Typography>
-    ),
+    answersCount: service.answersCount,
     questionRef: !!service.questionRef ? (
       <LinkText
         data-reference={service.serviceRef}
@@ -69,18 +66,18 @@ const parseServicesToTableRows = (services, t) => {
         {`#${service.questionRef}`}
       </LinkText>
     ) : (
-        ''
-      ),
+      ''
+    ),
     status: !!service.serviceState
       ? t(
-        `serviceStatus:${getServiceStatus(
-          service.serviceState,
-          service.questionState,
-          service.meetingState,
-          service.hasEvaluationSubmitted,
-          !!service.meetingId,
-        )}`,
-      )
+          `serviceStatus:${getServiceStatus(
+            service.serviceState,
+            service.questionState,
+            service.meetingState,
+            service.hasEvaluationSubmitted,
+            !!service.meetingId,
+          )}`,
+        )
       : '',
     action: (
       <ServiceActionLink
@@ -89,7 +86,9 @@ const parseServicesToTableRows = (services, t) => {
         questionId={service.questionId}
         questionState={service.questionState}
         meetingId={service.activityType === 'meeting' && service.meetingId}
-        meetingState={service.activityType === 'meeting' && service.meetingState}
+        meetingState={
+          service.activityType === 'meeting' && service.meetingState
+        }
         hasEvaluationSubmitted={service.hasEvaluationSubmitted}
       />
     ),
@@ -109,13 +108,13 @@ const parseServicesToTableRows = (services, t) => {
       service.activityType === 'meeting' ? (
         <MeetingAlarm meetingTime={service.meetingTime} />
       ) : (
-          <QuestionRemainingTimeAlarm
-            remainingTime={service.currentActionTime}
-            totalActionHours={10}
-            className={'alarm'}
-            data-reference={service.serviceId}
-          />
-        ),
+        <QuestionRemainingTimeAlarm
+          remainingTime={service.currentActionTime}
+          totalActionHours={10}
+          className={'alarm'}
+          data-reference={service.serviceId}
+        />
+      ),
   }));
 };
 

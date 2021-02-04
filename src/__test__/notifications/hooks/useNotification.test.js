@@ -8,13 +8,10 @@ import {
 import { Server } from 'mock-socket';
 import { NotificationMessage } from '../../factory/notification';
 import { NotificationsProvider } from '../../../hooks/notifications/context';
-import { AuthProvider } from '../../../pages/auth/context/auth';
 import * as toastManager from 'react-toastify';
-import getPathForNotification from '../../../core/notifications/notificationPathResolver';
-import { RoutesPaths } from '../../../constants/routesPath';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import authManager from 'services/authManager';
+import UserFactorySetup from '__test__/factory/userFactory';
 
 const createMessage = (notification = null) => {
   const sampleNotification = {
@@ -63,8 +60,7 @@ describe('Notifications', () => {
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
-        const currentUser = { user: 'test' };
-        authManager.updateUserInLocalStorage(currentUser, {});
+        UserFactorySetup.generateUser();
         const wrapper = ({ children }) => (
           <NotificationsProvider>{children}</NotificationsProvider>
         );
@@ -112,8 +108,7 @@ describe('Notifications', () => {
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
-        const currentUser = { user: 'test' };
-        authManager.updateUserInLocalStorage(currentUser, {});
+        UserFactorySetup.generateUser();
         const wrapper = ({ children }) => (
           <NotificationsProvider>{children}</NotificationsProvider>
         );
@@ -155,8 +150,7 @@ describe('Notifications', () => {
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
-        const currentUser = { user: 'test' };
-        authManager.updateUserInLocalStorage(currentUser, {});
+        UserFactorySetup.generateUser();
         const wrapper = ({ children }) => (
           <NotificationsProvider>{children}</NotificationsProvider>
         );
@@ -187,8 +181,7 @@ describe('Notifications', () => {
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
-        const currentUser = { user: 'test' };
-        authManager.updateUserInLocalStorage(currentUser, {});
+        UserFactorySetup.generateUser();
         const wrapper = ({ children }) => (
           <NotificationsProvider>{children}</NotificationsProvider>
         );
@@ -220,8 +213,7 @@ describe('Notifications', () => {
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
-        const currentUser = { user: 'test' };
-        authManager.updateUserInLocalStorage(currentUser, {});
+        UserFactorySetup.generateUser();
         const wrapper = ({ children }) => (
           <NotificationsProvider>{children}</NotificationsProvider>
         );
@@ -257,8 +249,7 @@ describe('Notifications', () => {
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
-        const currentUser = { user: 'test' };
-        authManager.updateUserInLocalStorage(currentUser, {});
+        UserFactorySetup.generateUser();
         const wrapper = ({ children }) => (
           <NotificationsProvider>{children}</NotificationsProvider>
         );
@@ -300,8 +291,7 @@ describe('Notifications', () => {
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
-        const currentUser = { user: 'test' };
-        authManager.updateUserInLocalStorage(currentUser, {});
+        UserFactorySetup.generateUser();
         const wrapper = ({ children }) => (
           <NotificationsProvider>{children}</NotificationsProvider>
         );
@@ -329,8 +319,7 @@ describe('Notifications', () => {
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
-        const currentUser = { user: 'test' };
-        authManager.updateUserInLocalStorage(currentUser, {});
+        UserFactorySetup.generateUser();
         const wrapper = ({ children }) => (
           <NotificationsProvider>{children}</NotificationsProvider>
         );

@@ -26,6 +26,8 @@ import { useTranslation } from 'react-i18next';
 import { Checkbox, Collapse, FormControlLabel } from '@material-ui/core';
 import { getUserName } from 'core/user';
 import AnswerOwner from './AnswerOwner';
+import { getConsultantDetails } from 'services/navigation';
+import LinkText from 'components/typography/LinkText';
 
 const AnswerView = ({
   answer,
@@ -101,12 +103,14 @@ const AnswerView = ({
                 <Typography className={classes.answerFieldLabel}>
                   {`${t('consultant')}:`}
                 </Typography>
-                <Tooltip
-                  title={
-                    <Typography># {answer.user.referenceNumber}</Typography>
-                  }>
-                  <Typography>{getUserName(answer.user)}</Typography>
-                </Tooltip>
+                <LinkText to={getConsultantDetails(answer.user.id)}>
+                  <Tooltip
+                    title={
+                      <Typography># {answer.user.referenceNumber}</Typography>
+                    }>
+                    <Typography>{getUserName(answer.user)}</Typography>
+                  </Tooltip>
+                </LinkText>
                 <Typography className={classes.countDown}>
                   {formattedDateMonthAndDay(new Date(answer.createdAt), local)}
                 </Typography>
