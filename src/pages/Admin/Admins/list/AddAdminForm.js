@@ -14,7 +14,7 @@ import CardFooter from 'components/card/CardFooter';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import AdminRoles from '../edit/subComponents/AdminRoles';
 
-const AddAdminForm = ({ primaryButton, user, setUser }) => {
+const AddAdminForm = ({ primaryButton, user, setUser, canEditPassword }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const isNewForm = !user.id;
@@ -104,39 +104,40 @@ const AddAdminForm = ({ primaryButton, user, setUser }) => {
             />
           </GridItem>
         </GridContainer>
-        <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={12} md={6}>
-            <TextField
-              required
-              label={t('password')}
-              id='password'
-              name='password'
-              fullWidth
-              type='password'
-              value={user.password}
-              onChange={(e) => {
-                onChangeField('password', e.target.value);
-              }}
-              variant='outlined'
-            />
-          </GridItem>
-          <GridItem xs={12} sm={12} md={6}>
-            <TextField
-              required
-              label={t('confirmPassword')}
-              id='confirmPassword'
-              name='confirmPassword'
-              fullWidth
-              type='password'
-              value={user.confirmPassword}
-              onChange={(e) => {
-                onChangeField('confirmPassword', e.target.value);
-              }}
-              variant='outlined'
-            />
-          </GridItem>
-        </GridContainer>
-
+        {!canEditPassword && (
+          <GridContainer className={classes.inputsRow}>
+            <GridItem xs={12} sm={12} md={6}>
+              <TextField
+                required
+                label={t('password')}
+                id='password'
+                name='password'
+                fullWidth
+                type='password'
+                value={user.password}
+                onChange={(e) => {
+                  onChangeField('password', e.target.value);
+                }}
+                variant='outlined'
+              />
+            </GridItem>
+            <GridItem xs={12} sm={12} md={6}>
+              <TextField
+                required
+                label={t('confirmPassword')}
+                id='confirmPassword'
+                name='confirmPassword'
+                fullWidth
+                type='password'
+                value={user.confirmPassword}
+                onChange={(e) => {
+                  onChangeField('confirmPassword', e.target.value);
+                }}
+                variant='outlined'
+              />
+            </GridItem>
+          </GridContainer>
+        )}
         <FieldsSelect
           initialFields={user.fields}
           updateFields={(newOptions) => {

@@ -40,6 +40,7 @@ const AdminDetails = () => {
     return <LoadingCircle />;
   }
   const validate = (user) => {
+    const canEditPassword = true;
     if (!user.firstName) {
       showErrorMessage(t('requiredFirstName'));
       return false;
@@ -52,11 +53,11 @@ const AdminDetails = () => {
       showErrorMessage(t('requiredEmail'));
       return false;
     }
-    if (!user.password) {
+    if (!user.password && !canEditPassword) {
       showErrorMessage(t('requiredPassword'));
       return false;
     }
-    if (!user.confirmPassword) {
+    if (!user.confirmPassword && !canEditPassword) {
       showErrorMessage(t('requiredConfirmPassword'));
       return false;
     }
@@ -95,6 +96,7 @@ const AdminDetails = () => {
             user={user}
             setUser={setUser}
             viewOnly
+            canEditPassword
             primaryButton={{
               id: 'createAdminButton',
               onClick: onSubmitAdmin,
