@@ -71,8 +71,8 @@ export const createAnswer = (questionId, answer = {}) => {
   delete newAnswerParams.id;
   return requestAsAdmin({
     method: 'POST',
-    url: `${BACKEND_WEB_URL}/questions/${questionId}/answer`,
-    body: decamelizeKeys(newAnswerParams),
+    url: `${BACKEND_WEB_URL}/answers`,
+    body: decamelizeKeys({ ...newAnswerParams, questionId }),
   }).then((response) => {
     return response.body;
   });
@@ -87,7 +87,7 @@ export const createQuestionWithAnswers = () => {
     body: decamelizeKeys(newQuestionParams),
   }).then((response) => {
     setToLocalStorage('createdQuestion', camelizeKeys(response.body));
-    createAnswer(response.body.id).then((answer) =>
+    createAnswer(response.body.id, { state: 'pending' }).then((answer) =>
       setToLocalStorage('pendingAnswer', camelizeKeys(answer)),
     );
     createAnswer(response.body.id, { state: 'accepted' }).then((answer) =>

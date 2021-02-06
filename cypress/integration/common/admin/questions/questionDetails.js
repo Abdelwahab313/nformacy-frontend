@@ -1,6 +1,7 @@
 import { When, Then } from 'cypress-cucumber-preprocessor/steps';
 import { createQuestion } from '../../../../support/services/questionBuilder';
-import {getFromLocalStorage} from '../../../../helperFunctions';
+import { getFromLocalStorage } from '../../../../helperFunctions';
+import { BASE_URL } from '../../../../defualtTestValues';
 
 And(/^I should see question details$/, function() {
   cy.contains('Edit Question');
@@ -60,11 +61,9 @@ Then(
   },
 );
 
-Then('I should see snackbar with message {string}',
-  function(message) {
-    cy.contains(message);
-  },
-);
+Then('I should see snackbar with message {string}', function(message) {
+  cy.contains(message);
+});
 
 When(/^i click accept$/, function() {
   cy.get('#acceptButton').click();
@@ -118,33 +117,42 @@ When(/^I upload an image for the question thumbnail$/, function() {
 });
 
 When(/^I should see the uploaded image in the question form$/, function() {
-  cy.get('.uploadPicture').should('have.attr', 'src').should('include','download.png')
+  cy.get('.uploadPicture')
+    .should('have.attr', 'src')
+    .should('include', 'download.png');
 });
 
 When(/^I choose a question with thumbnail image$/, function() {
   createQuestion().then(() => {
     const createdQuestion = getFromLocalStorage('createdQuestion');
-    cy.reload()
+    cy.reload();
     cy.wait(1000);
     cy.get(`a[data-reference='${createdQuestion.referenceNumber}']`)
-    .parent()
-    .parent()
-    .click();
+      .parent()
+      .parent()
+      .click();
     cy.get('.thumbnail-uploader').click();
     const thumbnailPath = 'download.png';
-    cy.get('input[type="file"]').attachFile(thumbnailPath).as('upload')
-    cy.get('.uploadPicture').should('have.attr', 'src').should('include','download.png')
-    cy.get('#applyChangesButton').click()
-  }
-  );
+    cy.get('input[type="file"]')
+      .attachFile(thumbnailPath)
+      .as('upload');
+    cy.get('.uploadPicture')
+      .should('have.attr', 'src')
+      .should('include', 'download.png');
+    cy.get('#applyChangesButton').click();
+  });
 });
 
 When(/^I should see the uploaded image$/, function() {
-    cy.wait(1000)
-    const createdQuestion = getFromLocalStorage('createdQuestion');
-    cy.get(`a[data-reference='${createdQuestion.referenceNumber}']`)
+  cy.visit(`${BASE_URL}/admin/questions`);
+
+  cy.wait(1000);
+  const createdQuestion = getFromLocalStorage('createdQuestion');
+  cy.get(`a[data-reference='${createdQuestion.referenceNumber}']`)
     .parent()
     .parent()
     .click();
-    cy.get('.uploadPicture').should('have.attr', 'src').should('include','download.png')
+  cy.get('.uploadPicture')
+    .should('have.attr', 'src')
+    .should('include', 'download.png');
 });

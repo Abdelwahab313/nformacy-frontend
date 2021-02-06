@@ -23,7 +23,7 @@ export const getQuestionDetails = (questionId) => {
   } else if (authManager.isNormalUser()) {
     return getAnswerQuestionLink(questionId);
   } else {
-    'unauthorzed_user'
+    return 'unauthorzed_user';
   }
 };
 

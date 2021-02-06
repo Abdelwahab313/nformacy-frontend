@@ -98,6 +98,7 @@ And(/^I click on question title$/, function() {
 });
 
 When(/^i chose a question with status draft\.$/, function() {
+  cy.visit(`${BASE_URL}/admin/questions`);
   cy.get('.state[data-status="draft"]')
     .last()
     .click();
@@ -195,6 +196,7 @@ Then(/^I should be redirected to questions dashboard$/, function() {
 Then(
   /^I should see deployed question status to be freelancer answers$/,
   function() {
+    cy.visit(`${BASE_URL}/admin/questions`);
     cy.get(`a[data-reference='${this.toBeDeployed}']`).then(function(element) {
       expect(element[0].attributes['data-status'].value, 'freelancer_answers');
     });

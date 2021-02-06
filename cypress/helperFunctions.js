@@ -121,11 +121,10 @@ export const clearLocalStorage = () => {
 };
 
 export const createDayAvailableForUser = (dayFormatted, startDate, endDate) => {
-  const currentUser = JSON.parse(localStorage.getItem('user'));
   const token = JSON.parse(localStorage.getItem('tokens'));
   cy.request({
     method: 'PUT',
-    url: `${BACKEND_WEB_URL}/users/${currentUser.id}`,
+    url: `${BACKEND_WEB_URL}/users/update_profile`,
     headers: {
       Authorization: `Bearer ${token}`,
     },
