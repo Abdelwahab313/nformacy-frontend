@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Redirect, useLocation, useHistory } from 'react-router';
+import { useLocation, useHistory } from 'react-router';
 import { useAuth } from './context/auth';
 import ErrorDialog from '../../components/errors/ErrorDialog';
 import { useStyles } from 'styles/formsStyles';
@@ -33,12 +33,6 @@ const Login = () => {
   const history = useHistory();
 
   const isAdminLogin = location.pathname.indexOf('admin') > -1;
-  const postLoginRoute = isAdminLogin
-    ? RoutesPaths.Admin.Home
-    : RoutesPaths.App.Dashboard;
-  const referer = location.state
-    ? location.state.referer || postLoginRoute
-    : postLoginRoute;
 
   const onSubmit = (data) => {
     setLoginFailed(false);
@@ -73,15 +67,27 @@ const Login = () => {
     setLoginFailed(false);
   };
 
+  const getPostLoginRoute = () => {
+    let postLoginRoute;
+    let prevLink = location?.state?.referer?.pathname ? location?.state?.referer.pathname : location?.state?.referer;
+    let isLogoutRoute =
+      prevLink === RoutesPaths.App.Logout ||
+      prevLink === RoutesPaths.Admin.Logout;
+
+    if (!!prevLink && !isLogoutRoute) {
+      postLoginRoute = prevLink;
+    }
+    else {
+      postLoginRoute = isAdminLogin
+        ? RoutesPaths.Admin.Home
+        : RoutesPaths.App.Dashboard;
+    }
+    window.location.replace(postLoginRoute);
+  };
+
   const authToken = authManager.retrieveUserToken();
   if (loginSuccess || authToken) {
-    if (
-      referer.pathname === RoutesPaths.App.Logout ||
-      referer.pathname === RoutesPaths.Admin.Logout
-    ) {
-      return <Redirect push to={postLoginRoute} />;
-    }
-    return <Redirect push to={referer} />;
+    getPostLoginRoute();
   }
   
   if (loading) {
