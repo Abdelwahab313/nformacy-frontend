@@ -2,11 +2,16 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 
-const LinkText = ({ children, ...props }) => {
+const LinkText = ({ children, to, ...props }) => {
   const classes = useStyles();
+  const hasLinkProp = !!to;
 
+  
+  if (!hasLinkProp) {
+    return <>{children}</>;
+  }
   return (
-    <Link className={classes.link} {...props}>
+    <Link className={classes.link} to={to} {...props}>
       {children}
     </Link>
   );

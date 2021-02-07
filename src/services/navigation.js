@@ -6,20 +6,16 @@ import authManager from 'services/authManager';
 export const history = createHistory();
 
 export const getQuestionDetailsLink = (questionId, serviceId) => {
-  return {
-    pathname: authManager.isAdmin()
-      ? RoutesPaths.Admin.QuestionsDetails
-      : RoutesPaths.App.AnswerQuestion,
-    state: {
-      serviceId: serviceId,
-      questionId: questionId,
-    },
-  };
+  if (authManager.isAdmin()) {
+    return getQuestionDetailsLinkForAdmin(questionId);
+  } else {
+    return getServiceDetailsLink(serviceId);
+  }
 };
 
 export const getQuestionDetails = (questionId) => {
   if (authManager.isAdmin()) {
-    return getAnswerQuestionLinkForAdmin(questionId);
+    return getQuestionDetailsLinkForAdmin(questionId);
   } else if (authManager.isNormalUser()) {
     return getAnswerQuestionLink(questionId);
   } else {
@@ -84,8 +80,7 @@ export const getAnswerQuestionLink = (questionId) => {
   };
 };
 
-export const getAnswerQuestionLinkForAdmin = (questionId) => {
-  // console.log('questionId ---------------', questionId);
+export const getQuestionDetailsLinkForAdmin = (questionId) => {
   return {
     pathname: RoutesPaths.Admin.QuestionsDetails,
     state: { questionId },

@@ -18,7 +18,7 @@ import { RoutesPaths } from 'constants/routesPath';
 import LinkText from 'components/typography/LinkText';
 import authManager from 'services/authManager';
 import {
-  getAnswerQuestionLinkForAdmin,
+  getQuestionDetailsLinkForAdmin,
   getCallEvaluationView,
 } from 'services/navigation';
 import { useStyles } from 'styles/Admin/questionFormStyles';
@@ -106,7 +106,7 @@ const ServiceDetails = () => {
                 {!!serviceRequest.question?.id && (
                   <Typography component={'h4'}>
                     <LinkText
-                      to={getAnswerQuestionLinkForAdmin(
+                      to={getQuestionDetailsLinkForAdmin(
                         serviceRequest.question.id,
                       )}
                       className={classes.relatedService}>

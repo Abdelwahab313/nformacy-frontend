@@ -103,7 +103,7 @@ const AnswerView = ({
                 <Typography className={classes.answerFieldLabel}>
                   {`${t('consultant')}:`}
                 </Typography>
-                <LinkText to={getConsultantDetails(answer.user.id)}>
+                <LinkText to={!!authManager.isAdmin() && getConsultantDetails(answer.user.id)}>
                   <Tooltip
                     title={
                       <Typography># {answer.user.referenceNumber}</Typography>
