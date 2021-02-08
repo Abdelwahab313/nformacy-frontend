@@ -19,27 +19,27 @@ class AnswerGuardianClass extends GuardianBase {
     );
   }
 
-  canApproveAnswer(answer) {
-    if (answer?.state === ANSWER_STATUS.pending) {
+  canApproveAnswer(answerState) {
+    if (answerState === ANSWER_STATUS.pending) {
       return this.canManageAnswers();
     }
   }
 
-  canRollbackAnswer(answer, question) {
+  canRollbackAnswer(answerState, questionState) {
     const rollbackableStates = [ANSWER_STATUS.accepted, ANSWER_STATUS.rejected];
     const canAnswerBeRollbacked =
-      rollbackableStates.includes(answer.state) &&
-      reviewAnswersQuestionStates.includes(question?.state);
+      rollbackableStates.includes(answerState) &&
+      reviewAnswersQuestionStates.includes(questionState);
 
     if (canAnswerBeRollbacked) {
       return this.canManageAnswers();
     }
   }
 
-  canRateAnswer(answer) {
+  canRateAnswer(answerState) {
     if (
-      answer.state === ANSWER_STATUS.accepted ||
-      answer.state === ANSWER_STATUS.rated
+      answerState === ANSWER_STATUS.accepted ||
+      answerState === ANSWER_STATUS.rated
     ) {
       return this.isAdviser();
     }

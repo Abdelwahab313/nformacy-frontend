@@ -161,6 +161,7 @@ const AnswersContainer = () => {
                 isShortListed={shortlistedIds.includes(answer.id)}
                 showShortListOption={isShortlistingQuestion}
                 showAcceptAction={isReviewQuestion}
+                questionState={questionDetails?.state}
               />
             </div>
           ))}

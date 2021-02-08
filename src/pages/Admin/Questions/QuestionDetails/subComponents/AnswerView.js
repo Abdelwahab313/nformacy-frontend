@@ -38,6 +38,7 @@ const AnswerView = ({
   isShortListed,
   showShortListOption,
   showScheduleMeeting,
+  questionState,
 }) => {
   const classes = useStyles();
   const { local } = useLocale();
@@ -103,7 +104,11 @@ const AnswerView = ({
                 <Typography className={classes.answerFieldLabel}>
                   {`${t('consultant')}:`}
                 </Typography>
-                <LinkText to={!!authManager.isAdmin() && getConsultantDetails(answer.user.id)}>
+                <LinkText
+                  to={
+                    !!authManager.isAdmin() &&
+                    getConsultantDetails(answer.user.id)
+                  }>
                   <Tooltip
                     title={
                       <Typography># {answer.user.referenceNumber}</Typography>
@@ -155,7 +160,7 @@ const AnswerView = ({
             </GridItem>
           )}
           <GridItem xs={2} className={classes.answerRowStyles}>
-            {AnswerGuardian.canRateAnswer(answer) && (
+            {AnswerGuardian.canRateAnswer(answerState) && (
               <Rating
                 name={`rateAnswer-${index}`}
                 readOnly={false}
@@ -167,28 +172,31 @@ const AnswerView = ({
             )}
           </GridItem>
           <GridItem xs={10}>
-            {AnswerGuardian.canApproveAnswer(answer) && (
-                <AcceptAndRejectActionButtons
-                  acceptButtonProps={{
-                    id: `accept-${answer.referenceNumber}`,
-                    onClick: onAcceptAnswer,
-                  }}
-                  rejectButtonProps={{
-                    id: `reject-${answer.referenceNumber}`,
-                    onClick: onRejectAnswer,
-                  }}
-                />
-              )}
+            {AnswerGuardian.canApproveAnswer(answerState) && (
+              <AcceptAndRejectActionButtons
+                acceptButtonProps={{
+                  id: `accept-${answer.referenceNumber}`,
+                  onClick: onAcceptAnswer,
+                }}
+                rejectButtonProps={{
+                  id: `reject-${answer.referenceNumber}`,
+                  onClick: onRejectAnswer,
+                }}
+              />
+            )}
           </GridItem>
           <Grid container direction='row-reverse' alignItems='flex-end'>
-            {!!AnswerGuardian.canRollbackAnswer(answer, answer?.question) && (
-                <SubmitButton
-                  id={`rollback-${answer.referenceNumber}`}
-                  className={classes.rollbackButton}
-                  onClick={() => onRollback()}
-                  buttonText={t('rollback')}
-                />
-              )}
+            {!!AnswerGuardian.canRollbackAnswer(
+              answerState,
+              questionState,
+            ) && (
+              <SubmitButton
+                id={`rollback-${answer.referenceNumber}`}
+                className={classes.rollbackButton}
+                onClick={() => onRollback()}
+                buttonText={t('rollback')}
+              />
+            )}
             {authManager.isClient() && showScheduleMeeting && (
               <SubmitButton
                 id={`call-${answer.referenceNumber}`}
