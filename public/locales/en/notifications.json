@@ -6,5 +6,6 @@
   "noNotifications": "No notifications to be displayed",
   "seeMore": "See more...",
   "answer_rated": "Answer #{{referenceNumber}} is already Rated",
-  "answer_rejected": "Answer Rejected"
+  "answer_rejected": "Answer #{{referenceNumber}} Rejected",
+  "answer_shortlisted": "Answer #{{referenceNumber}} Shortlisted"
 }
