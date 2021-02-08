@@ -1,6 +1,7 @@
 import React, {
   Fragment,
   useCallback,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -17,10 +18,15 @@ import { useQuestionContext } from '../context';
 import { Box, Typography } from '@material-ui/core';
 import { updateQuestionDetails } from '../context/questionAction';
 import { useSnackBar } from 'context/SnackBarContext';
-import { QUESTION_STATUS } from 'constants/questionStatus';
+import { ANSWER_STATUS, QUESTION_STATUS } from 'constants/questionStatus';
 import SubmitButton from 'components/buttons/SubmitButton';
 import { shortlistAnswer } from 'apis/answersAPI';
 import { RoutesPaths } from 'constants/routesPath';
+
+const shortlistedStates = [
+  ANSWER_STATUS.shortlisted,
+  ANSWER_STATUS.clientSelected,
+];
 
 const AnswersContainer = () => {
   const classes = useStyles();
@@ -29,6 +35,21 @@ const AnswersContainer = () => {
   const [shortlistedIds, setShortlistedIds] = useState([]);
   const [{ questionDetails }, dispatch] = useQuestionContext();
   const { showErrorMessage, showSuccessMessage } = useSnackBar();
+
+  const answersCount = useMemo(() => {
+    return questionDetails.answers?.length;
+  }, [questionDetails.answers]);
+
+  useEffect(() => {
+    if (questionDetails?.answers?.length > 0) {
+      const fetchedShortlistedIds = questionDetails?.answers
+        ?.filter((answer) => {
+          return shortlistedStates.includes(answer?.state);
+        })
+        .map((answer) => answer?.id);
+      setShortlistedIds(fetchedShortlistedIds);
+    }
+  }, [answersCount]);
 
   const shortlistedAnswers = useMemo(() => {
     return questionDetails.answers?.filter((item) =>
