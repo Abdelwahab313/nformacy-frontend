@@ -5,5 +5,6 @@
   "question_closed": "Question #{{referenceNumber}} Closed",
   "noNotifications": "No notifications to be displayed",
   "seeMore": "See more...",
-  "answer_rated": "Answer #{{referenceNumber}} is already Rated"
+  "answer_rated": "Answer #{{referenceNumber}} is already Rated",
+  "answer_rejected": "Answer Rejected"
 }
