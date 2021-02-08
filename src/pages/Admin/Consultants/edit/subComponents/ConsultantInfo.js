@@ -141,6 +141,23 @@ const ConsultantInfo = () => {
                 </Typography>
               </Grid>
             </Grid>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={4}>
+                <Typography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
+                  {t('summary')}
+                </Typography>
+              </Grid>
+              <Grid item xs={8}>
+                <Typography
+                  id='summary'
+                  gutterBottom
+                  className={classes.fieldValueStyles}>
+                  {consultants.summary}
+                </Typography>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Paper>
