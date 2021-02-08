@@ -4,5 +4,6 @@
   "admin_deployed_question": "Question #{{referenceNumber}} is posted on Q Roaster.",
   "question_closed": "Question #{{referenceNumber}} Closed",
   "noNotifications": "No notifications to be displayed",
-  "seeMore": "See more..."
+  "seeMore": "See more...",
+  "answer_rated": "Answer #{{referenceNumber}} is already Rated"
 }
