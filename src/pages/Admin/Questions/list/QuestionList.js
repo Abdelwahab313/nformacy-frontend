@@ -13,6 +13,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { RoutesPaths } from '../../../../constants/routesPath';
 import { useHistory } from 'react-router';
 import { useStyles } from '../../../../styles/Admin/postQuestionStyles';
+import QuestionGuardian from 'core/guardians/QuestionGuardian';
 
 export default function TableList() {
   const { fetchedData: fetchedQuestions } = useFetchData(() => {
@@ -40,7 +41,7 @@ export default function TableList() {
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
-        {authManager.isAdmin() && (
+        {QuestionGuardian.canCreateNewQuestion() && (
           <SubmitButton
             id='postQuestionButton'
             className={classes.postQuestionButton}

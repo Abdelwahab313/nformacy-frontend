@@ -565,51 +565,6 @@ exports[`should match snapshot 1`] = `
                   />
                 </div>
                 <div
-                  class="MuiGrid-root undefined attachmentContainer MuiGrid-item MuiGrid-grid-xs-6"
-                >
-                  <div
-                    class="attachmentUploaderContainer"
-                  >
-                    <div
-                      class="MuiGrid-root MuiGrid-container MuiGrid-direction-xs-column MuiGrid-align-items-xs-flex-start"
-                    >
-                      <div
-                        class="fileContainer"
-                        style="box-shadow: none; padding: 0px; margin: 0px 10px 0px 0px;"
-                      >
-                        <div
-                          class="errorsContainer"
-                        />
-                        <button
-                          class="MuiButtonBase-root MuiButton-root MuiButton-contained"
-                          id="chooseFileButton"
-                          style="background-color: rgb(18, 87, 115); color: rgb(255, 255, 255);"
-                          tabindex="0"
-                          type="button"
-                        >
-                          <span
-                            class="MuiButton-label"
-                          >
-                            attachMedia
-                          </span>
-                          <span
-                            class="MuiTouchRipple-root"
-                          />
-                        </button>
-                        <input
-                          accept=".doc,.docx,.xml,image/*,video/*,.pdf,.csv"
-                          name=""
-                          type="file"
-                        />
-                      </div>
-                      <div
-                        class="flipMove"
-                        style="position: relative;"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div
                   class="MuiGrid-root answerButtonContainer MuiGrid-item MuiGrid-grid-xs-6"
                 >
                   <button

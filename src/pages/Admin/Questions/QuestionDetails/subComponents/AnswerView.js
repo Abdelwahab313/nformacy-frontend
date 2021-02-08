@@ -28,6 +28,7 @@ import { getUserName } from 'core/user';
 import AnswerOwner from './AnswerOwner';
 import { getConsultantDetails } from 'services/navigation';
 import LinkText from 'components/typography/LinkText';
+import AnswerGuardian from 'core/guardians/AnswerGuardian';
 
 const AnswerView = ({
   answer,
@@ -36,7 +37,6 @@ const AnswerView = ({
   onCheckAnswer,
   isShortListed,
   showShortListOption,
-  showAcceptAction,
   showScheduleMeeting,
 }) => {
   const classes = useStyles();
@@ -155,7 +155,7 @@ const AnswerView = ({
             </GridItem>
           )}
           <GridItem xs={2} className={classes.answerRowStyles}>
-            {authManager.isAdviser() && (
+            {AnswerGuardian.canRateAnswer(answer) && (
               <Rating
                 name={`rateAnswer-${index}`}
                 readOnly={false}
@@ -167,9 +167,7 @@ const AnswerView = ({
             )}
           </GridItem>
           <GridItem xs={10}>
-            {authManager.isAdmin() &&
-              showAcceptAction &&
-              answerState == 'pending' && (
+            {AnswerGuardian.canApproveAnswer(answer) && (
                 <AcceptAndRejectActionButtons
                   acceptButtonProps={{
                     id: `accept-${answer.referenceNumber}`,
@@ -183,10 +181,7 @@ const AnswerView = ({
               )}
           </GridItem>
           <Grid container direction='row-reverse' alignItems='flex-end'>
-            {authManager.isAdmin() &&
-              showAcceptAction &&
-              answerState != 'pending' &&
-              !showShortListOption && (
+            {!!AnswerGuardian.canRollbackAnswer(answer, answer?.question) && (
                 <SubmitButton
                   id={`rollback-${answer.referenceNumber}`}
                   className={classes.rollbackButton}

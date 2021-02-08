@@ -46,6 +46,7 @@ import ImageUploadWithPreview from 'components/inputs/FileUpload/ImageUploadWith
 import FieldsSelect from '../../../../../components/inputs/FieldsSelect/FieldsSelect';
 import { QUESTION_STATUS } from 'constants/questionStatus';
 import { getAdminQuestionsDashboardLink } from 'services/navigation';
+import QuestionGuardian from 'core/guardians/QuestionGuardian';
 
 const noActionStates = [
   QUESTION_STATUS.pendingAssignment,
@@ -383,7 +384,7 @@ const QuestionForm = ({ isNewQuestion }) => {
                 }
               />
             </Grid>
-            {authManager.isAdmin() && (
+            {QuestionGuardian.canUploadThumbnail(questionDetails) && (
               <GridItem xs={12} sm={12} md={12}>
                 <ImageUploadWithPreview
                   buttonClassName={'thumbnail-uploader'}
@@ -402,34 +403,26 @@ const QuestionForm = ({ isNewQuestion }) => {
                 />
               </GridItem>
             )}
-            {!(
-              questionDetails?.state ===
-                QUESTION_STATUS.pendingAdviserAcceptance &&
-              currentUser?.id === questionDetails?.assignedAdviserId
-            ) &&
-              !(
-                authManager.isAdviser() &&
-                noActionStates.includes(questionDetails.state)
-              ) && (
-                <Grid
-                  item
-                  xs={6}
-                  className={`${questionRoasterClasses.answerButtonsContainer} ${classes.attachmentContainer}`}>
-                  <AttachmentUploader
-                    containerClassName={
-                      questionRoasterClasses.attachmentUploaderContainer
-                    }
-                    attachments={questionDetails.attachments}
-                    attachmentsGroupsId={questionDetails.attachmentsGroupsId}
-                    setAttachmentsGroupsId={(attachmentsGroupsId) => {
-                      onChangeQuestionField(
-                        'attachmentsGroupsId',
-                        attachmentsGroupsId,
-                      );
-                    }}
-                  />
-                </Grid>
-              )}
+            {QuestionGuardian.canUploadAttachment(questionDetails) && (
+              <Grid
+                item
+                xs={6}
+                className={`${questionRoasterClasses.answerButtonsContainer} ${classes.attachmentContainer}`}>
+                <AttachmentUploader
+                  containerClassName={
+                    questionRoasterClasses.attachmentUploaderContainer
+                  }
+                  attachments={questionDetails.attachments}
+                  attachmentsGroupsId={questionDetails.attachmentsGroupsId}
+                  setAttachmentsGroupsId={(attachmentsGroupsId) => {
+                    onChangeQuestionField(
+                      'attachmentsGroupsId',
+                      attachmentsGroupsId,
+                    );
+                  }}
+                />
+              </Grid>
+            )}
             {!(
               authManager.isAdviser() &&
               noActionStates.includes(questionDetails.state)

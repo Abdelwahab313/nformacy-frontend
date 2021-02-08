@@ -49,7 +49,7 @@ const AvailableServices = () => {
     <HomePageCard
       title={''}
       viewMoreText={t('seeMore')}
-      viewMoreUrl={RoutesPaths.Admin.Home}>
+      viewMoreUrl={RoutesPaths.App.Dashboard}>
       <Grid
         container
         className={classes.threeBtnsContainer}
