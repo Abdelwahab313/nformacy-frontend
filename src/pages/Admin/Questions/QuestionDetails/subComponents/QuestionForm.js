@@ -403,11 +403,11 @@ const QuestionForm = ({ isNewQuestion }) => {
                 />
               </GridItem>
             )}
-            {QuestionGuardian.canUploadAttachment(questionDetails) && (
-              <Grid
-                item
-                xs={6}
-                className={`${questionRoasterClasses.answerButtonsContainer} ${classes.attachmentContainer}`}>
+            <Grid
+              item
+              xs={6}
+              className={`${questionRoasterClasses.answerButtonsContainer} ${classes.attachmentContainer}`}>
+              {QuestionGuardian.canUploadAttachment(questionDetails) && (
                 <AttachmentUploader
                   containerClassName={
                     questionRoasterClasses.attachmentUploaderContainer
@@ -421,8 +421,8 @@ const QuestionForm = ({ isNewQuestion }) => {
                     );
                   }}
                 />
-              </Grid>
-            )}
+              )}
+            </Grid>
             {!(
               authManager.isAdviser() &&
               noActionStates.includes(questionDetails.state)

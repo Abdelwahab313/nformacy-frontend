@@ -6,6 +6,7 @@ import SubmitButton from 'components/buttons/SubmitButton';
 import useStyles from '../styles/HomePageStyles';
 import CustomTypography from 'components/typography/Typography';
 import authManager from 'services/authManager';
+import ComingSoonWrapper from 'components/grid/ComingSoonWrapper';
 
 const PointsBox = () => {
   const classes = useStyles();
@@ -24,25 +25,27 @@ const PointsBox = () => {
         alignItems='center'
         justify='space-evenly'
         className={classes.pointsContainer}>
-        <img
-          className={[classes.walletIcon]}
-          color={'primary'}
-          src={require('../../../../assets/wallet.svg')}
-          width={'25%'}
-        />
-        <CustomTypography variant='body1' fontWeight='bold'>
-          {`${t('youHave')} 0 ${t('points')}`}
-        </CustomTypography>
-        <SubmitButton
-          id={'proceedBtn'}
-          onClick={() => {}}
-          className={[classes.chargeBtn]}
-          buttonText={
-            <CustomTypography variant='body1'>
-              {authManager.isClient() ? t('chargeMyWallet') : t('learnMore')}
-            </CustomTypography>
-          }
-        />
+        <ComingSoonWrapper>
+          <img
+            className={[classes.walletIcon]}
+            color={'primary'}
+            src={require('../../../../assets/wallet.svg')}
+            width={'25%'}
+          />
+          <CustomTypography variant='body1' fontWeight='bold'>
+            {`${t('youHave')} 0 ${t('points')}`}
+          </CustomTypography>
+          <SubmitButton
+            id={'proceedBtn'}
+            onClick={() => {}}
+            className={[classes.chargeBtn]}
+            buttonText={
+              <CustomTypography variant='body1'>
+                {authManager.isClient() ? t('chargeMyWallet') : t('learnMore')}
+              </CustomTypography>
+            }
+          />
+        </ComingSoonWrapper>
       </Grid>
     </Box>
   );

@@ -535,6 +535,9 @@ exports[`Question Form should match snapshot 1`] = `
             />
           </div>
           <div
+            class="MuiGrid-root undefined attachmentContainer MuiGrid-item MuiGrid-grid-xs-6"
+          />
+          <div
             class="MuiGrid-root answerButtonContainer MuiGrid-item MuiGrid-grid-xs-6"
           >
             <button

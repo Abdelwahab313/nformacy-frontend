@@ -6,6 +6,7 @@ import useStyles from '../styles/HomePageStyles';
 import CustomTypography from 'components/typography/Typography';
 import NextArrow from 'components/icons/NextArrow';
 import { useTranslation } from 'react-i18next';
+import ComingSoonWrapper from 'components/grid/ComingSoonWrapper';
 
 const LibraryCard = () => {
   const classes = useStyles();
@@ -19,25 +20,27 @@ const LibraryCard = () => {
         justify='space-evenly'
         alignItems='center'
         className={classes.cardContainer}>
-        <img
-          color={'primary'}
-          src={require('../../../../assets/icons/library.svg')}
-          width={'30px'}
-        />
-        <CustomTypography align={'center'} variant='h6' fontWeight='bold'>
-          {t('libraryOfResources')}
-        </CustomTypography>
-        <CustomTypography align={'center'} variant='body2'>
-          Nunc aliquam felis ac ultricies cursus. In eu felis nisi. Mauris
-          ligula leo.
-        </CustomTypography>
-
-        <Box className={classes.gotToLibraryBtn}>
-          <CustomTypography component='span' align={'center'} variant='body2'>
-            {t('goToLibrary')}
+        <ComingSoonWrapper>
+          <img
+            color={'primary'}
+            src={require('../../../../assets/icons/library.svg')}
+            width={'30px'}
+          />
+          <CustomTypography align={'center'} variant='h6' fontWeight='bold'>
+            {t('libraryOfResources')}
           </CustomTypography>
-          <NextArrow />
-        </Box>
+          <CustomTypography align={'center'} variant='body2'>
+            Nunc aliquam felis ac ultricies cursus. In eu felis nisi. Mauris
+            ligula leo.
+          </CustomTypography>
+
+          <Box className={classes.gotToLibraryBtn}>
+            <CustomTypography component='span' align={'center'} variant='body2'>
+              {t('goToLibrary')}
+            </CustomTypography>
+            <NextArrow />
+          </Box>
+        </ComingSoonWrapper>
       </Grid>
     </Card>
   );
