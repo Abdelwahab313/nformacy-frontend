@@ -17,4 +17,20 @@ export const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(3),
   },
+  usersTypeContainerBorder: {
+    borderRadius: 25,
+    overflow: 'hidden',
+    border: '1px solid #ecedf0',
+    transition: 'all 1s',
+    '&:hover': {
+      transform: 'scale(1.2)',
+    },
+    [theme.breakpoints.down('md')]: {
+      marginBottom: theme.spacing(2),
+      marginTop: theme.spacing(2),
+      '&:hover': {
+        transform: 'scale(1)',
+      },
+    },
+  }
 }));
