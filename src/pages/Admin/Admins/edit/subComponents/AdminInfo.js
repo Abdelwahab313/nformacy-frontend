@@ -8,6 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import { useStyles } from 'styles/formsStyles';
 import { useTranslation } from 'react-i18next';
 import authManager from 'services/authManager';
+import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
 
 const AdminInfo = () => {
   const { t } = useTranslation();
@@ -25,16 +26,12 @@ const AdminInfo = () => {
             </Typography>
           </Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
-            <IconButton
-              aria-label='edit'
-              id='editBasicInfo'
-              onClick={() => { }}>
+            <IconButton aria-label='edit' id='editBasicInfo' onClick={() => {}}>
               <EditIcon color={'primary'} />
             </IconButton>
           </Grid>
         </Grid>
-        <Divider variant='middle'
-        />
+        <Divider variant='middle' />
         <Grid
           container
           spacing={5}
@@ -108,7 +105,7 @@ const AdminInfo = () => {
                   id='fields'
                   gutterBottom
                   className={classes.fieldValueStyles}>
-                  {currentUser.fields[0].label}
+                  <ColoredFieldsChips fields={currentUser.fields} />
                 </Typography>
               </Grid>
             </Grid>
