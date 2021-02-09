@@ -67,7 +67,7 @@ const QuestionForm = ({ isNewQuestion }) => {
   const [{ currentUser }] = useAuth();
   const [thumbnailImage, setThumbnailImage] = useState('');
   const [isThumbnailChanged, setIsThumbnailChanged] = useState(false);
-
+  const [isModified, setIsModified] = useState(false);
   let history = useHistory();
   const navigatToDashboard = () => {
     history.push(getAdminQuestionsDashboardLink());
@@ -98,21 +98,27 @@ const QuestionForm = ({ isNewQuestion }) => {
     saveDraftQuestion({
       ...questionDetails,
     }).then(() => {
+      setIsModified(false);
       navigatToDashboard();
     });
     setSuccessMessage(dispatch, 'Your question is saved successfully');
   };
 
   const onChangeQuestionField = (name, data) => {
+    setIsModified(true);
     updateQuestionDetails(dispatch, {
       [name]: data,
     });
   };
 
   const onSendToAdminClicked = () => {
-    sendToAdmin(questionDetails.id).then(() => {
-      navigatToDashboard();
-    });
+    if (!!isModified) {
+      setErrorMessage(dispatch, 'Please save current modification first');
+    } else {
+      sendToAdmin(questionDetails.id).then(() => {
+        navigatToDashboard();
+      });
+    }
   };
 
   const validateQuestionForm = () => {
@@ -162,6 +168,7 @@ const QuestionForm = ({ isNewQuestion }) => {
           navigatToDashboard();
         });
       }
+      setIsModified(false);
       setSuccessMessage(dispatch, 'Question Sent to Adviser');
     }
   };

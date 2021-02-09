@@ -2,8 +2,9 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import SubmitButton from 'components/buttons/SubmitButton';
-import authManager from '../../../../../services/authManager';
+import authManager from 'services/authManager';
 import { useStyles as useRoasterStyle } from '../../../../../styles/questionRoasterStyles';
+import { QUESTION_STATUS } from 'constants/questionStatus';
 
 const ActionButtonsContainer = ({
   questionDetails,
@@ -55,7 +56,7 @@ const ActionButtonsContainer = ({
         />
       )}
       {!(
-        questionDetails?.state === 'pending_adviser_acceptance' &&
+        questionDetails?.state === QUESTION_STATUS.pendingAdviserAcceptance &&
         currentUser?.id === questionDetails?.assignedAdviserId
       ) && (
         <SubmitButton
