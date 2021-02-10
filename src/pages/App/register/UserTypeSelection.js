@@ -4,12 +4,13 @@ import { useStyles } from '../../../styles/userTypeSelection';
 import { Box, Button } from '@material-ui/core';
 import CustomTypography from 'components/typography/Typography';
 import { RoutesPaths } from 'constants/routesPath';
-import { useHistory } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import { addUserRole } from 'apis/userAPI';
 import { useAuth } from 'pages/auth/context/auth';
 import { updateUser } from 'pages/auth/context/authActions';
 import { useSnackBar } from 'context/SnackBarContext';
 import clsx from 'clsx';
+import authManager from 'services/authManager';
 
 const UserTypeSelection = () => {
   const classes = useStyles();
@@ -17,6 +18,9 @@ const UserTypeSelection = () => {
   const [, dispatch] = useAuth();
   const { showErrorMessage } = useSnackBar();
 
+  if (!!authManager.getUserRole()) {
+    return <Redirect to={RoutesPaths.App.FreelancerProfile} />;
+  }
   const onTypeClick = (role) => {
     addUserRole(role)
       .then((response) => {

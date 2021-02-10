@@ -82,7 +82,7 @@ const FreeLancerProfileForm = () => {
   ];
 
   const isClientEmployed = watch('isEmployed');
-  const isCurrentstepInValid = useCallback(() => {
+  const isCurrentstepInvalid = useCallback(() => {
     let currentStepFields;
     if (authManager.isClient()) {
       currentStepFields = clientStepFields[activeStep];
@@ -173,7 +173,7 @@ const FreeLancerProfileForm = () => {
         .then((response) => {
           localStorage.setItem('user', JSON.stringify(response.data));
           if (cv?.length === 0 || cv === undefined) {
-            history.push('/user/success');
+            history.push(RoutesPaths.App.FreelancerSuccess);
           }
         })
         .finally(() => {
@@ -192,7 +192,7 @@ const FreeLancerProfileForm = () => {
             const userFromStorage = JSON.parse(localStorage.getItem('user'));
             userFromStorage.cv = response.data.cv;
             localStorage.setItem('user', JSON.stringify(userFromStorage));
-            history.push('/user/success');
+            history.push(RoutesPaths.App.FreelancerSuccess);
           })
           .finally(() => setLoading(false));
       }
@@ -230,8 +230,8 @@ const FreeLancerProfileForm = () => {
     setIsTermsChecked(!isTermsChecked);
   };
 
-  const isGoNextDisabled = isCurrentstepInValid() || loading;
-  const isSubmitDisabled = !isTermsChecked || isCurrentstepInValid() || loading;
+  const isGoNextDisabled = isCurrentstepInvalid() || loading;
+  const isSubmitDisabled = !isTermsChecked || isCurrentstepInvalid() || loading;
 
   return (
     <div className={classes.freelancerProfileContainer}>
@@ -292,7 +292,6 @@ const FreeLancerProfileForm = () => {
         )}
         <Grid
           item
-          className={[classes.buttonsContainer, classes.nextBtnContainer]}
           className={
             activeStep === 0
               ? classes.nextBtnContainer
