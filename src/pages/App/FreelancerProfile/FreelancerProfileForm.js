@@ -146,7 +146,7 @@ const FreeLancerProfileForm = () => {
         : deletedCertification,
     };
     const nestedFieldsValid = validateNestedFields(userToBeSubmitted);
-    if (nestedFieldsValid && cv?.length > 0) {
+    if (nestedFieldsValid) {
       setLoading(true);
       completeFreelancerProfile(userToBeSubmitted)
         .then((response) => {
@@ -175,8 +175,6 @@ const FreeLancerProfileForm = () => {
           })
           .finally(() => setLoading(false));
       }
-    } else if (cv?.length === 0 || cv === undefined) {
-      setError('cv', 'manual', t['requiredMessage']);
     }
   };
 
@@ -263,52 +261,52 @@ const FreeLancerProfileForm = () => {
             </Button>
           )}
           {activeStep === 2 ||
-          (authManager.isClient() && activeStep === 1) ||
-          (authManager.isClient() && !isClientEmployed) ? (
-            <Box
-              display={'flex'}
-              width={'100%'}
-              justifyContent={'space-between'}
-              margin={'0 16px'}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    onChange={onTermsChecked}
-                    name='termsChecked'
-                    color='primary'
-                  />
-                }
-                label={
-                  <LinkText
-                    className={classes.termsLinkColor}
-                    to={RoutesPaths.App.TermsAndConditions}>
-                    I agree with the terms and conditions
+            (authManager.isClient() && activeStep === 1) ||
+            (authManager.isClient() && !isClientEmployed) ? (
+              <Box
+                display={'flex'}
+                width={'100%'}
+                justifyContent={'space-between'}
+                margin={'0 16px'}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={onTermsChecked}
+                      name='termsChecked'
+                      color='primary'
+                    />
+                  }
+                  label={
+                    <LinkText
+                      className={classes.termsLinkColor}
+                      to={RoutesPaths.App.TermsAndConditions}>
+                      I agree with the terms and conditions
                   </LinkText>
-                }
-              />
-              {isTermsChecked && (
-                <Button
-                  id='submitButton'
-                  type='submit'
-                  disabled={loading}
-                  variant='contained'
-                  style={nextButtonStyles(loading)}
-                  endIcon={<DoneIcon />}>
-                  {t['submit']}
-                </Button>
-              )}
-            </Box>
-          ) : (
-            <Button
-              id='nextButton'
-              disabled={stepValid() || loading}
-              onClick={proceedToNextStep}
-              variant='contained'
-              style={nextButtonStyles(stepValid() || loading)}
-              endIcon={<ArrowForwardIosIcon />}>
-              {t['next']}
-            </Button>
-          )}
+                  }
+                />
+                {isTermsChecked && (
+                  <Button
+                    id='submitButton'
+                    type='submit'
+                    disabled={loading}
+                    variant='contained'
+                    style={nextButtonStyles(loading)}
+                    endIcon={<DoneIcon />}>
+                    {t['submit']}
+                  </Button>
+                )}
+              </Box>
+            ) : (
+              <Button
+                id='nextButton'
+                disabled={stepValid() || loading}
+                onClick={proceedToNextStep}
+                variant='contained'
+                style={nextButtonStyles(stepValid() || loading)}
+                endIcon={<ArrowForwardIosIcon />}>
+                {t['next']}
+              </Button>
+            )}
         </Grid>
       </form>
       <BackDialog
