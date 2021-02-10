@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { FormContext, useForm } from 'react-hook-form';
 import StepOne from './StepOne';
 import StepsIndicator from './StepsIndicator';
@@ -8,7 +8,7 @@ import {
   stepIndicatorStyles,
   useStyles,
 } from '../../../styles/formsStyles';
-import { Box, Button, Checkbox, FormControlLabel } from '@material-ui/core';
+import { Checkbox, FormControlLabel } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
@@ -19,16 +19,17 @@ import {
   completeFreelancerProfile,
   completeClientProfile,
   uploadCV,
-} from '../../../apis/userAPI';
+} from 'apis/userAPI';
 import { useHistory } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import BackDialog from './BackDialog';
-import t from '../../../locales/en/freelancerProfile.json';
+import t from 'locales/en/freelancerProfile.json';
 import ClientStepOne from 'components/forms/ClientStepOne';
 import ClientStepTwo from 'components/forms/ClientStepTwo';
 import authManager from 'services/authManager';
 import { RoutesPaths } from 'constants/routesPath';
 import LinkText from 'components/typography/LinkText';
+import SubmitButton from 'components/buttons/SubmitButton';
 
 const FreeLancerProfileForm = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -63,7 +64,7 @@ const FreeLancerProfileForm = () => {
   const [isBackDialogueOpen, setIsDialogueOpen] = useState(false);
   const [isConfirmedBack, setIsConfirmedBack] = useState(false);
   const [isTermsChecked, setIsTermsChecked] = useState(false);
-  const stepsFields = [
+  const consultantStepsFields = [
     ['gender', 'country', 'mobileNumber', 'currentEmploymentStatus'],
     [
       'industriesOfExperience',
@@ -75,15 +76,35 @@ const FreeLancerProfileForm = () => {
     [],
   ];
 
-  const stepValid = useCallback(() => {
+  const clientStepFields = [
+    ['gender', 'country'],
+    ['organizationLevel', 'jobTitle', 'company'],
+  ];
+
+  const isClientEmployed = watch('isEmployed');
+  const isCurrentstepInValid = useCallback(() => {
+    let currentStepFields;
+    if (authManager.isClient()) {
+      currentStepFields = clientStepFields[activeStep];
+    } else {
+      currentStepFields = consultantStepsFields[activeStep];
+    }
     const hasAnyInvalidField = Object.keys(errors).some((error) =>
-      stepsFields[activeStep].includes(error),
+      currentStepFields.includes(error),
     );
-    const anyFieldUninitialized = stepsFields[activeStep]?.some(
-      (field) => getValues(field) === undefined,
+    const anyFieldUninitialized = currentStepFields?.some(
+      (field) => !getValues(field),
     );
     return hasAnyInvalidField || anyFieldUninitialized;
   }, [errors, activeStep]);
+
+  const isFinalStep = useMemo(() => {
+    return (
+      activeStep === 2 ||
+      (authManager.isClient() && activeStep === 1) ||
+      (authManager.isClient() && !isClientEmployed)
+    );
+  }, [activeStep, isClientEmployed]);
 
   function validateNestedFields(userToBeSubmitted) {
     let experiences = [...userToBeSubmitted.experiences];
@@ -180,7 +201,10 @@ const FreeLancerProfileForm = () => {
 
   function proceedToNextStep() {
     if (activeStep < 2) {
-      user.current = { ...user.current, ...getValues(stepsFields[activeStep]) };
+      user.current = {
+        ...user.current,
+        ...getValues(consultantStepsFields[activeStep]),
+      };
       setActiveStep(activeStep + 1);
     }
   }
@@ -206,7 +230,9 @@ const FreeLancerProfileForm = () => {
     setIsTermsChecked(!isTermsChecked);
   };
 
-  const isClientEmployed = watch('isEmployed');
+  const isGoNextDisabled = isCurrentstepInValid() || loading;
+  const isSubmitDisabled = !isTermsChecked || isCurrentstepInValid() || loading;
+
   return (
     <div className={classes.freelancerProfileContainer}>
       <Hidden smDown>
@@ -239,6 +265,31 @@ const FreeLancerProfileForm = () => {
           {activeStep === 0 && authManager.isClient() && <ClientStepOne />}
           {activeStep === 1 && authManager.isClient() && <ClientStepTwo />}
         </FormContext>
+        {!!isFinalStep && (
+          <Grid
+            item
+            className={classes.acceptTermsContainer}
+            xs={12}
+            sm={7}
+            lg={5}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={onTermsChecked}
+                  name='termsChecked'
+                  color='primary'
+                />
+              }
+              label={
+                <LinkText
+                  className={classes.termsLinkColor}
+                  to={RoutesPaths.App.TermsAndConditions}>
+                  I agree with the terms and conditions
+                </LinkText>
+              }
+            />
+          </Grid>
+        )}
         <Grid
           item
           className={[classes.buttonsContainer, classes.nextBtnContainer]}
@@ -251,62 +302,36 @@ const FreeLancerProfileForm = () => {
           sm={7}
           lg={5}>
           {activeStep !== 0 && (
-            <Button
+            <SubmitButton
+              buttonText={t['back']}
               onClick={getBackToPreviousStep}
               id='backButton'
               disabled={loading}
               variant='contained'
-              startIcon={<ArrowBackIosIcon />}>
-              {t['back']}
-            </Button>
+              startIcon={<ArrowBackIosIcon />}
+            />
           )}
-          {activeStep === 2 ||
-            (authManager.isClient() && activeStep === 1) ||
-            (authManager.isClient() && !isClientEmployed) ? (
-              <Box
-                display={'flex'}
-                width={'100%'}
-                justifyContent={'space-between'}
-                margin={'0 16px'}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      onChange={onTermsChecked}
-                      name='termsChecked'
-                      color='primary'
-                    />
-                  }
-                  label={
-                    <LinkText
-                      className={classes.termsLinkColor}
-                      to={RoutesPaths.App.TermsAndConditions}>
-                      I agree with the terms and conditions
-                  </LinkText>
-                  }
-                />
-                {isTermsChecked && (
-                  <Button
-                    id='submitButton'
-                    type='submit'
-                    disabled={loading}
-                    variant='contained'
-                    style={nextButtonStyles(loading)}
-                    endIcon={<DoneIcon />}>
-                    {t['submit']}
-                  </Button>
-                )}
-              </Box>
-            ) : (
-              <Button
-                id='nextButton'
-                disabled={stepValid() || loading}
-                onClick={proceedToNextStep}
-                variant='contained'
-                style={nextButtonStyles(stepValid() || loading)}
-                endIcon={<ArrowForwardIosIcon />}>
-                {t['next']}
-              </Button>
-            )}
+          {!!isFinalStep ? (
+            <SubmitButton
+              buttonText={t['submit']}
+              id='submitButton'
+              type='submit'
+              disabled={isSubmitDisabled}
+              variant='contained'
+              style={nextButtonStyles(isSubmitDisabled)}
+              endIcon={<DoneIcon />}
+            />
+          ) : (
+            <SubmitButton
+              buttonText={t['next']}
+              id='nextButton'
+              disabled={isGoNextDisabled}
+              onClick={proceedToNextStep}
+              variant='contained'
+              style={nextButtonStyles(isGoNextDisabled)}
+              endIcon={<ArrowForwardIosIcon />}
+            />
+          )}
         </Grid>
       </form>
       <BackDialog

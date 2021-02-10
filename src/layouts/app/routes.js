@@ -257,15 +257,6 @@ const appRoutes = [
   },
 
   {
-    path: RoutesPaths.App.UserTypeSelection,
-    name: 'User Type',
-    icon: DashboardIcon,
-    Component: UserTypeSelection,
-    includeLayout: true,
-    isPublic: false,
-    hasDashboardLink: false,
-  },
-  {
     path: RoutesPaths.App.NotFound,
     name: 'Not Found',
     icon: DashboardIcon,

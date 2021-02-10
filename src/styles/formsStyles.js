@@ -6,7 +6,7 @@ import {
   white,
   lightOrange,
   darkOrange,
-  lighterGrey
+  lighterGrey,
 } from './colors';
 
 export const useStyles = makeStyles((theme) => ({
@@ -107,8 +107,8 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     backgroundColor: lightOrange,
     '&:hover': {
-      backgroundColor: darkOrange
-    }
+      backgroundColor: darkOrange,
+    },
   },
   progressContainer: {
     position: 'absolute',
@@ -123,14 +123,14 @@ export const useStyles = makeStyles((theme) => ({
   signupLink: {
     color: white,
     fontSize: 'initial',
-    textDecoration: 'none'
+    textDecoration: 'none',
   },
   forgetPasswordLink: {
     margin: theme.spacing(1),
     color: lightOrange,
     fontSize: 'initial',
     textAlign: 'right',
-    width: '100%'
+    width: '100%',
   },
   newUser: {
     marginTop: theme.spacing(4),
@@ -139,11 +139,11 @@ export const useStyles = makeStyles((theme) => ({
     borderBottom: '1px solid #d1d0d0',
     lineHeight: '0.1em',
     margin: '10px 0 20px',
-    zIndex: 999
+    zIndex: 999,
   },
   forgetPasswordHeader: {
     color: darkOrange,
-    marginBottom: 20
+    marginBottom: 20,
   },
   forgetPasswordForm: {
     border: '1px solid #ccc',
@@ -319,7 +319,7 @@ export const useStyles = makeStyles((theme) => ({
     color: grey,
   },
   logInPageContainer: {
-    padding: theme.spacing(5)
+    padding: theme.spacing(5),
   },
   alignRight: { alignSelf: 'center' },
   loginInTitleContainer: { height: 'fit-content', marginBottom: '50px' },
@@ -414,6 +414,16 @@ export const useStyles = makeStyles((theme) => ({
     alignSelf: 'center',
     width: '100%',
     marginTop: '40px !important',
+  },
+  acceptTermsContainer: {
+    marginTop: '40px !important',
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: '10px',
+    marginBottom: '-20px',
+    alignSelf: 'center',
+    width: '100%',
+    padding: '25px',
   },
   nextBtnContainerFlexEnd: {
     justifyContent: 'space-between',

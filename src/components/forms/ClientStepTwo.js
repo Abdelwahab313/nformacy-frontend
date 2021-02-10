@@ -22,7 +22,7 @@ import { organizationalLevel } from '../../constants/dropDownOptions';
 import { useTranslation } from 'react-i18next';
 
 const ClientStepTwo = () => {
-  const { errors, control, register } = useFormContext();
+  const { errors, control, register, user } = useFormContext();
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -69,8 +69,7 @@ const ClientStepTwo = () => {
                     name='organizationLevel'
                     rules={{ required: t('requiredMessage') }}
                     control={control}
-                    defaultValue={0}
-                    // defaultValue={!user.current.country && 0}
+                    defaultValue={!user.current.organizationLevel && ''}
                     as={
                       <ReactSelectMaterialUi
                         fullWidth={true}
