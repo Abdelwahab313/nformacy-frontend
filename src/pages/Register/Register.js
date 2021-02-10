@@ -51,7 +51,7 @@ const Register = () => {
       .catch(({ response }) => {
         response.data.errors.forEach((error) => {
           if (error.includes('Email')) {
-            setError('email', 'Already exists', 'This email address is taken');
+            setError('email', 'Already exists', 'This email address already exists');
           }
         });
         setUser({

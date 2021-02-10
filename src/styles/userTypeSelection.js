@@ -17,6 +17,13 @@ export const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(3),
   },
+  capitalizeText: {
+    textTransform: 'none',
+    padding: 20
+  },
+  centerCard: {
+    textAlign: 'center'
+  },
   usersTypeContainerBorder: {
     borderRadius: 25,
     overflow: 'hidden',

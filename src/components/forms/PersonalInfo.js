@@ -150,6 +150,7 @@ const PersonalInfo = () => {
                 required: t['requiredMessage'],
               }}
               enableSearch
+              placeholder='Mobile Number'
             />
           }
           name='mobileNumber'

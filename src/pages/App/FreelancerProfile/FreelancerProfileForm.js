@@ -282,7 +282,7 @@ const FreeLancerProfileForm = () => {
                   <LinkText
                     className={classes.termsLinkColor}
                     to={RoutesPaths.App.TermsAndConditions}>
-                    I agree to the terms and conditions of the website
+                    I agree with the terms and conditions
                   </LinkText>
                 }
               />

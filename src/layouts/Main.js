@@ -12,9 +12,8 @@ import {
   brightGray,
   darkBlue,
   grey,
-  lighterPink,
   lightGrey,
-  lightPink,
+  lighterGrey,
 } from 'styles/colors';
 import MainRouter from 'layouts/MainRouter';
 import '../styles/fonts.css';
@@ -51,8 +50,8 @@ function Main() {
     direction: DIRECTIONS[locale],
     palette: {
       primary: {
-        lighter: lighterPink,
-        light: lightPink,
+        lighter: lighterGrey,
+        light: lightGrey,
         main: darkBlue,
       },
       secondary: {

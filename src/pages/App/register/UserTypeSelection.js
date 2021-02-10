@@ -40,7 +40,7 @@ const UserTypeSelection = () => {
       alignItems='center'
       className={clsx(classes.usersTypeContainer)}
       spacing={5}>
-      <Grid item xs={12} sm={5} lg={3}>
+      <Grid item xs={12} sm={5} lg={3} className={classes.centerCard}>
         <Button
           onClick={() => onTypeClick('client')}
           className={classes.usersTypeContainerBorder}>
@@ -50,21 +50,21 @@ const UserTypeSelection = () => {
               className={classes.userImg}
             />
             <Box
-              className={classes.userTypeDesc}
+              className={classes.capitalizeText}
               borderColor='primary.main'
               color='primary.main'>
               <CustomTypography variant='h6' fontWeight='bold'>
                 I am a Client
               </CustomTypography>
               <CustomTypography>
-                I want to<strong> Receive</strong> Professional Services
+                I want to<strong> RECEIVE </strong> Professional Services
               </CustomTypography>
             </Box>
           </Box>
         </Button>
       </Grid>
 
-      <Grid item xs={12} sm={5} lg={3}>
+      <Grid item xs={12} sm={5} lg={3} className={classes.centerCard}>
         <Button
           onClick={() => onTypeClick('freelancer')}
           className={classes.usersTypeContainerBorder}>
@@ -74,14 +74,14 @@ const UserTypeSelection = () => {
               className={classes.userImg}
             />
             <Box
-              className={classes.userTypeDesc}
+              className={classes.capitalizeText}
               borderColor='#bc5003'
               color='#bc5003'>
               <CustomTypography variant='h6' fontWeight='bold'>
                 I am a Consultant
               </CustomTypography>
               <CustomTypography>
-                I want to<strong> provide </strong> Professional Services
+                I want to<strong> PROVIDE </strong> Professional Services
               </CustomTypography>
             </Box>
           </Box>

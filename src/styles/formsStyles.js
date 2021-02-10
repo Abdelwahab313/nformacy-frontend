@@ -1,13 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
 import {
   grey,
-  lighterPink,
   lightGrey,
-  lightPink,
   darkBlue,
   white,
   lightOrange,
-  darkOrange
+  darkOrange,
+  lighterGrey
 } from './colors';
 
 export const useStyles = makeStyles((theme) => ({
@@ -500,7 +499,7 @@ export const radioStyle = makeStyles({
       outlineOffset: 2,
     },
     'input:hover ~ &': {
-      backgroundColor: lightPink,
+      backgroundColor: lightGrey,
     },
     'input:disabled ~ &': {
       boxShadow: 'none',
@@ -520,7 +519,7 @@ export const radioStyle = makeStyles({
       content: '""',
     },
     'input:hover ~ &': {
-      backgroundColor: lightPink,
+      backgroundColor: lightGrey,
     },
   },
 });
@@ -529,7 +528,7 @@ export const checkboxStyle = {
 };
 
 export const dividerStyle = {
-  backgroundColor: lightPink,
+  backgroundColor: lightGrey,
 };
 export const greyDividerStyle = {
   backgroundColor: lightGrey,
@@ -544,7 +543,7 @@ export const stepIndicatorStyles = {
 
 export const nextButtonStyles = (disabled) => {
   return {
-    backgroundColor: disabled ? lighterPink : darkBlue,
+    backgroundColor: disabled ? lighterGrey : darkBlue,
     color: white,
     alignSelf: 'center',
   };
