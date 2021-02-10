@@ -28,16 +28,16 @@ const StepThree = () => {
             xs={12}
             md={6}>
             <Paper className={classes.paperSection} elevation={5}>
-              <CV/>
+              <CV />
             </Paper>
             <Paper className={classes.paperSection} elevation={5}>
-              <WorkExperience/>
+              <WorkExperience />
             </Paper>
             <Paper className={classes.paperSection} elevation={5}>
-              <Education/>
+              <Education />
             </Paper>
             <Paper className={classes.paperSection} elevation={5}>
-              <Certification/>
+              <Certification />
             </Paper>
           </Grid>
         </Grow>

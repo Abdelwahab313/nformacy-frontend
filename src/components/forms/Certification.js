@@ -35,7 +35,7 @@ const Certification = () => {
     <Container className={classes.nestedContainer}>
       <Grid container alignItems='center'>
         <Grid item xs>
-          <Typography gutterBottom variant='h4'>
+          <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
             {t['certifications']}
           </Typography>
         </Grid>

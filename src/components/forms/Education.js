@@ -1,4 +1,3 @@
-import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -35,7 +34,7 @@ const Education = () => {
     <Container className={classes.nestedContainer}>
       <Grid container alignItems='center'>
         <Grid item xs>
-          <Typography gutterBottom variant='h4'>
+          <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
             {t['education']}
           </Typography>
         </Grid>

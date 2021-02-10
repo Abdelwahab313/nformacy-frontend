@@ -48,7 +48,7 @@ const WorkExperience = () => {
     <Container maxWidth={false} className={classes.nestedContainer}>
       <Grid container alignItems='center'>
         <Grid item xs>
-          <Typography gutterBottom variant='h4'>
+          <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
             {t['workExperience']}
           </Typography>
         </Grid>
