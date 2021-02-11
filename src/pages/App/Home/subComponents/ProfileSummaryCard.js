@@ -16,7 +16,6 @@ const ProfileSummaryCard = () => {
     user.current.avatar || require('../../../../assets/emptyavatar.jpg'),
   );
 
-  const consultantIndustries = user?.current?.industriesOfExperience?.length > 0 && user?.current?.industriesOfExperience[0]?.label;
   return (
     <Card className={classes.card}>
       <CardActionArea
@@ -36,7 +35,7 @@ const ProfileSummaryCard = () => {
             {user.current.firstName + ' ' + user.current.lastName}
           </Typography>
           <Typography align={'center'} variant="body2" color="textSecondary" component="p">
-            {authManager.isClient() ? user.current.jobTitle : 'Expert in the field/fields: '}
+            {authManager.isClient() ? user.current.jobTitle : 'Expert in: '}
           </Typography>
           {!authManager.isClient() && (
             <div className={classes.fieldInProfile}>
@@ -44,7 +43,7 @@ const ProfileSummaryCard = () => {
             </div>
           )}
           <Typography align={'center'} variant="body2" color="textSecondary" component="p">
-            {authManager.isClient() ? user.current.organizationName : `In ${consultantIndustries} industry`}
+            {authManager.isClient() && user.current.organizationName}
           </Typography>
         </CardContent>
       </CardActionArea>

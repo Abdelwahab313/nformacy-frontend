@@ -174,7 +174,7 @@ const ServiceRequestForm = ({
                   (option) => serviceRequest.assignmentType === option.value,
                 )[0]
               }
-              fieldLabel={t('assignmentType')}
+              fieldLabel={t('service')}
               disabled
             />
           </GridItem>

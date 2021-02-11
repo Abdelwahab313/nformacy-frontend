@@ -80,33 +80,35 @@ const ClientActivityTable = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {servicesRows.length === 0 ? 'Sorry, no matching records found' : servicesRows.map((service) => (
-                  <StyledTableRow
-                    reference-number={service.serviceRef}
-                    key={service.id}>
-                    <StyledTableCell scope='row'>
-                      {service.requestType}
-                    </StyledTableCell>
-                    <StyledTableCell>{service.serviceRef}</StyledTableCell>
-                    <StyledTableCell className={classes.desktopVisible}>
-                      {service.title}
-                    </StyledTableCell>
-                    <StyledTableCell className={classes.desktopVisible}>
-                      {service.createdAt}
-                    </StyledTableCell>
-                    <StyledTableCell>{service.status}</StyledTableCell>
-                    <StyledTableCell
-                      className={[classes.desktopVisible, 'action']}>
-                      {service.action}
-                    </StyledTableCell>
-                    <StyledTableCell className={classes.desktopVisible}>
-                      {service.actionTime}
-                    </StyledTableCell>
-                    <StyledTableCell className={classes.desktopVisible}>
-                      {service.alarm}
-                    </StyledTableCell>
-                  </StyledTableRow>
-                ))}
+                {servicesRows.length === 0 ?
+                  <TableCell colspan="8" className={classes.noRecords}>Sorry, no matching records found</TableCell>
+                  : servicesRows.map((service) => (
+                    <StyledTableRow
+                      reference-number={service.serviceRef}
+                      key={service.id}>
+                      <StyledTableCell scope='row'>
+                        {service.requestType}
+                      </StyledTableCell>
+                      <StyledTableCell>{service.serviceRef}</StyledTableCell>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {service.title}
+                      </StyledTableCell>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {service.createdAt}
+                      </StyledTableCell>
+                      <StyledTableCell>{service.status}</StyledTableCell>
+                      <StyledTableCell
+                        className={[classes.desktopVisible, 'action']}>
+                        {service.action}
+                      </StyledTableCell>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {service.actionTime}
+                      </StyledTableCell>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {service.alarm}
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>
@@ -129,5 +131,9 @@ const useStyles = makeStyles((theme) => ({
   activityTable: {
     width: '100%',
   },
+  noRecords: {
+    textAlign: 'center',
+    fontWeight: 'bold'
+  }
 }));
 export default ClientActivityTable;

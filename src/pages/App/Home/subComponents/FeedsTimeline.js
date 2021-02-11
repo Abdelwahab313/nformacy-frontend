@@ -5,6 +5,7 @@ import HomePageCard from './HomePageCard';
 import { RoutesPaths } from 'constants/routesPath';
 import ShowMore from 'components/typography/ShowMore';
 import { useTranslation } from 'react-i18next';
+import ComingSoonWrapper from 'components/grid/ComingSoonWrapper';
 
 const FeedsTimeline = () => {
   const classes = useStyles();
@@ -19,158 +20,120 @@ const FeedsTimeline = () => {
         <Grid
           container
           className={[classes.askQuestionBox, classes.feedsTimelineContainer]}>
-          <Grid container className={classes.feedsSectionContainer}>
-            <Grid item xs={6} md={10} className={classes.feedsLeftSide}>
-              <Typography
-                align={'left'}
-                variant='p'
-                component='p'
-                className={classes.feedsHeader}>
-                Introduction to Human Resource
+          <ComingSoonWrapper>
+            <Grid container className={classes.feedsSectionContainer}>
+              <Grid item xs={6} md={10} className={classes.feedsLeftSide}>
+                <Typography
+                  align={'left'}
+                  variant='p'
+                  component='p'
+                  className={classes.feedsHeader}>
+                  Introduction to Human Resource
               </Typography>
-              <Typography
-                align={'left'}
-                component='p'
-                className={classes.feedsSubText}>
-                <ShowMore>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s.
+                <Typography
+                  align={'left'}
+                  component='p'
+                  className={classes.feedsSubText}>
+                  <ShowMore>
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the 1500s.
                   </p>
-                </ShowMore>
-              </Typography>
+                  </ShowMore>
+                </Typography>
 
-              <Typography
-                align={'left'}
-                component='p'
-                className={classes.feedsDate}>
-                23 Answers <span className={classes.dot}> </span> Oct 14
+                <Typography
+                  align={'left'}
+                  component='p'
+                  className={classes.feedsDate}>
+                  23 Answers <span className={classes.dot}> </span> Oct 14
               </Typography>
+              </Grid>
+
+              <Grid item xs={6} md={2} className={classes.feedsRightSide}>
+                <img
+                  className={classes.feedsImg}
+                  color={'primary'}
+                  src={require('../../../../assets/feeds1.jpg')}
+                />
+              </Grid>
             </Grid>
-
-            <Grid item xs={6} md={2} className={classes.feedsRightSide}>
-              <img
-                className={classes.feedsImg}
-                color={'primary'}
-                src={require('../../../../assets/feeds1.jpg')}
-              />
-            </Grid>
-          </Grid>
-
-          <Divider className={[classes.dividers, classes.feedsDivider]} />
-          <Grid container className={classes.feedsSectionContainer}>
-            <Grid item xs={6} md={10} className={classes.feedsLeftSide}>
-              <Typography
-                align={'left'}
-                variant='p'
-                component='p'
-                className={classes.feedsHeader}>
-                Introduction to Human Resource
+            <Divider className={[classes.dividers, classes.feedsDivider]} />
+            <Grid container className={classes.feedsSectionContainer}>
+              <Grid item xs={6} md={10} className={classes.feedsLeftSide}>
+                <Typography
+                  align={'left'}
+                  variant='p'
+                  component='p'
+                  className={classes.feedsHeader}>
+                  Introduction to Human Resource
               </Typography>
-              <Typography
-                align={'left'}
-                component='p'
-                className={classes.feedsSubText}>
-                <ShowMore>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s.
+                <Typography
+                  align={'left'}
+                  component='p'
+                  className={classes.feedsSubText}>
+                  <ShowMore>
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the 1500s.
                   </p>
-                </ShowMore>
+                  </ShowMore>
+                </Typography>
+                <Typography
+                  align={'left'}
+                  component='p'
+                  className={classes.feedsDate}>
+                  23 Answers <span className={classes.dot}></span> Oct 14
               </Typography>
-              <Typography
-                align={'left'}
-                component='p'
-                className={classes.feedsDate}>
-                23 Answers <span className={classes.dot}></span> Oct 14
-              </Typography>
+              </Grid>
+              <Grid item xs={6} md={2} className={classes.feedsRightSide}>
+                <img
+                  className={classes.feedsImg}
+                  color={'primary'}
+                  src={require('../../../../assets/feeds2.jpg')}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={6} md={2} className={classes.feedsRightSide}>
-              <img
-                className={classes.feedsImg}
-                color={'primary'}
-                src={require('../../../../assets/feeds2.jpg')}
-              />
-            </Grid>
-          </Grid>
-
-          <Divider className={[classes.dividers, classes.feedsDivider]} />
-          <Grid container className={classes.feedsSectionContainer}>
-            <Grid item xs={6} md={10} className={classes.feedsLeftSide}>
-              <Typography
-                align={'left'}
-                variant='p'
-                component='p'
-                className={classes.feedsHeader}>
-                Introduction to Human Resource
+            <Divider className={[classes.dividers, classes.feedsDivider]} />
+            <Grid container className={classes.feedsSectionContainer}>
+              <Grid item xs={6} md={10} className={classes.feedsLeftSide}>
+                <Typography
+                  align={'left'}
+                  variant='p'
+                  component='p'
+                  className={classes.feedsHeader}>
+                  Introduction to Human Resource
               </Typography>
-              <Typography
-                align={'left'}
-                component='p'
-                className={classes.feedsSubText}>
-                <ShowMore>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s.
+                <Typography
+                  align={'left'}
+                  component='p'
+                  className={classes.feedsSubText}>
+                  <ShowMore>
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the 1500s.
                   </p>
-                </ShowMore>
+                  </ShowMore>
+                </Typography>
+                <Typography
+                  align={'left'}
+                  component='p'
+                  className={classes.feedsDate}>
+                  23 Answers <span className={classes.dot}></span> Oct 14
               </Typography>
-              <Typography
-                align={'left'}
-                component='p'
-                className={classes.feedsDate}>
-                23 Answers <span className={classes.dot}></span> Oct 14
-              </Typography>
+              </Grid>
+              <Grid item xs={6} md={2} className={classes.feedsRightSide}>
+                <img
+                  className={classes.feedsImg}
+                  color={'primary'}
+                  src={require('../../../../assets/feeds1.jpg')}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={6} md={2} className={classes.feedsRightSide}>
-              <img
-                className={classes.feedsImg}
-                color={'primary'}
-                src={require('../../../../assets/feeds1.jpg')}
-              />
-            </Grid>
-          </Grid>
-          <Divider className={[classes.dividers, classes.feedsDivider]} />
-
-          <Grid container className={classes.feedsSectionContainer}>
-            <Grid item xs={6} md={10} className={classes.feedsLeftSide}>
-              <Typography
-                align={'left'}
-                variant='p'
-                component='p'
-                className={classes.feedsHeader}>
-                Introduction to Human Resource
-              </Typography>
-              <Typography
-                align={'left'}
-                component='p'
-                className={classes.feedsSubText}>
-                <ShowMore>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s.
-                  </p>
-                </ShowMore>
-              </Typography>
-              <Typography
-                align={'left'}
-                component='p'
-                className={classes.feedsDate}>
-                23 Answers <span className={classes.dot}></span> Oct 14
-              </Typography>
-            </Grid>
-            <Grid item xs={6} md={2} className={classes.feedsRightSide}>
-              <img
-                className={classes.feedsImg}
-                color={'primary'}
-                src={require('../../../../assets/feeds2.jpg')}
-              />
-            </Grid>
-          </Grid>
+          </ComingSoonWrapper>
         </Grid>
       </HomePageCard>
     </Box>

@@ -88,37 +88,39 @@ const ConsultantActivityTable = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {parsedActivitiesToTable.map((dataRow) => (
-                  <StyledTableRow
-                    reference-number={dataRow.activityId}
-                    key={dataRow.id}>
-                    <StyledTableCell>{dataRow.activityId}</StyledTableCell>
-                    <StyledTableCell>{dataRow.requestType}</StyledTableCell>
-                    <StyledTableCell className={classes.desktopVisible}>
-                      {dataRow.title}
-                    </StyledTableCell>
-                    <StyledTableCell className={classes.desktopVisible}>
-                      {dataRow.date}
-                    </StyledTableCell>
-                    <StyledTableCell className={classes.desktopVisible}>
-                      {dataRow.fields}
-                    </StyledTableCell>
-                    <StyledTableCell className={classes.desktopVisible}>
-                      {dataRow.answerRef}
-                    </StyledTableCell>
-                    <StyledTableCell>{dataRow.status}</StyledTableCell>
-                    <StyledTableCell
-                      className={[classes.desktopVisible, 'action']}>
-                      {dataRow.action}
-                    </StyledTableCell>
-                    <StyledTableCell className={classes.desktopVisible}>
-                      {dataRow.time}
-                    </StyledTableCell>
-                    <StyledTableCell className={classes.desktopVisible}>
-                      {dataRow.timeAlarm}
-                    </StyledTableCell>
-                  </StyledTableRow>
-                ))}
+                {parsedActivitiesToTable.length === 0 ?
+                  <TableCell colspan="8" className={classes.noRecords}>Sorry, no matching records found</TableCell>
+                  : parsedActivitiesToTable.map((dataRow) => (
+                    <StyledTableRow
+                      reference-number={dataRow.activityId}
+                      key={dataRow.id}>
+                      <StyledTableCell>{dataRow.activityId}</StyledTableCell>
+                      <StyledTableCell>{dataRow.requestType}</StyledTableCell>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {dataRow.title}
+                      </StyledTableCell>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {dataRow.date}
+                      </StyledTableCell>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {dataRow.fields}
+                      </StyledTableCell>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {dataRow.answerRef}
+                      </StyledTableCell>
+                      <StyledTableCell>{dataRow.status}</StyledTableCell>
+                      <StyledTableCell
+                        className={[classes.desktopVisible, 'action']}>
+                        {dataRow.action}
+                      </StyledTableCell>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {dataRow.time}
+                      </StyledTableCell>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {dataRow.timeAlarm}
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>
@@ -141,5 +143,9 @@ const useStyles = makeStyles((theme) => ({
   activityTable: {
     width: '100%',
   },
+  noRecords: {
+    textAlign: 'center',
+    fontWeight: 'bold'
+  }
 }));
 export default ConsultantActivityTable;

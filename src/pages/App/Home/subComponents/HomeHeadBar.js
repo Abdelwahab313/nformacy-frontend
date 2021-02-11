@@ -28,7 +28,7 @@ const HomeHeadBar = () => {
           variant='h3'
           component='h3'
           className={classes.headerCardTxt}>
-          {currentUser.firstName + ' ' + currentUser.lastName + ' Work-Space'}
+          {currentUser.firstName + ' ' + currentUser.lastName + ' Workspace'}
         </Typography>
       </Card>
       <Box className={classes.profileMobile}>

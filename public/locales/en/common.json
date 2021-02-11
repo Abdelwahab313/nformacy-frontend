@@ -91,7 +91,7 @@
   "callServiceTitle": "Call the Expert",
   "callServiceSubTitle": "When you have a specific issue you need more guidance and insights on, you are looking for a trusted voice and reliable source of information to provide you with clear answers and put you in the right track. ",
   "callServicePoint_1": "Why to go for unverified sources of information when you have access to a top notch network of consultants which you can call and interact with.",
-  "callServicePoint_2": "How: submit the issue you want to discuss through the service form and we will do a screening assessment to provide you with the best fit short list of consultants who can support you in this need. You will select from the short-listed candidates and book the time of the call using our shared calendar, instantly you will receive the call link and all the needed incrustations. At the end of the call, the recording of the session will be uploaded into your personalized Work-Space for future access.",
+  "callServicePoint_2": "How: submit the issue you want to discuss through the service form and we will do a screening assessment to provide you with the best fit short list of consultants who can support you in this need. You will select from the short-listed candidates and book the time of the call using our shared calendar, instantly you will receive the call link and all the needed incrustations. At the end of the call, the recording of the session will be uploaded into your personalized Workspace for future access.",
   "callServiceDescription": "Do you have an urgent issue that needs an expert opinion? Schedule a call with one of our highly specialized experts and get your issue solved.",
   "callServiceButton": "Request a Call",
   "questionServiceTitle": "Assign a Consultant",
@@ -276,7 +276,7 @@
   "ourSolutions": "Our Solutions",
   "ourSolutionsDesc": "Choose the solution that meets your consultancy needs, from a single bite of advice up-to full project",
   "howWeWork": "How we Work",
-  "howWeWorkDesc": "nformacy is your second office, you only need to sign up to access your dynamic personalized Work-Space and start interacting with high-end subject matter experts in all areas of business.",
+  "howWeWorkDesc": "nformacy is your second office, you only need to sign up to access your dynamic personalized Workspace and start interacting with high-end subject matter experts in all areas of business.",
   "signUpDesc": "Fill in the short registration form and get instant access to nformacy network of experts.",
   "accessDeskSpace": "Access Desk Space",
   "accessDeskSpaceDesc": "Access your personal desk space and start receiving business publications in the fields of your interest.",
@@ -452,5 +452,6 @@
   "adviserUpdated": "Adviser updated successfully.",
   "adminAdded": "Admin added successfully.",
   "adviserAdded": "Adviser added successfully.",
-  "passwordsNotMatching": "Passwords don't match!"
+  "passwordsNotMatching": "Passwords don't match!",
+  "service": "Service"
 }
