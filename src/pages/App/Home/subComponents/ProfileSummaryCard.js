@@ -7,6 +7,7 @@ import useStyles from '../styles/HomePageStyles';
 import { Link } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import authManager from 'services/authManager';
+import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
 
 const ProfileSummaryCard = () => {
   const classes = useStyles();
@@ -15,6 +16,7 @@ const ProfileSummaryCard = () => {
     user.current.avatar || require('../../../../assets/emptyavatar.jpg'),
   );
 
+  const consultantIndustries = user?.current?.industriesOfExperience?.length > 0 && user?.current?.industriesOfExperience[0]?.label;
   return (
     <Card className={classes.card}>
       <CardActionArea
@@ -34,10 +36,15 @@ const ProfileSummaryCard = () => {
             {user.current.firstName + ' ' + user.current.lastName}
           </Typography>
           <Typography align={'center'} variant="body2" color="textSecondary" component="p">
-            {authManager.isClient() ? user.current.jobTitle : `Expert in the ${user.current.fields[0].label} field`}
+            {authManager.isClient() ? user.current.jobTitle : 'Expert in the field/fields: '}
           </Typography>
+          {!authManager.isClient() && (
+            <div className={classes.fieldInProfile}>
+              <ColoredFieldsChips fields={user?.current?.fields} />
+            </div>
+          )}
           <Typography align={'center'} variant="body2" color="textSecondary" component="p">
-            {authManager.isClient() ? user.current.organizationName : `In ${user.current.industriesOfExperience[0].label} industry`}
+            {authManager.isClient() ? user.current.organizationName : `In ${consultantIndustries} industry`}
           </Typography>
         </CardContent>
       </CardActionArea>

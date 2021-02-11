@@ -463,6 +463,10 @@ const useStyles = makeStyles((theme) => ({
       margin: '32px auto',
     },
   },
+  fieldInProfile: {
+    display: 'flex',
+    justifyContent: 'center'
+  }
 }));
 
 export default useStyles;
