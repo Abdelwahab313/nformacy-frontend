@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import useStyles from '../styles/HomePageStyles';
 import { Link } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
+import authManager from 'services/authManager';
 
 const ProfileSummaryCard = () => {
   const classes = useStyles();
@@ -33,10 +34,10 @@ const ProfileSummaryCard = () => {
             {user.current.firstName + ' ' + user.current.lastName}
           </Typography>
           <Typography align={'center'} variant="body2" color="textSecondary" component="p">
-            Expert in the (Fields/subfields)
+            {authManager.isClient() ? user.current.jobTitle : `Expert in the ${user.current.fields[0].label} field`}
           </Typography>
           <Typography align={'center'} variant="body2" color="textSecondary" component="p">
-            In these industries
+            {authManager.isClient() ? user.current.organizationName : `In ${user.current.industriesOfExperience[0].label} industry`}
           </Typography>
         </CardContent>
       </CardActionArea>
