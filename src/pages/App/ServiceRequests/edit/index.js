@@ -26,7 +26,8 @@ const EditServiceRequest = () => {
     content: assignmentType === 'call' ? CONTENT_FOR_CALL : content,
     assignmentType: assignmentType,
   });
-  const { showSuccessMessage, showErrorMessage } = useSnackBar();
+  const [errors, setErrors] = useState({});
+  const { showSuccessMessage } = useSnackBar();
 
   const isNoActionForm = serviceRequest?.state === SERVICE_STATUS.pending;
   const showDrafButtons =
@@ -56,13 +57,21 @@ const EditServiceRequest = () => {
     const charCount = richTextRef.current.editor.plugins.wordcount.body.getCharacterCount();
     return charCount >= 100;
   };
+
   const validate = (serviceRequest) => {
+    const validationErrors = {};
     if (!serviceRequest.title) {
-      showErrorMessage(t('titleValidation'));
-      return false;
+      validationErrors.title = { message: t('titleValidation') };
+    }
+    if (!serviceRequest.fields || !(serviceRequest.fields?.length > 0)) {
+      validationErrors.fields = { message: t('fieldsValidation') };
     }
     if (!validateRichTextCount()) {
-      showErrorMessage(t('contentValidation'));
+      validationErrors.content = { message: t('contentValidation') };
+    }
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return false;
     }
     return true;
@@ -103,6 +112,7 @@ const EditServiceRequest = () => {
               setServiceRequest={setServiceRequest}
               richTextRef={richTextRef}
               viewOnly={isNoActionForm}
+              errors={errors}
               primaryButton={{
                 id: 'submitQuestionButtonButton',
                 onClick: () => {

@@ -14,6 +14,7 @@
   "askTheExpert": "Ask the Expert",
   "titleValidation": "Please fill title for the service",
   "contentValidation": "Please fill content with min of 100 characters",
+  "fieldsValidation": "Please fill Specific fields for the Service",
   "serviceProcessed": "Question Processed",
   "serviceSaved": "Service Request has been Saved",
   "referenceId": "Reference ID",

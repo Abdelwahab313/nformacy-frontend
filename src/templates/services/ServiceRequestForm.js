@@ -24,6 +24,7 @@ import CardFooter from 'components/card/CardFooter';
 import authManager from 'services/authManager';
 import AttachmentUploader from 'components/forms/AttachmentUploader';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
+import ErrorMessage from 'components/errors/ErrorMessage';
 
 const useSelectStyles = makeStyles(() => ({
   disabledStyle: {
@@ -46,6 +47,7 @@ const ServiceRequestForm = ({
   viewOnly,
   primaryButton,
   secondaryButton,
+  errors = {},
 }) => {
   const classes = useStyles();
   const disabledClasses = useSelectStyles();
@@ -113,6 +115,7 @@ const ServiceRequestForm = ({
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
                 <Field disabled={viewOnly} />
+                <ErrorMessage errorField={errors.fields} />
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
                 <DropdownSelectField
@@ -142,6 +145,7 @@ const ServiceRequestForm = ({
               variant='outlined'
               disabled={viewOnly}
             />
+            <ErrorMessage errorField={errors.title} />
           </GridItem>
           <GridItem xs={12} sm={12} md={2}>
             <DropdownSelectField
@@ -212,6 +216,7 @@ const ServiceRequestForm = ({
                   disabled={viewOnly}
                 />
               </Grid>
+              <ErrorMessage errorField={errors.content} />
             </Grid>
           </GridItem>
         </GridContainer>
