@@ -65,7 +65,7 @@ const FieldsOfExperience = () => {
               {t['specificallyInHint']}
             </CustomTypography>
             <Field />
-            <ErrorMessage errorField={errors.specificFieldsOfExperience} />
+            <ErrorMessage errorField={errors.fields} />
           </Container>
         </Fragment>
       )}

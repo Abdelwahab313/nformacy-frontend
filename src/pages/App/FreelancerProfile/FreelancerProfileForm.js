@@ -19,6 +19,7 @@ import {
   completeFreelancerProfile,
   completeClientProfile,
   uploadCV,
+  updateProfile,
 } from 'apis/userAPI';
 import { useHistory } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
@@ -30,6 +31,7 @@ import authManager from 'services/authManager';
 import { RoutesPaths } from 'constants/routesPath';
 import LinkText from 'components/typography/LinkText';
 import SubmitButton from 'components/buttons/SubmitButton';
+import ContinueLater from './ContinueLater';
 
 const FreeLancerProfileForm = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -49,7 +51,7 @@ const FreeLancerProfileForm = () => {
       ...user.current,
       mobileNumber: user.current.mobileNumber || '',
       majorFieldsOfExperience: user.current.majorFieldsOfExperience || [],
-      specificFieldsOfExperience: user.current.specificFieldsOfExperience || [],
+      fields: user.current.fields || [],
     },
   });
   const history = useHistory();
@@ -68,8 +70,7 @@ const FreeLancerProfileForm = () => {
     ['gender', 'country', 'mobileNumber', 'currentEmploymentStatus'],
     [
       'industriesOfExperience',
-      'majorFieldsOfExperience',
-      'specificFieldsOfExperience',
+      'fields',
       'languageOfAssignments',
       'typesOfAssignments',
     ],
@@ -82,18 +83,21 @@ const FreeLancerProfileForm = () => {
   ];
 
   const isClientEmployed = watch('isEmployed');
-  const isCurrentstepInvalid = useCallback(() => {
-    let currentStepFields;
+
+  const currentStepFields = useMemo(() => {
     if (authManager.isClient()) {
-      currentStepFields = clientStepFields[activeStep];
+      return clientStepFields[activeStep];
     } else {
-      currentStepFields = consultantStepsFields[activeStep];
+      return consultantStepsFields[activeStep];
     }
+  }, [activeStep]);
+
+  const isCurrentstepInvalid = useCallback(() => {
     const hasAnyInvalidField = Object.keys(errors).some((error) =>
       currentStepFields.includes(error),
     );
     const anyFieldUninitialized = currentStepFields?.some(
-      (field) => !getValues(field),
+      (field) => !getValues(field) || getValues(field)?.length === 0,
     );
     return hasAnyInvalidField || anyFieldUninitialized;
   }, [errors, activeStep]);
@@ -182,20 +186,44 @@ const FreeLancerProfileForm = () => {
           }
         });
 
-      if (cv?.length > 0) {
-        const file = new Blob(cv);
-        const formData = new FormData();
-        formData.append('cv', file, cv[0].name);
+      submitCV();
+    }
+  };
 
-        uploadCV(formData, user.current.id)
-          .then((response) => {
-            const userFromStorage = JSON.parse(localStorage.getItem('user'));
-            userFromStorage.cv = response.data.cv;
-            localStorage.setItem('user', JSON.stringify(userFromStorage));
-            history.push(RoutesPaths.App.FreelancerSuccess);
-          })
-          .finally(() => setLoading(false));
-      }
+  const onClickSaveLater = () => {
+    user.current = {
+      ...user.current,
+      ...getValues(consultantStepsFields[activeStep]),
+    };
+    updateProfile({ ...user.current })
+      .then((response) => {
+        localStorage.setItem('user', JSON.stringify(response.data));
+        if (cv?.length === 0 || cv === undefined) {
+          history.push(RoutesPaths.App.FreelancerSuccess);
+        }
+      })
+      .finally(() => {
+        if (cv?.length === 0 || cv === undefined) {
+          setLoading(false);
+        }
+      });
+    submitCV();
+  };
+
+  const submitCV = () => {
+    if (cv?.length > 0) {
+      const file = new Blob(cv);
+      const formData = new FormData();
+      formData.append('cv', file, cv[0].name);
+
+      uploadCV(formData, user.current.id)
+        .then((response) => {
+          const userFromStorage = JSON.parse(localStorage.getItem('user'));
+          userFromStorage.cv = response.data.cv;
+          localStorage.setItem('user', JSON.stringify(userFromStorage));
+          history.push(RoutesPaths.App.FreelancerSuccess);
+        })
+        .finally(() => setLoading(false));
     }
   };
 
@@ -260,7 +288,7 @@ const FreeLancerProfileForm = () => {
           watch={watch}>
           {activeStep === 0 && authManager.isNormalUser() && <StepOne />}
           {activeStep === 1 && authManager.isNormalUser() && <StepTwo />}
-          {activeStep === 2 && <StepThree />}
+          {activeStep === 2 && authManager.isNormalUser() && <StepThree />}
 
           {activeStep === 0 && authManager.isClient() && <ClientStepOne />}
           {activeStep === 1 && authManager.isClient() && <ClientStepTwo />}
@@ -332,7 +360,13 @@ const FreeLancerProfileForm = () => {
             />
           )}
         </Grid>
+        <Hidden smDown>
+          <div style={stepIndicatorStyles.container}>
+            <ContinueLater onClickSaveLater={onClickSaveLater} />
+          </div>
+        </Hidden>
       </form>
+
       <BackDialog
         open={isBackDialogueOpen}
         isAgreed={isConfirmedBack}
