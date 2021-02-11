@@ -73,17 +73,19 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
         <StyledListText primary={'Profile'} />
       </MenuItem>
 
-      <MenuItem
-        id={'questionRoaster'}
-        key={'QuestionRoaster'}
-        onClick={() => handleClose()}
-        component={Link}
-        to={'/questions'}>
-        <ListItemIcon>
-          <HelpIcon color={'secondary'} />
-        </ListItemIcon>
-        <StyledListText primary={'Question Roaster'} />
-      </MenuItem>
+      {!authManager.isClient() && (
+        <MenuItem
+          id={'questionRoaster'}
+          key={'QuestionRoaster'}
+          onClick={() => handleClose()}
+          component={Link}
+          to={'/questions'}>
+          <ListItemIcon>
+            <HelpIcon color={'secondary'} />
+          </ListItemIcon>
+          <StyledListText primary={'Question Roaster'} />
+        </MenuItem>
+      )}
 
       {authManager.isClient() && (
         <MenuItem
