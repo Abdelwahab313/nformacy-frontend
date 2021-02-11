@@ -5,7 +5,6 @@ import LandingPage from 'pages/App/LandingPage/LandingPage';
 import Login from 'pages/auth/LoginUser';
 import Register from 'pages/Register/Register';
 import FreeLancerProfileForm from 'pages/App/FreelancerProfile/FreelancerProfileForm';
-import Success from 'pages/App/FreelancerProfile/success';
 import Logout from 'pages/auth/LogoutUser';
 import QuestionRoaster from 'pages/App/QuestionRoaster/QuestionRoasterView';
 import HomePage from 'pages/App/Home';
@@ -133,15 +132,6 @@ const appRoutes = [
     name: 'Profile',
     icon: DashboardIcon,
     Component: FreeLancerProfileForm,
-    includeLayout: true,
-    isPublic: false,
-    hasDashboardLink: false,
-  },
-  {
-    path: RoutesPaths.App.FreelancerSuccess,
-    name: 'success',
-    icon: DashboardIcon,
-    Component: Success,
     includeLayout: true,
     isPublic: false,
     hasDashboardLink: false,

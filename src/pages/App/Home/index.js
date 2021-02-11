@@ -33,16 +33,12 @@ const HomePage = () => {
     return <LoadingCircle />;
   }
 
-  if (authManager.isClient()) {
-    return (
-      <Fragment>
-        <ClientHomePage />
-        <SuccessDialogPage open={open} handleClose={handleClose} />
-      </Fragment>
-    );
-  } else {
-    return <ConsultantHomePage />;
-  }
+  return (
+    <Fragment>
+      {!!authManager.isClient() ? <ClientHomePage /> : <ConsultantHomePage />}
+      <SuccessDialogPage open={open} handleClose={handleClose} />
+    </Fragment>
+  );
 };
 
 export default HomePage;

@@ -31,6 +31,7 @@ import authManager from 'services/authManager';
 import { RoutesPaths } from 'constants/routesPath';
 import LinkText from 'components/typography/LinkText';
 import SubmitButton from 'components/buttons/SubmitButton';
+import { getDashboardLinkAfterSignup } from 'services/navigation';
 
 const FreeLancerProfileForm = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -146,9 +147,7 @@ const FreeLancerProfileForm = () => {
     completeClientProfile(userToBeSubmitted)
       .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));
-        history.push(RoutesPaths.App.Dashboard, {
-          isRecentlyRegistered: false,
-        });
+        history.push(getDashboardLinkAfterSignup());
       })
       .finally(() => {
         setLoading(false);
@@ -176,7 +175,7 @@ const FreeLancerProfileForm = () => {
         .then((response) => {
           localStorage.setItem('user', JSON.stringify(response.data));
           if (cv?.length === 0 || cv === undefined) {
-            history.push(RoutesPaths.App.FreelancerSuccess);
+            history.push(getDashboardLinkAfterSignup());
           }
         })
         .finally(() => {
@@ -198,7 +197,7 @@ const FreeLancerProfileForm = () => {
       .then((response) => {
         localStorage.setItem('user', JSON.stringify(response.data));
         if (cv?.length === 0 || cv === undefined) {
-          history.push(RoutesPaths.App.FreelancerSuccess);
+          history.push(getDashboardLinkAfterSignup());
         }
       })
       .finally(() => {
@@ -220,7 +219,7 @@ const FreeLancerProfileForm = () => {
           const userFromStorage = JSON.parse(localStorage.getItem('user'));
           userFromStorage.cv = response.data.cv;
           localStorage.setItem('user', JSON.stringify(userFromStorage));
-          history.push(RoutesPaths.App.FreelancerSuccess);
+          history.push(getDashboardLinkAfterSignup());
         })
         .finally(() => setLoading(false));
     }
@@ -335,6 +334,7 @@ const FreeLancerProfileForm = () => {
               id='backButton'
               disabled={loading}
               variant='contained'
+              className={classes.backButton}
               startIcon={<ArrowBackIosIcon />}
             />
           )}

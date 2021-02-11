@@ -435,6 +435,9 @@ export const useStyles = makeStyles((theme) => ({
     margin: `0 ${theme.spacing(2)}px`,
     alignSelf: 'flex-start',
   },
+  backButton: {
+    marginRight: 'auto',
+  },
 }));
 
 export const selectStyle = {

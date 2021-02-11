@@ -13,6 +13,13 @@ export const getQuestionDetailsLink = (questionId, serviceId) => {
   }
 };
 
+export const getDashboardLinkAfterSignup = () => {
+  return {
+    pathname: RoutesPaths.App.Dashboard,
+    state: { isRecentlyRegistered: true },
+  };
+};
+
 export const getQuestionDetails = (questionId) => {
   if (authManager.isAdmin()) {
     return getQuestionDetailsLinkForAdmin(questionId);
