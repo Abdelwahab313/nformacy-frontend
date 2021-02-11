@@ -97,7 +97,7 @@ const appRoutes = [
     name: 'Sign up',
     icon: DashboardIcon,
     Component: Register,
-    includeLayout: false,
+    includeLayout: true,
     isPublic: true,
     hasDashboardLink: false,
   },
