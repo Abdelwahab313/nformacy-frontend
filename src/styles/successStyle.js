@@ -5,7 +5,6 @@ export const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   successMessageContainer: {
-    height: '100vh',
     paddingTop: 50,
   },
   successText: {
