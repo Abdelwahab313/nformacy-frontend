@@ -47,6 +47,7 @@ const ClientActivityTable = () => {
   if (isLoading) {
     return <LoadingCircle />;
   }
+
   return (
     <HomePageCard
       title={t('myActivityTableTitle')}
@@ -79,7 +80,7 @@ const ClientActivityTable = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {servicesRows.map((service) => (
+                {servicesRows.length === 0 ? 'Sorry, no matching records found' : servicesRows.map((service) => (
                   <StyledTableRow
                     reference-number={service.serviceRef}
                     key={service.id}>
