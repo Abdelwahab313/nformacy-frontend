@@ -38,7 +38,7 @@ export default function MainHeader() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleMobileMenuOpen = () => {};
+  const handleMobileMenuOpen = () => { };
 
   const menuId = 'primary-search-account-menu';
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -58,7 +58,7 @@ export default function MainHeader() {
         <Toolbar>
           <AppMenu menuList={menuList} />
           <Box className={classes.mobileLogoContainer}>
-            <Link href={'/'} className={classes.logoImage}>
+            <Link to={RoutesPaths.App.LandingPage} className={classes.logoImage}>
               <img
                 src={require('../../../assets/desktop_nformacy_logo.svg')}
                 className={classes.desktopVisible}
@@ -149,15 +149,15 @@ export default function MainHeader() {
                 </IconButton>
               </Box>
             ) : (
-              <Box>
-                <SubmitButton
-                  id={'LoginBtn'}
-                  onClick={() => history.push(RoutesPaths.App.Login)}
-                  className={classes.orangeCtaBtn}
-                  buttonText={'login'}
-                />
-              </Box>
-            )}
+                <Box>
+                  <SubmitButton
+                    id={'LoginBtn'}
+                    onClick={() => history.push(RoutesPaths.App.Login)}
+                    className={classes.orangeCtaBtn}
+                    buttonText={'login'}
+                  />
+                </Box>
+              )}
             <Button
               id={'switchLang'}
               color={'primary'}
