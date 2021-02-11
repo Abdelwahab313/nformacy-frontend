@@ -15,7 +15,7 @@ const StepOne = () => {
       justify='center'
       alignItems='center'
       spacing={5}>
-      <Grow in={true} timeout={3500}>
+      <Grow in={true} timeout={1000}>
         <Grid item xs={12} sm={7} lg={5}>
           <Paper className={classes.paperSection} elevation={3}>
             <PersonalInfo />

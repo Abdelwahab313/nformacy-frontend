@@ -46,12 +46,17 @@ const Register = () => {
 
         updateUser(dispatch, result.data.user);
         setRegisterSucceeded(true);
+        window.location.replace(RoutesPaths.App.UserTypeSelection);
         return result;
       })
       .catch(({ response }) => {
         response.data.errors.forEach((error) => {
           if (error.includes('Email')) {
-            setError('email', 'Already exists', 'This email address already exists');
+            setError(
+              'email',
+              'Already exists',
+              'This email address already exists',
+            );
           }
         });
         setUser({
@@ -79,8 +84,7 @@ const Register = () => {
   }
 
   if (registerSucceeded) {
-    history.push(RoutesPaths.App.UserTypeSelection);
-    // return <Redirect push to='/user/profile' />;
+    window.location.replace(RoutesPaths.App.UserTypeSelection);
   }
   return (
     <Grid

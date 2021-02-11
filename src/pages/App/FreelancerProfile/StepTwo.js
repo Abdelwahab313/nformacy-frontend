@@ -16,7 +16,7 @@ const StepTwo = () => {
         justify='space-evenly'
         alignItems='center'
         spacing={5}>
-        <Grow in={true} timeout={3500}>
+        <Grow in={true} timeout={1000}>
           <Grid item xs={12} md={6}>
             <Paper className={classes.paperSection} elevation={5}>
               <FieldsOfSpecialization />

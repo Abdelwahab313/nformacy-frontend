@@ -20,7 +20,7 @@ const StepThree = () => {
         alignItems='flex-start'
         justify='center'
         spacing={5}>
-        <Grow in={true} timeout={3500}>
+        <Grow in={true} timeout={1000}>
           <Grid
             container
             direction='column'

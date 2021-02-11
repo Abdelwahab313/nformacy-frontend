@@ -31,7 +31,6 @@ import authManager from 'services/authManager';
 import { RoutesPaths } from 'constants/routesPath';
 import LinkText from 'components/typography/LinkText';
 import SubmitButton from 'components/buttons/SubmitButton';
-import ContinueLater from './ContinueLater';
 
 const FreeLancerProfileForm = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -306,6 +305,7 @@ const FreeLancerProfileForm = () => {
                   onChange={onTermsChecked}
                   name='termsChecked'
                   color='primary'
+                  checked={isTermsChecked}
                 />
               }
               label={
@@ -323,7 +323,7 @@ const FreeLancerProfileForm = () => {
           className={
             activeStep === 0
               ? classes.nextBtnContainer
-              : [classes.nextBtnContainer, classes.nextBtnContainerFlexEnd]
+              : [classes.nextBtnContainer]
           }
           xs={12}
           sm={7}
@@ -338,6 +338,14 @@ const FreeLancerProfileForm = () => {
               startIcon={<ArrowBackIosIcon />}
             />
           )}
+          <SubmitButton
+            id='continueLater'
+            buttonText='complete later'
+            color='secondary'
+            onClick={onClickSaveLater}
+            className={classes.continueLaterBtn}
+          />
+
           {!!isFinalStep ? (
             <SubmitButton
               buttonText={t['submit']}
@@ -360,11 +368,6 @@ const FreeLancerProfileForm = () => {
             />
           )}
         </Grid>
-        <Hidden smDown>
-          <div style={stepIndicatorStyles.container}>
-            <ContinueLater onClickSaveLater={onClickSaveLater} />
-          </div>
-        </Hidden>
       </form>
 
       <BackDialog

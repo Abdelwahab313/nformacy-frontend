@@ -431,6 +431,10 @@ export const useStyles = makeStyles((theme) => ({
     color: darkBlue,
     '&:hover': { color: darkBlue },
   },
+  continueLaterBtn: {
+    margin: `0 ${theme.spacing(2)}px`,
+    alignSelf: 'flex-start',
+  },
 }));
 
 export const selectStyle = {
