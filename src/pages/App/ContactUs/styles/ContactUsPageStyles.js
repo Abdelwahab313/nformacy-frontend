@@ -5,34 +5,39 @@ const useStyles = makeStyles((theme) => ({
   headerCard: {
     position: 'relative',
     width: '100%',
+    background: '#dfeef5',
   },
   headerCardImg: {
-    height: 270,
+    height: 370,
+    objectFit: 'contain',
     [theme.breakpoints.down('md')]: {
-      height: 115,
+      height: 125,
     },
   },
   headerCardTxt: {
     position: 'absolute',
-    top: '35%',
-    left: 0,
+    top: '43%',
+    left: '10%',
     right: 0,
-    textAlign: 'center',
-    color: theme.palette.common.white,
-    [theme.breakpoints.down('md')]: {},
+    [theme.breakpoints.down('md')]: {
+      left: '9%',
+      width: 'min-content',
+      top: '25%',
+    },
   },
   blocksContainer: {
     display: 'flex',
     width: '100%',
+    padding: '115px 0',
     borderBottom: `1px solid ${lightGrey}`,
   },
   firstSection: {
     borderRight: `1px solid ${lightGrey}`,
   },
   imgIcon: {
-    height: 285,
+    height: 200,
     [theme.breakpoints.down('md')]: {
-      height: 175,
+      height: 100,
     },
   },
   noTextTransform: {

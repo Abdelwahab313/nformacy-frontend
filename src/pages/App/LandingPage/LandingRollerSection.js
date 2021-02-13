@@ -17,7 +17,7 @@ const LandingRollerSection = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setSliderItem((prevState) => !prevState);
-    }, 700000);
+    }, 10000);
     return () => clearInterval(interval);
   }, []);
 
@@ -26,50 +26,44 @@ const LandingRollerSection = () => {
       container
       direction='row'
       justify='center'
-      alignItems='flex-end'
-      className={classes.landingSectionsContainerPadding}>
-      <Grid item xs={10} md={6} className={classes.rollerSection}>
-        <Slide direction={'right'} in={sliderItem} timeout={500}>
-          <Box>
-            {sliderItem && (
-              <div>
-                <CustomTypography variant='h4' fontWeight='bold'>
-                  {t('landingAdvisoryServices')}
-                </CustomTypography>
-                <CustomTypography
-                  variant='h5'
-                  className={classes.subTextMargin}>
-                  {t('landingAdvisoryServicesDesc')}
-                </CustomTypography>
-              </div>
-            )}
-          </Box>
-        </Slide>
-        <Slide direction={'right'} in={!sliderItem} timeout={500}>
-          <Box>
-            {!sliderItem && (
-              <div>
-                <CustomTypography variant='h4' fontWeight='bold'>
-                  {t('landingConsultingLimit')}
-                </CustomTypography>
-                <CustomTypography
-                  variant='h5'
-                  className={classes.subTextMargin}>
-                  {t('landingConsultingLimitDesc')}
-                </CustomTypography>
-              </div>
-            )}
-          </Box>
-        </Slide>
-      </Grid>
-      <Grid item xs={12} md={6} className={classes.imgSection}>
-        <img
-          className={classes.firstSectionImg}
-          src={require('../../../assets/landing/nformacy_Illustrations@1x.png')}
-        />
-      </Grid>
-      <Grid item xs={10} md={3} className={classes.ctaSection}>
-        <Box textAlign='center'>
+      alignItems='center'
+      className={classes.firstSectionContainerPadding}>
+      <Grid item xs={10} md={5} className={classes.rollerSection}>
+        <Box className={classes.sliderTextContainer}>
+          <Slide direction={'right'} in={sliderItem} timeout={500}>
+            <Box>
+              {sliderItem && (
+                <div>
+                  <CustomTypography variant='h4' fontWeight='bold'>
+                    {t('landingAdvisoryServices')}
+                  </CustomTypography>
+                  <CustomTypography
+                    variant='h5'
+                    className={classes.subTextMargin}>
+                    {t('landingAdvisoryServicesDesc')}
+                  </CustomTypography>
+                </div>
+              )}
+            </Box>
+          </Slide>
+          <Slide direction={'right'} in={!sliderItem} timeout={500}>
+            <Box>
+              {!sliderItem && (
+                <div>
+                  <CustomTypography variant='h4' fontWeight='bold'>
+                    {t('landingConsultingLimit')}
+                  </CustomTypography>
+                  <CustomTypography
+                    variant='h5'
+                    className={classes.subTextMargin}>
+                    {t('landingConsultingLimitDesc')}
+                  </CustomTypography>
+                </div>
+              )}
+            </Box>
+          </Slide>
+        </Box>
+        <Box className={classes.submitBtnContainer} textAlign='right'>
           <SubmitButton
             id={'serveBtn'}
             onClick={() => history.push(RoutesPaths.App.Signup)}
@@ -81,6 +75,12 @@ const LandingRollerSection = () => {
             }
           />
         </Box>
+      </Grid>
+      <Grid item xs={12} md={7} className={classes.imgSection}>
+        <img
+          className={classes.firstSectionImg}
+          src={require('../../../assets/landing/nformacy_Illustrations@1x.png')}
+        />
       </Grid>
       <Grid item xs={10} md={12} className={classes.platformBrief}>
         <CustomTypography

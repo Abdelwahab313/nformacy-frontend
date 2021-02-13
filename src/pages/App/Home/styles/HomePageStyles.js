@@ -460,7 +460,7 @@ const useStyles = makeStyles((theme) => ({
     height: 150,
     [theme.breakpoints.down('md')]: {
       height: 115,
-      margin: '32px auto',
+      margin: '45px auto',
     },
   },
   fieldInProfile: {

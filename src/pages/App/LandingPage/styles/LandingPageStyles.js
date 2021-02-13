@@ -15,9 +15,21 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
   },
   landingSectionsContainerPadding: {
-    padding: theme.spacing(11),
+    padding: theme.spacing(6),
     [theme.breakpoints.down('md')]: {
       padding: [theme.spacing(6), theme.spacing(2)],
+    },
+  },
+  firstSectionContainerPadding: {
+    padding: [theme.spacing(11), theme.spacing(1)],
+    [theme.breakpoints.down('md')]: {
+      padding: [theme.spacing(6), theme.spacing(2)],
+    },
+  },
+  sliderTextContainer: {
+    minHeight: 150,
+    [theme.breakpoints.down('md')]: {
+      minHeight: 200,
     },
   },
   serveYouPadding: {
@@ -42,6 +54,12 @@ const useStyles = makeStyles((theme) => ({
   ctaSection: {
     order: 3,
   },
+  submitBtnContainer: {
+    textAlign: 'right',
+    [theme.breakpoints.down('md')]: {
+      textAlign: 'center',
+    },
+  },
   mainCtaBtn: {
     marginTop: '12px',
     padding: `${theme.spacing(2)}px ${theme.spacing(5)}px`,
@@ -62,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   platformBrief: {
-    marginTop: theme.spacing(20),
+    marginTop: theme.spacing(6),
     textAlign: 'center',
     padding: theme.spacing(2),
     order: 4,
@@ -305,8 +323,8 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid #ecedf0',
     borderRadius: 20,
     backgroundColor: white,
-    padding: [theme.spacing(5), theme.spacing(2)],
-    margin: theme.spacing(3),
+    padding: [theme.spacing(4), theme.spacing(2)],
+    margin: theme.spacing(2),
     [theme.breakpoints.down('md')]: {
       minWidth: '100%',
     },

@@ -51,7 +51,7 @@ const OurPromiseSection = () => {
                   classes.promiseFieldDescTxt,
                   classes.desktopVisible,
                 ]}>
-                <ShowMore withTxt={false} numberOfLines={4}>
+                <ShowMore withTxt={false} numberOfLines={5}>
                   {t('theBestAmongGreatConsultantsDesc')}
                 </ShowMore>
               </Box>
@@ -81,7 +81,7 @@ const OurPromiseSection = () => {
                   classes.promiseFieldDescTxt,
                   classes.desktopVisible,
                 ]}>
-                <ShowMore withTxt={false} numberOfLines={4}>
+                <ShowMore withTxt={false} numberOfLines={5}>
                   {t('qualityIsAssuredDesc')}
                 </ShowMore>
               </Box>
@@ -111,7 +111,7 @@ const OurPromiseSection = () => {
                   classes.promiseFieldDescTxt,
                   classes.desktopVisible,
                 ]}>
-                <ShowMore withTxt={false} numberOfLines={4}>
+                <ShowMore withTxt={false} numberOfLines={5}>
                   {t('weUnderstandYourNeedsDesc')}
                 </ShowMore>
               </Box>

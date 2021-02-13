@@ -16,7 +16,7 @@ const ContactUsPage = () => {
           component='img'
           alt='Header'
           className={classes.headerCardImg}
-          image={require('../../../assets/BG1@1x.png')}
+          image={require('../../../assets/connect_page_desktop_6.png')}
           title='Header'
         />
         <CustomTypography

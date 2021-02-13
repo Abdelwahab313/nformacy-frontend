@@ -40,7 +40,7 @@ const AboutUsGalleryDescription = () => {
             <Box textAlign='center'>
               <img
                 className={classes.firstSectionImg}
-                src={require('../../../assets/landing/nformacy_Illustrations@1x.png')}
+                src={'https://via.placeholder.com/700x450'}
               />
             </Box>
           </Grid>
@@ -50,7 +50,7 @@ const AboutUsGalleryDescription = () => {
             <Box textAlign='center'>
               <img
                 className={classes.firstSectionImg}
-                src={require('../../../assets/landing/nformacy_Illustrations@1x.png')}
+                src={'https://via.placeholder.com/700x450'}
               />
             </Box>
           </Grid>

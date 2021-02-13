@@ -54,13 +54,14 @@ export default function MainHeader() {
       <AppBar
         className={classes.headerBackground}
         id={'header'}
-        position='static'>
+        position='fixed'>
         <Toolbar>
           <AppMenu menuList={menuList} />
           <Box className={classes.mobileLogoContainer}>
             <Link to={RoutesPaths.App.LandingPage} className={classes.logoImage}>
               <img
                 src={require('../../../assets/desktop_nformacy_logo.svg')}
+                width={140}
                 className={classes.desktopVisible}
               />
               <img
@@ -77,7 +78,6 @@ export default function MainHeader() {
               <InputBase
                 placeholder='Search…'
                 classes={{
-                  root: classes.inputRoot,
                   input: classes.inputInput,
                 }}
                 inputProps={{ 'aria-label': 'search' }}
@@ -100,12 +100,6 @@ export default function MainHeader() {
                 {t('about')}
               </NavLink>
               <NavLink
-                to={RoutesPaths.App.ContactUs}
-                className={classes.menuItemText}
-                activeClassName={classes.active}>
-                {t('contactUs')}
-              </NavLink>
-              <NavLink
                 to={RoutesPaths.App.Solutions}
                 className={classes.menuItemText}
                 activeClassName={classes.active}>
@@ -115,12 +109,18 @@ export default function MainHeader() {
                 to={RoutesPaths.App.Consultants}
                 className={classes.menuItemText}
                 activeClassName={classes.active}>
-                {t('consultants')}
+                {t('experts')}
               </NavLink>
               <NavLink
                 to={RoutesPaths.App.NotFound}
                 className={classes.menuItemText}>
                 {t('knowledgeHub')}
+              </NavLink>
+              <NavLink
+                to={RoutesPaths.App.ContactUs}
+                className={classes.menuItemText}
+                activeClassName={classes.active}>
+                {t('connect')}
               </NavLink>
             </Box>
           )}

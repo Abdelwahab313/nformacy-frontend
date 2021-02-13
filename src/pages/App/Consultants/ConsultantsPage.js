@@ -7,7 +7,6 @@ import ServeYouBtnSection from '../LandingPage/ServeYouBtnSection';
 import useStyles from './styles/ConsultantsPageStyles';
 import ConsultantsPageStatistics from '../LandingPage/ConsultantsPageStatistics';
 
-
 const ConsultantsPage = () => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -19,14 +18,21 @@ const ConsultantsPage = () => {
           component='img'
           alt='Header'
           className={classes.headerCardImg}
-          image={require('../../../assets/BG1@1x.png')}
+          image={require('../../../assets/consultant_page_desktop_1.png')}
+          title='Header'
+        />
+        <CardMedia
+          component='img'
+          alt='Header'
+          className={classes.headerCardImgMob}
+          image={require('../../../assets/consultant_page_mob_2.png')}
           title='Header'
         />
         <CustomTypography
           variant='h3'
           fontWeight={'bold'}
           className={classes.headerCardTxt}>
-          {t('consultants')}
+          {t('experts')}
         </CustomTypography>
       </Card>
       <Grid
@@ -35,7 +41,7 @@ const ConsultantsPage = () => {
         justify='center'
         className={classes.landingSectionsContainerPadding}>
         <Grid item xs={10} md={12}>
-          <Box textAlign='center'>
+          <Box textAlign='center' marginTop={5}>
             <CustomTypography variant='h4' fontWeight='bold'>
               {t('joinNformacy')}
             </CustomTypography>
@@ -144,7 +150,7 @@ const ConsultantsPage = () => {
           </Grid>
         </Grid>
       </Grid>
-     <ConsultantsPageStatistics/>
+      <ConsultantsPageStatistics />
       <ServeYouBtnSection />
     </Grid>
   );

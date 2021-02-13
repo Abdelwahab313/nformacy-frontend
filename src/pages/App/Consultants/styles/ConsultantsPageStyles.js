@@ -7,19 +7,31 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   headerCardImg: {
-    height: 270,
+    height: 370,
+    objectFit: 'fill',
     [theme.breakpoints.down('md')]: {
-      height: 115,
+      display: 'none',
+    },
+  },
+  headerCardImgMob: {
+    display: 'none',
+    [theme.breakpoints.down('md')]: {
+      display: 'block',
+      height: 370,
+      objectFit: 'cover',
+      height: 125,
     },
   },
   headerCardTxt: {
     position: 'absolute',
-    top: '35%',
+    top: '40%',
     left: 0,
     right: 0,
     textAlign: 'center',
-    color: theme.palette.common.white,
-    [theme.breakpoints.down('md')]: {},
+    padding: '25px 0px 0px 85px',
+    [theme.breakpoints.down('md')]: {
+      padding: '0',
+    },
   },
   landingSectionsContainerPadding: {
     padding: theme.spacing(11),

@@ -4,21 +4,35 @@ const useStyles = makeStyles((theme) => ({
   headerCard: {
     position: 'relative',
     width: '100%',
+    background: '#dfeef5',
   },
   headerCardImg: {
-    height: 270,
+    height: 370,
+    objectFit: 'contain',
+    float: 'right',
+    width: 'initial',
     [theme.breakpoints.down('md')]: {
-      height: 115,
+      width: '100%',
+      height: 125,
     },
   },
   headerCardTxt: {
     position: 'absolute',
-    top: '35%',
-    left: 0,
+    top: '40%',
+    left: '16%',
     right: 0,
-    textAlign: 'center',
-    color: theme.palette.common.white,
-    [theme.breakpoints.down('md')]: {},
+    [theme.breakpoints.down('md')]: {
+      left: '9%',
+      width: 'min-content',
+      top: '35%',
+    },
+  },
+  solutionDescContainer: {
+    margin: [theme.spacing(13), 0],
+    paddingTop: theme.spacing(4),
+    [theme.breakpoints.down('md')]: {
+      margin: [theme.spacing(6), 0],
+    },
   },
 }));
 

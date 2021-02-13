@@ -14,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '700px',
     width: '100%',
     height: '100%',
+    marginTop: 80,
+    [theme.breakpoints.down('md')]: {
+      marginTop: 72,
+    },
   },
   toTopIcon: {
     position: 'fixed',

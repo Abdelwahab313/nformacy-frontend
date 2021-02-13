@@ -15,8 +15,8 @@ const useStyles = makeStyles((theme) => ({
   },
   noTxtIcon: {
     position: 'absolute',
-    bottom: 5,
-    right: 8,
+    bottom: 1,
+    right: -18,
     padding: 20,
   },
 }));

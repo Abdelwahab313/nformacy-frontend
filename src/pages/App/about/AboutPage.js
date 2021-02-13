@@ -19,7 +19,7 @@ const AboutPage = () => {
           component='img'
           alt='Header'
           className={classes.headerCardImg}
-          image={require('../../../assets/BG1@1x.png')}
+          image={require('../../../assets/about_page.png')}
           title='Header'
         />
         <CustomTypography
@@ -30,7 +30,7 @@ const AboutPage = () => {
         </CustomTypography>
       </Card>
       <Grid item xs={10} md={10}>
-        <Box textAlign={'center'} marginY={10}>
+        <Box textAlign={'center'} className={classes.aboutDescContainer}>
           <CustomTypography variant='h4' fontWeight='bold' gutterBottom>
             {t('aboutDescriptionTitle')}
           </CustomTypography>
@@ -39,7 +39,7 @@ const AboutPage = () => {
           </CustomTypography>
         </Box>
       </Grid>
-      <Grid item xs={12} className={classes.orangeBg}>
+      <Grid item xs={12} className={classes.DarkGrayBg}>
         <Box width={'80%'} textAlign={'center'} marginY={10} marginX={'auto'}>
           <CustomTypography variant='h4' fontWeight='bold'>
             {t('aboutOurPassion')}

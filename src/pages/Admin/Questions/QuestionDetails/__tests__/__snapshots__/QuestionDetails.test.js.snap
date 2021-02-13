@@ -116,7 +116,7 @@ exports[`should match snapshot 1`] = `
                     id="post-date"
                     name="createdAt"
                     type="text"
-                    value="1 month ago"
+                    value="NaN years ago"
                   />
                 </div>
               </div>
@@ -717,9 +717,7 @@ exports[`should match snapshot 1`] = `
                 </p>
                 <p
                   class="MuiTypography-root countDown MuiTypography-body1"
-                >
-                  Dec 14
-                </p>
+                />
               </div>
             </div>
             <div

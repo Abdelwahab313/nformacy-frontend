@@ -20,7 +20,7 @@ const SolutionsPage = () => {
           component='img'
           alt='Header'
           className={classes.headerCardImg}
-          image={require('../../../assets/BG1@1x.png')}
+          image={require('../../../assets/solution_page_desktop_2.png')}
           title='Header'
         />
         <CustomTypography
@@ -31,7 +31,7 @@ const SolutionsPage = () => {
         </CustomTypography>
       </Card>
       <Grid item xs={10} md={10}>
-        <Box textAlign={'center'} marginY={10}>
+        <Box textAlign={'center'} className={classes.solutionDescContainer}>
           <CustomTypography variant='h5'>
             {t('solutionsPageDesc')}
           </CustomTypography>
