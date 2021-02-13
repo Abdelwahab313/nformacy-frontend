@@ -15,7 +15,7 @@ pipeline {
             sh 'npm i -g serve'
             sh 'npm ci'
             sh 'npm run cy:verify'
-            sh 'REACT_APP_ENV=e2e npm run build'
+            sh 'npm run build:ci'
             sh 'nohup serve -s build -l 5001 &'
 
             dir("${env.BackendPath}") {
