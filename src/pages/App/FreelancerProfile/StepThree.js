@@ -18,8 +18,7 @@ const StepThree = () => {
         direction='row'
         className={classes.stepThreeContainer}
         alignItems='flex-start'
-        justify='center'
-        spacing={5}>
+        justify='center'>
         <Grow in={true} timeout={1000}>
           <Grid
             container

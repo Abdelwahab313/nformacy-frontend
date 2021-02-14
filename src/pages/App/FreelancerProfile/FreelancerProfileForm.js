@@ -296,16 +296,15 @@ const FreeLancerProfileForm = () => {
             item
             className={classes.acceptTermsContainer}
             xs={12}
-            sm={7}
-            lg={5}>
+            sm={6}
+            lg={6}>
             <FormControlLabel
               control={
                 <Checkbox
                   onChange={onTermsChecked}
                   name='termsChecked'
                   color='primary'
-                  checked={isTermsChecked}
-                />
+                  checked={isTermsChecked} />
               }
               label={
                 <LinkText
@@ -325,8 +324,8 @@ const FreeLancerProfileForm = () => {
               : [classes.nextBtnContainer]
           }
           xs={12}
-          sm={7}
-          lg={5}>
+          sm={6}
+          lg={6}>
           {activeStep !== 0 && (
             <SubmitButton
               buttonText={t['back']}
@@ -357,16 +356,16 @@ const FreeLancerProfileForm = () => {
               endIcon={<DoneIcon />}
             />
           ) : (
-            <SubmitButton
-              buttonText={t['next']}
-              id='nextButton'
-              disabled={isGoNextDisabled}
-              onClick={proceedToNextStep}
-              variant='contained'
-              style={nextButtonStyles(isGoNextDisabled)}
-              endIcon={<ArrowForwardIosIcon />}
-            />
-          )}
+              <SubmitButton
+                buttonText={t['next']}
+                id='nextButton'
+                disabled={isGoNextDisabled}
+                onClick={proceedToNextStep}
+                variant='contained'
+                style={nextButtonStyles(isGoNextDisabled)}
+                endIcon={<ArrowForwardIosIcon />}
+              />
+            )}
         </Grid>
       </form>
 

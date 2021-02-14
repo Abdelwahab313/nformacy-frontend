@@ -422,7 +422,6 @@ export const useStyles = makeStyles((theme) => ({
     marginBottom: '-20px',
     alignSelf: 'center',
     width: '100%',
-    padding: '25px',
   },
   nextBtnContainerFlexEnd: {
     justifyContent: 'space-between',
@@ -552,7 +551,7 @@ export const greyDividerStyle = {
 
 export const stepIndicatorStyles = {
   container: {
-    width: '50%',
+    width: '60%',
     alignSelf: 'center',
   },
 };

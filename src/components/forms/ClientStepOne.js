@@ -43,10 +43,9 @@ const ClientStepOne = () => {
       container
       direction='row'
       justify='center'
-      alignItems='center'
-      spacing={5}>
+      alignItems='center'>
       <Grow in={true} timeout={3500}>
-        <Grid item xs={12} sm={7} lg={5}>
+        <Grid item xs={12} sm={6} lg={6}>
           <Paper className={classes.paperSection} elevation={3}>
             <Container style={sectionContainerStyles}>
               <ReactTooltip globalEventOff={'click'} />
