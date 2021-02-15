@@ -13,10 +13,10 @@ export const getQuestionDetailsLink = (questionId, serviceId) => {
   }
 };
 
-export const getDashboardLinkAfterSignup = () => {
+export const getDashboardLinkAfterSignup = (isCompletedProfile) => {
   return {
     pathname: RoutesPaths.App.Dashboard,
-    state: { isRecentlyRegistered: true },
+    state: { isRecentlyRegistered: isCompletedProfile },
   };
 };
 

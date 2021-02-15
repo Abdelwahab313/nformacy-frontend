@@ -13,21 +13,24 @@ import authManager from './services/authManager';
 import LoadingCircle from './components/progress/LoadingCircle';
 import 'moment/locale/ar';
 import { SnackBarProvider } from 'context/SnackBarContext';
+import ErrorBoundary from 'components/errors/ErrorBoundary';
 
 const Loader = () => <LoadingCircle color='primary' />;
 
 const App = () => {
   const user = authManager.retrieveCurrentUser();
   return (
-    <AuthProvider initialValue={{ currentUser: user }}>
-      <LocaleProvider initialLocale={user?.locale}>
-        <SnackBarProvider>
-          <Suspense fallback={<Loader />}>
-            <Main />
-          </Suspense>
-        </SnackBarProvider>
-      </LocaleProvider>
-    </AuthProvider>
+    <ErrorBoundary>
+      <AuthProvider initialValue={{ currentUser: user }}>
+        <LocaleProvider initialLocale={user?.locale}>
+          <SnackBarProvider>
+            <Suspense fallback={<Loader />}>
+              <Main />
+            </Suspense>
+          </SnackBarProvider>
+        </LocaleProvider>
+      </AuthProvider>
+    </ErrorBoundary>
   );
 };
 

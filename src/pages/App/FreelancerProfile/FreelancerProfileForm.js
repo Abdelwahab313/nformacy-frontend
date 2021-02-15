@@ -32,6 +32,8 @@ import { RoutesPaths } from 'constants/routesPath';
 import LinkText from 'components/typography/LinkText';
 import SubmitButton from 'components/buttons/SubmitButton';
 import { getDashboardLinkAfterSignup } from 'services/navigation';
+import { useAuth } from 'pages/auth/context/auth';
+import { updateUser } from 'pages/auth/context/authActions';
 
 const FreeLancerProfileForm = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -56,6 +58,7 @@ const FreeLancerProfileForm = () => {
   });
   const history = useHistory();
   const [loading, setLoading] = useState(false);
+  const [, dispatch] = useAuth();
   const [deletedExperiences, setDeletedExperiences] = useState([]);
   const [deletedEducations, setDeletedEducations] = useState([]);
   const [deletedCertification, setDeletedCertifications] = useState([]);
@@ -146,8 +149,8 @@ const FreeLancerProfileForm = () => {
     setLoading(true);
     completeClientProfile(userToBeSubmitted)
       .then((response) => {
-        localStorage.setItem('user', JSON.stringify(response.data));
-        history.push(getDashboardLinkAfterSignup());
+        updateUser(dispatch, response.data);
+        history.push(getDashboardLinkAfterSignup(true));
       })
       .finally(() => {
         setLoading(false);
@@ -173,9 +176,9 @@ const FreeLancerProfileForm = () => {
       setLoading(true);
       completeFreelancerProfile(userToBeSubmitted)
         .then((response) => {
-          localStorage.setItem('user', JSON.stringify(response.data));
+          updateUser(dispatch, response.data);
           if (cv?.length === 0 || cv === undefined) {
-            history.push(getDashboardLinkAfterSignup());
+            history.push(getDashboardLinkAfterSignup(true));
           }
         })
         .finally(() => {
@@ -195,9 +198,9 @@ const FreeLancerProfileForm = () => {
     };
     updateProfile({ ...user.current })
       .then((response) => {
-        localStorage.setItem('user', JSON.stringify(response.data));
+        updateUser(dispatch, response.data);
         if (cv?.length === 0 || cv === undefined) {
-          history.push(getDashboardLinkAfterSignup());
+          history.push(getDashboardLinkAfterSignup(false));
         }
       })
       .finally(() => {
@@ -218,8 +221,8 @@ const FreeLancerProfileForm = () => {
         .then((response) => {
           const userFromStorage = JSON.parse(localStorage.getItem('user'));
           userFromStorage.cv = response.data.cv;
-          localStorage.setItem('user', JSON.stringify(userFromStorage));
-          history.push(getDashboardLinkAfterSignup());
+          updateUser(dispatch, userFromStorage);
+          history.push(getDashboardLinkAfterSignup(true));
         })
         .finally(() => setLoading(false));
     }
@@ -304,7 +307,8 @@ const FreeLancerProfileForm = () => {
                   onChange={onTermsChecked}
                   name='termsChecked'
                   color='primary'
-                  checked={isTermsChecked} />
+                  checked={isTermsChecked}
+                />
               }
               label={
                 <LinkText
@@ -356,16 +360,16 @@ const FreeLancerProfileForm = () => {
               endIcon={<DoneIcon />}
             />
           ) : (
-              <SubmitButton
-                buttonText={t['next']}
-                id='nextButton'
-                disabled={isGoNextDisabled}
-                onClick={proceedToNextStep}
-                variant='contained'
-                style={nextButtonStyles(isGoNextDisabled)}
-                endIcon={<ArrowForwardIosIcon />}
-              />
-            )}
+            <SubmitButton
+              buttonText={t['next']}
+              id='nextButton'
+              disabled={isGoNextDisabled}
+              onClick={proceedToNextStep}
+              variant='contained'
+              style={nextButtonStyles(isGoNextDisabled)}
+              endIcon={<ArrowForwardIosIcon />}
+            />
+          )}
         </Grid>
       </form>
 

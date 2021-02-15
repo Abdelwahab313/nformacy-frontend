@@ -8,6 +8,9 @@ import { useTranslation } from 'react-i18next';
 import useForm from '../FormValidation/useForm';
 import { validateForgetPasswordForm } from '../FormValidation/validateInfo';
 import { forgetPassword } from 'apis/authAPI';
+import { useSnackBar } from 'context/SnackBarContext';
+import { history } from 'services/navigation';
+import { RoutesPaths } from 'constants/routesPath';
 
 const ForgetPassword = () => {
   const { handleChange, values, handleSubmit, errors } = useForm(
@@ -16,13 +19,15 @@ const ForgetPassword = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [responseMessage, setResponseMessage] = useState('');
+  const { showSuccessMessage } = useSnackBar();
 
   const onSubmit = (e) => {
     setResponseMessage('');
     handleSubmit(e, () => {
       forgetPassword(values.email)
         .then((response) => {
-          setResponseMessage(response?.message);
+          showSuccessMessage(response?.message);
+          history.push(RoutesPaths.App.Login);
         })
         .catch((reason) => {
           setResponseMessage(reason?.response?.data?.error);
