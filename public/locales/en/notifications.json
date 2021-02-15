@@ -5,7 +5,12 @@
   "question_closed": "Question #{{referenceNumber}} Closed",
   "noNotifications": "No notifications to be displayed",
   "seeMore": "See more...",
+  "adviser_rejected": "Adviser Rejected",
+  "answer_submitted": "Answer #{{referenceNumber}} Submitted",
+  "answer_shortlisted": "Answer #{{referenceNumber}} Shortlisted",
   "answer_rated": "Answer #{{referenceNumber}} is already Rated",
   "answer_rejected": "Answer #{{referenceNumber}} Rejected",
-  "answer_shortlisted": "Answer #{{referenceNumber}} Shortlisted"
+  "submitted_to_admin": "Service submitted to admin",
+  "returned_back_to_client": "Service returned back to client",
+  "question_started": "Question Started"
 }
