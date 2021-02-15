@@ -335,7 +335,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  completeLater: {
+  completeLaterBanner: {
     padding: 4,
     top: '65%',
     left: 0,
@@ -348,6 +348,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 auto',
     fontWeight: 'bold',
     borderRadius: 6,
+    cursor: 'pointer',
   },
   calendarLibraryContainer: {
     display: 'none',

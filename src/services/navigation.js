@@ -20,12 +20,6 @@ export const getDashboardLinkAfterSignup = () => {
   };
 };
 
-export const getSignupLinkToCompleteForm = () => {
-  return {
-    pathname: RoutesPaths.App.FreelancerProfile,
-  };
-};
-
 export const getQuestionDetails = (questionId) => {
   if (authManager.isAdmin()) {
     return getQuestionDetailsLinkForAdmin(questionId);

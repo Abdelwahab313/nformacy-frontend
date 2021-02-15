@@ -1,12 +1,11 @@
 import React, { Fragment } from 'react';
-import { Card, CardMedia, Typography, Box } from '@material-ui/core';
+import { Card, CardMedia, Typography, Box, Link } from '@material-ui/core';
 import useStyles from '../styles/HomePageStyles';
 import { useTranslation } from 'react-i18next';
 import CustomTypography from 'components/typography/Typography';
 import { useAuth } from 'pages/auth/context/auth';
 import authManager from 'services/authManager';
-import { getSignupLinkToCompleteForm } from 'services/navigation';
-import LinkText from 'components/typography/LinkText';
+import { RoutesPaths } from 'constants/routesPath';
 
 const HomeHeadBar = () => {
   const { t } = useTranslation();
@@ -15,6 +14,10 @@ const HomeHeadBar = () => {
     ? require('../../../../assets/BG1@1x.png')
     : require('../../../../assets/consultant-bg.png');
   const [{ currentUser }] = useAuth();
+
+  const onClickCompleteLater = () => {
+    window.location.replace(RoutesPaths.App.FreelancerProfile);
+  };
 
   return (
     <Fragment>
@@ -33,11 +36,13 @@ const HomeHeadBar = () => {
           {currentUser.firstName + ' ' + currentUser.lastName + ' Workspace'}
         </Typography>
         {!currentUser.completedProfile && (
-          <LinkText to={getSignupLinkToCompleteForm()}>
-            <Typography variant='subtitle1' component='h3' className={classes.completeLater}>
+          <Link
+            underline='none'
+            onClick={() => onClickCompleteLater()}>
+            <Typography variant='subtitle1' component='h3' className={classes.completeLaterBanner}>
               To start using nformacy services please complete your registration form
             </Typography>
-          </LinkText>
+          </Link>
         )}
       </Card >
       <Box className={classes.profileMobile}>
