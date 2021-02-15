@@ -2,36 +2,8 @@ import { makeStyles } from '@material-ui/core';
 import { lightOrange, white, whiteLilac, darkBlue } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
-  headerCard: {
-    position: 'relative',
-    width: '100%',
-  },
-  headerCardImg: {
-    height: 370,
-    objectFit: 'fill',
-    [theme.breakpoints.down('md')]: {
-      display: 'none',
-    },
-  },
-  headerCardImgMob: {
-    display: 'none',
-    [theme.breakpoints.down('md')]: {
-      display: 'block',
-      height: 370,
-      objectFit: 'cover',
-      height: 125,
-    },
-  },
-  headerCardTxt: {
-    position: 'absolute',
-    top: '40%',
-    left: 0,
-    right: 0,
-    textAlign: 'center',
-    padding: '25px 0px 0px 85px',
-    [theme.breakpoints.down('md')]: {
-      padding: '0',
-    },
+  bannerImageStyles: {
+    width: '55%',
   },
   landingSectionsContainerPadding: {
     padding: theme.spacing(11),

@@ -53,9 +53,15 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
+    display: 'flex',
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
+  },
+  sectionSmallView: {
+    display: 'flex',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
     },
   },
   sectionMobile: {

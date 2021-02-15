@@ -40,6 +40,7 @@ export const RoutesPaths = {
     Solutions: '/solutions',
     Consultants: '/consultants',
     TermsAndConditions: '/terms',
+    KnowHub: '/knowHub',
     About: '/about',
     Dashboard: '/dashboard',
     Questions: '/questions',

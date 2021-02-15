@@ -26,6 +26,21 @@ const useStyles = makeStyles((theme) => ({
       padding: [theme.spacing(6), theme.spacing(2)],
     },
   },
+  bannerImage: {
+    width: '100%',
+    height: 400,
+    objectFit: 'fill',
+  },
+  bannerTitle: {
+    textAlign: 'center',
+    [theme.breakpoints.down('md')]: {
+      marginTop: theme.spacing(6),
+    },
+  },
+  justifyChildren: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
   sliderTextContainer: {
     minHeight: 150,
     [theme.breakpoints.down('md')]: {

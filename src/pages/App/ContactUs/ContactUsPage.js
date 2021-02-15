@@ -1,8 +1,9 @@
-import { Box, Card, CardMedia, Grid } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import SubmitButton from 'components/buttons/SubmitButton';
 import CustomTypography from 'components/typography/Typography';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import FrontBanner from '../LandingPage/subComponents/FrontBanner';
 import useStyles from './styles/ContactUsPageStyles';
 
 const ContactUsPage = () => {
@@ -11,21 +12,12 @@ const ContactUsPage = () => {
 
   return (
     <Grid container justify='center'>
-      <Card className={classes.headerCard}>
-        <CardMedia
-          component='img'
-          alt='Header'
-          className={classes.headerCardImg}
-          image={require('../../../assets/connect_page_desktop_6.png')}
-          title='Header'
-        />
-        <CustomTypography
-          variant='h3'
-          fontWeight={'bold'}
-          className={classes.headerCardTxt}>
-          {t('connectWithUs')}
-        </CustomTypography>
-      </Card>
+      <FrontBanner
+        imageClassName={classes.bannerImageStyles}
+        imageSource={require('../../../assets/connect_page_desktop_6.png')}
+        title={t('connectWithUs')}
+        titleClassName={classes.bannerTitle}
+      />
       <Box className={classes.blocksContainer}>
         <Grid item xs={6} className={classes.firstSection}>
           <Box textAlign={'center'} padding={2}>

@@ -2,29 +2,17 @@ import { makeStyles } from '@material-ui/core';
 import { lightGrey } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
-  headerCard: {
-    position: 'relative',
+
+  bannerImageStyles: {
     width: '100%',
-    background: '#dfeef5',
-  },
-  headerCardImg: {
     height: 370,
-    objectFit: 'contain',
-    [theme.breakpoints.down('md')]: {
-      height: 125,
+  },
+  bannerTitle: {
+    [theme.breakpoints.up('md')]: {
+      marginLeft: theme.spacing(15),
     },
   },
-  headerCardTxt: {
-    position: 'absolute',
-    top: '43%',
-    left: '10%',
-    right: 0,
-    [theme.breakpoints.down('md')]: {
-      left: '9%',
-      width: 'min-content',
-      top: '25%',
-    },
-  },
+
   blocksContainer: {
     display: 'flex',
     width: '100%',

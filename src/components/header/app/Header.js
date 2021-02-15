@@ -38,7 +38,7 @@ export default function MainHeader() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleMobileMenuOpen = () => { };
+  const handleMobileMenuOpen = () => {};
 
   const menuId = 'primary-search-account-menu';
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -48,7 +48,8 @@ export default function MainHeader() {
     location.pathname === RoutesPaths.App.Solutions ||
     location.pathname === RoutesPaths.App.About ||
     location.pathname === RoutesPaths.App.Consultants ||
-    location.pathname === RoutesPaths.App.TermsAndConditions;
+    location.pathname === RoutesPaths.App.TermsAndConditions ||
+    location.pathname === RoutesPaths.App.KnowHub;
   return (
     <div className={classes.grow} dir={DIRECTION[locale]}>
       <AppBar
@@ -58,7 +59,9 @@ export default function MainHeader() {
         <Toolbar>
           <AppMenu menuList={menuList} />
           <Box className={classes.mobileLogoContainer}>
-            <Link to={RoutesPaths.App.LandingPage} className={classes.logoImage}>
+            <Link
+              to={RoutesPaths.App.LandingPage}
+              className={classes.logoImage}>
               <img
                 src={require('../../../assets/desktop_nformacy_logo.svg')}
                 width={140}
@@ -70,7 +73,7 @@ export default function MainHeader() {
               />
             </Link>
           </Box>
-          <Box className={classes.sectionDesktop}>
+          <Box className={classes.sectionSmallView}>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
@@ -112,8 +115,9 @@ export default function MainHeader() {
                 {t('experts')}
               </NavLink>
               <NavLink
-                to={RoutesPaths.App.NotFound}
-                className={classes.menuItemText}>
+                to={RoutesPaths.App.KnowHub}
+                className={classes.menuItemText}
+                activeClassName={classes.active}>
                 {t('knowledgeHub')}
               </NavLink>
               <NavLink
@@ -149,15 +153,15 @@ export default function MainHeader() {
                 </IconButton>
               </Box>
             ) : (
-                <Box>
-                  <SubmitButton
-                    id={'LoginBtn'}
-                    onClick={() => history.push(RoutesPaths.App.Login)}
-                    className={classes.orangeCtaBtn}
-                    buttonText={'login'}
-                  />
-                </Box>
-              )}
+              <Box>
+                <SubmitButton
+                  id={'LoginBtn'}
+                  onClick={() => history.push(RoutesPaths.App.Login)}
+                  className={classes.orangeCtaBtn}
+                  buttonText={'login'}
+                />
+              </Box>
+            )}
             <Button
               id={'switchLang'}
               color={'primary'}

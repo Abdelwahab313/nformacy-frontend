@@ -26,6 +26,7 @@ import AboutPage from 'pages/App/about/AboutPage';
 import ConsultantsPage from 'pages/App/Consultants/ConsultantsPage';
 import ForgetPassword from 'pages/ForgetPassword';
 import ResetPassword from 'pages/ResetPassword';
+import KnowHubPage from 'pages/App/LandingPage/KnowHub';
 
 const appRoutes = [
   {
@@ -81,6 +82,14 @@ const appRoutes = [
     includeLayout: true,
     isPublic: true,
     hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.App.KnowHub,
+    name: 'Knowledge Hub',
+    Component: KnowHubPage,
+    includeLayout: true,
+    isPublic: true,
+    hasDashboardLink: true,
   },
   {
     path: RoutesPaths.App.Login,

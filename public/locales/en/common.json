@@ -454,5 +454,6 @@
   "adminAdded": "Admin added successfully.",
   "adviserAdded": "Adviser added successfully.",
   "passwordsNotMatching": "Passwords don't match!",
-  "service": "Service"
+  "service": "Service",
+  "comingSoon": "Coming Soon!"
 }

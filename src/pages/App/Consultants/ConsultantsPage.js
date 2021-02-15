@@ -1,4 +1,4 @@
-import { Box, Card, CardMedia, Grid } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import CustomTypography from 'components/typography/Typography';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,6 +6,7 @@ import ConsultantsJoinReasons from '../Home/subComponents/ConsultantsJoinReasons
 import ServeYouBtnSection from '../LandingPage/ServeYouBtnSection';
 import useStyles from './styles/ConsultantsPageStyles';
 import ConsultantsPageStatistics from '../LandingPage/ConsultantsPageStatistics';
+import FrontBanner from '../LandingPage/subComponents/FrontBanner';
 
 const ConsultantsPage = () => {
   const classes = useStyles();
@@ -13,28 +14,11 @@ const ConsultantsPage = () => {
 
   return (
     <Grid container justify='center'>
-      <Card className={classes.headerCard}>
-        <CardMedia
-          component='img'
-          alt='Header'
-          className={classes.headerCardImg}
-          image={require('../../../assets/consultant_page_desktop_1.png')}
-          title='Header'
-        />
-        <CardMedia
-          component='img'
-          alt='Header'
-          className={classes.headerCardImgMob}
-          image={require('../../../assets/consultant_page_mob_2.png')}
-          title='Header'
-        />
-        <CustomTypography
-          variant='h3'
-          fontWeight={'bold'}
-          className={classes.headerCardTxt}>
-          {t('experts')}
-        </CustomTypography>
-      </Card>
+      <FrontBanner
+        imageClassName={classes.bannerImageStyles}
+        imageSource={require('../../../assets/head_heads.png')}
+        title={t('experts')}
+      />
       <Grid
         container
         direction='row'
