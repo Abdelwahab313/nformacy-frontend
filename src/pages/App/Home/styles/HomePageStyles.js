@@ -335,6 +335,20 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  completeLater: {
+    padding: 4,
+    top: '65%',
+    left: 0,
+    color: darkBlue,
+    right: 0,
+    position: 'absolute',
+    textAlign: 'center',
+    backgroundColor: 'white',
+    width: '40%',
+    margin: '0 auto',
+    fontWeight: 'bold',
+    borderRadius: 6,
+  },
   calendarLibraryContainer: {
     display: 'none',
     [theme.breakpoints.down('md')]: {

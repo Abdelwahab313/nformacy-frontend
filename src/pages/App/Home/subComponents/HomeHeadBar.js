@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import CustomTypography from 'components/typography/Typography';
 import { useAuth } from 'pages/auth/context/auth';
 import authManager from 'services/authManager';
+import { getSignupLinkToCompleteForm } from 'services/navigation';
+import LinkText from 'components/typography/LinkText';
 
 const HomeHeadBar = () => {
   const { t } = useTranslation();
@@ -30,7 +32,14 @@ const HomeHeadBar = () => {
           className={classes.headerCardTxt}>
           {currentUser.firstName + ' ' + currentUser.lastName + ' Workspace'}
         </Typography>
-      </Card>
+        {!currentUser.completedProfile && (
+          <LinkText to={getSignupLinkToCompleteForm()}>
+            <Typography variant='subtitle1' component='h3' className={classes.completeLater}>
+              To start using nformacy services please complete your registration form
+            </Typography>
+          </LinkText>
+        )}
+      </Card >
       <Box className={classes.profileMobile}>
         <img
           id='profilePicture'
@@ -56,7 +65,7 @@ const HomeHeadBar = () => {
           </CustomTypography>
         </CustomTypography>
       </Box>
-    </Fragment>
+    </Fragment >
   );
 };
 
