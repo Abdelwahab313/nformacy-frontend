@@ -38,10 +38,8 @@ export default function MainHeader() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleMobileMenuOpen = () => {};
 
   const menuId = 'primary-search-account-menu';
-  const mobileMenuId = 'primary-search-account-menu-mobile';
   const showHeaderNav =
     location.pathname === RoutesPaths.App.LandingPage ||
     location.pathname === RoutesPaths.App.ContactUs ||
@@ -173,9 +171,9 @@ export default function MainHeader() {
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label='show more'
-              aria-controls={mobileMenuId}
+              aria-controls={menuId}
               aria-haspopup='true'
-              onClick={handleMobileMenuOpen}
+              onClick={handleProfileMenuOpen}
               color='inherit'>
               <MoreIcon />
             </IconButton>
