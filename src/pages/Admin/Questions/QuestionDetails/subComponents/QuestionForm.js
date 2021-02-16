@@ -317,6 +317,7 @@ const QuestionForm = ({ isNewQuestion }) => {
                 onChange: (e) => {
                   onChangeQuestionField('hoursToCloseAnswers', e.target.value);
                 },
+                style: { paddingBottom: 12 }
               }}
             />
           </GridItem>
@@ -341,6 +342,7 @@ const QuestionForm = ({ isNewQuestion }) => {
                 onChange: (e) => {
                   onChangeQuestionField('hoursToReviewAndEdit', e.target.value);
                 },
+                style: { paddingBottom: 12 }
               }}
             />
           </GridItem>
@@ -434,15 +436,15 @@ const QuestionForm = ({ isNewQuestion }) => {
               authManager.isAdviser() &&
               noActionStates.includes(questionDetails.state)
             ) && (
-              <ActionButtonsContainer
-                questionDetails={questionDetails}
-                isNewQuestion={isNewQuestion}
-                currentUser={currentUser}
-                saveAndCompleteLater={saveAndCompleteLater}
-                onSubmitQuestion={onSubmitQuestion}
-                onSendToAdminClicked={onSendToAdminClicked}
-              />
-            )}
+                <ActionButtonsContainer
+                  questionDetails={questionDetails}
+                  isNewQuestion={isNewQuestion}
+                  currentUser={currentUser}
+                  saveAndCompleteLater={saveAndCompleteLater}
+                  onSubmitQuestion={onSubmitQuestion}
+                  onSendToAdminClicked={onSendToAdminClicked}
+                />
+              )}
             {questionDetails?.state ===
               QUESTION_STATUS.pendingAdviserAcceptance &&
               currentUser?.id === questionDetails?.assignedAdviserId && (
