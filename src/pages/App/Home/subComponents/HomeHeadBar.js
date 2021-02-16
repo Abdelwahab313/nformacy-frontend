@@ -19,6 +19,7 @@ const HomeHeadBar = () => {
     window.location.replace(RoutesPaths.App.FreelancerProfile);
   };
 
+  const isCompleteLaterBanner = !currentUser.completedProfile && !authManager.isAdmin();
   return (
     <Fragment>
       <Card className={classes.headerCard}>
@@ -35,7 +36,7 @@ const HomeHeadBar = () => {
           className={classes.headerCardTxt}>
           {currentUser.firstName + ' ' + currentUser.lastName + ' Workspace'}
         </Typography>
-        {!currentUser.completedProfile && (
+        {!!isCompleteLaterBanner && (
           <Link
             underline='none'
             onClick={() => onClickCompleteLater()}>
