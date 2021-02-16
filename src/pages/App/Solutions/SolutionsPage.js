@@ -1,4 +1,5 @@
 import { Box, Grid } from '@material-ui/core';
+import PageContainer from 'components/grid/PageContainer';
 import CustomTypography from 'components/typography/Typography';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -15,24 +16,27 @@ const SolutionsPage = () => {
   const { t } = useTranslation();
 
   return (
-    <Grid container justify='center'>
-      <FrontBanner
-        imageSource={require('../../../assets/solution_page_desktop_2.png')}
-        title={t('solutions')}
-      />
-      <Grid item xs={10} md={10}>
-        <Box textAlign={'center'} className={classes.solutionDescContainer}>
-          <CustomTypography variant='h5'>
-            {t('solutionsPageDesc')}
-          </CustomTypography>
-        </Box>
+    <PageContainer>
+      <Grid container justify='center'>
+        <FrontBanner
+          imageSource={require('../../../assets/landing/solutions_image.png')}
+          imageClassName={classes.solutionsImageBanner}
+          title={t('solutions')}
+        />
+        <Grid item xs={10} md={10}>
+          <Box textAlign={'center'} className={classes.solutionDescContainer}>
+            <CustomTypography variant='h5'>
+              {t('solutionsPageDesc')}
+            </CustomTypography>
+          </Box>
+        </Grid>
+        <OurSolutionsPageServicesSection />
+        <HowWeWorkSection />
+        <MobileHowWeWorkSection />
+        <AreasOfSpeciality />
+        <ServeYouBtnSection />
       </Grid>
-      <OurSolutionsPageServicesSection />
-      <HowWeWorkSection />
-      <MobileHowWeWorkSection />
-      <AreasOfSpeciality />
-      <ServeYouBtnSection />
-    </Grid>
+    </PageContainer>
   );
 };
 

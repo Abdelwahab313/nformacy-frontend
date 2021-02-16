@@ -86,6 +86,7 @@ const appRoutes = [
   {
     path: RoutesPaths.App.KnowHub,
     name: 'Knowledge Hub',
+    icon: DashboardIcon,
     Component: KnowHubPage,
     includeLayout: true,
     isPublic: true,

@@ -2,9 +2,8 @@ import { makeStyles } from '@material-ui/core';
 import { lightGrey } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
-
   bannerImageStyles: {
-    width: '100%',
+    width: '70%',
     height: 370,
   },
   bannerTitle: {

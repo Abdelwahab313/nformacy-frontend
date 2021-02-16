@@ -8,6 +8,10 @@ const useStyles = makeStyles((theme) => ({
       margin: [theme.spacing(6), 0],
     },
   },
+  solutionsImageBanner: {
+    height: 500,
+    width: '93%',
+  },
 }));
 
 export default useStyles;
