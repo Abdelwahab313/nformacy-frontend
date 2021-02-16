@@ -3,7 +3,7 @@ import { lightOrange, white, whiteLilac, darkBlue } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
   bannerImageStyles: {
-    width: '70%',
+    width: '60%',
     height: 460,
   },
   landingSectionsContainerPadding: {

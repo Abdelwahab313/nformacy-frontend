@@ -18,8 +18,9 @@ const ContactUsPage = () => {
           imageClassName={classes.bannerImageStyles}
           imageSource={require('../../../assets/landing/contact_us_page.png')}
           title={t('connectWithUs')}
-          titleClassName={classes.bannerTitle}
-        />
+          description={''}
+          buttonText={''}
+          />
         <Box className={classes.blocksContainer}>
           <Grid item xs={6} className={classes.firstSection}>
             <Box textAlign={'center'} padding={2}>

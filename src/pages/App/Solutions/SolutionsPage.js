@@ -1,7 +1,7 @@
+import React from 'react';
 import { Box, Grid } from '@material-ui/core';
 import PageContainer from 'components/grid/PageContainer';
 import CustomTypography from 'components/typography/Typography';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import AreasOfSpeciality from '../LandingPage/AreasOfSpeciality';
 import HowWeWorkSection from '../LandingPage/HowWeWorkSection';
@@ -22,6 +22,8 @@ const SolutionsPage = () => {
           imageSource={require('../../../assets/landing/solutions_image.png')}
           imageClassName={classes.solutionsImageBanner}
           title={t('solutions')}
+          description={t('solutionsDesc')}
+          buttonText={t('letusServeYou')}
         />
         <Grid item xs={10} md={10}>
           <Box textAlign={'center'} className={classes.solutionDescContainer}>

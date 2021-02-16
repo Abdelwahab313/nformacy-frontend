@@ -21,10 +21,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   firstSectionContainerPadding: {
-    padding: [theme.spacing(11), theme.spacing(1)],
+    padding: [theme.spacing(5), theme.spacing(1)],
     [theme.breakpoints.down('md')]: {
-      padding: [theme.spacing(6), theme.spacing(2)],
+      padding: [theme.spacing(3), theme.spacing(2)],
     },
+  },
+  bannerSectionSpacing: {
+    marginRight: theme.spacing(4),
   },
   bannerImage: {
     width: '100%',
@@ -45,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 150,
     [theme.breakpoints.down('md')]: {
       minHeight: 200,
+      marginTop: theme.spacing(8),
     },
   },
   serveYouPadding: {

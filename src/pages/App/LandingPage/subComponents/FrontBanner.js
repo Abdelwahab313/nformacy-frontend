@@ -1,14 +1,19 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Box } from '@material-ui/core';
 import CustomTypography from 'components/typography/Typography';
 import useStyles from '../styles/LandingPageStyles';
 import clsx from 'clsx';
+import SubmitButton from 'components/buttons/SubmitButton';
+import { RoutesPaths } from 'constants/routesPath';
+import { history } from 'services/navigation';
+import { ArrowForward } from '@material-ui/icons';
 
 const FrontBanner = ({
   imageSource,
   imageClassName = '',
-  title,
-  titleClassName = '',
+  title = '',
+  description = '',
+  buttonText = '',
 }) => {
   const classes = useStyles();
 
@@ -26,12 +31,39 @@ const FrontBanner = ({
         />
       </Grid>
       <Grid item xs={12} md={5} className={classes.justifyChildren}>
-        <CustomTypography
-          variant='h3'
-          fontWeight={'bold'}
-          className={clsx(classes.bannerTitle, titleClassName)}>
-          {title}
-        </CustomTypography>
+        <Box
+          className={clsx(classes.rollerSection, classes.bannerSectionSpacing)}>
+          <Box className={classes.sliderTextContainer}>
+            <Box>
+              <div>
+                <CustomTypography variant='h4' fontWeight='bold'>
+                  {title}
+                </CustomTypography>
+                <CustomTypography
+                  variant='h5'
+                  className={classes.subTextMargin}>
+                  {description}
+                </CustomTypography>
+              </div>
+            </Box>
+          </Box>
+          <Box className={classes.submitBtnContainer} textAlign='right'>
+            {!!buttonText && (
+              <SubmitButton
+                id={'serveBtn'}
+                onClick={() => history.push(RoutesPaths.App.Signup)}
+                className={classes.mainCtaBtn}
+                buttonText={
+                  <CustomTypography
+                    variant='body1'
+                    className={classes.flexClass}>
+                    {buttonText} <ArrowForward />
+                  </CustomTypography>
+                }
+              />
+            )}
+          </Box>
+        </Box>
       </Grid>
     </Grid>
   );
