@@ -5,19 +5,22 @@ import HelpIcon from '@material-ui/icons/Help';
 import { useFormContext } from 'react-hook-form';
 import { useStyles } from 'styles/formsStyles';
 import ErrorMessage from '../errors/ErrorMessage';
-import t from '../../locales/en/freelancerProfile.json';
 import FieldsSelect from '../inputs/FieldsSelect/FieldsSelect';
 import CustomTypography from 'components/typography/Typography';
+import { useTranslation } from 'react-i18next';
+import authManager from 'services/authManager';
 
 const FieldsOfExperience = () => {
   const { errors, watch, setValue, register } = useFormContext();
   const classes = useStyles();
   const fields = watch('fields');
+  const { t } = useTranslation();
 
   useEffect(() => {
     // check if name was existed before
     register({ name: 'fields' });
   }, [register]);
+  const isClient = authManager.isClient();
 
   return (
     <FieldsSelect
@@ -32,17 +35,21 @@ const FieldsOfExperience = () => {
               <Typography
                 gutterBottom
                 className={classes.fieldLabelStylesDesktop}>
-                {t['experiencedIn']}
+                {isClient ? t('experiencedInClient') : t('experiencedIn')}
               </Typography>
               <HelpIcon
                 className={classes.formHeaderIcon}
-                data-tip={t['experiencedInHint']}
+                data-tip={t('experiencedInHint')}
                 color='primary'
                 fontSize='small'
               />
             </div>
-            <CustomTypography variant='body1' fontWeight='light' className={classes.removeNestedText} gutterBottom>
-              {t['experiencedInHint']}
+            <CustomTypography
+              variant='body1'
+              fontWeight='light'
+              className={classes.removeNestedText}
+              gutterBottom>
+              {t('experiencedInHint')}
             </CustomTypography>
             <MajorField />
             <ErrorMessage errorField={errors.majorFieldsOfExperience} />
@@ -52,17 +59,21 @@ const FieldsOfExperience = () => {
               <Typography
                 gutterBottom
                 className={classes.fieldLabelStylesDesktop}>
-                {t['specificallyIn']}
+                {isClient ? t('specificallyIn') : t('specificallyInClients')}
               </Typography>
               <HelpIcon
                 className={classes.formHeaderIcon}
-                data-tip={t['specificallyInHint']}
+                data-tip={t('specificallyInHint')}
                 color='primary'
                 fontSize='small'
               />
             </div>
-            <CustomTypography variant='body1' fontWeight='light' className={classes.removeNestedText} gutterBottom>
-              {t['specificallyInHint']}
+            <CustomTypography
+              variant='body1'
+              fontWeight='light'
+              className={classes.removeNestedText}
+              gutterBottom>
+              {t('specificallyInHint')}
             </CustomTypography>
             <Field />
             <ErrorMessage errorField={errors.fields} />

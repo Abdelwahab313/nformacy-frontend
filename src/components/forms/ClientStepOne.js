@@ -44,7 +44,7 @@ const ClientStepOne = () => {
       direction='row'
       justify='center'
       alignItems='center'>
-      <Grow in={true} timeout={3500}>
+      <Grow in={true} timeout={1000}>
         <Grid item xs={12} sm={6} lg={6}>
           <Paper className={classes.paperSection} elevation={3}>
             <Container style={sectionContainerStyles}>
