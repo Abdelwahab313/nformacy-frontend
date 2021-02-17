@@ -40,8 +40,8 @@ const HomeHeadBar = () => {
           <Link
             underline='none'
             onClick={() => onClickCompleteLater()}>
-            <Typography variant='subtitle1' component='h3' className={classes.completeLaterBanner}>
-              To start using nformacy services please complete your registration form
+            <Typography variant='h6' component='h6' className={classes.completeLaterBanner}>
+              To start using nformacy services please complete your <span className={classes.regFormLink}>registration form</span>
             </Typography>
           </Link>
         )}
