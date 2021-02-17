@@ -7,12 +7,10 @@ import { Grid } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useLocation, useHistory } from 'react-router';
-import { useAuth } from './context/auth';
 import ErrorDialog from '../../components/errors/ErrorDialog';
 import { useStyles } from 'styles/formsStyles';
 import { login } from 'apis/authAPI';
 import authManager from '../../services/authManager';
-import { updateUser } from './context/authActions';
 import { RoutesPaths } from 'constants/routesPath';
 import { useTranslation } from 'react-i18next';
 import useLocale from '../../hooks/localization/useLocale';
@@ -26,7 +24,6 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [showError, setShowError] = useState(false);
-  const [, dispatch] = useAuth();
   const location = useLocation();
   const { setLocale } = useLocale();
   const { t } = useTranslation();
@@ -40,7 +37,7 @@ const Login = () => {
       .then(async (result) => {
         authManager.login(result.data.token);
         const user = result.data.user;
-        updateUser(dispatch, user);
+        localStorage.setItem('user', JSON.stringify(user));
         setLocale(user.locale);
       })
       .then(() => {
@@ -88,7 +85,7 @@ const Login = () => {
   if (loginSuccess || authToken) {
     getPostLoginRoute();
   }
-  
+
   if (loading) {
     return (
       <div className={classes.progressContainer}>

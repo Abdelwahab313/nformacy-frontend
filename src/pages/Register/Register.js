@@ -6,12 +6,10 @@ import { useForm } from 'react-hook-form';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStyles } from '../../styles/formsStyles';
 import { signup } from '../../apis/userAPI';
-import { useAuth } from '../auth/context/auth';
 import { useHistory } from 'react-router';
 import authManager from '../../services/authManager';
 import { Grid } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { updateUser } from '../auth/context/authActions';
 import clsx from 'clsx';
 import { RoutesPaths } from 'constants/routesPath';
 import CustomTypography from 'components/typography/Typography';
@@ -31,7 +29,6 @@ const Register = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
   const [registerSucceeded, setRegisterSucceeded] = useState(false);
-  const [, dispatch] = useAuth();
   const { t } = useTranslation();
   const classes = useStyles();
   const history = useHistory();
@@ -39,12 +36,10 @@ const Register = () => {
   const repeatVal = (passwordRepeat) =>
     passwordRepeat === getValues().password || 'Passwords do not match';
   const onSubmit = (data) => {
-    setLoading(true);
     signup(data)
       .then((result) => {
         authManager.login(result.data.token);
-
-        updateUser(dispatch, result.data.user);
+        localStorage.setItem('user', JSON.stringify(result.data.user));
         setRegisterSucceeded(true);
         window.location.replace(RoutesPaths.App.UserTypeSelection);
         return result;
