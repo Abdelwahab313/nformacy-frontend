@@ -116,7 +116,7 @@ const Register = () => {
               id='firstName'
               label={t('firstName')}
               name='firstName'
-              autoComplete='name'
+              autoComplete='on'
               error={!!errors.firstName}
               defaultValue={user.firstName}
               onChange={(event) => {
@@ -136,7 +136,7 @@ const Register = () => {
               id='lastName'
               label={t('lastName')}
               name='lastName'
-              autoComplete='name'
+              autoComplete='on'
               error={!!errors.lastName}
               defaultValue={user.lastName}
               onChange={(event) => {
