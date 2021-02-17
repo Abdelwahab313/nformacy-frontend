@@ -36,7 +36,6 @@ const Login = () => {
 
   const onSubmit = (data) => {
     setLoginFailed(false);
-    setLoading(true);
     login(data)
       .then(async (result) => {
         authManager.login(result.data.token);
