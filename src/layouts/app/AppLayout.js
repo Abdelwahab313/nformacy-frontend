@@ -6,6 +6,7 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import AppHeader from 'components/header/app/Header';
 import Footer from 'components/footer/Footer';
 import { lightOrange, white } from 'styles/colors';
+import { ToastContainer } from 'react-toastify';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,6 +74,7 @@ function AppLayout({ children, props }) {
       <Toolbar className={classes.topBar} id='back-to-top-anchor' />
       <div className={classes.root}>{children}</div>
       <Footer />
+      <ToastContainer position='bottom-left' />
       <ScrollTop {...props}>
         <Fab className={classes.btnScroll} color='secondary' size='small' aria-label='scroll back to top'>
           <KeyboardArrowUpIcon />

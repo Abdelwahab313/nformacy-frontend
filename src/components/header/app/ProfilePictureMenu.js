@@ -13,6 +13,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import { darkBlue } from 'styles/colors';
 import { RoutesPaths } from 'constants/routesPath';
 import authManager from 'services/authManager';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 
 const StyledMenu = withStyles({
   paper: {
@@ -112,6 +113,20 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
             <BusinessCenterIcon color={'secondary'} />
           </ListItemIcon>
           <StyledListText primary={'Answers'} />
+        </MenuItem>
+      )}
+
+      {authManager.isAdmin() && (
+        <MenuItem
+          id={'adminDashboard'}
+          key={'Admin Dashboard'}
+          onClick={() => handleClose()}
+          component={Link}
+          to={RoutesPaths.Admin.Home}>
+          <ListItemIcon>
+            <DashboardIcon color={'secondary'} />
+          </ListItemIcon>
+          <StyledListText primary={'Admin Dashboard'} />
         </MenuItem>
       )}
 

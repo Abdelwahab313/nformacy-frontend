@@ -33,7 +33,7 @@ const CalendarCard = ({ currentUser }) => {
           availableDates={availableDates}
           events={events}
         />
-        {authManager.isNormalUser() && (
+        {!authManager.isClient() && (
           <Box m={1}>
             <SubmitButton
               id={'open-update-calendar-dialog-btn'}

@@ -98,11 +98,10 @@ const SidebarStyles = (theme) => ({
     display: 'inline-block',
     maxHeight: '30px',
     marginLeft: '10px',
-    marginRight: '15px',
   },
   img: {
-    width: '35px',
-    top: '22px',
+    width: '20px',
+    top: '15px',
     position: 'absolute',
     verticalAlign: 'middle',
     border: '0',

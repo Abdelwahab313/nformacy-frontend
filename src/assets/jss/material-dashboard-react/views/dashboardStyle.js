@@ -6,6 +6,9 @@ import {
 } from "assets/jss/material-dashboard-react.js";
 
 const dashboardStyle = {
+  nformacyLogo: {
+    width: '160px',
+  },
   successText: {
     color: successColor[0]
   },

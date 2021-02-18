@@ -13,7 +13,7 @@ import adminRoutes from 'layouts/admin/routes';
 import styles from 'assets/jss/material-dashboard-react/layouts/adminStyle.js';
 
 import bgImage from 'assets/img/sidebar-2.jpg';
-import logo from 'assets/img/reactlogo.png';
+import logo from 'assets/mobile_nformacy_logo.svg';
 import AdminRouter from 'layouts/admin/AdminRouter';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

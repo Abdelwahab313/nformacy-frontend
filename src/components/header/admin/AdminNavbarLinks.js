@@ -48,6 +48,10 @@ export default function AdminNavbarLinks() {
     return history.push(getAdminProfile());
   };
 
+  const handleDashboardBtn = () => {
+    return history.push(RoutesPaths.App.Dashboard);
+  };
+
   const handleCloseProfile = useCallback(() => {
     setOpenProfile(null);
   }, [setOpenProfile]);
@@ -125,6 +129,11 @@ export default function AdminNavbarLinks() {
                       Profile
                     </MenuItem>
                     <MenuItem
+                      onClick={handleDashboardBtn}
+                      className={classes.dropdownItem}>
+                      Dashboard
+                    </MenuItem>
+                    <MenuItem
                       onClick={handleCloseProfile}
                       className={classes.dropdownItem}>
                       Settings
@@ -145,7 +154,9 @@ export default function AdminNavbarLinks() {
         </Poppers>
       </div>
 
-      <div className={classes.username}>{currentUser.firstName + ' ' + currentUser.lastName}</div>
+      <div className={classes.username}>
+        {currentUser.firstName + ' ' + currentUser.lastName}
+      </div>
     </div>
   );
 }
