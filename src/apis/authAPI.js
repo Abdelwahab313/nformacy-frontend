@@ -16,15 +16,23 @@ const forgetPassword = (email) => {
     url: `${API_BASE_URL}/auth/forget_password`,
     data: { email },
   }).then((response) => camelizeKeys(response.data));
-}
+};
 
 const resetPassword = (token, password) => {
   return axios({
     method: 'put',
     url: `${API_BASE_URL}/auth/reset_password`,
-    data: { token,  password},
+    data: { token, password },
   }).then((response) => camelizeKeys(response.data));
-}
+};
+
+const changePassword = (token, currentPassword, newPassword) => {
+  return axios({
+    method: 'put',
+    url: `${API_BASE_URL}/auth/change_password`,
+    data: { token, currentPassword, newPassword },
+  }).then((response) => camelizeKeys(response.data));
+};
 
 const logout = () => {
   return axios({
@@ -33,4 +41,4 @@ const logout = () => {
   });
 };
 
-export { login, logout, forgetPassword, resetPassword };
+export { login, logout, forgetPassword, resetPassword, changePassword };

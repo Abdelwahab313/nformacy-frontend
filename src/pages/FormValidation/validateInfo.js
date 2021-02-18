@@ -28,4 +28,23 @@ const validateForgetPasswordForm = (values) => {
   return errors;
 };
 
-export { validateResetPasswordForm, validateForgetPasswordForm };
+const validateChangePasswordForm = (values) => {
+  let errors = {};
+  if (!values.currentPassword) {
+    errors.currentPassword = 'Current Password is Required!';
+  }
+  if (!values.newPassword) {
+    errors.newPassword = 'New Password is Required!';
+  }
+  if (!values.confirmPassword) {
+    errors.confirmPassword = 'Confirm Password is Required!';
+  }
+  if (!values.confirmPassword) {
+    errors.confirmPassword = 'Confirm Password is Required!';
+  } else if (values.confirmPassword !== values.password) {
+    errors.confirmPassword = 'Passwords don\'t match!';
+  }
+  return errors;
+};
+
+export { validateResetPasswordForm, validateForgetPasswordForm, validateChangePasswordForm };

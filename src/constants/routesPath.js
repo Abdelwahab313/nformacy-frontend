@@ -26,6 +26,7 @@ export const RoutesPaths = {
     Logout: '/admin/logout',
     PostQuestion: '/admin/postQuestion',
     Evaluations: '/admin/viewEvaluations',
+    ChangePassword: '/admin/changePassword'
   },
   App: {
     Login: '/login',

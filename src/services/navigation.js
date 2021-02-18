@@ -154,3 +154,9 @@ export const getAdminProfile = () => {
     pathname: RoutesPaths.Admin.AdminProfile,
   };
 };
+
+export const getChangePassword = () => {
+  return {
+    pathname: RoutesPaths.Admin.ChangePassword,
+  };
+};

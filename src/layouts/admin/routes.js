@@ -33,6 +33,7 @@ import { CalendarTodayOutlined } from '@material-ui/icons';
 import AdminCalendarDetails from 'pages/Admin/Calendar';
 import ConsultantDetails from 'pages/Admin/Consultants/edit/subComponents/ConsultantDetails';
 import AdminProfile from 'pages/Admin/Admins/edit/subComponents/AdminProfile';
+import ChangePassword from 'pages/ChangePassword';
 
 const adminRoutes = [
   {
@@ -124,6 +125,12 @@ const adminRoutes = [
     path: RoutesPaths.Admin.Evaluations,
     name: 'View Evaluations',
     component: Evaluations,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.Admin.ChangePassword,
+    name: 'Change Password',
+    component: ChangePassword,
     hasDashboardLink: false,
   },
   {

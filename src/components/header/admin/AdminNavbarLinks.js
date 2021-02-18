@@ -22,7 +22,7 @@ import styles from 'assets/jss/material-dashboard-react/components/headerLinksSt
 import { Link, useHistory } from 'react-router-dom';
 import { RoutesPaths } from 'constants/routesPath';
 import Notifications from './notifications';
-import { getAdminProfile } from 'services/navigation';
+import { getAdminProfile, getChangePassword } from 'services/navigation';
 import authManager from 'services/authManager';
 
 const useStyles = makeStyles(styles);
@@ -50,6 +50,10 @@ export default function AdminNavbarLinks() {
 
   const handleDashboardBtn = () => {
     return history.push(RoutesPaths.App.Dashboard);
+  };
+  
+  const handleChangePasswordBtn = () => {
+    return history.push(getChangePassword());
   };
 
   const handleCloseProfile = useCallback(() => {
@@ -137,6 +141,11 @@ export default function AdminNavbarLinks() {
                       onClick={handleCloseProfile}
                       className={classes.dropdownItem}>
                       Settings
+                    </MenuItem>
+                    <MenuItem
+                      onClick={handleChangePasswordBtn}
+                      className={classes.dropdownItem}>
+                      Change Password
                     </MenuItem>
                     <Divider light />
                     <MenuItem
