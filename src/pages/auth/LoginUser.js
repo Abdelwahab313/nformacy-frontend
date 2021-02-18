@@ -45,13 +45,10 @@ const Login = () => {
       })
       .catch((reason) => {
         if (
-          reason.response.data.error === 'invalid_credentials' ||
-          reason.response.data.error === 'unauthorized'
+          reason?.response?.data?.error === 'invalid_credentials' ||
+          reason?.response?.data?.error === 'unauthorized'
         ) {
           setLoginFailed(true);
-        } else {
-          setErrorMessage(t('Network Error'));
-          setShowError(true);
         }
       })
       .finally(() => {
@@ -65,15 +62,16 @@ const Login = () => {
 
   const getPostLoginRoute = () => {
     let postLoginRoute;
-    let prevLink = location?.state?.referer?.pathname ? location?.state?.referer.pathname : location?.state?.referer;
+    let prevLink = location?.state?.referer?.pathname
+      ? location?.state?.referer.pathname
+      : location?.state?.referer;
     let isLogoutRoute =
       prevLink === RoutesPaths.App.Logout ||
       prevLink === RoutesPaths.Admin.Logout;
 
     if (!!prevLink && !isLogoutRoute) {
       postLoginRoute = prevLink;
-    }
-    else {
+    } else {
       postLoginRoute = isAdminLogin
         ? RoutesPaths.Admin.Home
         : RoutesPaths.App.Dashboard;

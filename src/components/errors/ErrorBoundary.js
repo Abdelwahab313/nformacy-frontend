@@ -11,6 +11,12 @@ export default class ErrorBoundary extends Component {
   componentDidMount() {
     // Set axios interceptors
     this.requestInterceptor = Axios.interceptors.request.use((req) => {
+      const TIMEOUT_FOR_REQUEST = 7000;
+      let source = Axios.CancelToken.source();
+      setTimeout(() => {
+        source.cancel();
+      }, TIMEOUT_FOR_REQUEST);
+      req.cancelToken = source.token;
       this.setState({ networkError: '' });
       return req;
     });
@@ -18,7 +24,10 @@ export default class ErrorBoundary extends Component {
     this.responseInterceptor = Axios.interceptors.response.use(
       (res) => res,
       (networkError) => {
-        if (networkError?.response?.status === 500) {
+        if (
+          !networkError?.response?.status ||
+          networkError?.response?.status === 500
+        ) {
           this.setState({ networkError });
         }
         return Promise.reject(networkError);
