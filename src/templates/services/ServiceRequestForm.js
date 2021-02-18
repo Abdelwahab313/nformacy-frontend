@@ -111,10 +111,10 @@ const ServiceRequestForm = ({
           {({ MajorField, Field }) => (
             <GridContainer className={classes.inputsRow}>
               <GridItem xs={12} sm={12} md={4}>
-                <MajorField single disabled={viewOnly} />
+                <MajorField single disabled={viewOnly} inputLabel={t('serviceFieldsTitle')} />
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
-                <Field disabled={viewOnly} />
+                <Field disabled={viewOnly}  inputLabel={t('serviceSubFieldsTitle')} />
                 <ErrorMessage errorField={errors.fields} />
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>

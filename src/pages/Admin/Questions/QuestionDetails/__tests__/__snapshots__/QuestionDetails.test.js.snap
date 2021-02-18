@@ -476,7 +476,7 @@ exports[`should match snapshot 1`] = `
                     >
                       <button
                         aria-label="Clear"
-                        class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator MuiAutocomplete-clearIndicatorDirty"
+                        class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator"
                         tabindex="-1"
                         title="Clear"
                         type="button"

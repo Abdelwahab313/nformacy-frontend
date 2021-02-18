@@ -32,7 +32,7 @@ const useSelectStyles = makeStyles(() => ({
 const AutoCompleteSelectField = ({
   options,
   onChange,
-  value = [],
+  value,
   inputLabel,
   loading,
   ...props
@@ -56,7 +56,7 @@ const AutoCompleteSelectField = ({
         return option.id === value.id;
       }}
       renderOption={(option, { selected }) => (
-        <Direction >
+        <Direction>
           <Checkbox
             icon={icon}
             color='primary'

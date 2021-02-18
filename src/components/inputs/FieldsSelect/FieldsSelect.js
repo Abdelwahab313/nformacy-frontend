@@ -14,7 +14,6 @@ const getSubFieldsOptions = (majorField) => {
   });
 };
 
-
 const FieldsSelect = ({ initialFields, updateFields, children }) => {
   const [selectedMajorFields, setSelectedMajorFields] = useState();
   const { fields: majorFieldsOptions, loading } = useFieldFetcher();
@@ -30,9 +29,7 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
 
   const handleMajorFieldChange = (selectedList) => {
     setSelectedMajorFields(selectedList);
-    const majorFieldIds = selectedList.map(
-      (majorField) => majorField.id,
-    );
+    const majorFieldIds = selectedList.map((majorField) => majorField.id);
     const updatedSubFields = initialFields?.filter((field) =>
       majorFieldIds.includes(field.majorFieldId),
     );
@@ -64,23 +61,27 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
     }
   }, [selectedMajorFields, majorFieldsOptions]);
 
-
-  const MajorField = ({ single = false, disabled }) => {
+  const MajorField = ({ single = false, disabled, inputLabel }) => {
     const { t } = useTranslation();
     const handleChange = (newValue) => {
       if (!!single) {
         newValue = !!newValue ? [newValue] : [];
       }
-      handleMajorFieldChange(newValue)
-    }
-    const fieldsValue = !!single ? (!!selectedMajorFields ? selectedMajorFields[0] : null) : selectedMajorFields
+      handleMajorFieldChange(newValue);
+    };
+    const fieldsValue = !!single
+      ? !!selectedMajorFields
+        ? selectedMajorFields[0]
+        : null
+      : selectedMajorFields;
+
     return (
       <AutoCompleteSelectField
         id='majorFieldsOfExperienceSelect'
         name='majorFieldsOfExperience'
-        inputLabel={t('majorFieldOfExperience')}
+        inputLabel={!!inputLabel ? inputLabel : t('majorFieldOfExperience')}
         options={majorFieldsOptions}
-        value={!!fieldsValue ? fieldsValue : [] }
+        value={fieldsValue}
         onChange={handleChange}
         loading={loading}
         multiple={!single}
@@ -89,13 +90,13 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
     );
   };
 
-  const Field = ({disabled}) => {
+  const Field = ({ disabled, inputLabel }) => {
     const { t } = useTranslation();
     return (
       <AutoCompleteSelectField
         name='fields'
         id='specificFieldsOfExperienceSelect'
-        inputLabel={t('specificField')}
+        inputLabel={!!inputLabel ? inputLabel : t('specificField')}
         options={availableSubFieldsOptions}
         value={initialFields}
         onChange={handleFieldsChange}

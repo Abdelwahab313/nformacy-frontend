@@ -17,6 +17,8 @@
   "fieldsValidation": "Please fill Specific fields for the Service",
   "serviceProcessed": "Question Processed",
   "serviceSaved": "Service Request has been Saved",
+  "serviceFieldsTitle": "Business Field",
+  "serviceSubFieldsTitle": "Specifically in",
   "referenceId": "Reference ID",
   "postDate": "Post Date",
   "industry": "Industry",
