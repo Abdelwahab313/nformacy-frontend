@@ -65,7 +65,7 @@ Then(/^Breadcrumbs including path to question roaster from home$/, function() {
   cy.get('#home-breadcrumb');
   cy.get('#home-breadcrumb').click();
   cy.location().should((loc) => {
-    expect(loc.toString()).to.eq('http://localhost:5001/');
+    expect(loc.toString()).to.eq('http://localhost:5001/dashboard');
   });
   cy.visit(BASE_URL + '/questions');
 });

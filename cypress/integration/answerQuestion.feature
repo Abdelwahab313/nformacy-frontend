@@ -9,8 +9,8 @@ Feature: freelancer answer a question
   Scenario: answer a question
     Then I should see rich Text box for the answer content.
     When i fill answer content.
-    And i click on post answer
-    Then I should be redirected success page that contais thank you note and two buttons to redirect to home or roaster
+    And i click on save answer
+    Then  I should see snackbar with message "Answer has been saved for later"
 
   Scenario: attach file.
     When i click attach file and choose a file.

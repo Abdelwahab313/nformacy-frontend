@@ -5,6 +5,7 @@ import GuardianBase from './GuardianBase';
 const editQuestionStates = [
   QUESTION_STATUS.draft,
   QUESTION_STATUS.pendingAssignment,
+  QUESTION_STATUS.reviewAndEdit,
 ];
 
 class QuestionGuardianClass extends GuardianBase {
@@ -16,6 +17,7 @@ class QuestionGuardianClass extends GuardianBase {
     return (
       this.isSuperAdmin() ||
       this.hasRequestsManagementsRole() ||
+      this.isAdviser() ||
       this.hasQuestionsManagementsRole()
     );
   }
