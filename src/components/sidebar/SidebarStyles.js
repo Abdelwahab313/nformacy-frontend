@@ -99,13 +99,6 @@ const SidebarStyles = (theme) => ({
     maxHeight: '30px',
     marginLeft: '10px',
   },
-  img: {
-    width: '20px',
-    top: '15px',
-    position: 'absolute',
-    verticalAlign: 'middle',
-    border: '0',
-  },
   background: {
     position: 'absolute',
     zIndex: '1',

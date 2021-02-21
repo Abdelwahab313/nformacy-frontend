@@ -54,7 +54,14 @@ const AddAdmin = () => {
       }).then(() => {
         showSuccessMessage(t('adminAdded'));
         navigatToAdminsList();
-      });
+      })
+        .catch(({ response }) => {
+          response.data.errors.forEach((error) => {
+            if (error.includes('Email')) {
+              showErrorMessage(t('emailIsExist'));
+            }
+          });
+        });
     };
   };
   return (

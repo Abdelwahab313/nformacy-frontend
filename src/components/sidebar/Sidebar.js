@@ -69,7 +69,7 @@ export default function Sidebar(props) {
           [classes.logoLinkRTL]: props.rtlActive,
         })}>
         <div className={classes.logoImage}>
-          <img src={logo} alt='logo' className={classes.img} />
+          <img src={logo} alt='logo' />
         </div>
         {logoText}
       </a>

@@ -48,10 +48,10 @@ export default function AdminNavbarLinks() {
     return history.push(getAdminProfile());
   };
 
-  const handleDashboardBtn = () => {
-    return history.push(RoutesPaths.App.Dashboard);
+  const handleQuestionRoasterBtn = () => {
+    return history.push(RoutesPaths.App.Questions);
   };
-  
+
   const handleChangePasswordBtn = () => {
     return history.push(getChangePassword());
   };
@@ -133,9 +133,9 @@ export default function AdminNavbarLinks() {
                       Profile
                     </MenuItem>
                     <MenuItem
-                      onClick={handleDashboardBtn}
+                      onClick={handleQuestionRoasterBtn}
                       className={classes.dropdownItem}>
-                      Dashboard
+                      Question Roaster
                     </MenuItem>
                     <MenuItem
                       onClick={handleCloseProfile}

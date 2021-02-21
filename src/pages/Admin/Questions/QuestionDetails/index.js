@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import GridItem from 'components/grid/GridItem.js';
 import GridContainer from 'components/grid/GridContainer.js';
-import Button from 'components/buttons/RegularButton.js';
 import Card from 'components/card/Card.js';
 import CardHeader from 'components/card/CardHeader.js';
 import CardFooter from 'components/card/CardFooter.js';
@@ -22,6 +21,8 @@ import {
 } from 'services/navigation';
 import LinkText from 'components/typography/LinkText';
 import QuestionGuardian from 'core/guardians/QuestionGuardian';
+import SubmitButton from 'components/buttons/SubmitButton';
+import { useTranslation } from 'react-i18next';
 
 const QuestionDetailsPage = () => {
   const classes = useStyles();
@@ -29,6 +30,7 @@ const QuestionDetailsPage = () => {
   const [isLoadingForUpdating, setIsLoadingForUpdating] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
+  const { t } = useTranslation();
 
   const location = useLocation();
   const questionId = location?.state?.questionId;
@@ -85,13 +87,13 @@ const QuestionDetailsPage = () => {
           <QuestionForm isNewQuestion={isNewQuestion} />
           <CardFooter className={classes.footerButtons}>
             {QuestionGuardian.canDeployQuestion(questionDetails) && (
-              <Button
+              <SubmitButton
                 id={'approveQuestion'}
                 disabled={isLoadingForUpdating}
                 onClick={onDeployQuestionClicked}
-                color='primary'>
-                Deploy to question roaster
-              </Button>
+                buttonText={t('deployToQuestionRoaster')}
+                className={classes.answerButtons}
+                color='primary' />
             )}
           </CardFooter>
         </Card>

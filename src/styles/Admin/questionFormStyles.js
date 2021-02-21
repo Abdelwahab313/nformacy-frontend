@@ -138,5 +138,13 @@ export const useStyles = makeStyles((theme) => ({
     border: '1px solid #1257736b',
     borderRadius: 7,
     padding: 25
-  }
+  },
+  answerButtons: {
+    padding: '1.4vw',
+    maxHeight: '2.500vw',
+    [theme.breakpoints.down('xs')]: {
+      maxHeight: '9.600vw',
+      padding: '10vw',
+    },
+  },
 }));

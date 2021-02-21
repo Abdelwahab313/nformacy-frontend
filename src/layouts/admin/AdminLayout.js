@@ -13,7 +13,7 @@ import adminRoutes from 'layouts/admin/routes';
 import styles from 'assets/jss/material-dashboard-react/layouts/adminStyle.js';
 
 import bgImage from 'assets/img/sidebar-2.jpg';
-import logo from 'assets/mobile_nformacy_logo.svg';
+import logo from 'assets/desktop_nformacy_logo.svg';
 import AdminRouter from 'layouts/admin/AdminRouter';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -63,7 +63,6 @@ export default function AdminLayout({ ...rest }) {
       <Sidebar
         id={'adminSidebar'}
         routes={adminRoutes.filter((route) => !!route.hasDashboardLink)}
-        logoText={'Nformacy'}
         logo={logo}
         image={bgImage}
         handleDrawerToggle={handleDrawerToggle}
