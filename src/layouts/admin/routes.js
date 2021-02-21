@@ -33,7 +33,7 @@ import { CalendarTodayOutlined } from '@material-ui/icons';
 import AdminCalendarDetails from 'pages/Admin/Calendar';
 import ConsultantDetails from 'pages/Admin/Consultants/edit/subComponents/ConsultantDetails';
 import AdminProfile from 'pages/Admin/Admins/edit/subComponents/AdminProfile';
-import ChangePassword from 'pages/ChangePassword';
+import ChangePasswordPage from 'pages/ChangePassword';
 
 const adminRoutes = [
   {
@@ -83,7 +83,6 @@ const adminRoutes = [
     name: 'Services',
     icon: BusinessCenterIcon,
     component: ServicesList,
-    hasDashboardLink: true,
     hasDashboardLink: AdminGuardian.showRequestsPanel(),
   },
   {
@@ -130,7 +129,7 @@ const adminRoutes = [
   {
     path: RoutesPaths.Admin.ChangePassword,
     name: 'Change Password',
-    component: ChangePassword,
+    component: ChangePasswordPage,
     hasDashboardLink: false,
   },
   {

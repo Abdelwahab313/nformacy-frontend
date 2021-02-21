@@ -38,10 +38,7 @@ const validateChangePasswordForm = (values) => {
   }
   if (!values.confirmPassword) {
     errors.confirmPassword = 'Confirm Password is Required!';
-  }
-  if (!values.confirmPassword) {
-    errors.confirmPassword = 'Confirm Password is Required!';
-  } else if (values.confirmPassword !== values.password) {
+  } else if (values.confirmPassword !== values.newPassword) {
     errors.confirmPassword = 'Passwords don\'t match!';
   }
   return errors;

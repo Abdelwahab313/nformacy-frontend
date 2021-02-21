@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_BASE_URL } from '../settings';
-import { camelizeKeys } from 'humps';
+import { camelizeKeys, decamelizeKeys } from 'humps';
 
 const login = (user) => {
   return axios({
@@ -26,11 +26,11 @@ const resetPassword = (token, password) => {
   }).then((response) => camelizeKeys(response.data));
 };
 
-const changePassword = (token, currentPassword, newPassword) => {
+const changePassword = (currentPassword, newPassword) => {
   return axios({
     method: 'put',
     url: `${API_BASE_URL}/auth/change_password`,
-    data: { token, currentPassword, newPassword },
+    data: decamelizeKeys({ currentPassword, newPassword }),
   }).then((response) => camelizeKeys(response.data));
 };
 

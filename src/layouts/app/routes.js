@@ -27,6 +27,8 @@ import ConsultantsPage from 'pages/App/Consultants/ConsultantsPage';
 import ForgetPassword from 'pages/ForgetPassword';
 import ResetPassword from 'pages/ResetPassword';
 import KnowHubPage from 'pages/App/LandingPage/KnowHub';
+import ChangePasswordPage from 'pages/ChangePassword';
+import { VpnKey } from '@material-ui/icons';
 
 const appRoutes = [
   {
@@ -126,6 +128,15 @@ const appRoutes = [
     Component: ResetPassword,
     includeLayout: true,
     isPublic: true,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.App.ChangePassword,
+    name: 'Change Password',
+    icon: VpnKey,
+    Component: ChangePasswordPage,
+    includeLayout: true,
+    isPublic: false,
     hasDashboardLink: false,
   },
   {

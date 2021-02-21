@@ -14,6 +14,7 @@ import { darkBlue } from 'styles/colors';
 import { RoutesPaths } from 'constants/routesPath';
 import authManager from 'services/authManager';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
 const StyledMenu = withStyles({
   paper: {
@@ -129,6 +130,18 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
           <StyledListText primary={'Admin Dashboard'} />
         </MenuItem>
       )}
+
+      <MenuItem
+        id={'changePassword'}
+        key={'Change Password'}
+        onClick={() => handleClose()}
+        component={Link}
+        to={RoutesPaths.App.ChangePassword}>
+        <ListItemIcon>
+          <VpnKeyIcon color={'secondary'} />
+        </ListItemIcon>
+        <StyledListText primary={'Change Password'} />
+      </MenuItem>
 
       <MenuItem
         id={'logout'}

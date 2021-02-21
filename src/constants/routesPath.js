@@ -33,6 +33,7 @@ export const RoutesPaths = {
     Signup: '/signup',
     ForgetPassword: '/forgetPassword',
     ResetPassword: '/resetPassword',
+    ChangePassword: '/changePassword',
     Logout: '/logout',
     FreelancerProfile: '/user/profile',
     SubmitAnswerNote: '/answer/success',

@@ -9,10 +9,9 @@ import useForm from '../FormValidation/useForm';
 import { validateChangePasswordForm } from '../FormValidation/validateInfo';
 import { changePassword } from 'apis/authAPI';
 import { useSnackBar } from 'context/SnackBarContext';
-import { history } from 'services/navigation';
-import { RoutesPaths } from 'constants/routesPath';
+import authManager from 'services/authManager';
 
-const ChangePassword = () => {
+const ChangePasswordPage = () => {
   const { handleChange, values, handleSubmit, errors } = useForm(
     validateChangePasswordForm,
   );
@@ -24,10 +23,10 @@ const ChangePassword = () => {
   const onSubmit = (e) => {
     setResponseMessage('');
     handleSubmit(e, () => {
-      changePassword(values.email)
+      changePassword(values.currentPassword, values.newPassword)
         .then((response) => {
           showSuccessMessage(response?.message);
-          history.push(RoutesPaths.App.Login);
+          authManager.logout()
         })
         .catch((reason) => {
           setResponseMessage(reason?.response?.data?.error);
@@ -122,4 +121,4 @@ const ChangePassword = () => {
   );
 };
 
-export default ChangePassword;
+export default ChangePasswordPage;
