@@ -55,7 +55,14 @@ const AddAdvisor = () => {
       }).then(() => {
         showSuccessMessage(t('adviserAdded'));
         navigatToAdvisersList();
-      });
+      })
+        .catch(({ response }) => {
+          response.data.errors.forEach((error) => {
+            if (error.includes('Email')) {
+              showErrorMessage(t('emailIsExist'));
+            }
+          });
+        });
     };
   };
 
