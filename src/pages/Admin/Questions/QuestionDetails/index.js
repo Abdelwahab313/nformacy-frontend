@@ -5,7 +5,7 @@ import Card from 'components/card/Card.js';
 import CardHeader from 'components/card/CardHeader.js';
 import CardFooter from 'components/card/CardFooter.js';
 import { useHistory, useLocation } from 'react-router';
-import { fetchQuestionDetails } from 'apis/questionsAPI';
+import { fetchQuestionDetails, updateQuestion } from 'apis/questionsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { approveQuestion } from 'apis/questionsAPI';
 import QuestionForm from './subComponents/QuestionForm';
@@ -53,9 +53,13 @@ const QuestionDetailsPage = () => {
 
   const onDeployQuestionClicked = () => {
     setIsLoadingForUpdating(true);
-    approveQuestion(questionDetails.id)
+    updateQuestion(questionDetails.id, {
+      ...questionDetails,
+    })
       .then(() => {
-        history.push(getAdminQuestionsDashboardLink());
+        approveQuestion(questionDetails.id).then(() => {
+          history.push(getAdminQuestionsDashboardLink());
+        });
       })
       .finally(() => setIsLoadingForUpdating(false));
   };

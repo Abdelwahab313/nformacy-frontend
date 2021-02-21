@@ -45,7 +45,6 @@ import SuccessSnackBar from 'components/snackbar/SuccessSnackBar';
 import ImageUploadWithPreview from 'components/inputs/FileUpload/ImageUploadWithPreview';
 import FieldsSelect from '../../../../../components/inputs/FieldsSelect/FieldsSelect';
 import { QUESTION_STATUS } from 'constants/questionStatus';
-import { getAdminQuestionsDashboardLink } from 'services/navigation';
 import QuestionGuardian from 'core/guardians/QuestionGuardian';
 
 const noActionStates = [
@@ -70,7 +69,7 @@ const QuestionForm = ({ isNewQuestion }) => {
   const [isModified, setIsModified] = useState(false);
   let history = useHistory();
   const navigatToDashboard = () => {
-    history.push(getAdminQuestionsDashboardLink());
+    history.goBack()
   };
 
   const onAcceptAssignment = () => {
@@ -113,7 +112,13 @@ const QuestionForm = ({ isNewQuestion }) => {
 
   const onSendToAdminClicked = () => {
     if (!!isModified) {
-      setErrorMessage(dispatch, 'Please save current modification first');
+      updateQuestion(questionDetails.id, {
+        ...questionDetails,
+      }).then(() => {
+        sendToAdmin(questionDetails.id).then(() => {
+          navigatToDashboard();
+        });
+      });
     } else {
       sendToAdmin(questionDetails.id).then(() => {
         navigatToDashboard();
@@ -317,7 +322,7 @@ const QuestionForm = ({ isNewQuestion }) => {
                 onChange: (e) => {
                   onChangeQuestionField('hoursToCloseAnswers', e.target.value);
                 },
-                style: { paddingBottom: 12 }
+                style: { paddingBottom: 12 },
               }}
             />
           </GridItem>
@@ -342,7 +347,7 @@ const QuestionForm = ({ isNewQuestion }) => {
                 onChange: (e) => {
                   onChangeQuestionField('hoursToReviewAndEdit', e.target.value);
                 },
-                style: { paddingBottom: 12 }
+                style: { paddingBottom: 12 },
               }}
             />
           </GridItem>
@@ -436,15 +441,15 @@ const QuestionForm = ({ isNewQuestion }) => {
               authManager.isAdviser() &&
               noActionStates.includes(questionDetails.state)
             ) && (
-                <ActionButtonsContainer
-                  questionDetails={questionDetails}
-                  isNewQuestion={isNewQuestion}
-                  currentUser={currentUser}
-                  saveAndCompleteLater={saveAndCompleteLater}
-                  onSubmitQuestion={onSubmitQuestion}
-                  onSendToAdminClicked={onSendToAdminClicked}
-                />
-              )}
+              <ActionButtonsContainer
+                questionDetails={questionDetails}
+                isNewQuestion={isNewQuestion}
+                currentUser={currentUser}
+                saveAndCompleteLater={saveAndCompleteLater}
+                onSubmitQuestion={onSubmitQuestion}
+                onSendToAdminClicked={onSendToAdminClicked}
+              />
+            )}
             {questionDetails?.state ===
               QUESTION_STATUS.pendingAdviserAcceptance &&
               currentUser?.id === questionDetails?.assignedAdviserId && (
