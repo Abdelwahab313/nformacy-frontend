@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, DialogContent, DialogContentText, DialogActions, Dialog } from '@material-ui/core';
 import { useStyles } from 'styles/formsStyles';
 import { useTranslation } from 'react-i18next';
 import useForm from '../FormValidation/useForm';
 import { validateForgetPasswordForm } from '../FormValidation/validateInfo';
 import { forgetPassword } from 'apis/authAPI';
-import { useSnackBar } from 'context/SnackBarContext';
 import { history } from 'services/navigation';
 import { RoutesPaths } from 'constants/routesPath';
 
@@ -19,15 +18,20 @@ const ForgetPassword = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [responseMessage, setResponseMessage] = useState('');
-  const { showSuccessMessage } = useSnackBar();
+  const [showForgetPaswordPopup, setShowForgetPaswordPopup] = useState(true);
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    history.push(RoutesPaths.App.Login);
+  };
 
   const onSubmit = (e) => {
     setResponseMessage('');
+    setOpen(true);
     handleSubmit(e, () => {
       forgetPassword(values.email)
-        .then((response) => {
-          showSuccessMessage(response?.message);
-          history.push(RoutesPaths.App.Login);
+        .then(() => {
+          setShowForgetPaswordPopup(true);
         })
         .catch((reason) => {
           setResponseMessage(reason?.response?.data?.error);
@@ -85,6 +89,25 @@ const ForgetPassword = () => {
           </form>
         </Grid>
       </Grid>
+      {!!showForgetPaswordPopup &&
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              E-mail sent with password reset instructions.
+          </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary" autoFocus>
+              ok
+          </Button>
+          </DialogActions>
+        </Dialog>
+      }
     </Grid>
   );
 };
