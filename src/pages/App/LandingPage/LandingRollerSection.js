@@ -28,7 +28,7 @@ const LandingRollerSection = () => {
       justify='center'
       alignItems='center'
       className={classes.firstSectionContainerPadding}>
-      <Grid item xs={10} md={5} className={classes.rollerSection}>
+      <Grid item xs={10} md={4} className={classes.rollerSection}>
         <Box className={classes.sliderTextContainer}>
           <Slide direction={'right'} in={sliderItem} timeout={500}>
             <Box>
@@ -76,7 +76,7 @@ const LandingRollerSection = () => {
           />
         </Box>
       </Grid>
-      <Grid item xs={12} md={7} className={classes.imgSection}>
+      <Grid item xs={12} md={6} className={classes.imgSection}>
         <img
           className={classes.firstSectionImg}
           src={require('../../../assets/landing/nformacy_Illustrations@1x.png')}
