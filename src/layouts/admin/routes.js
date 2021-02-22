@@ -41,7 +41,7 @@ const adminRoutes = [
     name: 'Dashboard',
     icon: DashboardIcon,
     component: Dashboard,
-    hasDashboardLink: AdminGuardian.showDashboardPanel(),
+    hasDashboardLink: false,
   },
   {
     path: RoutesPaths.Admin.Questions,
