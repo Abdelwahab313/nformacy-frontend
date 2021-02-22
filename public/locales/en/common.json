@@ -467,5 +467,6 @@
   "newPassword": "New Password",
   "currentPassword": "Current Password",
   "emailIsExist": "This email address already exists",
-  "deployToQuestionRoaster":"Deploy to question roaster"
+  "deployToQuestionRoaster": "Deploy to question roaster",
+  "majorFields": "Major Fields"
 }

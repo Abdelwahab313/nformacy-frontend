@@ -79,7 +79,7 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
       <AutoCompleteSelectField
         id='majorFieldsOfExperienceSelect'
         name='majorFieldsOfExperience'
-        inputLabel={!!inputLabel ? inputLabel : t('majorFieldOfExperience')}
+        inputLabel={!!inputLabel ? inputLabel : t('majorFields')}
         options={majorFieldsOptions}
         value={fieldsValue}
         onChange={handleChange}

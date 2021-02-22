@@ -143,7 +143,7 @@ exports[`should match snapshot 1`] = `
                     for="majorFieldsOfExperienceSelect"
                     id="majorFieldsOfExperienceSelect-label"
                   >
-                    majorFieldOfExperience
+                    majorFields
                   </label>
                   <div
                     class="MuiInputBase-root MuiOutlinedInput-root MuiAutocomplete-inputRoot makeStyles-inputRoot-6 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd"
@@ -221,7 +221,7 @@ exports[`should match snapshot 1`] = `
                         class="PrivateNotchedOutline-legendLabelled-9"
                       >
                         <span>
-                          majorFieldOfExperience
+                          majorFields
                         </span>
                       </legend>
                     </fieldset>

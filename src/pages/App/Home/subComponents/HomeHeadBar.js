@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
-import { Card, CardMedia, Typography, Box, Link } from '@material-ui/core';
+import { Card, CardMedia, Typography, Box, Link, Grid } from '@material-ui/core';
 import useStyles from '../styles/HomePageStyles';
 import { useTranslation } from 'react-i18next';
 import CustomTypography from 'components/typography/Typography';
 import { useAuth } from 'pages/auth/context/auth';
 import authManager from 'services/authManager';
 import { RoutesPaths } from 'constants/routesPath';
+import warning from '../../../../assets/warning.png';
 
 const HomeHeadBar = () => {
   const { t } = useTranslation();
@@ -40,9 +41,18 @@ const HomeHeadBar = () => {
           <Link
             underline='none'
             onClick={() => onClickCompleteLater()}>
-            <Typography variant='h6' component='h6' className={classes.completeLaterBanner}>
-              To start using nformacy services please complete your <span className={classes.regFormLink}>registration form</span>
-            </Typography>
+            <Grid container className={classes.completeLaterBanner}>
+              <Grid item md={1}>
+                <div className={classes.warningImgContainer}>
+                  <img className={classes.warningImg} src={warning} alt="warning" />
+                </div>
+              </Grid>
+              <Grid md={11}>
+                <Typography variant='subtitle1' component='h6'>
+                  WARNING! To start using nformacy services please complete your <span className={classes.regFormLink}>registration form</span>
+                </Typography>
+              </Grid>
+            </Grid>
           </Link>
         )}
       </Card >

@@ -339,11 +339,11 @@ const useStyles = makeStyles((theme) => ({
     padding: 4,
     top: '65%',
     left: 0,
-    color: white,
+    color: black,
     right: 0,
     position: 'absolute',
     textAlign: 'center',
-    backgroundColor: darkOrange,
+    backgroundColor: '#ffff99',
     width: '40%',
     margin: '0 auto',
     fontWeight: 'bold',
@@ -484,6 +484,16 @@ const useStyles = makeStyles((theme) => ({
   fieldInProfile: {
     display: 'flex',
     justifyContent: 'center'
+  },
+  warningImgContainer: {
+    background: white,
+    width: 45,
+    height: 55,
+    verticalAlign: 'middle',
+    display: 'table-cell'
+  },
+  warningImg: {
+    width: 25
   }
 }));
 
