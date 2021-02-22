@@ -5,8 +5,12 @@ import GuardianBase from './GuardianBase';
 const editQuestionStates = [
   QUESTION_STATUS.draft,
   QUESTION_STATUS.pendingAssignment,
+  QUESTION_STATUS.pendingAdviserAcceptance,
   QUESTION_STATUS.reviewAndEdit,
 ];
+
+const isEditiableQuestion = (questionDetails) =>
+  editQuestionStates.includes(questionDetails.state) || !questionDetails?.id;
 
 class QuestionGuardianClass extends GuardianBase {
   constructor(user) {
@@ -29,13 +33,13 @@ class QuestionGuardianClass extends GuardianBase {
   }
 
   canUploadAttachment(questionDetails) {
-    if (editQuestionStates.includes(questionDetails.state)) {
+    if (isEditiableQuestion(questionDetails)) {
       return this.canManageQuestion();
     }
   }
 
   canUploadThumbnail(questionDetails) {
-    if (editQuestionStates.includes(questionDetails.state)) {
+    if (isEditiableQuestion(questionDetails)) {
       return this.canManageQuestion();
     }
   }

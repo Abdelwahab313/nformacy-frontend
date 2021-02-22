@@ -197,7 +197,7 @@ When(/^When I click on a day that not available$/, function() {
   ).click({ force: true });
 });
 When(/^fill the available date range to be after a week$/, function() {
-  cy.get('#end-date-range-picker').clear();
+  cy.get('#end-date-range-picker').clear({ force: true });
   cy.get('#end-date-range-picker').type(
     `27/${moment().format('MM')}/${moment().format('Y')}`,
   );

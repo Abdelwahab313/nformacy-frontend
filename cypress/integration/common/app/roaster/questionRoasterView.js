@@ -11,45 +11,45 @@ Then(
 Then(
   /^All the questions that are open with the following fields: Question title, Reference \#, post date, field, subfield, industry, Question content, assignment type, close date\.$/,
   function() {
-    cy.get('#question-2000100-title', { timeout: 50000 })
+    cy.get('#question-2000101-title', { timeout: 50000 })
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-2000100-referenceNumber')
+    cy.get('#question-2000101-referenceNumber')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-2000100-postDate')
+    cy.get('#question-2000101-postDate')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#questionMajorFields-2000100-0')
+    cy.get('#questionMajorFields-2000101-0')
       .trigger('mouseover')
-      .get('#questionSubFields-2000100-0')
+      .get('#questionSubFields-2000101-0')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#questionSubFields-2000100-0')
+    cy.get('#questionSubFields-2000101-0')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-2000100-content')
+    cy.get('#question-2000101-content')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-2000100-currentActionTime')
+    cy.get('#question-2000101-currentActionTime')
       .invoke('text')
       .should('not.be.empty');
   },
 );
 Then(/^Each question should have answer button beneath it\.$/, function() {
-  cy.get('#question-2000100-title')
+  cy.get('#question-2000101-title')
     .invoke('text')
     .should('not.be.empty');
-  cy.get('#question-2000100-submit');
+  cy.get('#question-2000101-submit');
 });
 When(/^I click on a field from the filtering menu\.$/, function() {
-  cy.get('#question-2000100-title', { timeout: 50000 })
+  cy.get('#question-2000101-title', { timeout: 50000 })
     .invoke('text')
     .should('not.be.empty');
   cy.get('#filters-0').click();
 });
 Then(/^I should only see questions that belongs to that field\.$/, function() {
-  cy.get('#questionMajorFields-2000100-0').should('have.text', 'Finance');
+  cy.get('#questionMajorFields-2000101-0').should('have.text', 'Finance');
 });
 Then(/^I should see a banner with Nformacy primary color$/, function() {
   cy.get('#question-roaster-banner', { timeout: 50000 });
@@ -84,16 +84,16 @@ Then(/^Language filter as dropdown$/, function() {
 Then(
   /^I should see first picture in the question content as thumbnail on the left$/,
   function() {
-    cy.get('#question-2000100-title', { timeout: 50000 }).should('exist');
+    cy.get('#question-2000101-title', { timeout: 50000 }).should('exist');
   },
 );
 Then(
   /^question reference number in primary color followed by post date$/,
   function() {
-    cy.get('#question-2000100-referenceNumber')
+    cy.get('#question-2000101-referenceNumber')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-2000100-postDate')
+    cy.get('#question-2000101-postDate')
       .invoke('text')
       .should('not.be.empty');
   },
@@ -101,10 +101,10 @@ Then(
 Then(
   /^question title in bold large font followed by time to close question$/,
   function() {
-    cy.get('#question-2000100-title')
+    cy.get('#question-2000101-title')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#question-2000100-currentActionTime')
+    cy.get('#question-2000101-currentActionTime')
       .invoke('text')
       .should('not.be.empty');
   },
@@ -112,21 +112,21 @@ Then(
 Then(
   /^question fields as chips with tooltip specifying minor fields$/,
   function() {
-    cy.get('#questionMajorFields-2000100-0')
+    cy.get('#questionMajorFields-2000101-0')
       .trigger('mouseover')
-      .get('#questionSubFields-2000100-0')
+      .get('#questionSubFields-2000101-0')
       .invoke('text')
       .should('not.be.empty');
   },
 );
 Then(/^Question content in normal font size$/, function() {
-  cy.get('#question-2000100-content')
+  cy.get('#question-2000101-content')
     .invoke('text')
     .should('not.be.empty');
 });
 Then(/^assignment type icon on the left$/, function() {
-  cy.get('#question-2000100-assignment').should('exist');
+  cy.get('#question-2000101-assignment').should('exist');
 });
 Then(/^answer button on the right$/, function() {
-  cy.get('#question-2000100-submit').should('exist');
+  cy.get('#question-2000101-submit').should('exist');
 });

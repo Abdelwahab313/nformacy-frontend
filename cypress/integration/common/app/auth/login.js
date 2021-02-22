@@ -3,7 +3,7 @@ import { BASE_URL, FREELANCER_PASSWORD, FREELANCER_USERNAME } from '../../../../
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
 Given(/^I am at login page$/, () => {
-  cy.visit(BASE_URL);
+  cy.visit(BASE_URL + '/login');
 });
 
 When(/^I type my email and password$/, () => {

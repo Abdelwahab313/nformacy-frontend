@@ -3,7 +3,7 @@ import {
   loginAsAdmin,
   loginAsAnAdvisor,
   loginInAsFreelancer,
-  loginAsClient
+  loginAsClient,
 } from '../../helperFunctions';
 import faker from 'faker';
 import {
@@ -51,7 +51,7 @@ When(/^I log in as a freelancer_2$/, function() {
 });
 
 Given(/^visit home page$/, function() {
-  cy.visit(BASE_URL);
+  cy.visit(BASE_URL + '/dashboard');
 });
 
 When(/^I go to question roaster$/, function() {

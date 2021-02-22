@@ -16,7 +16,7 @@ const getColumnsOptions = (classes, t) => {
 
   const columns = [
     {
-      name: 'id',
+      name: 'serviceId',
       label: t('id'),
       options: {
         display: false,
@@ -86,7 +86,7 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: true,
         sort: true,
-        display: false
+        display: false,
       },
     },
     {
