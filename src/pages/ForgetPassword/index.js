@@ -27,11 +27,11 @@ const ForgetPassword = () => {
 
   const onSubmit = (e) => {
     setResponseMessage('');
-    setOpen(true);
     handleSubmit(e, () => {
       forgetPassword(values.email)
         .then(() => {
           setShowForgetPaswordPopup(true);
+          setOpen(true);
         })
         .catch((reason) => {
           setResponseMessage(reason?.response?.data?.error);
