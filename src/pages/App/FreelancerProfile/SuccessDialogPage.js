@@ -30,7 +30,7 @@ const SuccessDialogPage = ({ open, handleClose }) => {
               variant={'body1'}
               gutterBottom
               className={classes.successText}>
-              Congratulations!! You can now use nFormacy Workspace.
+              Congratulations!! You can now use nformacy Workspace.
             </CustomTypography>
           </Grid>
         </Grid>
