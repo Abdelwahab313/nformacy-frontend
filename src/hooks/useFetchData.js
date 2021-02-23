@@ -9,7 +9,7 @@ const useFetchData = (fetchApi) => {
   function handleApiErrors(reason) {
     if (reason.message === 'Network Error') {
       setErrorMessage('something went wrong');
-    } else if (reason.response.status === 401) {
+    } else if (reason?.response?.status === 401) {
       setErrorMessage('Login session invalid, please log in again');
       localStorage.removeItem('user');
       authManager.logout();

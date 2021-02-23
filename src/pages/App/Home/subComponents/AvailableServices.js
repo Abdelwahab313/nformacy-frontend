@@ -16,13 +16,15 @@ const services = (t) => [
     description: t('callServiceDescription'),
     icon: require('../../../../assets/client-call.svg'),
     btnTxt: t('callServiceButton'),
+    comingSoon: false,
   },
   {
-    name: 'question',
-    title: t('questionServiceTitle'),
-    description: t('questionServiceDescription'),
+    name: 'assignExpert',
+    title: t('assignExpertServiceTitle'),
+    description: t('assignExpertServiceDescription'),
     icon: require('../../../../assets/consultant.png'),
-    btnTxt: t('questionServiceButton'),
+    btnTxt: t('assignExpertServiceButton'),
+    comingSoon: true,
   },
   {
     name: 'project',
@@ -30,6 +32,7 @@ const services = (t) => [
     description: t('projectServiceDescription'),
     icon: require('../../../../assets/client-project.svg'),
     btnTxt: t('projectServiceButton'),
+    comingSoon: true,
   },
 ];
 
@@ -39,9 +42,12 @@ const AvailableServices = () => {
   const { t } = useTranslation();
   const [focusedItem, setFocusedItem] = useState('');
 
-  const navigatToServiceForm = (type) => {
+  const onServiceBtnClick = (service) => {
+    if (!!service.comingSoon) {
+      return;
+    }
     history.push(RoutesPaths.App.EditServiceRequest, {
-      service: { assignmentType: type },
+      service: { assignmentType: service.name },
     });
   };
 
@@ -56,17 +62,21 @@ const AvailableServices = () => {
         justify='space-between'
         spacing={4}>
         {services(t).map((service) => (
-          <Grid item xs={4} md={4} className={classes.mobileServicesContainerPadding}>
+          <Grid
+            item
+            xs={4}
+            md={4}
+            className={classes.mobileServicesContainerPadding}>
             <Box className={[classes.askQuestionBox, classes.clientThreeBtns]}>
               <MobileServiceItem
                 service={service}
-                onServiceClick={() => navigatToServiceForm(service.name)}
+                onServiceClick={() => onServiceBtnClick(service)}
               />
               <ServiceItem
                 service={service}
                 isFocused={service.name === focusedItem}
                 setFocusedItem={setFocusedItem}
-                onServiceClick={() => navigatToServiceForm(service.name)}
+                onServiceClick={() => onServiceBtnClick(service)}
               />
             </Box>
           </Grid>
@@ -77,6 +87,7 @@ const AvailableServices = () => {
 };
 
 const MobileServiceItem = ({ service, onServiceClick }) => {
+  const { t } = useTranslation();
   const classes = useStyles();
   return (
     <Grid container className={classes.mobileVisible}>
@@ -97,7 +108,7 @@ const MobileServiceItem = ({ service, onServiceClick }) => {
           ]}
           buttonText={
             <CustomTypography variant='caption'>
-              {service.btnTxt}
+              {!!service.comingSoon ? t('comingSoon') : service.btnTxt}
             </CustomTypography>
           }
         />
@@ -112,6 +123,7 @@ const ServiceItem = ({
   setFocusedItem,
   onServiceClick,
 }) => {
+  const { t } = useTranslation();
   const classes = useStyles();
   return (
     <Collapse
@@ -145,7 +157,7 @@ const ServiceItem = ({
               className={[classes.proceedBtn, classes.startProcessBtn]}
               buttonText={
                 <CustomTypography variant='body1'>
-                  {service.btnTxt}
+                  {!!service.comingSoon ? t('comingSoon') : service.btnTxt}
                 </CustomTypography>
               }
             />

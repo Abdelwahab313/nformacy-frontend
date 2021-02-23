@@ -26,11 +26,11 @@ const services = (t) => [
   },
   {
     name: 'question',
-    title: t('questionServiceTitle'),
-    description: t('questionServiceDescription'),
+    title: t('assignExpertServiceTitle'),
+    description: t('assignExpertServiceDescription'),
     icon: require('../../../../assets/consultant.png'),
     WhiteIcon: require('../../../../assets/white-consultant.svg'),
-    btnTxt: t('questionServiceButton'),
+    btnTxt: t('assignExpertServiceButton'),
   },
   {
     name: 'project',
