@@ -14,11 +14,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import AdminNavbarLinks from 'components/header/admin/AdminNavbarLinks.js';
 
 import SidebarStyles from './SidebarStyles';
+import authManager from 'services/authManager';
 
 const useStyles = makeStyles(SidebarStyles);
 
 export default function Sidebar(props) {
   const classes = useStyles();
+  const currentUser = authManager.retrieveCurrentUser();
+
   // verifies if routeName is the one active (in browser input)
   function activeRoute(routeName) {
     return window.location.href.indexOf(routeName) > -1;
@@ -69,7 +72,10 @@ export default function Sidebar(props) {
           [classes.logoLinkRTL]: props.rtlActive,
         })}>
         <div className={classes.logoImage}>
-          <img src={logo} alt='logo' />
+          <img src={logo} alt='logo' className={classes.nformacySidMenuLogo} />
+        </div>
+        <div className={classes.mobileUsername}>
+          {currentUser.firstName + ' ' + currentUser.lastName}
         </div>
         {logoText}
       </a>

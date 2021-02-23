@@ -14,6 +14,7 @@ import {
   blackColor,
   hexToRgb,
 } from 'assets/jss/material-dashboard-react.js';
+import { darkBlue } from 'styles/colors';
 
 const SidebarStyles = (theme) => ({
   drawerPaper: {
@@ -77,7 +78,6 @@ const SidebarStyles = (theme) => ({
   },
   logoLink: {
     ...defaultFont,
-    textTransform: 'uppercase',
     padding: '5px 0',
     display: 'block',
     fontSize: '18px',
@@ -288,6 +288,17 @@ const SidebarStyles = (theme) => ({
       bottom: '13px',
     },
   },
+  nformacySidMenuLogo: {
+    width: 160
+  },
+  mobileUsername: {
+    display: 'none',
+    color: darkBlue,
+    fontWeight: 'bold',
+    [theme.breakpoints.down('sm')]: {
+      display: 'block'
+    },
+  }
 });
 
 export default SidebarStyles;

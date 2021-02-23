@@ -42,19 +42,20 @@ const HomeHeadBar = () => {
             underline='none'
             onClick={() => onClickCompleteLater()}>
             <Grid container className={classes.completeLaterBanner}>
-              <Grid item md={1}>
+              <Grid item md={1} className={classes.completeLaterBannerText}>
                 <div className={classes.warningImgContainer}>
                   <img className={classes.warningImg} src={warning} alt="warning" />
                 </div>
               </Grid>
-              <Grid md={11}>
-                <Typography variant='subtitle1' component='h6'>
+              <Grid md={11} className={classes.completeLaterBannerText}>
+                <Typography variant='subtitle1' component='h6' className={classes.warningMsg}>
                   WARNING! To start using nformacy services please complete your <span className={classes.regFormLink}>registration form</span>
                 </Typography>
               </Grid>
             </Grid>
           </Link>
-        )}
+        )
+        }
       </Card >
       <Box className={classes.profileMobile}>
         <img

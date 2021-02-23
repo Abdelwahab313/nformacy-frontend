@@ -320,7 +320,7 @@ const useStyles = makeStyles((theme) => ({
   headerCardImg: {
     height: 270,
     [theme.breakpoints.down('md')]: {
-      height: 115,
+      height: 200,
     },
   },
   headerCardTxt: {
@@ -349,6 +349,15 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     borderRadius: 6,
     cursor: 'pointer',
+    display: 'table',
+    [theme.breakpoints.down('md')]: {
+      top: '30%',
+      width: '70%',
+    },
+    [theme.breakpoints.down('xs')]: {
+      top: '20%',
+      width: '86%',
+    },
   },
   regFormLink: {
     textDecoration: 'underline',
@@ -494,7 +503,14 @@ const useStyles = makeStyles((theme) => ({
   },
   warningImg: {
     width: 25
-  }
+  },
+  warningMsg: {
+    float: 'left'
+  },
+  completeLaterBannerText: {
+    display: 'table-cell',
+    verticalAlign: 'middle'
+}
 }));
 
 export default useStyles;

@@ -112,8 +112,11 @@ const headerLinksStyle = theme => ({
   username: {
     display: 'inline-block',
     color: darkBlue,
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    },
+  },
 });
 
 export default headerLinksStyle;
