@@ -2,6 +2,7 @@ import { createBrowserHistory as createHistory } from 'history';
 
 import { RoutesPaths } from 'constants/routesPath';
 import authManager from 'services/authManager';
+import AdminGuardian from 'core/guardians/AdminGuardian';
 
 export const history = createHistory();
 
@@ -10,6 +11,17 @@ export const getQuestionDetailsLink = (questionId, serviceId) => {
     return getQuestionDetailsLinkForAdmin(questionId);
   } else {
     return getServiceDetailsLink(serviceId);
+  }
+};
+
+export const getAdminDashboardHomePage = () => {
+  authManager.retrieveCurrentUser();
+  if (AdminGuardian.showRequestsPanel()) {
+    return RoutesPaths.Admin.Services;
+  } else if (AdminGuardian.showQuestionsPanel()) {
+    return RoutesPaths.Admin.Questions;
+  } else {
+    return RoutesPaths.Admin.Dashboard;
   }
 };
 

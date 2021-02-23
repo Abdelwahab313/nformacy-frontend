@@ -5,6 +5,7 @@ import PrivateRoute from 'components/PrivateRoute';
 
 import adminRoutes from 'layouts/admin/routes';
 import { RoutesPaths } from 'constants/routesPath';
+import { getAdminDashboardHomePage } from 'services/navigation';
 
 const AdminRouter = () => {
   return (
@@ -21,7 +22,7 @@ const AdminRouter = () => {
       })}
       <Redirect
         from={RoutesPaths.Admin.Home}
-        to={RoutesPaths.Admin.Dashboard}
+        to={getAdminDashboardHomePage()}
       />
     </Switch>
   );

@@ -15,6 +15,7 @@ import { RoutesPaths } from 'constants/routesPath';
 import authManager from 'services/authManager';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import { getAdminDashboardHomePage } from 'services/navigation';
 
 const StyledMenu = withStyles({
   paper: {
@@ -123,7 +124,7 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
           key={'Admin Dashboard'}
           onClick={() => handleClose()}
           component={Link}
-          to={RoutesPaths.Admin.Home}>
+          to={getAdminDashboardHomePage()}>
           <ListItemIcon>
             <DashboardIcon color={'secondary'} />
           </ListItemIcon>

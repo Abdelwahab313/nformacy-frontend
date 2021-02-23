@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import fontNames from 'constants/fonts';
+import clsx from 'clsx';
 
 // fontWeght will be ['regular', 'bold', 'light',]
 const CustomTypography = ({
@@ -18,7 +19,7 @@ const CustomTypography = ({
   return (
     <Typography
       variant={variant}
-      className={[classes.fontStyles, className]}
+      className={clsx(classes.fontStyles, className)}
       {...props}>
       {children}
     </Typography>

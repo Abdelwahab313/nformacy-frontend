@@ -45,7 +45,7 @@ class QuestionGuardianClass extends GuardianBase {
   }
 
   canCreateNewQuestion() {
-    return this.canManageQuestion();
+    return this.canManageQuestion() && !this.isAdviser();
   }
 }
 
