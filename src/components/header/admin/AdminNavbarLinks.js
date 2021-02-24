@@ -19,7 +19,7 @@ import CustomInput from 'components/inputs/CustomInput.js';
 import Button from 'components/buttons/RegularButton.js';
 
 import styles from 'assets/jss/material-dashboard-react/components/headerLinksStyle.js';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { RoutesPaths } from 'constants/routesPath';
 import Notifications from './notifications';
 import { getAdminProfile, getChangePassword } from 'services/navigation';
@@ -54,6 +54,10 @@ export default function AdminNavbarLinks() {
 
   const handleChangePasswordBtn = () => {
     return history.push(getChangePassword());
+  };
+
+  const handleLogout = () => {
+    return history.push(RoutesPaths.Admin.Logout);
   };
 
   const handleCloseProfile = useCallback(() => {
@@ -149,9 +153,7 @@ export default function AdminNavbarLinks() {
                     </MenuItem>
                     <Divider light />
                     <MenuItem
-                      component={Link}
-                      to={RoutesPaths.Admin.Logout}
-                      onClick={handleCloseProfile}
+                      onClick={handleLogout}
                       className={classes.dropdownItem}>
                       Logout
                     </MenuItem>

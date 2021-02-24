@@ -22,7 +22,7 @@ const ConsultantHomePage = () => {
     <Direction>
       <Grid container justify='center'>
         <HomeHeadBar />
-        <Grid container className={classes.clientHomeContainer} spacing={4}>
+        <Grid container className={classes.clientHomeContainer}>
           <Grid item xs={12} md={3}>
             <ProfileSummaryCard />
             <CalendarCard currentUser={currentUser} />

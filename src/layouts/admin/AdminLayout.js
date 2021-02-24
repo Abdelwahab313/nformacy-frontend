@@ -33,7 +33,7 @@ export default function AdminLayout({ ...rest }) {
 
   const handleDrawerToggle = useCallback(() => {
     setMobileOpen(!mobileOpen);
-  }, [setMobileOpen]);
+  }, [setMobileOpen, mobileOpen]);
 
   const resizeFunction = useCallback(() => {
     if (window.innerWidth >= 960) {
