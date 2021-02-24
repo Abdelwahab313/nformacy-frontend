@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    justifyContent: 'center',
     flexDirection: 'row',
     minHeight: '700px',
     width: '100%',
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   topBar: {
     minHeight: 0,
   },
-  btnScroll:{
+  btnScroll: {
     background: lightOrange,
     color: white,
   },

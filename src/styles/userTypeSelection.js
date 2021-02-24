@@ -5,6 +5,9 @@ export const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 0,
     bottom: 0,
+    [theme.breakpoints.down('md')]: {
+      position: 'relative'
+    }
   },
   userImg: {
     width: 250,
@@ -22,7 +25,20 @@ export const useStyles = makeStyles((theme) => ({
     padding: 20
   },
   centerCard: {
-    textAlign: 'center'
+    textAlign: 'center',
+    [theme.breakpoints.down('md')]: {
+      padding: '0 !important'
+    }
+  },
+  mobileClientCard: {
+    [theme.breakpoints.down('md')]: {
+      marginTop: 35
+    }
+  },
+  mobileConsultantCard: {
+    [theme.breakpoints.down('md')]: {
+      marginBottom: 35
+    }
   },
   usersTypeContainerBorder: {
     borderRadius: 25,
