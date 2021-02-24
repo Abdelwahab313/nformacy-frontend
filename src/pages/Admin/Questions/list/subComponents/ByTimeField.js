@@ -19,27 +19,10 @@ import { useSnackBar } from 'context/SnackBarContext';
 import { makeStyles } from '@material-ui/core/styles';
 
 const ByTimeField = ({ currentActionTime, referenceId, questionId }) => {
-  const classes = useStyles();
   const [isDialogOpend, setIsDialogOpened] = useState(false);
-  const [extendedTime, setIsExtendedTime] = useState();
-  const { showErrorMessage, showSuccessMessage } = useSnackBar();
 
   const closeDialog = () => {
     setIsDialogOpened(false);
-  };
-  const submitExtendedTime = (questionId, extendedTime) => {
-    if (extendedTime > 0) {
-      extendTime(questionId, extendedTime)
-        .then(() => {
-          setIsDialogOpened(false);
-          showSuccessMessage('Successfully updated question time');
-        })
-        .then(() => {
-          window.location.reload(true);
-        });
-    } else {
-      showErrorMessage('Please enter a valied time to extend');
-    }
   };
 
   return (
@@ -56,67 +39,96 @@ const ByTimeField = ({ currentActionTime, referenceId, questionId }) => {
           date={currentActionTime}
         />
       </button>
-      <Dialog
-        open={isDialogOpend}
-        TransitionComponent={Transition}
-        maxWidth={'sm'}
-        fullWidth={true}
-        id={'extend-time-dialog'}>
-        <DialogTitle id='dialog-title'>
-          <Grid container justify={'space-between'}>
-            <Grid item>
-              <Typography variant={'h6'}>Extend Time</Typography>
-            </Grid>
-            <Grid item>
-              <IconButton
-                id={'close-dialog'}
-                aria-label='edit'
-                onClick={() => {
-                  closeDialog();
-                }}>
-                <CloseIcon color={'primary'} />
-              </IconButton>
-            </Grid>
-          </Grid>
-        </DialogTitle>
-        <DialogContent>
-          <Grid>
-            <CustomInput
-              labelText='Extended Time (In Hours)'
-              id='extendTimeInput'
-              formControlProps={{
-                style: {
-                  margin: 0,
-                },
-                fullWidth: true,
-              }}
-              inputProps={{
-                value: extendedTime,
-                name: 'extendedTime',
-                type: 'number',
-                onChange: (e) => {
-                  setIsExtendedTime(e.target.value);
-                },
-              }}
-            />
-          </Grid>
-          <Grid item xs={6} className={classes.dialogActionButtons}>
-            <SubmitButton
-            color="secondary"
-              id='cancel'
-              onClick={() => closeDialog()}
-              buttonText={'Cancel'}
-              className={classes.buttonMargin}
-            />
-            <SubmitButton
-              id={'submitExtendedTime'}
-              onClick={() => submitExtendedTime(questionId, extendedTime)}
-              buttonText={'Submit'}
-            />
-          </Grid>
-        </DialogContent>
-      </Dialog>
+      <ExtendTimeDialog
+        isDialogOpend={isDialogOpend}
+        closeDialog={closeDialog}
+        questionId={questionId}
+      />
     </Fragment>
+  );
+};
+
+const ExtendTimeDialog = ({ isDialogOpend, closeDialog, questionId }) => {
+  const classes = useStyles();
+
+  const [extendedTime, setIsExtendedTime] = useState();
+  const { showErrorMessage, showSuccessMessage } = useSnackBar();
+  const submitExtendedTime = (questionId, extendedTime) => {
+    if (extendedTime > 0) {
+      extendTime(questionId, extendedTime)
+        .then(() => {
+          closeDialog();
+          showSuccessMessage('Successfully updated question time');
+        })
+        .then(() => {
+          window.location.reload(true);
+        });
+    } else {
+      showErrorMessage('Please enter a valied time to extend');
+    }
+  };
+
+  return (
+    <Dialog
+      open={isDialogOpend}
+      TransitionComponent={Transition}
+      maxWidth={'sm'}
+      fullWidth={true}
+      id={'extend-time-dialog'}>
+      <DialogTitle id='dialog-title'>
+        <Grid container justify={'space-between'}>
+          <Grid item>
+            <Typography variant={'h6'}>Extend Time</Typography>
+          </Grid>
+          <Grid item>
+            <IconButton
+              id={'close-dialog'}
+              aria-label='edit'
+              onClick={() => {
+                closeDialog();
+              }}>
+              <CloseIcon color={'primary'} />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </DialogTitle>
+      <DialogContent>
+        <Grid>
+          <CustomInput
+            labelText='Extended Time (In Hours)'
+            id='extendTimeInput'
+            formControlProps={{
+              style: {
+                margin: 0,
+              },
+              fullWidth: true,
+            }}
+            inputProps={{
+              value: extendedTime,
+              name: 'extendedTime',
+              type: 'number',
+              onChange: (e) => {
+                setIsExtendedTime(e.target.value);
+              },
+            }}
+          />
+        </Grid>
+        <Grid item xs={6} className={classes.dialogActionButtons}>
+          <SubmitButton
+            color='secondary'
+            id='cancel'
+            onClick={() => closeDialog()}
+            buttonText={'Cancel'}
+            className={classes.buttonMargin}
+          />
+          <SubmitButton
+            id={'submitExtendedTime'}
+            onClick={() => submitExtendedTime(questionId, extendedTime)}
+            buttonText={'Submit'}
+          />
+        </Grid>
+      </DialogContent>
+    </Dialog>
   );
 };
 

@@ -3,6 +3,7 @@ import Countdown from 'react-countdown';
 import Typography from '@material-ui/core/Typography';
 import AlarmIcon from '@material-ui/icons/Alarm';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 
 export const useStyles = makeStyles( () => ({
   countDownText: {
@@ -40,7 +41,7 @@ const QuestionCountDown = ({
         <Typography
           variant={'caption'}
           id={id}
-          className={[classes.countDownText, className]}
+          className={clsx(classes.countDownText, className)}
           {...props}>
           {!!showIcon && (
             <AlarmIcon

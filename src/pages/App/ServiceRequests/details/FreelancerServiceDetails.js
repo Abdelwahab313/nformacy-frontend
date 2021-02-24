@@ -10,7 +10,7 @@ import QuestionDetailedView from 'pages/App/FreelancersAnswers/edit/subComponent
 const FreelancerServiceDetails = ({ serviceDetails }) => {
   const { t } = useTranslation();
 
-  const answer = serviceDetails.question?.answers[0];
+  const answer = serviceDetails?.answers[0];
   const meeting = serviceDetails?.meetings[0];
 
   return (

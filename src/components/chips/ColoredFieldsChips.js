@@ -41,11 +41,11 @@ const ColoredFieldsChips = ({ fields }) => {
   }
 
   const groupedFields = groupFieldsByMajorFieldId(fieldsLabels, fields);
-  
+
   return (
     <Grid className={classes.fieldContainer}>
       {groupedFields?.map((majorField, key) => (
-        <Grid>
+        <Grid key={key}>
           <Tooltip
             title={
               <CustomTypography variant='body1'>

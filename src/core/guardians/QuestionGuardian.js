@@ -26,9 +26,13 @@ class QuestionGuardianClass extends GuardianBase {
     );
   }
 
+  isQuestionEditDisabled () {
+    
+  }
+
   canDeployQuestion(questionDetails) {
     if (questionDetails.state === QUESTION_STATUS.pendingDeploymentToRoaster) {
-      return this.canManageQuestion();
+      return this.canManageQuestion() && !this.isAdviser();
     }
   }
 

@@ -6,6 +6,7 @@ import QuestionDetails from '../index';
 import { Router } from 'react-router';
 import { createMemoryHistory } from 'history';
 import { RoutesPaths } from 'constants/routesPath';
+import UserFactorySetup from '__test__/factory/userFactory';
 
 jest.mock('components/calendar/CalendarView.js', () => ({
   __esModule: true, // this property makes it work
@@ -61,6 +62,8 @@ jest.mock('context/SnackBarContext', () => ({
 }));
 
 it('should match snapshot', async () => {
+  UserFactorySetup.generateAdmin();
+
   const history = createMemoryHistory();
   history.push(RoutesPaths.App.Dashboard, { questionId: 1 });
   const { asFragment } = render(

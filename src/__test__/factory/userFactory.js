@@ -19,6 +19,15 @@ class UserFactorySetup {
       {},
     );
   }
+
+  static generateAdmin(user = {}) {
+    const roles = [{ name: 'admin' }, { name: 'super_admin' }];
+
+    authManager.updateUserInLocalStorage(
+      { ...baseUserData, ...user, roles },
+      {},
+    );
+  }
 }
 
 export default UserFactorySetup;

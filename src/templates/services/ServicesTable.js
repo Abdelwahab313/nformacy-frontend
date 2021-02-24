@@ -105,7 +105,7 @@ const getColumnsOptions = (classes, t) => {
       options: {
         ...defaultColumnOption,
         filter: false,
-        display: false,
+        display: authManager.isAdmin(),
       },
     },
     {

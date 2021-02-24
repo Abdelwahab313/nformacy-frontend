@@ -5,6 +5,7 @@ import { AuthProvider } from 'pages/auth/context/auth';
 import moment from 'moment';
 import { QuestionProvider } from 'pages/Admin/Questions/QuestionDetails/context';
 import { LocaleProvider } from '../../hooks/localization/context';
+import UserFactorySetup from '__test__/factory/userFactory';
 jest.mock('apis/fieldsAPI', () => ({
   __esModule: true, // this property makes it work
   default: 'mockedDefaultExport',
@@ -33,7 +34,7 @@ const testQuestion = {
   referenceNumber: 2000131,
   title: 'Test mocked question',
   content:
-    '<p>People are different. People choose different criteria. But if there is a better way among many alternatives, I want to encourage that way by making it comfortable. So that\'s what I\'ve tried to do.</p>',
+    "<p>People are different. People choose different criteria. But if there is a better way among many alternatives, I want to encourage that way by making it comfortable. So that's what I've tried to do.</p>",
   field: [{ value: 'marketingAndPR', label: 'Marketing and PR' }],
   subfield: [{ value: 'marketResearch', label: 'Market Research' }],
   industry: { value: 'consulting', label: 'Consulting' },
@@ -49,11 +50,12 @@ const testQuestion = {
 
 describe('Question Form', () => {
   it('should match snapshot', () => {
+    UserFactorySetup.generateAdmin();
     const { asFragment } = render(
       <AuthProvider>
         <LocaleProvider initialLocale={'en'}>
           <QuestionProvider>
-            <QuestionForm questionDetails={testQuestion}/>
+            <QuestionForm questionDetails={testQuestion} />
           </QuestionProvider>
         </LocaleProvider>
       </AuthProvider>,

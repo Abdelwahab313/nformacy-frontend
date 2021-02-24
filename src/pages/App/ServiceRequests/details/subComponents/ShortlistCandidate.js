@@ -26,7 +26,11 @@ const ShortlistCandidate = ({ candidates, serviceId }) => {
   };
 
   const onSubmitDate = (selectedTime) => {
-    scheduleMeetingForCallService(serviceId, selectedTime, selectedCandidate.id).then(() => {
+    scheduleMeetingForCallService(
+      serviceId,
+      selectedTime,
+      selectedCandidate.id,
+    ).then(() => {
       showSuccessMessage(
         `Meeting has been scheduled successfully with ${getUserName(
           selectedCandidate,
@@ -50,7 +54,7 @@ const ShortlistCandidate = ({ candidates, serviceId }) => {
         justify='space-evenly'
         className={classes.shortlistContainer}>
         {candidates.map((candidate, index) => (
-          <Grid Grid item xs={12} md={3} >
+          <Grid key={index} item xs={12} md={3}>
             <Box className={'shortlistedConsultants'}>
               <CandidateItem
                 bgcolor={shortlistedContainerColors[index]}
@@ -74,7 +78,7 @@ const ShortlistCandidate = ({ candidates, serviceId }) => {
           />
         )}
       </Grid>
-    </Card >
+    </Card>
   );
 };
 

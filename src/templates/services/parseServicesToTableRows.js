@@ -15,6 +15,7 @@ import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTim
 import CustomTypography from 'components/typography/Typography';
 import { Typography } from '@material-ui/core';
 import { EDITABLE_SERVICE_STATUS } from 'constants/questionStatus';
+import ServiceManager from 'core/serviceManager';
 import QuestionCountDown from 'components/counters/QuestionCountDown';
 import MeetingAlarm from 'components/feedback/MeetingAlarm';
 
@@ -94,12 +95,8 @@ const parseServicesToTableRows = (services, t) => {
     ),
     actionTime: (
       <QuestionCountDown
-        date={
-          service.activityType === 'meeting'
-            ? service?.meetingTime
-            : service?.currentActionTime
-        }
-        data-date={service?.meetingTime}
+        date={ServiceManager.getServiceTime(service)}
+        data-date={ServiceManager.getServiceTime(service)}
         showIcon={false}
         className={'currentActionTime'}
       />
@@ -109,7 +106,7 @@ const parseServicesToTableRows = (services, t) => {
         <MeetingAlarm meetingTime={service.meetingTime} />
       ) : (
         <QuestionRemainingTimeAlarm
-          remainingTime={service.currentActionTime}
+          remainingTime={ServiceManager.getServiceTime(service)}
           totalActionHours={10}
           className={'alarm'}
           data-reference={service.serviceId}

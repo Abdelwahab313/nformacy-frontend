@@ -69,7 +69,7 @@ const QuestionForm = ({ isNewQuestion }) => {
   const [isModified, setIsModified] = useState(false);
   let history = useHistory();
   const navigatToDashboard = () => {
-    history.goBack()
+    history.goBack();
   };
 
   const onAcceptAssignment = () => {
@@ -283,7 +283,7 @@ const QuestionForm = ({ isNewQuestion }) => {
           </GridContainer>
         )}
       </FieldsSelect>
-      {authManager.isAdmin() && (
+      {!authManager.isAdviser() && (
         <GridContainer className={classes.inputsRow}>
           <GridItem xs={12} sm={12} md={3}>
             <DropdownSelectField
