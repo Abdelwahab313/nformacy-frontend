@@ -1,11 +1,9 @@
 import React from 'react';
 
 import MUIDataTable from 'mui-datatables';
-import { withStyles } from '@material-ui/core/styles';
-import Chip from '@material-ui/core/Chip';
+
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import { Link } from 'react-router-dom';
 
 import { RoutesPaths } from 'constants/routesPath';
 import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
@@ -17,6 +15,7 @@ import { useStyles } from '../../../../styles/Admin/questionTableStyles';
 import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
 import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
+import QuestionActionLink from 'templates/questions/QuestionActionLink';
 
 export const COLUMN_NAMES = {
   id: 'id',
@@ -34,26 +33,8 @@ export const COLUMN_NAMES = {
   hoursToCloseAnswers: 'hoursToCloseAnswers',
 };
 
-export const HOURS_FOR_ACTION = 12;
-const DYNAMIC_STATES = {
-  reviewAndEdit: 'review_and_edit',
-  answersRating: 'answers_rating',
-};
-
-export const getTotalActionTime = (rowData, columns) => {
-  const state = rowData[getIndexForColumn(COLUMN_NAMES.state, columns)];
-  switch (state) {
-    case DYNAMIC_STATES.reviewAndEdit:
-      const reviewAndEditHours =
-        rowData[getIndexForColumn(COLUMN_NAMES.reviewAndEditHours, columns)];
-      return reviewAndEditHours;
-    case DYNAMIC_STATES.answersRating:
-      const hoursToCloseAnswers =
-        rowData[getIndexForColumn(COLUMN_NAMES.hoursToCloseAnswers, columns)];
-      return hoursToCloseAnswers;
-    default:
-      return HOURS_FOR_ACTION;
-  }
+const getQuestionValue = (columnName, rowData, columns) => {
+  return rowData[getIndexForColumn(columnName, columns)];
 };
 
 export const getIndexForColumn = (columnName, columns) => {
@@ -63,6 +44,35 @@ export const getIndexForColumn = (columnName, columns) => {
     }
   }
   throw new TypeError(`Column: ${columnName} does not exist`);
+};
+
+export const HOURS_FOR_ACTION = 12;
+const DYNAMIC_STATES = {
+  reviewAndEdit: 'review_and_edit',
+  answersRating: 'answers_rating',
+};
+
+export const getTotalActionTime = (rowData, columns) => {
+  const state = getQuestionValue(COLUMN_NAMES.state, rowData, columns);
+
+  switch (state) {
+    case DYNAMIC_STATES.reviewAndEdit:
+      const reviewAndEditHours = getQuestionValue(
+        COLUMN_NAMES.reviewAndEditHours,
+        rowData,
+        columns,
+      );
+      return reviewAndEditHours;
+    case DYNAMIC_STATES.answersRating:
+      const hoursToCloseAnswers = getQuestionValue(
+        COLUMN_NAMES.hoursToCloseAnswers,
+        rowData,
+        columns,
+      );
+      return hoursToCloseAnswers;
+    default:
+      return HOURS_FOR_ACTION;
+  }
 };
 
 const getColumnsFor = (isAdviser, classes) => {
@@ -101,24 +111,25 @@ const getColumnsFor = (isAdviser, classes) => {
         customBodyRender: (value, tableMeta) => {
           return (
             <LinkText
-              data-status={
-                tableMeta.rowData[
-                  getIndexForColumn(COLUMN_NAMES.state, columns)
-                ]
-              }
-              data-reference={
-                tableMeta.rowData[
-                  getIndexForColumn(COLUMN_NAMES.referenceNumber, columns)
-                ]
-              }
+              data-status={getQuestionValue(
+                COLUMN_NAMES.state,
+                tableMeta.rowData,
+                columns,
+              )}
+              data-reference={getQuestionValue(
+                COLUMN_NAMES.referenceNumber,
+                tableMeta.rowData,
+                columns,
+              )}
               className={'title'}
               to={{
                 pathname: RoutesPaths.Admin.QuestionsDetails,
                 state: {
-                  questionId:
-                    tableMeta.rowData[
-                      getIndexForColumn(COLUMN_NAMES.id, columns)
-                    ],
+                  questionId: getQuestionValue(
+                    COLUMN_NAMES.id,
+                    tableMeta.rowData,
+                    columns,
+                  ),
                 },
               }}>
               <TextCroppedWithTooltip text={value} />
@@ -210,37 +221,21 @@ const getColumnsFor = (isAdviser, classes) => {
         filter: true,
         sort: false,
         customBodyRender: (value, tableMeta) => {
-          const actionNeeded =
-            questionStatusActions[value].action[
-              isAdviser ? 'adviser' : 'admin'
-            ];
-
-          if (!actionNeeded) {
-            return '';
-          }
           return (
-            <Link
-              className={classes.link}
-              to={{
-                pathname: RoutesPaths.Admin.QuestionsDetails,
-                state: {
-                  questionId:
-                    tableMeta.rowData[
-                      getIndexForColumn(COLUMN_NAMES.id, columns)
-                    ],
-                },
-              }}>
-              <StyledStatusChip
-                data-status={value}
-                className={'state'}
-                data-reference={
-                  tableMeta.rowData[
-                    getIndexForColumn(COLUMN_NAMES.referenceNumber, columns)
-                  ]
-                }
-                label={actionNeeded}
-              />
-            </Link>
+            <QuestionActionLink
+              state={value}
+              id={getQuestionValue(COLUMN_NAMES.id, tableMeta.rowData, columns)}
+              answersCount={getQuestionValue(
+                COLUMN_NAMES.answersCount,
+                tableMeta.rowData,
+                columns,
+              )}
+              referenceNumber={getQuestionValue(
+                COLUMN_NAMES.referenceNumber,
+                tableMeta.rowData,
+                columns,
+              )}
+            />
           );
         },
       },
@@ -257,14 +252,16 @@ const getColumnsFor = (isAdviser, classes) => {
           return currentActionTime ? (
             <ByTimeField
               currentActionTime={currentActionTime}
-              referenceId={
-                tableMeta.rowData[
-                  getIndexForColumn(COLUMN_NAMES.referenceNumber, columns)
-                ]
-              }
-              questionId={
-                tableMeta.rowData[getIndexForColumn(COLUMN_NAMES.id, columns)]
-              }
+              referenceId={getQuestionValue(
+                COLUMN_NAMES.referenceNumber,
+                tableMeta.rowData,
+                columns,
+              )}
+              questionId={getQuestionValue(
+                COLUMN_NAMES.id,
+                tableMeta.rowData,
+                columns,
+              )}
             />
           ) : null;
         },
@@ -283,11 +280,11 @@ const getColumnsFor = (isAdviser, classes) => {
               remainingTime={currentActionTime}
               totalActionHours={getTotalActionTime(tableMeta.rowData, columns)}
               className={'alarm'}
-              data-reference={
-                tableMeta.rowData[
-                  getIndexForColumn(COLUMN_NAMES.referenceNumber, columns)
-                ]
-              }
+              data-reference={getQuestionValue(
+                COLUMN_NAMES.referenceNumber,
+                tableMeta.rowData,
+                columns,
+              )}
             />
           );
         },
@@ -318,16 +315,6 @@ const getColumnsFor = (isAdviser, classes) => {
   return columns;
 };
 
-const StyledStatusChip = withStyles({
-  root: {
-    margin: 1,
-    backgroundColor: '#cec8ef',
-  },
-  label: {
-    fontSize: '0.8rem',
-  },
-})(Chip);
-
 const QuestionsTable = ({ questions, isAdviser }) => {
   const classes = useStyles();
   const columns = getColumnsFor(isAdviser, classes);
@@ -341,8 +328,11 @@ const QuestionsTable = ({ questions, isAdviser }) => {
     print: false,
     rowsPerPage: process.env.REACT_APP_ENV === 'e2e' ? 300 : 10,
     setRowProps: (row) => ({
-      'row-reference':
-        row[getIndexForColumn(COLUMN_NAMES.referenceNumber, columns)],
+      'row-reference': getQuestionValue(
+        COLUMN_NAMES.referenceNumber,
+        row,
+        columns,
+      ),
     }),
   };
   return (

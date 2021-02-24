@@ -75,12 +75,9 @@ const QuestionForm = ({ isNewQuestion }) => {
   const onAcceptAssignment = () => {
     acceptAssignment(questionDetails.id).then((response) => {
       updateQuestionDetails(dispatch, {
-        ...response.data,
+        ...questionDetails,
+        state: response.data?.state,
         createdAt: humanizedTimeSpan(questionDetails.createdAt),
-        title: questionDetails.title,
-        field: questionDetails.field,
-        subfield: questionDetails.subfield,
-        industry: questionDetails.industry,
       });
       setSuccessMessage(dispatch, 'Question has been accepted successfully');
     });
