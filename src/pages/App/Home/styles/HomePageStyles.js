@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
       padding: [theme.spacing(2), theme.spacing(4)],
     },
     [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(3),
+      margin: '0 auto'
     },
   },
   askQuestionBox: {
@@ -510,7 +510,7 @@ const useStyles = makeStyles((theme) => ({
   completeLaterBannerText: {
     display: 'table-cell',
     verticalAlign: 'middle'
-}
+  }
 }));
 
 export default useStyles;

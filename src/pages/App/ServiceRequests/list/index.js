@@ -10,17 +10,19 @@ import Direction from 'components/grid/Direction';
 import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import useFetchClientActivities from 'hooks/useFetchClientActivities';
+import { useStyles } from 'styles/Admin/questionTableStyles';
 
 const ServicesPage = () => {
   const { t } = useTranslation();
   const { activities: services, isLoading } = useFetchClientActivities();
+  const classes = useStyles();
 
   if (isLoading) {
     return <LoadingCircle />;
   }
 
   return (
-    <Box mx='auto'>
+    <Box mx='auto' className={classes.boxContainer}>
       <GridItem xs={12} sm={12} md={12}>
         <BreadcrumbsCustomSeparator pageName={t('serviceRequestList')} />
         <Card plain>
