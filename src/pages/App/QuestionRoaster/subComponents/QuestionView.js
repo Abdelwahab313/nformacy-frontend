@@ -23,8 +23,10 @@ const LANGUAGES_LOCALES_MAPPER = {
 };
 
 export const getFirstParagraph = (htmlContent) => {
-  let matches = htmlContent.match(/(?<=<p.*>)(.*?)(?=<\/p>)/gm);
-  return matches ? matches[0] : 'No Content';
+  let parser = new DOMParser();
+  let doc = parser.parseFromString(htmlContent, 'text/html');
+  let contentText = doc?.getElementsByTagName('body')[0].innerText;
+  return !!contentText ? contentText : 'No Content';
 };
 
 const QuestionView = ({ questionDetails, isSubmitVisible }) => {

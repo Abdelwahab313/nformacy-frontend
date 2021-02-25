@@ -143,7 +143,6 @@ const Register = () => {
                 const { value } = event.target;
                 setUser({ ...user, lastName: value });
               }}
-              autoFocus
             />
             {errors.lastName && (
               <span className={classes.error}>{errors.lastName.message}</span>
@@ -169,7 +168,6 @@ const Register = () => {
                 const { value } = event.target;
                 setValue('email', value);
               }}
-              autoFocus
             />
             {errors.email && (
               <span className={classes.error}>{errors.email.message}</span>
