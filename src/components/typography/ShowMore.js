@@ -55,7 +55,7 @@ const ShowMore = ({
   ...restProps
 }) => {
   const classes = useStyles();
-  const MAXIMUM_NUMBER_OF_LINES = numberOfLines || 2;
+  const MAXIMUM_NUMBER_OF_LINES = numberOfLines || 1;
   return (
     <ShowMoreText
       lines={MAXIMUM_NUMBER_OF_LINES}
