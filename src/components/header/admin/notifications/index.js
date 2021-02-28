@@ -19,13 +19,14 @@ const Notifications = () => {
   const classes = useStyles();
   const headerClasses = useHeaderStyles();
   const [menuOpened, setMenuOpened] = useState('');
-  useNotification();
+  const { seeRecentNotifications } = useNotification();
 
   const toggleMenu = (event) => {
     if (!!menuOpened && menuOpened?.contains(event.target)) {
       setMenuOpened(null);
     } else {
       setMenuOpened(event.currentTarget);
+      seeRecentNotifications();
     }
   };
 
@@ -75,7 +76,7 @@ const WithNotification = (props) => {
   return (
     <NotificationsProvider
       initialNotifications={user?.notifications}
-      unreadCount={user?.unreadNotifications}>
+      unreadCount={user?.unseenNotificationsCount}>
       <Notifications {...props} />
     </NotificationsProvider>
   );

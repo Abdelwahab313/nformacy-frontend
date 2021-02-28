@@ -1,7 +1,7 @@
 import useNotification from '../../../../hooks/notifications/useNotification';
 import MenuList from '@material-ui/core/MenuList';
 import MenuItem from '@material-ui/core/MenuItem';
-import React, { Fragment, useMemo } from 'react';
+import React, { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import styles from '../../../../assets/jss/material-dashboard-react/components/headerLinksStyle';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -87,26 +87,21 @@ const NotificationsHeader = ({ closeMenu }) => {
   );
 };
 
-const NotificationsFooter = () => {
+const NotificationsFooter = ({ closeMenu }) => {
   const classes = useStyles();
-  const [{ unreadCount, notifications }] = useNotificationsContext();
+  const [{ notifications }] = useNotificationsContext();
   const history = useHistory();
   const { t } = useTranslation();
 
-  const oldUnreadNotifications = useMemo(
-    () =>
-      notifications?.every((notification) => notification.readAt) &&
-      unreadCount > 0,
-    [unreadCount, notifications],
-  );
   const navigateToAllNotifications = () => {
+    closeMenu();
     if (authManager.isAdmin() || authManager.isAdviser()) {
       history.push('/admin/notifications');
     } else history.push('/notifications');
   };
   return (
     <Fragment>
-      {(unreadCount > 10 || oldUnreadNotifications) && (
+      {notifications.length >= 10 && (
         <MenuItem
           onClick={navigateToAllNotifications}
           className={classes.dropdownItem}>
@@ -125,7 +120,7 @@ const NotificationList = ({ closeMenu }) => {
       <MenuList role='menu' className={classes.menu}>
         <NotificationsHeader />
         <NotificationsBody closeMenu={closeMenu} />
-        <NotificationsFooter />
+        <NotificationsFooter closeMenu={closeMenu} />
       </MenuList>
     </ClickAwayListener>
   );

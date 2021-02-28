@@ -9,6 +9,13 @@ export const markNotificationRead = (notificationId) => {
   }).then((response) => camelizeKeys(response));
 };
 
+export const markAllNotificationsSeen = () => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/notifications/mark_all_seen`,
+  }).then((response) => camelizeKeys(response));
+};
+
 export const fetchRecentNotifications = () => {
   return axios({
     method: 'get',

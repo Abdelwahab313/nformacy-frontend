@@ -56,7 +56,7 @@ describe('Notifications', () => {
     it('Should add a notification when it receives one', async (testDone) => {
       const recentNotificationsResponse = {
         notifications: [],
-        unreadNotifications: 0,
+        unseenNotificationsCount: 0,
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
@@ -104,7 +104,7 @@ describe('Notifications', () => {
     it('Should add a notification on top of old one when it receives new one', async (testDone) => {
       const recentNotificationsResponse = {
         notifications: [],
-        unreadNotifications: 0,
+        unseenNotificationsCount: 0,
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
@@ -146,7 +146,7 @@ describe('Notifications', () => {
       const initialNotifications = createUserNotification(5);
       const recentNotificationsResponse = {
         notifications: initialNotifications,
-        unreadNotifications: 5,
+        unseenNotificationsCount: 5,
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
@@ -177,7 +177,7 @@ describe('Notifications', () => {
       const initialNotifications = createUserNotification(10);
       const recentNotificationsResponse = {
         notifications: initialNotifications,
-        unreadNotifications: 10,
+        unseenNotificationsCount: 10,
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
@@ -209,7 +209,7 @@ describe('Notifications', () => {
       const spy = jest.spyOn(toastManager, 'toast');
       const recentNotificationsResponse = {
         notifications: [],
-        unreadNotifications: 0,
+        unseenNotificationsCount: 0,
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
@@ -245,7 +245,7 @@ describe('Notifications', () => {
     it('mark notification as read notification', async (testDone) => {
       const recentNotificationsResponse = {
         notifications: [],
-        unreadNotifications: 0,
+        unseenNotificationsCount: 0,
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
@@ -287,7 +287,7 @@ describe('Notifications', () => {
       const initialNotifications = createUserNotification(10);
       const recentNotificationsResponse = {
         notifications: initialNotifications,
-        unreadNotifications: 6,
+        unseenNotificationsCount: 6,
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {
@@ -311,11 +311,11 @@ describe('Notifications', () => {
       });
     });
 
-    it('should retrieve notifications from server on firs render and set unread based on unreadNotifications', async () => {
+    it('should retrieve notifications from server on firs render and set unread based on unseenNotificationsCount', async () => {
       const initialNotifications = createUserNotification(10);
       const recentNotificationsResponse = {
         notifications: initialNotifications,
-        unreadNotifications: 0,
+        unseenNotificationsCount: 0,
       };
       mock.onGet().reply(200, recentNotificationsResponse);
       await act(async () => {

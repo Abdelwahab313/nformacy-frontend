@@ -3,6 +3,7 @@ import { NotificationActions, useNotificationsContext } from './context';
 import useToastListener from './useToastListener';
 import {
   fetchRecentNotifications,
+  markAllNotificationsSeen,
   markNotificationRead,
 } from '../../apis/notifications';
 import { useMutation, useQuery, useQueryCache } from 'react-query';
@@ -28,6 +29,10 @@ const useNotification = () => {
     onSuccess: () => queryCache.invalidateQueries('notifications'),
   });
 
+  const [markAllSeen] = useMutation(markAllNotificationsSeen, {
+    onSuccess: () => queryCache.invalidateQueries('notifications'),
+  });
+
   const notificationsHandler = {
     received(data) {
       dispatch({
@@ -48,6 +53,14 @@ const useNotification = () => {
     });
   };
 
+  const seeRecentNotifications = () => {
+    markAllSeen().then(() => {
+      dispatch({
+        type: NotificationActions.NOTIFICATIONS_MARKED_SEEN,
+      });
+    });
+  };
+
   useActionCable(notificationsHandler);
   useToastListener(visitNotification);
 
@@ -56,6 +69,7 @@ const useNotification = () => {
     unread,
     unreadCount,
     visitNotification,
+    seeRecentNotifications,
   };
 };
 

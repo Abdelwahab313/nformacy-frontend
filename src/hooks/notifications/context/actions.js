@@ -29,6 +29,13 @@ export const visitNotification = (state, action) => {
   });
 };
 
+export const recentNotificationsAreSeen = (state) => {
+  return produce(state, (draftState) => {
+    draftState.unread = false;
+    draftState.unreadCount = 0;
+  });
+};
+
 export const clearToast = (state) => {
   return produce(state, (draftState) => {
     draftState.showToast = false;
@@ -38,7 +45,7 @@ export const clearToast = (state) => {
 
 export const loadNotifications = (state, action) => {
   return produce(state, (draftState) => {
-    draftState.unreadCount = action.payload.unreadNotifications;
+    draftState.unreadCount = action.payload.unseenNotificationsCount;
     draftState.notifications = action.payload.notifications;
     draftState.unread = draftState.unreadCount > 0;
   });

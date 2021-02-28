@@ -5,6 +5,7 @@ import {
   clearToast,
   loadNotifications,
   receiveNotification,
+  recentNotificationsAreSeen,
   visitNotification,
 } from './actions';
 
@@ -20,6 +21,7 @@ export const NotificationActions = {
   NOTIFICATIONS_LOADED: 'NOTIFICATIONS_LOADED',
   NOTIFICATION_RECIEVED: 'NOTIFICATION_RECIEVED',
   NOTIFICATION_VISITED: 'NOTIFICATION_VISITED',
+  NOTIFICATIONS_MARKED_SEEN: 'NOTIFICATIONS_MARKED_SEEN',
   TOAST_CLEARED: 'TOAST_CLEARED',
 };
 
@@ -60,6 +62,8 @@ const NotificationsReducer = (state, action) => {
       return receiveNotification(action, state);
     case NotificationActions.NOTIFICATION_VISITED:
       return visitNotification(state, action);
+    case NotificationActions.NOTIFICATIONS_MARKED_SEEN:
+      return recentNotificationsAreSeen(state, action);
     case NotificationActions.TOAST_CLEARED:
       return clearToast(state);
     default:

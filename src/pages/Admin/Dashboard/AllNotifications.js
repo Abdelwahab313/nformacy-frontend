@@ -32,7 +32,7 @@ const WithNotification = (props) => {
   return (
     <NotificationsProvider
       initialNotifications={user?.notifications}
-      unreadCount={user?.unreadNotifications}>
+      unreadCount={user?.unseenNotificationsCount}>
       <AllNotifications {...props} />
     </NotificationsProvider>
   );
