@@ -5,6 +5,7 @@ const defaultValues = {
   questionDetails: {},
   message: '',
   isError: false,
+  isModified: false,
 };
 
 const QuestionContext = createContext();
@@ -30,11 +31,30 @@ const useQuestionContext = () => {
 const QuestionReducer = (state, action) => {
   switch (action.type) {
     case QuestionActionTypes.UPDATE_QUESTION:
-      const updatedQuestion = { ...state.questionDetails, ...action.payload };
-      return { ...state, questionDetails: updatedQuestion };
+      return {
+        ...state,
+        isModified: false,
+        questionDetails: {
+          ...state.questionDetails,
+          ...action.payload,
+        },
+      };
+
+    case QuestionActionTypes.UPDATE_QUESTION_FIELD:
+      return {
+        ...state,
+        isModified: true,
+        questionDetails: {
+          ...state.questionDetails,
+          ...action.payload,
+        },
+      };
 
     case QuestionActionTypes.UPDATE_SUCCESS_MESSAGE:
       return { ...state, isError: false, message: action.payload };
+
+    case QuestionActionTypes.RESET_MODIFIED_STATE:
+      return { ...state, isModified: false };
 
     case QuestionActionTypes.UPDATE_ERROR_MESSAGE:
       return { ...state, isError: true, message: action.payload };

@@ -3,11 +3,9 @@ import GridItem from 'components/grid/GridItem.js';
 import GridContainer from 'components/grid/GridContainer.js';
 import Card from 'components/card/Card.js';
 import CardHeader from 'components/card/CardHeader.js';
-import CardFooter from 'components/card/CardFooter.js';
-import { useHistory, useLocation } from 'react-router';
-import { fetchQuestionDetails, updateQuestion } from 'apis/questionsAPI';
+import { useLocation } from 'react-router';
+import { fetchQuestionDetails } from 'apis/questionsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
-import { approveQuestion } from 'apis/questionsAPI';
 import QuestionForm from './subComponents/QuestionForm';
 import { useStyles } from 'styles/Admin/questionFormStyles';
 import authManager from 'services/authManager';
@@ -15,22 +13,13 @@ import { QuestionProvider, useQuestionContext } from './context';
 import { Typography, Grid } from '@material-ui/core';
 import { updateQuestionDetails } from './context/questionAction';
 import AnswersContainer from './subComponents/AnswersContainer';
-import {
-  getAdminQuestionsDashboardLink,
-  getServiceDetailsLink,
-} from 'services/navigation';
+import { getServiceDetailsLink } from 'services/navigation';
 import LinkText from 'components/typography/LinkText';
-import QuestionGuardian from 'core/guardians/QuestionGuardian';
-import SubmitButton from 'components/buttons/SubmitButton';
-import { useTranslation } from 'react-i18next';
 
 const QuestionDetailsPage = () => {
   const classes = useStyles();
   const [{ questionDetails }, dispatch] = useQuestionContext();
-  const [isLoadingForUpdating, setIsLoadingForUpdating] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const history = useHistory();
-  const { t } = useTranslation();
 
   const location = useLocation();
   const questionId = location?.state?.questionId;
@@ -50,19 +39,6 @@ const QuestionDetailsPage = () => {
   if (isLoading) {
     return <LoadingCircle />;
   }
-
-  const onDeployQuestionClicked = () => {
-    setIsLoadingForUpdating(true);
-    updateQuestion(questionDetails.id, {
-      ...questionDetails,
-    })
-      .then(() => {
-        approveQuestion(questionDetails.id).then(() => {
-          history.push(getAdminQuestionsDashboardLink());
-        });
-      })
-      .finally(() => setIsLoadingForUpdating(false));
-  };
 
   return (
     <GridContainer justify={'center'}>
@@ -89,17 +65,6 @@ const QuestionDetailsPage = () => {
             </Grid>
           </CardHeader>
           <QuestionForm isNewQuestion={isNewQuestion} />
-          <CardFooter className={classes.footerButtons}>
-            {QuestionGuardian.canDeployQuestion(questionDetails) && (
-              <SubmitButton
-                id={'approveQuestion'}
-                disabled={isLoadingForUpdating}
-                onClick={onDeployQuestionClicked}
-                buttonText={t('deployToQuestionRoaster')}
-                className={classes.answerButtons}
-                color='primary' />
-            )}
-          </CardFooter>
         </Card>
       </GridItem>
       <AnswersContainer />

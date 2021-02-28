@@ -7,6 +7,13 @@ export const updateQuestionDetails = (dispatch, question) => {
   });
 };
 
+export const updateQuestionField = (dispatch, name, value) => {
+  dispatch({
+    type: QuestionActionTypes.UPDATE_QUESTION_FIELD,
+    payload: { [name]: value },
+  });
+};
+
 export const setErrorMessage = (dispatch, message) => {
   dispatch({
     type: QuestionActionTypes.UPDATE_ERROR_MESSAGE,
@@ -22,7 +29,13 @@ export const setSuccessMessage = (dispatch, message) => {
 };
 
 export const setEmptyMessage = (dispatch) => {
-    dispatch({
-      type: QuestionActionTypes.EMPTY_MESSAGE,
-    });
-  };
+  dispatch({
+    type: QuestionActionTypes.EMPTY_MESSAGE,
+  });
+};
+
+export const resetModifiedState = (dispatch) => {
+  dispatch({
+    type: QuestionActionTypes.RESET_MODIFIED_STATE,
+  });
+};

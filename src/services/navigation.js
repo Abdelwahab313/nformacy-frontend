@@ -14,6 +14,10 @@ export const getQuestionDetailsLink = (questionId, serviceId) => {
   }
 };
 
+export const navigatToDashboard = () => {
+  history.goBack();
+};
+
 export const getAdminDashboardHomePage = () => {
   authManager.retrieveCurrentUser();
   if (AdminGuardian.showRequestsPanel()) {

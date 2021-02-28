@@ -861,9 +861,6 @@ exports[`should match snapshot 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="cardFooter footerButtons"
-        />
       </div>
     </div>
     <div

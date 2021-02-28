@@ -1,59 +1,36 @@
 import React, { useState } from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
-import CardBody from '../../../../../components/card/CardBody';
-import GridContainer from '../../../../../components/grid/GridContainer';
-import GridItem from '../../../../../components/grid/GridItem';
-import CustomInput from '../../../../../components/inputs/CustomInput';
+import CardBody from 'components/card/CardBody';
+import GridContainer from 'components/grid/GridContainer';
+import GridItem from 'components/grid/GridItem';
+import CustomInput from 'components/inputs/CustomInput';
 import {
   industries,
   questionLanguages,
   questionTypesOfAssignment,
-} from '../../../../../constants/dropDownOptions';
-import humanizedTimeSpan from '../../../../../services/humanizedTimeSpan';
-import { useStyles } from '../../../../../styles/Admin/questionFormStyles';
-import RichTextEditorForm from '../../../../../components/forms/RichTextEditorForm';
-import { useHistory } from 'react-router';
-
+} from 'constants/dropDownOptions';
+import humanizedTimeSpan from 'services/humanizedTimeSpan';
+import { useStyles } from 'styles/Admin/questionFormStyles';
+import RichTextEditorForm from 'components/forms/RichTextEditorForm';
 import { Grid } from '@material-ui/core';
-import { useStyles as useRoasterStyle } from '../../../../../styles/questionRoasterStyles';
-import AttachmentUploader from '../../../../../components/forms/AttachmentUploader';
+import { useStyles as useRoasterStyle } from 'styles/questionRoasterStyles';
+import AttachmentUploader from 'components/forms/AttachmentUploader';
 import DropdownSelectField from 'components/inputs/DropdownSelectField';
 import AssignedAdvisersSelect from './AssignedAdvisersSelect';
-import { useAuth } from '../../../../auth/context/auth';
-import QuestionCountDown from '../../../../../components/counters/QuestionCountDown';
+import QuestionCountDown from 'components/counters/QuestionCountDown';
 import Typography from '@material-ui/core/Typography';
-import AcceptAndRejectActionButtons from './AcceptAndRejectActionButtons';
-import ActionButtonsContainer from './ActionButtonsContainer';
-import {
-  acceptAssignment,
-  rejectAssignment,
-  saveDraftQuestion,
-  sendToAdmin,
-  submitQuestion,
-  updateQuestion,
-  uploadQuestionThumbnail,
-} from 'apis/questionsAPI';
-import authManager from '../../../../../services/authManager';
+import QuestionActionButtons from './QuestionActionButtons';
+import authManager from 'services/authManager';
 import { useQuestionContext } from '../context';
 import {
   setEmptyMessage,
-  setErrorMessage,
-  setSuccessMessage,
-  updateQuestionDetails,
+  updateQuestionField,
 } from '../context/questionAction';
 import SuccessSnackBar from 'components/snackbar/SuccessSnackBar';
 import ImageUploadWithPreview from 'components/inputs/FileUpload/ImageUploadWithPreview';
-import FieldsSelect from '../../../../../components/inputs/FieldsSelect/FieldsSelect';
+import FieldsSelect from 'components/inputs/FieldsSelect/FieldsSelect';
 import { QUESTION_STATUS } from 'constants/questionStatus';
 import QuestionGuardian from 'core/guardians/QuestionGuardian';
-
-const noActionStates = [
-  QUESTION_STATUS.pendingAssignment,
-  QUESTION_STATUS.pendingDeploymentToRoaster,
-  QUESTION_STATUS.freelancerAnswers,
-  QUESTION_STATUS.answersRating,
-  QUESTION_STATUS.closed,
-];
 
 const QuestionForm = ({ isNewQuestion }) => {
   const classes = useStyles();
@@ -63,124 +40,12 @@ const QuestionForm = ({ isNewQuestion }) => {
     { questionDetails, message, isError },
     dispatch,
   ] = useQuestionContext();
-  const [{ currentUser }] = useAuth();
+
   const [thumbnailImage, setThumbnailImage] = useState('');
   const [isThumbnailChanged, setIsThumbnailChanged] = useState(false);
-  const [isModified, setIsModified] = useState(false);
-  let history = useHistory();
-  const navigatToDashboard = () => {
-    history.goBack();
-  };
-
-  const onAcceptAssignment = () => {
-    acceptAssignment(questionDetails.id).then((response) => {
-      updateQuestionDetails(dispatch, {
-        ...questionDetails,
-        state: response.data?.state,
-        createdAt: humanizedTimeSpan(questionDetails.createdAt),
-      });
-      setSuccessMessage(dispatch, 'Question has been accepted successfully');
-    });
-  };
-
-  const onRejectAssignment = () => {
-    rejectAssignment(questionDetails.id).then((response) => {
-      updateQuestionDetails(dispatch, response.data);
-      navigatToDashboard();
-    });
-  };
-
-  const saveAndCompleteLater = () => {
-    saveDraftQuestion({
-      ...questionDetails,
-    }).then(() => {
-      setIsModified(false);
-      navigatToDashboard();
-    });
-    setSuccessMessage(dispatch, 'Your question is saved successfully');
-  };
 
   const onChangeQuestionField = (name, data) => {
-    setIsModified(true);
-    updateQuestionDetails(dispatch, {
-      [name]: data,
-    });
-  };
-
-  const onSendToAdminClicked = () => {
-    if (!!isModified) {
-      updateQuestion(questionDetails.id, {
-        ...questionDetails,
-      }).then(() => {
-        sendToAdmin(questionDetails.id).then(() => {
-          navigatToDashboard();
-        });
-      });
-    } else {
-      sendToAdmin(questionDetails.id).then(() => {
-        navigatToDashboard();
-      });
-    }
-  };
-
-  const validateQuestionForm = () => {
-    let errorMessage = '';
-    if (!questionDetails.title) {
-      errorMessage = 'You have to add title for Question.';
-    } else if (!questionDetails.assignedAdviserId) {
-      errorMessage = 'You have to assign an adviser to send to.';
-    } else if (
-      !questionDetails.hoursToReviewAndEdit ||
-      Number(questionDetails.hoursToReviewAndEdit) <= 0
-    ) {
-      errorMessage =
-        'You have to set how many hours the adviser has to review and edit.';
-    } else if (
-      !questionDetails.hoursToCloseAnswers ||
-      Number(questionDetails.hoursToCloseAnswers) <= 0
-    ) {
-      errorMessage =
-        'You have to set how many hours to close answers window for freelancers.';
-    } else if (!questionDetails.content) {
-      errorMessage = 'You have to add question content';
-    }
-
-    if (!!errorMessage) {
-      setErrorMessage(dispatch, errorMessage);
-      return false;
-    } else {
-      return true;
-    }
-  };
-
-  const onSubmitQuestion = () => {
-    if (validateQuestionForm()) {
-      if (isNewQuestion) {
-        submitQuestion({
-          ...questionDetails,
-        }).then(({ data }) => {
-          uploadThumbnail(data.id);
-          navigatToDashboard();
-        });
-      } else {
-        updateQuestion(questionDetails.id, {
-          ...questionDetails,
-        }).then(() => {
-          uploadThumbnail();
-          navigatToDashboard();
-        });
-      }
-      setIsModified(false);
-      setSuccessMessage(dispatch, 'Question Sent to Adviser');
-    }
-  };
-
-  const uploadThumbnail = (questionId = questionDetails.id) => {
-    if (thumbnailImage.length === 0 || !isThumbnailChanged) return;
-    const imageBlob = new Blob(thumbnailImage);
-    const formData = new FormData();
-    formData.append('thumbnail', imageBlob, thumbnailImage[0].name);
-    uploadQuestionThumbnail(questionId, formData);
+    updateQuestionField(dispatch, name, data);
   };
 
   return (
@@ -434,33 +299,12 @@ const QuestionForm = ({ isNewQuestion }) => {
                 />
               )}
             </Grid>
-            {!(
-              authManager.isAdviser() &&
-              noActionStates.includes(questionDetails.state)
-            ) && (
-              <ActionButtonsContainer
-                questionDetails={questionDetails}
-                isNewQuestion={isNewQuestion}
-                currentUser={currentUser}
-                saveAndCompleteLater={saveAndCompleteLater}
-                onSubmitQuestion={onSubmitQuestion}
-                onSendToAdminClicked={onSendToAdminClicked}
-              />
-            )}
-            {questionDetails?.state ===
-              QUESTION_STATUS.pendingAdviserAcceptance &&
-              currentUser?.id === questionDetails?.assignedAdviserId && (
-                <AcceptAndRejectActionButtons
-                  acceptButtonProps={{
-                    id: 'acceptButton',
-                    onClick: onAcceptAssignment,
-                  }}
-                  rejectButtonProps={{
-                    id: 'rejectButton',
-                    onClick: onRejectAssignment,
-                  }}
-                />
-              )}
+
+            <QuestionActionButtons
+              isNewQuestion={isNewQuestion}
+              thumbnailImage={thumbnailImage}
+              isThumbnailChanged={isThumbnailChanged}
+            />
           </Grid>
         </GridItem>
       </GridContainer>

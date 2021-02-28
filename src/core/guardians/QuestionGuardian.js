@@ -9,8 +9,12 @@ const editQuestionStates = [
   QUESTION_STATUS.reviewAndEdit,
 ];
 
-const isEditiableQuestion = (questionDetails) =>
-  editQuestionStates.includes(questionDetails.state) || !questionDetails?.id;
+const noActionQuestionStates = [QUESTION_STATUS.closed];
+
+const adviserEditQuestionStates = [
+  QUESTION_STATUS.pendingAdviserAcceptance,
+  QUESTION_STATUS.reviewAndEdit,
+];
 
 class QuestionGuardianClass extends GuardianBase {
   constructor(user) {
@@ -26,10 +30,6 @@ class QuestionGuardianClass extends GuardianBase {
     );
   }
 
-  isQuestionEditDisabled () {
-    
-  }
-
   canDeployQuestion(questionDetails) {
     if (questionDetails.state === QUESTION_STATUS.pendingDeploymentToRoaster) {
       return this.canManageQuestion() && !this.isAdviser();
@@ -37,19 +37,33 @@ class QuestionGuardianClass extends GuardianBase {
   }
 
   canUploadAttachment(questionDetails) {
-    if (isEditiableQuestion(questionDetails)) {
+    if (this.isEditiableQuestion(questionDetails)) {
       return this.canManageQuestion();
     }
   }
 
   canUploadThumbnail(questionDetails) {
-    if (isEditiableQuestion(questionDetails)) {
+    if (this.isEditiableQuestion(questionDetails)) {
       return this.canManageQuestion();
     }
   }
 
+  isEditiableQuestion = (questionDetails) => {
+    return (
+      editQuestionStates.includes(questionDetails.state) || !questionDetails?.id
+    );
+  };
+
   canCreateNewQuestion() {
     return this.canManageQuestion() && !this.isAdviser();
+  }
+
+  showApplyChangesButton(questionDetails) {
+    if (authManager.isAdviser()) {
+      return adviserEditQuestionStates.includes(questionDetails?.state);
+    } else {
+      return !noActionQuestionStates.includes(questionDetails?.state);
+    }
   }
 }
 
