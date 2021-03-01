@@ -25,6 +25,8 @@ import { useStyles } from 'styles/Admin/questionFormStyles';
 import MeetingDetailsSection from 'pages/App/ServiceRequests/details/subComponents/MeetingDetailsSection';
 import SubmitButton from 'components/buttons/SubmitButton';
 import { MEETING_STATUS } from 'constants/questionStatus';
+import RollbackQuestionButton from 'templates/services/RollbackQuestionButton';
+import ServiceGuardian from 'core/guardians/ServiceGuardian';
 
 const ServiceDetails = () => {
   const classes = useStyles();
@@ -63,6 +65,7 @@ const ServiceDetails = () => {
       })
       .catch(() => {});
   };
+
   const handleReturnToClient = () => {
     if (!!validate(serviceRequest)) {
       returnToClient(serviceId, serviceRequest.comment)
@@ -88,6 +91,8 @@ const ServiceDetails = () => {
   if (isLoading) {
     return <LoadingCircle />;
   }
+
+  const hasRelatedQuestion = !!serviceRequest.question?.id;
   const handleClick = () => {
     return history.push(getCallEvaluationView(serviceRequest?.meetings[0].id));
   };
@@ -103,7 +108,7 @@ const ServiceDetails = () => {
                 </Typography>
               </Grid>
               <Grid item md={6} xs={6}>
-                {!!serviceRequest.question?.id && (
+                {!!hasRelatedQuestion && (
                   <Typography component={'h4'}>
                     <LinkText
                       to={getQuestionDetailsLinkForAdmin(
@@ -117,6 +122,12 @@ const ServiceDetails = () => {
               </Grid>
             </Grid>
           </CardHeader>
+          {!!hasRelatedQuestion &&
+            ServiceGuardian.showRollbackQuestionButton(serviceRequest) && (
+              <Grid container direction={'row-reverse'}>
+                <RollbackQuestionButton serviceId={serviceRequest?.id} />
+              </Grid>
+            )}
           <ServiceRequestForm
             serviceRequest={serviceRequest}
             setServiceRequest={setServiceRequest}

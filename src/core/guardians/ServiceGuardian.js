@@ -12,6 +12,10 @@ class ServiceGuardianClass extends GuardianBase {
     return !serviceRequest.id;
   }
 
+  showRollbackQuestionButton(serviceRequest) {
+    return serviceRequest?.state === SERVICE_STATUS.questionStarted;
+  }
+
   showApplyChangesButton(serviceRequest) {
     if (this.isClient()) {
       return (

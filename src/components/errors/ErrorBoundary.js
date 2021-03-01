@@ -11,7 +11,7 @@ export default class ErrorBoundary extends Component {
   componentDidMount() {
     // Set axios interceptors
     this.requestInterceptor = Axios.interceptors.request.use((req) => {
-      const TIMEOUT_FOR_REQUEST = 7000;
+      const TIMEOUT_FOR_REQUEST = 10000;
       let source = Axios.CancelToken.source();
       setTimeout(() => {
         source.cancel();

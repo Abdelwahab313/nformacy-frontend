@@ -36,6 +36,10 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '4vw',
     },
   },
+  rollbackQuestion: {
+    fontSize: '11px',
+    margin: [theme.spacing(1), theme.spacing(2)],
+  },
   currentActionTime: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -126,18 +130,18 @@ export const useStyles = makeStyles((theme) => ({
   relatedService: {
     float: 'right',
     color: white,
-    textDecoration: 'none'
+    textDecoration: 'none',
   },
   viewEvaluations: {
-    float: 'right'
+    float: 'right',
   },
   addAdminBtn: {
-    paddingLeft: '35px !important'
+    paddingLeft: '35px !important',
   },
   checkboxContainer: {
     border: '1px solid #1257736b',
     borderRadius: 7,
-    padding: 25
+    padding: 25,
   },
   answerButtons: {
     padding: '1.4vw',

@@ -55,6 +55,13 @@ export const generateQuestion = (serviceId) => {
   }).then((response) => camelizeKeys(response));
 };
 
+export const rollbackQuestion = (serviceId) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/services/${serviceId}/rollback_question`,
+  }).then((response) => camelizeKeys(response));
+};
+
 export const returnToClient = (serviceId, comment) => {
   return axios({
     method: 'post',
