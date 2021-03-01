@@ -16,12 +16,14 @@ const ActionButtonsContainer = ({ primaryButton, secondaryButton = {} }) => {
           className={[classes.buttonMargin]}
         />
       )}
-      <SubmitButton
-        id={primaryButton.id}
-        onClick={primaryButton.onClick}
-        buttonText={primaryButton.buttonText}
-        className={[classes.buttonMargin]}
-      />
+      {!!primaryButton?.buttonText && (
+        <SubmitButton
+          id={primaryButton.id}
+          onClick={primaryButton.onClick}
+          buttonText={primaryButton.buttonText}
+          className={[classes.buttonMargin]}
+        />
+      )}
     </Grid>
   );
 };

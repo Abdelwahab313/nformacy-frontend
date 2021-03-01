@@ -14,6 +14,7 @@ import { useSnackBar } from 'context/SnackBarContext';
 import { SERVICE_STATUS } from 'constants/questionStatus';
 import { RoutesPaths } from 'constants/routesPath';
 import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
+import ServiceGuardian from 'core/guardians/ServiceGuardian';
 
 const EditServiceRequest = () => {
   const location = useLocation();
@@ -113,15 +114,19 @@ const EditServiceRequest = () => {
               richTextRef={richTextRef}
               viewOnly={isNoActionForm}
               errors={errors}
-              primaryButton={{
-                id: 'submitQuestionButtonButton',
-                onClick: () => {
-                  handleSubmit();
-                },
-                buttonText: showDrafButtons
-                  ? t('submitQuestionButton')
-                  : t('applyChange'),
-              }}
+              primaryButton={
+                ServiceGuardian.showApplyChangesButton(serviceRequest)
+                  ? {
+                      id: 'submitQuestionButtonButton',
+                      onClick: () => {
+                        handleSubmit();
+                      },
+                      buttonText: showDrafButtons
+                        ? t('submitQuestionButton')
+                        : t('applyChange'),
+                    }
+                  : {}
+              }
               secondaryButton={
                 showDrafButtons
                   ? {

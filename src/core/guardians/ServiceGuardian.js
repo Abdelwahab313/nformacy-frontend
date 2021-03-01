@@ -1,26 +1,23 @@
+import { SERVICE_STATUS } from 'constants/questionStatus';
 import authManager from 'services/authManager';
 import GuardianBase from './GuardianBase';
 
+const clientEditServiceStates = [SERVICE_STATUS.draft, SERVICE_STATUS.returned];
 class ServiceGuardianClass extends GuardianBase {
   constructor(user) {
     super(user);
   }
 
-  canModifyServiceRequest() {
-    return this.isClient();
+  isNewServiceRequest(serviceRequest) {
+    return !serviceRequest.id;
   }
 
-  canViewServiceRequest() {
-    return this.isClient();
-  }
-
-  canModifyComment() {
-    return this.isClient();
-  }
-
-  canUploadThumbnail(questionDetails) {
-    if (isEditiableQuestion(questionDetails)) {
-      return this.canManageQuestion();
+  showApplyChangesButton(serviceRequest) {
+    if (this.isClient()) {
+      return (
+        clientEditServiceStates.includes(serviceRequest.state) ||
+        this.isNewServiceRequest(serviceRequest)
+      );
     }
   }
 }

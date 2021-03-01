@@ -26,6 +26,10 @@ class GuardianBase {
     return this.getRoles()?.includes(USER_TYPES.adviser);
   }
 
+  isClient() {
+    return this.getRoles()?.includes(USER_TYPES.client);
+  }
+
   hasRequestsManagementsRole() {
     return this.getRoles().includes(ADMIN_ROLES.requestsManager);
   }
