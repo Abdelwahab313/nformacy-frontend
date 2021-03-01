@@ -27,6 +27,7 @@ import ReactTooltip from 'react-tooltip';
 import IconTint from 'react-icon-tint';
 import Hidden from '@material-ui/core/Hidden';
 import t from '../../locales/en/freelancerProfile.json';
+import authManager from 'services/authManager';
 
 const PersonalInfo = () => {
   const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
@@ -34,6 +35,8 @@ const PersonalInfo = () => {
   const [countries] = useState(countryList().getData());
   const classes = useStyles();
   const radiosStyles = radioStyle();
+
+  const isClient = authManager.isClient();
 
   return (
     <Container style={sectionContainerStyles}>
@@ -135,42 +138,44 @@ const PersonalInfo = () => {
 
         <ErrorMessage errorField={errors.country} />
       </Container>
-      <Container maxWidth={false} className={classes.formControl}>
-        <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-          {t['mobileNumber']}
-        </Typography>
-        <Controller
-          as={
-            <PhoneInput
-              preferredCountries={['jo', 'eg']}
-              inputStyle={{ width: '100%', borderColor: lightGrey }}
-              inputProps={{
-                id: 'mobile_number',
-                name: 'mobile_number',
-                required: t['requiredMessage'],
-              }}
-              enableSearch
-              placeholder='Mobile Number'
-            />
-          }
-          name='mobileNumber'
-          rules={{
-            validate: (value) => {
-              try {
-                const number = phoneUtil.parse('+' + value);
-                return (
-                  phoneUtil.isValidNumber(number) || t['invalidPhoneMessage']
-                );
-              } catch (e) {
-                return t['invalidPhoneMessage'];
-              }
-            },
-          }}
-          control={control}
-          error={!!errors.mobileNumber}
-        />
-        <ErrorMessage errorField={errors.mobileNumber} />
-      </Container>
+      {!isClient && (
+        <Container maxWidth={false} className={classes.formControl}>
+          <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+            {t['mobileNumber']}
+          </Typography>
+          <Controller
+            as={
+              <PhoneInput
+                preferredCountries={['jo', 'eg']}
+                inputStyle={{ width: '100%', borderColor: lightGrey }}
+                inputProps={{
+                  id: 'mobile_number',
+                  name: 'mobile_number',
+                  required: t['requiredMessage'],
+                }}
+                enableSearch
+                placeholder='Mobile Number'
+              />
+            }
+            name='mobileNumber'
+            rules={{
+              validate: (value) => {
+                try {
+                  const number = phoneUtil.parse('+' + value);
+                  return (
+                    phoneUtil.isValidNumber(number) || t['invalidPhoneMessage']
+                  );
+                } catch (e) {
+                  return t['invalidPhoneMessage'];
+                }
+              },
+            }}
+            control={control}
+            error={!!errors.mobileNumber}
+          />
+          <ErrorMessage errorField={errors.mobileNumber} />
+        </Container>
+      )}
       <Container maxWidth={false} className={classes.formControl}>
         <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
           {t['currentEmploymentStatus']}

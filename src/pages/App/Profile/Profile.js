@@ -13,10 +13,12 @@ import SummarySection from './profileSections/SummarySection';
 import CVSection from './profileSections/CVSection';
 import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
+import authManager from 'services/authManager';
 
 const Profile = () => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const isClient = authManager.isClient();
 
   return (
     <Container component='main' maxWidth={false} dir='ltr'>
@@ -34,8 +36,8 @@ const Profile = () => {
           <SummarySection />
           <PersonalInfoSection />
           <FieldsOfSpecializationSection />
-          <WorkExperienceSection />
-          <EducationAndCertificationSection />
+          {!isClient && (<WorkExperienceSection />)}
+          {!isClient && (<EducationAndCertificationSection />)}
         </Grid>
         <Grid item xs={12} sm={2}>
           <CVSection />
