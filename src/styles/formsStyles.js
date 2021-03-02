@@ -51,6 +51,13 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     flexGrow: 1,
   },
+  comingSoon: {
+    textAlign: 'center',
+    padding: 80
+  },
+  cancelConditionsBtn: {
+    float: 'right'
+  },
   form: {
     display: 'flex',
     width: '100%',

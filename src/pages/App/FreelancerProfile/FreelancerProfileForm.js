@@ -8,7 +8,7 @@ import {
   stepIndicatorStyles,
   useStyles,
 } from '../../../styles/formsStyles';
-import { Checkbox, FormControlLabel } from '@material-ui/core';
+import { Checkbox, FormControlLabel, Dialog, DialogContent, Button } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
@@ -28,12 +28,12 @@ import t from 'locales/en/freelancerProfile.json';
 import ClientStepOne from 'components/forms/ClientStepOne';
 import ClientStepTwo from 'components/forms/ClientStepTwo';
 import authManager from 'services/authManager';
-import { RoutesPaths } from 'constants/routesPath';
-import LinkText from 'components/typography/LinkText';
 import SubmitButton from 'components/buttons/SubmitButton';
 import { getDashboardLinkAfterSignup } from 'services/navigation';
 import { useAuth } from 'pages/auth/context/auth';
 import { updateUser } from 'pages/auth/context/authActions';
+import Transition from 'components/animations/Transition';
+import CustomTypography from 'components/typography/Typography';
 
 const FreeLancerProfileForm = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -62,6 +62,7 @@ const FreeLancerProfileForm = () => {
   const [deletedExperiences, setDeletedExperiences] = useState([]);
   const [deletedEducations, setDeletedEducations] = useState([]);
   const [deletedCertification, setDeletedCertifications] = useState([]);
+  const [open, setOpen] = React.useState(false);
 
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
@@ -262,8 +263,44 @@ const FreeLancerProfileForm = () => {
   const isGoNextDisabled = isCurrentstepInvalid() || loading;
   const isSubmitDisabled = !isTermsChecked || isCurrentstepInvalid() || loading;
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <div className={classes.freelancerProfileContainer}>
+      <Dialog
+        TransitionComponent={Transition}
+        maxWidth='lg'
+        PaperProps={{ id: 'termsAndConditionsDialog' }}
+        onClose={handleClose}
+        open={open}>
+        <DialogContent>
+          <Grid container>
+            <Grid item md={12}>
+              <CustomTypography fontWeight="fontWeightBold" variant='h5'>
+                Terms and Conditions
+              </CustomTypography>
+            </Grid>
+            <Grid item md={12} className={classes.comingSoon}>
+              Coming Soon!
+            </Grid>
+            <Grid item md={6}>
+              <SubmitButton onClick={handleClose} buttonText='Agree' />
+            </Grid>
+            <Grid item md={6}>
+              <Button
+                onClick={handleClose}
+                variant="contained"
+                className={classes.cancelConditionsBtn}>
+                  Cancel
+              </Button>
+            </Grid>
+          </Grid>
+        </DialogContent>
+      </Dialog>
       <Hidden smDown>
         <div style={stepIndicatorStyles.container}>
           <StepsIndicator activeStep={activeStep} />
@@ -311,11 +348,11 @@ const FreeLancerProfileForm = () => {
                 />
               }
               label={
-                <LinkText
+                <CustomTypography
                   className={classes.termsLinkColor}
-                  to={RoutesPaths.App.TermsAndConditions}>
+                  onClick={handleClickOpen}>
                   I agree with the terms and conditions
-                </LinkText>
+                </CustomTypography>
               }
             />
           </Grid>
@@ -360,16 +397,16 @@ const FreeLancerProfileForm = () => {
               endIcon={<DoneIcon />}
             />
           ) : (
-            <SubmitButton
-              buttonText={t['next']}
-              id='nextButton'
-              disabled={isGoNextDisabled}
-              onClick={proceedToNextStep}
-              variant='contained'
-              style={nextButtonStyles(isGoNextDisabled)}
-              endIcon={<ArrowForwardIosIcon />}
-            />
-          )}
+              <SubmitButton
+                buttonText={t['next']}
+                id='nextButton'
+                disabled={isGoNextDisabled}
+                onClick={proceedToNextStep}
+                variant='contained'
+                style={nextButtonStyles(isGoNextDisabled)}
+                endIcon={<ArrowForwardIosIcon />}
+              />
+            )}
         </Grid>
       </form>
 
