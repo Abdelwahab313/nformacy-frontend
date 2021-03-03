@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ErrorMessage from '../errors/ErrorMessage';
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import {
   dividerStyle,
@@ -28,6 +28,7 @@ import IconTint from 'react-icon-tint';
 import Hidden from '@material-ui/core/Hidden';
 import t from '../../locales/en/freelancerProfile.json';
 import authManager from 'services/authManager';
+import FieldsOfExperience from './FieldsOfExpereience';
 
 const PersonalInfo = () => {
   const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
@@ -139,71 +140,76 @@ const PersonalInfo = () => {
         <ErrorMessage errorField={errors.country} />
       </Container>
       {!isClient && (
-        <Container maxWidth={false} className={classes.formControl}>
-          <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-            {t['mobileNumber']}
-          </Typography>
-          <Controller
-            as={
-              <PhoneInput
-                preferredCountries={['jo', 'eg']}
-                inputStyle={{ width: '100%', borderColor: lightGrey }}
-                inputProps={{
-                  id: 'mobile_number',
-                  name: 'mobile_number',
-                  required: t['requiredMessage'],
-                }}
-                enableSearch
-                placeholder='Mobile Number'
-              />
-            }
-            name='mobileNumber'
-            rules={{
-              validate: (value) => {
-                try {
-                  const number = phoneUtil.parse('+' + value);
-                  return (
-                    phoneUtil.isValidNumber(number) || t['invalidPhoneMessage']
-                  );
-                } catch (e) {
-                  return t['invalidPhoneMessage'];
+        <Fragment>
+          <Container maxWidth={false} className={classes.formControl}>
+            <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+              {t['mobileNumber']}
+            </Typography>
+            <Controller
+              as={
+                <PhoneInput
+                  preferredCountries={['jo', 'eg']}
+                  inputStyle={{ width: '100%', borderColor: lightGrey }}
+                  inputProps={{
+                    id: 'mobile_number',
+                    name: 'mobile_number',
+                    required: t['requiredMessage'],
+                  }}
+                  enableSearch
+                  placeholder='Mobile Number'
+                />
+              }
+              name='mobileNumber'
+              rules={{
+                validate: (value) => {
+                  try {
+                    const number = phoneUtil.parse('+' + value);
+                    return (
+                      phoneUtil.isValidNumber(number) || t['invalidPhoneMessage']
+                    );
+                  } catch (e) {
+                    return t['invalidPhoneMessage'];
+                  }
+                },
+              }}
+              control={control}
+              error={!!errors.mobileNumber}
+            />
+            <ErrorMessage errorField={errors.mobileNumber} />
+          </Container>
+          <Container maxWidth={false} className={classes.formControl}>
+            <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+              {t['currentEmploymentStatus']}
+            </Typography>
+            <FormControl
+              id='currentEmploymentStatus'
+              className={classes.formControl}
+              fullWidth>
+              <Controller
+                name='currentEmploymentStatus'
+                rules={{ required: t['requiredMessage'] }}
+                control={control}
+                defaultValue={user.current.currentEmploymentStatus}
+                as={
+                  <ReactSelectMaterialUi
+                    fullWidth
+                    id='employmentStatus'
+                    placeholder={t['currentEmploymentStatus']}
+                    SelectProps={{
+                      styles: selectStyle,
+                    }}
+                    options={employmentStatus}
+                  />
                 }
-              },
-            }}
-            control={control}
-            error={!!errors.mobileNumber}
-          />
-          <ErrorMessage errorField={errors.mobileNumber} />
-        </Container>
-      )}
-      <Container maxWidth={false} className={classes.formControl}>
-        <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-          {t['currentEmploymentStatus']}
-        </Typography>
-        <FormControl
-          id='currentEmploymentStatus'
-          className={classes.formControl}
-          fullWidth>
-          <Controller
-            name='currentEmploymentStatus'
-            rules={{ required: t['requiredMessage'] }}
-            control={control}
-            defaultValue={user.current.currentEmploymentStatus}
-            as={
-              <ReactSelectMaterialUi
-                fullWidth
-                id='employmentStatus'
-                placeholder={t['currentEmploymentStatus']}
-                SelectProps={{
-                  styles: selectStyle,
-                }}
-                options={employmentStatus}
               />
-            }
-          />
-          <ErrorMessage errorField={errors.currentEmploymentStatus} />
-        </FormControl>
-      </Container>
+              <ErrorMessage errorField={errors.currentEmploymentStatus} />
+            </FormControl>
+          </Container>
+        </Fragment>
+      )}
+      {!!isClient && (
+        <FieldsOfExperience />
+      )}
     </Container>
   );
 };

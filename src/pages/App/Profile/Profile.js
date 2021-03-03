@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { useStyles } from '../../../styles/formsStyles';
@@ -14,6 +14,7 @@ import CVSection from './profileSections/CVSection';
 import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import authManager from 'services/authManager';
+import ClientWorkExperienceSection from './profileSections/ClientWorkExperienceSection';
 
 const Profile = () => {
   const classes = useStyles();
@@ -35,13 +36,22 @@ const Profile = () => {
           <BasicInfoSection />
           <SummarySection />
           <PersonalInfoSection />
-          <FieldsOfSpecializationSection />
-          {!isClient && (<WorkExperienceSection />)}
-          {!isClient && (<EducationAndCertificationSection />)}
+          {!isClient && (
+            <Fragment>
+              <FieldsOfSpecializationSection />
+              <WorkExperienceSection />
+              <EducationAndCertificationSection />
+            </Fragment>
+          )}
+          {!!isClient && (
+            <ClientWorkExperienceSection />
+          )}
         </Grid>
-        <Grid item xs={12} sm={2}>
-          <CVSection />
-        </Grid>
+        {!isClient && (
+          <Grid item xs={12} sm={2}>
+            <CVSection />
+          </Grid>
+        )}
       </Grid>
     </Container>
   );

@@ -15,6 +15,8 @@
   "currentEmploymentStatus": "My Current Employment Status *",
   "fieldsOfSpecializationHint": "Select the areas and majors you have solid experience and history in, you can add as many fields as you want. After selecting the major field you can choose the specific sub fields related to it.",
   "fieldsOfSpecialization": "Fields of Specialization",
+  "organizationalLevel": "Organizational Level",
+  "selectYourOrganizationalLevel": "Select Your Organizational Level",
   "industryOfExperience": "My Experience is in these Industries *",
   "industryOfExperienceHint": "You can choose more than one industry, if your industry is not listed please type it down.",
   "assignmentPreferences": "Assignment Preferences",
