@@ -15,6 +15,10 @@ import PersonalInfoForm from '../../../../components/forms/PersonalInfoForm';
 import Transition from '../../../../components/animations/Transition';
 import { employmentStatus } from '../../../../constants/dropDownOptions';
 import clsx from 'clsx';
+import authManager from 'services/authManager';
+import FieldsView from './FieldsView';
+import useUserFieldsFetcher from 'hooks/useUserFieldsFetcher';
+import useFieldsFetcher from 'hooks/useFieldsFetcher';
 
 const PersonalInfoSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -23,6 +27,12 @@ const PersonalInfoSection = () => {
   const formMethod = useForm({
     defaultValues: { ...user.current },
   });
+  const isClient = authManager.isClient();
+  const { fields, loading: fieldsLoading } = useFieldsFetcher();
+  const {
+    currentUserFields,
+    loading: userFieldsLoading,
+  } = useUserFieldsFetcher();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,14 +53,14 @@ const PersonalInfoSection = () => {
         <DialogContent>
           <FormContext {...formMethod} user={user}>
             <Grid container>
-              <PersonalInfoForm user={user} closeDialog={handleClose}/>
+              <PersonalInfoForm user={user} closeDialog={handleClose} />
             </Grid>
           </FormContext>
         </DialogContent>
       </Dialog>
       <Paper className={classes.paperSection} elevation={3}>
         <Grid container justify={'space-between'}>
-          <Grid item xs={1} className={classes.paperSectionHeaderStyles}/>
+          <Grid item xs={1} className={classes.paperSectionHeaderStyles} />
           <Grid item xs={10} className={classes.paperSectionHeaderStyles}>
             <Typography gutterBottom className={classes.sectionHeaderStyles}>
               {t['personalInfo']}
@@ -58,11 +68,11 @@ const PersonalInfoSection = () => {
           </Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
             <IconButton aria-label='edit' id='editPersonalInfo' onClick={handleClickOpen}>
-              <EditIcon color={'primary'}/>
+              <EditIcon color={'primary'} />
             </IconButton>
           </Grid>
         </Grid>
-        <Divider variant='middle' style={dividerStyle}/>
+        <Divider variant='middle' style={dividerStyle} />
         <Grid
           container
           spacing={5}
@@ -105,51 +115,71 @@ const PersonalInfoSection = () => {
                   gutterBottom
                   className={classes.fieldValueStyles}>
                   {user.current.country &&
-                  countries?.find(
-                    (country) => country.value === user.current.country,
-                  ).label}
+                    countries?.find(
+                      (country) => country.value === user.current.country,
+                    ).label}
                 </Typography>
               </Grid>
             </Grid>
-            <Grid container className={classes.sectionRowStyles}>
-              <Grid item xs={6}>
-                <Typography
-                  gutterBottom
-                  className={classes.fieldLabelStylesDesktop}>
-                  {t['mobileNumber']}
-                </Typography>
+            {!isClient && (
+              <Grid container className={classes.sectionRowStyles}>
+                <Grid item xs={6}>
+                  <Typography
+                    gutterBottom
+                    className={classes.fieldLabelStylesDesktop}>
+                    {t['mobileNumber']}
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography
+                    id='mobileNumber'
+                    gutterBottom
+                    className={classes.fieldValueStyles}>
+                    {user.current.mobileNumber}
+                  </Typography>
+                </Grid>
               </Grid>
-              <Grid item xs={6}>
-                <Typography
-                  id='mobileNumber'
-                  gutterBottom
-                  className={classes.fieldValueStyles}>
-                  {user.current.mobileNumber}
-                </Typography>
+            )}
+            {!!isClient && (
+              <Grid container className={classes.sectionRowStyles}>
+                <Grid item xs={6}>
+                  <Typography
+                    gutterBottom
+                    className={classes.fieldLabelStylesDesktop}>
+                    {t['experiencedIn']}
+                  </Typography>
+                </Grid>
+                <FieldsView
+                  currentUserFields={currentUserFields}
+                  fields={fields}
+                  loading={userFieldsLoading || fieldsLoading}
+                />
               </Grid>
-            </Grid>
-            <Grid container className={classes.sectionRowStyles}>
-              <Grid item xs={6}>
-                <Typography
-                  gutterBottom
-                  className={classes.fieldLabelStylesDesktop}>
-                  {t['currentEmploymentStatus']}
-                </Typography>
+            )}
+            {!isClient && (
+              <Grid container className={classes.sectionRowStyles}>
+                <Grid item xs={6}>
+                  <Typography
+                    gutterBottom
+                    className={classes.fieldLabelStylesDesktop}>
+                    {t['currentEmploymentStatus']}
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography
+                    id='currentEmploymentStatus'
+                    gutterBottom
+                    className={classes.fieldValueStyles}>
+                    {
+                      employmentStatus.find(
+                        (status) =>
+                          status.value === user.current.currentEmploymentStatus,
+                      )?.label
+                    }
+                  </Typography>
+                </Grid>
               </Grid>
-              <Grid item xs={6}>
-                <Typography
-                  id='currentEmploymentStatus'
-                  gutterBottom
-                  className={classes.fieldValueStyles}>
-                  {
-                    employmentStatus.find(
-                      (status) =>
-                        status.value === user.current.currentEmploymentStatus,
-                    )?.label
-                  }
-                </Typography>
-              </Grid>
-            </Grid>
+            )}
           </Grid>
         </Grid>
       </Paper>
