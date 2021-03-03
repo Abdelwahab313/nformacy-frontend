@@ -28,6 +28,7 @@ const PersonalInfoSection = () => {
     defaultValues: { ...user.current },
   });
   const isClient = authManager.isClient();
+  const isAdmin = authManager.isAdmin();
   const { fields, loading: fieldsLoading } = useFieldsFetcher();
   const {
     currentUserFields,
@@ -101,27 +102,29 @@ const PersonalInfoSection = () => {
                 </Typography>
               </Grid>
             </Grid>
-            <Grid className={classes.sectionRowStyles}>
-              <Grid item xs={6}>
-                <Typography
-                  gutterBottom
-                  className={classes.fieldLabelStylesDesktop}>
-                  {t['country']}
-                </Typography>
+            {!isAdmin && (
+              <Grid container className={classes.sectionRowStyles}>
+                <Grid item xs={6}>
+                  <Typography
+                    gutterBottom
+                    className={classes.fieldLabelStylesDesktop}>
+                    {t['country']}
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography
+                    id='country'
+                    gutterBottom
+                    className={classes.fieldValueStyles}>
+                    {user.current.country &&
+                      countries?.find(
+                        (country) => country.value === user.current.country,
+                      ).label}
+                  </Typography>
+                </Grid>
               </Grid>
-              <Grid item xs={6}>
-                <Typography
-                  id='country'
-                  gutterBottom
-                  className={classes.fieldValueStyles}>
-                  {user.current.country &&
-                    countries?.find(
-                      (country) => country.value === user.current.country,
-                    ).label}
-                </Typography>
-              </Grid>
-            </Grid>
-            {!isClient && (
+            )}
+            {(!isClient && !isAdmin) && (
               <Grid container className={classes.sectionRowStyles}>
                 <Grid item xs={6}>
                   <Typography
@@ -140,7 +143,7 @@ const PersonalInfoSection = () => {
                 </Grid>
               </Grid>
             )}
-            {!!isClient && (
+            {!!isClient ? (
               <Grid container className={classes.sectionRowStyles}>
                 <Grid item xs={6}>
                   <Typography
@@ -155,8 +158,8 @@ const PersonalInfoSection = () => {
                   loading={userFieldsLoading || fieldsLoading}
                 />
               </Grid>
-            )}
-            {!isClient && (
+            ) : ''}
+            {(!isClient && !isAdmin) && (
               <Grid container className={classes.sectionRowStyles}>
                 <Grid item xs={6}>
                   <Typography
