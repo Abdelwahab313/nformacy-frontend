@@ -12,6 +12,7 @@ import React, { useRef, useState } from 'react';
 import Transition from '../../../../components/animations/Transition';
 import clsx from 'clsx';
 import ClientWorkExperienceForm from 'components/forms/ClientWorkExperienceForm.js';
+import { organizationalLevel } from 'constants/dropDownOptions';
 
 const ClientWorkExperienceSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -81,7 +82,7 @@ const ClientWorkExperienceSection = () => {
                   id='industriesOfExperience'
                   gutterBottom
                   className={classes.fieldValueStyles}>
-                  {user.current.organizationLevel}
+                  {organizationalLevel.find((level) => level.value === user.current.organizationLevel)?.label}
                 </Typography>
               </Grid>
             </Grid>

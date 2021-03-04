@@ -4,7 +4,12 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { useFormContext, Controller } from 'react-hook-form';
 import React from 'react';
-import { useStyles, selectStyle, sectionContainerStyles, dividerStyle } from '../../styles/formsStyles';
+import {
+  useStyles,
+  selectStyle,
+  sectionContainerStyles,
+  dividerStyle,
+} from '../../styles/formsStyles';
 import ReactTooltip from 'react-tooltip';
 import t from '../../locales/en/freelancerProfile.json';
 import { FormControl } from '@material-ui/core';
@@ -29,9 +34,7 @@ const ClientWorkExperience = () => {
       <Divider variant='middle' style={dividerStyle} />
       <Container maxWidth={false} className={classes.formControl}>
         <div className={classes.formHeader}>
-          <Typography
-            gutterBottom
-            className={classes.fieldLabelStylesDesktop}>
+          <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
             {t['organizationalLevel']}
           </Typography>
           <HelpIcon
@@ -54,16 +57,13 @@ const ClientWorkExperience = () => {
                 SelectProps={{
                   styles: selectStyle,
                 }}
-                options={organizationalLevel.map(level => level.label)
-                }
+                options={organizationalLevel}
               />
             }
           />
         </FormControl>
-
       </Container>
-    </Container >
-
+    </Container>
   );
 };
 
