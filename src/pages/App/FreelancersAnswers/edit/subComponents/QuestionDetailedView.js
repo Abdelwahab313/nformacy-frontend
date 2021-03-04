@@ -3,7 +3,6 @@ import { Grid, Typography } from '@material-ui/core';
 import { useStyles } from 'styles/questionRoasterStyles';
 import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
 import CustomTypography from 'components/typography/Typography';
-import ShowMore from 'components/typography/ShowMore';
 import createMarkup from 'services/markup';
 import AssignmentType from 'pages/App/QuestionRoaster/subComponents/AssignmentType';
 import { formattedDateMonthAndDay } from 'services/dateTimeParser';
@@ -13,13 +12,6 @@ import DEFAULT_LOCALES from 'constants/locale';
 const LANGUAGES_LOCALES_MAPPER = {
   english: 'en',
   arabic: 'ar',
-};
-
-export const getFirstParagraph = (htmlContent) => {
-  let parser = new DOMParser();
-  let doc = parser.parseFromString(htmlContent, 'text/html');
-  let contentText = doc?.getElementsByTagName('body')[0].innerText;
-  return !!contentText ? contentText : 'No Content';
 };
 
 const QuestionDetailedView = ({ questionDetails }) => {
@@ -87,13 +79,11 @@ const QuestionDetailedView = ({ questionDetails }) => {
                 id={`question-${questionDetails.referenceNumber}-content`}
                 className={classes.questionContentField}>
                 <CustomTypography variant='body1'>
-                  <ShowMore>
-                    <div
-                      dangerouslySetInnerHTML={createMarkup(
-                        getFirstParagraph(questionDetails.content),
-                      )}
-                    />
-                  </ShowMore>
+                  <div
+                    dangerouslySetInnerHTML={createMarkup(
+                      questionDetails.content,
+                    )}
+                  />
                 </CustomTypography>
               </Grid>
             </Grid>
