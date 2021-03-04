@@ -8,14 +8,13 @@ import Typography from '@material-ui/core/Typography';
 import t from '../../../../locales/en/freelancerProfile.json';
 import Divider from '@material-ui/core/Divider';
 import { dividerStyle, useStyles } from '../../../../styles/formsStyles';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Transition from '../../../../components/animations/Transition';
 import clsx from 'clsx';
 import ClientWorkExperienceForm from 'components/forms/ClientWorkExperienceForm.js';
 
 const ClientWorkExperienceSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
-  const [resume, setResume] = useState([]);
   const [open, setOpen] = useState(false);
 
   const classes = useStyles();
@@ -26,25 +25,6 @@ const ClientWorkExperienceSection = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const mergeHistory = () => {
-    const history = [];
-    user.current.experiences.forEach((experience) => {
-      const historyEntry = {
-        type: 'experience',
-        ...experience,
-        date: new Date(experience.startDate),
-      };
-      history.push(historyEntry);
-    });
-    return history.sort((entry1, entry2) =>
-      entry1.date <= entry2.date ? 1 : -1,
-    );
-  };
-
-  useEffect(() => {
-    const mergedHistory = mergeHistory();
-    setResume(mergedHistory);
-  }, [user.current]);
 
   return (
     <Grid item id='workExperience'>

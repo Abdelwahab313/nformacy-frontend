@@ -54,7 +54,8 @@ const ClientWorkExperience = () => {
                 SelectProps={{
                   styles: selectStyle,
                 }}
-                options={organizationalLevel}
+                options={organizationalLevel.map(level => level.label)
+                }
               />
             }
           />
