@@ -84,7 +84,7 @@ const ClientActivityTable = () => {
                   <TableCell colspan="8" className={classes.noRecords}>Sorry, no matching records found</TableCell>
                   : servicesRows.map((service) => (
                     <StyledTableRow
-                      reference-number={service.serviceRef}
+                      reference-number={service.RefNumber}
                       key={service.id}>
                       <StyledTableCell scope='row'>
                         {service.requestType}

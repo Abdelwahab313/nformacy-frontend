@@ -13,6 +13,7 @@ Feature: Freelancer profile completion
     Then I should see step three form
     When I upload my cv
     And I fill step three data
+    And I click accept terms and conditions
     And click submit
     Then I should see welcome message
 

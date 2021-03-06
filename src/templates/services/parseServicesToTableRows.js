@@ -22,6 +22,7 @@ import MeetingAlarm from 'components/feedback/MeetingAlarm';
 const parseServicesToTableRows = (services, t) => {
   return services?.map((service) => ({
     serviceId: service.serviceId,
+    RefNumber: service.serviceRef,
     serviceRef:
       service.activityType === 'meeting' ? (
         <ServiceRefIdLink

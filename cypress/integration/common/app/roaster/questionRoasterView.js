@@ -20,12 +20,12 @@ Then(
     cy.get('#question-2000101-postDate')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#questionMajorFields-2000101-0')
+    cy.get('#question-2000101 #questionMajorFields-0')
       .trigger('mouseover')
-      .get('#questionSubFields-2000101-0')
+      .get('#questionSubFields-0')
       .invoke('text')
       .should('not.be.empty');
-    cy.get('#questionSubFields-2000101-0')
+    cy.get('#questionSubFields-0')
       .invoke('text')
       .should('not.be.empty');
     cy.get('#question-2000101-content')
@@ -49,7 +49,10 @@ When(/^I click on a field from the filtering menu\.$/, function() {
   cy.get('#filters-0').click();
 });
 Then(/^I should only see questions that belongs to that field\.$/, function() {
-  cy.get('#questionMajorFields-2000101-0').should('have.text', 'Finance');
+  cy.get('#question-2000101 #questionMajorFields-0').should(
+    'have.text',
+    'Finance',
+  );
 });
 Then(/^I should see a banner with Nformacy primary color$/, function() {
   cy.get('#question-roaster-banner', { timeout: 50000 });
@@ -112,9 +115,9 @@ Then(
 Then(
   /^question fields as chips with tooltip specifying minor fields$/,
   function() {
-    cy.get('#questionMajorFields-2000101-0')
+    cy.get('#question-2000101 #questionMajorFields-0')
       .trigger('mouseover')
-      .get('#questionSubFields-2000101-0')
+      .get('#questionSubFields-0')
       .invoke('text')
       .should('not.be.empty');
   },

@@ -11,7 +11,7 @@ When(/^I should be navigated to question service form$/, function () {
 Given(
   /^I have a call service request with shortlisted consultants$/,
   function () {
-    cy.wrap('4000107').as('serviceId');
+    cy.wrap('4000149').as('serviceId');
   },
 );
 
@@ -20,7 +20,7 @@ Given(/^I click on the service action$/, function () {
 });
 
 Given(/^I should navigate to question details$/, function () {
-  cy.location('pathname').should('match', /\/questions\/view$/);
+  cy.location('pathname').should('match', /\/services\/details$/);
 });
 
 When(/^I fill the service form$/, function () {

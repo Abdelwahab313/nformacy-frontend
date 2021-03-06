@@ -13,6 +13,7 @@ Given(/^I am a freelancer and registered$/, function() {
   cy.get('#password').type('testtest');
   cy.get('#confirmPassword').type('testtest');
   cy.get('#register').click();
+  cy.get('#freelancerType').click();
 });
 
 Then(/^I am on the freelancer profile completion form$/, function() {
@@ -36,9 +37,12 @@ When(/^I fill personal info data$/, function() {
 When(/^click next$/, function() {
   cy.get('#nextButton').click();
 });
+
 Then(/^I should see step two form$/, function() {
   cy.get('#stepTwoForm');
+  cy.route('GET', '/fields?locale=**').as('fields');
 });
+
 When(/^I fill step two data$/, function() {
   cy.wait('@fields');
   cy.get('#majorFieldsOfExperienceSelect').click();
@@ -62,6 +66,11 @@ Then(/^I should see welcome message$/, function() {
 Then(/^I should see step three form$/, function() {
   cy.get('#stepThreeForm');
 });
+
+When(/^I click accept terms and conditions$/, function() {
+  cy.get('[name="termsChecked"]').click();
+});
+
 When(/^I fill step three data$/, function() {
   cy.get('#add-work-experience').click();
   cy.get('#work-experience-title-0').clear();
@@ -162,14 +171,8 @@ Then(/^I can select multiple options$/, function() {
   cy.get('#specificFieldsOfExperienceSelect').click();
   cy.get('#specificFieldsOfExperienceSelect-option-3').click();
   cy.get('#specificFieldsOfExperienceSelect').click();
-  cy.get('div[name="fields"]').should(
-    'contain',
-    'Promotion and Advertising',
-  );
-  cy.get('div[name="fields"]').should(
-    'contain',
-    'Market Research',
-  );
+  cy.get('div[name="fields"]').should('contain', 'Promotion and Advertising');
+  cy.get('div[name="fields"]').should('contain', 'Market Research');
 });
 When(/^I upload my cv$/, function() {
   cy.get('#chooseFileButton ').click();

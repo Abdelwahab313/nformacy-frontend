@@ -45,6 +45,7 @@ const UserTypeSelection = () => {
       className={clsx(classes.usersTypeContainer)}>
       <Grid item xs={12} sm={5} lg={3} className={[classes.centerCard, classes.mobileClientCard]}>
         <Button
+          id={'clientType'}
           onClick={() => onTypeClick('client')}
           className={classes.usersTypeContainerBorder}>
           <Box textAlign={'center'}>
@@ -69,6 +70,7 @@ const UserTypeSelection = () => {
 
       <Grid item xs={12} sm={5} lg={3} className={[classes.centerCard, classes.mobileConsultantCard]}>
         <Button
+          id={'freelancerType'}
           onClick={() => onTypeClick('freelancer')}
           className={classes.usersTypeContainerBorder}>
           <Box textAlign={'center'}>
