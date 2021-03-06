@@ -27,11 +27,11 @@ Then(/^I should see step one form$/, function() {
 When(/^I fill personal info data$/, function() {
   cy.get('#maleRadio').click();
   cy.get('#country-select').click();
-  cy.get('#react-select-2-option-0').click();
+  cy.get('#react-select-4-option-0').click();
   cy.get('#mobile_number').clear();
   cy.get('#mobile_number').type('201069942509');
   cy.get('#currentEmploymentStatus').click();
-  cy.get('#react-select-3-option-0').click();
+  cy.get('#react-select-5-option-0').click();
 });
 
 When(/^click next$/, function() {
@@ -50,9 +50,9 @@ When(/^I fill step two data$/, function() {
   cy.get('#specificFieldsOfExperienceSelect').click();
   cy.get('#specificFieldsOfExperienceSelect-option-2').click();
   cy.get('#industriesOfExperience').click();
-  cy.get('#react-select-4-option-0').click();
+  cy.get('#react-select-6-option-0').click();
   cy.get('#assignmentLanguage').click();
-  cy.get('#react-select-5-option-6').click();
+  cy.get('#react-select-7-option-6').click();
   cy.get('[name="moreThanOneMonth"]').click();
 });
 When(/^click submit$/, function() {
