@@ -17,5 +17,5 @@ When(/^press signup$/, function() {
   cy.get('#register').click();
 });
 Then(/^then should be redirected to profile completion$/, function() {
-  cy.get('#multiStepForm');
+  cy.get('#userTypeSelection');
 });

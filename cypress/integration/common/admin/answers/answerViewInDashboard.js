@@ -2,7 +2,7 @@ import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import {
   clearLocalStorage,
   getFromLocalStorage,
-  isAdmin,
+  isAdviser,
 } from '../../../../helperFunctions';
 import { BASE_URL } from '../../../../defualtTestValues';
 import { createQuestionWithAnswers } from '../../../../support/services/questionBuilder';
@@ -12,10 +12,10 @@ Given(/^There is a question with answers$/, function() {
 });
 
 When(/^Click on created question$/, function() {
-  if (isAdmin()) {
-    cy.wait('@allQuestions');
-  } else {
+  if (isAdviser()) {
     cy.wait('@adviserQuestions');
+  } else {
+    cy.wait('@allQuestions');
   }
   cy.get(
     `a[data-reference='${

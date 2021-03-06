@@ -105,9 +105,9 @@ export const loginAsAdmin = () => {
     });
 };
 
-export const isAdmin = () => {
+export const isAdviser = () => {
   const currentUser = JSON.parse(localStorage.getItem('user'));
-  const isAdmin = some(currentUser.roles, { name: 'admin' });
+  const isAdmin = some(currentUser.roles, { name: 'adviser' });
   return isAdmin;
 };
 export const getFromLocalStorage = (key) => {

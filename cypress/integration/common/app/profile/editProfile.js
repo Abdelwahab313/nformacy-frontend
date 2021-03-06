@@ -64,11 +64,11 @@ When(/^I fill my updated personal Info data$/, function() {
   cy.get('#personalInfoDialog').should('be.visible');
   cy.get('#maleRadio').click();
   cy.get('#country-select').click();
-  cy.get('#react-select-4-option-0').click();
+  cy.get('#react-select-2-option-0').click();
   cy.get('#mobile_number').clear();
   cy.get('#mobile_number').type('201069942659');
   cy.get('#employmentStatus').click();
-  cy.get('#react-select-5-option-0').click();
+  cy.get('#react-select-3-option-0').click();
 });
 When(/^press save personal info$/, function() {
   cy.get('#savePersonalInfo').click();
@@ -88,10 +88,10 @@ When(/^I fill my updated fields of specializations data$/, function() {
   cy.get('#specificFieldsOfExperienceSelect').click();
   cy.get('#specificFieldsOfExperienceSelect-option-2').click();
   cy.get('#fieldsOfSpecializationTitle').click();
-  cy.get('#react-select-4-input').clear();
-  cy.get('#react-select-4-option-29').click();
-  cy.get('#react-select-5-input').clear();
-  cy.get('#react-select-5-option-3').click();
+  cy.get('#react-select-2-input').clear();
+  cy.get('#react-select-2-option-29').click();
+  cy.get('#react-select-3-input').clear();
+  cy.get('#react-select-3-option-3').click();
   cy.get('[name="moreThanOneMonth"]').click();
 });
 When(/^press save fields of specializations$/, function() {
