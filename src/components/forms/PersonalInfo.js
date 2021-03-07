@@ -31,6 +31,7 @@ import authManager from 'services/authManager';
 import FieldsOfExperience from './FieldsOfExpereience';
 
 const PersonalInfo = () => {
+  // TODO try to remove this library as it has large size
   const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
   const { errors, control, user } = useFormContext();
   const [countries] = useState(countryList().getData());
