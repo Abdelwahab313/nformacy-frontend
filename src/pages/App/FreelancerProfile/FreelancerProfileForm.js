@@ -34,6 +34,7 @@ import { useAuth } from 'pages/auth/context/auth';
 import { updateUser } from 'pages/auth/context/authActions';
 import Transition from 'components/animations/Transition';
 import CustomTypography from 'components/typography/Typography';
+import CorporateStepOne from 'pages/CorporateRegister';
 
 const FreeLancerProfileForm = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -86,11 +87,17 @@ const FreeLancerProfileForm = () => {
     ['organizationLevel', 'jobTitle', 'company'],
   ];
 
+  const corporateStepFields = [
+    ['organizationName', 'country', 'industriesOfExperience', 'contactName', 'jobTitle'],
+  ];
+
   const isClientEmployed = watch('isEmployed');
 
   const currentStepFields = useMemo(() => {
     if (authManager.isClient()) {
       return clientStepFields[activeStep];
+    } else if (authManager.isCorporate()) {
+      return corporateStepFields[activeStep];
     } else {
       return consultantStepsFields[activeStep];
     }
@@ -110,7 +117,8 @@ const FreeLancerProfileForm = () => {
     return (
       activeStep === 2 ||
       (authManager.isClient() && activeStep === 1) ||
-      (authManager.isClient() && !isClientEmployed)
+      (authManager.isClient() && !isClientEmployed) ||
+      (authManager.isCorporate() && activeStep === 0)
     );
   }, [activeStep, isClientEmployed]);
 
@@ -135,7 +143,7 @@ const FreeLancerProfileForm = () => {
   }
 
   const onSubmit = (userDate) => {
-    if (authManager.isNormalUser()) {
+    if (authManager.isNormalUser() || authManager.isCorporate()) {
       onSubmitFreelancer(userDate);
     } else {
       onSubmitClient(userDate);
@@ -262,6 +270,7 @@ const FreeLancerProfileForm = () => {
 
   const isGoNextDisabled = isCurrentstepInvalid() || loading;
   const isSubmitDisabled = !isTermsChecked || isCurrentstepInvalid() || loading;
+  const isCorporateSubmitDisabled = !isTermsChecked || loading;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -295,17 +304,19 @@ const FreeLancerProfileForm = () => {
                 onClick={handleClose}
                 variant="contained"
                 className={classes.cancelConditionsBtn}>
-                  Cancel
+                Cancel
               </Button>
             </Grid>
           </Grid>
         </DialogContent>
       </Dialog>
-      <Hidden smDown>
-        <div style={stepIndicatorStyles.container}>
-          <StepsIndicator activeStep={activeStep} />
-        </div>
-      </Hidden>
+      {!authManager.isCorporate &&
+        <Hidden smDown>
+          <div style={stepIndicatorStyles.container}>
+            <StepsIndicator activeStep={activeStep} />
+          </div>
+        </Hidden>
+      }
       <form
         id='multiStepForm'
         style={formStyle}
@@ -330,6 +341,8 @@ const FreeLancerProfileForm = () => {
 
           {activeStep === 0 && authManager.isClient() && <ClientStepOne />}
           {activeStep === 1 && authManager.isClient() && <ClientStepTwo />}
+
+          {activeStep === 0 && authManager.isCorporate() && <CorporateStepOne />}
         </FormContext>
         {!!isFinalStep && (
           <Grid
@@ -378,22 +391,24 @@ const FreeLancerProfileForm = () => {
               startIcon={<ArrowBackIosIcon />}
             />
           )}
-          <SubmitButton
-            id='continueLater'
-            buttonText='complete later'
-            color='secondary'
-            onClick={onClickSaveLater}
-            className={classes.continueLaterBtn}
-          />
+          {!authManager.isCorporate &&
+            <SubmitButton
+              id='continueLater'
+              buttonText='complete later'
+              color='secondary'
+              onClick={onClickSaveLater}
+              className={classes.continueLaterBtn}
+            />
+          }
 
           {!!isFinalStep ? (
             <SubmitButton
               buttonText={t['submit']}
               id='submitButton'
               type='submit'
-              disabled={isSubmitDisabled}
+              disabled={authManager.isCorporate ? isCorporateSubmitDisabled : isSubmitDisabled}
               variant='contained'
-              style={nextButtonStyles(isSubmitDisabled)}
+              style={nextButtonStyles(authManager.isCorporate ? isCorporateSubmitDisabled : isSubmitDisabled)}
               endIcon={<DoneIcon />}
             />
           ) : (

@@ -47,6 +47,17 @@ class AuthManager {
     }
   };
 
+  isCorporate = () => {
+    let user;
+    try {
+      const loadedUserString = localStorage.getItem('user');
+      user = !!loadedUserString ? JSON.parse(loadedUserString) : undefined;
+      return user.roles.some((role) => role.name === 'corporate');
+    } catch (e) {
+      return false;
+    }
+  };
+
   isClient = () => {
     let user;
     try {
@@ -96,6 +107,8 @@ class AuthManager {
       return 'client';
     } else if (roles.includes('freelancer')) {
       return 'freelancer';
+    } else if (roles.includes('corporate')) {
+      return 'corporate';
     } else {
       return '';
     }

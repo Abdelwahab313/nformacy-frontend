@@ -93,7 +93,7 @@ export const useStyles = makeStyles((theme) => ({
   },
 
   divider: {
-    margin: `${theme.spacing(3)}px 0`,
+    margin: `${theme.spacing(5)}px 0`,
   },
 
   rollbackButton: {

@@ -10,8 +10,9 @@ export const useStyles = makeStyles((theme) => ({
     }
   },
   userImg: {
-    width: 250,
-    height: 250,
+    width: 200,
+    height: 200,
+    marginBottom: 10
   },
   userTypeDesc: {
     borderRadius: 25,
@@ -30,20 +31,11 @@ export const useStyles = makeStyles((theme) => ({
       padding: '0 !important'
     }
   },
-  mobileClientCard: {
-    [theme.breakpoints.down('md')]: {
-      marginTop: 35
-    }
-  },
-  mobileConsultantCard: {
-    [theme.breakpoints.down('md')]: {
-      marginBottom: 35
-    }
-  },
   usersTypeContainerBorder: {
+    width: '65%',
+    height: 200,
     borderRadius: 25,
     overflow: 'hidden',
-    border: '1px solid #ecedf0',
     transition: 'all 1s',
     '&:hover': {
       transform: 'scale(1.2)',
@@ -55,5 +47,14 @@ export const useStyles = makeStyles((theme) => ({
         transform: 'scale(1)',
       },
     },
+  },
+  corporateTypeContainerBorder: {
+    border: '1px solid #0DA1A1',
+  },
+  clientTypeContainerBorder: {
+    border: '1px solid #00415a',
+  },
+  consultantTypeContainerBorder: {
+    border: '1px solid #bc5003',
   }
 }));

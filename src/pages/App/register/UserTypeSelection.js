@@ -43,25 +43,48 @@ const UserTypeSelection = () => {
       justify='center'
       alignItems='center'
       className={clsx(classes.usersTypeContainer)}>
-      <Grid item xs={12} sm={5} lg={3} className={[classes.centerCard, classes.mobileClientCard]}>
+
+      <Grid item xs={12} sm={5} lg={3} className={classes.centerCard}>
+        <img
+          src={require('../../../assets/corporate.png')}
+          className={classes.userImg}
+        />
+        <Button
+          id={'corporateType'}
+          onClick={() => onTypeClick('corporate')}
+          className={[classes.usersTypeContainerBorder, classes.corporateTypeContainerBorder]}>
+          <Box textAlign={'center'}>
+            <Box
+              className={classes.capitalizeText}
+              borderColor='#0DA1A1'
+              color='#0DA1A1'>
+              <CustomTypography variant='h6' fontWeight='bold'>
+                I am a Corporate
+              </CustomTypography>
+            </Box>
+          </Box>
+        </Button>
+      </Grid>
+
+      <Grid item xs={12} sm={5} lg={3} className={classes.centerCard}>
+        <img
+          src={require('../../../assets/client.png')}
+          className={classes.userImg}
+        />
         <Button
           id={'clientType'}
           onClick={() => onTypeClick('client')}
-          className={classes.usersTypeContainerBorder}>
+          className={[classes.usersTypeContainerBorder, classes.clientTypeContainerBorder]}>
           <Box textAlign={'center'}>
-            <img
-              src={require('../../../assets/client.png')}
-              className={classes.userImg}
-            />
             <Box
               className={classes.capitalizeText}
               borderColor='primary.main'
               color='primary.main'>
               <CustomTypography variant='h6' fontWeight='bold'>
-                I am a Client
+                I am an Individual Client
               </CustomTypography>
               <CustomTypography>
-                I want to<strong> RECEIVE </strong> Professional Services
+                I want to<strong> RECEIVE </strong> Professional Services for Myself
               </CustomTypography>
             </Box>
           </Box>
@@ -69,15 +92,15 @@ const UserTypeSelection = () => {
       </Grid>
 
       <Grid item xs={12} sm={5} lg={3} className={[classes.centerCard, classes.mobileConsultantCard]}>
+        <img
+          src={require('../../../assets/consultant_2.png')}
+          className={classes.userImg}
+        />
         <Button
           id={'freelancerType'}
           onClick={() => onTypeClick('freelancer')}
-          className={classes.usersTypeContainerBorder}>
+          className={[classes.usersTypeContainerBorder, classes.consultantTypeContainerBorder]}>
           <Box textAlign={'center'}>
-            <img
-              src={require('../../../assets/consultant_2.png')}
-              className={classes.userImg}
-            />
             <Box
               className={classes.capitalizeText}
               borderColor='#bc5003'
