@@ -444,6 +444,10 @@ export const useStyles = makeStyles((theme) => ({
   backButton: {
     marginRight: 'auto',
   },
+  corporateDesc: {
+    marginLeft: 30,
+    color: darkBlue
+  }
 }));
 
 export const selectStyle = {

@@ -29,6 +29,7 @@ import Hidden from '@material-ui/core/Hidden';
 import FieldsOfExperience from './FieldsOfExpereience';
 import { Checkbox, Grow } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import CustomTypography from 'components/typography/Typography';
 
 const ClientStepOne = () => {
   const { errors, control, user } = useFormContext();
@@ -59,6 +60,7 @@ const ClientStepOne = () => {
                 </Grid>
               </Grid>
               <Divider variant='middle' style={greyDividerStyle} />
+
               <Container maxWidth={false} className={classes.formControl}>
                 <FormControl fullWidth className={classes.formControl}>
                   <Typography
@@ -117,6 +119,7 @@ const ClientStepOne = () => {
                   <ErrorMessage errorField={errors.gender} />
                 </FormControl>
               </Container>
+
               <Container maxWidth={false} className={classes.formControl}>
                 <div className={classes.formHeader}>
                   <Typography
@@ -152,6 +155,64 @@ const ClientStepOne = () => {
 
                 <ErrorMessage errorField={errors.country} />
               </Container>
+
+              <Container maxWidth={false} className={classes.formControl}>
+                <FormControl fullWidth className={classes.formControl}>
+                  <Typography
+                    gutterBottom
+                    className={classes.fieldLabelStylesDesktop}>
+                    {t('accountType')}
+                  </Typography>
+                  <Controller
+                    name='accountType'
+                    as={
+                      <RadioGroup row>
+                        <Grid container>
+                          <Grid item md={6}>
+                            <FormControlLabel
+                              value='corporate'
+                              control={
+                                <Radio
+                                  id='corporateAccount'
+                                  className={radiosStyles.root}
+                                  color='default'
+                                  checkedIcon={
+                                    <span className={radiosStyles.checkedIcon} />
+                                  }
+                                  icon={<span className={radiosStyles.icon} />}
+                                />
+                              }
+                              label={t('corporateAccount')}
+                            />
+                            <CustomTypography variant="subtitle2" className={classes.corporateDesc}>I'm representing an organization/team</CustomTypography>
+                          </Grid>
+                          <Grid item md={6}>
+                            <FormControlLabel
+                              value='individual'
+                              control={
+                                <Radio
+                                  id='individualAccount'
+                                  className={radiosStyles.root}
+                                  color='default'
+                                  checkedIcon={
+                                    <span className={radiosStyles.checkedIcon} />
+                                  }
+                                  icon={<span className={radiosStyles.icon} />}
+                                />
+                              }
+                              label={t('individualAccount')}
+                            />
+                            <CustomTypography variant="subtitle2" className={classes.corporateDesc}>I'm representing myself</CustomTypography>
+                          </Grid>
+                        </Grid>
+                      </RadioGroup>
+                    }
+                    control={control}
+                    rules={{ required: t('requiredMessage') }}
+                  />
+                  <ErrorMessage errorField={errors.gender} />
+                </FormControl>
+              </Container>
               <FieldsOfExperience />
 
               <Container maxWidth={false} className={classes.formControl}>
@@ -177,6 +238,7 @@ const ClientStepOne = () => {
                 </FormControl>
                 <ErrorMessage errorField={errors.country} />
               </Container>
+
             </Container>
           </Paper>
         </Grid>

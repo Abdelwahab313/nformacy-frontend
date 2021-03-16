@@ -83,12 +83,8 @@ const FreeLancerProfileForm = () => {
   ];
 
   const clientStepFields = [
-    ['gender', 'country'],
+    ['gender', 'country', 'fields', 'accountType'],
     ['organizationLevel', 'jobTitle', 'company'],
-  ];
-
-  const corporateStepFields = [
-    ['organizationName', 'country', 'industriesOfExperience', 'contactName', 'jobTitle'],
   ];
 
   const isClientEmployed = watch('isEmployed');
@@ -96,8 +92,6 @@ const FreeLancerProfileForm = () => {
   const currentStepFields = useMemo(() => {
     if (authManager.isClient()) {
       return clientStepFields[activeStep];
-    } else if (authManager.isCorporate()) {
-      return corporateStepFields[activeStep];
     } else {
       return consultantStepsFields[activeStep];
     }
@@ -117,8 +111,7 @@ const FreeLancerProfileForm = () => {
     return (
       activeStep === 2 ||
       (authManager.isClient() && activeStep === 1) ||
-      (authManager.isClient() && !isClientEmployed) ||
-      (authManager.isCorporate() && activeStep === 0)
+      (authManager.isClient() && !isClientEmployed)
     );
   }, [activeStep, isClientEmployed]);
 
@@ -143,7 +136,7 @@ const FreeLancerProfileForm = () => {
   }
 
   const onSubmit = (userDate) => {
-    if (authManager.isNormalUser() || authManager.isCorporate()) {
+    if (authManager.isNormalUser()) {
       onSubmitFreelancer(userDate);
     } else {
       onSubmitClient(userDate);
@@ -241,7 +234,7 @@ const FreeLancerProfileForm = () => {
     if (activeStep < 2) {
       user.current = {
         ...user.current,
-        ...getValues(consultantStepsFields[activeStep]),
+        ...getValues(currentStepFields),
       };
       setActiveStep(activeStep + 1);
     }
@@ -270,7 +263,8 @@ const FreeLancerProfileForm = () => {
 
   const isGoNextDisabled = isCurrentstepInvalid() || loading;
   const isSubmitDisabled = !isTermsChecked || isCurrentstepInvalid() || loading;
-  const isCorporateSubmitDisabled = !isTermsChecked || loading;
+
+  const showCorporateStepTwo = user.current.accountType === 'corporate';
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -278,6 +272,7 @@ const FreeLancerProfileForm = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
   return (
     <div className={classes.freelancerProfileContainer}>
       <Dialog
@@ -310,13 +305,11 @@ const FreeLancerProfileForm = () => {
           </Grid>
         </DialogContent>
       </Dialog>
-      {!authManager.isCorporate &&
-        <Hidden smDown>
-          <div style={stepIndicatorStyles.container}>
-            <StepsIndicator activeStep={activeStep} />
-          </div>
-        </Hidden>
-      }
+      <Hidden smDown>
+        <div style={stepIndicatorStyles.container}>
+          <StepsIndicator activeStep={activeStep} />
+        </div>
+      </Hidden>
       <form
         id='multiStepForm'
         style={formStyle}
@@ -340,9 +333,8 @@ const FreeLancerProfileForm = () => {
           {activeStep === 2 && authManager.isNormalUser() && <StepThree />}
 
           {activeStep === 0 && authManager.isClient() && <ClientStepOne />}
-          {activeStep === 1 && authManager.isClient() && <ClientStepTwo />}
+          {activeStep === 1 && authManager.isClient() && (showCorporateStepTwo ? <CorporateStepOne /> : <ClientStepTwo />)}
 
-          {activeStep === 0 && authManager.isCorporate() && <CorporateStepOne />}
         </FormContext>
         {!!isFinalStep && (
           <Grid
@@ -391,24 +383,22 @@ const FreeLancerProfileForm = () => {
               startIcon={<ArrowBackIosIcon />}
             />
           )}
-          {!authManager.isCorporate &&
-            <SubmitButton
-              id='continueLater'
-              buttonText='complete later'
-              color='secondary'
-              onClick={onClickSaveLater}
-              className={classes.continueLaterBtn}
-            />
-          }
+          <SubmitButton
+            id='continueLater'
+            buttonText='complete later'
+            color='secondary'
+            onClick={onClickSaveLater}
+            className={classes.continueLaterBtn}
+          />
 
           {!!isFinalStep ? (
             <SubmitButton
               buttonText={t['submit']}
               id='submitButton'
               type='submit'
-              disabled={authManager.isCorporate ? isCorporateSubmitDisabled : isSubmitDisabled}
+              disabled={isSubmitDisabled}
               variant='contained'
-              style={nextButtonStyles(authManager.isCorporate ? isCorporateSubmitDisabled : isSubmitDisabled)}
+              style={nextButtonStyles(isSubmitDisabled)}
               endIcon={<DoneIcon />}
             />
           ) : (
