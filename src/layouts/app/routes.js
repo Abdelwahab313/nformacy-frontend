@@ -1,4 +1,5 @@
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import { VpnKey } from '@material-ui/icons';
 
 import UserTypeSelection from 'pages/App/register/UserTypeSelection';
 import LandingPage from 'pages/App/LandingPage/LandingPage';
@@ -11,7 +12,6 @@ import HomePage from 'pages/App/Home';
 import AnswerQuestion from 'pages/App/FreelancersAnswers/edit';
 import EditServiceRequest from 'pages/App/ServiceRequests/edit';
 import EditProfile from 'pages/App/Profile/Profile';
-import MeetingsPage from 'pages/App/Meeting';
 import AllNotifications from 'pages/Admin/Dashboard/AllNotifications';
 import ServicesPage from 'pages/App/ServiceRequests/list';
 import ServiceDetails from 'pages/App/ServiceRequests/details';
@@ -28,7 +28,6 @@ import ForgetPassword from 'pages/ForgetPassword';
 import ResetPassword from 'pages/ResetPassword';
 import KnowHubPage from 'pages/App/LandingPage/KnowHub';
 import ChangePasswordPage from 'pages/ChangePassword';
-import { VpnKey } from '@material-ui/icons';
 
 const appRoutes = [
   {
@@ -242,16 +241,6 @@ const appRoutes = [
     name: 'Edit Profile',
     icon: DashboardIcon,
     Component: EditProfile,
-    includeLayout: true,
-    isPublic: false,
-    hasDashboardLink: false,
-  },
-
-  {
-    path: RoutesPaths.App.Meetings,
-    name: 'Meetings',
-    icon: DashboardIcon,
-    Component: MeetingsPage,
     includeLayout: true,
     isPublic: false,
     hasDashboardLink: false,

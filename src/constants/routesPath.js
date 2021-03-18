@@ -51,8 +51,6 @@ export const RoutesPaths = {
     CallEvaluation: '/services/evaluation',
     EditServiceRequest: '/service/edit',
     EditProfile: '/user/edit',
-    Meetings: '/meeting/list',
-    MeetingDetails: '/meeting/edit',
     AllNotifications: '/notifications',
     Services: '/services/list',
     ActivitiesList: '/activities/list',
