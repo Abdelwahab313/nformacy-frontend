@@ -62,7 +62,7 @@ const UserTypeSelection = () => {
                 I am a Client
               </CustomTypography>
               <CustomTypography>
-                I want to<strong> RECEIVE </strong> Professional Services for Myself
+                I want to<strong> RECEIVE </strong> Professional Services
               </CustomTypography>
             </Box>
           </Box>

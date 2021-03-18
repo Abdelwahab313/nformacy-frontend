@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ErrorMessage from '../errors/ErrorMessage';
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import {
   dividerStyle,
@@ -20,11 +20,13 @@ import ReactTooltip from 'react-tooltip';
 import { Grow, TextField } from '@material-ui/core';
 import { organizationalLevel } from '../../constants/dropDownOptions';
 import { useTranslation } from 'react-i18next';
+import countryList from 'react-select-country-list';
 
 const ClientStepTwo = () => {
   const { errors, control, register, user } = useFormContext();
   const classes = useStyles();
   const { t } = useTranslation();
+  const [countries] = useState(countryList().getData());
 
   return (
     <Grid
@@ -54,11 +56,47 @@ const ClientStepTwo = () => {
                   <Typography
                     gutterBottom
                     className={classes.fieldLabelStylesDesktop}>
-                    {t('organizationalLevel')}
+                    {t('country')}
                   </Typography>
                   <HelpIcon
                     className={classes.formHeaderIcon}
-                    data-tip={t('selectYourOrganizationalLevel')}
+                    data-tip={t('selectCountryOfResidenceMessage')}
+                    color='primary'
+                    fontSize='small'
+                  />
+                </div>
+                <FormControl fullWidth id='country-select'>
+                  <Controller
+                    name='country'
+                    rules={{ required: t('requiredMessage') }}
+                    control={control}
+                    defaultValue={!user.current.country && 0}
+                    as={
+                      <ReactSelectMaterialUi
+                        fullWidth={true}
+                        placeholder={t('selectCountryMessage')}
+                        SelectProps={{
+                          styles: selectStyle,
+                        }}
+                        options={countries}
+                      />
+                    }
+                  />
+                </FormControl>
+
+                <ErrorMessage errorField={errors.country} />
+              </Container>
+
+              <Container maxWidth={false} className={classes.formControl}>
+                <div className={classes.formHeader}>
+                  <Typography
+                    gutterBottom
+                    className={classes.fieldLabelStylesDesktop}>
+                    {t('myCurrentJobLevel')}
+                  </Typography>
+                  <HelpIcon
+                    className={classes.formHeaderIcon}
+                    data-tip={t('selectYourLevel')}
                     color='primary'
                     fontSize='small'
                   />
@@ -66,14 +104,14 @@ const ClientStepTwo = () => {
                 <FormControl fullWidth id='organizational-select'>
                   <Controller
                     name='organizationLevel'
-                    rules={{ required: t('requiredMessage') }}
+                    rules={{ required: false }}
                     control={control}
                     defaultValue={!user.current.organizationLevel && ''}
                     as={
                       <ReactSelectMaterialUi
                         fullWidth={true}
                         name='organizationLevel'
-                        placeholder={t('selectYourOrganizationalLevel')}
+                        placeholder={t('selectYourLevel')}
                         SelectProps={{
                           styles: selectStyle,
                         }}
@@ -82,33 +120,14 @@ const ClientStepTwo = () => {
                     }
                   />
                 </FormControl>
-
-                <ErrorMessage errorField={errors.country} />
               </Container>
+
             </Container>
-            {/* <ClientWorkExperience/> */}
+
             <Container maxWidth={false} className={classes.formControl}>
               <TextField
                 fullWidth
-                label={t('jobTitle')}
-                name={'jobTitle'}
-                variant='outlined'
-                id={'jobTitle-field'}
-                InputProps={{
-                  classes: {
-                    notchedOutline: classes.registerTextField,
-                  },
-                }}
-                inputRef={register({ required: t('requiredMessage') })}
-              />
-              <ErrorMessage
-                errorField={errors.experiences && errors.experiences[0]?.title}
-              />
-            </Container>
-            <Container maxWidth={false} className={classes.formControl}>
-              <TextField
-                fullWidth
-                label={t('company')}
+                label={t('myOrganizationName')}
                 variant='outlined'
                 name={'company'}
                 id={'work-experience-company-0'}
@@ -123,6 +142,50 @@ const ClientStepTwo = () => {
                 errorField={errors.experiences && errors.experiences[0]?.title}
               />
             </Container>
+
+            <Container maxWidth={false} className={classes.formControl}>
+              <TextField
+                fullWidth
+                label={t('myCurrentJobTitle')}
+                name={'jobTitle'}
+                variant='outlined'
+                id={'jobTitle-field'}
+                InputProps={{
+                  classes: {
+                    notchedOutline: classes.registerTextField,
+                  },
+                }}
+                inputRef={register({ required: t('requiredMessage') })}
+              />
+              <ErrorMessage
+                errorField={errors.experiences && errors.experiences[0]?.title}
+              />
+            </Container>
+
+            {/* <Container maxWidth={false} className={classes.formControl}>
+              <FormControl fullWidth id='country-select'>
+                <Controller
+                  name={'isEmployed'}
+                  valueName='checked'
+                  defaultValue={false}
+                  type='checkbox'
+                  control={control}
+                  as={
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          id={'isEmployed-field'}
+                          style={checkboxStyle}
+                        />
+                      }
+                      label={t('isEmployed')}
+                    />
+                  }
+                />
+              </FormControl>
+              <ErrorMessage errorField={errors.country} />
+            </Container> */}
+
           </Paper>
         </Grid>
       </Grow>

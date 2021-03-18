@@ -162,7 +162,9 @@
   "addEducation": "Add Education",
   "workExperience": "Work Experience",
   "jobTitle": "Job Title",
+  "myCurrentJobTitle": "My Current Job Title",
   "company": "Company/Organization",
+  "myOrganizationName": "My Organization Name",
   "startDate": "Start date",
   "present?": "Present?",
   "presentHint": "Do you still work there?",
@@ -232,7 +234,10 @@
   "answerQuestion": "Answer Question",
   "profile": "Profile",
   "organizationalLevel": "Organizational Level",
+  "myCurrentJobLevel": "My Current Job Level/Status",
+  "currentJobLevel": "My Current Job Level",
   "selectYourOrganizationalLevel": "Select Your Organizational Level",
+  "selectYourLevel": "Select Your Level",
   "workInformation": "Work Information",
   "isEmployed": "Are you currently Employed?",
   "corporateAccount": "Corporate Account",
@@ -480,6 +485,6 @@
   "deployToQuestionRoaster": "Deploy to question roaster",
   "majorFields": "Major Fields",
   "organizationName": "Organization Name",
-  "contactPersonName": "Contact Person Name",
-  "contactPersonJobTitle": "Contact Person Job Title"
+  "contactPersonJobTitle": "Contact Person Job Title",
+  "contactInfo": "Contact Information"
 }

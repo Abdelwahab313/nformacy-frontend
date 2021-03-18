@@ -23,7 +23,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   capitalizeText: {
     textTransform: 'none',
-    padding: 20
+    padding: 10
   },
   centerCard: {
     textAlign: 'center',
@@ -32,8 +32,8 @@ export const useStyles = makeStyles((theme) => ({
     }
   },
   usersTypeContainerBorder: {
-    width: '65%',
-    height: 200,
+    width: '90%',
+    height: 150,
     borderRadius: 25,
     overflow: 'hidden',
     transition: 'all 1s',

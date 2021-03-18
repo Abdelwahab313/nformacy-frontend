@@ -89,9 +89,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function getSteps(t) {
+function getSteps(t, isCorporateUser) {
   if (authManager.isClient()) {
-    return [t('personalInfo'), t('workInformation')];
+    if (!!isCorporateUser) {
+      return [t('personalInfo'), t('workInformation'), t('contactInfo')];
+    } else {
+      return [t('personalInfo'), t('workInformation')];
+    }
   } else {
     return [t('personalInfo'), t('specializationAndPreferences'), t('resume')];
   }
@@ -100,7 +104,9 @@ function getSteps(t) {
 const StepsIndicator = (props) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const steps = getSteps(t);
+  const isCorporateUser = props.user.current.accountType === 'corporate';
+  const steps = getSteps(t, isCorporateUser);
+
   return (
     <div className={classes.root}>
       <Stepper

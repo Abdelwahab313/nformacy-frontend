@@ -15,6 +15,8 @@ const employmentStatus = [
 ];
 
 const organizationalLevel = [
+  { value: 'selfEmployed', label: 'Self Employed' },
+  { value: 'notCurrentlyEmployed', label: 'Not Currently Employed' },
   { value: 'staffMember', label: 'Staff Member' },
   { value: 'teamLeaderSupervisor', label: 'Team Leader/Supervisor' },
   { value: 'sectionHead', label: 'Section Head' },

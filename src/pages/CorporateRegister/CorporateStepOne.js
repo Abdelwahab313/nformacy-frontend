@@ -60,8 +60,10 @@ const CorporateStepOne = () => {
                 </div>
                 <TextField
                   fullWidth
+                  name='organizationName'
                   variant='outlined'
-                  id={'jobTitle-field'}
+                  id={'organizationName-field'}
+                  placeholder={t('organizationName')}
                   InputProps={{
                     classes: {
                       notchedOutline: classes.registerTextField,
@@ -69,40 +71,6 @@ const CorporateStepOne = () => {
                   }}
                   inputRef={register({ required: t('requiredMessage') })}
                 />
-              </Container>
-
-              <Container maxWidth={false} className={classes.formControl}>
-                <div className={classes.formHeader}>
-                  <Typography
-                    gutterBottom
-                    className={classes.fieldLabelStylesDesktop}>
-                    {t('organizationLocation')}
-                  </Typography>
-                  <HelpIcon
-                    className={classes.formHeaderIcon}
-                    data-tip={t('selectCountryOfResidenceMessage')}
-                    color='primary'
-                    fontSize='small'
-                  />
-                </div>
-                <FormControl fullWidth id='country-select'>
-                  <Controller
-                    name='country'
-                    rules={{ required: t('requiredMessage') }}
-                    control={control}
-                    defaultValue={!user.current.country && 0}
-                    as={
-                      <ReactSelectMaterialUi
-                        fullWidth={true}
-                        placeholder={t('selectCountryMessage')}
-                        SelectProps={{
-                          styles: selectStyle,
-                        }}
-                        options={countries}
-                      />
-                    }
-                  />
-                </FormControl>
               </Container>
 
               <Container maxWidth={false} className={classes.formControl}>
@@ -146,41 +114,33 @@ const CorporateStepOne = () => {
                   <Typography
                     gutterBottom
                     className={classes.fieldLabelStylesDesktop}>
-                    {t('contactPersonName')}
+                    {t('organizationLocation')}
                   </Typography>
+                  <HelpIcon
+                    className={classes.formHeaderIcon}
+                    data-tip={t('selectCountryOfResidenceMessage')}
+                    color='primary'
+                    fontSize='small'
+                  />
                 </div>
-                <TextField
-                  fullWidth
-                  variant='outlined'
-                  id={'contactPersonName-field'}
-                  InputProps={{
-                    classes: {
-                      notchedOutline: classes.registerTextField,
-                    },
-                  }}
-                  inputRef={register({ required: t('requiredMessage') })}
-                />
-              </Container>
-
-              <Container maxWidth={false} className={classes.formControl}>
-                <div className={classes.formHeader}>
-                  <Typography
-                    gutterBottom
-                    className={classes.fieldLabelStylesDesktop}>
-                    {t('contactPersonJobTitle')}
-                  </Typography>
-                </div>
-                <TextField
-                  fullWidth
-                  variant='outlined'
-                  id={'contactPersonJobTitle-field'}
-                  InputProps={{
-                    classes: {
-                      notchedOutline: classes.registerTextField,
-                    },
-                  }}
-                  inputRef={register({ required: t('requiredMessage') })}
-                />
+                <FormControl fullWidth id='country-select'>
+                  <Controller
+                    name='country'
+                    rules={{ required: t('requiredMessage') }}
+                    control={control}
+                    defaultValue={!user.current.country && 0}
+                    as={
+                      <ReactSelectMaterialUi
+                        fullWidth={true}
+                        placeholder={t('selectCountryMessage')}
+                        SelectProps={{
+                          styles: selectStyle,
+                        }}
+                        options={countries}
+                      />
+                    }
+                  />
+                </FormControl>
               </Container>
 
             </Container>

@@ -34,7 +34,8 @@ import { useAuth } from 'pages/auth/context/auth';
 import { updateUser } from 'pages/auth/context/authActions';
 import Transition from 'components/animations/Transition';
 import CustomTypography from 'components/typography/Typography';
-import CorporateStepOne from 'pages/CorporateRegister';
+import CorporateStepOne from 'pages/CorporateRegister/CorporateStepOne';
+import CorporateStepTwo from 'pages/CorporateRegister/CorporateStepTwo';
 
 const FreeLancerProfileForm = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -83,19 +84,31 @@ const FreeLancerProfileForm = () => {
   ];
 
   const clientStepFields = [
-    ['gender', 'country', 'fields', 'accountType'],
-    ['organizationLevel', 'jobTitle', 'company'],
+    ['accountType'],
+    ['country', 'organizationLevel', 'jobTitle', 'company'],
+  ];
+
+  const corporateStepFields = [
+    ['accountType'],
+    ['organizationName', 'industriesOfExperience', 'country'],
+    ['organizationLevel', 'jobTitle'],
   ];
 
   const isClientEmployed = watch('isEmployed');
+  const isCorporateUser = user.current.accountType === 'corporate';
 
   const currentStepFields = useMemo(() => {
     if (authManager.isClient()) {
-      return clientStepFields[activeStep];
-    } else {
+      if (!!isCorporateUser) {
+        return corporateStepFields[activeStep];
+      } else {
+        return clientStepFields[activeStep];
+      }
+    }
+    else {
       return consultantStepsFields[activeStep];
     }
-  }, [activeStep]);
+  }, [activeStep, isCorporateUser]);
 
   const isCurrentstepInvalid = useCallback(() => {
     const hasAnyInvalidField = Object.keys(errors).some((error) =>
@@ -104,14 +117,14 @@ const FreeLancerProfileForm = () => {
     const anyFieldUninitialized = currentStepFields?.some(
       (field) => !getValues(field) || getValues(field)?.length === 0,
     );
+
     return hasAnyInvalidField || anyFieldUninitialized;
   }, [errors, activeStep]);
 
   const isFinalStep = useMemo(() => {
     return (
       activeStep === 2 ||
-      (authManager.isClient() && activeStep === 1) ||
-      (authManager.isClient() && !isClientEmployed)
+      (authManager.isClient() && user.current.accountType === 'individual' && activeStep === 1)
     );
   }, [activeStep, isClientEmployed]);
 
@@ -264,8 +277,6 @@ const FreeLancerProfileForm = () => {
   const isGoNextDisabled = isCurrentstepInvalid() || loading;
   const isSubmitDisabled = !isTermsChecked || isCurrentstepInvalid() || loading;
 
-  const showCorporateStepTwo = user.current.accountType === 'corporate';
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -307,7 +318,7 @@ const FreeLancerProfileForm = () => {
       </Dialog>
       <Hidden smDown>
         <div style={stepIndicatorStyles.container}>
-          <StepsIndicator activeStep={activeStep} />
+          <StepsIndicator user={user} activeStep={activeStep} />
         </div>
       </Hidden>
       <form
@@ -333,7 +344,8 @@ const FreeLancerProfileForm = () => {
           {activeStep === 2 && authManager.isNormalUser() && <StepThree />}
 
           {activeStep === 0 && authManager.isClient() && <ClientStepOne />}
-          {activeStep === 1 && authManager.isClient() && (showCorporateStepTwo ? <CorporateStepOne /> : <ClientStepTwo />)}
+          {activeStep === 1 && authManager.isClient() && (isCorporateUser ? <CorporateStepOne /> : <ClientStepTwo />)}
+          {activeStep === 2 && authManager.isClient() && <CorporateStepTwo />}
 
         </FormContext>
         {!!isFinalStep && (
