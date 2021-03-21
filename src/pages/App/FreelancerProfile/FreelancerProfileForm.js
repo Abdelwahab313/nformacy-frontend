@@ -95,7 +95,7 @@ const FreeLancerProfileForm = () => {
   ];
 
   const isClientEmployed = watch('isEmployed');
-  const isCorporateUser = user.current.accountType === 'corporate';
+  const isCorporateUser = authManager.isCorporate();
 
   const currentStepFields = useMemo(() => {
     if (authManager.isClient()) {

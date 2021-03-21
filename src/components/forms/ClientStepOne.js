@@ -4,8 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ErrorMessage from '../errors/ErrorMessage';
-import React from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
+import React, { useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
 import {
   radioStyle,
   sectionContainerStyles,
@@ -21,12 +21,35 @@ import ReactTooltip from 'react-tooltip';
 import { Grow } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import CustomTypography from 'components/typography/Typography';
+import { addUserRole } from 'apis/userAPI';
+import { useSnackBar } from 'context/SnackBarContext';
+import authManager from 'services/authManager';
 
 const ClientStepOne = () => {
-  const { errors, control } = useFormContext();
+  const { errors, setValue, register, watch } = useFormContext();
   const classes = useStyles();
   const { t } = useTranslation();
   const radiosStyles = radioStyle();
+  const { showErrorMessage } = useSnackBar();
+  const accountType = watch('accountType');
+
+  useEffect(() => {
+    register({ name: 'accountType' });
+  }, [register]);
+
+  const handleChange = (event) => {
+    setValue('accountType', event.target.value);
+    addUserRole(event.target.value)
+      .then((response) => {
+        authManager.updateUser(response.data);
+      })
+      .catch((reason) => {
+        if (reason.response) {
+          showErrorMessage(reason.response.errors);
+        }
+      });
+  };
+
 
   return (
     <Grid
@@ -58,58 +81,53 @@ const ClientStepOne = () => {
                     className={classes.fieldLabelStylesDesktop}>
                     {t('accountType')}
                   </Typography>
-                  <Controller
-                    name='accountType'
-                    as={
-                      <RadioGroup row>
-                        <Grid container>
-                          <Grid item md={6}>
-                            <FormControlLabel
-                              value='corporate'
-                              control={
-                                <Radio
-                                  id='corporateAccount'
-                                  className={radiosStyles.root}
-                                  color='default'
-                                  checkedIcon={
-                                    <span className={radiosStyles.checkedIcon} />
-                                  }
-                                  icon={<span className={radiosStyles.icon} />}
-                                />
+
+                  <RadioGroup row
+                    value={accountType}
+                    name="accountType"
+                    onChange={handleChange}>
+                    <Grid container>
+                      <Grid item md={6}>
+                        <FormControlLabel
+                          value='corporate'
+                          control={
+                            <Radio
+                              id='corporateAccount'
+                              className={radiosStyles.root}
+                              color='default'
+                              checkedIcon={
+                                <span className={radiosStyles.checkedIcon} />
                               }
-                              label={t('corporateAccount')}
+                              icon={<span className={radiosStyles.icon} />}
                             />
-                            <CustomTypography variant="subtitle2" className={classes.corporateDesc}>I'm representing an organization/team</CustomTypography>
-                          </Grid>
-                          <Grid item md={6}>
-                            <FormControlLabel
-                              value='individual'
-                              control={
-                                <Radio
-                                  id='individualAccount'
-                                  className={radiosStyles.root}
-                                  color='default'
-                                  checkedIcon={
-                                    <span className={radiosStyles.checkedIcon} />
-                                  }
-                                  icon={<span className={radiosStyles.icon} />}
-                                />
+                          }
+                          label={t('corporateAccount')}
+                        />
+                        <CustomTypography variant="subtitle2" className={classes.corporateDesc}>I'm representing an organization/team</CustomTypography>
+                      </Grid>
+                      <Grid item md={6}>
+                        <FormControlLabel
+                          value='client'
+                          control={
+                            <Radio
+                              id='individualAccount'
+                              className={radiosStyles.root}
+                              color='default'
+                              checkedIcon={
+                                <span className={radiosStyles.checkedIcon} />
                               }
-                              label={t('individualAccount')}
+                              icon={<span className={radiosStyles.icon} />}
                             />
-                            <CustomTypography variant="subtitle2" className={classes.corporateDesc}>I'm representing myself</CustomTypography>
-                          </Grid>
-                        </Grid>
-                      </RadioGroup>
-                    }
-                    control={control}
-                    rules={{ required: t('requiredMessage') }}
-                  />
+                          }
+                          label={t('individualAccount')}
+                        />
+                        <CustomTypography variant="subtitle2" className={classes.corporateDesc}>I'm representing myself</CustomTypography>
+                      </Grid>
+                    </Grid>
+                  </RadioGroup>
                   <ErrorMessage errorField={errors.accountType} />
                 </FormControl>
               </Container>
-
-              {/* <FieldsOfExperience /> */}
 
             </Container>
           </Paper>
