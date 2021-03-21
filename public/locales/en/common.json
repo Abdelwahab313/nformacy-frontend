@@ -140,7 +140,7 @@
   "fieldsOfSpecializationHint": "Select the areas and majors you have solid experience and history in, you can add as many fields as you want. After selecting the major field you can choose the specific sub fields related to it.",
   "fieldsOfSpecialization": "Fields of Specialization",
   "industryOfExperience": "My Experience is in these Industries *",
-  "corporateIndustryOfExperience": "Our Experience is in these Industries *",
+  "corporateIndustryOfExperience": "Industry *",
   "industryOfExperienceHint": "You can choose more than one industry, if your industry is not listed please type it down.",
   "assignmentPreferences": "Assignment Preferences",
   "assignmentPreferencesSubtitle": "What are your preferences in a project or assignment.",

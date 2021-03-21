@@ -25,7 +25,17 @@ const organizationalLevel = [
   { value: 'CEOHeadOfCompany', label: 'CEO/Head of Company' },
   { value: 'businessOwner', label: 'Business Owner' },
   { value: 'boardMember', label: 'Board Member' },
+];
 
+const corporateOrganizationalLevel = [
+  { value: 'staffMember', label: 'Staff Member' },
+  { value: 'teamLeaderSupervisor', label: 'Team Leader/Supervisor' },
+  { value: 'sectionHead', label: 'Section Head' },
+  { value: 'headOfDepartment', label: 'Head of Department' },
+  { value: 'exComMember', label: 'ExCom Member' },
+  { value: 'CEOHeadOfCompany', label: 'CEO/Head of Company' },
+  { value: 'businessOwner', label: 'Business Owner' },
+  { value: 'boardMember', label: 'Board Member' },
 ];
 
 const assignmentLanguage = [
@@ -376,10 +386,11 @@ export {
   gender,
   employmentStatus,
   organizationalLevel,
+  corporateOrganizationalLevel,
   assignmentLanguage,
   assignmentTypes,
   questionTypesOfAssignment,
   industries,
   questionLanguages,
-  questionTypesOfAssignmentTranslated,
+  questionTypesOfAssignmentTranslated
 };

@@ -18,7 +18,7 @@ import 'react-phone-input-2/lib/bootstrap.css';
 import ReactTooltip from 'react-tooltip';
 import { Grow, TextField } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { organizationalLevel } from 'constants/dropDownOptions';
+import { corporateOrganizationalLevel } from 'constants/dropDownOptions';
 
 const CorporateStepTwo = () => {
   const { control, user, register } = useFormContext();
@@ -75,7 +75,7 @@ const CorporateStepTwo = () => {
                         SelectProps={{
                           styles: selectStyle,
                         }}
-                        options={organizationalLevel}
+                        options={corporateOrganizationalLevel}
                       />
                     }
                   />
