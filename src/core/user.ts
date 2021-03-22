@@ -1,11 +1,12 @@
 import moment from 'moment';
+import { AvailableDateSlot, AvailableDays, TimeSlot, User } from './types';
 
-export const getUserName = (user) => {
+export const getUserName = (user: User) => {
   return `${user?.firstName[0]}. ${user?.lastName}`;
 };
 
-export const parseFreeDates = (freeDates) => {
-  const parsedDates = {};
+export const parseFreeDates = (freeDates: AvailableDateSlot[]) => {
+  const parsedDates: AvailableDays = {};
   if (!freeDates) {
     return {};
   }
@@ -32,7 +33,7 @@ export const parseFreeDates = (freeDates) => {
   return parsedDates;
 };
 
-const addOverLapSlot = (existingSlots, timeSlot) => {
+const addOverLapSlot = (existingSlots: TimeSlot[] , timeSlot: TimeSlot) => {
   if (
     moment(existingSlots[0].to, 'HH:mm').isAfter(moment(timeSlot.from, 'HH:mm'))
   ) {
@@ -42,12 +43,4 @@ const addOverLapSlot = (existingSlots, timeSlot) => {
   }
 
   return existingSlots;
-};
-
-export const parseSelectedRoles = (rolesObject) => {
-  const selectedRoles = Object.keys(rolesObject).filter(
-    (role) => !!rolesObject[role],
-  );
-
-  return selectedRoles;
 };
