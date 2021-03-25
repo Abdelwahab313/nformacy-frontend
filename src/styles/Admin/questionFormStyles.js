@@ -151,4 +151,17 @@ export const useStyles = makeStyles((theme) => ({
       padding: '10vw',
     },
   },
+  addAccountDate: {
+    width: '100%'
+  },
+  addAccountContainer: {
+    marginTop: '90px',
+    width: '60%'
+  },
+  corporateList: {
+    marginTop: 50
+  },
+  cardBodyAcountsList: {
+    marginBottom: 250
+  }
 }));

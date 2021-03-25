@@ -56,5 +56,8 @@ export const RoutesPaths = {
     ActivitiesList: '/activities/list',
     UserTypeSelection: '/user/type',
     NotFound: '/error',
+    Accounts: '/accounts',
+    AccountDetails: '/accounts/details',
+    AddAccount: '/createAccount',
   },
 };

@@ -58,6 +58,17 @@ class AuthManager {
     }
   };
 
+  isOnlyClient = () => {
+    let user;
+    try {
+      const loadedUserString = localStorage.getItem('user');
+      user = !!loadedUserString ? JSON.parse(loadedUserString) : undefined;
+      return user.roles.some((role) => role.name === 'client');
+    } catch (e) {
+      return false;
+    }
+  };
+
   isClient = () => {
     let user;
     try {

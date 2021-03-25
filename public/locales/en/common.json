@@ -486,5 +486,21 @@
   "majorFields": "Major Fields",
   "organizationName": "Organization Name",
   "contactPersonJobTitle": "Contact Person Job Title",
-  "contactInfo": "Contact Information"
+  "contactInfo": "Contact Information",
+  "manageMyAccounts": "Manage My Accounts",
+  "addNewAccount": "Add New Account",
+  "by": "By",
+  "accountsList": "Accounts List",
+  "pointesConsumed": "Pointes Consumed",
+  "pointsBalance": "Points Balance",
+  "managePoints": "Manage Points",
+  "manageAccount": "Manage Account",
+  "accountAdded": "Account Added",
+  "addDate": "Add Date",
+  "accountGender": "Gender",
+  "date": "Date",
+  "assignmentId": "Assignment ID",
+  "type": "Type",
+  "results": "Results",
+  "review": "Review"
 }

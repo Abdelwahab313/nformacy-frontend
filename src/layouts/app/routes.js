@@ -24,10 +24,13 @@ import SolutionsPage from 'pages/App/Solutions/SolutionsPage';
 import TermsAndConditionsPage from 'pages/App/TermsAndConditions/TermsAndConditionsPage';
 import AboutPage from 'pages/App/about/AboutPage';
 import ConsultantsPage from 'pages/App/Consultants/ConsultantsPage';
+import CorporateAccountsList from 'pages/App/Home/subComponents/CorporateAccountsList';
+import CorporateAccountDetails from 'pages/App/Home/subComponents/CorporateAccountDetails';
 import ForgetPassword from 'pages/ForgetPassword';
 import ResetPassword from 'pages/ResetPassword';
 import KnowHubPage from 'pages/App/LandingPage/KnowHub';
 import ChangePasswordPage from 'pages/ChangePassword';
+import AddAccount from 'pages/App/Corporates/AddAccount';
 
 const appRoutes = [
   {
@@ -226,6 +229,33 @@ const appRoutes = [
     hasDashboardLink: false,
   },
 
+  {
+    path: RoutesPaths.App.Accounts,
+    name: 'Accounts',
+    icon: DashboardIcon,
+    Component: CorporateAccountsList,
+    includeLayout: true,
+    isPublic: false,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.App.AccountDetails,
+    name: 'Account Details',
+    icon: DashboardIcon,
+    Component: CorporateAccountDetails,
+    includeLayout: true,
+    isPublic: false,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.App.AddAccount,
+    name: 'Add Account',
+    icon: DashboardIcon,
+    Component: AddAccount,
+    includeLayout: true,
+    isPublic: false,
+    hasDashboardLink: false,
+  },
   {
     path: RoutesPaths.App.ActivitiesList,
     name: 'Activities List',

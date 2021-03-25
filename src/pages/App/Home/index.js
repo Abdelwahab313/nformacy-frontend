@@ -6,6 +6,7 @@ import { useQuery } from 'react-query';
 import authManager from 'services/authManager';
 import { immortalQueryConfig } from 'settings';
 import ClientHomePage from './ClientHomePage';
+import CorporateHomePage from './CorporateHomePage';
 import ConsultantHomePage from './ConsultantHomePage';
 import SuccessDialogPage from '../FreelancerProfile/SuccessDialogPage';
 import LoadingCircle from 'components/progress/LoadingCircle';
@@ -22,6 +23,15 @@ const HomePage = () => {
     history.replace();
   };
 
+  const handleHomePage = () => {
+    if (!!authManager.isOnlyClient()) {
+      return <ClientHomePage />;
+    } else if (!!authManager.isCorporate()) {
+      return <CorporateHomePage />;
+    } else {
+      return <ConsultantHomePage />;
+    }
+  };
   const { isFetching } = useQuery('userDetails', fetchUserDetails, {
     ...immortalQueryConfig,
     staleTime: 'Infinity',
@@ -32,10 +42,9 @@ const HomePage = () => {
   if (isFetching) {
     return <LoadingCircle />;
   }
-
   return (
     <Fragment>
-      {!!authManager.isClient() ? <ClientHomePage /> : <ConsultantHomePage />}
+      {handleHomePage()}
       <SuccessDialogPage open={open} handleClose={handleClose} />
     </Fragment>
   );
