@@ -97,7 +97,13 @@ const CalendarView = ({
     return Object.values(availableDates).flat(1);
   }, [availableDates]);
   const availableDaysList = useMemo(() => {
-    return Object.keys(availableDates);
+    return Object.keys(availableDates).filter((dateKey) => {
+      return (
+        !!availableDates[dateKey] &&
+        moment(dateKey, 'YYYYMMDD').isAfter(moment()) &&
+        availableDates[dateKey].length > 0
+      );
+    });
   }, [availableDates]);
 
   const onEditEvent = ({ changed, deleted }) => {
