@@ -16,7 +16,7 @@ export const formattedDate = (date) => {
   return `${formattedParts[0].value}, ${formattedParts[2].value}`;
 };
 
-export const formatDayAsKey = (day) => moment(day).format('YYYY-MM-DD');
+export const formatDayAsKey = (day) => moment(day).format('YYYYMMDD');
 
 export const formatTime = (time) => moment(time).format('HH:mm');
 

@@ -73,7 +73,7 @@ const BasicInfoSection = () => {
               id='profilePicture'
               src={profilePic}
               className={classes.largeProfilePic}
-              alt='Profile Picture'
+              alt='Profile'
             />
           </Grid>
           <Grid

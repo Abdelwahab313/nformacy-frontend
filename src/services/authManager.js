@@ -140,6 +140,14 @@ class AuthManager {
     );
   };
 
+  updateUser = (user) => {
+    this.setCurrentUser(user);
+    localStorage.setItem(
+      'user',
+      JSON.stringify(user),
+    );
+  };
+
   login = (userToken) => {
     this.setAuthorizationHeader(userToken);
     localStorage.setItem('tokens', JSON.stringify(userToken));

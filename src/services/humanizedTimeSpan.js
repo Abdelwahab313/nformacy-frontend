@@ -63,7 +63,7 @@ function humanizedTimeSpan(date, ref_date, date_formats, time_units) {
 
   function get_format() {
     for (var i = 0; i < date_formats[tense].length; i++) {
-      if (date_formats[tense][i].ceiling == null || seconds_difference <= date_formats[tense][i].ceiling) {
+      if (date_formats[tense][i].ceiling === null || seconds_difference <= date_formats[tense][i].ceiling) {
         return date_formats[tense][i];
       }
     }
@@ -91,7 +91,7 @@ function humanizedTimeSpan(date, ref_date, date_formats, time_units) {
 
   function depluralize_time_ago_text(time_ago_text, breakdown) {
     for (var i in breakdown) {
-      if (breakdown[i] == 1) {
+      if (breakdown[i] === 1) {
         var regexp = new RegExp('\\b' + i + '\\b');
         time_ago_text = time_ago_text.replace(regexp, function() {
           return arguments[0].replace(/s\b/g, '');

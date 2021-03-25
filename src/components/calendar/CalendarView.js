@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Paper from '@material-ui/core/Paper';
 import {
   AllDayPanel,
@@ -28,6 +28,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import CustomMonthView from './subComponents/CustomMonthView';
 import CustomAppointmentForm from './subComponents/CustomAppointmentForm';
 import calendarResources from './subComponents/calendarResources';
+import { formatDayAsKey } from 'services/dateTimeParser';
+import { formatDaySlot } from 'core/userAvailableDays';
 
 const useStyles = makeStyles(calendarStyles);
 
@@ -86,42 +88,61 @@ const CalendarView = ({
   isMinimized,
   onDayClick,
   containerStyle,
-  onUpdateAvailableDays,
+  updateAvailableDays,
   isEditable,
 }) => {
   const classes = useStyles();
-  const onEditEvent = ({ added, changed, deleted }) => {
-    if (added) {
-    } else if (changed) {
-      const toBeChangedId = Number(Object.keys(changed)[0]);
-      let toBeChanged = availableDates.find(
-        (date) => date.id === toBeChangedId,
+
+  const availableDaysSlots = useMemo(() => {
+    return Object.values(availableDates).flat(1);
+  }, [availableDates]);
+  const availableDaysList = useMemo(() => {
+    return Object.keys(availableDates);
+  }, [availableDates]);
+
+  const onEditEvent = ({ changed, deleted }) => {
+    if (changed) {
+      const toBeChangedSlotId = Object.keys(changed)[0];
+      const modifiedDate = formatDayAsKey(
+        moment(toBeChangedSlotId, 'YYYYMMDD HH:mm'),
       );
-      toBeChanged = { ...toBeChanged, ...Object.values(changed)[0] };
-      const startTime = moment(toBeChanged.startDate).format('HH:mm');
-      const endTime = moment(toBeChanged.endDate).format('HH:mm');
-      toBeChanged.title = `${startTime} - ${endTime}`;
-      const allAvailableDates = availableDates.filter(
-        (date) => date.id !== toBeChangedId,
+      const slotIndex = availableDates[modifiedDate].findIndex(
+        (slot) => slot.id === toBeChangedSlotId,
       );
-      allAvailableDates.push(toBeChanged);
-      onUpdateAvailableDays(allAvailableDates, () => {});
-    } else {
-      const allAvailableDates = availableDates.filter(
-        (date) => date.id !== deleted,
-      );
-      onUpdateAvailableDays(allAvailableDates, () => {});
+
+      if (slotIndex >= 0) {
+        let changedSlot = availableDates[modifiedDate][slotIndex];
+        changedSlot = { ...changedSlot, ...Object.values(changed)[0] };
+        const startTime = moment(changedSlot.startDate);
+        const endTime = moment(changedSlot.endDate);
+        availableDates[modifiedDate][slotIndex] = formatDaySlot(modifiedDate, {
+          startTime,
+          endTime,
+        });
+        updateAvailableDays(availableDates);
+      }
+    } else if (deleted) {
+      const parsedIdAsDate = moment(deleted, 'YYYYMMDD HH:mm');
+      const parsedKey = formatDayAsKey(parsedIdAsDate);
+      if (!!availableDates[parsedKey]) {
+        availableDates[parsedKey] = availableDates[parsedKey].filter(
+          (date) => date.id !== deleted,
+        );
+        updateAvailableDays(availableDates);
+      }
     }
   };
+
+  // TODO needs to handle remote fetch for events instead of pre fetching
   return (
     <Paper
       id={'calendar-view'}
       className={classNames([containerStyle, classes.paperBackground])}>
-      <Scheduler data={canBookDate ? [] : [...availableDates, ...events]}>
+      <Scheduler data={canBookDate ? [] : [...availableDaysSlots, ...events]}>
         <ViewState defaultCurrentDate={Date.now()} />
 
         <CustomMonthView
-          {...{ availableDates, selectedDay, canBookDate, onDayClick }}
+          {...{ availableDaysList, selectedDay, canBookDate, onDayClick }}
         />
         <Appointments
           appointmentComponent={(props) => (

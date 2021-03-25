@@ -57,15 +57,17 @@ const AdminCalendarDetails = () => {
           </CardBody>
         </Card>
       </GridItem>
-      <AvailableTimesCalendarDialog
-        open={isCalendarDialogOpen}
-        onSubmit={() => {
-          setIsCalendarDialog(false);
-        }}
-        closeDialog={() => {
-          setIsCalendarDialog(false);
-        }}
-      />
+      {isCalendarDialogOpen && (
+        <AvailableTimesCalendarDialog
+          open={isCalendarDialogOpen}
+          onSubmit={() => {
+            setIsCalendarDialog(false);
+          }}
+          closeDialog={() => {
+            setIsCalendarDialog(false);
+          }}
+        />
+      )}
     </GridContainer>
   );
 };

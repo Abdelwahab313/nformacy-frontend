@@ -5,11 +5,11 @@ import ReactSelectMaterialUi from 'react-select-material-ui';
 import Typography from '@material-ui/core/Typography';
 import { selectStyle } from 'styles/formsStyles';
 
-const calculateTimeSlotsOptions = (selectedDay, selectedDayTimeSlots) => {
+const calculateTimeSlotsOptions = (selectedDayTimeSlots) => {
   let timeOptions = [];
   selectedDayTimeSlots.forEach((timeSlot) => {
-    let startTime = moment(`${selectedDay} ${timeSlot.from}`);
-    let endTime = moment(`${selectedDay} ${timeSlot.to}`);
+    let startTime = moment(timeSlot.startDate);
+    let endTime = moment(timeSlot.endDate);
 
     while (startTime < endTime) {
       const timeSlotOption = {
@@ -25,15 +25,11 @@ const calculateTimeSlotsOptions = (selectedDay, selectedDayTimeSlots) => {
 };
 
 const MeetingTimePicker = ({
-  selectedDay,
   selectedDayTimeSlots,
   handleTimeChange,
   selectedTime = '',
 }) => {
-  const timesRange = calculateTimeSlotsOptions(
-    selectedDay,
-    selectedDayTimeSlots,
-  );
+  const timesRange = calculateTimeSlotsOptions(selectedDayTimeSlots);
 
   return (
     <Container>

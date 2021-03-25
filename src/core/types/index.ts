@@ -5,18 +5,12 @@ export type User = {
 };
 
 export type AvailableDateSlot = {
-  startDate: string;
-  endDate: string;
+  id: string;
+  title: string;
+  startDate: Date | string;
+  endDate: Date | string;
 };
 
 export type AvailableDays = {
-  [x: string]: TimeSlot[];
+  [x: string]: AvailableDateSlot[];
 };
-
-
-export type TimeSlot = {
-    from: string;
-    to: string;
-};
-
-

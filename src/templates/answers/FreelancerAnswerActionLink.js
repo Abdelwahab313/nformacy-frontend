@@ -52,12 +52,14 @@ const FreelancerAnswerActionLink = ({ answerStatus, questionId }) => {
           label={t(`answerStatus:${actionNeeded}`)}
         />
       </Box>
-      <AvailableTimesCalendarDialog
-        open={isCalendarDialogOpen}
-        closeDialog={() => {
-          setIsCalendarDialog(false);
-        }}
-      />
+      {isCalendarDialogOpen && (
+        <AvailableTimesCalendarDialog
+          open={isCalendarDialogOpen}
+          closeDialog={() => {
+            setIsCalendarDialog(false);
+          }}
+        />
+      )}
     </>
   );
 };

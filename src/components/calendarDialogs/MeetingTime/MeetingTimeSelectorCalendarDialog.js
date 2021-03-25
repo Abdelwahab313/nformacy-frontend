@@ -15,7 +15,6 @@ import { formatDayAsKey } from 'services/dateTimeParser';
 import Transition from '../../animations/Transition';
 import { makeStyles } from '@material-ui/core/styles';
 import SubmitButton from '../../buttons/SubmitButton';
-import { parseFreeDates } from 'core/user';
 
 const MeetingTimeSelectorCalendarDialog = ({
   open,
@@ -33,7 +32,7 @@ const MeetingTimeSelectorCalendarDialog = ({
   const selectedDayTimeSlots =
     !!localState.selectedDay &&
     !!candidate.freeDates &&
-    parseFreeDates(candidate.freeDates)[localState.selectedDay];
+    candidate.freeDates[localState.selectedDay];
 
   const handleTimeChange = (selectedDateTime) => {
     setLocalState((previousLocalState) => ({
@@ -42,6 +41,7 @@ const MeetingTimeSelectorCalendarDialog = ({
       selectedTime: selectedDateTime,
     }));
   };
+
   const handleSelectDay = ({ selectedDay, isAvailableDay }) => {
     const isValidDay = moment(selectedDay).isAfter();
     if (isAvailableDay && !!isValidDay) {

@@ -1,4 +1,4 @@
-const { answerActions } = require("constants/questionStatus");
+import { answerActions } from 'constants/questionStatus';
 
 export const getAnswerAction = (answerStatus) => {
   return answerActions[answerStatus]?.action?.freelancer;

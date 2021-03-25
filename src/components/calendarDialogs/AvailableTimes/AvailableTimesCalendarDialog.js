@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   Button,
   Dialog,
@@ -20,7 +20,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import moment from 'moment';
 import {
   formatDayAsKey,
-  getDateTimeAtTimeZone,
   getTimeAtTimeZone,
 } from '../../../services/dateTimeParser';
 import { updateProfile } from '../../../apis/userAPI';
@@ -28,12 +27,22 @@ import { useAuth } from '../../../pages/auth/context/auth';
 import { updateUser } from '../../../pages/auth/context/authActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Icon from '@material-ui/core/Icon';
+import authManager from 'services/authManager';
+import { addSelectedRangeToAvailableDays } from 'core/userAvailableDays';
 
 const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
   const classes = useStyles();
   const [{ currentUser }, dispatch] = useAuth();
+
+  const getInitialAvailableDates = () => {
+    if (!!currentUser.freeDates && !(currentUser.freeDates instanceof Array)) {
+      return currentUser.freeDates;
+    } else {
+      return {};
+    }
+  };
   const [availableDates, setAvailableDates] = useState(
-    !!currentUser.freeDates ? currentUser.freeDates : [],
+    getInitialAvailableDates,
   );
   const [isLoading, setIsLoading] = useState(false);
   const [timeSlotVisible, setTimeSlotVisible] = useState(false);
@@ -42,56 +51,46 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
     () => Intl.DateTimeFormat().resolvedOptions().timeZone,
     [],
   );
-  const [selectedRange, setSelectedRange] = useState({
+  const [initialRange, setInitialRange] = useState({
     timeZone: defaultTimeZone,
-    startDate: '',
-    endDate: '',
-    startTime: '',
-    endTime: '',
+    startDate: moment(),
+    endDate: moment(),
+    startTime: moment('08:00', 'HH:mm'),
+    endTime: moment('17:00', 'HH:mm'),
   });
 
-  function getTimeSlotAtTimeZone(availableDate, timezone) {
-    const startDate = moment(availableDate.startDate);
-    const endDate = moment(availableDate.endDate);
+  const onAvailableRangeAdded = useCallback(
+    (selectedRange) => {
+      const selectedAvailableDays = addSelectedRangeToAvailableDays(
+        availableDates,
+        selectedRange,
+      );
+      const newAvailableDays = { ...selectedAvailableDays };
+      updateAvailableDays(newAvailableDays);
+    },
+    [availableDates],
+  );
 
-    const convertedStartDateTime = getDateTimeAtTimeZone(startDate, timezone);
-    const convertedEndDateTime = getDateTimeAtTimeZone(endDate, timezone);
-    const startTimeString = convertedStartDateTime.format('HH:mm');
-    const endTimeString = convertedEndDateTime.format('HH:mm');
-
-    return {
-      id: availableDate.id,
-      title: `${startTimeString} - ${endTimeString}`,
-      startDate: new Date(
-        convertedStartDateTime.year(),
-        convertedStartDateTime.month(),
-        convertedStartDateTime.date(),
-        convertedStartDateTime.hour(),
-        convertedStartDateTime.minutes(),
-      ),
-      endDate: new Date(
-        convertedEndDateTime.year(),
-        convertedEndDateTime.month(),
-        convertedEndDateTime.date(),
-        convertedEndDateTime.hour(),
-        convertedEndDateTime.minutes(),
-      ),
-    };
+  if (availableDates instanceof Array) {
+    // TODO needs to handle if legacy available dates system
+    alert('You have old available days format');
+    closeDialog();
   }
 
-  const onChangeTimeZone = (timezone) => {
-    if (currentUser.freeDates) {
-      const availableDatesTZ = currentUser.freeDates.map((availableDate) =>
-        getTimeSlotAtTimeZone(availableDate, timezone),
-      );
-      setAvailableDates(availableDatesTZ);
-    }
+  const onChangeTimeZone = () => {
+    // if (!!currentUser.freeDates) {
+    //   // TODO change freedates to handle object instead of list
+    //   const availableDatesTZ = currentUser.freeDates?.map((availableDate) =>
+    //     getTimeSlotAtTimeZone(availableDate, timezone),
+    //   );
+    //   setAvailableDates(availableDatesTZ);
+    // }
   };
 
   const handleDayClicked = ({ selectedDay, isAvailableDay }) => {
     if (isAvailableDay) {
       const availableDayObject = availableDates[formatDayAsKey(selectedDay)];
-      setSelectedRange((previousLocalState) => ({
+      setInitialRange((previousLocalState) => ({
         ...previousLocalState,
         startDate: selectedDay,
         endDate: selectedDay,
@@ -109,72 +108,25 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
     } else {
       setBookFormVisible(false);
       setTimeSlotVisible(false);
-      setSelectedRange((previousLocalState) => ({
+      setInitialRange((previousLocalState) => ({
         ...previousLocalState,
         startDate: selectedDay,
         endDate: selectedDay,
-        startTime: moment(selectedDay).set('hour', 8),
-        endTime: moment(selectedDay).set('hour', 17),
+        startTime: moment('08:00', 'HH:mm'),
+        endTime: moment('17:00', 'HH:mm'),
       }));
     }
   };
 
-  const handleAddRangeClicked = () => {
-    const selectedAvailableDays = getAddedDate(selectedRange);
-    const newAvailableDays = [...availableDates, selectedAvailableDays];
-    updateAvailableDays(newAvailableDays);
-  };
-
-  const getAddedDate = (selectedRange) => {
-    let { startDate, endDate, startTime, endTime } = selectedRange;
-    const addedDateId =
-      availableDates.length === 0
-        ? 0
-        : availableDates[availableDates.length - 1].id + 1;
-    startDate = moment(startDate);
-    endDate = moment(endDate);
-    startTime = moment(startTime);
-    endTime = moment(endTime);
-    const startTimeString = startTime.format('HH:mm');
-    const endTimeString = endTime.format('HH:mm');
-    return {
-      id: addedDateId,
-      title: `${startTimeString} - ${endTimeString}`,
-      startDate: new Date(
-        startDate.year(),
-        startDate.month(),
-        startDate.date(),
-        startTime.hour(),
-        startTime.minutes(),
-      ),
-      endDate: new Date(
-        endDate.year(),
-        endDate.month(),
-        endDate.date(),
-        endTime.hour(),
-        endTime.minutes(),
-      ),
-    };
-  };
-
-  const adaptDates = (dates) => {
-    return dates.map((date) => ({
-      ...dates,
-      startDate: new Date(date.startDate),
-      endDate: new Date(date.endDate),
-    }));
-  };
-  const updateAvailableDays = (updatedAvailableDays, onSuccess) => {
+  const updateAvailableDays = (updatedAvailableDays) => {
     setIsLoading(true);
     updateProfile({ freeDates: updatedAvailableDays }, currentUser.id)
       .then((response) => {
         const userData = {
           ...response.data,
-          ...adaptDates(response.data.freeDates),
         };
-        updateUser(dispatch, userData);
-        setAvailableDates([...updatedAvailableDays]);
-        onSuccess && onSuccess();
+        authManager.updateUser(userData);
+        setAvailableDates({ ...updatedAvailableDays });
       })
       .finally(() => {
         setIsLoading(false);
@@ -182,8 +134,15 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
       });
   };
 
+  const onCloseDialog = () => {
+    setTimeSlotVisible(false);
+    setBookFormVisible(false);
+    updateUser(dispatch, authManager.retrieveCurrentUser());
+    closeDialog();
+  };
+
   const cancelDateForm = () => {
-    setSelectedRange((prevState) => ({ ...prevState, startDate: '' }));
+    setInitialRange((prevState) => ({ ...prevState, startDate: '' }));
     setBookFormVisible(false);
   };
 
@@ -225,11 +184,7 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
             <IconButton
               id={'close-dialog'}
               aria-label='edit'
-              onClick={() => {
-                setTimeSlotVisible(false);
-                setBookFormVisible(false);
-                closeDialog();
-              }}>
+              onClick={onCloseDialog}>
               <CloseIcon color={'primary'} />
             </IconButton>
           </Grid>
@@ -241,7 +196,7 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
           <Grid item xs>
             <CalendarView
               onDayClick={handleDayClicked}
-              onUpdateAvailableDays={updateAvailableDays}
+              updateAvailableDays={updateAvailableDays}
               containerStyle={classes.cardBorder}
               isEditable={true}
               events={currentUser?.events}
@@ -250,7 +205,6 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
             <Box mt={3}>
               <SelectTimeZone
                 defaultTimezoneName={defaultTimeZone}
-                timezoneName={selectedRange.timeZone}
                 onChange={onChangeTimeZone}
               />
             </Box>
@@ -260,11 +214,10 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
             {!!isLoading && (
               <CircularProgress variant='indeterminate' size={50} />
             )}
-            {bookFormVisible && !isLoading && (
+            {bookFormVisible && !isLoading && !!initialRange.startDate && (
               <AvailableTimeRangeForm
-                selectedRange={selectedRange}
-                setSelectedRange={setSelectedRange}
-                handleAddRangeClicked={handleAddRangeClicked}
+                initialRange={initialRange}
+                onAvailableRangeAdded={onAvailableRangeAdded}
                 cancelDateForm={cancelDateForm}
               />
             )}

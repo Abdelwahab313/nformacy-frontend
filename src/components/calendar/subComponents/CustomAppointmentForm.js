@@ -2,10 +2,10 @@ import React from 'react';
 
 import { AppointmentForm } from '@devexpress/dx-react-scheduler-material-ui';
 
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import TextField from '@material-ui/core/TextField';
 import CalenderCommandButtons from './CalendarCommandButtons';
+import moment from 'moment';
 
 const TextEditor = (props) => {
   // eslint-disable-next-line react/destructuring-assignment
@@ -22,14 +22,15 @@ const TextEditor = (props) => {
 
 const DateEditor = (props) => {
   return (
-    <DatePicker
-      selected={new Date(props.value)}
-      onChange={props.onValueChange}
-      showTimeSelect
-      timeFormat='HH:mm'
-      dateFormat='yyyy-MM-dd HH:mm'
-      customInput={<TextField variant='outlined' />}
-      timeIntervals={15}
+    <TextField
+      id='end-time-range-picker'
+      type='time'
+      value={moment(props?.value).format('HH:mm')}
+      InputLabelProps={{ shrink: true }}
+      inputProps={{ step: 900 }}
+      onChange={(e) => {
+        props.onValueChange(moment(e.target.value, 'HH:mm'));
+      }}
     />
   );
 };
@@ -43,12 +44,8 @@ const BooleanEditor = (props) => {
   return <AppointmentForm.BooleanEditor {...props} />;
 };
 
-const ResourceEditor = (props) => {
-  // eslint-disable-next-line react/destructuring-assignment
-  if (props.resource.title === 'Owners') {
-    return null;
-  }
-  return <AppointmentForm.Select {...props} />;
+const ResourceEditor = () => {
+  return null;
 };
 
 const LabelEditor = (props) => {
@@ -56,6 +53,7 @@ const LabelEditor = (props) => {
   const excludeFields = [
     'Title',
     'More Information',
+    'Event Type',
     'Owners',
     'Repeat',
     'End Repeat',

@@ -10,7 +10,6 @@ import { calendarStyles } from '../styles/calendarStyles';
 import { formatDayAsKey, isSameDate } from '../../../services/dateTimeParser';
 import { darkBlue } from '../../../styles/colors';
 import CustomTypography from 'components/typography/Typography';
-import { parseFreeDates } from 'core/user';
 
 const useStyles = makeStyles(calendarStyles);
 
@@ -31,15 +30,16 @@ const TimeTableCell = React.memo(
     startDate,
     formatDate,
     otherMonth,
-    availableDates,
+    availableDaysList,
     selectedDay,
     onDayClick,
   }) => {
     const classes = useStyles({ name: 'Cell' });
     const isSelectedDay = !!selectedDay && isSameDate(startDate, selectedDay);
 
-    const isAvailableDay =
-      formatDayAsKey(startDate) in parseFreeDates(availableDates);
+    const isAvailableDay = availableDaysList.includes(
+      formatDayAsKey(startDate),
+    );
 
     const dayClicked = () => {
       onDayClick && onDayClick({ selectedDay: startDate, isAvailableDay });
@@ -114,7 +114,7 @@ const TimeTableLayout = withStyles(calendarStyles, { name: 'TimeTable' })(
 );
 
 const CustomMonthView = ({
-  availableDates,
+  availableDaysList,
   selectedDay,
   canBookDate,
   onDayClick,
@@ -128,7 +128,7 @@ const CustomMonthView = ({
       timeTableCellComponent={(props) => (
         <TimeTableCell
           {...props}
-          availableDates={canBookDate ? availableDates : []}
+          availableDaysList={canBookDate ? availableDaysList : []}
           selectedDay={selectedDay}
           canBookDate={canBookDate}
           onDayClick={onDayClick}
