@@ -34,6 +34,7 @@ export const RoutesPaths = {
     ForgetPassword: '/forgetPassword',
     ResetPassword: '/resetPassword',
     ChangePassword: '/changePassword',
+    WelcomeAccount: '/welcomeAccount',
     Logout: '/logout',
     FreelancerProfile: '/user/profile',
     SubmitAnswerNote: '/answer/success',

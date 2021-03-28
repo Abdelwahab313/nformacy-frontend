@@ -31,6 +31,7 @@ import ResetPassword from 'pages/ResetPassword';
 import KnowHubPage from 'pages/App/LandingPage/KnowHub';
 import ChangePasswordPage from 'pages/ChangePassword';
 import AddAccount from 'pages/App/Corporates/AddAccount';
+import WelcomeAccountPage from 'pages/App/WelcomeAccount';
 
 const appRoutes = [
   {
@@ -139,6 +140,15 @@ const appRoutes = [
     Component: ChangePasswordPage,
     includeLayout: true,
     isPublic: false,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.App.WelcomeAccount,
+    name: 'Welcome',
+    icon: DashboardIcon,
+    Component: WelcomeAccountPage,
+    includeLayout: true,
+    isPublic: true,
     hasDashboardLink: false,
   },
   {
