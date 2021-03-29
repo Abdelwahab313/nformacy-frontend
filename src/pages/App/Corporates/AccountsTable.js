@@ -4,10 +4,9 @@ import Grid from '@material-ui/core/Grid';
 import { useStyles } from 'styles/Admin/questionTableStyles';
 import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
-import { Chip } from '@material-ui/core';
-import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
-import { getAdminDetails } from 'services/navigation';
+import { getAccountDetails } from 'services/navigation';
+import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -18,7 +17,7 @@ const getColumnsOptions = (classes, t) => {
 
   const columns = [
     {
-      name: 'id',
+      name: 'accountRef',
       label: t('id'),
       options: {
         ...defaultColumnOption,
@@ -106,19 +105,9 @@ const getColumnsOptions = (classes, t) => {
 const parseAccountsTableData = (accounts) => {
   return accounts?.map((account) => ({
     ...account,
-    industriesOfExperience: account.industriesOfExperience?.map((industry) => (
-      <div key={industry.value}>
-        <Chip
-          style={{ margin: 2 }}
-          label={industry.label}
-          key={industry.value}
-        />
-      </div>
-    )),
-    fields: <FieldsChips fields={account.fields} />,
     accountRef: (
-      <LinkText to={getAdminDetails(account.id)}>
-        {account.referenceNumber}
+      <LinkText to={getAccountDetails(account.id)}>
+        <TextCroppedWithTooltip text={`#${account.id}`} />
       </LinkText>
     ),
 

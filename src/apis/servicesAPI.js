@@ -9,10 +9,11 @@ export const fetchServices = () => {
   }).then((response) => camelizeKeys(response));
 };
 
-export const fetchClientServices = () => {
+export const fetchClientServices = (clientId) => {
   return axios({
     method: 'get',
-    url: `${API_BASE_URL}/services/client_services`,
+    url: `${API_BASE_URL}/services/client_services?client_id=${clientId}`,
+    data: decamelizeKeys({ clientId }),
   }).then((response) => camelizeKeys(response));
 };
 
@@ -33,7 +34,7 @@ export const updateService = (service) => {
 };
 
 export const createOrUpdateService = (service) => {
-  if(!!service.id){
+  if (!!service.id) {
     return updateService(service);
   }
   else {

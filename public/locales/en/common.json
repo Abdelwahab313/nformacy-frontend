@@ -503,5 +503,7 @@
   "assignmentId": "Assignment ID",
   "type": "Type",
   "results": "Results",
-  "review": "Review"
+  "review": "Review",
+  "deactivate": "Deactivate",
+  "accountDetails": "Account Details"
 }

@@ -156,6 +156,15 @@ export const getClientDetails = (clientId) => {
   };
 };
 
+export const getAccountDetails = (accountId) => {
+  return {
+    pathname: RoutesPaths.App.AccountDetails,
+    state: {
+      accountId: accountId,
+    },
+  };
+};
+
 export const getConsultantDetails = (consultantId) => {
   return {
     pathname: RoutesPaths.Admin.ConsultantsDetails,
