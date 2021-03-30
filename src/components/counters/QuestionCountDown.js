@@ -5,17 +5,17 @@ import AlarmIcon from '@material-ui/icons/Alarm';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
-export const useStyles = makeStyles( () => ({
+export const useStyles = makeStyles(() => ({
   countDownText: {
     display: 'flex',
     alignItems: 'center',
     fontFamily: "'Orbitron', sans-serif",
     fontWeight: 'bold',
-    whiteSpace: 'nowrap'
+    whiteSpace: 'nowrap',
   },
   alarmIcon: {
-    marginRight: '10px' 
-  }
+    marginRight: '10px',
+  },
 }));
 
 const QuestionCountDown = ({
@@ -26,14 +26,11 @@ const QuestionCountDown = ({
   ...props
 }) => {
   const classes = useStyles();
+  if (!date) {
+    return '';
+  }
   function counterRender() {
-    return ({
-      days,
-      hours,
-      minutes,
-      seconds,
-      completed,
-    }) => {
+    return ({ days, hours, minutes, seconds, completed }) => {
       const remainingTimeFormatted = !!days
         ? `${days} days ${hours}:${minutes}:${seconds}`
         : `${hours}:${minutes}:${seconds}`;

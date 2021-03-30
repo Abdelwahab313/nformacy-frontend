@@ -16,6 +16,9 @@ const QuestionRemainingTimeAlarm = ({
   className,
   ...props
 }) => {
+  if (!remainingTime || !totalActionHours) {
+    return '';
+  }
   const remainingHours = getTimeDiffInHoursFromNow(remainingTime);
   const remainingHoursPercent = (remainingHours / totalActionHours) * 100;
   let color;

@@ -1,9 +1,11 @@
+import { QUESTION_STATUS } from 'constants/questionStatus';
 import {
   getIndexForColumn,
   getTotalActionTime,
-  HOURS_FOR_ACTION,
 } from '../QuestionsTable';
 jest.mock('mui-datatables', () => {});
+
+const HOURS_FOR_ACTION = 12;
 
 describe('Map column name to index', () => {
   it('should return the corresponding column index for a given name', () => {
@@ -26,8 +28,8 @@ describe('Map column name to index', () => {
 describe('Extract total action time based on question state from table row data', () => {
   it('should return action time for review and edit state', () => {
     const actionTime = 24;
-    const fakeColumns = [{ name: 'state' }, { name: 'hoursToReviewAndEdit' }];
-    const fakeRow = ['review_and_edit', actionTime];
+    const fakeColumns = [{ name: 'state' }, { name: 'hoursToReviewAndEdit' }, { name: 'hoursToCloseAnswers' }];
+    const fakeRow = ['review_and_edit', actionTime, 100];
 
     const totalActionTime = getTotalActionTime(fakeRow, fakeColumns);
 
@@ -36,17 +38,26 @@ describe('Extract total action time based on question state from table row data'
 
   it('should return action time for answers rating state', () => {
     const actionTime = 8;
-    const fakeColumns = [{ name: 'state' }, { name: 'hoursToCloseAnswers' }];
-    const fakeRow = ['answers_rating', actionTime];
+    const fakeColumns = [{ name: 'state' }, { name: 'hoursToReviewAndEdit' }, { name: 'hoursToCloseAnswers' }];
+    const fakeRow = ['answers_rating', 10, actionTime];
 
     const totalActionTime = getTotalActionTime(fakeRow, fakeColumns);
 
     expect(totalActionTime).toEqual(actionTime);
   });
 
+  it('should return nil if  draft state', () => {
+    const fakeColumns = [{ name: 'state' }, { name: 'hoursToReviewAndEdit' }, { name: 'hoursToCloseAnswers' }];
+    const fakeRow = [QUESTION_STATUS.draft, 10, 100];
+
+    const totalActionTime = getTotalActionTime(fakeRow, fakeColumns);
+
+    expect(totalActionTime).toEqual('');
+  });
+
   it('should return the static action time for assignment_acceptance', () => {
-    const fakeColumns = [{ name: 'state' }];
-    const fakeRow = ['assignment_acceptance'];
+    const fakeColumns = [{ name: 'state' }, { name: 'hoursToReviewAndEdit' }, { name: 'hoursToCloseAnswers' }];
+    const fakeRow = [QUESTION_STATUS.pendingAdviserAcceptance, 10, 199];
 
     const totalActionTime = getTotalActionTime(fakeRow, fakeColumns);
 

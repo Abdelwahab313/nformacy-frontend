@@ -16,6 +16,7 @@ import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
 import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
 import QuestionActionLink from 'templates/questions/QuestionActionLink';
+import QuestionManager from 'core/questionManager';
 
 export const COLUMN_NAMES = {
   id: 'id',
@@ -46,33 +47,25 @@ export const getIndexForColumn = (columnName, columns) => {
   throw new TypeError(`Column: ${columnName} does not exist`);
 };
 
-export const HOURS_FOR_ACTION = 12;
-const DYNAMIC_STATES = {
-  reviewAndEdit: 'review_and_edit',
-  answersRating: 'answers_rating',
-};
-
 export const getTotalActionTime = (rowData, columns) => {
   const state = getQuestionValue(COLUMN_NAMES.state, rowData, columns);
+  const reviewAndEditHours = getQuestionValue(
+    COLUMN_NAMES.reviewAndEditHours,
+    rowData,
+    columns,
+  );
+  const hoursToCloseAnswers = getQuestionValue(
+    COLUMN_NAMES.hoursToCloseAnswers,
+    rowData,
+    columns,
+  );
 
-  switch (state) {
-    case DYNAMIC_STATES.reviewAndEdit:
-      const reviewAndEditHours = getQuestionValue(
-        COLUMN_NAMES.reviewAndEditHours,
-        rowData,
-        columns,
-      );
-      return reviewAndEditHours;
-    case DYNAMIC_STATES.answersRating:
-      const hoursToCloseAnswers = getQuestionValue(
-        COLUMN_NAMES.hoursToCloseAnswers,
-        rowData,
-        columns,
-      );
-      return hoursToCloseAnswers;
-    default:
-      return HOURS_FOR_ACTION;
-  }
+  const totalActionTime = QuestionManager.getTotalActionTime(
+    state,
+    reviewAndEditHours,
+    hoursToCloseAnswers,
+  );
+  return totalActionTime;
 };
 
 const getColumnsFor = (isAdviser, classes) => {

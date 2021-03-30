@@ -18,6 +18,7 @@ import { EDITABLE_SERVICE_STATUS } from 'constants/questionStatus';
 import ServiceManager from 'core/serviceManager';
 import QuestionCountDown from 'components/counters/QuestionCountDown';
 import MeetingAlarm from 'components/feedback/MeetingAlarm';
+import QuestionManager from 'core/questionManager';
 
 const parseServicesToTableRows = (services, t) => {
   return services?.map((service) => ({
@@ -108,7 +109,11 @@ const parseServicesToTableRows = (services, t) => {
       ) : (
         <QuestionRemainingTimeAlarm
           remainingTime={ServiceManager.getServiceTime(service)}
-          totalActionHours={10}
+          totalActionHours={QuestionManager.getTotalActionTime(
+            service.questionState,
+            service.hoursToReviewAndEdit,
+            service.hoursToCloseAnswers,
+          )}
           className={'alarm'}
           data-reference={service.serviceId}
         />
