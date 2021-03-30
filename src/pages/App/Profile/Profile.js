@@ -14,12 +14,23 @@ import CVSection from './profileSections/CVSection';
 import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import authManager from 'services/authManager';
-import ClientWorkExperienceSection from './profileSections/ClientWorkExperienceSection';
+import ClientBasicInfoSection from './profileSections/ClientProfile';
+import CorporateBasicInfoSection from './profileSections/CorporateProfile';
 
 const Profile = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const isClient = authManager.isClient();
+
+  const PersonalInfo = () => {
+    if (!!authManager.isOnlyClient()) {
+      return <ClientBasicInfoSection />;
+    } else if (!!authManager.isCorporate()) {
+      return <CorporateBasicInfoSection />;
+    } else {
+      return <BasicInfoSection />;
+    }
+  };
 
   return (
     <Container component='main' maxWidth={false} dir='ltr'>
@@ -33,18 +44,17 @@ const Profile = () => {
         spacing={5}>
         <Grid item xs={12} sm={8}>
           <BreadcrumbsCustomSeparator pageName={t('profile')} />
-          <BasicInfoSection />
+          {PersonalInfo()}
           <SummarySection />
-          <PersonalInfoSection />
+          {!authManager.isCorporate() && !isClient && (
+            <PersonalInfoSection />
+          )}
           {!isClient && (
             <Fragment>
               <FieldsOfSpecializationSection />
               <WorkExperienceSection />
               <EducationAndCertificationSection />
             </Fragment>
-          )}
-          {!!isClient && (
-            <ClientWorkExperienceSection />
           )}
         </Grid>
         {!isClient && (

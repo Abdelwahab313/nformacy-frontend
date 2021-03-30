@@ -371,6 +371,23 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
   },
+  profileAndNameContainer: {
+    display: 'inline-block',
+    textAlign: 'center'
+  },
+  personalInfoSections: {
+    border: '1px solid #dddcda',
+    borderRadius: 10,
+    padding: '0 20px',
+    margin: '15px 0'
+  },
+  personalInfoHeaderContainer: {
+    margin: '15px 0',
+  },
+  personalInfoHeader: {
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
   largeProfilePic: {
     width: '200px',
     height: '200px',
