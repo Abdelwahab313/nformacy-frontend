@@ -37,7 +37,7 @@ const Login = () => {
       .then(async (result) => {
         authManager.login(result.data.token);
         const user = result.data.user;
-        localStorage.setItem('user', JSON.stringify(user));
+        authManager.updateUser(user);
         setLocale(user.locale);
       })
       .then(() => {
@@ -62,20 +62,9 @@ const Login = () => {
 
   const getPostLoginRoute = () => {
     let postLoginRoute;
-    let prevLink = location?.state?.referer?.pathname
-      ? location?.state?.referer.pathname
-      : location?.state?.referer;
-    let isLogoutRoute =
-      prevLink === RoutesPaths.App.Logout ||
-      prevLink === RoutesPaths.Admin.Logout;
-
-    if (!!prevLink && !isLogoutRoute) {
-      postLoginRoute = prevLink;
-    } else {
-      postLoginRoute = isAdminLogin
-        ? RoutesPaths.Admin.Home
-        : RoutesPaths.App.Dashboard;
-    }
+    postLoginRoute = authManager.isAdmin()
+      ? RoutesPaths.Admin.Home
+      : RoutesPaths.App.Dashboard;
     window.location.replace(postLoginRoute);
   };
 

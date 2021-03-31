@@ -74,7 +74,9 @@ class AuthManager {
     try {
       const loadedUserString = localStorage.getItem('user');
       user = !!loadedUserString ? JSON.parse(loadedUserString) : undefined;
-      return user.roles.some((role) => role.name === 'client' || role.name === 'corporate');
+      return user.roles.some(
+        (role) => role.name === 'client' || role.name === 'corporate',
+      );
     } catch (e) {
       return false;
     }
@@ -134,18 +136,7 @@ class AuthManager {
 
   updateUser = (user) => {
     this.setCurrentUser(user);
-    localStorage.setItem(
-      'user',
-      JSON.stringify(user),
-    );
-  };
-
-  updateUser = (user) => {
-    this.setCurrentUser(user);
-    localStorage.setItem(
-      'user',
-      JSON.stringify(user),
-    );
+    localStorage.setItem('user', JSON.stringify(user));
   };
 
   login = (userToken) => {
