@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 import { useStyles } from 'styles/Admin/questionFormStyles';
 import { RoutesPaths } from 'constants/routesPath';
-import AccountsTable from 'pages/App/Corporates/AccountsTable';
+import AccountsTable from 'pages/App/Accounts/list/AccountsTable';
 import useFetchData from 'hooks/useFetchData';
 import { fetchAccounts } from 'apis/accountsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
