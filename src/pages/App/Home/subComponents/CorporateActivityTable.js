@@ -13,7 +13,7 @@ import HomePageCard from './HomePageCard';
 import { RoutesPaths } from 'constants/routesPath';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import parseServicesToTableRows from 'templates/services/parseServicesToTableRows';
-import useFetchClientActivities from 'hooks/useFetchClientActivities';
+import useFetchCorporateActivities from 'hooks/useFetchCorporateActivities';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -42,7 +42,7 @@ const StyledTableRow = withStyles((theme) => ({
 const CorporateActivityTable = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const { activities: services, isLoading } = useFetchClientActivities();
+  const { activities: services, isLoading } = useFetchCorporateActivities();
   const servicesRows = parseServicesToTableRows(services, t);
   if (isLoading) {
     return <LoadingCircle />;
@@ -75,12 +75,18 @@ const CorporateActivityTable = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {servicesRows.length === 0 ?
-                  <TableCell colspan="8" className={classes.noRecords}>Sorry, no matching records found</TableCell>
-                  : servicesRows.map((service) => (
+                {servicesRows.length === 0 ? (
+                  <TableCell colspan='8' className={classes.noRecords}>
+                    Sorry, no matching records found
+                  </TableCell>
+                ) : (
+                  servicesRows.map((service) => (
                     <StyledTableRow
-                      reference-number={service.RefNumber}
+                      reference-number={service.refNumber}
                       key={service.id}>
+                      <StyledTableCell scope='row'>
+                        {service?.serviceOwner}
+                      </StyledTableCell>
                       <StyledTableCell scope='row'>
                         {service.requestType}
                       </StyledTableCell>
@@ -96,14 +102,9 @@ const CorporateActivityTable = () => {
                         className={[classes.desktopVisible, 'action']}>
                         {service.action}
                       </StyledTableCell>
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {service.actionTime}
-                      </StyledTableCell>
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {service.alarm}
-                      </StyledTableCell>
                     </StyledTableRow>
-                  ))}
+                  ))
+                )}
               </TableBody>
             </Table>
           </TableContainer>
@@ -128,7 +129,7 @@ const useStyles = makeStyles((theme) => ({
   },
   noRecords: {
     textAlign: 'center',
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
 }));
 export default CorporateActivityTable;

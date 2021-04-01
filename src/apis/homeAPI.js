@@ -15,3 +15,10 @@ export const fetchClientActivities = () => {
     url: `${API_BASE_URL}/home/client_dashboard`,
   }).then((response) => camelizeKeys(response));
 };
+
+export const fetchCorporateActivities = () => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/home/corporate_dashboard`,
+  }).then((response) => camelizeKeys(response));
+};

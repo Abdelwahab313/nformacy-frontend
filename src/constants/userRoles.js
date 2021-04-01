@@ -10,6 +10,7 @@ export const SUPER_ADMIN = 'super_admin';
 
 export const USER_TYPES = {
   client: 'client',
+  corporate: 'corporate',
   freelancer: 'freelancer',
   admin: 'admin',
   adviser: 'adviser',

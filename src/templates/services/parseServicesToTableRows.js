@@ -38,6 +38,7 @@ const parseServicesToTableRows = (services, t) => {
           referenceId={service.serviceRef}
         />
       ),
+    serviceOwner: service?.serviceOwner,
     clientId: (
       <LinkText
         data-reference={service.userId}

@@ -4,6 +4,7 @@ import {
   serviceActions,
   SERVICE_STATUS,
 } from 'constants/questionStatus';
+import { USER_TYPES } from 'constants/userRoles';
 import authManager from 'services/authManager';
 import { getMeetingState } from './meeting';
 
@@ -23,7 +24,10 @@ export const getServiceStatus = (
   if (status === SERVICE_STATUS.questionStarted && authManager.isAdmin()) {
     return questionStatusActions[questionState].status.displayString;
   }
-  const currentUserRole = authManager.getUserRole();
+  let currentUserRole = authManager.getUserRole();
+  if (currentUserRole === USER_TYPES.corporate) {
+    currentUserRole = USER_TYPES.client;
+  }
   return serviceActions[status]?.status[currentUserRole];
 };
 
