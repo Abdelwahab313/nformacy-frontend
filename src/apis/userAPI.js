@@ -94,6 +94,13 @@ const addUserRole = (role) => {
   }).then((response) => camelizeKeys(response));
 };
 
+const deactivateUser = (userId) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/users/${userId}/deactivate`,
+  }).then((response) => camelizeKeys(response));
+}
+
 export {
   signup,
   updateProfile,
@@ -106,4 +113,5 @@ export {
   fetchUserDetails,
   addUserRole,
   completeClientProfile,
+  deactivateUser
 };

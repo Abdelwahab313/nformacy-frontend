@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import humanizedTimeSpan from 'services/humanizedTimeSpan';
 import GridItem from 'components/grid/GridItem';
 import CustomInput from 'components/inputs/CustomInput';
@@ -9,24 +9,12 @@ import { useTranslation } from 'react-i18next';
 import CardFooter from 'components/card/CardFooter';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import GridContainer from 'components/grid/GridContainer';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 
 const AddAccountForm = ({ primaryButton, user, setUser }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const isNewForm = !user.id;
-  let today = new Date();
-  let dd = String(today.getDate()).padStart(2, '0');
-  let mm = String(today.getMonth() + 1).padStart(2, '0');
-  let yyyy = today.getFullYear();
 
-  today = mm + '/' + dd + '/' + yyyy;
-  const [selectedDate, setSelectedDate] = useState(today);
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
   const onChangeField = (name, value) => {
     setUser((prevData) => ({ ...prevData, [name]: value }));
   };
@@ -127,23 +115,7 @@ const AddAccountForm = ({ primaryButton, user, setUser }) => {
               variant='outlined'
             />
           </GridItem>
-          <GridItem xs={12} sm={12} md={6}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                className={classes.addAccountDate}
-                disableToolbar
-                variant="inline"
-                format="MM/dd/yyyy"
-                id="date-picker-inline"
-                label={t('addDate')}
-                value={selectedDate}
-                onChange={handleDateChange}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-            </MuiPickersUtilsProvider>
-          </GridItem>
+          <GridItem xs={12} sm={12} md={6}></GridItem>
         </GridContainer>
       </CardBody>
       <CardFooter>

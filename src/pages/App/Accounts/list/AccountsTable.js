@@ -89,12 +89,15 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'manageAccount',
-      label: t('manageAccount'),
+      name: 'deactivatedAt',
+      label: t('isDeactivated'),
       options: {
         ...defaultColumnOption,
         filter: true,
         sort: true,
+        customBodyRender: (value) => {
+          return !!value ? 'true' : '';
+        },
       },
     },
   ];
@@ -110,10 +113,8 @@ const parseAccountsTableData = (accounts) => {
         <TextCroppedWithTooltip text={`#${account.id}`} />
       </LinkText>
     ),
-
   }));
 };
-
 
 const AccountsTable = ({ accounts }) => {
   const classes = useStyles();

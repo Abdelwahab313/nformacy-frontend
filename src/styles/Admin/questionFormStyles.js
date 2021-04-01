@@ -152,16 +152,13 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   addAccountDate: {
-    width: '100%'
+    width: '100%',
   },
   addAccountContainer: {
     marginTop: '90px',
-    width: '60%'
+    width: '60%',
   },
-  corporateList: {
-    marginTop: 50
+  pageContainerMargin: {
+    marginTop: 50,
   },
-  cardBodyAcountsList: {
-    marginBottom: 250
-  }
 }));

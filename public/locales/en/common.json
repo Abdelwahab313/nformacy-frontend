@@ -504,6 +504,15 @@
   "type": "Type",
   "results": "Results",
   "review": "Review",
+  "isDeactivated": "Deactivated ?",
+  "reactivate": "Reactivate",
+  "reactivateAlarmTitle": "Account will be Reactivated",
+  "reactivateAlarmContent": "This account will be reactivated, Are you Sure?",
   "deactivate": "Deactivate",
-  "accountDetails": "Account Details"
+  "deactivateAlarmTitle": "Account will be Deactivated",
+  "deactivateAlarmContent": "This account will be deactivated, Are you Sure?",
+  "userDeactivated": "Account has been deactivated successfully.",
+  "userDeativationFailed": "Something went wrong!",
+  "accountDetails": "Account Details",
+  "accountList": "Accounts List"
 }

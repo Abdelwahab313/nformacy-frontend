@@ -1,44 +1,44 @@
 import React from 'react';
 import { useSnackBar } from 'context/SnackBarContext';
 import { useTranslation } from 'react-i18next';
-import { rollbackQuestion } from 'apis/servicesAPI';
+import { deactivateUser } from 'apis/userAPI';
 import ConfirmActionButton from 'components/buttons/ConfirmActionButton';
 import { makeStyles } from '@material-ui/core';
 import { history } from 'services/navigation';
 
-const RollbackQuestionButton = ({ serviceId }) => {
+const DeactivateAccountButton = ({ accountId }) => {
   const { t } = useTranslation();
   const classes = useStyles();
   const { showSuccessMessage, showErrorMessage } = useSnackBar();
 
   const onConfirmAction = () => {
-    return rollbackQuestion(serviceId)
+    return deactivateUser(accountId)
       .then(() => {
-        showSuccessMessage(t('questionDeleted'));
+        showSuccessMessage(t('userDeactivated'));
         history.go(0);
       })
       .catch(() => {
-        showErrorMessage(t('questionDeletedFailed'));
+        showErrorMessage(t('userDeativationFailed'));
       });
   };
 
   return (
     <ConfirmActionButton
-      buttonText={'Rollback Question'}
-      buttonClassName={classes.rollbackQuestion}
-      buttonId={'rollbackQuestion'}
-      alarmTitle={t('rollbackAlarmTitle')}
-      AlarmContent={t('rollbackAlarmContent')}
+      buttonText={t('deactivate')}
+      buttonClassName={classes.buttonStyles}
+      buttonId={'deactivateUser'}
+      alarmTitle={t('deactivateAlarmTitle')}
+      AlarmContent={t('deactivateAlarmContent')}
       onConfirmAction={onConfirmAction}
     />
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  rollbackQuestion: {
+  buttonStyles: {
     fontSize: '11px',
     margin: [theme.spacing(1), theme.spacing(2)],
   },
 }));
 
-export default RollbackQuestionButton;
+export default DeactivateAccountButton;
