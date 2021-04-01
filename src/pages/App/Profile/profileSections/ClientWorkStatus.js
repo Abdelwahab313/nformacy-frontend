@@ -3,15 +3,25 @@ import { Box, Grid, Typography, IconButton, Dialog, DialogContent } from '@mater
 import EditIcon from '@material-ui/icons/Edit';
 import { useStyles } from '../../../../styles/formsStyles';
 import Transition from 'components/animations/Transition';
-import ClientProfilePersonalInfoForm from 'components/forms/ClientProfilePersonalInfoForm';
 import t from '../../../../locales/en/freelancerProfile.json';
 import { organizationalLevel } from 'constants/dropDownOptions';
 import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
+import ClientProfileWorkStatusForm from 'components/forms/ClientProfileWorkStatusForm';
+import FieldsView from './FieldsView';
+import useUserFieldsFetcher from 'hooks/useUserFieldsFetcher';
+import useFieldsFetcher from 'hooks/useFieldsFetcher';
 
 const ClientWorkStatus = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+
+  const { fields, loading: fieldsLoading } = useFieldsFetcher();
+  const {
+    currentUserFields,
+    loading: userFieldsLoading,
+  } = useUserFieldsFetcher();
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -28,7 +38,7 @@ const ClientWorkStatus = () => {
         open={open}>
         <DialogContent>
           <Grid container>
-            <ClientProfilePersonalInfoForm
+            <ClientProfileWorkStatusForm
               user={user}
               closeDialog={handleClose}
             />
@@ -129,12 +139,11 @@ const ClientWorkStatus = () => {
             </Typography>
           </Grid>
           <Grid item xs={8}>
-            <Typography
-              id='fieldsOfSpecialization'
-              gutterBottom
-              className={classes.fieldValueStyles}>
-              <ColoredFieldsChips fields={user?.current?.fields} />
-            </Typography>
+            <FieldsView
+              currentUserFields={currentUserFields}
+              fields={fields}
+              loading={userFieldsLoading || fieldsLoading}
+            />
           </Grid>
         </Grid>
       </Box>

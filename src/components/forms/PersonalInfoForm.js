@@ -1,7 +1,7 @@
+import React from 'react';
 import PersonalInfo from './PersonalInfo';
 import Button from '@material-ui/core/Button';
 import { FormContext, useForm } from 'react-hook-form';
-import React, { useRef } from 'react';
 import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
 import { updateProfile } from '../../apis/userAPI';
 import { updateUser } from '../../pages/auth/context/authActions';
@@ -11,7 +11,7 @@ const PersonalInfoForm = ({ user, closeDialog }) => {
   const formMethods = useForm({
     defaultValues: { ...user.current },
   });
-  const [_, dispatch] = useAuth();
+  const [, dispatch] = useAuth();
   const classes = useStyles();
 
   const onSubmitPersonalInfo = (userData) => {
@@ -23,7 +23,7 @@ const PersonalInfoForm = ({ user, closeDialog }) => {
       .then((response) => {
         updateUser(dispatch, response.data);
       })
-      .catch((error) => {});
+      .catch(() => { });
     user.current = { ...user.current, ...userData };
     closeDialog();
   };
