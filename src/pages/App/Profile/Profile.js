@@ -45,7 +45,9 @@ const Profile = () => {
         <Grid item xs={12} sm={8}>
           <BreadcrumbsCustomSeparator pageName={t('profile')} />
           {PersonalInfo()}
-          <SummarySection />
+          {!isClient && (
+            <SummarySection />
+          )}
           {!authManager.isCorporate() && !isClient && (
             <PersonalInfoSection />
           )}
