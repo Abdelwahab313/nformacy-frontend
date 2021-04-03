@@ -1,6 +1,6 @@
 import { Box, Grid } from '@material-ui/core';
 import SubmitButton from 'components/buttons/SubmitButton';
-import PageContainer from 'components/grid/PageContainer';
+import LandingPageContainer from 'components/grid/LandingPageContainer';
 import CustomTypography from 'components/typography/Typography';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +12,7 @@ const ContactUsPage = () => {
   const { t } = useTranslation();
 
   return (
-    <PageContainer>
+    <LandingPageContainer>
       <Grid container justify='center'>
         <FrontBanner
           imageClassName={classes.bannerImageStyles}
@@ -129,7 +129,7 @@ const ContactUsPage = () => {
           </Grid>
         </Box>
       </Grid>
-    </PageContainer>
+    </LandingPageContainer>
   );
 };
 

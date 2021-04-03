@@ -15,6 +15,7 @@ import LoadingCircle from 'components/progress/LoadingCircle';
 import { Grid } from '@material-ui/core';
 import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import clsx from 'clsx';
+import PageContainer from 'components/grid/PageContainer';
 
 const CorporateAccountsList = () => {
   const { t } = useTranslation();
@@ -29,35 +30,33 @@ const CorporateAccountsList = () => {
   }
 
   return (
-    <Grid container alignItems={'flex-start'} justify={'center'}>
-      <Grid item xs={10} sm={10} className={classes.pageContainerMargin}>
-        <BreadcrumbsCustomSeparator pageName={t('accountList')} />
-        <Grid
-          item
-          xs={12}
-          sm={12}
-          md={12}
-          className={clsx(classes.addAdminBtn, classes.pageContainerMargin)}>
-          <SubmitButton
-            id={'addNewAccount'}
-            onClick={() => history.push(RoutesPaths.App.AddAccount)}
-            buttonText={
-              <CustomTypography variant='body1'>
-                {t('addNewAccount')}
-              </CustomTypography>
-            }
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={12}>
-          <Card plain>
-            <CardBody id='questionsList'>
-              <AccountsTable accounts={accounts} />
-            </CardBody>
-          </Card>
-        </Grid>
+    <PageContainer>
+      <BreadcrumbsCustomSeparator pageName={t('accountList')} />
+      <Grid
+        item
+        xs={12}
+        sm={12}
+        md={12}
+        className={clsx(classes.addAdminBtn, classes.pageContainerMargin)}>
+        <SubmitButton
+          id={'addNewAccount'}
+          onClick={() => history.push(RoutesPaths.App.AddAccount)}
+          buttonText={
+            <CustomTypography variant='body1'>
+              {t('addNewAccount')}
+            </CustomTypography>
+          }
+        />
       </Grid>
-    </Grid>
+
+      <Grid item xs={12} sm={12} md={12}>
+        <Card plain>
+          <CardBody id='questionsList'>
+            <AccountsTable accounts={accounts} />
+          </CardBody>
+        </Card>
+      </Grid>
+    </PageContainer>
   );
 };
 

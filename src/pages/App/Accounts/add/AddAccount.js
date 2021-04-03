@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import GridContainer from 'components/grid/GridContainer';
-import GridItem from 'components/grid/GridItem';
+import Card from 'components/card/Card';
 import CardHeader from 'components/card/CardHeader';
 import { Grid, Typography } from '@material-ui/core';
 import AddAccountForm from './AddAccountForm';
@@ -10,6 +9,8 @@ import { useTranslation } from 'react-i18next';
 import { useSnackBar } from 'context/SnackBarContext';
 import { RoutesPaths } from 'constants/routesPath';
 import { useStyles } from 'styles/Admin/questionFormStyles';
+import PageContainer from 'components/grid/PageContainer';
+import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 
 const AddAccount = () => {
   const [user, setUser] = useState({});
@@ -41,10 +42,11 @@ const AddAccount = () => {
     if (!!validate(user)) {
       addAccount({
         ...user,
-      }).then(() => {
-        showSuccessMessage(t('accountAdded'));
-        navigatToAccountsList();
       })
+        .then(() => {
+          showSuccessMessage(t('accountAdded'));
+          navigatToAccountsList();
+        })
         .catch(({ response }) => {
           response.data.errors.forEach((error) => {
             if (error.includes('Email')) {
@@ -52,11 +54,12 @@ const AddAccount = () => {
             }
           });
         });
-    };
+    }
   };
   return (
-    <GridContainer className={classes.addAccountContainer}>
-      <GridItem xs={12} sm={12} md={12}>
+    <PageContainer>
+      <BreadcrumbsCustomSeparator pageName={t('addAccount')} />
+      <Card className={classes.addAccountContainer}>
         <CardHeader color='primary'>
           <Grid container>
             <Grid item md={6} xs={6}>
@@ -76,8 +79,8 @@ const AddAccount = () => {
             buttonText: 'Create Account',
           }}
         />
-      </GridItem>
-    </GridContainer>
+      </Card>
+    </PageContainer>
   );
 };
 

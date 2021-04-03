@@ -1,20 +1,17 @@
 import React from 'react';
-import { Box, makeStyles } from '@material-ui/core';
-import clsx from 'clsx';
+import { Grid } from '@material-ui/core';
+import Direction from 'components/grid/Direction';
 
-const PageContainer = ({ className, children, ...props }) => {
-  const classes = useStyles();
+const PageContainer = ({ children }) => {
   return (
-    <Box className={clsx(classes.root, className)} justify='center' {...props}>
-      {children}
-    </Box>
+    <Direction>
+      <Grid container alignItems={'flex-start'} justify={'center'}>
+        <Grid item xs={10} sm={10}>
+          {children}
+        </Grid>
+      </Grid>
+    </Direction>
   );
 };
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: [theme.spacing(8), theme.spacing(4)],
-  },
-}));
 
 export default PageContainer;

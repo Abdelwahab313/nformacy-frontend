@@ -14,14 +14,13 @@ import { withStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import parseServicesToTableRows from 'templates/services/parseServicesToTableRows';
 import LoadingCircle from 'components/progress/LoadingCircle';
-import PageContainer from 'components/grid/PageContainer';
 import CustomTypography from 'components/typography/Typography';
+import PageContainer from 'components/grid/PageContainer';
 import { fetchClientServices } from 'apis/servicesAPI';
 import useFetchData from 'hooks/useFetchData';
 import { useLocation } from 'react-router';
 import { fetchClientsDetails } from 'apis/clientsAPI';
 import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
-import Direction from 'components/grid/Direction';
 import DeactivateAccountButton from './DeactivateAccountButton';
 import ReactivateAccountButton from './ReactivateAccountButton';
 import clsx from 'clsx';
@@ -73,102 +72,90 @@ const CorporateAccountDetails = () => {
   }
 
   return (
-    <Direction>
-      <PageContainer>
-        <Grid container alignItems={'flex-start'} justify={'center'}>
-          <Grid item xs={10} sm={10} className={classes.pageContainerMargin}>
-            <BreadcrumbsCustomSeparator pageName={t('accountDetails')} />
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={12}
-              className={classes.accountDetailsWrapper}>
-              <Grid
-                container
-                direction={'row'}
-                justify='space-between'
-                className={clsx(
-                  classes.pageContainerMargin,
-                  classes.marginBottom,
-                )}>
-                <Grid item>
-                  <CustomTypography variant='h5' fontWeight='bold'>
-                    {account.firstName + ' ' + account.lastName}
-                  </CustomTypography>
-                </Grid>
-                <Grid item>
-                  {!!isDeactivatedUser ? (
-                    <ReactivateAccountButton accountId={accountId} />
-                  ) : (
-                    <DeactivateAccountButton accountId={accountId} />
-                  )}
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item md={12} className={classes.activityTable}>
-                <TableContainer
-                  component={Paper}
-                  className={classes.tableContainer}>
-                  <Table stickyHeader aria-label='My Activity Table'>
-                    <TableHead>
-                      <TableRow>
-                        <StyledTableCell>{t('date')}</StyledTableCell>
-                        <StyledTableCell>{t('assignmentId')}</StyledTableCell>
-                        <StyledTableCell className={classes.desktopVisible}>
-                          {t('type')}
-                        </StyledTableCell>
-                        <StyledTableCell className={classes.desktopVisible}>
-                          {t('fields')}
-                        </StyledTableCell>
-                        <StyledTableCell>{t('results')}</StyledTableCell>
-                        <StyledTableCell className={classes.desktopVisible}>
-                          {t('review')}
-                        </StyledTableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {servicesRows.length === 0 ? (
-                        <TableCell colspan='8' className={classes.noRecords}>
-                          Sorry, no matching records found
-                        </TableCell>
-                      ) : (
-                        servicesRows.map((service) => (
-                          <StyledTableRow
-                            reference-number={service.RefNumber}
-                            key={service.id}>
-                            <StyledTableCell scope='row'>
-                              {service.createdAt}
-                            </StyledTableCell>
-                            <StyledTableCell>
-                              {service.serviceRef}
-                            </StyledTableCell>
-                            <StyledTableCell className={classes.desktopVisible}>
-                              {service.requestType}
-                            </StyledTableCell>
-                            <StyledTableCell className={classes.desktopVisible}>
-                              {/* <ColoredFieldsChips fields={service?.fields} /> */}
-                            </StyledTableCell>
-                            <StyledTableCell>
-                              {/* {service.status} */}
-                            </StyledTableCell>
-                            <StyledTableCell
-                              className={[classes.desktopVisible, 'action']}>
-                              {/* {service.action} */}
-                            </StyledTableCell>
-                          </StyledTableRow>
-                        ))
-                      )}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Grid>
-            </Grid>
+    <PageContainer>
+      <BreadcrumbsCustomSeparator pageName={t('accountDetails')} />
+      <Grid
+        item
+        xs={12}
+        sm={12}
+        md={12}
+        className={classes.accountDetailsWrapper}>
+        <Grid
+          container
+          direction={'row'}
+          justify='space-between'
+          alignItems={'center'}
+          className={clsx(classes.marginBottom)}>
+          <Grid item>
+            <CustomTypography variant='h5' fontWeight='bold'>
+              {account.firstName + ' ' + account.lastName}
+            </CustomTypography>
+          </Grid>
+          <Grid item>
+            {!!isDeactivatedUser ? (
+              <ReactivateAccountButton accountId={accountId} />
+            ) : (
+              <DeactivateAccountButton accountId={accountId} />
+            )}
           </Grid>
         </Grid>
-      </PageContainer>
-    </Direction>
+      </Grid>
+      <Grid container>
+        <Grid item md={12} className={classes.activityTable}>
+          <TableContainer component={Paper} className={classes.tableContainer}>
+            <Table stickyHeader aria-label='My Activity Table'>
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>{t('date')}</StyledTableCell>
+                  <StyledTableCell>{t('assignmentId')}</StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('type')}
+                  </StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('fields')}
+                  </StyledTableCell>
+                  <StyledTableCell>{t('results')}</StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('review')}
+                  </StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {servicesRows.length === 0 ? (
+                  <TableCell colspan='8' className={classes.noRecords}>
+                    Sorry, no matching records found
+                  </TableCell>
+                ) : (
+                  servicesRows.map((service) => (
+                    <StyledTableRow
+                      reference-number={service.RefNumber}
+                      key={service.id}>
+                      <StyledTableCell scope='row'>
+                        {service.createdAt}
+                      </StyledTableCell>
+                      <StyledTableCell>{service.serviceRef}</StyledTableCell>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {service.requestType}
+                      </StyledTableCell>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {/* <ColoredFieldsChips fields={service?.fields} /> */}
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        {/* {service.status} */}
+                      </StyledTableCell>
+                      <StyledTableCell
+                        className={[classes.desktopVisible, 'action']}>
+                        {/* {service.action} */}
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
+      </Grid>
+    </PageContainer>
   );
 };
 
@@ -186,7 +173,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   accountDetailsWrapper: {
-    margin: [theme.spacing(4), theme.spacing(1)],
+    margin: [theme.spacing(2), theme.spacing(1)],
   },
   noRecords: {
     textAlign: 'center',

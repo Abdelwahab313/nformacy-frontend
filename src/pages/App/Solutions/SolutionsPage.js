@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Grid } from '@material-ui/core';
-import PageContainer from 'components/grid/PageContainer';
+import LandingPageContainer from 'components/grid/LandingPageContainer';
 import CustomTypography from 'components/typography/Typography';
 import { useTranslation } from 'react-i18next';
 import AreasOfSpeciality from '../LandingPage/AreasOfSpeciality';
@@ -16,7 +16,7 @@ const SolutionsPage = () => {
   const { t } = useTranslation();
 
   return (
-    <PageContainer>
+    <LandingPageContainer>
       <Grid container justify='center'>
         <FrontBanner
           imageSource={require('../../../assets/landing/solutions_image.png')}
@@ -38,7 +38,7 @@ const SolutionsPage = () => {
         <AreasOfSpeciality />
         <ServeYouBtnSection />
       </Grid>
-    </PageContainer>
+    </LandingPageContainer>
   );
 };
 

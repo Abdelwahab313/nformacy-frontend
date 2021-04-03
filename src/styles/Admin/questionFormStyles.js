@@ -155,10 +155,12 @@ export const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   addAccountContainer: {
-    marginTop: '90px',
+    marginTop: theme.spacing(10),
     width: '60%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   pageContainerMargin: {
-    marginTop: 50,
+    marginTop: theme.spacing(3),
   },
 }));

@@ -514,5 +514,6 @@
   "userDeactivated": "Account has been deactivated successfully.",
   "userDeativationFailed": "Something went wrong!",
   "accountDetails": "Account Details",
-  "accountList": "Accounts List"
+  "accountList": "Accounts List",
+  "addAccount": "Add Account"
 }
