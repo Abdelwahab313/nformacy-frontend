@@ -3,12 +3,12 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import { dividerStyle, useStyles } from '../../../../styles/formsStyles';
-import t from '../../../../locales/en/freelancerProfile.json';
+import { dividerStyle, useStyles } from '../../../../../styles/formsStyles';
+import t from '../../../../../locales/en/freelancerProfile.json';
 import ClientProfilePicture from './ClientProfilePicture';
 import ClientProfileDetails from './ClientProfileDetails';
 
-const ClientBasicInfoSection = () => {
+const ClientProfileContainer = () => {
   const classes = useStyles();
   return (
     <Grid item id='basicInfo'>
@@ -32,4 +32,4 @@ const ClientBasicInfoSection = () => {
     </Grid>
   );
 };
-export default ClientBasicInfoSection;
+export default ClientProfileContainer;

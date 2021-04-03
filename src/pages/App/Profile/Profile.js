@@ -14,7 +14,7 @@ import CVSection from './profileSections/CVSection';
 import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import authManager from 'services/authManager';
-import ClientBasicInfoSection from './profileSections/ClientProfile';
+import ClientProfileContainer from './profileSections/ClientProfile/ClientProfileContainer';
 import CorporateBasicInfoSection from './profileSections/CorporateProfile';
 
 const Profile = () => {
@@ -24,7 +24,7 @@ const Profile = () => {
 
   const PersonalInfo = () => {
     if (!!authManager.isOnlyClient()) {
-      return <ClientBasicInfoSection />;
+      return <ClientProfileContainer />;
     } else if (!!authManager.isCorporate()) {
       return <CorporateBasicInfoSection />;
     } else {
@@ -46,16 +46,14 @@ const Profile = () => {
           <BreadcrumbsCustomSeparator pageName={t('profile')} />
           {PersonalInfo()}
           {!isClient && (
-            <SummarySection />
-          )}
-          {!authManager.isCorporate() && !isClient && (
-            <PersonalInfoSection />
-          )}
-          {!isClient && (
             <Fragment>
-              <FieldsOfSpecializationSection />
-              <WorkExperienceSection />
-              <EducationAndCertificationSection />
+              <SummarySection />
+              <PersonalInfoSection />
+              <Fragment>
+                <FieldsOfSpecializationSection />
+                <WorkExperienceSection />
+                <EducationAndCertificationSection />
+              </Fragment>
             </Fragment>
           )}
         </Grid>

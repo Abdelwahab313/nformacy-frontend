@@ -1,11 +1,11 @@
 import React, { Fragment, useState, useRef } from 'react';
 import { Box, Grid, Typography, IconButton, Dialog, DialogContent } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
-import { useStyles } from '../../../../styles/formsStyles';
+import { useStyles } from '../../../../../styles/formsStyles';
 import Transition from 'components/animations/Transition';
 import ClientProfileDetailsForm from 'components/forms/ClientProfileDetailsForm';
 import Link from '@material-ui/core/Link';
-import t from '../../../../locales/en/freelancerProfile.json';
+import t from '../../../../../locales/en/freelancerProfile.json';
 
 const ClientLinkedInURL = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));

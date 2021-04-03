@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Grid } from '@material-ui/core';
-import { useStyles } from '../../../../styles/formsStyles';
+import { useStyles } from '../../../../../styles/formsStyles';
 import ClientLinkedInURL from './ClientLinkedInURL';
 import ClientPersonalInfo from './ClientPersonalInfo';
 import ClientWorkStatus from './ClientWorkStatus';

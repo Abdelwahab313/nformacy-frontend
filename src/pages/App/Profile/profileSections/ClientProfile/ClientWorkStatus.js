@@ -1,13 +1,13 @@
 import React, { Fragment, useState, useRef } from 'react';
 import { Box, Grid, Typography, IconButton, Dialog, DialogContent } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
-import { useStyles } from '../../../../styles/formsStyles';
+import { useStyles } from '../../../../../styles/formsStyles';
 import Transition from 'components/animations/Transition';
-import t from '../../../../locales/en/freelancerProfile.json';
+import t from '../../../../../locales/en/freelancerProfile.json';
 import { organizationalLevel } from 'constants/dropDownOptions';
 import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
 import ClientProfileWorkStatusForm from 'components/forms/ClientProfileWorkStatusForm';
-import FieldsView from './FieldsView';
+import FieldsView from '../FieldsView';
 import useUserFieldsFetcher from 'hooks/useUserFieldsFetcher';
 import useFieldsFetcher from 'hooks/useFieldsFetcher';
 

@@ -1,7 +1,7 @@
 import React, { useRef, useState, Fragment } from 'react';
 import { Grid, Typography, Dialog, DialogContent, Box, IconButton } from '@material-ui/core';
-import { useStyles } from '../../../../styles/formsStyles';
-import ClientProfilePicForm from '../../../../components/forms/ClientProfilePicForm';
+import { useStyles } from '../../../../../styles/formsStyles';
+import ClientProfilePicForm from '../../../../../components/forms/ClientProfilePicForm';
 import Transition from 'components/animations/Transition';
 import EditIcon from '@material-ui/icons/Edit';
 
@@ -10,7 +10,7 @@ const ClientProfilePicture = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [profilePic, setProfilePic] = useState(
-    user.current.avatar || require('../../../../assets/emptyavatar.jpg'),
+    user.current.avatar || require('../../../../../assets/emptyavatar.jpg'),
   );
 
   const handleClickOpen = () => {
