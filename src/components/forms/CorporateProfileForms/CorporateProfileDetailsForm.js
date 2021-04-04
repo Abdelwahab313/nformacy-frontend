@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { FormContext, useForm } from 'react-hook-form';
-import { updateProfile, updateProfilePicture } from '../../apis/userAPI';
-import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
-import { updateUser } from '../../pages/auth/context/authActions';
-import { useAuth } from '../../pages/auth/context/auth';
-import ClientProfileDetailsDialog from './ClientProfileDetailsDialog';
+import { updateProfile, updateProfilePicture } from '../../../apis/userAPI';
+import { saveButtonStyle, useStyles } from '../../../styles/formsStyles';
+import { updateUser } from '../../../pages/auth/context/authActions';
+import { useAuth } from '../../../pages/auth/context/auth';
+import CorporateProfileDetailsDialog from '../CorporateProfileDetailsDialog';
 
-const ClientProfileDetailsForm = ({ user, closeDialog }) => {
+const CorporateProfileDetailsForm = ({ user, closeDialog }) => {
   const formMethod = useForm({
     defaultValues: { ...user.current },
   });
   const [avatar, setAvatar] = useState([]);
-  const [_, dispatch] = useAuth();
+  const [, dispatch] = useAuth();
 
   const classes = useStyles();
   const onSubmitBasicInfo = (userData) => {
@@ -44,7 +44,7 @@ const ClientProfileDetailsForm = ({ user, closeDialog }) => {
         className={classes.nestedForm}
         noValidate
         onSubmit={formMethod.handleSubmit(onSubmitBasicInfo)}>
-        <ClientProfileDetailsDialog />
+        <CorporateProfileDetailsDialog />
         <Button
           id='saveBasicInfo'
           type='submit'
@@ -58,4 +58,4 @@ const ClientProfileDetailsForm = ({ user, closeDialog }) => {
   );
 };
 
-export default ClientProfileDetailsForm;
+export default CorporateProfileDetailsForm;

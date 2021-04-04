@@ -1,10 +1,11 @@
 import React, { Fragment, useState, useRef } from 'react';
 import { Box, Grid, Typography, IconButton, Dialog, DialogContent } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
-import { useStyles } from '../../../../styles/formsStyles';
+import { useStyles } from '../../../../../styles/formsStyles';
 import Transition from 'components/animations/Transition';
-import ClientProfilePersonalInfoForm from 'components/forms/ClientProfilePersonalInfoForm';
-import t from '../../../../locales/en/freelancerProfile.json';
+// import ClientProfilePersonalInfoForm from 'components/forms/ClientProfilePersonalInfoForm';
+import ClientProfilePersonalInfoForm from 'components/forms/ClientProfileForms/ClientProfilePersonalInfoForm';
+import t from '../../../../../locales/en/freelancerProfile.json';
 import countryList from 'react-select-country-list';
 
 const ClientPersonalInfo = () => {

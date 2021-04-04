@@ -3,13 +3,14 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import { dividerStyle, useStyles } from '../../../../styles/formsStyles';
-import t from '../../../../locales/en/freelancerProfile.json';
-import ClientProfilePicture from './ClientProfilePicture';
-import ClientProfileDetails from './ClientProfileDetails';
+import { dividerStyle, useStyles } from '../../../../../styles/formsStyles';
+import t from '../../../../../locales/en/freelancerProfile.json';
+import CorporateProfilePicture from './CorporateProfilePicture';
+import CorporateProfileDetails from './CorporateProfileDetails';
 
-const ClientBasicInfoSection = () => {
+const CorporateProfileContainer = () => {
   const classes = useStyles();
+
   return (
     <Grid item id='basicInfo'>
       <Paper className={classes.paperSection} elevation={3}>
@@ -25,11 +26,11 @@ const ClientBasicInfoSection = () => {
           container
           spacing={5}
           className={classes.paperSectionContentStyles}>
-          <ClientProfilePicture />
-          <ClientProfileDetails />
+          <CorporateProfilePicture />
+          <CorporateProfileDetails />
         </Grid>
       </Paper>
     </Grid>
   );
 };
-export default ClientBasicInfoSection;
+export default CorporateProfileContainer;
