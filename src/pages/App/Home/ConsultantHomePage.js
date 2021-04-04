@@ -10,7 +10,7 @@ import LibraryCard from './subComponents/LibraryCard';
 import { CalendarLibraryForMobile } from './subComponents/CalendarLibraryForMobile';
 import HomeHeadBar from './subComponents/HomeHeadBar';
 import ConsultantQuestionRoaster from './subComponents/ConsultantQuestionRoaster';
-import PointsBox from './subComponents/PointsBox';
+import ConsultantPointsBox from './subComponents/ConsultantPointsBox';
 import RankBox from './subComponents/RankBox';
 import ConsultantActivityTable from './subComponents/ConsultantActivityTable';
 
@@ -35,7 +35,7 @@ const ConsultantHomePage = () => {
               </Grid>
               <Grid item xs={12} md={4}>
                 <RankBox />
-                <PointsBox />
+                <ConsultantPointsBox />
               </Grid>
             </Grid>
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
