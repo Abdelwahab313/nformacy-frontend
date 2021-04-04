@@ -4,7 +4,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import { useStyles } from '../../../../../styles/formsStyles';
 import Transition from 'components/animations/Transition';
 import t from '../../../../../locales/en/freelancerProfile.json';
-import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
 import CorporateContactPersonalInfoForm from 'components/forms/CorporateContactPersonalInfoForm';
 
 const CorporateContactPersonalInfo = () => {
@@ -116,23 +115,6 @@ const CorporateContactPersonalInfo = () => {
               gutterBottom
               className={classes.fieldValueStyles}>
               {user.current.email}
-            </Typography>
-          </Grid>
-        </Grid>
-        <Grid container className={classes.sectionRowStyles}>
-          <Grid item xs={4}>
-            <Typography
-              gutterBottom
-              className={classes.fieldLabelStylesDesktop}>
-              {t['phoneNumber']}
-            </Typography>
-          </Grid>
-          <Grid item xs={8}>
-            <Typography
-              id='phoneNumber'
-              gutterBottom
-              className={classes.fieldValueStyles}>
-              <ColoredFieldsChips fields={user?.current?.fields} />
             </Typography>
           </Grid>
         </Grid>

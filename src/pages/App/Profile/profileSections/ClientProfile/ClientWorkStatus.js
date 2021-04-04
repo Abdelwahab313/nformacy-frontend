@@ -5,7 +5,6 @@ import { useStyles } from '../../../../../styles/formsStyles';
 import Transition from 'components/animations/Transition';
 import t from '../../../../../locales/en/freelancerProfile.json';
 import { organizationalLevel } from 'constants/dropDownOptions';
-import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
 import ClientProfileWorkStatusForm from 'components/forms/ClientProfileWorkStatusForm';
 import FieldsView from '../FieldsView';
 import useUserFieldsFetcher from 'hooks/useUserFieldsFetcher';
@@ -110,23 +109,6 @@ const ClientWorkStatus = () => {
               gutterBottom
               className={classes.fieldValueStyles}>
               {user.current.organizationName}
-            </Typography>
-          </Grid>
-        </Grid>
-        <Grid container className={classes.sectionRowStyles}>
-          <Grid item xs={4}>
-            <Typography
-              gutterBottom
-              className={classes.fieldLabelStylesDesktop}>
-              {t['languages']}
-            </Typography>
-          </Grid>
-          <Grid item xs={8}>
-            <Typography
-              id='language'
-              gutterBottom
-              className={classes.fieldValueStyles}>
-              <ColoredFieldsChips fields={user.current.language} />
             </Typography>
           </Grid>
         </Grid>
