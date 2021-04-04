@@ -150,6 +150,13 @@ const serviceActions = {
       client: 'client_answersCollected_action',
     },
   },
+  [SERVICE_STATUS.callScheduled]: {
+    status: {
+      client: 'client_callScheduled_status',
+      admin: 'admin_callScheduled_status',
+    },
+    action: {},
+  },
 };
 
 const meetingStatusActions = {

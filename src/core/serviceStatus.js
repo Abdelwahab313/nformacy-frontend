@@ -15,7 +15,7 @@ export const getServiceStatus = (
   hasEvaluationSubmitted,
   hasRelatedMeeting,
 ) => {
-  if (!!hasRelatedMeeting) {
+  if (!!hasRelatedMeeting && !authManager.isCorporate()) {
     return getMeetingState(meetingState, hasEvaluationSubmitted);
   }
   if (isAnsweringState(questionState) && authManager.isClient()) {
@@ -28,6 +28,7 @@ export const getServiceStatus = (
   if (currentUserRole === USER_TYPES.corporate) {
     currentUserRole = USER_TYPES.client;
   }
+
   return serviceActions[status]?.status[currentUserRole];
 };
 
