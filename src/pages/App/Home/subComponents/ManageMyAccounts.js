@@ -27,9 +27,9 @@ const ManageMyAccounts = () => {
         justify='space-evenly'
         className={classes.pointsContainer}>
         <img
-          className={[classes.walletIcon]}
+          className={[classes.groupIcon]}
           color={'primary'}
-          src={require('../../../../assets/wallet.svg')}
+          src={require('../../../../assets/group.png')}
           width={'25%'}
         />
         <SubmitButton

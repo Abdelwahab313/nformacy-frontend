@@ -104,7 +104,7 @@ const ConsultantQuestionRoaster = () => {
             className={classes.proceedBtn}
             buttonText={
               <CustomTypography variant='body1'>
-                {t('seeMore')}
+                {t('goToQR')}
               </CustomTypography>
             }
           />

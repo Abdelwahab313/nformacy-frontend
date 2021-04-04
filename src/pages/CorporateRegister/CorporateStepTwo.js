@@ -41,7 +41,7 @@ const CorporateStepTwo = () => {
                   <Typography
                     gutterBottom
                     className={classes.sectionHeaderStyles}>
-                    {t('organizationInfo')}
+                    {t('contactPersonInformation')}
                   </Typography>
                 </Grid>
               </Grid>

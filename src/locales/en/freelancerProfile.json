@@ -89,5 +89,6 @@
   "contactPersonInfo": "Contact Person Information",
   "title": "Title",
   "languages": "Languages",
-  "phoneNumber": "Phone Number"
+  "phoneNumber": "Phone Number",
+  "information": "Information"
 }

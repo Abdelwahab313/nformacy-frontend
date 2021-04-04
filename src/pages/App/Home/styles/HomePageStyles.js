@@ -40,6 +40,12 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  calendarCard: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'block',
+      maxWidth: '100%',
+    },
+  },
   media: {
     height: 160,
     textAlign: 'center',
@@ -158,8 +164,9 @@ const useStyles = makeStyles((theme) => ({
       height: 180,
     },
   },
-  walletIcon: {
+  groupIcon: {
     width: '50px',
+    filter: 'invert(100%)'
   },
   marginBottom: {
     marginBottom: theme.spacing(3),

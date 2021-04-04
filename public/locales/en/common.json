@@ -515,5 +515,7 @@
   "userDeativationFailed": "Something went wrong!",
   "accountDetails": "Account Details",
   "accountList": "Accounts List",
-  "addAccount": "Add Account"
+  "addAccount": "Add Account",
+  "contactPersonInformation": "Contact Person Information",
+  "goToQR": "Go to Question Roaster"
 }

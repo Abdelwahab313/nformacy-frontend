@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -9,6 +9,7 @@ import CorporateProfilePicture from './CorporateProfilePicture';
 import CorporateProfileDetails from './CorporateProfileDetails';
 
 const CorporateProfileContainer = () => {
+  const user = useRef(JSON.parse(localStorage.getItem('user')));
   const classes = useStyles();
 
   return (
@@ -17,7 +18,7 @@ const CorporateProfileContainer = () => {
         <Grid container justify={'space-between'}>
           <Grid item xs={12} className={classes.paperSectionHeaderStyles}>
             <Typography gutterBottom className={[classes.sectionHeaderStyles, classes.personalInfoHeader]} >
-              {t['basicInformation']}
+              {user.current.organizationName + ' ' + t['information']}
             </Typography>
           </Grid>
         </Grid>

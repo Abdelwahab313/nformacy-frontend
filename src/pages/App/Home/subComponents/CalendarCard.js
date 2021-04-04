@@ -23,7 +23,7 @@ const CalendarCard = ({ currentUser }) => {
   };
 
   return (
-    <Card className={classes.card}>
+    <Card className={[classes.card, classes.calendarCard]}>
       <Grid container alignItems={'center'} justify={'center'}>
         <Typography variant={'h6'} gutterBottom>
           {t('calendarOfEvents')}
