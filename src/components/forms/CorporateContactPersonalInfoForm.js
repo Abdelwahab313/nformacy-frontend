@@ -5,14 +5,14 @@ import { updateProfile, updateProfilePicture } from '../../apis/userAPI';
 import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
 import { updateUser } from '../../pages/auth/context/authActions';
 import { useAuth } from '../../pages/auth/context/auth';
-import ClientPersonalInfoDialog from './ClientPersonalInfoDialog';
+import CorporateContactPersonalInfoDialog from './CorporateContactPersonalInfoDialog';
 
-const ClientProfilePersonalInfoForm = ({ user, closeDialog }) => {
+const CorporateContactPersonalInfoForm = ({ user, closeDialog }) => {
   const formMethod = useForm({
     defaultValues: { ...user.current },
   });
   const [avatar, setAvatar] = useState([]);
-  const [_, dispatch] = useAuth();
+  const [, dispatch] = useAuth();
 
   const classes = useStyles();
   const onSubmitBasicInfo = (userData) => {
@@ -44,7 +44,7 @@ const ClientProfilePersonalInfoForm = ({ user, closeDialog }) => {
         className={classes.nestedForm}
         noValidate
         onSubmit={formMethod.handleSubmit(onSubmitBasicInfo)}>
-        <ClientPersonalInfoDialog />
+        <CorporateContactPersonalInfoDialog />
         <Button
           id='saveBasicInfo'
           type='submit'
@@ -58,4 +58,4 @@ const ClientProfilePersonalInfoForm = ({ user, closeDialog }) => {
   );
 };
 
-export default ClientProfilePersonalInfoForm;
+export default CorporateContactPersonalInfoForm;

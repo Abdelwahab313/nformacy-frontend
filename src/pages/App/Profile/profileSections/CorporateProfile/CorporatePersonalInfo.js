@@ -3,12 +3,11 @@ import { Box, Grid, Typography, IconButton, Dialog, DialogContent } from '@mater
 import EditIcon from '@material-ui/icons/Edit';
 import { useStyles } from '../../../../../styles/formsStyles';
 import Transition from 'components/animations/Transition';
-// import ClientProfilePersonalInfoForm from 'components/forms/ClientProfilePersonalInfoForm';
-import ClientProfilePersonalInfoForm from 'components/forms/ClientProfileForms/ClientProfilePersonalInfoForm';
 import t from '../../../../../locales/en/freelancerProfile.json';
 import countryList from 'react-select-country-list';
+import CorporateProfilePersonalInfoForm from 'components/forms/CorporateProfileForms/CorporateProfilePersonalInfoForm';
 
-const ClientPersonalInfo = () => {
+const CorporatePersonalInfo = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
   const classes = useStyles();
   const [countries] = useState(countryList().getData());
@@ -29,7 +28,7 @@ const ClientPersonalInfo = () => {
         open={open}>
         <DialogContent>
           <Grid container>
-            <ClientProfilePersonalInfoForm
+            <CorporateProfilePersonalInfoForm
               user={user}
               closeDialog={handleClose}
             />
@@ -38,11 +37,7 @@ const ClientPersonalInfo = () => {
       </Dialog>
       <Box elevation={3} className={classes.personalInfoSections}>
         <Grid container>
-          <Grid item xs={11} className={classes.personalInfoHeaderContainer}>
-            <Typography className={classes.personalInfoHeader}>
-              {t['personalInfo']}
-            </Typography>
-          </Grid>
+          <Grid item xs={11}></Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
             <IconButton
               aria-label='edit'
@@ -77,15 +72,40 @@ const ClientPersonalInfo = () => {
             <Typography
               gutterBottom
               className={classes.fieldLabelStylesDesktop}>
-              {t['email']}
+              {t['industry']}
             </Typography>
           </Grid>
           <Grid item xs={8}>
             <Typography
-              id='email'
+              id='industry'
               gutterBottom
               className={classes.fieldValueStyles}>
-              {user.current.email}
+              {user.current?.industriesOfExperience?.map((industry, key) => (
+                <Typography
+                  id='industry'
+                  key={key}
+                  gutterBottom
+                  className={classes.fieldValueStyles}>
+                  {industry.label}
+                </Typography>
+              ))}
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid container className={classes.sectionRowStyles}>
+          <Grid item xs={4}>
+            <Typography
+              gutterBottom
+              className={classes.fieldLabelStylesDesktop}>
+              {t['numOfEmployees']}
+            </Typography>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography
+              id='numOfEmployees'
+              gutterBottom
+              className={classes.fieldValueStyles}>
+              {'3'}
             </Typography>
           </Grid>
         </Grid>
@@ -94,4 +114,4 @@ const ClientPersonalInfo = () => {
   );
 };
 
-export default ClientPersonalInfo;
+export default CorporatePersonalInfo;

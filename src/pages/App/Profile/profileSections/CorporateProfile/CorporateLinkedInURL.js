@@ -3,11 +3,11 @@ import { Box, Grid, Typography, IconButton, Dialog, DialogContent } from '@mater
 import EditIcon from '@material-ui/icons/Edit';
 import { useStyles } from '../../../../../styles/formsStyles';
 import Transition from 'components/animations/Transition';
-import ClientProfileDetailsForm from 'components/forms/ClientProfileForms/ClientProfileDetailsForm';
 import Link from '@material-ui/core/Link';
 import t from '../../../../../locales/en/freelancerProfile.json';
+import CorporateProfileDetailsForm from 'components/forms/CorporateProfileForms/CorporateProfileDetailsForm';
 
-const ClientLinkedInURL = () => {
+const CorporateLinkedInURL = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -27,7 +27,7 @@ const ClientLinkedInURL = () => {
         open={open}>
         <DialogContent>
           <Grid container>
-            <ClientProfileDetailsForm
+            <CorporateProfileDetailsForm
               user={user}
               closeDialog={handleClose}
             />
@@ -40,17 +40,17 @@ const ClientLinkedInURL = () => {
             <Typography
               gutterBottom
               className={classes.fieldLabelStylesDesktop}>
-              {t['linkedInProfileUrl']}
+              {t['website']}
             </Typography>
           </Grid>
           <Grid item xs={8}>
             <Typography
-              id='linkedInProfileUrlValue'
+              id='website'
               gutterBottom
               className={classes.fieldValueStyles}>
               {user.current?.linkedInProfileUrl && (
                 <Link
-                  id='linkedInProfileUrlLink'
+                  id='website'
                   href={user.current.linkedInProfileUrl}>
                   {user.current.linkedInProfileUrl}
                 </Link>
@@ -71,4 +71,4 @@ const ClientLinkedInURL = () => {
   );
 };
 
-export default ClientLinkedInURL;
+export default CorporateLinkedInURL;

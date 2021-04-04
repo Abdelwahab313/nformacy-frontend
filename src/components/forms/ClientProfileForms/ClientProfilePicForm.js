@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import ClientProfilePictureDialog from './ClientProfilePictureDialog';
+import ClientProfilePictureDialog from '../ClientProfilePictureDialog';
 import Button from '@material-ui/core/Button';
 import { FormContext, useForm } from 'react-hook-form';
-import { updateProfile, updateProfilePicture } from '../../apis/userAPI';
-import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
-import { updateUser } from '../../pages/auth/context/authActions';
-import { useAuth } from '../../pages/auth/context/auth';
+import { updateProfile, updateProfilePicture } from '../../../apis/userAPI';
+import { saveButtonStyle, useStyles } from '../../../styles/formsStyles';
+import { updateUser } from '../../../pages/auth/context/authActions';
+import { useAuth } from '../../../pages/auth/context/auth';
 
 const ClientProfilePicForm = ({ user, closeDialog, setProfilePic }) => {
   const formMethod = useForm({
     defaultValues: { ...user.current },
   });
   const [avatar, setAvatar] = useState([]);
-  const [_, dispatch] = useAuth();
+  const [, dispatch] = useAuth();
 
   const classes = useStyles();
   const onSubmitBasicInfo = (userData) => {

@@ -3,16 +3,15 @@ import { Box, Grid, Typography, IconButton, Dialog, DialogContent } from '@mater
 import EditIcon from '@material-ui/icons/Edit';
 import { useStyles } from '../../../../../styles/formsStyles';
 import Transition from 'components/animations/Transition';
-// import ClientProfilePersonalInfoForm from 'components/forms/ClientProfilePersonalInfoForm';
-import ClientProfilePersonalInfoForm from 'components/forms/ClientProfileForms/ClientProfilePersonalInfoForm';
 import t from '../../../../../locales/en/freelancerProfile.json';
-import countryList from 'react-select-country-list';
+import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
+import CorporateContactPersonalInfoForm from 'components/forms/CorporateContactPersonalInfoForm';
 
-const ClientPersonalInfo = () => {
+const CorporateContactPersonalInfo = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
   const classes = useStyles();
-  const [countries] = useState(countryList().getData());
   const [open, setOpen] = useState(false);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -29,7 +28,7 @@ const ClientPersonalInfo = () => {
         open={open}>
         <DialogContent>
           <Grid container>
-            <ClientProfilePersonalInfoForm
+            <CorporateContactPersonalInfoForm
               user={user}
               closeDialog={handleClose}
             />
@@ -39,8 +38,8 @@ const ClientPersonalInfo = () => {
       <Box elevation={3} className={classes.personalInfoSections}>
         <Grid container>
           <Grid item xs={11} className={classes.personalInfoHeaderContainer}>
-            <Typography className={classes.personalInfoHeader}>
-              {t['personalInfo']}
+            <Typography gutterBottom className={classes.personalInfoHeader} >
+              {t['contactPersonInfo']}
             </Typography>
           </Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
@@ -57,18 +56,49 @@ const ClientPersonalInfo = () => {
             <Typography
               gutterBottom
               className={classes.fieldLabelStylesDesktop}>
-              {t['countryOfResidence']}
+              {t['firstName']}
             </Typography>
           </Grid>
           <Grid item xs={8}>
             <Typography
-              id='countryOfResidence'
+              id='firstName'
               gutterBottom
               className={classes.fieldValueStyles}>
-              {user.current.country &&
-                countries?.find(
-                  (country) => country.value === user.current.country,
-                ).label}
+              {user.current.firstName}
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid container className={classes.sectionRowStyles}>
+          <Grid item xs={4}>
+            <Typography
+              gutterBottom
+              className={classes.fieldLabelStylesDesktop}>
+              {t['lastName']}
+            </Typography>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography
+              id='lastName'
+              gutterBottom
+              className={classes.fieldValueStyles}>
+              {user.current.lastName}
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid container className={classes.sectionRowStyles}>
+          <Grid item xs={4}>
+            <Typography
+              gutterBottom
+              className={classes.fieldLabelStylesDesktop}>
+              {t['title']}
+            </Typography>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography
+              id='title'
+              gutterBottom
+              className={classes.fieldValueStyles}>
+              {user.current.jobTitle}
             </Typography>
           </Grid>
         </Grid>
@@ -89,9 +119,26 @@ const ClientPersonalInfo = () => {
             </Typography>
           </Grid>
         </Grid>
+        <Grid container className={classes.sectionRowStyles}>
+          <Grid item xs={4}>
+            <Typography
+              gutterBottom
+              className={classes.fieldLabelStylesDesktop}>
+              {t['phoneNumber']}
+            </Typography>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography
+              id='phoneNumber'
+              gutterBottom
+              className={classes.fieldValueStyles}>
+              <ColoredFieldsChips fields={user?.current?.fields} />
+            </Typography>
+          </Grid>
+        </Grid>
       </Box>
     </Fragment>
   );
 };
 
-export default ClientPersonalInfo;
+export default CorporateContactPersonalInfo;

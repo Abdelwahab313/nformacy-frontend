@@ -15,7 +15,7 @@ import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import authManager from 'services/authManager';
 import ClientProfileContainer from './profileSections/ClientProfile/ClientProfileContainer';
-import CorporateBasicInfoSection from './profileSections/CorporateProfile';
+import CorporateProfileContainer from './profileSections/CorporateProfile/CorporateProfileContainer';
 
 const Profile = () => {
   const classes = useStyles();
@@ -26,7 +26,7 @@ const Profile = () => {
     if (!!authManager.isOnlyClient()) {
       return <ClientProfileContainer />;
     } else if (!!authManager.isCorporate()) {
-      return <CorporateBasicInfoSection />;
+      return <CorporateProfileContainer />;
     } else {
       return <BasicInfoSection />;
     }

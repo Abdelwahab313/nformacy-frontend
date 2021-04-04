@@ -1,11 +1,11 @@
 import React, { useRef, useState, Fragment } from 'react';
 import { Grid, Typography, Dialog, DialogContent, Box, IconButton } from '@material-ui/core';
 import { useStyles } from '../../../../../styles/formsStyles';
-import ClientProfilePicForm from '../../../../../components/forms/ClientProfileForms/ClientProfilePicForm';
+import CorporateProfilePicForm from '../../../../../components/forms/CorporateProfileForms/CorporateProfilePicForm';
 import Transition from 'components/animations/Transition';
 import EditIcon from '@material-ui/icons/Edit';
 
-const ClientProfilePicture = () => {
+const CorporateProfilePicture = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -30,7 +30,7 @@ const ClientProfilePicture = () => {
         open={open}>
         <DialogContent>
           <Grid container>
-            <ClientProfilePicForm
+            <CorporateProfilePicForm
               user={user}
               closeDialog={handleClose}
               setProfilePic={setProfilePic}
@@ -49,9 +49,9 @@ const ClientProfilePicture = () => {
           <Grid container>
             <Grid item xs={10} className={classes.paperSectionHeaderStyles}>
               <Typography
-                id='firstNameValue'
+                id='organizationNameValue'
                 gutterBottom>
-                {user.current.firstName + ' ' + user.current.lastName}
+                {user.current.organizationName}
               </Typography>
             </Grid>
             <Grid item xs={2} className={classes.paperSectionHeaderStyles}>
@@ -69,4 +69,4 @@ const ClientProfilePicture = () => {
   );
 };
 
-export default ClientProfilePicture;
+export default CorporateProfilePicture;
