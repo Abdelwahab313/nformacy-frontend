@@ -236,7 +236,7 @@ const FreeLancerProfileForm = () => {
         .then((response) => {
           const userFromStorage = JSON.parse(localStorage.getItem('user'));
           userFromStorage.cv = response.data.cv;
-          updateUser(dispatch, userFromStorage);
+          authManager.updateUser(userFromStorage);
           history.push(getDashboardLinkAfterSignup(true));
         })
         .finally(() => setLoading(false));

@@ -9,7 +9,7 @@ import { updateUser } from '../../pages/auth/context/authActions';
 
 const CVForm = ({ user, setCVLink, closeDialog }) => {
   const classes = useStyles();
-  const [_, dispatch] = useAuth();
+  const [, dispatch] = useAuth();
   const [cv, setCV] = useState();
 
   const onSubmitCV = (userData) => {
@@ -17,12 +17,11 @@ const CVForm = ({ user, setCVLink, closeDialog }) => {
       ...userData,
       id: user.current.id,
     };
-    console.log(userData);
     updateProfile(userToBeSubmitted, user.current.id)
       .then((response) => {
         updateUser(dispatch, response.data);
       })
-      .catch((error) => {});
+      .catch(() => { });
     if (cv?.length > 0) {
       const file = new Blob(cv);
       const formData = new FormData();
@@ -33,7 +32,7 @@ const CVForm = ({ user, setCVLink, closeDialog }) => {
           updateUser(dispatch, response.data);
           setCVLink(response.data.cv);
         })
-        .catch((error) => {});
+        .catch(() => { });
     }
     user.current = { ...user.current, ...userData };
     closeDialog();

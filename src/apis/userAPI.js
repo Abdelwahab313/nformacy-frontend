@@ -56,7 +56,7 @@ const updateProfilePicture = (user) => {
 const uploadCV = (cv) => {
   return axios({
     method: 'put',
-    url: `${API_BASE_URL}/users/update_profile`,
+    url: `${API_BASE_URL}/users/upload_cv`,
     data: cv,
     headers: {
       accept: 'application/json',
@@ -99,7 +99,7 @@ const deactivateUser = (userId) => {
     method: 'post',
     url: `${API_BASE_URL}/users/${userId}/deactivate`,
   }).then((response) => camelizeKeys(response));
-}
+};
 
 export {
   signup,
