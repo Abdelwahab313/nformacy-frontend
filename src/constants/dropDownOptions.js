@@ -236,6 +236,17 @@ const assignmentTypes = [
   { value: 'noPreference', label: 'No Preference' },
 ];
 
+const companySizeOptions = [
+  { value: 'fromOneToTen', label: '1-10 Employees' },
+  { value: 'fromElevenToFifty', label: '11-50 Employees' },
+  { value: 'fromElevenToTwoHundred', label: '51-200 Employees' },
+  { value: 'moreThanTwoHundred', label: '201-500 Employees' },
+  { value: 'moreThanFiveHundred', label: '501-1000 employees' },
+  { value: 'moreThanOneThousands', label: '1001-5000 employees' },
+  { value: 'moreThanFiveThousands', label: '5001-10,000 employees' },
+  { value: 'moreThanTenThousands', label: '10,001+ employees' },
+];
+
 const industries = [
   {
     value: 'artsEntertainmentRecreation',
@@ -392,5 +403,6 @@ export {
   questionTypesOfAssignment,
   industries,
   questionLanguages,
-  questionTypesOfAssignmentTranslated
+  questionTypesOfAssignmentTranslated,
+  companySizeOptions
 };

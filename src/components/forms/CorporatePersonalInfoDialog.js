@@ -15,7 +15,7 @@ import FormControl from '@material-ui/core/FormControl';
 import { Controller } from 'react-hook-form';
 import ReactSelectMaterialUi from 'react-select-material-ui';
 import CreatableSelect from 'react-select/creatable';
-import { industries } from 'constants/dropDownOptions';
+import { industries, companySizeOptions } from 'constants/dropDownOptions';
 
 const CorporatePersonalInfoDialog = () => {
   const classes = useStyles();
@@ -101,6 +101,32 @@ const CorporatePersonalInfoDialog = () => {
           }
         />
         <ErrorMessage errorField={errors.industriesOfExperience} />
+      </Container>
+
+      <Container maxWidth={false} className={classes.formControl}>
+        <div className={classes.formHeader}>
+          <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+            {t['companySize']}
+          </Typography>
+        </div>
+        <Controller
+          name='companySize'
+          id='companySize'
+          rules={{ required: t['requiredMessage'] }}
+          control={control}
+          defaultValue={!user.current.companySize && 0}
+          as={
+            <ReactSelectMaterialUi
+              fullWidth={true}
+              placeholder={t['selectCompanySize']}
+              SelectProps={{
+                styles: selectStyle,
+              }}
+              options={companySizeOptions}
+            />
+          }
+        />
+        <ErrorMessage errorField={errors.companySize} />
       </Container>
     </Container>
   );
