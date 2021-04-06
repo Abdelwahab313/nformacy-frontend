@@ -34,7 +34,7 @@ export const Pointing = () => {
     <Grid container>
       <Grid item md={12} className={classes.activityTable}>
         <BreadcrumbsCustomSeparator pageName={t('pointingTable')} />
-        <TableContainer component={Paper} className={classes.pointingTable}>
+        <TableContainer component={Paper} >
           <Table stickyHeader aria-label='My Activity Table'>
             <TableHead>
               <TableRow>
@@ -73,10 +73,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   activityTable: {
-    width: '100%',
-  },
-  pointingTable: {
-    width: '50%',
+    maxWidth: '50%',
     margin: '0 auto ',
     marginTop: '60px',
     maxHeight: '350px'
