@@ -62,5 +62,6 @@ export const RoutesPaths = {
     Accounts: '/accounts',
     AccountDetails: '/accounts/details',
     AddAccount: '/createAccount',
+    Pointing: '/pointing',
   },
 };

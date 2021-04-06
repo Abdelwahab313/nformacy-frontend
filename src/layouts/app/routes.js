@@ -34,6 +34,7 @@ import AddAccount from 'pages/App/Accounts/add/AddAccount';
 import WelcomeAccountPage from 'pages/App/WelcomeAccount';
 import VerifyEmail from 'pages/App/EmailVerification/VerifyEmail';
 import EmailVerificationPending from 'pages/App/EmailVerification/EmailVerificationPending';
+import Pointing from 'pages/App/Pointing';
 
 const appRoutes = [
   {
@@ -264,6 +265,15 @@ const appRoutes = [
     name: 'Add Account',
     icon: DashboardIcon,
     Component: AddAccount,
+    includeLayout: true,
+    isPublic: false,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.App.Pointing,
+    name: 'Pointing',
+    icon: DashboardIcon,
+    Component: Pointing,
     includeLayout: true,
     isPublic: false,
     hasDashboardLink: false,
