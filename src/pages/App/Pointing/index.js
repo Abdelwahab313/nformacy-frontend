@@ -10,6 +10,10 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
+import LoadingCircle from 'components/progress/LoadingCircle';
+import useFetchData from 'hooks/useFetchData';
+import { fetchPointsList } from 'apis/userAPI';
+import authManager from 'services/authManager';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -26,9 +30,26 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    height: '75px',
+  },
+}))(TableRow);
+
 export const Pointing = () => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const currentUser = authManager.retrieveCurrentUser();
+  const { fetchedData: points, isLoading } = useFetchData(() => {
+    return fetchPointsList(currentUser.id);
+  });
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
 
   return (
     <Grid container>
@@ -56,7 +77,35 @@ export const Pointing = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableCell colspan="8" className={classes.noRecords}>Sorry, no matching records found</TableCell>
+              {points.length === 0 ?
+                <TableCell colspan="8" className={classes.noRecords}>Sorry, no matching records found</TableCell>
+                : points.map((dataRow) => (
+                  <StyledTableRow
+                    reference-number={dataRow.activityId}
+                    key={dataRow.id}>
+
+                    <StyledTableCell className={classes.desktopVisible}>
+                      {dataRow.modelId}
+                    </StyledTableCell>
+
+                    <StyledTableCell className={classes.desktopVisible}>
+                      {dataRow.modelType}
+                    </StyledTableCell>
+
+                    <StyledTableCell className={classes.desktopVisible}>
+                      {dataRow.createdAt}
+                    </StyledTableCell>
+
+                    <StyledTableCell className={classes.desktopVisible}>
+                      {dataRow.activity}
+                    </StyledTableCell>
+
+                    <StyledTableCell className={classes.desktopVisible}>
+                      {dataRow.pointsCollected}
+                    </StyledTableCell>
+
+                  </StyledTableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
