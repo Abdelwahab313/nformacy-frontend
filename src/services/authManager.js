@@ -110,6 +110,9 @@ class AuthManager {
       return '';
     }
     const user = !!loadedUserString ? JSON.parse(loadedUserString) : undefined;
+    if (!user.roles) {
+      return '';
+    }
     const roles = user.roles.map((role) => role.name);
 
     if (roles.includes('admin')) {

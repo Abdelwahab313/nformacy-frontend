@@ -517,5 +517,7 @@
   "accountList": "Accounts List",
   "addAccount": "Add Account",
   "contactPersonInformation": "Contact Person Information",
-  "goToQR": "Go to Question Roaster"
+  "goToQR": "Go to Question Roaster",
+  "checkEmailForInstruction": "An email should be sent to your inbox with the instruction.",
+  "pleaseCheckMail": "Please, verify your email"
 }

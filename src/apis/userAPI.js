@@ -101,6 +101,13 @@ const deactivateUser = (userId) => {
   }).then((response) => camelizeKeys(response));
 };
 
+const verifyEmail = (token) => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/users/verify_email?token=${token}`,
+  }).then((response) => camelizeKeys(response));
+};
+
 export {
   signup,
   updateProfile,
@@ -113,5 +120,6 @@ export {
   fetchUserDetails,
   addUserRole,
   completeClientProfile,
-  deactivateUser
+  deactivateUser,
+  verifyEmail,
 };
