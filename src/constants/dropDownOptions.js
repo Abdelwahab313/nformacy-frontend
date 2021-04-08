@@ -26,6 +26,9 @@ const organizationalLevel = [
   { value: 'businessOwner', label: 'Business Owner' },
   { value: 'boardMember', label: 'Board Member' },
 ];
+const activityName = [
+  { value: 'answer_rated', label: 'Answer Rated' },
+];
 
 const corporateOrganizationalLevel = [
   { value: 'staffMember', label: 'Staff Member' },
@@ -404,5 +407,6 @@ export {
   industries,
   questionLanguages,
   questionTypesOfAssignmentTranslated,
-  companySizeOptions
+  companySizeOptions,
+  activityName
 };

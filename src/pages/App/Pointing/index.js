@@ -14,6 +14,7 @@ import LoadingCircle from 'components/progress/LoadingCircle';
 import useFetchData from 'hooks/useFetchData';
 import { fetchPointsList } from 'apis/userAPI';
 import authManager from 'services/authManager';
+import { activityName } from 'constants/dropDownOptions';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -97,7 +98,11 @@ export const Pointing = () => {
                     </StyledTableCell>
 
                     <StyledTableCell className={classes.desktopVisible}>
-                      {dataRow.activity}
+                      {activityName.find(
+                        (status) =>
+                          status.value === dataRow.activity,
+                      )?.label
+                      }
                     </StyledTableCell>
 
                     <StyledTableCell className={classes.desktopVisible}>
