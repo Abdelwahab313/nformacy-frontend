@@ -90,5 +90,7 @@
   "title": "Title",
   "languages": "Languages",
   "phoneNumber": "Phone Number",
-  "information": "Information"
+  "information": "Information",
+  "companySize": "Company Size",
+  "selectCompanySize": "Select Company Size"
 }

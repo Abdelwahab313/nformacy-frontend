@@ -6,6 +6,7 @@ import Transition from 'components/animations/Transition';
 import t from '../../../../../locales/en/freelancerProfile.json';
 import countryList from 'react-select-country-list';
 import CorporateProfilePersonalInfoForm from 'components/forms/CorporateProfileForms/CorporateProfilePersonalInfoForm';
+import { companySizeOptions } from 'constants/dropDownOptions';
 
 const CorporatePersonalInfo = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -97,15 +98,18 @@ const CorporatePersonalInfo = () => {
             <Typography
               gutterBottom
               className={classes.fieldLabelStylesDesktop}>
-              {t['numOfEmployees']}
+              {t['companySize']}
             </Typography>
           </Grid>
           <Grid item xs={8}>
             <Typography
-              id='numOfEmployees'
+              id='companySize'
               gutterBottom
               className={classes.fieldValueStyles}>
-              {'3'}
+              {user.current.companySize &&
+                companySizeOptions?.find(
+                  (size) => size.value === user.current.companySize,
+                ).label}
             </Typography>
           </Grid>
         </Grid>
