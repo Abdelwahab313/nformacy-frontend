@@ -522,7 +522,9 @@
   "pleaseCheckMail": "Please, verify your email",
   "serviceId": "Service ID",
   "pointsCollected": "Points Collected",
+  "validTill": "Valid Till",
   "pointingTable": "Pointing Table",
   "serviceType": "Service Type",
-  "activity": "Activity"
+  "activity": "Activity",
+  "answerId": "Answer ID"
 }

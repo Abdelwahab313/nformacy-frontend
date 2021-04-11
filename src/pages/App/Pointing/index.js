@@ -15,6 +15,9 @@ import useFetchData from 'hooks/useFetchData';
 import { fetchPointsList } from 'apis/userAPI';
 import authManager from 'services/authManager';
 import { activityName } from 'constants/dropDownOptions';
+import PageContainer from 'components/grid/PageContainer';
+import LinkText from 'components/typography/LinkText';
+import { getAnswerQuestionLink } from 'services/navigation';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -53,69 +56,87 @@ export const Pointing = () => {
   }
 
   return (
-    <Grid container>
-      <Grid item md={12} className={classes.activityTable}>
-        <BreadcrumbsCustomSeparator pageName={t('pointingTable')} />
-        <TableContainer component={Paper} >
-          <Table stickyHeader aria-label='My Activity Table'>
-            <TableHead>
-              <TableRow>
-                <StyledTableCell className={classes.desktopVisible}>
-                  {t('serviceId')}
-                </StyledTableCell>
-                <StyledTableCell className={classes.desktopVisible}>
-                  {t('serviceType')}
-                </StyledTableCell>
-                <StyledTableCell className={classes.desktopVisible}>
-                  {t('date')}
-                </StyledTableCell>
-                <StyledTableCell className={classes.desktopVisible}>
-                  {t('activity')}
-                </StyledTableCell>
-                <StyledTableCell className={classes.desktopVisible}>
-                  {t('pointsCollected')}
-                </StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {points.length === 0 ?
-                <TableCell colspan="8" className={classes.noRecords}>Sorry, no matching records found</TableCell>
-                : points.map((dataRow) => (
-                  <StyledTableRow
-                    reference-number={dataRow.activityId}
-                    key={dataRow.id}>
+    <PageContainer>
+      <BreadcrumbsCustomSeparator pageName={t('pointingTable')} />
+      <Grid container>
+        <Grid item md={12} className={classes.activityTable}>
+          <TableContainer component={Paper} >
+            <Table stickyHeader aria-label='My Activity Table'>
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('serviceId')}
+                  </StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('answerId')}
+                  </StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('serviceType')}
+                  </StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('date')}
+                  </StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('activity')}
+                  </StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('pointsCollected')}
+                  </StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('validTill')}
+                  </StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {points.length === 0 ?
+                  <TableCell colspan="8" className={classes.noRecords}>Sorry, no matching records found</TableCell>
+                  : points.map((dataRow) => (
+                    <StyledTableRow
+                      reference-number={dataRow.activityId}
+                      key={dataRow.id}>
 
-                    <StyledTableCell className={classes.desktopVisible}>
-                      {dataRow.modelId}
-                    </StyledTableCell>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {dataRow.modelId}
+                      </StyledTableCell>
 
-                    <StyledTableCell className={classes.desktopVisible}>
-                      {dataRow.modelType}
-                    </StyledTableCell>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        <LinkText to={getAnswerQuestionLink(dataRow.serviceId)}>
+                          {dataRow.serviceId}
+                        </LinkText>
+                      </StyledTableCell>
 
-                    <StyledTableCell className={classes.desktopVisible}>
-                      {dataRow.createdAt}
-                    </StyledTableCell>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {dataRow.modelType}
+                      </StyledTableCell>
 
-                    <StyledTableCell className={classes.desktopVisible}>
-                      {activityName.find(
-                        (status) =>
-                          status.value === dataRow.activity,
-                      )?.label
-                      }
-                    </StyledTableCell>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {dataRow.createdAt}
+                      </StyledTableCell>
 
-                    <StyledTableCell className={classes.desktopVisible}>
-                      {dataRow.pointsCollected}
-                    </StyledTableCell>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {activityName.find(
+                          (status) =>
+                            status.value === dataRow.activity,
+                        )?.label
+                        }
+                      </StyledTableCell>
 
-                  </StyledTableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {dataRow.pointsCollected}
+                      </StyledTableCell>
+
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {dataRow.pointsCollected}
+                      </StyledTableCell>
+
+                    </StyledTableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
       </Grid>
-    </Grid>
+    </PageContainer>
   );
 };
 
@@ -127,7 +148,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   activityTable: {
-    maxWidth: '50%',
+    maxWidth: '70%',
     margin: '0 auto ',
     marginTop: '60px',
     maxHeight: '350px'
