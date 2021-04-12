@@ -27,7 +27,10 @@ const organizationalLevel = [
   { value: 'boardMember', label: 'Board Member' },
 ];
 const activityName = [
-  { value: 'answer_rated', label: 'Answer Rated' },
+  { value: 'question_answer', label: 'Question Answer' },
+  { value: 'screening_answer', label: 'Screening Answer' },
+  { value: 'running_the_call', label: 'Running the Call' },
+  { value: 'assignment_deliver', label: 'Assignment Deliver' },
 ];
 
 const corporateOrganizationalLevel = [

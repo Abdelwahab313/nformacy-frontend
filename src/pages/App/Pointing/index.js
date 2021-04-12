@@ -18,6 +18,7 @@ import { activityName } from 'constants/dropDownOptions';
 import PageContainer from 'components/grid/PageContainer';
 import LinkText from 'components/typography/LinkText';
 import { getAnswerQuestionLink } from 'services/navigation';
+import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -65,22 +66,22 @@ export const Pointing = () => {
               <TableHead>
                 <TableRow>
                   <StyledTableCell className={classes.desktopVisible}>
-                    {t('serviceId')}
-                  </StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>
-                    {t('answerId')}
-                  </StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>
                     {t('serviceType')}
-                  </StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>
-                    {t('date')}
                   </StyledTableCell>
                   <StyledTableCell className={classes.desktopVisible}>
                     {t('activity')}
                   </StyledTableCell>
                   <StyledTableCell className={classes.desktopVisible}>
                     {t('pointsCollected')}
+                  </StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('serviceId')}
+                  </StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('answerId')}
+                  </StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('date')}
                   </StyledTableCell>
                   <StyledTableCell className={classes.desktopVisible}>
                     {t('validTill')}
@@ -94,23 +95,8 @@ export const Pointing = () => {
                     <StyledTableRow
                       reference-number={dataRow.activityId}
                       key={dataRow.id}>
-
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {dataRow.modelId}
-                      </StyledTableCell>
-
-                      <StyledTableCell className={classes.desktopVisible}>
-                        <LinkText to={getAnswerQuestionLink(dataRow.serviceId)}>
-                          {dataRow.serviceId}
-                        </LinkText>
-                      </StyledTableCell>
-
                       <StyledTableCell className={classes.desktopVisible}>
                         {dataRow.modelType}
-                      </StyledTableCell>
-
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {dataRow.createdAt}
                       </StyledTableCell>
 
                       <StyledTableCell className={classes.desktopVisible}>
@@ -126,7 +112,21 @@ export const Pointing = () => {
                       </StyledTableCell>
 
                       <StyledTableCell className={classes.desktopVisible}>
-                        {dataRow.pointsCollected}
+                        {dataRow.modelId}
+                      </StyledTableCell>
+
+                      <StyledTableCell className={classes.desktopVisible}>
+                        <LinkText to={getAnswerQuestionLink(dataRow.serviceId)}>
+                          {dataRow.serviceId}
+                        </LinkText>
+                      </StyledTableCell>
+
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {formattedDateTimeNoSeconds(new Date(dataRow.createdAt))}
+                      </StyledTableCell>
+
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {'6 Months counter'}
                       </StyledTableCell>
 
                     </StyledTableRow>
