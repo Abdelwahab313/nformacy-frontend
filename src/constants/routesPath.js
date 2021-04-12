@@ -26,7 +26,7 @@ export const RoutesPaths = {
     Logout: '/admin/logout',
     PostQuestion: '/admin/postQuestion',
     Evaluations: '/admin/viewEvaluations',
-    ChangePassword: '/admin/changePassword'
+    ChangePassword: '/admin/changePassword',
   },
   App: {
     Login: '/login',
@@ -56,6 +56,8 @@ export const RoutesPaths = {
     Services: '/services/list',
     ActivitiesList: '/activities/list',
     UserTypeSelection: '/user/type',
+    EmailVerificationCallback: '/verifyEmail',
+    EmailVerificationPending: '/verifyEmailPending',
     NotFound: '/error',
     Accounts: '/accounts',
     AccountDetails: '/accounts/details',

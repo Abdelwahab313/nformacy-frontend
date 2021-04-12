@@ -14,6 +14,14 @@ export const getQuestionDetailsLink = (questionId, serviceId) => {
   }
 };
 
+export const getPostVerifyEmailRoute = () => {
+  if (!authManager.getUserRole()) {
+    return RoutesPaths.App.UserTypeSelection;
+  } else {
+    return RoutesPaths.App.Dashboard;
+  }
+};
+
 export const navigatToDashboard = () => {
   history.goBack();
 };

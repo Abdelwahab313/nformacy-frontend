@@ -12,6 +12,7 @@ function PrivateRoute({ component: Component, provider: Provider, ...rest }) {
     : RoutesPaths.App.Login;
 
   const authToken = authManager.retrieveUserToken();
+  const currentUser = authManager.retrieveCurrentUser();
 
   if (!authToken) {
     return (
@@ -25,6 +26,26 @@ function PrivateRoute({ component: Component, provider: Provider, ...rest }) {
       />
     );
   }
+
+  const shouldRedirectToVerifyEmail =
+    !!currentUser &&
+    !currentUser.isEmailVerified &&
+    location.pathname !== RoutesPaths.App.EmailVerificationCallback &&
+    location.pathname !== RoutesPaths.App.EmailVerificationPending;
+
+  if (!!shouldRedirectToVerifyEmail) {
+    return (
+      <Route
+        {...rest}
+        render={() => (
+          <Redirect
+            to={{ pathname: RoutesPaths.App.EmailVerificationPending }}
+          />
+        )}
+      />
+    );
+  }
+
   if (authToken) {
     return (
       <Route

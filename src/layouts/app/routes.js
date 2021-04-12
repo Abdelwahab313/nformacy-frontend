@@ -32,6 +32,8 @@ import KnowHubPage from 'pages/App/LandingPage/KnowHub';
 import ChangePasswordPage from 'pages/ChangePassword';
 import AddAccount from 'pages/App/Accounts/add/AddAccount';
 import WelcomeAccountPage from 'pages/App/WelcomeAccount';
+import VerifyEmail from 'pages/App/EmailVerification/VerifyEmail';
+import EmailVerificationPending from 'pages/App/EmailVerification/EmailVerificationPending';
 
 const appRoutes = [
   {
@@ -295,7 +297,24 @@ const appRoutes = [
     isPublic: false,
     hasDashboardLink: false,
   },
-
+  {
+    path: RoutesPaths.App.EmailVerificationCallback,
+    name: 'Verify Email',
+    icon: DashboardIcon,
+    Component: VerifyEmail,
+    includeLayout: true,
+    isPublic: false,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.App.EmailVerificationPending,
+    name: 'Check Email Verification',
+    icon: DashboardIcon,
+    Component: EmailVerificationPending,
+    includeLayout: true,
+    isPublic: false,
+    hasDashboardLink: false,
+  },
   {
     path: RoutesPaths.App.NotFound,
     name: 'Not Found',
