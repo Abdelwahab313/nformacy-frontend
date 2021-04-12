@@ -31,10 +31,10 @@ import ResetPassword from 'pages/ResetPassword';
 import KnowHubPage from 'pages/App/LandingPage/KnowHub';
 import ChangePasswordPage from 'pages/ChangePassword';
 import AddAccount from 'pages/App/Accounts/add/AddAccount';
-import WelcomeAccountPage from 'pages/App/WelcomeAccount';
 import VerifyEmail from 'pages/App/EmailVerification/VerifyEmail';
 import EmailVerificationPending from 'pages/App/EmailVerification/EmailVerificationPending';
 import Pointing from 'pages/App/Pointing';
+import WelcomeAccountFormPage from 'pages/App/WelcomeAccount/WelcomeAccountFormPage';
 
 const appRoutes = [
   {
@@ -149,7 +149,7 @@ const appRoutes = [
     path: RoutesPaths.App.WelcomeAccount,
     name: 'Welcome',
     icon: DashboardIcon,
-    Component: WelcomeAccountPage,
+    Component: WelcomeAccountFormPage,
     includeLayout: true,
     isPublic: true,
     hasDashboardLink: false,

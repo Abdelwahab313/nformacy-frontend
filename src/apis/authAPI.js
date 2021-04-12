@@ -26,6 +26,14 @@ const resetPassword = (token, password) => {
   }).then((response) => camelizeKeys(response.data));
 };
 
+const confirmAccount = (token, password) => {
+  return axios({
+    method: 'put',
+    url: `${API_BASE_URL}/auth/confirm_account`,
+    data: { token, password },
+  }).then((response) => camelizeKeys(response.data));
+};
+
 const changePassword = (currentPassword, newPassword) => {
   return axios({
     method: 'put',
@@ -41,4 +49,4 @@ const logout = () => {
   });
 };
 
-export { login, logout, forgetPassword, resetPassword, changePassword };
+export { login, logout, forgetPassword, resetPassword, changePassword, confirmAccount };
