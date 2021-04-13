@@ -14,11 +14,9 @@ import LoadingCircle from 'components/progress/LoadingCircle';
 import useFetchData from 'hooks/useFetchData';
 import { fetchPointsList } from 'apis/userAPI';
 import authManager from 'services/authManager';
-import { activityName } from 'constants/dropDownOptions';
 import PageContainer from 'components/grid/PageContainer';
-import LinkText from 'components/typography/LinkText';
-import { getAnswerQuestionLink } from 'services/navigation';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
+import PointingActivityLink from './subComponents/PointingActivityLink';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -61,7 +59,7 @@ export const Pointing = () => {
       <BreadcrumbsCustomSeparator pageName={t('pointingTable')} />
       <Grid container>
         <Grid item md={12} className={classes.activityTable}>
-          <TableContainer component={Paper} >
+          <TableContainer component={Paper}>
             <Table stickyHeader aria-label='My Activity Table'>
               <TableHead>
                 <TableRow>
@@ -75,62 +73,40 @@ export const Pointing = () => {
                     {t('pointsCollected')}
                   </StyledTableCell>
                   <StyledTableCell className={classes.desktopVisible}>
-                    {t('serviceId')}
-                  </StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>
-                    {t('answerId')}
-                  </StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>
-                    {t('date')}
-                  </StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>
                     {t('validTill')}
                   </StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {points.length === 0 ?
-                  <TableCell colspan="8" className={classes.noRecords}>Sorry, no matching records found</TableCell>
-                  : points.map((dataRow) => (
+                {points.length === 0 ? (
+                  <TableCell colspan='8' className={classes.noRecords}>
+                    Sorry, no matching records found
+                  </TableCell>
+                ) : (
+                  points.map((dataRow) => (
                     <StyledTableRow
-                      reference-number={dataRow.activityId}
+                      reference-number={dataRow.id}
                       key={dataRow.id}>
                       <StyledTableCell className={classes.desktopVisible}>
-                        {dataRow.modelType}
+                        {t(dataRow.service?.assignmentType)}
                       </StyledTableCell>
-
                       <StyledTableCell className={classes.desktopVisible}>
-                        {activityName.find(
-                          (status) =>
-                            status.value === dataRow.activity,
-                        )?.label
-                        }
+                        <PointingActivityLink
+                          pointingActivity={dataRow.activity}
+                          serviceId={dataRow.service?.id}
+                        />
                       </StyledTableCell>
-
                       <StyledTableCell className={classes.desktopVisible}>
                         {dataRow.pointsCollected}
                       </StyledTableCell>
-
                       <StyledTableCell className={classes.desktopVisible}>
-                        {dataRow.modelId}
+                        {formattedDateTimeNoSeconds(
+                          new Date(dataRow.expiredAt),
+                        )}
                       </StyledTableCell>
-
-                      <StyledTableCell className={classes.desktopVisible}>
-                        <LinkText to={getAnswerQuestionLink(dataRow.serviceId)}>
-                          {dataRow.serviceId}
-                        </LinkText>
-                      </StyledTableCell>
-
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {formattedDateTimeNoSeconds(new Date(dataRow.createdAt))}
-                      </StyledTableCell>
-
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {'6 Months counter'}
-                      </StyledTableCell>
-
                     </StyledTableRow>
-                  ))}
+                  ))
+                )}
               </TableBody>
             </Table>
           </TableContainer>
@@ -151,12 +127,12 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '70%',
     margin: '0 auto ',
     marginTop: '60px',
-    maxHeight: '350px'
+    maxHeight: '350px',
   },
   noRecords: {
     textAlign: 'center',
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
 }));
 
 export default Pointing;
