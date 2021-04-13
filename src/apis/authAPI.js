@@ -26,11 +26,11 @@ const resetPassword = (token, password) => {
   }).then((response) => camelizeKeys(response.data));
 };
 
-const confirmAccount = (token, password) => {
+const confirmAccount = (token, user) => {
   return axios({
     method: 'put',
     url: `${API_BASE_URL}/auth/confirm_account`,
-    data: { token, password },
+    data: decamelizeKeys({ token, ...user }),
   }).then((response) => camelizeKeys(response.data));
 };
 

@@ -48,7 +48,7 @@ const AddAccount = () => {
           navigatToAccountsList();
         })
         .catch(({ response }) => {
-          response.data.errors.forEach((error) => {
+          return response?.data?.errors.forEach((error) => {
             if (error.includes('Email')) {
               showErrorMessage(t('emailIsExist'));
             }

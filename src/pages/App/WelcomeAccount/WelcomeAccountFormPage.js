@@ -29,7 +29,7 @@ const WelcomeAccountFormPage = () => {
   const onSubmit = (e) => {
     setResponseMessage('');
     handleSubmit(e, () => {
-      confirmAccount(resetPasswordToken, values.password)
+      confirmAccount(resetPasswordToken, values)
         .then((response) => {
           showSuccessMessage(response?.message);
           history.push(RoutesPaths.App.Login);
@@ -122,14 +122,14 @@ const WelcomeAccountFormPage = () => {
               variant='outlined'
               margin='normal'
               fullWidth
-              name='company'
-              label={t('company')}
-              type='company'
-              id='company'
+              name='organizationName'
+              label={t('organizationName')}
+              type='organizationName'
+              id='organizationName'
               onChange={handleChange}
             />
-            {errors.company && (
-              <span className={classes.error}>{errors.company}</span>
+            {errors.organizationName && (
+              <span className={classes.error}>{errors.organizationName}</span>
             )}
             <TextField
               variant='outlined'
