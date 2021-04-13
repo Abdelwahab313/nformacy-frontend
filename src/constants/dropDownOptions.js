@@ -404,5 +404,5 @@ export {
   industries,
   questionLanguages,
   questionTypesOfAssignmentTranslated,
-  companySizeOptions
+  companySizeOptions,
 };

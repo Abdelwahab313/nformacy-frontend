@@ -22,7 +22,7 @@ const FreelancerServiceDetails = ({ serviceDetails }) => {
       <Grid item={12} sm={10}>
         <GridItem xs={6}>
           {/* meeting details */}
-          <MeetingDetailsSection meeting={meeting} />
+          {!!meeting?.id && <MeetingDetailsSection meeting={meeting} />}
         </GridItem>
       </Grid>
       <Grid item xs={12} sm={10}>

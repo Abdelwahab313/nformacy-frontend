@@ -70,6 +70,12 @@ const fetchAdvisersList = () => {
     url: `${API_BASE_URL}/users/list_advisers`,
   }).then((response) => camelizeKeys(response));
 };
+const fetchPointsList = (userId) => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/users/${userId}/list_points_details`,
+  }).then((response) => camelizeKeys(response));
+};
 
 const fetchCurrentUserFields = (locale) => {
   return axios({
@@ -122,4 +128,5 @@ export {
   completeClientProfile,
   deactivateUser,
   verifyEmail,
+  fetchPointsList,
 };
