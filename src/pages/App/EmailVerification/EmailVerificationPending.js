@@ -21,7 +21,8 @@ const EmailVerificationPending = () => {
         container
         alignItems={'center'}
         justify={'center'}
-        direction={'column'}>
+        direction={'column'}
+        style={{ height: '80vh' }}>
         <Box mt={4}>
           <CustomTypography variant={'h5'}>
             {t('pleaseCheckMail')}
