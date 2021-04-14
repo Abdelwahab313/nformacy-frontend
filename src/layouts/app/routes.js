@@ -34,7 +34,7 @@ import AddAccount from 'pages/App/Accounts/add/AddAccount';
 import VerifyEmail from 'pages/App/EmailVerification/VerifyEmail';
 import EmailVerificationPending from 'pages/App/EmailVerification/EmailVerificationPending';
 import Pointing from 'pages/App/Pointing';
-import WelcomeAccountFormPage from 'pages/App/WelcomeAccount/WelcomeAccountFormPage';
+import WelcomeAccountFormPage from 'pages/App/WelcomeAccount';
 
 const appRoutes = [
   {

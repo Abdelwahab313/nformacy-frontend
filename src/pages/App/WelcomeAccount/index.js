@@ -7,13 +7,13 @@ import { useStyles } from 'styles/formsStyles';
 import { useTranslation } from 'react-i18next';
 import useForm from 'pages/FormValidation/useForm';
 import { validateResetPasswordForm } from 'pages/FormValidation/validateInfo';
-import { resetPassword } from 'apis/authAPI';
+import { confirmAccount } from 'apis/authAPI';
 import { useHistory } from 'react-router';
 import useQueryParams from 'hooks/useQueryParams';
 import { useSnackBar } from 'context/SnackBarContext';
 import { RoutesPaths } from 'constants/routesPath';
 
-const WelcomeAccountPage = () => {
+const WelcomeAccountFormPage = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const { handleChange, values, handleSubmit, errors } = useForm(
@@ -21,6 +21,7 @@ const WelcomeAccountPage = () => {
   );
   const query = useQueryParams();
   const resetPasswordToken = query.get('token');
+  const emailToken = query.get('email');
   const history = useHistory();
   const { showSuccessMessage } = useSnackBar();
   const [responseMessage, setResponseMessage] = useState('');
@@ -28,10 +29,10 @@ const WelcomeAccountPage = () => {
   const onSubmit = (e) => {
     setResponseMessage('');
     handleSubmit(e, () => {
-      resetPassword(resetPasswordToken, values.password)
+      confirmAccount(resetPasswordToken, values)
         .then((response) => {
           showSuccessMessage(response?.message);
-          history.push(RoutesPaths.App.Login);
+          history.push(RoutesPaths.App.Accounts);
         })
         .catch((reason) => {
           setResponseMessage(
@@ -60,6 +61,76 @@ const WelcomeAccountPage = () => {
             {t('welcomeAccountSetPassword')}
           </Typography>
           <form id='loginUserForm' className={classes.form}>
+            <TextField
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              name='firstName'
+              label={t('firstName')}
+              type='text'
+              id='firstName'
+              onChange={handleChange}
+              autoComplete='on'
+              autoFocus
+            />
+            {errors.firstName && (
+              <span className={classes.error}>{errors.firstName}</span>
+            )}
+            <TextField
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              name='lastName'
+              label={t('lastName')}
+              type='text'
+              id='lastName'
+              onChange={handleChange}
+              autoComplete='off'
+            />
+            {errors.lastName && (
+              <span className={classes.error}>{errors.lastName}</span>
+            )}
+            <TextField
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              name='email'
+              label={t('email')}
+              type='email'
+              id='email'
+              onChange={handleChange}
+              defaultValue={emailToken}
+              disabled
+            />
+            {errors.email && (
+              <span className={classes.error}>{errors.email}</span>
+            )}
+            <TextField
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              name='jobTitle'
+              label={t('jobTitle')}
+              type='text'
+              id='jobTitle'
+              onChange={handleChange}
+            />
+            {errors.jobTitle && (
+              <span className={classes.error}>{errors.jobTitle}</span>
+            )}
+            <TextField
+              variant='outlined'
+              margin='normal'
+              fullWidth
+              name='organizationName'
+              label={t('organizationName')}
+              type='text'
+              id='organizationName'
+              onChange={handleChange}
+            />
+            {errors.organizationName && (
+              <span className={classes.error}>{errors.organizationName}</span>
+            )}
             <TextField
               variant='outlined'
               margin='normal'
@@ -112,4 +183,4 @@ const WelcomeAccountPage = () => {
   );
 };
 
-export default WelcomeAccountPage;
+export default WelcomeAccountFormPage;
