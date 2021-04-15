@@ -16,6 +16,8 @@ import useLocale from 'hooks/localization/useLocale';
 import createMarkup from 'services/markup';
 import { RoutesPaths } from 'constants/routesPath';
 import LoadingCircle from 'components/progress/LoadingCircle';
+import { getAnswerQuestionLink } from 'services/navigation';
+import LinkText from 'components/typography/LinkText';
 
 const ConsultantQuestionRoaster = () => {
   const { local } = useLocale();
@@ -56,16 +58,18 @@ const ConsultantQuestionRoaster = () => {
                     local,
                   )}
                 </CustomTypography>
-                <CustomTypography
-                  align={'left'}
-                  variant='body1'
-                  className={classes.feedsSubText}>
-                  <ShowMore>
-                    <div
-                      dangerouslySetInnerHTML={createMarkup(question.content)}
-                    />
-                  </ShowMore>
-                </CustomTypography>
+                <LinkText to={getAnswerQuestionLink(question.id)}>
+                  <CustomTypography
+                    align={'left'}
+                    variant='body1'
+                    className={classes.questionRoasterText}>
+                    <ShowMore>
+                      <div
+                        dangerouslySetInnerHTML={createMarkup(question.content)}
+                      />
+                    </ShowMore>
+                  </CustomTypography>
+                </LinkText>
                 <ColoredFieldsChips fields={question.fields} />
               </Grid>
 

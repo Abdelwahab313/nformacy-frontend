@@ -29,9 +29,9 @@ const ConsultantPointsBox = () => {
         justify='space-evenly'
         className={classes.pointsContainer}>
         <img
-          className={[classes.walletIcon]}
+          className={[classes.pigIcon]}
           color={'primary'}
-          src={require('../../../../assets/wallet.svg')}
+          src={require('../../../../assets/piggybank.png')}
           width={'25%'}
         />
         <CustomTypography variant='body1' fontWeight='bold'>

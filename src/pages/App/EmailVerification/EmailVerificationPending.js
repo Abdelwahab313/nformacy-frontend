@@ -7,9 +7,11 @@ import authManager from 'services/authManager';
 import { Redirect } from 'react-router';
 import { getPostVerifyEmailRoute } from 'services/navigation';
 import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
 
 const EmailVerificationPending = () => {
   const { t } = useTranslation();
+  const classes = useStyles();
   const currentUser = authManager.retrieveCurrentUser();
   if (!!currentUser?.isEmailVerified) {
     return <Redirect to={getPostVerifyEmailRoute()} />;
@@ -22,7 +24,7 @@ const EmailVerificationPending = () => {
         alignItems={'center'}
         justify={'center'}
         direction={'column'}
-        style={{ height: '80vh' }}>
+        className={classes.verifyMsg}>
         <Box mt={4}>
           <CustomTypography variant={'h5'}>
             {t('pleaseCheckMail')}
@@ -37,5 +39,11 @@ const EmailVerificationPending = () => {
     </PageContainer>
   );
 };
+
+const useStyles = makeStyles(() => ({
+  verifyMsg: {
+    height: '80vh'
+  }
+}));
 
 export default EmailVerificationPending;

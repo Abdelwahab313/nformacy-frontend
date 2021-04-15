@@ -9,6 +9,7 @@ import LoadingCircle from 'components/progress/LoadingCircle';
 import SubmitButton from 'components/buttons/SubmitButton';
 import { getPostVerifyEmailRoute, history } from 'services/navigation';
 import authManager from 'services/authManager';
+import { makeStyles } from '@material-ui/core/styles';
 
 const RESPONSE_STATUSES = {
   LOADING: 'loading',
@@ -21,6 +22,7 @@ const VerifyEmail = () => {
   const query = useQueryParams();
   const emailToken = query.get('token');
   const currentUser = authManager.retrieveCurrentUser;
+  const classes = useStyles();
 
   useEffect(() => {
     if (!reponseState) {
@@ -62,7 +64,8 @@ const VerifyEmail = () => {
         container
         alignItems={'center'}
         justify={'center'}
-        direction={'column'}>
+        direction={'column'}
+        className= {classes.verifyMsg}>
         {reponseState === RESPONSE_STATUSES.SUCCESS && (
           <>
             <Box mt={8}>
@@ -80,5 +83,9 @@ const VerifyEmail = () => {
     </PageContainer>
   );
 };
-
+const useStyles = makeStyles(() => ({
+  verifyMsg: {
+    height: '80vh'
+  }
+}));
 export default VerifyEmail;

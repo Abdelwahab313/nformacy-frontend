@@ -53,7 +53,6 @@ export const Pointing = () => {
   if (isLoading) {
     return <LoadingCircle />;
   }
-
   return (
     <PageContainer>
       <BreadcrumbsCustomSeparator pageName={t('pointingTable')} />
@@ -65,6 +64,9 @@ export const Pointing = () => {
                 <TableRow>
                   <StyledTableCell className={classes.desktopVisible}>
                     {t('serviceType')}
+                  </StyledTableCell>
+                  <StyledTableCell className={classes.desktopVisible}>
+                    {t('activityId')}
                   </StyledTableCell>
                   <StyledTableCell className={classes.desktopVisible}>
                     {t('activity')}
@@ -83,30 +85,33 @@ export const Pointing = () => {
                     Sorry, no matching records found
                   </TableCell>
                 ) : (
-                  points.map((dataRow) => (
-                    <StyledTableRow
-                      reference-number={dataRow.id}
-                      key={dataRow.id}>
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {t(dataRow.service?.assignmentType)}
-                      </StyledTableCell>
-                      <StyledTableCell className={classes.desktopVisible}>
-                        <PointingActivityLink
-                          pointingActivity={dataRow.activity}
-                          serviceId={dataRow.service?.id}
-                        />
-                      </StyledTableCell>
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {dataRow.pointsCollected}
-                      </StyledTableCell>
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {formattedDateTimeNoSeconds(
-                          new Date(dataRow.expiredAt),
-                        )}
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  ))
-                )}
+                    points.map((dataRow) => (
+                      <StyledTableRow
+                        reference-number={dataRow.id}
+                        key={dataRow.id}>
+                        <StyledTableCell className={classes.desktopVisible}>
+                          {t(dataRow.service?.assignmentType)}
+                        </StyledTableCell>
+                        <StyledTableCell className={classes.desktopVisible}>
+                          {dataRow.serviceId}
+                        </StyledTableCell>
+                        <StyledTableCell className={classes.desktopVisible}>
+                          <PointingActivityLink
+                            pointingActivity={dataRow.activity}
+                            serviceId={dataRow.service?.id}
+                          />
+                        </StyledTableCell>
+                        <StyledTableCell className={classes.desktopVisible}>
+                          {dataRow.pointsCollected}
+                        </StyledTableCell>
+                        <StyledTableCell className={classes.desktopVisible}>
+                          {formattedDateTimeNoSeconds(
+                            new Date(dataRow.expiredAt),
+                          )}
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))
+                  )}
               </TableBody>
             </Table>
           </TableContainer>

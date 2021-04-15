@@ -296,6 +296,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 15,
     margin: '15px 0',
   },
+  questionRoasterText: {
+    fontSize: 15,
+    margin: '15px 0',
+  },
   feedsDate: {
     fontSize: 13,
     color: '#8b8a8a',
@@ -517,6 +521,9 @@ const useStyles = makeStyles((theme) => ({
   completeLaterBannerText: {
     display: 'table-cell',
     verticalAlign: 'middle'
+  },
+  pigIcon: {
+    filter: 'invert(100%)'
   }
 }));
 

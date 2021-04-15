@@ -37,7 +37,7 @@ const PointsBox = () => {
           </CustomTypography>
           <SubmitButton
             id={'proceedBtn'}
-            onClick={() => {}}
+            onClick={() => { }}
             className={[classes.chargeBtn]}
             buttonText={
               <CustomTypography variant='body1'>
