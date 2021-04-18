@@ -63,14 +63,14 @@ const CorporateStepTwo = () => {
                 </div>
                 <FormControl fullWidth id='organizational-select'>
                   <Controller
-                    name='organizationLevel'
+                    name={'organizationLevel'}
                     rules={{ required: false }}
                     control={control}
                     defaultValue={!user.current.organizationLevel && ''}
                     as={
                       <ReactSelectMaterialUi
                         fullWidth={true}
-                        name='organizationLevel'
+                        name={'organizationLevel'}
                         placeholder={t('selectYourLevel')}
                         SelectProps={{
                           styles: selectStyle,
@@ -83,19 +83,13 @@ const CorporateStepTwo = () => {
               </Container>
 
               <Container maxWidth={false} className={classes.formControl}>
-                <div className={classes.formHeader}>
-                  <Typography
-                    gutterBottom
-                    className={classes.fieldLabelStylesDesktop}>
-                    {t('jobTitle')}
-                  </Typography>
-                </div>
                 <TextField
                   fullWidth
-                  name='jobTitle'
+                  label={t('myCurrentJobTitle')}
+                  name={'jobTitle'}
                   variant='outlined'
-                  placeholder={t('contactPersonJobTitle')}
-                  id={'contactPersonJobTitle-field'}
+                  placeholder={t('jobTitle')}
+                  id={'jobTitle-field'}
                   InputProps={{
                     classes: {
                       notchedOutline: classes.registerTextField,

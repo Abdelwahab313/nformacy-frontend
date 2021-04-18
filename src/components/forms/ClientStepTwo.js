@@ -129,8 +129,8 @@ const ClientStepTwo = () => {
                 fullWidth
                 label={t('myOrganizationName')}
                 variant='outlined'
-                name={'company'}
-                id={'work-experience-company-0'}
+                name={'organizationName'}
+                id={'organizationName'}
                 InputProps={{
                   classes: {
                     notchedOutline: classes.registerTextField,
@@ -161,31 +161,6 @@ const ClientStepTwo = () => {
                 errorField={errors.experiences && errors.experiences[0]?.title}
               />
             </Container>
-
-            {/* <Container maxWidth={false} className={classes.formControl}>
-              <FormControl fullWidth id='country-select'>
-                <Controller
-                  name={'isEmployed'}
-                  valueName='checked'
-                  defaultValue={false}
-                  type='checkbox'
-                  control={control}
-                  as={
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          id={'isEmployed-field'}
-                          style={checkboxStyle}
-                        />
-                      }
-                      label={t('isEmployed')}
-                    />
-                  }
-                />
-              </FormControl>
-              <ErrorMessage errorField={errors.country} />
-            </Container> */}
-
           </Paper>
         </Grid>
       </Grow>

@@ -49,7 +49,8 @@ const HomeHeadBar = () => {
               </Grid>
               <Grid md={11} className={classes.completeLaterBannerText}>
                 <Typography variant='subtitle1' component='h6' className={classes.warningMsg}>
-                  WARNING! To start using nformacy services please complete your <span className={classes.regFormLink}>registration form</span>
+                  {t('completeLaterWarning')}
+                  <span className={classes.regFormLink}>{t('registrationForm')}</span>
                 </Typography>
               </Grid>
             </Grid>

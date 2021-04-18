@@ -85,7 +85,7 @@ const FreeLancerProfileForm = () => {
 
   const clientStepFields = [
     ['accountType'],
-    ['country', 'organizationLevel', 'jobTitle', 'company'],
+    ['country', 'organizationLevel', 'organizationName', 'jobTitle'],
   ];
 
   const corporateStepFields = [
@@ -124,7 +124,7 @@ const FreeLancerProfileForm = () => {
   const isFinalStep = useMemo(() => {
     return (
       activeStep === 2 ||
-      (authManager.isClient() && user.current.accountType === 'individual' && activeStep === 1)
+      (authManager.isClient() && user.current.accountType === 'client' && activeStep === 1)
     );
   }, [activeStep, isClientEmployed]);
 
@@ -209,8 +209,9 @@ const FreeLancerProfileForm = () => {
   const onClickSaveLater = () => {
     user.current = {
       ...user.current,
-      ...getValues(consultantStepsFields[activeStep]),
+      ...getValues(currentStepFields),
     };
+
     updateProfile({ ...user.current })
       .then((response) => {
         updateUser(dispatch, response.data);

@@ -84,7 +84,7 @@ const ClientStepOne = () => {
 
                   <RadioGroup row
                     value={accountType}
-                    name="accountType"
+                    name={'accountType'}
                     onChange={handleChange}>
                     <Grid container>
                       <Grid item md={6}>
@@ -121,7 +121,7 @@ const ClientStepOne = () => {
                           }
                           label={t('individualAccount')}
                         />
-                        <CustomTypography variant="subtitle2" className={classes.corporateDesc}>I'm representing myself</CustomTypography>
+                        <CustomTypography variant="subtitle2" className={classes.corporateDesc}>{t('iamRepresentingMyself')}</CustomTypography>
                       </Grid>
                     </Grid>
                   </RadioGroup>
