@@ -1,7 +1,15 @@
 import React from 'react';
 import { Editor } from '@tinymce/tinymce-react';
+import { TINY_MCE_API_KEY } from 'settings';
 
-const RichTextEditor = ({  initialContent, onContentChange, onImageUpload, disabled, richTextRef=null }) => {
+// TODO needs to handle loading for fetching user data
+const RichTextEditor = ({
+  initialContent,
+  onContentChange,
+  onImageUpload,
+  disabled,
+  richTextRef = null,
+}) => {
   const handleEditorChange = (content) => {
     !!onContentChange && onContentChange(content);
   };
@@ -9,6 +17,7 @@ const RichTextEditor = ({  initialContent, onContentChange, onImageUpload, disab
   //TODO Handle remove image
   return (
     <Editor
+      apiKey={TINY_MCE_API_KEY}
       id='richContent'
       ref={richTextRef}
       onEditorChange={handleEditorChange}
