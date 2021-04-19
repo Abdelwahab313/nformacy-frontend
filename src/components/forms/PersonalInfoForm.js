@@ -23,7 +23,7 @@ const PersonalInfoForm = ({ user, closeDialog }) => {
       .then((response) => {
         updateUser(dispatch, response.data);
       })
-      .catch(() => { });
+      .catch(() => {});
     user.current = { ...user.current, ...userData };
     closeDialog();
   };

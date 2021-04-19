@@ -19,6 +19,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import countryList from 'react-select-country-list';
 import 'react-phone-input-2/lib/bootstrap.css';
 import PhoneInput from 'react-phone-input-2';
+import { isValidPhoneNumber } from 'react-phone-number-input';
 import { darkBlue, lightGrey } from '../../styles/colors';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
@@ -32,7 +33,6 @@ import FieldsOfExperience from './FieldsOfExpereience';
 
 const PersonalInfo = () => {
   // TODO try to remove this library as it has large size
-  const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
   const { errors, control, user } = useFormContext();
   const [countries] = useState(countryList().getData());
   const classes = useStyles();
@@ -143,7 +143,9 @@ const PersonalInfo = () => {
       {!isClient && (
         <Fragment>
           <Container maxWidth={false} className={classes.formControl}>
-            <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+            <Typography
+              gutterBottom
+              className={classes.fieldLabelStylesDesktop}>
               {t['mobileNumber']}
             </Typography>
             <Controller
@@ -163,14 +165,9 @@ const PersonalInfo = () => {
               name='mobileNumber'
               rules={{
                 validate: (value) => {
-                  try {
-                    const number = phoneUtil.parse('+' + value);
-                    return (
-                      phoneUtil.isValidNumber(number) || t['invalidPhoneMessage']
-                    );
-                  } catch (e) {
-                    return t['invalidPhoneMessage'];
-                  }
+                  return (
+                    isValidPhoneNumber('+' + value) || t['invalidPhoneMessage']
+                  );
                 },
               }}
               control={control}
@@ -179,7 +176,9 @@ const PersonalInfo = () => {
             <ErrorMessage errorField={errors.mobileNumber} />
           </Container>
           <Container maxWidth={false} className={classes.formControl}>
-            <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
+            <Typography
+              gutterBottom
+              className={classes.fieldLabelStylesDesktop}>
               {t['currentEmploymentStatus']}
             </Typography>
             <FormControl
@@ -208,9 +207,7 @@ const PersonalInfo = () => {
           </Container>
         </Fragment>
       )}
-      {!!isClient && (
-        <FieldsOfExperience />
-      )}
+      {!!isClient && <FieldsOfExperience />}
     </Container>
   );
 };
