@@ -7,7 +7,6 @@ import { Grid } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useLocation, useHistory } from 'react-router';
-import ErrorDialog from '../../components/errors/ErrorDialog';
 import { useStyles } from 'styles/formsStyles';
 import { login } from 'apis/authAPI';
 import authManager from '../../services/authManager';
@@ -15,24 +14,35 @@ import { RoutesPaths } from 'constants/routesPath';
 import { useTranslation } from 'react-i18next';
 import useLocale from '../../hooks/localization/useLocale';
 import CustomTypography from 'components/typography/Typography';
+import {
+  useGoogleReCaptcha,
+  GoogleReCaptchaProvider,
+} from 'react-google-recaptcha-v3';
+import { GOOGLE_RECAPTCHA_URL } from 'settings';
+import ErrorMessage from 'components/errors/ErrorMessage';
 
 const Login = () => {
   const classes = useStyles();
   const { register, handleSubmit, errors } = useForm();
-  const [loginFailed, setLoginFailed] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [showError, setShowError] = useState(false);
+  const [loginErrorMessage, setLoginErrorMessage] = useState('');
   const location = useLocation();
   const { setLocale } = useLocale();
   const { t } = useTranslation();
   const history = useHistory();
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const isAdminLogin = location.pathname.indexOf('admin') > -1;
 
   const onSubmit = (data) => {
-    setLoginFailed(false);
+    setLoginErrorMessage('');
+    if (!!executeRecaptcha) {
+      executeRecaptcha('login_page').then(() => {
+        // TODO needs to handle response from captcha
+        // console.log('++++++++', token);
+      });
+    }
     login(data)
       .then(async (result) => {
         authManager.login(result.data.token);
@@ -44,12 +54,15 @@ const Login = () => {
         setLoginSuccess(true);
       })
       .catch((reason) => {
-        if (
-          reason?.response?.data?.error === 'invalid_credentials' ||
-          reason?.response?.data?.error === 'unauthorized'
-        ) {
-          setLoginFailed(true);
+        let error = '';
+        if (reason?.response?.status === 401) {
+          error = t('Invalid Email or password');
+        } else if (reason?.response?.status === 429) {
+          error =
+            reason?.response?.data?.message ||
+            t("You've performed this action many times.");
         }
+        setLoginErrorMessage(error);
       })
       .finally(() => {
         setLoading(false);
@@ -57,7 +70,7 @@ const Login = () => {
   };
 
   const handleTextChange = () => {
-    setLoginFailed(false);
+    setLoginErrorMessage('');
   };
 
   const getPostLoginRoute = () => {
@@ -97,15 +110,6 @@ const Login = () => {
         </Grid>
       </Grid>
       <Grid container justify={'space-evenly'} alignContent={'center'}>
-        {showError && (
-          <ErrorDialog
-            message={errorMessage}
-            close={() => {
-              setShowError(false);
-              setErrorMessage();
-            }}
-          />
-        )}
         <CssBaseline />
         <Grid item xs={12} md={3}>
           <img
@@ -122,23 +126,36 @@ const Login = () => {
             <TextField
               variant='outlined'
               margin='normal'
-              inputRef={register({ required: true })}
+              inputRef={register({
+                required: t('emailEmptyError'),
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                  message: t('invalidEmail'),
+                },
+              })}
               fullWidth
-              onChange={handleTextChange}
               id='email'
               label={t('Email')}
+              type='email'
               name='email'
               autoComplete='email'
+              onChange={handleTextChange}
               error={!!errors.email}
               autoFocus
             />
-            {errors.email && (
-              <span className={classes.error}>{t('emailEmptyError')}</span>
-            )}
+
+            <ErrorMessage errorField={errors?.email} />
+
             <TextField
               variant='outlined'
               margin='normal'
-              inputRef={register({ required: true })}
+              inputRef={register({
+                required: t('passwordEmptyError'),
+                minLength: {
+                  value: 6,
+                  message: t('invalidPasswordError'),
+                },
+              })}
               fullWidth
               name='password'
               label={t('password')}
@@ -146,15 +163,13 @@ const Login = () => {
               id='password'
               onChange={handleTextChange}
               error={!!errors.password}
-              autoComplete='current-password'
+              autoComplete='password'
             />
-            {errors.password && (
-              <span className={classes.error}>{t('Password empty error')}</span>
-            )}
+            <ErrorMessage errorField={errors?.password} />
 
-            {loginFailed && (
+            {!!loginErrorMessage && (
               <span id={'loginFailedMessage'} className={classes.error}>
-                {t('Invalid Email or password')}
+                {loginErrorMessage}
               </span>
             )}
             <a
@@ -199,4 +214,12 @@ const Login = () => {
   );
 };
 
-export default Login;
+const LoginPageWithCaptha = () => {
+  return (
+    <GoogleReCaptchaProvider reCaptchaKey={GOOGLE_RECAPTCHA_URL}>
+      <Login />
+    </GoogleReCaptchaProvider>
+  );
+};
+
+export default LoginPageWithCaptha;
