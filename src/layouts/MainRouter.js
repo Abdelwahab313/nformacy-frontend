@@ -1,12 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { RoutesPaths } from 'constants/routesPath';
-import Login from 'pages/auth/LoginUser';
+import AppRouter from './app/AppRouter';
 
 import PrivateRoute from 'components/PrivateRoute';
-import AdminLayout from 'layouts/admin/AdminLayout';
-// import AppBlankRouter from './app/AppBlankRouter';
-import AppRouter from './app/AppRouter';
+const AdminLayout = React.lazy(() => import('layouts/admin/AdminLayout'));
+const Login = React.lazy(() => import('pages/auth/LoginUser'));
 
 const MainRouter = () => {
   return (

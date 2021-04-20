@@ -1,40 +1,42 @@
+import React from 'react';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import { VpnKey } from '@material-ui/icons';
-
-import UserTypeSelection from 'pages/App/register/UserTypeSelection';
-import LandingPage from 'pages/App/LandingPage/LandingPage';
-import Login from 'pages/auth/LoginUser';
-import Register from 'pages/Register/Register';
-import FreeLancerProfileForm from 'pages/App/FreelancerProfile/FreelancerProfileForm';
-import Logout from 'pages/auth/LogoutUser';
-import QuestionRoaster from 'pages/App/QuestionRoaster/QuestionRoasterView';
-import HomePage from 'pages/App/Home';
-import AnswerQuestion from 'pages/App/FreelancersAnswers/edit';
-import EditServiceRequest from 'pages/App/ServiceRequests/edit';
-import EditProfile from 'pages/App/Profile/Profile';
-import AllNotifications from 'pages/Admin/Dashboard/AllNotifications';
-import ServicesPage from 'pages/App/ServiceRequests/list';
-import ServiceDetails from 'pages/App/ServiceRequests/details';
-import FreelancersActivitiesPage from 'pages/App/FreelancersAnswers/list';
-import CallEvaluationPage from 'pages/App/MeetingEvaluation/CallEvaluation';
 import { RoutesPaths } from 'constants/routesPath';
-import NotFoundPage from 'pages/NotFoundPage';
-import ContactUsPage from 'pages/App/ContactUs/ContactUsPage';
-import SolutionsPage from 'pages/App/Solutions/SolutionsPage';
-import TermsAndConditionsPage from 'pages/App/TermsAndConditions/TermsAndConditionsPage';
-import AboutPage from 'pages/App/about/AboutPage';
-import ConsultantsPage from 'pages/App/Consultants/ConsultantsPage';
-import CorporateAccountsList from 'pages/App/Accounts/list/CorporateAccountsList';
-import CorporateAccountDetails from 'pages/App/Accounts/details/CorporateAccountDetails';
-import ForgetPassword from 'pages/ForgetPassword';
-import ResetPassword from 'pages/ResetPassword';
-import KnowHubPage from 'pages/App/LandingPage/KnowHub';
-import ChangePasswordPage from 'pages/ChangePassword';
-import AddAccount from 'pages/App/Accounts/add/AddAccount';
-import VerifyEmail from 'pages/App/EmailVerification/VerifyEmail';
-import EmailVerificationPending from 'pages/App/EmailVerification/EmailVerificationPending';
-import Pointing from 'pages/App/Pointing';
-import WelcomeAccountFormPage from 'pages/App/WelcomeAccount';
+
+const UserTypeSelection = React.lazy(() => import('pages/App/register/UserTypeSelection'))
+const LandingPage = React.lazy(() => import('pages/App/LandingPage/LandingPage'))
+const Login = React.lazy(() => import('pages/auth/LoginUser'))
+const Register = React.lazy(() => import('pages/Register/Register'))
+const FreeLancerProfileForm = React.lazy(() => import('pages/App/FreelancerProfile/FreelancerProfileForm'))
+const Logout = React.lazy(() => import('pages/auth/LogoutUser'))
+const QuestionRoaster = React.lazy(() => import('pages/App/QuestionRoaster/QuestionRoasterView'))
+const HomePage = React.lazy(() => import('pages/App/Home'))
+const AnswerQuestion = React.lazy(() => import('pages/App/FreelancersAnswers/edit'))
+const EditServiceRequest = React.lazy(() => import('pages/App/ServiceRequests/edit'))
+const EditProfile = React.lazy(() => import('pages/App/Profile/Profile'))
+const AllNotifications = React.lazy(() => import('pages/Admin/Dashboard/AllNotifications'))
+const ServicesPage = React.lazy(() => import('pages/App/ServiceRequests/list'))
+const ServiceDetails = React.lazy(() => import('pages/App/ServiceRequests/details'))
+const FreelancersActivitiesPage = React.lazy(() => import('pages/App/FreelancersAnswers/list'))
+const CallEvaluationPage = React.lazy(() => import('pages/App/MeetingEvaluation/CallEvaluation'))
+const NotFoundPage = React.lazy(() => import('pages/NotFoundPage'))
+const ContactUsPage = React.lazy(() => import('pages/App/ContactUs/ContactUsPage'))
+const SolutionsPage = React.lazy(() => import('pages/App/Solutions/SolutionsPage'))
+const TermsAndConditionsPage = React.lazy(() => import('pages/App/TermsAndConditions/TermsAndConditionsPage'))
+const AboutPage = React.lazy(() => import('pages/App/about/AboutPage'))
+const ConsultantsPage = React.lazy(() => import('pages/App/Consultants/ConsultantsPage'))
+const CorporateAccountsList = React.lazy(() => import('pages/App/Accounts/list/CorporateAccountsList'))
+const CorporateAccountDetails = React.lazy(() => import('pages/App/Accounts/details/CorporateAccountDetails'))
+const ForgetPassword = React.lazy(() => import('pages/ForgetPassword'))
+const ResetPassword = React.lazy(() => import('pages/ResetPassword'))
+const KnowHubPage = React.lazy(() => import('pages/App/LandingPage/KnowHub'))
+const ChangePasswordPage = React.lazy(() => import('pages/ChangePassword'))
+const AddAccount = React.lazy(() => import('pages/App/Accounts/add/AddAccount'))
+const VerifyEmail = React.lazy(() => import('pages/App/EmailVerification/VerifyEmail'))
+const EmailVerificationPending = React.lazy(() => import('pages/App/EmailVerification/EmailVerificationPending'))
+const Pointing = React.lazy(() => import('pages/App/Pointing'))
+const WelcomeAccountFormPage = React.lazy(() => import('pages/App/WelcomeAccount'))
+
 
 const appRoutes = [
   {

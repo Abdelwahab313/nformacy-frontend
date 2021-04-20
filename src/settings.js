@@ -15,6 +15,8 @@ export const CHANNEL_URL =
 
 export const NOTIFICATION_CHANNEL_IDENTIFIER = 'Noticed::NotificationChannel';
 
+export const TINY_MCE_API_KEY = '44ua1dtg4p19z2qpc3jwlmueb9oe5bntskfmdgjm0yxfu1ea'
+
 export const API_BASE_URL =
   process.env.REACT_APP_ENV === 'e2e'
     ? E2E_URL
