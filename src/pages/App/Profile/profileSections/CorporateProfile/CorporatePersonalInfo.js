@@ -60,7 +60,7 @@ const CorporatePersonalInfo = () => {
             <Typography
               id='countryOfResidence'
               gutterBottom
-              className={classes.fieldValueStyles}>
+              className={[classes.fieldValueStyles, classes.centeredText]}>
               {user.current.country &&
                 countries?.find(
                   (country) => country.value === user.current.country,

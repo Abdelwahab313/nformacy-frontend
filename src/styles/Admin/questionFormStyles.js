@@ -70,6 +70,11 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '4vw',
     },
   },
+  serviceRequestFieldsMobile: {
+    [theme.breakpoints.down('md')]: {
+      marginBottom: 20
+    },
+  },
   answerContainerStyles: {
     display: 'flex',
     flexDirection: 'column',

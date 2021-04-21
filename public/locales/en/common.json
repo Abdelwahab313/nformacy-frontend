@@ -532,5 +532,10 @@
   "answerId": "Answer ID",
   "completeLaterWarning": " WARNING! To start using nformacy services please complete your",
   "registrationForm": " Registration Form",
-  "iamRepresentingMyself": " I'm representing myself"
+  "iamRepresentingMyself": " I'm representing myself",
+  "spokenLanguages": " Spoken Languages",
+  "nationalities": "Nationalities",
+  "plus200": "+200",
+  "plus30": "+30",
+  "plus19": "+19"
 }

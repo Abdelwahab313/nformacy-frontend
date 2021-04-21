@@ -12,7 +12,7 @@ const AboutUsGalleryDescription = () => {
         <Grid container direction='row' justify='space-between'>
           {/* Aliquam desc */}
           <Grid item md={6} className={classes.landingSectionsContainerPadding}>
-            <Box textAlign='justify'>
+            <Box>
               <CustomTypography
                 variant='h5'
                 fontWeight='bold'
@@ -57,7 +57,7 @@ const AboutUsGalleryDescription = () => {
           {/* end Aliquam img */}
           {/* Etiam desc */}
           <Grid item md={6} className={classes.landingSectionsContainerPadding}>
-            <Box textAlign='justify'>
+            <Box>
               <CustomTypography
                 variant='h5'
                 fontWeight='bold'

@@ -68,7 +68,7 @@ const ClientWorkStatus = () => {
             <Typography
               id='jobTitle'
               gutterBottom
-              className={classes.fieldValueStyles}>
+              className={[classes.fieldValueStyles, classes.centeredText]}>
               {user.current.jobTitle}
             </Typography>
           </Grid>
@@ -85,7 +85,7 @@ const ClientWorkStatus = () => {
             <Typography
               id='organizationalLevel'
               gutterBottom
-              className={classes.fieldValueStyles}>
+              className={[classes.fieldValueStyles, classes.centeredText]}>
               {
                 organizationalLevel.find(
                   (status) =>
@@ -107,7 +107,7 @@ const ClientWorkStatus = () => {
             <Typography
               id='organizationName'
               gutterBottom
-              className={classes.fieldValueStyles}>
+              className={[classes.fieldValueStyles, classes.centeredText]}>
               {user.current.organizationName}
             </Typography>
           </Grid>

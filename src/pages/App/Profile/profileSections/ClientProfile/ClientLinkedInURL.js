@@ -47,7 +47,7 @@ const ClientLinkedInURL = () => {
             <Typography
               id='linkedInProfileUrlValue'
               gutterBottom
-              className={classes.fieldValueStyles}>
+              className={[classes.fieldValueStyles, classes.profileURLMobile]}>
               {user.current?.linkedInProfileUrl && (
                 <Link
                   id='linkedInProfileUrlLink'
@@ -67,7 +67,7 @@ const ClientLinkedInURL = () => {
           </Grid>
         </Grid>
       </Box>
-    </Fragment>
+    </Fragment >
   );
 };
 

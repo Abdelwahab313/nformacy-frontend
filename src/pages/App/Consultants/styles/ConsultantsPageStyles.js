@@ -5,6 +5,10 @@ const useStyles = makeStyles((theme) => ({
   bannerImageStyles: {
     width: '60%',
     height: 460,
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      height: 210,
+    },
   },
   landingSectionsContainerPadding: {
     padding: theme.spacing(11),

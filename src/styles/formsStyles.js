@@ -329,7 +329,18 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(5),
   },
   alignRight: { alignSelf: 'center' },
-  loginInTitleContainer: { height: 'fit-content', marginBottom: '50px' },
+  loginInTitleContainer: {
+    height: 'fit-content',
+    marginBottom: '50px',
+    [theme.breakpoints.down('md')]: {
+      marginBottom: 0
+    },
+  },
+  loginMobile: {
+    [theme.breakpoints.down('md')]: {
+      marginTop: 0
+    },
+  },
   pageHeaderStyle: {
     fontSize: '2.024vw',
     textAlign: 'left',
@@ -453,13 +464,46 @@ export const useStyles = makeStyles((theme) => ({
   termsLinkColor: {
     color: darkBlue,
     '&:hover': { color: darkBlue },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 13,
+    },
   },
   continueLaterBtn: {
     margin: `0 ${theme.spacing(2)}px`,
     alignSelf: 'flex-start',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 13,
+    },
+  },
+  disabledNextButtonMobile: {
+    [theme.breakpoints.down('sm')]: {
+      padding: '16px 25px',
+    },
   },
   backButton: {
     marginRight: 'auto',
+    [theme.breakpoints.down('sm')]: {
+      padding: '0 25px',
+    },
+  },
+  scooterGirlMobile: {
+    [theme.breakpoints.down('md')]: {
+      display: 'none'
+    },
+  },
+
+  centeredText: {
+    [theme.breakpoints.down('md')]: {
+      margin: '0 auto'
+    },
+  },
+  profileURLMobile: {
+    overflowX: 'scroll',
+    width: '100%',
+    float: 'left',
+    [theme.breakpoints.down('md')]: {
+      margin: '0 auto',
+    },
   },
   corporateDesc: {
     marginLeft: 30,

@@ -81,7 +81,7 @@ const Footer = () => {
             className={classes.mobileVisible}
           />
         </Link>
-        <CustomTypography variant='body1' className={classes.flexClass}>
+        <CustomTypography align={'center'} variant='body1' className={classes.flexClass}>
           <CopyrightIcon />
           {t('allRightsReserved')}
         </CustomTypography>

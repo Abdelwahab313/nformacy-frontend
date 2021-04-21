@@ -411,6 +411,7 @@ const FreeLancerProfileForm = () => {
               type='submit'
               disabled={isSubmitDisabled}
               variant='contained'
+              className={classes.disabledNextButtonMobile}
               style={nextButtonStyles(isSubmitDisabled)}
               endIcon={<DoneIcon />}
             />

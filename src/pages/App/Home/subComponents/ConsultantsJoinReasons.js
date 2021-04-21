@@ -59,7 +59,7 @@ const MobileReasonItem = ({ reason }) => {
             className={classes.darkBlueText}>
             {reason.title}
           </CustomTypography>
-          <CustomTypography variant='body1' align={'justify'}>
+          <CustomTypography variant='body1'>
             {reason.Description}
           </CustomTypography>
         </Box>

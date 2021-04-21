@@ -11,6 +11,10 @@ const useStyles = makeStyles((theme) => ({
   solutionsImageBanner: {
     height: 500,
     width: '93%',
+    [theme.breakpoints.down('md')]: {
+      height: 180,
+      width: '100%',
+    },
   },
 }));
 

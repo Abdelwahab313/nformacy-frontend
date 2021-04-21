@@ -106,7 +106,7 @@ const MobileServiceItem = ({ service, onServiceClick }) => {
             className={classes.darkBlueText}>
             {service.title}
           </CustomTypography>
-          <CustomTypography variant='body1' align={'justify'}>
+          <CustomTypography variant='body1'>
             {service.subTitle}
           </CustomTypography>
         </Box>
@@ -114,11 +114,10 @@ const MobileServiceItem = ({ service, onServiceClick }) => {
       <Grid item xs={3} className={classes.flexClass}>
         <img src={service.icon} className={classes.solutionsPageServiceIcon} />
       </Grid>
-      <Grid container direction={'row-reverse'}>
+      <Grid container justify="center" direction={'row-reverse'}>
         <SubmitButton
           id={'proceedBtn'}
           onClick={() => onServiceClick()}
-          className={classes.whiteCtaBtn}
           buttonText={
             <CustomTypography variant='body1' className={classes.flexClass}>
               {service.btnTxt}
@@ -203,7 +202,6 @@ const ServiceItem = ({ service, index, onServiceClick }) => {
             <SubmitButton
               id={'proceedBtn'}
               onClick={() => onServiceClick()}
-              className={classes.whiteCtaBtn}
               buttonText={
                 <CustomTypography variant='body1' className={classes.flexClass}>
                   {service.btnTxt}

@@ -85,7 +85,7 @@ const EditServiceRequest = () => {
           showSuccessMessage(t('serviceProcessed'));
           navigatToDashboard();
         })
-        .catch(() => {});
+        .catch(() => { });
     }
   };
   const handleSaveForLater = () => {
@@ -94,7 +94,7 @@ const EditServiceRequest = () => {
         showSuccessMessage(t('serviceSaved'));
         navigatToDashboard();
       })
-      .catch(() => {});
+      .catch(() => { });
   };
 
   return (
@@ -117,25 +117,25 @@ const EditServiceRequest = () => {
               primaryButton={
                 ServiceGuardian.showApplyChangesButton(serviceRequest)
                   ? {
-                      id: 'submitQuestionButtonButton',
-                      onClick: () => {
-                        handleSubmit();
-                      },
-                      buttonText: showDrafButtons
-                        ? t('submitQuestionButton')
-                        : t('applyChange'),
-                    }
+                    id: 'submitQuestionButtonButton',
+                    onClick: () => {
+                      handleSubmit();
+                    },
+                    buttonText: showDrafButtons
+                      ? t('submitQuestionButton')
+                      : t('applyChange'),
+                  }
                   : {}
               }
               secondaryButton={
                 showDrafButtons
                   ? {
-                      id: 'saveAndCompleteLaterButton',
-                      onClick: () => {
-                        handleSaveForLater();
-                      },
-                      buttonText: t('saveAndCompleteLater'),
-                    }
+                    id: 'saveAndCompleteLaterButton',
+                    onClick: () => {
+                      handleSaveForLater();
+                    },
+                    buttonText: t('saveAndCompleteLater'),
+                  }
                   : {}
               }
             />

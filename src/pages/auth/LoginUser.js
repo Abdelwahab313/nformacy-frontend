@@ -111,13 +111,13 @@ const Login = () => {
       </Grid>
       <Grid container justify={'space-evenly'} alignContent={'center'}>
         <CssBaseline />
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={3} className={classes.scooterGirlMobile}>
           <img
             src={require('../../assets/22759-girl-on-a-scooter.gif')}
             width={'100%'}
           />
         </Grid>
-        <Grid item xs={12} md={6} className={classes.paper}>
+        <Grid item xs={12} md={6} className={[classes.paper, classes.loginMobile]}>
           <form
             id='loginUserForm'
             className={classes.form}

@@ -31,7 +31,7 @@ const EmailVerificationPending = () => {
           </CustomTypography>
         </Box>
         <Box mt={2}>
-          <CustomTypography variant={'h6'}>
+          <CustomTypography variant={'h6'} align={'center'}>
             {t('checkEmailForInstruction')}
           </CustomTypography>
         </Box>

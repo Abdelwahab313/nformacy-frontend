@@ -57,7 +57,7 @@ const GlobalCommunitySection = () => {
             {t('nformacyBringsConsultancyCloser')}
           </CustomTypography>
           <LinkText
-            to={RoutesPaths.App.Signup}
+            to={RoutesPaths.App.Consultants}
             className={classes.primaryBoldTxt}>
             {t('whyToJoinUs')}
           </LinkText>
@@ -67,7 +67,7 @@ const GlobalCommunitySection = () => {
             className={classes.golbalSectionDivider}
           />
           <CustomTypography variant='h5' className={classes.subTextMargin}>
-           {t('joinOurCommunityAndBePart')}
+            {t('joinOurCommunityAndBePart')}
           </CustomTypography>
           <SubmitButton
             id={'registerBtn'}

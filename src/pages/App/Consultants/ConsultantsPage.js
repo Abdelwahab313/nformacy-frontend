@@ -47,7 +47,7 @@ const ConsultantsPage = () => {
             classes.landingSectionsContainerPadding,
             classes.lighterGrayContainer,
           ]}>
-          <Grid item xs={10} md={12}>
+          <Grid item xs={12}>
             <Box textAlign='center'>
               <CustomTypography variant='h4' fontWeight='bold'>
                 {t('WhoNformacyExpert')}

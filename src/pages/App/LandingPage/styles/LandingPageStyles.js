@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
   },
   bannerSectionSpacing: {
     marginRight: theme.spacing(4),
+    [theme.breakpoints.down('md')]: {
+      marginRight: 0,
+    },
   },
   bannerImage: {
     width: '100%',
@@ -47,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   sliderTextContainer: {
     minHeight: 150,
     [theme.breakpoints.down('md')]: {
-      minHeight: 200,
+      minHeight: 0,
       marginTop: theme.spacing(8),
     },
   },

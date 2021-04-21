@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   headerCardImg: {
     height: 270,
     [theme.breakpoints.down('md')]: {
-      height: 115,
+      height: '100%',
     },
   },
   headerCardTxt: {

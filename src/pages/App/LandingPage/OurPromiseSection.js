@@ -34,7 +34,7 @@ const OurPromiseSection = () => {
             xs={11}
             md={4}
             className={[classes.promiseField, classes.fitContent]}>
-            <Box textAlign='justify' className={classes.specialityFieldPadding}>
+            <Box className={classes.specialityFieldPadding}>
               <CustomTypography
                 variant='h6'
                 fontWeight='bold'

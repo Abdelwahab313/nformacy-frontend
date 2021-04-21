@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     marginTop: 80,
     [theme.breakpoints.down('md')]: {
-      marginTop: 72,
+      marginTop: 62,
     },
   },
   toTopIcon: {
