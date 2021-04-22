@@ -10,6 +10,7 @@ import SubmitButton from 'components/buttons/SubmitButton';
 import { getPostVerifyEmailRoute, history } from 'services/navigation';
 import authManager from 'services/authManager';
 import { makeStyles } from '@material-ui/core/styles';
+import { Redirect } from 'react-router-dom';
 
 const RESPONSE_STATUSES = {
   LOADING: 'loading',
@@ -65,7 +66,7 @@ const VerifyEmail = () => {
         alignItems={'center'}
         justify={'center'}
         direction={'column'}
-        className= {classes.verifyMsg}>
+        className={classes.verifyMsg}>
         {reponseState === RESPONSE_STATUSES.SUCCESS && (
           <>
             <Box mt={8}>
@@ -79,13 +80,16 @@ const VerifyEmail = () => {
             </Box>
           </>
         )}
+        {reponseState === RESPONSE_STATUSES.FAILING && (
+          <Redirect to={getPostVerifyEmailRoute()} />
+        )}
       </Grid>
     </PageContainer>
   );
 };
 const useStyles = makeStyles(() => ({
   verifyMsg: {
-    height: '80vh'
-  }
+    height: '80vh',
+  },
 }));
 export default VerifyEmail;
