@@ -20,7 +20,7 @@ const MobileHowWeWorkSection = () => {
       <Grid item xs={4}>
         <Box textAlign='center'>
           <CustomTypography variant='h4' fontWeight='bold'>
-          {t('howWeWork')}
+            {t('howWeWork')}
           </CustomTypography>
         </Box>
       </Grid>
@@ -39,7 +39,7 @@ const MobileHowWeWorkSection = () => {
                 variant='body2'
                 fontWeight='bold'
                 className={classes.MobileWorkMainTextPadding}>
-                 {t('signUp')}
+                {t('signUp')}
               </CustomTypography>
             </Box>
           </Grid>
@@ -57,7 +57,7 @@ const MobileHowWeWorkSection = () => {
                 variant='body2'
                 fontWeight='bold'
                 className={classes.MobileWorkMainTextPadding}>
-               {t('accessDeskSpace')}
+                {t('accessDeskSpace')}
               </CustomTypography>
             </Box>
           </Grid>
@@ -73,7 +73,7 @@ const MobileHowWeWorkSection = () => {
                 variant='body2'
                 fontWeight='bold'
                 className={classes.MobileWorkMainTextPadding}>
-                 {t('chooseYourServices')}
+                {t('chooseYourServices')}
               </CustomTypography>
             </Box>
           </Grid>
@@ -91,7 +91,7 @@ const MobileHowWeWorkSection = () => {
                 variant='body2'
                 fontWeight='bold'
                 className={classes.MobileWorkMainTextPadding}>
-                 {t('pay')}
+                {t('pay')}
               </CustomTypography>
             </Box>
           </Grid>

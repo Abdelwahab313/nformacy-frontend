@@ -85,6 +85,9 @@ export const useStyles = makeStyles((theme) => ({
   answerContent: {
     fontSize: '1.042vw',
     color: 'grey',
+    [theme.breakpoints.down('lg')]: {
+      fontSize: 'initial',
+    },
   },
   answerFieldLabel: {
     marginRight: theme.spacing(2),
@@ -106,6 +109,9 @@ export const useStyles = makeStyles((theme) => ({
     height: '40px',
     borderRadius: '9px',
     marginRight: '20px',
+    [theme.breakpoints.down('lg')]: {
+      fontSize: 'initial'
+    },
   },
   rejectedAnswer: {
     width: '100%',
