@@ -24,6 +24,7 @@ import DIRECTIONS from '../constants/direction';
 import moment from 'moment';
 import SnackBarWrapper from 'components/feedback/SnackBarWrapper';
 import LoadingCircle from 'components/progress/LoadingCircle';
+import RouteChangeTracker from 'components/routeTracker/RouteChangeTracker';
 
 const presets = preset().plugins;
 
@@ -72,6 +73,7 @@ function Main() {
         <ReactQueryCacheProvider queryCache={queryCache}>
           <SnackBarWrapper>
             <MainRouter />
+            <RouteChangeTracker />
             {/* {isDebugMode && <ReactQueryDevtools initialIsOpen />} */}
           </SnackBarWrapper>
         </ReactQueryCacheProvider>

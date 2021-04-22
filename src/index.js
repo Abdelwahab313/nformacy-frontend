@@ -4,6 +4,7 @@ import './i18n';
 import './index.css';
 import Main from 'layouts/Main';
 import * as serviceWorker from './serviceWorker';
+import ReactGA from 'react-ga';
 import { Router } from 'react-router';
 import WebFont from 'webfontloader';
 import { history } from './services/navigation';
@@ -14,11 +15,14 @@ import LoadingCircle from './components/progress/LoadingCircle';
 import 'moment/locale/ar';
 import { SnackBarProvider } from 'context/SnackBarContext';
 import ErrorBoundary from 'components/errors/ErrorBoundary';
+import { GOOGLE_ANALYTICS_TRACKING_ID } from 'settings';
 
 const Loader = () => <LoadingCircle color='primary' />;
 
 const App = () => {
   const user = authManager.retrieveCurrentUser();
+  ReactGA.initialize(GOOGLE_ANALYTICS_TRACKING_ID);
+
   return (
     <ErrorBoundary>
       <AuthProvider initialValue={{ currentUser: user }}>
