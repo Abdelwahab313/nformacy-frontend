@@ -132,6 +132,9 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: 'initial',
     textDecoration: 'none',
   },
+  linkedLinkMobile: {
+    margin: '0 auto'
+  },
   forgetPasswordLink: {
     margin: theme.spacing(1),
     color: lightOrange,
@@ -200,7 +203,7 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '1.00vw',
     },
     [theme.breakpoints.down('sm')]: {
-      fontSize: '2.604vw',
+      fontSize: 15,
     },
     [theme.breakpoints.down('xs')]: {
       fontSize: '4vw',
@@ -213,7 +216,7 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '1.00vw',
     },
     [theme.breakpoints.down('sm')]: {
-      fontSize: '2.604vw',
+      fontSize: 14,
     },
     [theme.breakpoints.down('xs')]: {
       fontSize: '4vw',
@@ -504,6 +507,9 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       margin: '0 auto',
     },
+  },
+  profileEmailMobile: {
+    overflowX: 'scroll'
   },
   corporateDesc: {
     marginLeft: 30,

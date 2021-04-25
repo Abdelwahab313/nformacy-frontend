@@ -43,7 +43,7 @@ const ClientLinkedInURL = () => {
               {t['linkedInProfileUrl']}
             </Typography>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={6} md={8} className={classes.linkedLinkMobile}>
             <Typography
               id='linkedInProfileUrlValue'
               gutterBottom

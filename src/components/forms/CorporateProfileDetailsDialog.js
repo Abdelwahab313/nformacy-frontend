@@ -18,7 +18,7 @@ const CorporateProfileDetailsDialog = () => {
       <Grid container alignItems='center'>
         <Grid item xs>
           <Typography gutterBottom variant='h4'>
-            LinkedIn Profile Link
+            LinkedIn Profile
           </Typography>
         </Grid>
       </Grid>

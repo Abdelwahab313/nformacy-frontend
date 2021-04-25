@@ -79,7 +79,7 @@ const ClientPersonalInfo = () => {
               {t['email']}
             </Typography>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={8} className={classes.profileEmailMobile}>
             <Typography
               id='email'
               gutterBottom
