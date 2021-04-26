@@ -10,7 +10,7 @@ const ClientProfileDetails = () => {
 
   return (
     <Fragment>
-      <Grid item xs={12} sm={9} className={classes.sectionRowContainerStyles}>
+      <Grid item xs={12} sm={12} md={9} className={classes.sectionRowContainerStyles}>
         <ClientLinkedInURL />
         <ClientPersonalInfo />
         <ClientWorkStatus />

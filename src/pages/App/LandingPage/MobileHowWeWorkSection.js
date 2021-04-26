@@ -17,14 +17,14 @@ const MobileHowWeWorkSection = () => {
         classes.landingSectionsContainerPadding,
         classes.mobileHowWorkVisible,
       ]}>
-      <Grid item xs={4}>
+      <Grid item xs={3}>
         <Box textAlign='center'>
-          <CustomTypography variant='h4' fontWeight='bold'>
+          <CustomTypography variant='h6' fontWeight='bold'>
             {t('howWeWork')}
           </CustomTypography>
         </Box>
       </Grid>
-      <Grid item xs={8} className={classes.stepsContainerMargin}>
+      <Grid item xs={9} className={classes.stepsContainerMargin}>
         <Grid container direction='row' justify='center'>
           {/* sign_up */}
           <Grid item xs={12}>

@@ -13,7 +13,6 @@ import { CalendarLibraryForMobile } from './subComponents/CalendarLibraryForMobi
 import HomeHeadBar from './subComponents/HomeHeadBar';
 import AskTheExpertSection from './subComponents/AskTheExpertSection';
 import PointsBox from './subComponents/PointsBox';
-import MobileAvailableServiceSection from './subComponents/MobileAvailableServiceSection';
 
 const ClientHomePage = () => {
   const classes = useStyles();
@@ -40,7 +39,7 @@ const ClientHomePage = () => {
             </Grid>
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
               <AvailableServiceSection />
-              <MobileAvailableServiceSection />
+              {/* <MobileAvailableServiceSection /> */}
             </Grid>
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
               <ClientActivityTable />

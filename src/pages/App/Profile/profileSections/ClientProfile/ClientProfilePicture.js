@@ -38,7 +38,7 @@ const ClientProfilePicture = () => {
           </Grid>
         </DialogContent>
       </Dialog>
-      <Grid item xs={12} sm={3} className={[classes.profilePhotoContainer, classes.profileAndNameContainer]}>
+      <Grid item xs={12} sm={12} md={3} className={[classes.profilePhotoContainer, classes.profileAndNameContainer]}>
         <img
           id='profilePicture'
           src={profilePic}

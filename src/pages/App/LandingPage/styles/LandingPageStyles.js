@@ -158,7 +158,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 30,
     background: lighterGrey,
     padding: [theme.spacing(1), theme.spacing(2)],
-    width: 200,
+    width: 185,
     marginBottom: theme.spacing(2),
     textAlign: 'left',
   },
@@ -265,6 +265,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       display: 'flex',
       alignItems: 'center',
+      width: 320
     },
   },
   headerCommunitySectionOrder: {
