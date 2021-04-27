@@ -6,6 +6,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import LandingAvailableServices from '../Home/subComponents/LandingAvailableServices';
 import useStyles from './styles/LandingPageStyles';
+import MobileLandingAvailableServices from '../Home/subComponents/MobileLandingAvailableServices';
 
 const OurSolutionsSection = () => {
   const classes = useStyles();
@@ -32,6 +33,7 @@ const OurSolutionsSection = () => {
       </Grid>
       <Grid item xs={12} className={classes.subTextMargin}>
         <LandingAvailableServices />
+        <MobileLandingAvailableServices />
       </Grid>
       <Grid item xs={10} md={3}>
         <Box textAlign='center' className={classes.mainCtaBtn}>

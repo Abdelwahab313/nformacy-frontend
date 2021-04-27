@@ -416,6 +416,9 @@ const useStyles = makeStyles((theme) => ({
   },
   mobileLandingServiceContainer: {
     padding: [4, 12],
+    [theme.breakpoints.down('xs')]: {
+      display: 'none',
+    },
   },
   solutionsPageServiceIcon: {
     margin: 'auto',

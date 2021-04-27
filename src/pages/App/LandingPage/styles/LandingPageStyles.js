@@ -162,6 +162,9 @@ const useStyles = makeStyles((theme) => ({
   MobileHowWorkIcon: {
     height: 30,
   },
+  mobileServicesIcon: {
+    height: 40,
+  },
   mobileStep: {
     display: 'inline-flex',
     alignItems: 'center',
@@ -279,6 +282,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   mobileServicesVisible: {
+    display: 'none',
+    [theme.breakpoints.down('xs')]: {
+      display: 'flex',
+      alignItems: 'center',
+      textAlign: 'center'
+    },
+  },
+  mobileSolutionServicesVisible: {
     display: 'none',
     [theme.breakpoints.down('xs')]: {
       display: 'flex',

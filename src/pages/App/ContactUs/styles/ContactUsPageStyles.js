@@ -9,9 +9,9 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
       height: '100%'
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       width: '100%',
-      height: 210
+      height: 190
     },
   },
   bannerTitle: {
