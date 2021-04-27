@@ -108,8 +108,18 @@ const useStyles = makeStyles((theme) => ({
     order: 4,
     [theme.breakpoints.down('md')]: {
       marginTop: theme.spacing(5),
-      marginBottom: theme.spacing(15),
+      marginBottom: theme.spacing(9),
     },
+  },
+  dashboardServicesMobile: {
+    color: darkBlue,
+    textDecoration: 'underline'
+  },
+  mobileServicesPadding: {
+    padding: '0 16px'
+  },
+  serviceStepsContainerMargin: {
+    margin: '20px 0'
   },
   whiteCtaBtn: {
     background: `${white} !important`,
@@ -137,7 +147,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(1),
   },
   mobileFirstStep: {
-    marginLeft: '-60px',
+    marginLeft: '-58px',
   },
   mobileSecondStep: {
     marginLeft: '-30px',
@@ -262,10 +272,10 @@ const useStyles = makeStyles((theme) => ({
   },
   mobileHowWorkVisible: {
     display: 'none',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('xs')]: {
       display: 'flex',
       alignItems: 'center',
-      width: 320
+      textAlign: 'center'
     },
   },
   headerCommunitySectionOrder: {

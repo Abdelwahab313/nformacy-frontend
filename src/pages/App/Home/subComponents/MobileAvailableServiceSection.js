@@ -1,27 +1,35 @@
 import { Box, Grid } from '@material-ui/core';
 import CustomTypography from 'components/typography/Typography';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import useStyles from '../../LandingPage/styles/LandingPageStyles';
 import LinkText from 'components/typography/LinkText';
+import { RoutesPaths } from 'constants/routesPath';
 
 const MobileAvailableServiceSection = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-
+  const getEditServiceDetailsLink = (assignmentType) => {
+    return {
+      pathname: RoutesPaths.App.EditServiceRequest,
+      state: {
+        service: {
+          assignmentType,
+        },
+      },
+    };
+  };
   return (
     <Grid
       container
       direction='row'
       justify='center'
       className={[
-        classes.landingSectionsContainerPadding,
+        classes.mobileServicesPadding,
         classes.mobileHowWorkVisible,
       ]}>
-      <Grid item xs={7} className={classes.stepsContainerMargin}>
+      <Grid item xs={7} className={classes.serviceStepsContainerMargin}>
         <Grid container direction='row' justify='center'>
-
-          {/* sign_up */}
           <Grid item xs={12}>
             <Box
               textAlign='center'
@@ -30,57 +38,52 @@ const MobileAvailableServiceSection = () => {
                 className={classes.MobileHowWorkIcon}
                 src={require('../../../../assets/client-call.svg')}
               />
-              <LinkText to={() => { }}>
+              <LinkText to={getEditServiceDetailsLink('call')}>
                 <CustomTypography
                   variant='body2'
                   fontWeight='bold'
-                  className={classes.MobileWorkMainTextPadding}>
+                  className={[classes.MobileWorkMainTextPadding, classes.dashboardServicesMobile]}>
                   {t('callTheExpert')}
                 </CustomTypography>
               </LinkText>
             </Box>
           </Grid>
-          {/* end sign_up */}
 
-          {/* Choose your Services */}
           <Grid item xs={12}>
             <Box textAlign='center' className={classes.mobileStep}>
-              <img
-                className={classes.MobileHowWorkIcon}
-                src={require('../../../../assets/consultant.png')}
-              />
-              <LinkText to={() => { }}>
+              <Fragment>
+                <img
+                  className={classes.MobileHowWorkIcon}
+                  src={require('../../../../assets/consultant.png')}
+                />
                 <CustomTypography
                   variant='body2'
                   fontWeight='bold'
                   className={classes.MobileWorkMainTextPadding}>
                   {t('assignExpertServiceTitle')}
                 </CustomTypography>
-              </LinkText>
+              </Fragment>
             </Box>
           </Grid>
-          {/* end Choose your Services */}
 
-          {/* Manage your Space */}
           <Grid item xs={12}>
             <Box
               textAlign='center'
               className={[classes.mobileStep, classes.mobileFirstStep]}>
-              <img
-                className={classes.MobileHowWorkIcon}
-                src={require('../../../../assets/client-project.svg')}
-              />
-              <LinkText to={() => { }}>
+              <Fragment>
+                <img
+                  className={classes.MobileHowWorkIcon}
+                  src={require('../../../../assets/client-project.svg')}
+                />
                 <CustomTypography
                   variant='body2'
                   fontWeight='bold'
                   className={classes.MobileWorkMainTextPadding}>
                   {t('projectServiceTitle')}
                 </CustomTypography>
-              </LinkText>
+              </Fragment>
             </Box>
           </Grid>
-          {/* end Manage your Space */}
         </Grid>
       </Grid>
     </Grid>

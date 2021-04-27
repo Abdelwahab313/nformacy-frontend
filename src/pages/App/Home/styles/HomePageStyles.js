@@ -224,11 +224,14 @@ const useStyles = makeStyles((theme) => ({
   threeBtnsContainer: {
     minHeight: 310,
     [theme.breakpoints.down('md')]: {
-      justifyContent: 'space-between',
       display: 'flex',
+      justifyContent: 'space-between',
       minHeight: 160,
       maxHeight: 160,
     },
+    [theme.breakpoints.down('xs')]: {
+      display: 'none'
+    }
   },
   sectionContainer: {
     marginTop: theme.spacing(3),
