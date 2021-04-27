@@ -272,6 +272,14 @@ const useStyles = makeStyles((theme) => ({
   },
   mobileHowWorkVisible: {
     display: 'none',
+    [theme.breakpoints.down('md')]: {
+      display: 'flex',
+      alignItems: 'center',
+      textAlign: 'center'
+    },
+  },
+  mobileServicesVisible: {
+    display: 'none',
     [theme.breakpoints.down('xs')]: {
       display: 'flex',
       alignItems: 'center',

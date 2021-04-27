@@ -16,7 +16,7 @@ const SolutionsPage = () => {
   const { t } = useTranslation();
 
   return (
-    <LandingPageContainer>
+    <LandingPageContainer className={classes.landingContainer}>
       <Grid container justify='center'>
         <FrontBanner
           imageSource={require('../../../assets/landing/solutions_image.png')}

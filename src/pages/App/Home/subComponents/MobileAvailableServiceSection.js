@@ -26,7 +26,7 @@ const MobileAvailableServiceSection = () => {
       justify='center'
       className={[
         classes.mobileServicesPadding,
-        classes.mobileHowWorkVisible,
+        classes.mobileServicesVisible,
       ]}>
       <Grid item xs={7} className={classes.serviceStepsContainerMargin}>
         <Grid container direction='row' justify='center'>
