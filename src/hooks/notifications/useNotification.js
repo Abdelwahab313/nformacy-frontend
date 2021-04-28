@@ -7,6 +7,7 @@ import {
   markNotificationRead,
 } from '../../apis/notifications';
 import { useMutation, useQuery, useQueryCache } from 'react-query';
+import { immortalQueryConfig } from 'settings';
 
 const useNotification = () => {
   const queryCache = useQueryCache();
@@ -23,6 +24,7 @@ const useNotification = () => {
       });
       queryCache.invalidateQueries('allNotifications');
     },
+    ...immortalQueryConfig
   });
 
   const [markRead] = useMutation(markNotificationRead, {
