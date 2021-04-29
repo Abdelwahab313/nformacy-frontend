@@ -11,8 +11,8 @@ import { CalendarLibraryForMobile } from './subComponents/CalendarLibraryForMobi
 import HomeHeadBar from './subComponents/HomeHeadBar';
 import ConsultantQuestionRoaster from './subComponents/ConsultantQuestionRoaster';
 import ConsultantPointsBox from './subComponents/ConsultantPointsBox';
-import RankBox from './subComponents/RankBox';
 import ConsultantActivityTable from './subComponents/ConsultantActivityTable';
+import UserLevelCard from './subComponents/UserLevelCard';
 
 const ConsultantHomePage = () => {
   const classes = useStyles();
@@ -34,7 +34,7 @@ const ConsultantHomePage = () => {
                 <ConsultantQuestionRoaster />
               </Grid>
               <Grid item xs={12} md={4}>
-                <RankBox />
+                <UserLevelCard />
                 <ConsultantPointsBox />
               </Grid>
             </Grid>

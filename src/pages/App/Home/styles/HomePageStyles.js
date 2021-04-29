@@ -101,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
       padding: [theme.spacing(2), theme.spacing(4)],
     },
     [theme.breakpoints.down('sm')]: {
-      margin: '0 auto'
+      margin: '0 auto',
     },
   },
   askQuestionBox: {
@@ -164,9 +164,15 @@ const useStyles = makeStyles((theme) => ({
       height: 180,
     },
   },
+  userLevelContainer: {
+    [theme.breakpoints.up('md')]: {
+      // height: 340,
+      // overflow: 'auto',
+    },
+  },
   groupIcon: {
     width: '50px',
-    filter: 'invert(100%)'
+    filter: 'invert(100%)',
   },
   marginBottom: {
     marginBottom: theme.spacing(3),
@@ -230,8 +236,8 @@ const useStyles = makeStyles((theme) => ({
       maxHeight: 160,
     },
     [theme.breakpoints.down('xs')]: {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
   sectionContainer: {
     marginTop: theme.spacing(3),
@@ -509,28 +515,28 @@ const useStyles = makeStyles((theme) => ({
   },
   fieldInProfile: {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   warningImgContainer: {
     background: white,
     width: 45,
     height: 55,
     verticalAlign: 'middle',
-    display: 'table-cell'
+    display: 'table-cell',
   },
   warningImg: {
-    width: 25
+    width: 25,
   },
   warningMsg: {
-    float: 'left'
+    float: 'left',
   },
   completeLaterBannerText: {
     display: 'table-cell',
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
   },
   pigIcon: {
-    filter: 'invert(100%)'
-  }
+    filter: 'invert(100%)',
+  },
 }));
 
 export default useStyles;
