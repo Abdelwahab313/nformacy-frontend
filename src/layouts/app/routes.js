@@ -3,39 +3,40 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import { VpnKey } from '@material-ui/icons';
 import { RoutesPaths } from 'constants/routesPath';
 
-const UserTypeSelection = React.lazy(() => import('pages/App/register/UserTypeSelection'))
-const LandingPage = React.lazy(() => import('pages/App/LandingPage/LandingPage'))
-const Login = React.lazy(() => import('pages/auth/LoginUser'))
-const Register = React.lazy(() => import('pages/Register/Register'))
-const FreeLancerProfileForm = React.lazy(() => import('pages/App/FreelancerProfile/FreelancerProfileForm'))
-const Logout = React.lazy(() => import('pages/auth/LogoutUser'))
-const QuestionRoaster = React.lazy(() => import('pages/App/QuestionRoaster/QuestionRoasterView'))
-const HomePage = React.lazy(() => import('pages/App/Home'))
-const AnswerQuestion = React.lazy(() => import('pages/App/FreelancersAnswers/edit'))
-const EditServiceRequest = React.lazy(() => import('pages/App/ServiceRequests/edit'))
-const EditProfile = React.lazy(() => import('pages/App/Profile/Profile'))
-const AllNotifications = React.lazy(() => import('pages/Admin/Dashboard/AllNotifications'))
-const ServicesPage = React.lazy(() => import('pages/App/ServiceRequests/list'))
-const ServiceDetails = React.lazy(() => import('pages/App/ServiceRequests/details'))
-const FreelancersActivitiesPage = React.lazy(() => import('pages/App/FreelancersAnswers/list'))
-const CallEvaluationPage = React.lazy(() => import('pages/App/MeetingEvaluation/CallEvaluation'))
-const NotFoundPage = React.lazy(() => import('pages/NotFoundPage'))
-const ContactUsPage = React.lazy(() => import('pages/App/ContactUs/ContactUsPage'))
-const SolutionsPage = React.lazy(() => import('pages/App/Solutions/SolutionsPage'))
-const TermsAndConditionsPage = React.lazy(() => import('pages/App/TermsAndConditions/TermsAndConditionsPage'))
-const AboutPage = React.lazy(() => import('pages/App/about/AboutPage'))
-const ConsultantsPage = React.lazy(() => import('pages/App/Consultants/ConsultantsPage'))
-const CorporateAccountsList = React.lazy(() => import('pages/App/Accounts/list/CorporateAccountsList'))
-const CorporateAccountDetails = React.lazy(() => import('pages/App/Accounts/details/CorporateAccountDetails'))
-const ForgetPassword = React.lazy(() => import('pages/ForgetPassword'))
-const ResetPassword = React.lazy(() => import('pages/ResetPassword'))
-const KnowHubPage = React.lazy(() => import('pages/App/LandingPage/KnowHub'))
-const ChangePasswordPage = React.lazy(() => import('pages/ChangePassword'))
-const AddAccount = React.lazy(() => import('pages/App/Accounts/add/AddAccount'))
-const VerifyEmail = React.lazy(() => import('pages/App/EmailVerification/VerifyEmail'))
-const EmailVerificationPending = React.lazy(() => import('pages/App/EmailVerification/EmailVerificationPending'))
-const Pointing = React.lazy(() => import('pages/App/Pointing'))
-const WelcomeAccountFormPage = React.lazy(() => import('pages/App/WelcomeAccount'))
+const UserTypeSelection = React.lazy(() => import('pages/App/register/UserTypeSelection'));
+const LandingPage = React.lazy(() => import('pages/App/LandingPage/LandingPage'));
+const Login = React.lazy(() => import('pages/auth/LoginUser'));
+const Register = React.lazy(() => import('pages/Register/Register'));
+const FreeLancerProfileForm = React.lazy(() => import('pages/App/FreelancerProfile/FreelancerProfileForm'));
+const FreelancerProfilePartII = React.lazy(() => import('pages/App/FreelancerProfile/FreelancerProfilePartTwo'));
+const Logout = React.lazy(() => import('pages/auth/LogoutUser'));
+const QuestionRoaster = React.lazy(() => import('pages/App/QuestionRoaster/QuestionRoasterView'));
+const HomePage = React.lazy(() => import('pages/App/Home'));
+const AnswerQuestion = React.lazy(() => import('pages/App/FreelancersAnswers/edit'));
+const EditServiceRequest = React.lazy(() => import('pages/App/ServiceRequests/edit'));
+const EditProfile = React.lazy(() => import('pages/App/Profile/Profile'));
+const AllNotifications = React.lazy(() => import('pages/Admin/Dashboard/AllNotifications'));
+const ServicesPage = React.lazy(() => import('pages/App/ServiceRequests/list'));
+const ServiceDetails = React.lazy(() => import('pages/App/ServiceRequests/details'));
+const FreelancersActivitiesPage = React.lazy(() => import('pages/App/FreelancersAnswers/list'));
+const CallEvaluationPage = React.lazy(() => import('pages/App/MeetingEvaluation/CallEvaluation'));
+const NotFoundPage = React.lazy(() => import('pages/NotFoundPage'));
+const ContactUsPage = React.lazy(() => import('pages/App/ContactUs/ContactUsPage'));
+const SolutionsPage = React.lazy(() => import('pages/App/Solutions/SolutionsPage'));
+const TermsAndConditionsPage = React.lazy(() => import('pages/App/TermsAndConditions/TermsAndConditionsPage'));
+const AboutPage = React.lazy(() => import('pages/App/about/AboutPage'));
+const ConsultantsPage = React.lazy(() => import('pages/App/Consultants/ConsultantsPage'));
+const CorporateAccountsList = React.lazy(() => import('pages/App/Accounts/list/CorporateAccountsList'));
+const CorporateAccountDetails = React.lazy(() => import('pages/App/Accounts/details/CorporateAccountDetails'));
+const ForgetPassword = React.lazy(() => import('pages/ForgetPassword'));
+const ResetPassword = React.lazy(() => import('pages/ResetPassword'));
+const KnowHubPage = React.lazy(() => import('pages/App/LandingPage/KnowHub'));
+const ChangePasswordPage = React.lazy(() => import('pages/ChangePassword'));
+const AddAccount = React.lazy(() => import('pages/App/Accounts/add/AddAccount'));
+const VerifyEmail = React.lazy(() => import('pages/App/EmailVerification/VerifyEmail'));
+const EmailVerificationPending = React.lazy(() => import('pages/App/EmailVerification/EmailVerificationPending'));
+const Pointing = React.lazy(() => import('pages/App/Pointing'));
+const WelcomeAccountFormPage = React.lazy(() => import('pages/App/WelcomeAccount'));
 
 
 const appRoutes = [
@@ -170,6 +171,15 @@ const appRoutes = [
     name: 'Profile',
     icon: DashboardIcon,
     Component: FreeLancerProfileForm,
+    includeLayout: true,
+    isPublic: false,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.App.FreelancerProfilePartII,
+    name: 'Profile',
+    icon: DashboardIcon,
+    Component: FreelancerProfilePartII,
     includeLayout: true,
     isPublic: false,
     hasDashboardLink: false,

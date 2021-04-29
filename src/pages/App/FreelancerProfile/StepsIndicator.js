@@ -97,7 +97,7 @@ function getSteps(t, isCorporateUser) {
       return [t('personalInfo'), t('workInformation')];
     }
   } else {
-    return [t('personalInfo'), t('specializationAndPreferences'), t('resume')];
+    return [t('personalInfo'), t('specializationAndPreferences')];
   }
 }
 

@@ -1,44 +1,52 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { FormContext, useForm } from 'react-hook-form';
-import StepOne from './StepOne';
-import StepsIndicator from './StepsIndicator';
+import React, { useRef, useState, useMemo, useCallback } from 'react';
 import {
   formStyle,
-  nextButtonStyles,
   stepIndicatorStyles,
   useStyles,
+  nextButtonStyles
 } from '../../../styles/formsStyles';
-import { Checkbox, FormControlLabel, Dialog, DialogContent, Button } from '@material-ui/core';
+import Hidden from '@material-ui/core/Hidden';
+import StepsIndicator from './StepsIndicator';
+import ConsultantPartTwoStepOne from './ConsultantPartTwoStepOne';
+import { FormContext, useForm } from 'react-hook-form';
+import authManager from 'services/authManager';
 import DoneIcon from '@material-ui/icons/Done';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import Grid from '@material-ui/core/Grid';
-import StepTwo from './StepTwo';
+import t from 'locales/en/freelancerProfile.json';
+
 import {
   completeFreelancerProfile,
-  completeClientProfile,
   uploadCV,
   updateProfile,
 } from 'apis/userAPI';
-import { useHistory } from 'react-router-dom';
-import Hidden from '@material-ui/core/Hidden';
-import BackDialog from './BackDialog';
-import t from 'locales/en/freelancerProfile.json';
-import ClientStepOne from 'components/forms/ClientStepOne';
-import ClientStepTwo from 'components/forms/ClientStepTwo';
-import authManager from 'services/authManager';
-import SubmitButton from 'components/buttons/SubmitButton';
-import { getDashboardLinkAfterSignup } from 'services/navigation';
-import { useAuth } from 'pages/auth/context/auth';
 import { updateUser } from 'pages/auth/context/authActions';
-import Transition from 'components/animations/Transition';
+import { useAuth } from 'pages/auth/context/auth';
+import { useHistory } from 'react-router-dom';
+import { getDashboardLinkAfterSignup } from 'services/navigation';
+import { Grid } from '@material-ui/core';
+import { Checkbox, FormControlLabel } from '@material-ui/core';
 import CustomTypography from 'components/typography/Typography';
-import CorporateStepOne from 'pages/CorporateRegister/CorporateStepOne';
-import CorporateStepTwo from 'pages/CorporateRegister/CorporateStepTwo';
-import { RoutesPaths } from 'constants/routesPath';
+import SubmitButton from 'components/buttons/SubmitButton';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
-const FreeLancerProfileForm = () => {
+const FreelancerProfilePartTwo = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
+  const classes = useStyles();
+  const [activeStep, setActiveStep] = useState(0);
+  const [deletedExperiences, setDeletedExperiences] = useState([]);
+  const [deletedEducations, setDeletedEducations] = useState([]);
+  const [deletedCertification, setDeletedCertifications] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [, dispatch] = useAuth();
+  const [cv, setCV] = useState();
+  const history = useHistory();
+  const [isTermsChecked, setIsTermsChecked] = useState(false);
+  const [, setOpen] = useState(false);
+  const [, setIsDialogueOpen] = useState(false);
+
+  const consultantStepsFields = [
+    [],
+  ];
   const {
     register,
     errors,
@@ -48,67 +56,21 @@ const FreeLancerProfileForm = () => {
     setValue,
     handleSubmit,
     watch,
-    reset,
   } = useForm({
     mode: 'onChange',
-    defaultValues: {
-      ...user.current,
-      mobileNumber: user.current.mobileNumber || '',
-      majorFieldsOfExperience: user.current.majorFieldsOfExperience || [],
-      fields: user.current.fields || [],
-    },
+    // defaultValues: {
+    //   ...user.current,
+    //   mobileNumber: user.current.mobileNumber || '',
+    //   majorFieldsOfExperience: user.current.majorFieldsOfExperience || [],
+    //   fields: user.current.fields || [],
+    // },
+
   });
-  const history = useHistory();
-  const [loading, setLoading] = useState(false);
-  const [, dispatch] = useAuth();
-  const [deletedExperiences, setDeletedExperiences] = useState([]);
-  const [deletedEducations, setDeletedEducations] = useState([]);
-  const [deletedCertification, setDeletedCertifications] = useState([]);
-  const [open, setOpen] = React.useState(false);
-
-  const classes = useStyles();
-  const [activeStep, setActiveStep] = useState(0);
-  const [cv, setCV] = useState();
-  const [isBackDialogueOpen, setIsDialogueOpen] = useState(false);
-  const [isConfirmedBack, setIsConfirmedBack] = useState(false);
-  const [isTermsChecked, setIsTermsChecked] = useState(false);
-  const consultantStepsFields = [
-    ['gender', 'country', 'mobileNumber', 'currentEmploymentStatus'],
-    [
-      'industriesOfExperience',
-      'fields',
-      // 'languageOfAssignments',
-      // 'typesOfAssignments',
-    ],
-    [],
-  ];
-
-  const clientStepFields = [
-    ['accountType'],
-    ['country', 'organizationLevel', 'organizationName', 'jobTitle'],
-  ];
-
-  const corporateStepFields = [
-    ['accountType'],
-    ['organizationName', 'industriesOfExperience', 'country'],
-    ['organizationLevel', 'jobTitle'],
-  ];
-
-  const isClientEmployed = watch('isEmployed');
-  const isCorporateUser = authManager.isCorporate();
-
   const currentStepFields = useMemo(() => {
-    if (authManager.isClient()) {
-      if (!!isCorporateUser) {
-        return corporateStepFields[activeStep];
-      } else {
-        return clientStepFields[activeStep];
-      }
-    }
-    else {
-      return consultantStepsFields[activeStep];
-    }
-  }, [activeStep, isCorporateUser]);
+    return consultantStepsFields[activeStep];
+  }, [activeStep]);
+
+
 
   const isCurrentstepInvalid = useCallback(() => {
     const hasAnyInvalidField = Object.keys(errors).some((error) =>
@@ -121,57 +83,22 @@ const FreeLancerProfileForm = () => {
     return hasAnyInvalidField || anyFieldUninitialized;
   }, [errors, activeStep]);
 
+  const isSubmitDisabled = !isTermsChecked || isCurrentstepInvalid() || loading;
+  const isGoNextDisabled = isCurrentstepInvalid() || loading;
+
   const isFinalStep = useMemo(() => {
     return (
       activeStep === 2 ||
       (authManager.isClient() && user.current.accountType === 'client' && activeStep === 1)
     );
-  }, [activeStep, isClientEmployed]);
+  }, [activeStep]);
 
-  function validateNestedFields(userToBeSubmitted) {
-    let experiences = [...userToBeSubmitted.experiences];
-    experiences = experiences.filter(
-      (exp) => !deletedExperiences.includes(exp),
-    );
-    let educations = [...userToBeSubmitted.educations];
-    educations = educations.filter((edu) => !deletedEducations.includes(edu));
-    if (experiences.length === 0) {
-      setError(
-        'experiencesLength',
-        'manual',
-        'At least one experience required',
-      );
-    }
-    if (educations.length === 0) {
-      setError('educationLength', 'manual', 'At least one education required');
-    }
-    return educations.length !== 0 && experiences.length !== 0;
-  }
 
   const onSubmit = (userDate) => {
     if (authManager.isNormalUser()) {
       onSubmitFreelancer(userDate);
-    } else {
-      onSubmitClient(userDate);
     }
   };
-
-  const onSubmitClient = (userData) => {
-    const userToBeSubmitted = {
-      ...user.current,
-      ...userData,
-    };
-    setLoading(true);
-    completeClientProfile(userToBeSubmitted)
-      .then((response) => {
-        updateUser(dispatch, response.data);
-        history.push(getDashboardLinkAfterSignup(true));
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-
   const onSubmitFreelancer = (userData) => {
     const userToBeSubmitted = {
       ...user.current,
@@ -186,7 +113,9 @@ const FreeLancerProfileForm = () => {
         ? [...userData.certifications, ...deletedCertification]
         : deletedCertification,
     };
+
     const nestedFieldsValid = validateNestedFields(userToBeSubmitted);
+
     if (nestedFieldsValid) {
       setLoading(true);
       completeFreelancerProfile(userToBeSubmitted)
@@ -205,12 +134,13 @@ const FreeLancerProfileForm = () => {
       submitCV();
     }
   };
-
   const onClickSaveLater = () => {
     user.current = {
       ...user.current,
       ...getValues(currentStepFields),
     };
+
+
 
     updateProfile({ ...user.current })
       .then((response) => {
@@ -243,7 +173,36 @@ const FreeLancerProfileForm = () => {
         .finally(() => setLoading(false));
     }
   };
+  const onTermsChecked = () => {
+    setIsTermsChecked(!isTermsChecked);
+  };
+  function validateNestedFields(userToBeSubmitted) {
+    let experiences = [...userToBeSubmitted.experiences];
+    experiences = experiences.filter(
+      (exp) => !deletedExperiences.includes(exp),
+    );
+    let educations = [...userToBeSubmitted.educations];
+    educations = educations.filter((edu) => !deletedEducations.includes(edu));
+    if (experiences.length === 0) {
+      setError(
+        'experiencesLength',
+        'manual',
+        'At least one experience required',
+      );
+    }
+    if (educations.length === 0) {
+      setError('educationLength', 'manual', 'At least one education required');
+    }
+    return educations.length !== 0 && experiences.length !== 0;
+  }
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  
+  function getBackToPreviousStep() {
+    setIsDialogueOpen(true);
+  }
   function proceedToNextStep() {
     if (activeStep < 2) {
       user.current = {
@@ -254,74 +213,14 @@ const FreeLancerProfileForm = () => {
     }
   }
 
-  function getBackToPreviousStep() {
-    setIsDialogueOpen(true);
-  }
-
-  const onClickAgree = () => {
-    setIsConfirmedBack(true);
-    setIsDialogueOpen(false);
-    if (activeStep > 0) {
-      reset(user.current);
-      setActiveStep(activeStep - 1);
-    }
-  };
-
-  const onClickCancel = () => {
-    setIsConfirmedBack(false);
-    setIsDialogueOpen(false);
-  };
-  const onTermsChecked = () => {
-    setIsTermsChecked(!isTermsChecked);
-  };
-
-  const isGoNextDisabled = isCurrentstepInvalid() || loading;
-  const isSubmitDisabled = !isTermsChecked || isCurrentstepInvalid() || loading;
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   return (
     <div className={classes.freelancerProfileContainer}>
-      <Dialog
-        TransitionComponent={Transition}
-        maxWidth='lg'
-        PaperProps={{ id: 'termsAndConditionsDialog' }}
-        onClose={handleClose}
-        open={open}>
-        <DialogContent>
-          <Grid container>
-            <Grid item md={12}>
-              <CustomTypography fontWeight="fontWeightBold" variant='h5'>
-                Terms and Conditions
-              </CustomTypography>
-            </Grid>
-            <Grid item md={12} className={classes.comingSoon}>
-              Coming Soon!
-            </Grid>
-            <Grid item md={6}>
-              <SubmitButton onClick={handleClose} buttonText='Agree' />
-            </Grid>
-            <Grid item md={6}>
-              <Button
-                onClick={handleClose}
-                variant="contained"
-                className={classes.cancelConditionsBtn}>
-                Cancel
-              </Button>
-            </Grid>
-          </Grid>
-        </DialogContent>
-      </Dialog>
       <Hidden smDown>
         <div style={stepIndicatorStyles.container}>
           <StepsIndicator user={user} activeStep={activeStep} />
         </div>
       </Hidden>
+
       <form
         id='multiStepForm'
         style={formStyle}
@@ -340,13 +239,8 @@ const FreeLancerProfileForm = () => {
           cv={cv}
           setCV={setCV}
           watch={watch}>
-          {activeStep === 0 && authManager.isNormalUser() && <StepOne />}
-          {activeStep === 1 && authManager.isNormalUser() && <StepTwo />}
-          {activeStep === 2 && authManager.isNormalUser() && history.push(RoutesPaths.App.FreelancerProfilePartII)}
-
-          {activeStep === 0 && authManager.isClient() && <ClientStepOne />}
-          {activeStep === 1 && authManager.isClient() && (isCorporateUser ? <CorporateStepOne /> : <ClientStepTwo />)}
-          {activeStep === 2 && authManager.isClient() && <CorporateStepTwo />}
+          {activeStep === 0 && authManager.isNormalUser() && <ConsultantPartTwoStepOne />}
+          {/* {activeStep === 1 && authManager.isNormalUser() && <StepTwo />} */}
 
         </FormContext>
         {!!isFinalStep && (
@@ -428,15 +322,8 @@ const FreeLancerProfileForm = () => {
             )}
         </Grid>
       </form>
-
-      <BackDialog
-        open={isBackDialogueOpen}
-        isAgreed={isConfirmedBack}
-        onAgree={onClickAgree}
-        onCancel={onClickCancel}
-      />
     </div>
   );
 };
 
-export default FreeLancerProfileForm;
+export default FreelancerProfilePartTwo;

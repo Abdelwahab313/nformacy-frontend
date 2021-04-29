@@ -92,5 +92,6 @@
   "phoneNumber": "Phone Number",
   "information": "Information",
   "companySize": "Company Size",
-  "selectCompanySize": "Select Company Size"
+  "selectCompanySize": "Select Company Size",
+  "project": "Project"
 }

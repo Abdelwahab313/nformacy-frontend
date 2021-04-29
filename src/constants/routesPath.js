@@ -37,6 +37,7 @@ export const RoutesPaths = {
     WelcomeAccount: '/welcomeAccount',
     Logout: '/logout',
     FreelancerProfile: '/user/profile',
+    FreelancerProfilePartII: '/user/profile/partII',
     SubmitAnswerNote: '/answer/success',
     LandingPage: '/',
     ContactUs: '/contactUs',

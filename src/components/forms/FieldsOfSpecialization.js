@@ -17,7 +17,6 @@ import {
 } from '../../styles/formsStyles';
 import ReactTooltip from 'react-tooltip';
 import t from '../../locales/en/freelancerProfile.json';
-import AssignmentPreferences from './AssignmentPreferences';
 
 function FieldsOfSpecialization() {
   const { errors, control, user } = useFormContext();
@@ -74,7 +73,7 @@ function FieldsOfSpecialization() {
         />
         <ErrorMessage errorField={errors.industriesOfExperience} />
       </Container>
-      <AssignmentPreferences />
+      {/* <AssignmentPreferences /> */}
     </Container>
   );
 }

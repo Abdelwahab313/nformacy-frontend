@@ -5,39 +5,44 @@ import Divider from '@material-ui/core/Divider';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import React, { Fragment } from 'react';
-import {  useStyles } from '../../styles/formsStyles';
+import { checkboxStyle, useStyles } from '../../styles/formsStyles';
 import ReactTooltip from 'react-tooltip';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Input } from '@material-ui/core';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import t from '../../locales/en/freelancerProfile.json';
 import Link from '@material-ui/core/Link';
 import ErrorMessage from '../errors/ErrorMessage';
 
-const WorkExperience = () => {
+const AchievedProjects = () => {
   const {
     control,
     user,
     register,
     errors,
+    watch,
     setDeletedExperiences,
   } = useFormContext();
   const classes = useStyles();
-  // const watchExperiences = watch('experiences');
+  const watchExperiences = watch('experiences');
   const experienceForm = useFieldArray({
     control,
     name: 'experiences',
     toDate: false,
   });
-  // const getFormattedDateForPicker = (index) => {
-  //   const endDate = watchExperiences[index].endDate || new Date().toISOString();
-  //   const formattedDate = endDate?.includes('/')
-  //     ? new Date(endDate.split('/')[1], endDate.split('/')[0])
-  //     : endDate;
-  //   return formattedDate;
-  // };
+  const getFormattedDateForPicker = (index) => {
+    const endDate = watchExperiences[index].endDate || new Date().toISOString();
+    const formattedDate = endDate?.includes('/')
+      ? new Date(endDate.split('/')[1], endDate.split('/')[0])
+      : endDate;
+    return formattedDate;
+  };
 
   return (
     <Container maxWidth={false} className={classes.nestedContainer}>
@@ -123,11 +128,11 @@ const WorkExperience = () => {
                           inputVariant='outlined'
                           autoOk
                           margin='normal'
-                          // maxDate={
-                          //   watchExperiences[index]?.toDate === false
-                          //     ? getFormattedDateForPicker(index)
-                          //     : Date.now()
-                          // }
+                          maxDate={
+                            watchExperiences[index]?.toDate === false
+                              ? getFormattedDateForPicker(index)
+                              : Date.now()
+                          }
                           label={t['startDate']}
                           InputProps={{
                             classes: {
@@ -150,7 +155,7 @@ const WorkExperience = () => {
                         </Grid>
                       )}
                   </Container>
-                  {/* <Container
+                  <Container
                     maxWidth={false}
                     className={classes.dateController}>
                     {!watchExperiences[index] ||
@@ -231,7 +236,7 @@ const WorkExperience = () => {
                         </FormGroup>
                       </FormControl>
                     </Grid>
-                  </Container> */}
+                  </Container>
                 </MuiPickersUtilsProvider>
               </Grid>
               <Container maxWidth={false} className={classes.formControl}>
@@ -274,4 +279,4 @@ const WorkExperience = () => {
   );
 };
 
-export default WorkExperience;
+export default AchievedProjects;
