@@ -90,7 +90,8 @@ const FreelancerProfilePartTwo = () => {
   const isFinalStep = useMemo(() => {
     return (
       activeStep === 2 ||
-      (authManager.isClient() && user.current.accountType === 'client' && activeStep === 1)
+      (authManager.isClient() && user.current.accountType === 'client' && activeStep === 1) ||
+      (authManager.isNormalUser() && activeStep === 1)
     );
   }, [activeStep]);
 
@@ -200,7 +201,7 @@ const FreelancerProfilePartTwo = () => {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  
+
   function getBackToPreviousStep() {
     setIsDialogueOpen(true);
   }
