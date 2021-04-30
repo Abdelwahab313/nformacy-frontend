@@ -35,14 +35,12 @@ import Transition from 'components/animations/Transition';
 import CustomTypography from 'components/typography/Typography';
 import CorporateStepOne from 'pages/CorporateRegister/CorporateStepOne';
 import CorporateStepTwo from 'pages/CorporateRegister/CorporateStepTwo';
-import { RoutesPaths } from 'constants/routesPath';
 
 const FreeLancerProfileForm = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
   const {
     register,
     errors,
-    setError,
     control,
     getValues,
     setValue,
@@ -124,29 +122,12 @@ const FreeLancerProfileForm = () => {
   const isFinalStep = useMemo(() => {
     return (
       activeStep === 2 ||
-      (authManager.isClient() && user.current.accountType === 'client' && activeStep === 1)
+      (authManager.isClient() && user.current.accountType === 'client' && activeStep === 1) ||
+      (authManager.isNormalUser() && activeStep === 1)
     );
   }, [activeStep, isClientEmployed]);
 
-  function validateNestedFields(userToBeSubmitted) {
-    let experiences = [...userToBeSubmitted.experiences];
-    experiences = experiences.filter(
-      (exp) => !deletedExperiences.includes(exp),
-    );
-    let educations = [...userToBeSubmitted.educations];
-    educations = educations.filter((edu) => !deletedEducations.includes(edu));
-    if (experiences.length === 0) {
-      setError(
-        'experiencesLength',
-        'manual',
-        'At least one experience required',
-      );
-    }
-    if (educations.length === 0) {
-      setError('educationLength', 'manual', 'At least one education required');
-    }
-    return educations.length !== 0 && experiences.length !== 0;
-  }
+
 
   const onSubmit = (userDate) => {
     if (authManager.isNormalUser()) {
@@ -186,24 +167,22 @@ const FreeLancerProfileForm = () => {
         ? [...userData.certifications, ...deletedCertification]
         : deletedCertification,
     };
-    const nestedFieldsValid = validateNestedFields(userToBeSubmitted);
-    if (nestedFieldsValid) {
-      setLoading(true);
-      completeFreelancerProfile(userToBeSubmitted)
-        .then((response) => {
-          updateUser(dispatch, response.data);
-          if (cv?.length === 0 || cv === undefined) {
-            history.push(getDashboardLinkAfterSignup(true));
-          }
-        })
-        .finally(() => {
-          if (cv?.length === 0 || cv === undefined) {
-            setLoading(false);
-          }
-        });
 
-      submitCV();
-    }
+    setLoading(true);
+    completeFreelancerProfile(userToBeSubmitted)
+      .then((response) => {
+        updateUser(dispatch, response.data);
+        if (cv?.length === 0 || cv === undefined) {
+          history.push(getDashboardLinkAfterSignup(true));
+        }
+      })
+      .finally(() => {
+        if (cv?.length === 0 || cv === undefined) {
+          setLoading(false);
+        }
+      });
+
+    submitCV();
   };
 
   const onClickSaveLater = () => {
@@ -342,7 +321,6 @@ const FreeLancerProfileForm = () => {
           watch={watch}>
           {activeStep === 0 && authManager.isNormalUser() && <StepOne />}
           {activeStep === 1 && authManager.isNormalUser() && <StepTwo />}
-          {activeStep === 2 && authManager.isNormalUser() && history.push(RoutesPaths.App.FreelancerProfilePartII)}
 
           {activeStep === 0 && authManager.isClient() && <ClientStepOne />}
           {activeStep === 1 && authManager.isClient() && (isCorporateUser ? <CorporateStepOne /> : <ClientStepTwo />)}

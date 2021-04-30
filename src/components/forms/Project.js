@@ -2,7 +2,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
 import React, { Fragment } from 'react';
 import { useStyles } from '../../styles/formsStyles';
@@ -10,8 +10,6 @@ import ReactTooltip from 'react-tooltip';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Input } from '@material-ui/core';
-import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import t from '../../locales/en/freelancerProfile.json';
 import Link from '@material-ui/core/Link';
 import ErrorMessage from '../errors/ErrorMessage';
@@ -25,7 +23,7 @@ const Project = () => {
     errors,
   } = useFormContext();
   const classes = useStyles();
-  const educationForm = useFieldArray({
+  const projectForm = useFieldArray({
     control,
     name: 'projects',
   });
@@ -41,7 +39,7 @@ const Project = () => {
       </Grid>
       <Divider variant='middle' />
       <Fragment>
-        {educationForm.fields.map((item, index) => (
+        {projectForm.fields.map((item, index) => (
           <Card key={item.id} className={classes.nestedCardContainer}>
             <ReactTooltip globalEventOff={'click'} />
             <CardContent>
@@ -49,7 +47,7 @@ const Project = () => {
                 <Input
                   label={'id'}
                   type='hidden'
-                  name={`educations[${index}][id]`}
+                  name={`projects[${index}][id]`}
                   defaultValue={item.id}
                   inputRef={register()}
                 />
@@ -57,11 +55,11 @@ const Project = () => {
               <Container maxWidth={false} className={classes.formControl}>
                 <TextField
                   fullWidth
-                  id={`educations-degree-${index}`}
-                  label={t['degree']}
+                  id={`projects-title-${index}`}
+                  label={t['title']}
                   variant='outlined'
-                  name={`educations[${index}].degree`}
-                  defaultValue={item.degree}
+                  name={`projects[${index}].title`}
+                  defaultValue={item.title}
                   InputProps={{
                     classes: {
                       notchedOutline: classes.textField,
@@ -71,39 +69,19 @@ const Project = () => {
                 />
                 <ErrorMessage
                   errorField={
-                    errors.projects && errors.projects[index]?.degree
+                    errors.projects && errors.projects[index]?.title
                   }
                 />
               </Container>
+
               <Container maxWidth={false} className={classes.formControl}>
                 <TextField
                   fullWidth
-                  id={`educations-fieldOfStudy-${index}`}
-                  label={t['fieldOfStudy']}
+                  id={`projects-role-${index}`}
+                  label={t['jobRole']}
                   variant='outlined'
-                  name={`educations[${index}].fieldOfStudy`}
-                  InputProps={{
-                    classes: {
-                      notchedOutline: classes.textField,
-                    },
-                  }}
-                  defaultValue={item.fieldOfStudy}
-                  inputRef={register({ required: t['requiredMessage'] })}
-                />
-                <ErrorMessage
-                  errorField={
-                    errors.projects && errors.projects[index]?.fieldOfStudy
-                  }
-                />
-              </Container>
-              <Container maxWidth={false} className={classes.formControl}>
-                <TextField
-                  fullWidth
-                  label={t['university']}
-                  variant='outlined'
-                  name={`educations[${index}].school`}
-                  id={`educations-school-${index}`}
-                  defaultValue={item.school}
+                  name={`projects[${index}].jobRole`}
+                  defaultValue={item.jobRole}
                   InputProps={{
                     classes: {
                       notchedOutline: classes.textField,
@@ -113,49 +91,11 @@ const Project = () => {
                 />
                 <ErrorMessage
                   errorField={
-                    errors.projects && errors.projects[index]?.school
+                    errors.projects && errors.projects[index]?.jobRole
                   }
                 />
               </Container>
-              <Grid>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <Container maxWidth={false} className={classes.formControl}>
-                    <Controller
-                      rules={{ required: t['requiredMessage'] }}
-                      name={`educations[${index}].endYear`}
-                      control={control}
-                      as={
-                        <DatePicker
-                          id={`educations-endYear-${index}`}
-                          inputVariant='outlined'
-                          autoOk
-                          views={['year', 'month']}
-                          format='MM/yyyy'
-                          margin='normal'
-                          label={t['completedBy']}
-                          maxDate={Date.now()}
-                          onChange={(value) => value[0]}
-                          InputProps={{
-                            classes: {
-                              notchedOutline: classes.textField,
-                            },
-                          }}
-                        />
-                      }
-                    />
-                    {errors.projects && errors.projects[index]?.endYear && (
-                      <Grid maxWidth={false}>
-                        <ErrorMessage
-                          errorField={
-                            errors.projects &&
-                            errors.projects[index]?.endYear
-                          }
-                        />
-                      </Grid>
-                    )}
-                  </Container>
-                </MuiPickersUtilsProvider>
-              </Grid>
+
               <Container maxWidth={false} className={classes.formControl}>
                 <Link
                   className={[
@@ -169,9 +109,9 @@ const Project = () => {
                       item['_destroy'] = true;
                       setDeletedEducations((prevItems) => [...prevItems, item]);
                     }
-                    educationForm.remove(index);
+                    projectForm.remove(index);
                   }}>
-                  {t['removeEducation']}
+                  {t['removeProject']}
                 </Link>
               </Container>
             </CardContent>
@@ -184,8 +124,8 @@ const Project = () => {
             id='add-education'
             component='button'
             variant='body2'
-            onClick={() => educationForm.append({})}>
-            {t['addEducation']}
+            onClick={() => projectForm.append({})}>
+            {t['addProject']}
           </Link>
         </section>
       </Fragment>

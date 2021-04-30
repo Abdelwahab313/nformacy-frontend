@@ -28,6 +28,7 @@ import { Checkbox, FormControlLabel } from '@material-ui/core';
 import CustomTypography from 'components/typography/Typography';
 import SubmitButton from 'components/buttons/SubmitButton';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ConsultantPartTwoStepTwo from './ConsultantPartTwoStepTwo';
 
 const FreelancerProfilePartTwo = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -240,7 +241,7 @@ const FreelancerProfilePartTwo = () => {
           setCV={setCV}
           watch={watch}>
           {activeStep === 0 && authManager.isNormalUser() && <ConsultantPartTwoStepOne />}
-          {/* {activeStep === 1 && authManager.isNormalUser() && <StepTwo />} */}
+          {activeStep === 1 && authManager.isNormalUser() && <ConsultantPartTwoStepTwo />}
 
         </FormContext>
         {!!isFinalStep && (

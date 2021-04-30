@@ -17,6 +17,8 @@ import CustomTypography from 'components/typography/Typography';
 import useHomePageStyles from '../styles/HomePageStyles';
 import authManager from 'services/authManager';
 import { getConsultantLevel } from 'core/user';
+import { RoutesPaths } from 'constants/routesPath';
+import { history } from 'services/navigation';
 
 const USER_STEPS = [
   {
@@ -140,7 +142,7 @@ const UserLevelCard = () => {
                       <Button
                         variant='contained'
                         color='primary'
-                        onClick={() => {}}
+                        onClick={() => { history.push(RoutesPaths.App.FreelancerProfilePartII); }}
                         className={classes.button}>
                         {'You are here'}
                       </Button>
