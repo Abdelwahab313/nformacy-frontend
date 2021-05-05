@@ -72,13 +72,7 @@ const FreeLancerProfileForm = () => {
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const consultantStepsFields = [
     ['gender', 'country', 'mobileNumber', 'currentEmploymentStatus'],
-    [
-      'industriesOfExperience',
-      'fields',
-      // 'languageOfAssignments',
-      // 'typesOfAssignments',
-    ],
-    [],
+    ['industriesOfExperience', 'fields'],
   ];
 
   const clientStepFields = [

@@ -13,6 +13,7 @@ import { Input } from '@material-ui/core';
 import t from '../../locales/en/freelancerProfile.json';
 import Link from '@material-ui/core/Link';
 import ErrorMessage from '../errors/ErrorMessage';
+import FieldsOfExperience from './FieldsOfExpereience';
 
 const Project = () => {
   const {
@@ -33,7 +34,7 @@ const Project = () => {
       <Grid container alignItems='center'>
         <Grid item xs>
           <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-            {t['project']}
+            {t['majorAchievedProjects']}
           </Typography>
         </Grid>
       </Grid>
@@ -73,6 +74,8 @@ const Project = () => {
                   }
                 />
               </Container>
+
+              <FieldsOfExperience />
 
               <Container maxWidth={false} className={classes.formControl}>
                 <TextField

@@ -41,6 +41,13 @@ const completeFreelancerProfile = (user) => {
     data: decamelizeKeys({ ...user }),
   }).then((response) => camelizeKeys(response));
 };
+const submitFullProfile = (user) => {
+  return axios({
+    method: 'put',
+    url: `${API_BASE_URL}/users/submit_full_profile`,
+    data: decamelizeKeys({ ...user }),
+  }).then((response) => camelizeKeys(response));
+};
 
 const updateProfilePicture = (user) => {
   return axios({
@@ -129,4 +136,5 @@ export {
   deactivateUser,
   verifyEmail,
   fetchPointsList,
+  submitFullProfile
 };

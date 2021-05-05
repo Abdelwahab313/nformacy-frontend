@@ -489,11 +489,6 @@ export const useStyles = makeStyles((theme) => ({
       padding: '0 25px',
     },
   },
-  scooterGirlMobile: {
-    [theme.breakpoints.down('md')]: {
-      display: 'none'
-    },
-  },
 
   centeredText: {
     [theme.breakpoints.down('md')]: {
