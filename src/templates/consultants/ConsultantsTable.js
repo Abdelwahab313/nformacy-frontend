@@ -9,6 +9,19 @@ import { Chip } from '@material-ui/core';
 import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
 import { getConsultantDetails } from 'services/navigation';
+import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
+
+import { getConsultantLevel } from 'core/user';
+
+export const getConsultantState = (user) => {
+  const stateStrings = {
+    1: 'Registration',
+    2: 'full profile',
+    3: 'interview',
+  };
+  const level = getConsultantLevel(user);
+  return stateStrings[level] || 'Active';
+};
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -64,8 +77,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'location',
-      label: t('location'),
+      name: 'state',
+      label: t('state'),
       options: {
         ...defaultColumnOption,
         filter: true,
@@ -74,14 +87,6 @@ const getColumnsOptions = (classes, t) => {
     {
       name: 'fieldsAssigned',
       label: t('fieldsAssigned'),
-      options: {
-        ...defaultColumnOption,
-        filter: true,
-      },
-    },
-    {
-      name: 'subFields',
-      label: t('subFields'),
       options: {
         ...defaultColumnOption,
         filter: true,
@@ -157,19 +162,23 @@ const getColumnsOptions = (classes, t) => {
 const parseConsultantsTableData = (consultants) => {
   return consultants?.map((consultant) => ({
     ...consultant,
-    industriesOfExperience: consultant.industriesOfExperience?.map((industry) => (
-      <div key={industry.value}>
-        <Chip label={industry.label} key={industry.value} />
-      </div>
-    )),
+    industriesOfExperience: consultant.industriesOfExperience?.map(
+      (industry) => (
+        <div key={industry.value}>
+          <Chip label={industry.label} key={industry.value} />
+        </div>
+      ),
+    ),
+    dateJoined: formattedDateTimeNoSeconds(new Date(consultant.createdAt)),
+    state: getConsultantState(consultant),
     fields: <FieldsChips fields={consultant.fields} />,
-    consultantRef:
+    consultantRef: (
       <LinkText to={getConsultantDetails(consultant.id)}>
         {consultant.referenceNumber}
-      </LinkText>,
+      </LinkText>
+    ),
   }));
 };
-
 
 const ConsultantsTable = ({ consultants }) => {
   const classes = useStyles();
