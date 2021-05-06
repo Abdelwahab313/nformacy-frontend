@@ -1,4 +1,3 @@
-import WorkExperience from './WorkExperience';
 import Button from '@material-ui/core/Button';
 import { FormContext, useForm } from 'react-hook-form';
 import React, { useState } from 'react';
@@ -6,22 +5,23 @@ import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
 import { updateProfile } from '../../apis/userAPI';
 import { updateUser } from '../../pages/auth/context/authActions';
 import { useAuth } from '../../pages/auth/context/auth';
+import ProjectDialog from './ProjectDialog';
 
-const WorkExperienceForm = ({ user, closeDialog }) => {
+const ProjectForm = ({ user, closeDialog }) => {
   const formMethods = useForm({
     defaultValues: { ...user.current },
   });
   const [, dispatch] = useAuth();
-  const [deletedExperiences, setDeletedExperiences] = useState([]);
+  const [deletedProjects, setDeletedProjects] = useState([]);
   const classes = useStyles();
 
   const onSubmitResume = (userData) => {
     const userToBeSubmitted = {
       ...userData,
       id: user.current.id,
-      experiences: !!userData.experiences
-        ? [...userData.experiences, ...deletedExperiences]
-        : deletedExperiences,
+      projects: !!userData.projects
+        ? [...userData.projects, ...deletedProjects]
+        : deletedProjects,
     };
     updateProfile(userToBeSubmitted, user.current.id)
       .then((response) => {
@@ -31,7 +31,7 @@ const WorkExperienceForm = ({ user, closeDialog }) => {
       });
     user.current = {
       ...user.current,
-      experiences: [],
+      projects: [],
       ...userData,
     };
     closeDialog();
@@ -41,13 +41,13 @@ const WorkExperienceForm = ({ user, closeDialog }) => {
     <FormContext
       user={user}
       {...formMethods}
-      setDeletedExperiences={setDeletedExperiences}>
+      setDeletedProjects={setDeletedProjects}>
       <form
         id='editProfileForm'
         className={classes.nestedForm}
         noValidate
         onSubmit={formMethods.handleSubmit(onSubmitResume)}>
-        <WorkExperience/>
+        <ProjectDialog />
         <Button
           id='saveResume'
           type='submit'
@@ -61,4 +61,4 @@ const WorkExperienceForm = ({ user, closeDialog }) => {
   );
 };
 
-export default WorkExperienceForm;
+export default ProjectForm;
