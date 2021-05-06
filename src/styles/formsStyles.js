@@ -53,10 +53,10 @@ export const useStyles = makeStyles((theme) => ({
   },
   comingSoon: {
     textAlign: 'center',
-    padding: 80
+    padding: 80,
   },
   cancelConditionsBtn: {
-    float: 'right'
+    float: 'right',
   },
   form: {
     display: 'flex',
@@ -133,7 +133,7 @@ export const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
   },
   linkedLinkMobile: {
-    margin: '0 auto'
+    margin: '0 auto',
   },
   forgetPasswordLink: {
     margin: theme.spacing(1),
@@ -336,13 +336,16 @@ export const useStyles = makeStyles((theme) => ({
     height: 'fit-content',
     marginBottom: '50px',
     [theme.breakpoints.down('md')]: {
-      marginBottom: 0
+      marginBottom: 0,
     },
   },
   loginMobile: {
     [theme.breakpoints.down('md')]: {
-      marginTop: 0
+      marginTop: 0,
     },
+  },
+  loginPageTitle: {
+    textAlign: 'center !important',
   },
   pageHeaderStyle: {
     fontSize: '2.024vw',
@@ -387,20 +390,20 @@ export const useStyles = makeStyles((theme) => ({
   },
   profileAndNameContainer: {
     display: 'inline-block',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   personalInfoSections: {
     border: '1px solid #dddcda',
     borderRadius: 10,
     padding: '0 20px',
-    margin: '15px 0'
+    margin: '15px 0',
   },
   personalInfoHeaderContainer: {
     margin: '15px 0',
   },
   personalInfoHeader: {
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   largeProfilePic: {
     width: '200px',
@@ -492,7 +495,7 @@ export const useStyles = makeStyles((theme) => ({
 
   centeredText: {
     [theme.breakpoints.down('md')]: {
-      margin: '0 auto'
+      margin: '0 auto',
     },
   },
   profileURLMobile: {
@@ -504,12 +507,12 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   profileEmailMobile: {
-    overflowX: 'scroll'
+    overflowX: 'scroll',
   },
   corporateDesc: {
     marginLeft: 30,
-    color: darkBlue
-  }
+    color: darkBlue,
+  },
 }));
 
 export const selectStyle = {

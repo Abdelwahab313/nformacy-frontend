@@ -42,9 +42,31 @@ const scheduleMeetingWithFreelancer = (serviceId, callTime, freelancerId) => {
   }).then((response) => camelizeKeys(response));
 };
 
+const scheduleMeetingWithConsultantManager = (callTime, adminId) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/meetings/book_admin_call`,
+    data: decamelizeKeys({
+      callTime,
+      adminId,
+    }),
+  }).then((response) => camelizeKeys(response));
+};
+
+
+const fetchScheduledMeetings = () => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/meetings/scheduled_meetings`,
+  }).then((response) => camelizeKeys(response));
+};
+
+
 export {
   fetchAllMeetings,
   fetchMeetingDetails,
+  fetchScheduledMeetings,
   scheduleMeetingForCallService,
   scheduleMeetingWithFreelancer,
+  scheduleMeetingWithConsultantManager,
 };

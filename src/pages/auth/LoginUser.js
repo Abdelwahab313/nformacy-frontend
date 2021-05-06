@@ -20,6 +20,7 @@ import {
 } from 'react-google-recaptcha-v3';
 import { GOOGLE_RECAPTCHA_URL } from 'settings';
 import ErrorMessage from 'components/errors/ErrorMessage';
+import clsx from 'clsx';
 
 const Login = () => {
   const classes = useStyles();
@@ -104,14 +105,19 @@ const Login = () => {
         className={classes.loginInTitleContainer}>
         <Grid item xs={1} />
         <Grid item xs={10}>
-          <Typography className={classes.pageHeaderStyle}>
+          <Typography
+            className={clsx(classes.loginPageTitle, classes.pageHeaderStyle)}>
             {!!isAdminLogin ? t('loginAdminTitle') : t('loginTitle')}
           </Typography>
         </Grid>
       </Grid>
       <Grid container justify={'space-evenly'} alignContent={'center'}>
         <CssBaseline />
-        <Grid item xs={12} md={12} className={[classes.paper, classes.loginMobile]}>
+        <Grid
+          item
+          xs={12}
+          md={12}
+          className={[classes.paper, classes.loginMobile]}>
           <form
             id='loginUserForm'
             className={classes.form}
