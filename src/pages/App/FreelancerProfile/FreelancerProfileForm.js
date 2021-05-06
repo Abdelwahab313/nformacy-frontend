@@ -8,7 +8,13 @@ import {
   stepIndicatorStyles,
   useStyles,
 } from '../../../styles/formsStyles';
-import { Checkbox, FormControlLabel, Dialog, DialogContent, Button } from '@material-ui/core';
+import {
+  Checkbox,
+  FormControlLabel,
+  Dialog,
+  DialogContent,
+  Button,
+} from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
@@ -96,8 +102,7 @@ const FreeLancerProfileForm = () => {
       } else {
         return clientStepFields[activeStep];
       }
-    }
-    else {
+    } else {
       return consultantStepsFields[activeStep];
     }
   }, [activeStep, isCorporateUser]);
@@ -116,12 +121,12 @@ const FreeLancerProfileForm = () => {
   const isFinalStep = useMemo(() => {
     return (
       activeStep === 2 ||
-      (authManager.isClient() && user.current.accountType === 'client' && activeStep === 1) ||
+      (authManager.isClient() &&
+        user.current.accountType === 'client' &&
+        activeStep === 1) ||
       (authManager.isNormalUser() && activeStep === 1)
     );
   }, [activeStep, isClientEmployed]);
-
-
 
   const onSubmit = (userDate) => {
     if (authManager.isNormalUser()) {
@@ -151,6 +156,7 @@ const FreeLancerProfileForm = () => {
     const userToBeSubmitted = {
       ...user.current,
       id: user.current.id,
+      ...userData,
       experiences: !!userData.experiences
         ? [...userData.experiences, ...deletedExperiences]
         : deletedExperiences,
@@ -269,7 +275,7 @@ const FreeLancerProfileForm = () => {
         <DialogContent>
           <Grid container>
             <Grid item md={12}>
-              <CustomTypography fontWeight="fontWeightBold" variant='h5'>
+              <CustomTypography fontWeight='fontWeightBold' variant='h5'>
                 Terms and Conditions
               </CustomTypography>
             </Grid>
@@ -282,7 +288,7 @@ const FreeLancerProfileForm = () => {
             <Grid item md={6}>
               <Button
                 onClick={handleClose}
-                variant="contained"
+                variant='contained'
                 className={classes.cancelConditionsBtn}>
                 Cancel
               </Button>
@@ -317,9 +323,10 @@ const FreeLancerProfileForm = () => {
           {activeStep === 1 && authManager.isNormalUser() && <StepTwo />}
 
           {activeStep === 0 && authManager.isClient() && <ClientStepOne />}
-          {activeStep === 1 && authManager.isClient() && (isCorporateUser ? <CorporateStepOne /> : <ClientStepTwo />)}
+          {activeStep === 1 &&
+            authManager.isClient() &&
+            (isCorporateUser ? <CorporateStepOne /> : <ClientStepTwo />)}
           {activeStep === 2 && authManager.isClient() && <CorporateStepTwo />}
-
         </FormContext>
         {!!isFinalStep && (
           <Grid
@@ -388,16 +395,16 @@ const FreeLancerProfileForm = () => {
               endIcon={<DoneIcon />}
             />
           ) : (
-              <SubmitButton
-                buttonText={t['next']}
-                id='nextButton'
-                disabled={isGoNextDisabled}
-                onClick={proceedToNextStep}
-                variant='contained'
-                style={nextButtonStyles(isGoNextDisabled)}
-                endIcon={<ArrowForwardIosIcon />}
-              />
-            )}
+            <SubmitButton
+              buttonText={t['next']}
+              id='nextButton'
+              disabled={isGoNextDisabled}
+              onClick={proceedToNextStep}
+              variant='contained'
+              style={nextButtonStyles(isGoNextDisabled)}
+              endIcon={<ArrowForwardIosIcon />}
+            />
+          )}
         </Grid>
       </form>
 
