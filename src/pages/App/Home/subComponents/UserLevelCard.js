@@ -24,18 +24,23 @@ const USER_STEPS = [
   {
     label: 'Register',
     icon: <PersonIcon fontSize='small' />,
+    onClickNextAction: () => {},
   },
   {
     label: 'Fill basic Information',
     icon: <VerifiedUserIcon fontSize='small' />,
+    onClickNextAction: () => history.push(RoutesPaths.App.FreelancerProfile),
   },
   {
     label: 'Fill full profile data',
     icon: <WorkIcon fontSize='small' />,
+    onClickNextAction: () =>
+      history.push(RoutesPaths.App.FreelancerProfilePartII),
   },
   {
     label: 'Meet the Consultant Manager',
     icon: <SupervisorAccountIcon fontSize='small' />,
+    onClickNextAction: () => history.push(RoutesPaths.App.MeetingWithAdmin),
   },
   {
     label: 'Level 1',
@@ -142,7 +147,10 @@ const UserLevelCard = () => {
                       <Button
                         variant='contained'
                         color='primary'
-                        onClick={() => { history.push(RoutesPaths.App.FreelancerProfilePartII); }}
+                        onClick={() => {
+                          !!userStep.onClickNextAction &&
+                            userStep.onClickNextAction();
+                        }}
                         className={classes.button}>
                         {'You are here'}
                       </Button>

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { API_BASE_URL } from '../settings';
 import { camelizeKeys, decamelizeKeys } from 'humps';
+import { ADMIN_ROLES } from 'constants/userRoles';
 
 export const addAdmin = (user) => {
   return axios({
@@ -29,5 +30,12 @@ export const updateAdmin = (adminId, user) => {
     method: 'put',
     url: `${API_BASE_URL}/users/${adminId}`,
     data: decamelizeKeys({ ...user }),
+  }).then((response) => camelizeKeys(response));
+};
+
+export const fetchConsultantManagers = () => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/users/list_admins?role=${ADMIN_ROLES.consultantsManager}`,
   }).then((response) => camelizeKeys(response));
 };

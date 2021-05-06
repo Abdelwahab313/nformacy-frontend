@@ -20,6 +20,7 @@ const ServicesPage = React.lazy(() => import('pages/App/ServiceRequests/list'));
 const ServiceDetails = React.lazy(() => import('pages/App/ServiceRequests/details'));
 const FreelancersActivitiesPage = React.lazy(() => import('pages/App/FreelancersAnswers/list'));
 const CallEvaluationPage = React.lazy(() => import('pages/App/MeetingEvaluation/CallEvaluation'));
+const MeetingWithAdminScheduler = React.lazy(() => import('pages/App/MeetingWithAdminScheduler'));
 const NotFoundPage = React.lazy(() => import('pages/NotFoundPage'));
 const ContactUsPage = React.lazy(() => import('pages/App/ContactUs/ContactUsPage'));
 const SolutionsPage = React.lazy(() => import('pages/App/Solutions/SolutionsPage'));
@@ -219,6 +220,15 @@ const appRoutes = [
     name: 'Call Evaluation',
     icon: DashboardIcon,
     Component: CallEvaluationPage,
+    includeLayout: true,
+    public: false,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.App.MeetingWithAdmin,
+    name: 'Meeting with Admin',
+    icon: DashboardIcon,
+    Component: MeetingWithAdminScheduler,
     includeLayout: true,
     public: false,
     hasDashboardLink: false,
