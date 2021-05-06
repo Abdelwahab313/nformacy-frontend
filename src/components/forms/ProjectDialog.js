@@ -13,6 +13,7 @@ import { Input } from '@material-ui/core';
 import t from '../../locales/en/freelancerProfile.json';
 import Link from '@material-ui/core/Link';
 import ErrorMessage from '../errors/ErrorMessage';
+import FieldsOfExperience from './FieldsOfExpereience';
 
 const ProjectDialog = () => {
   const {
@@ -75,6 +76,7 @@ const ProjectDialog = () => {
                   }
                 />
               </Container>
+              <FieldsOfExperience />
               <Container maxWidth={false} className={classes.formControl}>
                 <TextField
                   fullWidth

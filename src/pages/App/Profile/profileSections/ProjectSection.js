@@ -8,113 +8,136 @@ import Typography from '@material-ui/core/Typography';
 import t from '../../../../locales/en/freelancerProfile.json';
 import Divider from '@material-ui/core/Divider';
 import { dividerStyle, useStyles } from '../../../../styles/formsStyles';
-import React, { useEffect, useRef, useState } from 'react';
-import Timeline from '@material-ui/lab/Timeline';
-import TimelineItem from '@material-ui/lab/TimelineItem';
-import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
-import TimelineDot from '@material-ui/lab/TimelineDot';
-import TimelineConnector from '@material-ui/lab/TimelineConnector';
-import TimelineContent from '@material-ui/lab/TimelineContent';
+import React, { useRef } from 'react';
 import Transition from '../../../../components/animations/Transition';
-import LaptopIcon from '@material-ui/icons/Laptop';
 import ProjectForm from 'components/forms/ProjectForm.js';
+import useFieldsFetcher from 'hooks/useFieldsFetcher';
+import useUserFieldsFetcher from 'hooks/useUserFieldsFetcher.js';
+import { flatMap } from 'lodash';
+import clsx from 'clsx';
+import FieldsView from './FieldsView.js';
 
 const ProjectSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
-  const [resume, setResume] = useState([]);
-  const [open, setOpen] = useState(false);
-
+  const { fields, loading: fieldsLoading } = useFieldsFetcher();
+  const {
+    currentUserFields,
+    updateUserFields,
+    loading: userFieldsLoading,
+  } = useUserFieldsFetcher();
+  const [open, setOpen] = React.useState(false);
   const classes = useStyles();
-
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
-  const mergeHistory = () => {
-    const history = [];
-    user.current.projects.forEach((project) => {
-      const historyEntry = {
-        type: 'project',
-        ...project,
-        date: new Date(project.startDate),
-      };
-      history.push(historyEntry);
-    });
-    return history.sort((entry1, entry2) =>
-      entry1.date <= entry2.date ? 1 : -1,
-    );
-  };
-
-  useEffect(() => {
-    const mergedHistory = mergeHistory();
-    setResume(mergedHistory);
-  }, [user.current]);
-
-  const renderProjectItem = (project, key) => {
-    return (
-      <TimelineItem key={key}>
-        <TimelineSeparator>
-          <TimelineDot color='primary'>
-            <LaptopIcon />
-          </TimelineDot>
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>
-          <Paper elevation={3} className={classes.timeLineContent}>
-            <Typography
-              className={classes.sectionHeaderStyles}
-              color={'primary'}>
-              {t['majorAchievedProjects']}
-            </Typography>
-            <Typography className={classes.fieldLabelStylesDesktop}>
-              {project.title}
-            </Typography>
-            <Typography className={classes.timelineFieldValueStyles}>
-              {project.jobRole}
-            </Typography>
-          </Paper>
-        </TimelineContent>
-      </TimelineItem>
-    );
-  };
   return (
-    <Grid item id='project'>
+    <Grid item id='fieldsOfSpecialization'>
       <Dialog
         TransitionComponent={Transition}
         maxWidth='lg'
-        PaperProps={{ id: 'projectDialog' }}
+        PaperProps={{ id: 'fieldsOfSpecializationDialog' }}
         onClose={handleClose}
         open={open}>
         <DialogContent>
           <Grid container>
-            <ProjectForm user={user} closeDialog={handleClose} />
+            <ProjectForm
+              user={user}
+              fields={flatMap(currentUserFields)}
+              updateFields={() => updateUserFields()}
+              closeDialog={handleClose}
+            />
           </Grid>
         </DialogContent>
       </Dialog>
       <Paper className={classes.paperSection} elevation={3}>
         <Grid container justify={'space-between'}>
-          <Grid container alignItems='center'>
-            <Grid item xs={1} className={classes.paperSectionHeaderStyles} />
-            <Grid item xs={10} className={classes.paperSectionHeaderStyles}>
-              <Typography gutterBottom className={classes.sectionHeaderStyles}>
-                {t['majorAchievedProjects']}
-              </Typography>
-            </Grid>
-            <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
-              <IconButton aria-label='edit' onClick={handleClickOpen}>
-                <EditIcon color={'primary'} />
-              </IconButton>
-            </Grid>
+          <Grid item xs={1} className={classes.paperSectionHeaderStyles} />
+          <Grid item xs={10} className={classes.paperSectionHeaderStyles}>
+            <Typography gutterBottom className={classes.sectionHeaderStyles}>
+              {t['majorAchievedProjects']}
+            </Typography>
+          </Grid>
+          <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
+            <IconButton
+              aria-label='edit'
+              id='editFieldsOfSpecializations'
+              onClick={handleClickOpen}>
+              <EditIcon color={'primary'} />
+            </IconButton>
           </Grid>
         </Grid>
         <Divider variant='middle' style={dividerStyle} />
-        <Timeline align='alternate'>
-          {resume.map((history, key) => {
-            return renderProjectItem(history, key);
-          })}
-        </Timeline>
+        <Grid
+          container
+          spacing={5}
+          className={classes.paperSectionContentStyles}>
+          <Grid
+            item
+            xs={12}
+            className={clsx([
+              classes.sectionContainerPaddingLeft,
+              classes.sectionRowContainerStyles,
+            ])}>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={6}>
+                <Typography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
+                  {t['title']}
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                {user.current.projects.map((proj, key) => (
+                  <Typography
+                    id='title'
+                    key={key}
+                    gutterBottom
+                    className={classes.fieldValueStyles}>
+                    {proj.title}
+                  </Typography>
+                ))}
+              </Grid>
+            </Grid>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={6}>
+                <Typography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
+                  {t['experiencedIn']}
+                </Typography>
+              </Grid>
+              <FieldsView
+                currentUserFields={currentUserFields}
+                fields={fields}
+                loading={userFieldsLoading || fieldsLoading}
+              />
+            </Grid>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={6}>
+                <Typography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
+                  {t['jobRole']}
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                {user.current.projects.map((proj, key) => (
+                  <Typography
+                    id='jobRole'
+                    key={key}
+                    gutterBottom
+                    className={classes.fieldValueStyles}>
+                    {proj.jobRole}
+                  </Typography>
+                ))}
+              </Grid>
+            </Grid>
+
+          </Grid>
+        </Grid>
       </Paper>
     </Grid>
   );

@@ -48,8 +48,8 @@ const FreelancerProfilePartTwo = () => {
   const [isConfirmedBack, setIsConfirmedBack] = useState(false);
 
   const consultantStepsFields = [
-    ['experiences'],
-    ['educations', 'languageOfAssignments', 'typesOfAssignments']
+    [],
+    ['languageOfAssignments', 'typesOfAssignments']
   ];
   const {
     register,
@@ -100,6 +100,38 @@ const FreelancerProfilePartTwo = () => {
       onSubmitFreelancer(userDate);
     }
   };
+  // console.log('----------------------', watchExperiences)
+  const nestedFieldsValidation = () => {
+    let isValid = true;
+    const watchExperiences = watch('experiences');
+    const watchEducations = watch('educations');
+
+    if (activeStep === 0) {
+      let experiences = [...watchExperiences];
+      experiences = experiences.filter(
+        (exp) => !deletedExperiences.includes(exp),
+      );
+      if (experiences.length === 0) {
+
+        setError(
+          'experiencesLength',
+          'manual',
+          'At least one experience required',
+        );
+        isValid = false;
+      }
+    }
+    else {
+      let educations = [...watchEducations];
+      educations = educations.filter((edu) => !deletedEducations.includes(edu));
+      if (educations.length === 0) {
+        setError('educationLength', 'manual', 'At least one education required');
+        isValid = false;
+      }
+    }
+    return isValid;
+  };
+
   const onSubmitFreelancer = (userData) => {
     const userToBeSubmitted = {
       ...user.current,
@@ -114,29 +146,8 @@ const FreelancerProfilePartTwo = () => {
         ? [...userData.certifications, ...deletedCertification]
         : deletedCertification,
     };
-    function validateNestedFields(userToBeSubmitted) {
-      // let experiences = [...userToBeSubmitted.experiences];
-      // experiences = experiences.filter(
-      //   (exp) => !deletedExperiences.includes(exp),
-      // );
 
-      let educations = [...userToBeSubmitted.educations];
-      educations = educations.filter((edu) => !deletedEducations.includes(edu));
-
-      // if (experiences.length === 0) {
-      //   setError(
-      //     'experiencesLength',
-      //     'manual',
-      //     'At least one experience required',
-      //   );
-      // }
-      if (educations.length === 0) {
-        setError('educationLength', 'manual', 'At least one education required');
-      }
-      return educations.length !== 0;
-    }
-
-    const nestedFieldsValid = validateNestedFields(userToBeSubmitted);
+    const nestedFieldsValid = nestedFieldsValidation();
 
     if (nestedFieldsValid) {
       setLoading(true);
@@ -219,7 +230,7 @@ const FreelancerProfilePartTwo = () => {
   };
 
   function proceedToNextStep() {
-    if (activeStep < 2) {
+    if (activeStep < 2 && nestedFieldsValidation()) {
       user.current = {
         ...user.current,
         ...getValues(currentStepFields),
