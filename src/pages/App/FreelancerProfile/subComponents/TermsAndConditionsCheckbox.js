@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStyles } from '../../../styles/formsStyles';
+import { useStyles } from 'styles/formsStyles';
 import {
   Checkbox,
   FormControlLabel,

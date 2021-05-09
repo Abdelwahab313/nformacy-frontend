@@ -7,8 +7,8 @@ const UserTypeSelection = React.lazy(() => import('pages/App/register/UserTypeSe
 const LandingPage = React.lazy(() => import('pages/App/LandingPage/LandingPage'));
 const Login = React.lazy(() => import('pages/auth/LoginUser'));
 const Register = React.lazy(() => import('pages/Register/Register'));
-const FreeLancerProfileForm = React.lazy(() => import('pages/App/FreelancerProfile/FreelancerProfileForm'));
-const FreelancerProfilePartII = React.lazy(() => import('pages/App/FreelancerProfile/FreelancerProfilePartTwo'));
+const UserRegistrationForm = React.lazy(() => import('pages/App/FreelancerProfile/UserRegistrationForm'));
+const ConsultantAdvancedRegistrationForm = React.lazy(() => import('pages/App/FreelancerProfile/ConsultantAdvancedRegistrationForm'));
 const Logout = React.lazy(() => import('pages/auth/LogoutUser'));
 const QuestionRoaster = React.lazy(() => import('pages/App/QuestionRoaster/QuestionRoasterView'));
 const HomePage = React.lazy(() => import('pages/App/Home'));
@@ -168,19 +168,19 @@ const appRoutes = [
     hasDashboardLink: false,
   },
   {
-    path: RoutesPaths.App.FreelancerProfile,
+    path: RoutesPaths.App.UserRegistrationForm,
     name: 'Profile',
     icon: DashboardIcon,
-    Component: FreeLancerProfileForm,
+    Component: UserRegistrationForm,
     includeLayout: true,
     isPublic: false,
     hasDashboardLink: false,
   },
   {
-    path: RoutesPaths.App.FreelancerProfilePartII,
+    path: RoutesPaths.App.ConsultantAdvancedRegistrationForm,
     name: 'Profile',
     icon: DashboardIcon,
-    Component: FreelancerProfilePartII,
+    Component: ConsultantAdvancedRegistrationForm,
     includeLayout: true,
     isPublic: false,
     hasDashboardLink: false,

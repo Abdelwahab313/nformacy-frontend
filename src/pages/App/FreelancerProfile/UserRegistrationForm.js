@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { FormContext, useForm } from 'react-hook-form';
-import StepOne from './StepOne';
-import StepsIndicator from './StepsIndicator';
+import StepOne from './subComponents/StepOne';
+import StepsIndicator from './subComponents/StepsIndicator';
 import {
   formStyle,
   nextButtonStyles,
@@ -11,7 +11,7 @@ import {
 import DoneIcon from '@material-ui/icons/Done';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Grid from '@material-ui/core/Grid';
-import StepTwo from './StepTwo';
+import StepTwo from './subComponents/StepTwo';
 import {
   completeFreelancerProfile,
   completeClientProfile,
@@ -29,10 +29,10 @@ import { useAuth } from 'pages/auth/context/auth';
 import { updateUser } from 'pages/auth/context/authActions';
 import CorporateStepOne from 'pages/CorporateRegister/CorporateStepOne';
 import CorporateStepTwo from 'pages/CorporateRegister/CorporateStepTwo';
-import TermsAndConditionsCheckbox from './TermsAndConditionsCheckbox';
-import BackButton from './BackButton';
+import TermsAndConditionsCheckbox from './subComponents/TermsAndConditionsCheckbox';
+import BackButton from './subComponents/BackButton';
 
-const FreeLancerProfileForm = () => {
+const UserRegistrationForm = () => {
   const currentUser = authManager.retrieveCurrentUser();
   const user = useRef(currentUser);
   const {
@@ -273,4 +273,4 @@ const FreeLancerProfileForm = () => {
   );
 };
 
-export default FreeLancerProfileForm;
+export default UserRegistrationForm;

@@ -17,7 +17,7 @@ const HomeHeadBar = () => {
   const [{ currentUser }] = useAuth();
 
   const onClickCompleteLater = () => {
-    window.location.replace(RoutesPaths.App.FreelancerProfile);
+    window.location.replace(RoutesPaths.App.UserRegistrationForm);
   };
 
   const isCompleteLaterBanner = !currentUser.completedProfile && !authManager.isAdmin();

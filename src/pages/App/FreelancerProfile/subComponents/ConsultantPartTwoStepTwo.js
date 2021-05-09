@@ -1,14 +1,13 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Grow from '@material-ui/core/Grow';
-import WorkExperience from '../../../components/forms/WorkExperience';
-import Education from '../../../components/forms/Education';
-import Certification from '../../../components/forms/Certification';
-import { useStyles } from '../../../styles/formsStyles';
+import { useStyles } from 'styles/formsStyles';
 import Paper from '@material-ui/core/Paper';
-import CV from '../../../components/forms/CV';
+import Education from 'components/forms/Education';
+import Certification from 'components/forms/Certification';
+import AssignmentPreferences from 'components/forms/AssignmentPreferences';
 
-const StepThree = () => {
+const ConsultantPartTwoStepTwo = () => {
   const classes = useStyles();
 
   return (
@@ -27,13 +26,10 @@ const StepThree = () => {
             xs={12}
             md={6}>
             <Paper className={classes.paperSection} elevation={5}>
-              <CV />
-            </Paper>
-            <Paper className={classes.paperSection} elevation={5}>
-              <WorkExperience />
-            </Paper>
-            <Paper className={classes.paperSection} elevation={5}>
               <Education />
+            </Paper>
+            <Paper className={classes.paperSection} elevation={5}>
+              <AssignmentPreferences />
             </Paper>
             <Paper className={classes.paperSection} elevation={5}>
               <Certification />
@@ -45,4 +41,4 @@ const StepThree = () => {
   );
 };
 
-export default StepThree;
+export default ConsultantPartTwoStepTwo;

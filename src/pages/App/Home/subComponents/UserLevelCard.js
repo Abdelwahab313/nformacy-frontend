@@ -29,13 +29,13 @@ const USER_STEPS = [
   {
     label: 'Fill basic Information',
     icon: <VerifiedUserIcon fontSize='small' />,
-    onClickNextAction: () => history.push(RoutesPaths.App.FreelancerProfile),
+    onClickNextAction: () => history.push(RoutesPaths.App.UserRegistrationForm),
   },
   {
     label: 'Fill full profile data',
     icon: <WorkIcon fontSize='small' />,
     onClickNextAction: () =>
-      history.push(RoutesPaths.App.FreelancerProfilePartII),
+      history.push(RoutesPaths.App.ConsultantAdvancedRegistrationForm),
   },
   {
     label: 'Meet the Consultant Manager',

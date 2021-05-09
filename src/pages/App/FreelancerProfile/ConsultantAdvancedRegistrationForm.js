@@ -6,8 +6,8 @@ import {
   nextButtonStyles,
 } from '../../../styles/formsStyles';
 import Hidden from '@material-ui/core/Hidden';
-import StepsIndicator from './StepsIndicator';
-import ConsultantPartTwoStepOne from './ConsultantPartTwoStepOne';
+import StepsIndicator from './subComponents/StepsIndicator';
+import ConsultantPartTwoStepOne from './subComponents/ConsultantPartTwoStepOne';
 import { FormContext, useForm } from 'react-hook-form';
 import authManager from 'services/authManager';
 import DoneIcon from '@material-ui/icons/Done';
@@ -21,11 +21,11 @@ import { useHistory } from 'react-router-dom';
 import { getDashboardLinkAfterSignup } from 'services/navigation';
 import { Grid } from '@material-ui/core';
 import SubmitButton from 'components/buttons/SubmitButton';
-import ConsultantPartTwoStepTwo from './ConsultantPartTwoStepTwo';
-import TermsAndConditionsCheckbox from './TermsAndConditionsCheckbox';
-import BackButton from './BackButton';
+import ConsultantPartTwoStepTwo from './subComponents/ConsultantPartTwoStepTwo';
+import TermsAndConditionsCheckbox from './subComponents/TermsAndConditionsCheckbox';
+import BackButton from './subComponents/BackButton';
 
-const FreelancerProfilePartTwo = () => {
+const ConsultantAdvancedRegistrationForm = () => {
   const currentUser = authManager.retrieveCurrentUser();
   const user = useRef(currentUser);
   const classes = useStyles();
@@ -292,4 +292,4 @@ const FreelancerProfilePartTwo = () => {
   );
 };
 
-export default FreelancerProfilePartTwo;
+export default ConsultantAdvancedRegistrationForm;

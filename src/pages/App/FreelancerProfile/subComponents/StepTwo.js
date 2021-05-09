@@ -1,8 +1,8 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Grow from '@material-ui/core/Grow';
-import FieldsOfSpecialization from '../../../components/forms/FieldsOfSpecialization';
-import { useStyles } from '../../../styles/formsStyles';
+import FieldsOfSpecialization from 'components/forms/FieldsOfSpecialization';
+import { useStyles } from 'styles/formsStyles';
 import Paper from '@material-ui/core/Paper';
 
 const StepTwo = () => {

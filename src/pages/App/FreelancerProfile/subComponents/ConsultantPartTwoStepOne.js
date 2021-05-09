@@ -1,13 +1,13 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Grow from '@material-ui/core/Grow';
-import { useStyles } from '../../../styles/formsStyles';
+import { useStyles } from 'styles/formsStyles';
 import Paper from '@material-ui/core/Paper';
-import Education from 'components/forms/Education';
-import Certification from 'components/forms/Certification';
-import AssignmentPreferences from 'components/forms/AssignmentPreferences';
+import CV from 'components/forms/CV';
+import WorkExperience from 'components/forms/WorkExperience';
+import Project from 'components/forms/Project';
 
-const ConsultantPartTwoStepTwo = () => {
+const ConsultantPartTwoStepOne = () => {
   const classes = useStyles();
 
   return (
@@ -26,13 +26,13 @@ const ConsultantPartTwoStepTwo = () => {
             xs={12}
             md={6}>
             <Paper className={classes.paperSection} elevation={5}>
-              <Education />
+              <CV />
             </Paper>
             <Paper className={classes.paperSection} elevation={5}>
-              <AssignmentPreferences />
+              <WorkExperience />
             </Paper>
             <Paper className={classes.paperSection} elevation={5}>
-              <Certification />
+              <Project />
             </Paper>
           </Grid>
         </Grow>
@@ -41,4 +41,4 @@ const ConsultantPartTwoStepTwo = () => {
   );
 };
 
-export default ConsultantPartTwoStepTwo;
+export default ConsultantPartTwoStepOne;

@@ -1,8 +1,8 @@
-import PersonalInfo from '../../../components/forms/PersonalInfo';
 import React from 'react';
+import PersonalInfo from 'components/forms/PersonalInfo';
 import Grid from '@material-ui/core/Grid';
 import Grow from '@material-ui/core/Grow';
-import { useStyles } from '../../../styles/formsStyles';
+import { useStyles } from 'styles/formsStyles';
 import Paper from '@material-ui/core/Paper';
 
 const StepOne = () => {

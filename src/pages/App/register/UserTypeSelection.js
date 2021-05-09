@@ -19,18 +19,18 @@ const UserTypeSelection = () => {
   const { showErrorMessage } = useSnackBar();
 
   if (!!authManager.getUserRole()) {
-    return <Redirect to={RoutesPaths.App.FreelancerProfile} />;
+    return <Redirect to={RoutesPaths.App.UserRegistrationForm} />;
   }
   const onTypeClick = (role) => {
     addUserRole(role)
       .then((response) => {
         updateUser(dispatch, response.data);
-        history.push(RoutesPaths.App.FreelancerProfile);
+        history.push(RoutesPaths.App.UserRegistrationForm);
       })
       .catch((reason) => {
         if (reason.response) {
           showErrorMessage(reason.response.errors);
-          history.push(RoutesPaths.App.FreelancerProfile);
+          history.push(RoutesPaths.App.UserRegistrationForm);
         }
       });
   };

@@ -8,7 +8,7 @@ import { immortalQueryConfig } from 'settings';
 import ClientHomePage from './ClientHomePage';
 import CorporateHomePage from './CorporateHomePage';
 import ConsultantHomePage from './ConsultantHomePage';
-import SuccessDialogPage from '../FreelancerProfile/SuccessDialogPage';
+import SuccessDialogPage from './subComponents/SuccessDialogPage';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { useHistory, useLocation } from 'react-router';
 
