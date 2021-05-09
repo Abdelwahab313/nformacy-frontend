@@ -3,7 +3,7 @@ import {
   formStyle,
   stepIndicatorStyles,
   useStyles,
-  nextButtonStyles
+  nextButtonStyles,
 } from '../../../styles/formsStyles';
 import Hidden from '@material-ui/core/Hidden';
 import StepsIndicator from './StepsIndicator';
@@ -14,28 +14,24 @@ import DoneIcon from '@material-ui/icons/Done';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import t from 'locales/en/freelancerProfile.json';
 
-import {
-  submitFullProfile,
-  uploadCV,
-  updateProfile,
-} from 'apis/userAPI';
+import { submitFullProfile, uploadCV, updateProfile } from 'apis/userAPI';
 import { updateUser } from 'pages/auth/context/authActions';
 import { useAuth } from 'pages/auth/context/auth';
 import { useHistory } from 'react-router-dom';
 import { getDashboardLinkAfterSignup } from 'services/navigation';
 import { Grid } from '@material-ui/core';
-import { Checkbox, FormControlLabel } from '@material-ui/core';
-import CustomTypography from 'components/typography/Typography';
 import SubmitButton from 'components/buttons/SubmitButton';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ConsultantPartTwoStepTwo from './ConsultantPartTwoStepTwo';
-import BackDialog from './BackDialog';
+import TermsAndConditionsCheckbox from './TermsAndConditionsCheckbox';
+import BackButton from './BackButton';
 
 const FreelancerProfilePartTwo = () => {
-  const user = useRef(JSON.parse(localStorage.getItem('user')));
+  const currentUser = authManager.retrieveCurrentUser();
+  const user = useRef(currentUser);
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [deletedExperiences, setDeletedExperiences] = useState([]);
+  const [deletedProjects, setDeletedProjects] = useState([]);
   const [deletedEducations, setDeletedEducations] = useState([]);
   const [deletedCertification, setDeletedCertifications] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -43,13 +39,10 @@ const FreelancerProfilePartTwo = () => {
   const [cv, setCV] = useState();
   const history = useHistory();
   const [isTermsChecked, setIsTermsChecked] = useState(false);
-  const [, setOpen] = useState(false);
-  const [isBackDialogueOpen, setIsDialogueOpen] = useState(false);
-  const [isConfirmedBack, setIsConfirmedBack] = useState(false);
 
   const consultantStepsFields = [
     [],
-    ['languageOfAssignments', 'typesOfAssignments']
+    ['languageOfAssignments', 'typesOfAssignments'],
   ];
   const {
     register,
@@ -60,12 +53,11 @@ const FreelancerProfilePartTwo = () => {
     setValue,
     handleSubmit,
     watch,
-    reset
+    reset,
   } = useForm({
     mode: 'onChange',
     defaultValues: {
       ...user.current,
-      majorFieldsOfExperience: user.current.majorFieldsOfExperience || [],
     },
   });
   const currentStepFields = useMemo(() => {
@@ -87,20 +79,9 @@ const FreelancerProfilePartTwo = () => {
   const isGoNextDisabled = isCurrentstepInvalid() || loading;
 
   const isFinalStep = useMemo(() => {
-    return (
-      activeStep === 2 ||
-      (authManager.isClient() && user.current.accountType === 'client' && activeStep === 1) ||
-      (authManager.isNormalUser() && activeStep === 1)
-    );
+    return activeStep === 1;
   }, [activeStep]);
 
-
-  const onSubmit = (userDate) => {
-    if (authManager.isNormalUser()) {
-      onSubmitFreelancer(userDate);
-    }
-  };
-  // console.log('----------------------', watchExperiences)
   const nestedFieldsValidation = () => {
     let isValid = true;
     const watchExperiences = watch('experiences');
@@ -112,7 +93,6 @@ const FreelancerProfilePartTwo = () => {
         (exp) => !deletedExperiences.includes(exp),
       );
       if (experiences.length === 0) {
-
         setError(
           'experiencesLength',
           'manual',
@@ -120,12 +100,15 @@ const FreelancerProfilePartTwo = () => {
         );
         isValid = false;
       }
-    }
-    else {
+    } else {
       let educations = [...watchEducations];
       educations = educations.filter((edu) => !deletedEducations.includes(edu));
       if (educations.length === 0) {
-        setError('educationLength', 'manual', 'At least one education required');
+        setError(
+          'educationLength',
+          'manual',
+          'At least one education required',
+        );
         isValid = false;
       }
     }
@@ -136,9 +119,6 @@ const FreelancerProfilePartTwo = () => {
     const userToBeSubmitted = {
       ...user.current,
       id: user.current.id,
-      experiences: !!userData.experiences
-        ? [...userData.experiences, ...deletedExperiences]
-        : deletedExperiences,
       educations: !!userData.educations
         ? [...userData.educations, ...deletedEducations]
         : deletedEducations,
@@ -170,7 +150,7 @@ const FreelancerProfilePartTwo = () => {
   const onClickSaveLater = () => {
     user.current = {
       ...user.current,
-      ...getValues(currentStepFields),
+      ...getValues({ nest: true }),
     };
 
     updateProfile({ ...user.current })
@@ -204,36 +184,26 @@ const FreelancerProfilePartTwo = () => {
         .finally(() => setLoading(false));
     }
   };
-  const onTermsChecked = () => {
-    setIsTermsChecked(!isTermsChecked);
-  };
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  function getBackToPreviousStep() {
-    setIsDialogueOpen(true);
-  }
-  const onClickAgree = () => {
-    setIsConfirmedBack(true);
-    setIsDialogueOpen(false);
+  const onClickGoBack = () => {
     if (activeStep > 0) {
       reset(user.current);
       setActiveStep(activeStep - 1);
     }
   };
 
-  const onClickCancel = () => {
-    setIsConfirmedBack(false);
-    setIsDialogueOpen(false);
-  };
-
   function proceedToNextStep() {
+    const updatedFields = getValues({ nest: true });
     if (activeStep < 2 && nestedFieldsValidation()) {
       user.current = {
         ...user.current,
-        ...getValues(currentStepFields),
+        ...updatedFields,
+        experiences: !!updatedFields.experiences
+          ? [...updatedFields.experiences, ...deletedExperiences]
+          : deletedExperiences,
+        projects: !!updatedFields.projects
+          ? [...updatedFields.projects, ...deletedProjects]
+          : deletedExperiences,
       };
       setActiveStep(activeStep + 1);
     }
@@ -251,7 +221,7 @@ const FreelancerProfilePartTwo = () => {
         id='multiStepForm'
         style={formStyle}
         noValidate
-        onSubmit={handleSubmit(onSubmit)}>
+        onSubmit={handleSubmit(onSubmitFreelancer)}>
         <FormContext
           errors={errors}
           register={register}
@@ -260,14 +230,14 @@ const FreelancerProfilePartTwo = () => {
           getValues={getValues}
           setValue={setValue}
           setDeletedExperiences={setDeletedExperiences}
+          setDeletedProjects={setDeletedProjects}
           setDeletedEducations={setDeletedEducations}
           setDeletedCertifications={setDeletedCertifications}
           cv={cv}
           setCV={setCV}
           watch={watch}>
-          {activeStep === 0 && authManager.isNormalUser() && <ConsultantPartTwoStepOne />}
-          {activeStep === 1 && authManager.isNormalUser() && <ConsultantPartTwoStepTwo />}
-
+          {activeStep === 0 && <ConsultantPartTwoStepOne />}
+          {activeStep === 1 && <ConsultantPartTwoStepTwo />}
         </FormContext>
         {!!isFinalStep && (
           <Grid
@@ -276,45 +246,15 @@ const FreelancerProfilePartTwo = () => {
             xs={12}
             sm={6}
             lg={6}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  onChange={onTermsChecked}
-                  name='termsChecked'
-                  color='primary'
-                  checked={isTermsChecked}
-                />
-              }
-              label={
-                <CustomTypography
-                  className={classes.termsLinkColor}
-                  onClick={handleClickOpen}>
-                  I agree with the terms and conditions
-                </CustomTypography>
-              }
+            <TermsAndConditionsCheckbox
+              isTermsChecked={isTermsChecked}
+              setIsTermsChecked={setIsTermsChecked}
             />
           </Grid>
         )}
-        <Grid
-          item
-          className={
-            activeStep === 0
-              ? classes.nextBtnContainer
-              : [classes.nextBtnContainer]
-          }
-          xs={12}
-          sm={6}
-          lg={6}>
+        <Grid item className={classes.nextBtnContainer} xs={12} sm={6} lg={6}>
           {activeStep !== 0 && (
-            <SubmitButton
-              buttonText={t['back']}
-              onClick={getBackToPreviousStep}
-              id='backButton'
-              disabled={loading}
-              variant='contained'
-              className={classes.backButton}
-              startIcon={<ArrowBackIosIcon />}
-            />
+            <BackButton isLoading={loading} onClickGoBack={onClickGoBack} />
           )}
           <SubmitButton
             id='continueLater'
@@ -336,24 +276,18 @@ const FreelancerProfilePartTwo = () => {
               endIcon={<DoneIcon />}
             />
           ) : (
-              <SubmitButton
-                buttonText={t['next']}
-                id='nextButton'
-                disabled={isGoNextDisabled}
-                onClick={proceedToNextStep}
-                variant='contained'
-                style={nextButtonStyles(isGoNextDisabled)}
-                endIcon={<ArrowForwardIosIcon />}
-              />
-            )}
+            <SubmitButton
+              buttonText={t['next']}
+              id='nextButton'
+              disabled={isGoNextDisabled}
+              onClick={proceedToNextStep}
+              variant='contained'
+              style={nextButtonStyles(isGoNextDisabled)}
+              endIcon={<ArrowForwardIosIcon />}
+            />
+          )}
         </Grid>
       </form>
-      <BackDialog
-        open={isBackDialogueOpen}
-        isAgreed={isConfirmedBack}
-        onAgree={onClickAgree}
-        onCancel={onClickCancel}
-      />
     </div>
   );
 };
