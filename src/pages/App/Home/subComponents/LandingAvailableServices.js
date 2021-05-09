@@ -6,6 +6,7 @@ import { RoutesPaths } from 'constants/routesPath';
 import { useTranslation } from 'react-i18next';
 import CustomTypography from 'components/typography/Typography';
 import { useHistory } from 'react-router';
+import authManager from 'services/authManager';
 
 const services = (t) => [
   {
@@ -49,9 +50,12 @@ const LandingAvailableServices = () => {
   const [focusedItem, setFocusedItem] = useState('');
 
   const navigatToServiceForm = (type) => {
-    history.push(RoutesPaths.App.EditServiceRequest, {
-      service: { assignmentType: type },
-    });
+    const authToken = authManager.retrieveUserToken();
+    if (typeof authToken === 'undefined' || !!authToken) {
+      history.push(RoutesPaths.App.EditQuestion, {
+        service: { assignmentType: type },
+      });
+    }
   };
 
   return (
