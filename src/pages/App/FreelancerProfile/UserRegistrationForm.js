@@ -31,6 +31,7 @@ import CorporateStepOne from 'pages/CorporateRegister/CorporateStepOne';
 import CorporateStepTwo from 'pages/CorporateRegister/CorporateStepTwo';
 import TermsAndConditionsCheckbox from './subComponents/TermsAndConditionsCheckbox';
 import BackButton from './subComponents/BackButton';
+import { submitQuestionAfterRegister } from './submitServiceRequestAfterSignup';
 
 const UserRegistrationForm = () => {
   const currentUser = authManager.retrieveCurrentUser();
@@ -128,6 +129,7 @@ const UserRegistrationForm = () => {
     setLoading(true);
     completeClientProfile(userToBeSubmitted)
       .then((response) => {
+        submitQuestionAfterRegister();
         updateUser(dispatch, response.data);
         history.push(getDashboardLinkAfterSignup(true));
       })

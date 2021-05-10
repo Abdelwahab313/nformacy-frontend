@@ -51,8 +51,13 @@ const LandingAvailableServices = () => {
 
   const navigatToServiceForm = (type) => {
     const authToken = authManager.retrieveUserToken();
-    if (typeof authToken === 'undefined' || !!authToken) {
+    if (!authToken) {
       history.push(RoutesPaths.App.EditQuestion, {
+        service: { assignmentType: type },
+      });
+    }
+    else {
+      history.push(RoutesPaths.App.EditServiceRequest, {
         service: { assignmentType: type },
       });
     }

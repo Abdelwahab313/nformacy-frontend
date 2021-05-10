@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@material-ui/core';
 import { useHistory, useLocation } from 'react-router';
@@ -7,49 +7,29 @@ import GridItem from 'components/grid/GridItem';
 import Card from 'components/card/Card';
 import CardHeader from 'components/card/CardHeader';
 import ServiceRequestForm from 'templates/services/ServiceRequestForm';
-import { fetchServiceDetails, createOrUpdateService } from 'apis/servicesAPI';
 import Direction from 'components/grid/Direction';
 import LoadingCircle from 'components/progress/LoadingCircle';
-import { useSnackBar } from 'context/SnackBarContext';
 import { SERVICE_STATUS } from 'constants/questionStatus';
 import { RoutesPaths } from 'constants/routesPath';
 import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
-import ServiceGuardian from 'core/guardians/ServiceGuardian';
-import authManager from 'services/authManager';
 
 const EditQuestion = () => {
   const location = useLocation();
   const { t } = useTranslation();
-  const { serviceId, assignmentType, content } = location?.state?.service;
+  const { assignmentType, content } = location?.state?.service;
   const richTextRef = useRef(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading,] = useState(false);
   const [serviceRequest, setServiceRequest] = useState({
     fields: [],
     content: assignmentType === 'call' ? CONTENT_FOR_CALL : content,
     assignmentType: assignmentType,
   });
   const [errors, setErrors] = useState({});
-  const { showSuccessMessage } = useSnackBar();
 
   const isNoActionForm = serviceRequest?.state === SERVICE_STATUS.pending;
-  const showDrafButtons =
-    !serviceRequest.id || serviceRequest?.state === 'draft';
 
   let history = useHistory();
-  const navigatToDashboard = () => {
-    history.push(RoutesPaths.App.Services);
-  };
 
-  useEffect(() => {
-    setIsLoading(true);
-    fetchServiceDetails(serviceId)
-      .then((response) => {
-        setServiceRequest(response.data);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
 
   if (isLoading) {
     return <LoadingCircle />;
@@ -80,31 +60,13 @@ const EditQuestion = () => {
   };
 
   const handleSubmit = () => {
-    const authToken = authManager.retrieveUserToken();
-
-    if (authToken) {
-      if (!!validate(serviceRequest)) {
-        createOrUpdateService({ ...serviceRequest, state: 'pending' })
-          .then(() => {
-            showSuccessMessage(t('serviceProcessed'));
-            navigatToDashboard();
-          })
-          .catch(() => { });
-      }
-    }
-    else if (typeof authToken === 'undefined') {
+    if (!!validate(serviceRequest)) {
+      localStorage.setItem('requests', JSON.stringify(serviceRequest));
       history.push(RoutesPaths.App.Signup);
     }
+  };
 
-  };
-  const handleSaveForLater = () => {
-    createOrUpdateService({ ...serviceRequest, state: 'draft' })
-      .then(() => {
-        showSuccessMessage(t('serviceSaved'));
-        navigatToDashboard();
-      })
-      .catch(() => { });
-  };
+
 
   return (
     <Grid container alignItems={'center'} justify={'center'}>
@@ -124,29 +86,15 @@ const EditQuestion = () => {
               viewOnly={isNoActionForm}
               errors={errors}
               primaryButton={
-                ServiceGuardian.showApplyChangesButton(serviceRequest)
-                  ? {
-                    id: 'submitQuestionButtonButton',
-                    onClick: () => {
-                      handleSubmit();
-                    },
-                    buttonText: showDrafButtons
-                      ? t('submitQuestionButton')
-                      : t('applyChange'),
-                  }
-                  : {}
+                {
+                  id: 'submitQuestionButtonButton',
+                  onClick: () => {
+                    handleSubmit();
+                  },
+                  buttonText: t('submitQuestionButton')
+                }
               }
-              secondaryButton={
-                showDrafButtons
-                  ? {
-                    id: 'saveAndCompleteLaterButton',
-                    onClick: () => {
-                      handleSaveForLater();
-                    },
-                    buttonText: t('saveAndCompleteLater'),
-                  }
-                  : {}
-              }
+
             />
           </Direction>
         </Card>
