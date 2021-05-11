@@ -164,6 +164,7 @@ const UserRegistrationForm = () => {
 
     updateProfile({ ...user.current })
       .then((response) => {
+        submitQuestionAfterRegister();
         updateUser(dispatch, response.data);
         history.push(getDashboardLinkAfterSignup(false));
       })
@@ -259,16 +260,16 @@ const UserRegistrationForm = () => {
               endIcon={<DoneIcon />}
             />
           ) : (
-            <SubmitButton
-              buttonText={t['next']}
-              id='nextButton'
-              disabled={isGoNextDisabled}
-              onClick={proceedToNextStep}
-              variant='contained'
-              style={nextButtonStyles(isGoNextDisabled)}
-              endIcon={<ArrowForwardIosIcon />}
-            />
-          )}
+              <SubmitButton
+                buttonText={t['next']}
+                id='nextButton'
+                disabled={isGoNextDisabled}
+                onClick={proceedToNextStep}
+                variant='contained'
+                style={nextButtonStyles(isGoNextDisabled)}
+                endIcon={<ArrowForwardIosIcon />}
+              />
+            )}
         </Grid>
       </form>
     </div>
