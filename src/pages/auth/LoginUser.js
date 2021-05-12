@@ -21,6 +21,7 @@ import {
 import { GOOGLE_RECAPTCHA_URL } from 'settings';
 import ErrorMessage from 'components/errors/ErrorMessage';
 import clsx from 'clsx';
+import SocialLogin from './subComponents/SocialLogin';
 
 const Login = () => {
   const classes = useStyles();
@@ -188,6 +189,8 @@ const Login = () => {
                 {t('Login')}
               </Button>
             </div>
+            <SocialLogin />
+
             {!isAdminLogin && (
               <>
                 <CustomTypography className={classes.newUser}>

@@ -7,6 +7,7 @@ import {
   lightOrange,
   darkOrange,
   lighterGrey,
+  turquoise,
 } from './colors';
 
 export const useStyles = makeStyles((theme) => ({
@@ -106,6 +107,25 @@ export const useStyles = makeStyles((theme) => ({
   editButton: {
     width: '10%',
     marginBottom: theme.spacing(3),
+  },
+  socialLoginContainer: {
+    width: '100%',
+    display: 'flex',
+    marginTop: '16px',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  socialLoginButton: {
+    padding: '12px',
+    textAlign: 'center',
+    fontSize: '24px',
+    color: 'white',
+    height: '50px',
+    width: '50px',
+    background: turquoise,
+    borderRadius: '50%',
+    border: 'none',
+    cursor: 'pointer',
   },
   submit: {
     marginTop: theme.spacing(5),

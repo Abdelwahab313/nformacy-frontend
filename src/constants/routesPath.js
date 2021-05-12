@@ -60,6 +60,7 @@ export const RoutesPaths = {
     UserTypeSelection: '/user/type',
     EmailVerificationCallback: '/verifyEmail',
     EmailVerificationPending: '/verifyEmailPending',
+    OauthSuccess: '/oauthCallback',
     NotFound: '/error',
     Accounts: '/accounts',
     AccountDetails: '/accounts/details',

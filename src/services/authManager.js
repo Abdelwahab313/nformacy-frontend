@@ -143,6 +143,9 @@ class AuthManager {
   };
 
   login = (userToken) => {
+    if (!userToken) {
+      return;
+    }
     this.setAuthorizationHeader(userToken);
     localStorage.setItem('tokens', JSON.stringify(userToken));
   };

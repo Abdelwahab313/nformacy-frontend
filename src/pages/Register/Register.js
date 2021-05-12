@@ -14,6 +14,7 @@ import clsx from 'clsx';
 import { RoutesPaths } from 'constants/routesPath';
 import CustomTypography from 'components/typography/Typography';
 import { useTranslation } from 'react-i18next';
+import SocialLogin from 'pages/auth/subComponents/SocialLogin';
 
 const Register = () => {
   const {
@@ -224,6 +225,8 @@ const Register = () => {
                 {t('signup')}
               </Button>
             </div>
+            <SocialLogin />
+
             <CustomTypography className={classes.newUser}>
               <span className={classes.newUserText}>
                 {t('alreadyHaveAccount')}

@@ -34,6 +34,7 @@ const ResetPassword = React.lazy(() => import('pages/ResetPassword'));
 const KnowHubPage = React.lazy(() => import('pages/App/LandingPage/KnowHub'));
 const ChangePasswordPage = React.lazy(() => import('pages/ChangePassword'));
 const AddAccount = React.lazy(() => import('pages/App/Accounts/add/AddAccount'));
+const OauthSuccess = React.lazy(() => import('pages/auth/OauthSuccess'));
 const VerifyEmail = React.lazy(() => import('pages/App/EmailVerification/VerifyEmail'));
 const EmailVerificationPending = React.lazy(() => import('pages/App/EmailVerification/EmailVerificationPending'));
 const Pointing = React.lazy(() => import('pages/App/Pointing'));
@@ -336,6 +337,15 @@ const appRoutes = [
     Component: VerifyEmail,
     includeLayout: true,
     isPublic: false,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.App.OauthSuccess,
+    name: 'Oauth success',
+    icon: DashboardIcon,
+    Component: OauthSuccess,
+    includeLayout: true,
+    isPublic: true,
     hasDashboardLink: false,
   },
   {
