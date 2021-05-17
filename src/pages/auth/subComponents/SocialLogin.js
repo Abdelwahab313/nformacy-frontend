@@ -2,7 +2,6 @@ import React from 'react';
 import { Box } from '@material-ui/core';
 import CustomTypography from 'components/typography/Typography';
 import { useTranslation } from 'react-i18next';
-import { FaGoogle, FaLinkedin } from 'react-icons/fa';
 import { API_BASE_URL } from 'settings';
 import { useStyles } from 'styles/formsStyles';
 
@@ -19,13 +18,19 @@ const SocialLogin = () => {
           id='google-login'
           href={`${API_BASE_URL}/auth/google_oauth2`}
           className={classes.socialLoginButton}>
-          <FaGoogle />
+          <img
+            src={require('../../../assets/google.png')}
+            width={35}
+          />
         </a>
         <a
           id='linkedin-login'
           href={`${API_BASE_URL}/auth/linkedin`}
           className={classes.socialLoginButton}>
-          <FaLinkedin />
+          <img
+            src={require('../../../assets/linkedin.png')}
+            width={35}
+          />
         </a>
       </div>
     </Box>
