@@ -14,7 +14,7 @@ const QuestionRoaster = React.lazy(() => import('pages/App/QuestionRoaster/Quest
 const HomePage = React.lazy(() => import('pages/App/Home'));
 const AnswerQuestion = React.lazy(() => import('pages/App/FreelancersAnswers/edit'));
 const EditServiceRequest = React.lazy(() => import('pages/App/ServiceRequests/edit'));
-const EditQuestion = React.lazy(() => import('pages/App/ServiceRequests/editQuestion'));
+const NewQuestion = React.lazy(() => import('pages/App/ServiceRequests/newQuestion'));
 const EditProfile = React.lazy(() => import('pages/App/Profile/Profile'));
 const AllNotifications = React.lazy(() => import('pages/Admin/Dashboard/AllNotifications'));
 const ServicesPage = React.lazy(() => import('pages/App/ServiceRequests/list'));
@@ -256,10 +256,10 @@ const appRoutes = [
     hasDashboardLink: false,
   },
   {
-    path: RoutesPaths.App.EditQuestion,
+    path: RoutesPaths.App.NewQuestion,
     name: 'Edit Question',
     icon: DashboardIcon,
-    Component: EditQuestion,
+    Component: NewQuestion,
     includeLayout: true,
     isPublic: true,
     hasDashboardLink: false,

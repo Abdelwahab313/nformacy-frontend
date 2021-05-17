@@ -13,7 +13,7 @@ import { SERVICE_STATUS } from 'constants/questionStatus';
 import { RoutesPaths } from 'constants/routesPath';
 import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 
-const EditQuestion = () => {
+const NewQuestion = () => {
   const location = useLocation();
   const { t } = useTranslation();
   const { assignmentType, content } = location?.state?.service;
@@ -106,4 +106,4 @@ const EditQuestion = () => {
 const CONTENT_FOR_CALL =
   '<p><span style="font-weight: 500; background-color: #ffffff; color: #125773;">Please answer below questions:-</span></p><ul><li style="font-weight: 500;"><span style="font-weight: 500; background-color: #ffffff; color: #125773;">What is the purpose of call?</span></li></ul><p>&nbsp;</p><ul><li style="font-weight: 500;"><span style="font-weight: 500; background-color: #ffffff; color: #125773;">What do you want to achieve at the end of the call?</span></li></ul><p>&nbsp;</p><ul><li style="font-weight: 500;"><span style="font-weight: 500; background-color: #ffffff; color: #125773;">Is there any specific information we need to know before the call?</span></li></ul><p>&nbsp;</p><ul><li style="font-weight: 500;"><span style="font-weight: 500; background-color: #ffffff; color: #125773;">Is there any specific requirements in the expert you want to talk?</span></li></ul><p>&nbsp;</p>';
 
-export default EditQuestion;
+export default NewQuestion;

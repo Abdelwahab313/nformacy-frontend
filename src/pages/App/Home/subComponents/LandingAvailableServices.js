@@ -10,7 +10,7 @@ import authManager from 'services/authManager';
 
 const services = (t) => [
   {
-    name: 'ask',
+    name: 'question',
     title: t('askServiceTitle'),
     description: t('askServiceDescription'),
     icon: require('../../../../assets/ask_experts.svg'),
@@ -52,7 +52,7 @@ const LandingAvailableServices = () => {
   const navigatToServiceForm = (type) => {
     const authToken = authManager.retrieveUserToken();
     if (!authToken) {
-      history.push(RoutesPaths.App.EditQuestion, {
+      history.push(RoutesPaths.App.NewQuestion, {
         service: { assignmentType: type },
       });
     }
