@@ -11,6 +11,7 @@ import CalendarView from 'components/calendar/CalendarView';
 import AvailableTimesCalendarDialog from 'components/calendarDialogs/AvailableTimes/AvailableTimesCalendarDialog';
 import SubmitButton from 'components/buttons/SubmitButton';
 import CustomTypography from 'components/typography/Typography';
+import CalendarLegend from 'components/calendarDialogs/CalendarLegend';
 
 const AdminCalendarDetails = () => {
   const { t } = useTranslation();
@@ -54,6 +55,7 @@ const AdminCalendarDetails = () => {
               availableDates={availableDates}
               events={events}
             />
+            <CalendarLegend />
           </CardBody>
         </Card>
       </GridItem>

@@ -29,6 +29,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Icon from '@material-ui/core/Icon';
 import authManager from 'services/authManager';
 import { addSelectedRangeToAvailableDays } from 'core/userAvailableDays';
+import CalendarLegend from '../CalendarLegend';
 
 const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
   const classes = useStyles();
@@ -202,6 +203,7 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
               events={currentUser?.events}
               availableDates={availableDates}
             />
+            <CalendarLegend />
             <Box mt={3}>
               <SelectTimeZone
                 defaultTimezoneName={defaultTimeZone}
