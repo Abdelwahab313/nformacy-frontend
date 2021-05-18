@@ -174,4 +174,7 @@ export const useStyles = makeStyles((theme) => ({
   pageContainerMargin: {
     marginTop: theme.spacing(3),
   },
+  accountField: {
+    marginTop: theme.spacing(4),
+  },
 }));

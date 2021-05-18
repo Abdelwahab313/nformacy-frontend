@@ -57,7 +57,7 @@ const AddAccountForm = ({ primaryButton, user, setUser }) => {
           )}
         </GridContainer>
         <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={12} md={4}>
+          <GridItem xs={12} sm={12} md={6} className={classes.accountField}>
             <TextField
               required
               label={t('firstName')}
@@ -71,7 +71,7 @@ const AddAccountForm = ({ primaryButton, user, setUser }) => {
               variant='outlined'
             />
           </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
+          <GridItem xs={12} sm={12} md={6} className={classes.accountField}>
             <TextField
               required
               label={t('lastName')}
@@ -85,7 +85,9 @@ const AddAccountForm = ({ primaryButton, user, setUser }) => {
               variant='outlined'
             />
           </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
+        </GridContainer>
+        <GridContainer className={classes.inputsRow}>
+          <GridItem xs={12} sm={12} md={6} className={classes.accountField}>
             <TextField
               required
               label={t('email')}
@@ -99,9 +101,7 @@ const AddAccountForm = ({ primaryButton, user, setUser }) => {
               variant='outlined'
             />
           </GridItem>
-        </GridContainer>
-        <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={12} md={6}>
+          <GridItem xs={12} sm={12} md={6} className={classes.accountField}>
             <TextField
               required
               label={t('jobTitle')}
@@ -115,7 +115,6 @@ const AddAccountForm = ({ primaryButton, user, setUser }) => {
               variant='outlined'
             />
           </GridItem>
-          <GridItem xs={12} sm={12} md={6}></GridItem>
         </GridContainer>
       </CardBody>
       <CardFooter>

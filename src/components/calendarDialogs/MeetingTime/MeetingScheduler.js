@@ -6,9 +6,13 @@ import MeetingTimePicker from './MeetingTimePicker';
 import { formatDayAsKey } from 'services/dateTimeParser';
 import { makeStyles } from '@material-ui/core/styles';
 import SubmitButton from '../../buttons/SubmitButton';
+import { darkBlue } from 'styles/colors';
+import { useTranslation } from 'react-i18next';
 
 const MeetingScheduler = ({ user, onSubmitDate, onCancel }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
+
   const [localState, setLocalState] = useState({
     selectedDay: '',
     selectedTime: '',
@@ -55,6 +59,17 @@ const MeetingScheduler = ({ user, onSubmitDate, onCancel }) => {
           selectedDay={localState.selectedDay}
           onDayClick={handleSelectDay}
         />
+        <div className={classes.calendarLegend}>
+          <Grid container>
+            <Grid item xs={2} align="center">
+              <Box className={classes.calendarLegandColorBox}></Box>
+            </Grid>
+            <Grid item xs={10}>
+              <Typography variant={'body2'}>{t('availableTime')}</Typography>
+            </Grid>
+          </Grid>
+        </div>
+
       </Grid>
       <Grid
         container
@@ -119,6 +134,22 @@ const useStyles = makeStyles((theme) => ({
   dialogMargin: {
     marginBottom: theme.spacing(2),
   },
+  calendarLegend: {
+    width: 300,
+    padding: 10,
+    border: '1px solid #e0e0e0',
+    marginTop: 30,
+    [theme.breakpoints.down('sm')]: {
+      width: 'auto'
+    }
+  },
+  calendarLegandColorBox: {
+    width: 10,
+    height: 10,
+    backgroundColor: darkBlue,
+    display: 'inline-block',
+    verticalAlign: 'middle',
+  }
 }));
 
 export default MeetingScheduler;
