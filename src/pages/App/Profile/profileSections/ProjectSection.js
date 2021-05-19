@@ -21,19 +21,16 @@ import TimelineContent from '@material-ui/lab/TimelineContent';
 import ProjectForm from 'components/forms/ProjectForm.js';
 import { flatMap } from 'lodash';
 import useUserFieldsFetcher from 'hooks/useUserFieldsFetcher.js';
-import FieldsView from './FieldsView.js';
-import useFieldsFetcher from 'hooks/useFieldsFetcher';
-
+import moment from 'moment';
+import ColoredFieldsChips from 'components/chips/ColoredFieldsChips.js';
 
 const ProjectSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
   const [resume, setResume] = useState([]);
-  const { fields, loading: fieldsLoading } = useFieldsFetcher();
   const [open, setOpen] = useState(false);
   const {
     currentUserFields,
     updateUserFields,
-    loading: userFieldsLoading,
   } = useUserFieldsFetcher();
 
   const classes = useStyles();
@@ -71,7 +68,7 @@ const ProjectSection = () => {
           <Typography
             className={classes.timelineFieldValueStyles}
             color='textSecondary'>
-            {project.createdAt}
+            {moment(project.createdAt).format('YYYY')}
           </Typography>
         </TimelineOppositeContent>
         <TimelineSeparator>
@@ -93,11 +90,7 @@ const ProjectSection = () => {
             <Typography className={classes.timelineFieldValueStyles}>
               {project.jobRole}
             </Typography>
-            <FieldsView
-              currentUserFields={currentUserFields}
-              fields={fields}
-              loading={userFieldsLoading || fieldsLoading}
-            />
+            <ColoredFieldsChips fields={flatMap(currentUserFields)} />
           </Paper>
         </TimelineContent>
       </TimelineItem>
