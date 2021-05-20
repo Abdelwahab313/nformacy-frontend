@@ -10,11 +10,24 @@ import { nextButtonStyles, useStyles } from '../../styles/formsStyles';
 import ErrorMessage from '../errors/ErrorMessage';
 
 const CV = () => {
-  const { cv, setCV, errors } = useFormContext();
+  const { cv, setCV, errors, user } = useFormContext();
   const classes = useStyles();
+  const cvLink = user?.current?.cv;
+  const cvFileName = cvLink?.split('/').pop().replace('%20', ' ');
 
   const uploadCV = (cv) => {
     setCV(cv);
+  };
+
+  const handleCVFileName = () => {
+    if (cv?.length > 0) {
+      return (<Typography gutterBottom variant='subtitle2'>
+        {cv[0].name}
+      </Typography>);
+    }
+    else if (user?.current?.cv?.indexOf('.pdf') != -1) {
+      return cvFileName;
+    }
   };
   return <Container className={classes.nestedContainer}>
     <Grid container alignItems='center'>
@@ -36,11 +49,7 @@ const CV = () => {
         buttonText={t['chooseCV']}
         imgExtension={['.pdf']}
       />
-      {cv?.length > 0 && (
-        <Typography gutterBottom variant='subtitle2'>
-          {cv[0].name}
-        </Typography>
-      )}
+      {handleCVFileName()}
       <ErrorMessage errorField={errors.cv} />
     </Fragment>
   </Container>;

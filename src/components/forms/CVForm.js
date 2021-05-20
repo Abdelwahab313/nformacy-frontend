@@ -6,11 +6,14 @@ import CV from './CV';
 import { updateProfile, uploadCV } from '../../apis/userAPI';
 import { useAuth } from '../../pages/auth/context/auth';
 import { updateUser } from '../../pages/auth/context/authActions';
+import { Typography } from '@material-ui/core';
 
 const CVForm = ({ user, setCVLink, closeDialog }) => {
   const classes = useStyles();
   const [, dispatch] = useAuth();
   const [cv, setCV] = useState();
+  const cvLink = user?.current?.cv;
+  const cvFileName = cvLink?.split('/').pop().replace('%20', ' ');
 
   const onSubmitCV = (userData) => {
     const userToBeSubmitted = {
@@ -38,6 +41,18 @@ const CVForm = ({ user, setCVLink, closeDialog }) => {
     closeDialog();
   };
   const formMethod = useForm();
+
+  const handleCVFileName = () => {
+    if (cv?.length > 0) {
+      return (<Typography gutterBottom variant='subtitle2'>
+        {cv[0].name}
+      </Typography>);
+    }
+    else if (user?.current?.cv?.indexOf('.pdf') != -1) {
+      return cvFileName;
+    }
+  };
+  
   return (
     <FormContext setCV={setCV} {...formMethod}>
       <form
@@ -46,6 +61,7 @@ const CVForm = ({ user, setCVLink, closeDialog }) => {
         noValidate
         onSubmit={formMethod.handleSubmit(onSubmitCV)}>
         <CV />
+        {handleCVFileName()}
         <Button
           id='saveCV'
           type='submit'
