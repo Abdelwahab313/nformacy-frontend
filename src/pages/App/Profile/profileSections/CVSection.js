@@ -12,6 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import React, { useRef } from 'react';
 import Link from '@material-ui/core/Link';
 import CVForm from '../../../../components/forms/CVForm';
+import CustomTypography from 'components/typography/Typography';
 
 const CVSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -36,7 +37,11 @@ const CVSection = () => {
         open={open}>
         <DialogContent>
           <Grid container>
-            <CVForm user={user} setCVLink={setCVLink} closeDialog={handleClose} />
+            <CVForm
+              user={user}
+              setCVLink={setCVLink}
+              closeDialog={handleClose}
+            />
           </Grid>
         </DialogContent>
       </Dialog>
@@ -49,10 +54,7 @@ const CVSection = () => {
             </Typography>
           </Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
-            <IconButton
-              aria-label='edit'
-              id='editCV'
-              onClick={handleClickOpen}>
+            <IconButton aria-label='edit' id='editCV' onClick={handleClickOpen}>
               <EditIcon color={'primary'} />
             </IconButton>
           </Grid>
@@ -64,9 +66,13 @@ const CVSection = () => {
           justify='center'
           className={classes.paperSectionContentStyles}>
           <Grid item>
-            <Link id='cvLink' target='_blank' href={cvLink}>
-              {t['viewCV']}
-            </Link>
+            {!!cvLink ? (
+              <Link id='cvLink' target='_blank' href={cvLink}>
+                {t['viewCV']}
+              </Link>
+            ) : (
+              <CustomTypography variant={'body1'}>{t['noCv']}</CustomTypography>
+            )}
           </Grid>
         </Grid>
       </Paper>
