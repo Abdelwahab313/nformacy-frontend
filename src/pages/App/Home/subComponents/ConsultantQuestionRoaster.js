@@ -88,7 +88,7 @@ const ConsultantQuestionRoaster = () => {
         ))}
       </Box>
       <Grid container>
-        <Grid item xs={8} md={8}>
+        <Grid item xs={6} md={8}>
           <Link
             underline='none'
             className={classes.askQuestionLink}
@@ -101,7 +101,7 @@ const ConsultantQuestionRoaster = () => {
           />
         </Grid>
 
-        <Grid item xs={4} md={4} justify='center'>
+        <Grid item xs={6} md={4} justify='center'>
           <SubmitButton
             id={'readMoreBtn'}
             onClick={() => onClickMore()}

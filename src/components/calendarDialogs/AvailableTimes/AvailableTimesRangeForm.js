@@ -168,6 +168,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     alignSelf: 'flex-end',
     justifyContent: 'space-evenly',
+    [theme.breakpoints.down('xs')]: {
+      display: 'flex',
+      margin: '0 auto'
+    }
   },
   deleteAvailableDayButton: {
     alignSelf: 'flex-start',
@@ -177,6 +181,9 @@ const useStyles = makeStyles((theme) => ({
   },
   margin: {
     margin: theme.spacing(1),
+    [theme.breakpoints.down('xs')]: {
+      padding: '8px 16px'
+    }
   },
   container: {
     display: 'flex',

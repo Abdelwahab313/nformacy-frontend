@@ -212,7 +212,7 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
             </Box>
           </Grid>
 
-          <Grid container direction={'column'} alignItems={'center'} xs={5}>
+          <Grid container direction={'column'} alignItems={'center'} sm={5} xs={12}>
             {!!isLoading && (
               <CircularProgress variant='indeterminate' size={50} />
             )}

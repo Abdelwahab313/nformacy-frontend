@@ -100,8 +100,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       padding: [theme.spacing(2), theme.spacing(4)],
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       margin: '0 auto',
+      width: '100%'
     },
   },
   askQuestionBox: {
