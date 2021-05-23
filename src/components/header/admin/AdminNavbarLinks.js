@@ -12,7 +12,6 @@ import Poppers from '@material-ui/core/Popper';
 import Divider from '@material-ui/core/Divider';
 // @material-ui/icons
 import Person from '@material-ui/icons/Person';
-import Dashboard from '@material-ui/icons/Dashboard';
 import Search from '@material-ui/icons/Search';
 // core components
 import CustomInput from 'components/inputs/CustomInput.js';
@@ -81,18 +80,6 @@ export default function AdminNavbarLinks() {
           <Search />
         </Button>
       </div>
-
-      <Button
-        color={window.innerWidth > 959 ? 'transparent' : 'white'}
-        justIcon={window.innerWidth > 959}
-        simple={!(window.innerWidth > 959)}
-        aria-label='Dashboard'
-        className={classes.buttonLink}>
-        <Dashboard className={classes.icons} />
-        <Hidden mdUp implementation='css'>
-          <p className={classes.linkText}>Dashboard</p>
-        </Hidden>
-      </Button>
 
       <Notifications />
 

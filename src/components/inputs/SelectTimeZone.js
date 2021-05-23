@@ -39,7 +39,6 @@ const SelectTimeZone = ({ onChange, defaultTimezoneName, ...rest }) => {
     if (defaultTimezoneName === undefined) {
       return undefined;
     }
-    console.log('this is a ', defaultTimezoneName);
     return options.find((option) => option.value === defaultTimezoneName);
   }, [options, defaultTimezoneName]);
 
@@ -49,7 +48,6 @@ const SelectTimeZone = ({ onChange, defaultTimezoneName, ...rest }) => {
     <Autocomplete
       id='time-zone-picker'
       {...rest}
-      style={{ width: 300 }}
       options={options}
       classes={{ option: classes.option }}
       defaultValue={defaultValue}

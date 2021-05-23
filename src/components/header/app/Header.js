@@ -6,7 +6,6 @@ import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import StarsIcon from '@material-ui/icons/Stars';
 import ProfilePictureMenu from 'components/header/app/ProfilePictureMenu';
 import useStyles from 'components/header/app/styles/HeaderStyles';
 import useLocale from '../../../hooks/localization/useLocale';
@@ -130,10 +129,6 @@ export default function MainHeader() {
           <div className={classes.sectionDesktop}>
             {authToken ? (
               <Box>
-                <IconButton aria-label='show 4 new mails' color='inherit'>
-                  <StarsIcon />
-                </IconButton>
-
                 <IconButton
                   aria-label='show 17 new notifications'
                   color='inherit'>
@@ -151,15 +146,15 @@ export default function MainHeader() {
                 </IconButton>
               </Box>
             ) : (
-              <Box>
-                <SubmitButton
-                  id={'LoginBtn'}
-                  onClick={() => history.push(RoutesPaths.App.Login)}
-                  className={classes.orangeCtaBtn}
-                  buttonText={'login'}
-                />
-              </Box>
-            )}
+                <Box>
+                  <SubmitButton
+                    id={'LoginBtn'}
+                    onClick={() => history.push(RoutesPaths.App.Login)}
+                    className={classes.orangeCtaBtn}
+                    buttonText={'login'}
+                  />
+                </Box>
+              )}
             <Button
               id={'switchLang'}
               color={'primary'}

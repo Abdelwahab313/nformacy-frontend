@@ -26,7 +26,7 @@ const ChangePasswordPage = () => {
       changePassword(values.currentPassword, values.newPassword)
         .then((response) => {
           showSuccessMessage(response?.message);
-          authManager.logout()
+          authManager.logout();
         })
         .catch((reason) => {
           setResponseMessage(reason?.response?.data?.error);
@@ -76,7 +76,6 @@ const ChangePasswordPage = () => {
               name='newPassword'
               autoComplete='off'
               type='password'
-              autoFocus
               value={values.newPassword}
               onChange={handleChange}
             />
@@ -92,7 +91,6 @@ const ChangePasswordPage = () => {
               name='confirmPassword'
               autoComplete='off'
               type='password'
-              autoFocus
               value={values.confirmPassword}
               onChange={handleChange}
             />
