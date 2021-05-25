@@ -13,6 +13,7 @@ import ConsultantQuestionRoaster from './subComponents/ConsultantQuestionRoaster
 import ConsultantPointsBox from './subComponents/ConsultantPointsBox';
 import ConsultantActivityTable from './subComponents/ConsultantActivityTable';
 import UserLevelCard from './subComponents/UserLevelCard';
+import CalendarCardForTablet from './subComponents/CalendarCardForTablet';
 
 const ConsultantHomePage = () => {
   const classes = useStyles();
@@ -41,6 +42,9 @@ const ConsultantHomePage = () => {
             </Grid>
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
               <ConsultantActivityTable />
+            </Grid>
+            <Grid item xs={12} md={12} >
+              <CalendarCardForTablet currentUser={currentUser} />
             </Grid>
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
               <CalendarLibraryForMobile />

@@ -41,10 +41,19 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   calendarCard: {
+    display: 'block',
     [theme.breakpoints.down('sm')]: {
-      display: 'block',
+      display: 'none',
       maxWidth: '100%',
     },
+  },
+  calendarCardForTablet: {
+    display: 'none',
+    marginTop: 60,
+    marginBottom: 40,
+    [theme.breakpoints.down('sm')]: {
+      display: 'block'
+    }
   },
   media: {
     height: 160,
