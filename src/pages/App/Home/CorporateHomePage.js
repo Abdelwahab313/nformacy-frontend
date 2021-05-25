@@ -13,6 +13,7 @@ import PointsBox from './subComponents/PointsBox';
 import ManageMyAccounts from './subComponents/ManageMyAccounts';
 import CorporateActivityTable from './subComponents/CorporateActivityTable';
 import FeedsTimeline from './subComponents/FeedsTimeline';
+import CalendarCardForTablet from './subComponents/CalendarCardForTablet';
 
 const CorporateHomePage = () => {
   const classes = useStyles();
@@ -23,16 +24,16 @@ const CorporateHomePage = () => {
       <Grid container justify='center'>
         <HomeHeadBar />
         <Grid container className={classes.clientHomeContainer} spacing={4}>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={4}>
             <ProfileSummaryCard />
             <CalendarCard currentUser={currentUser} />
           </Grid>
-          <Grid item xs={12} md={9}>
+          <Grid item xs={12} md={8}>
             <Grid container spacing={4}>
-              <Grid item xs={12} md={8}>
+              <Grid item xs={12} md={7}>
                 <AskTheExpertSection />
               </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={5}>
                 <PointsBox />
               </Grid>
             </Grid>
@@ -46,6 +47,9 @@ const CorporateHomePage = () => {
             </Grid>
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
               <CorporateActivityTable />
+            </Grid>
+            <Grid item xs={12} md={12} >
+              <CalendarCardForTablet currentUser={currentUser} />
             </Grid>
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
               <CalendarLibraryForMobile />
