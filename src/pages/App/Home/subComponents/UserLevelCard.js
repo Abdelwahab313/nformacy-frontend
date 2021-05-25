@@ -24,7 +24,7 @@ const USER_STEPS = [
   {
     label: 'Register',
     icon: <PersonIcon fontSize='small' />,
-    onClickNextAction: () => {},
+    onClickNextAction: () => { },
   },
   {
     label: 'Fill basic Information',
@@ -143,7 +143,7 @@ const UserLevelCard = () => {
                 </StepLabel>
                 <StepContent>
                   <div className={classes.actionsContainer}>
-                    <div>
+                    <div className={classes.youAreHereBtnContainer}>
                       <Button
                         variant='contained'
                         color='primary'
@@ -183,6 +183,9 @@ const useStyles = makeStyles((theme) => ({
   actionsContainer: {
     marginBottom: theme.spacing(2),
   },
+  youAreHereBtnContainer: {
+    width: 140
+  }
 }));
 
 export default UserLevelCard;
