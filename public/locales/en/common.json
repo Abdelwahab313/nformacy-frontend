@@ -542,5 +542,7 @@
   "plus200": "+200",
   "plus30": "+30",
   "plus19": "+19",
-  "availableTime": "Available Time"
+  "freeTime": "Free Time",
+  "meetingTime": "Meeting Time",
+  "callTime": "Call Time"
 }
