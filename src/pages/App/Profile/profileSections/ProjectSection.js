@@ -5,11 +5,11 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
-import t from '../../../../locales/en/freelancerProfile.json';
+import t from 'locales/en/freelancerProfile.json';
 import Divider from '@material-ui/core/Divider';
-import { dividerStyle, useStyles } from '../../../../styles/formsStyles';
+import { dividerStyle, useStyles } from 'styles/formsStyles';
 import React, { useRef, useState, useEffect } from 'react';
-import Transition from '../../../../components/animations/Transition';
+import Transition from 'components/animations/Transition';
 import WorkIcon from '@material-ui/icons/Work';
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
@@ -22,7 +22,7 @@ import ProjectForm from 'components/forms/ProjectForm.js';
 import { flatMap } from 'lodash';
 import useUserFieldsFetcher from 'hooks/useUserFieldsFetcher.js';
 import moment from 'moment';
-import ColoredFieldsChips from 'components/chips/ColoredFieldsChips.js';
+import ProjectFieldsChips from 'components/chips/ProjectFieldsChips';
 
 const ProjectSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -47,7 +47,7 @@ const ProjectSection = () => {
       const historyEntry = {
         type: 'project',
         ...project,
-        date: new Date(project.createdAt),
+        date: new Date(project.completedAt),
       };
       history.push(historyEntry);
     });
@@ -68,7 +68,7 @@ const ProjectSection = () => {
           <Typography
             className={classes.timelineFieldValueStyles}
             color='textSecondary'>
-            {moment(project.createdAt).format('YYYY')}
+            {moment(project.completedAt).format('YYYY')}
           </Typography>
         </TimelineOppositeContent>
         <TimelineSeparator>
@@ -90,7 +90,7 @@ const ProjectSection = () => {
             <Typography className={classes.timelineFieldValueStyles}>
               {project.jobRole}
             </Typography>
-            <ColoredFieldsChips fields={flatMap(currentUserFields)} />
+            <ProjectFieldsChips fields={project.fields} majorFields={project.majorFields} />
           </Paper>
         </TimelineContent>
       </TimelineItem>

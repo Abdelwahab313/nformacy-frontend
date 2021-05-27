@@ -5,7 +5,7 @@ import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
 import { updateProfile } from '../../apis/userAPI';
 import { updateUser } from '../../pages/auth/context/authActions';
 import { useAuth } from '../../pages/auth/context/auth';
-import ProjectDialog from './ProjectDialog';
+import Project from './Project';
 
 const ProjectForm = ({ user, closeDialog }) => {
   const formMethods = useForm({
@@ -47,7 +47,7 @@ const ProjectForm = ({ user, closeDialog }) => {
         className={classes.nestedForm}
         noValidate
         onSubmit={formMethods.handleSubmit(onSubmitResume)}>
-        <ProjectDialog />
+        <Project />
         <Button
           id='saveResume'
           type='submit'

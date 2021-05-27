@@ -148,9 +148,10 @@ const ConsultantAdvancedRegistrationForm = () => {
     }
   };
   const onClickSaveLater = () => {
+    const userData = getValues({ nest: true });
     user.current = {
       ...user.current,
-      ...getValues({ nest: true }),
+      ...userData,
     };
 
     updateProfile({ ...user.current })

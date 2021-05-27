@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
 import useFieldFetcher from 'hooks/useFieldsFetcher';
-
 import AutoCompleteSelectField from '../AutoCompleteSelectField';
 import { getMajorFieldsFromSubfields } from '../../../core/fields';
 import { useTranslation } from 'react-i18next';
@@ -14,16 +13,25 @@ const getSubFieldsOptions = (majorField) => {
   });
 };
 
-const FieldsSelect = ({ initialFields, updateFields, children }) => {
+const FieldsSelect = ({
+  initialFields,
+  initialMajorFields,
+  updateFields,
+  updateMajorFields,
+  children,
+}) => {
   const [selectedMajorFields, setSelectedMajorFields] = useState();
   const { fields: majorFieldsOptions, loading } = useFieldFetcher();
   useEffect(() => {
     if (!loading) {
-      const initialMajorFieldValue = getMajorFieldsFromSubfields(
+      if(!!initialMajorFields) {
+        return setSelectedMajorFields(initialMajorFields);
+      }
+      const initialMajorFieldFromSubfields = getMajorFieldsFromSubfields(
         majorFieldsOptions,
         initialFields,
       );
-      setSelectedMajorFields(initialMajorFieldValue);
+      setSelectedMajorFields(initialMajorFieldFromSubfields);
     }
   }, [majorFieldsOptions, loading]);
 
@@ -33,6 +41,7 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
     const updatedSubFields = initialFields?.filter((field) =>
       majorFieldIds.includes(field.majorFieldId),
     );
+    !!updateMajorFields && updateMajorFields(selectedList);
     updateFields(updatedSubFields);
   };
 
@@ -61,7 +70,7 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
     }
   }, [selectedMajorFields, majorFieldsOptions]);
 
-  const MajorField = ({ single = false, disabled, inputLabel }) => {
+  const MajorField = ({ single = false, disabled, inputLabel, ...props }) => {
     const { t } = useTranslation();
     const handleChange = (newValue) => {
       if (!!single) {
@@ -86,15 +95,15 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
         loading={loading}
         multiple={!single}
         disabled={disabled}
+        {...props}
       />
     );
   };
 
-  const Field = ({ disabled, inputLabel }) => {
+  const Field = ({ disabled, inputLabel, ...props }) => {
     const { t } = useTranslation();
     return (
       <AutoCompleteSelectField
-        name='fields'
         id='specificFieldsOfExperienceSelect'
         inputLabel={!!inputLabel ? inputLabel : t('specificField')}
         options={availableSubFieldsOptions}
@@ -103,6 +112,7 @@ const FieldsSelect = ({ initialFields, updateFields, children }) => {
         groupBy={(option) => option.majorFieldLabel}
         loading={loading}
         disabled={disabled}
+        {...props}
       />
     );
   };

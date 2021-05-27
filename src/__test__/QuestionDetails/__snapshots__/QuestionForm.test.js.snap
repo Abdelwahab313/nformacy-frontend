@@ -205,7 +205,6 @@ exports[`Question Form should match snapshot 1`] = `
         <div
           aria-expanded="false"
           class="MuiAutocomplete-root MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon"
-          name="fields"
           role="combobox"
         >
           <div
