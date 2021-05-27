@@ -150,34 +150,39 @@ const reformatFollowingSlot = (
   });
 };
 
+export const adaptAvailableDatesAtTimeZone = (
+  availableDays: AvailableDays,
+  timezone: string,
+) => {
+  const availableDaysAtTimeZone = availableDays;
+  Object.keys(availableDaysAtTimeZone).forEach((day) => {
+    availableDaysAtTimeZone[day] = availableDaysAtTimeZone[
+      day
+    ]?.map((timeSlot) => getTimeSlotAtTimeZone(timeSlot, timezone));
+  });
+
+  return availableDaysAtTimeZone;
+};
+
 export const getTimeSlotAtTimeZone = (
   availableDaySlot: AvailableDateSlot,
   timezone: string,
 ) => {
-  const startDate = moment(availableDaySlot.startDate);
-  const endDate = moment(availableDaySlot.endDate);
-
-  const convertedStartDateTime = getDateTimeAtTimeZone(startDate, timezone);
-  const convertedEndDateTime = getDateTimeAtTimeZone(endDate, timezone);
+  const convertedStartDateTime = getDateTimeAtTimeZone(
+    availableDaySlot.startDate,
+    timezone,
+  );
+  const convertedEndDateTime = getDateTimeAtTimeZone(
+    availableDaySlot.endDate,
+    timezone,
+  );
   const startTimeString = convertedStartDateTime.format('HH:mm');
   const endTimeString = convertedEndDateTime.format('HH:mm');
 
   return {
-    id: availableDaySlot.id,
+    ...availableDaySlot,
     title: `${startTimeString} - ${endTimeString}`,
-    startDate: new Date(
-      convertedStartDateTime.year(),
-      convertedStartDateTime.month(),
-      convertedStartDateTime.date(),
-      convertedStartDateTime.hour(),
-      convertedStartDateTime.minutes(),
-    ),
-    endDate: new Date(
-      convertedEndDateTime.year(),
-      convertedEndDateTime.month(),
-      convertedEndDateTime.date(),
-      convertedEndDateTime.hour(),
-      convertedEndDateTime.minutes(),
-    ),
+    startDate: convertedStartDateTime.format(),
+    endDate: convertedEndDateTime.format(),
   };
 };
