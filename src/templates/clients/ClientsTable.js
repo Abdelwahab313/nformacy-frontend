@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, Fragment } from 'react';
 import MUIDataTable from 'mui-datatables';
 import Grid from '@material-ui/core/Grid';
 import { useStyles } from 'styles/Admin/questionTableStyles';
@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Chip } from '@material-ui/core';
 import LinkText from 'components/typography/LinkText';
 import { getClientDetailsView } from 'services/navigation';
+import countryList from 'react-select-country-list';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -17,8 +18,8 @@ const getColumnsOptions = (classes, t) => {
 
   const columns = [
     {
-      name: 'clientRef',
-      label: t('clientRef'),
+      name: 'id',
+      label: t('id'),
       options: {
         ...defaultColumnOption,
         display: true,
@@ -27,8 +28,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'accountManagerName',
-      label: t('accountManagerName'),
+      name: 'firstName',
+      label: t('firstName'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -36,7 +37,16 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'organization',
+      name: 'lastName',
+      label: t('lastName'),
+      options: {
+        ...defaultColumnOption,
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: 'organizationName',
       label: t('organization'),
       options: {
         ...defaultColumnOption,
@@ -44,7 +54,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'registrationDate',
+      name: 'createdAt',
       label: t('registrationDate'),
       options: {
         ...defaultColumnOption,
@@ -53,7 +63,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'location',
+      name: 'country',
       label: t('location'),
       options: {
         ...defaultColumnOption,
@@ -101,7 +111,7 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const parseClientsTableData = (clients) => {
+const parseClientsTableData = (clients, countries) => {
   return clients?.map((client) => ({
     ...client,
     industriesOfExperience: client.industriesOfExperience?.map((industry) => (
@@ -109,19 +119,27 @@ const parseClientsTableData = (clients) => {
         <Chip label={industry.label} key={industry.value} />
       </div>
     )),
-    clientRef:
+    id:
       <LinkText to={getClientDetailsView(client.id)}>
         {client.referenceNumber}
       </LinkText>,
+    country:
+      <Fragment>
+        {client.country &&
+          countries?.find(
+            (country) => country.value === client.country,
+          ).label}
+      </Fragment>
   }));
 };
 
 
 const ClientsTable = ({ clients }) => {
+  const [countries] = useState(countryList().getData());
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
-  const clientsRows = parseClientsTableData(clients);
+  const clientsRows = parseClientsTableData(clients, countries);
   const tableOptions = {
     filterType: 'checkbox',
     selectableRows: 'none',
