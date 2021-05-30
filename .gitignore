@@ -31,3 +31,5 @@ yarn-error.log*
 nohup.out
 
 build.zip
+
+/certs
