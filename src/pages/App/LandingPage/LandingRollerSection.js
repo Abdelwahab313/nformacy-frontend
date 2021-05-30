@@ -79,7 +79,7 @@ const LandingRollerSection = () => {
       <Grid item xs={12} md={6} className={classes.imgSection}>
         <img
           className={classes.firstSectionImg}
-          src={require('../../../assets/landing/nformacy_Illustrations@1x.png')}
+          src={require('../../../assets/landing/nformacy_landing.jpg')}
         />
       </Grid>
       <Grid item xs={10} md={12} className={classes.platformBrief}>
