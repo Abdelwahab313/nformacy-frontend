@@ -544,5 +544,18 @@
   "plus19": "+19",
   "freeTime": "Free Time",
   "meetingTime": "Meeting Time",
-  "callTime": "Call Time"
+  "callTime": "Call Time",
+  "accountManagerName": "Account Manager Name",
+  "registrationDate": "Registration Date",
+  "numberOfAccounts": "Number Of Accounts",
+  "packageType": "Package Type",
+  "userName/id": "User Name / ID",
+  "deliverables": "Deliverables",
+  "evaluation": "Evaluation",
+  "fees": "Fees",
+  "role": "Role",
+  "dateAdded": "Date Added",
+  "questions": "Questions",
+  "calls": "Calls",
+  "assignmentsDays": "Assignments Days"
 }

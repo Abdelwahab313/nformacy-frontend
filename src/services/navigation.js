@@ -163,6 +163,14 @@ export const getClientDetails = (clientId) => {
     },
   };
 };
+export const getClientDetailsView = (clientId) => {
+  return {
+    pathname: RoutesPaths.Admin.ClientDetailsView,
+    state: {
+      clientId: clientId,
+    },
+  };
+};
 
 export const getAccountDetails = (accountId) => {
   return {

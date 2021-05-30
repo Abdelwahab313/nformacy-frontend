@@ -28,12 +28,14 @@ import AdvisersDetails from 'pages/Admin/Advisors/edit/subComponent/AdviserDetai
 import ClientsList from 'pages/Admin/Clients/list';
 import ConsultantsList from 'pages/Admin/Consultants/list';
 import AdminGuardian from 'core/guardians/AdminGuardian';
-import ClientsDetails from 'pages/Admin/Clients/edit/subComponents.js/ClientsDetails';
+import ClientsDetailsInfo from 'pages/Admin/Clients/edit/subComponents.js/ClientsDetailsInfo';
+import ClientDetailsView from 'pages/Admin/Clients/edit/subComponents.js/ClientDetailsView';
 import { CalendarTodayOutlined } from '@material-ui/icons';
 import AdminCalendarDetails from 'pages/Admin/Calendar';
 import ConsultantDetails from 'pages/Admin/Consultants/edit/subComponents/ConsultantDetails';
 import AdminProfile from 'pages/Admin/Admins/edit/subComponents/AdminProfile';
 import ChangePasswordPage from 'pages/ChangePassword';
+import ClientDetails from 'pages/Admin/Clients/edit/subComponents.js/ClientDetails';
 
 const adminRoutes = [
   {
@@ -68,7 +70,21 @@ const adminRoutes = [
     path: RoutesPaths.Admin.ClientsDetails,
     name: 'Client Details',
     icon: BusinessCenterIcon,
-    component: ClientsDetails,
+    component: ClientsDetailsInfo,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.Admin.ClientDetailsView,
+    name: 'Client View',
+    icon: BusinessCenterIcon,
+    component: ClientDetailsView,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.Admin.ClientDetails,
+    name: 'Client Details',
+    icon: BusinessCenterIcon,
+    component: ClientDetails,
     hasDashboardLink: false,
   },
   {

@@ -20,6 +20,8 @@ export const RoutesPaths = {
     AdvisersDetails: '/admin/advisors/edit',
     Clients: '/admin/clients',
     ClientsDetails: '/admin/clients/clientInfo',
+    ClientDetailsView: '/admin/clients/clientView',
+    ClientDetails: '/admin/clients/clientDetails',
     ConsultantsDetails: '/admin/consultants/consultantInfo',
     Consultants: '/admin/consultants',
     ServiceDetails: '/admin/services/edit',

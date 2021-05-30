@@ -1,12 +1,13 @@
 import React from 'react';
+import { Grid } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import MUIDataTable from 'mui-datatables';
-import Grid from '@material-ui/core/Grid';
 import { useStyles } from 'styles/Admin/questionTableStyles';
 import authManager from 'services/authManager';
-import { useTranslation } from 'react-i18next';
 import { Chip } from '@material-ui/core';
+import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
-import { getClientDetailsView } from 'services/navigation';
+import { getClientDetails } from 'services/navigation';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -17,8 +18,8 @@ const getColumnsOptions = (classes, t) => {
 
   const columns = [
     {
-      name: 'clientRef',
-      label: t('clientRef'),
+      name: 'id',
+      label: t('id'),
       options: {
         ...defaultColumnOption,
         display: true,
@@ -27,8 +28,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'accountManagerName',
-      label: t('accountManagerName'),
+      name: 'firstName',
+      label: t('firstName'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -36,16 +37,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'organization',
-      label: t('organization'),
-      options: {
-        ...defaultColumnOption,
-        filter: false,
-      },
-    },
-    {
-      name: 'registrationDate',
-      label: t('registrationDate'),
+      name: 'lastName',
+      label: t('lastName'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -53,25 +46,16 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'location',
-      label: t('location'),
+      name: 'role',
+      label: t('role'),
       options: {
         ...defaultColumnOption,
         filter: true,
       },
     },
     {
-      name: 'industriesOfExperience',
-      label: t('industry'),
-      options: {
-        ...defaultColumnOption,
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: 'numberOfAccounts',
-      label: t('numberOfAccounts'),
+      name: 'dateAdded',
+      label: t('dateAdded'),
       options: {
         ...defaultColumnOption,
         filter: true,
@@ -79,8 +63,26 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'packageType',
-      label: t('packageType'),
+      name: 'questions',
+      label: t('questions'),
+      options: {
+        ...defaultColumnOption,
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: 'calls',
+      label: t('calls'),
+      options: {
+        ...defaultColumnOption,
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: 'assignmentsDays',
+      label: t('assignmentsDays'),
       options: {
         ...defaultColumnOption,
         filter: true,
@@ -109,15 +111,15 @@ const parseClientsTableData = (clients) => {
         <Chip label={industry.label} key={industry.value} />
       </div>
     )),
-    clientRef:
-      <LinkText to={getClientDetailsView(client.id)}>
-        {client.referenceNumber}
+    fields: <FieldsChips fields={client.fields} />,
+    userName:
+      <LinkText to={getClientDetails(client.id)}>
+        {'aml'}
       </LinkText>,
   }));
 };
 
-
-const ClientsTable = ({ clients }) => {
+const ClientDetails = ({ clients }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
@@ -145,4 +147,4 @@ const ClientsTable = ({ clients }) => {
   );
 };
 
-export default ClientsTable;
+export default ClientDetails;

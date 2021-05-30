@@ -49,7 +49,6 @@ const CalendarLegend = () => {
 
 const useStyles = makeStyles((theme) => ({
   calendarLegend: {
-    // width: '100%',
     padding: 10,
     border: '1px solid #e0e0e0',
     marginTop: 30,

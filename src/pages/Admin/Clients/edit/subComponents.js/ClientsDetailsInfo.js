@@ -7,7 +7,7 @@ import { Typography, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import ClientInfo from './ClientInfo';
 
-const ClientsDetails = () => {
+const ClientsDetailsInfo = () => {
   const { t } = useTranslation();
   
   return (
@@ -30,4 +30,4 @@ const ClientsDetails = () => {
   );
 };
 
-export default ClientsDetails;
+export default ClientsDetailsInfo;
