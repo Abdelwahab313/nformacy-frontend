@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Button,
   Dialog,
@@ -28,7 +28,10 @@ import { updateUser } from '../../../pages/auth/context/authActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Icon from '@material-ui/core/Icon';
 import authManager from 'services/authManager';
-import { addSelectedRangeToAvailableDays } from 'core/userAvailableDays';
+import {
+  adaptAvailableDatesAtTimeZone,
+  addSelectedRangeToAvailableDays,
+} from 'core/userAvailableDays';
 import CalendarLegend from '../CalendarLegend';
 
 const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
@@ -45,6 +48,16 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
   const [availableDates, setAvailableDates] = useState(
     getInitialAvailableDates,
   );
+
+  useEffect(() => {
+    if (currentUser.freeDates instanceof Array) {
+      const newSlotsAtTimeZone = adaptAvailableDatesAtTimeZone(
+        currentUser.freeDates,
+        defaultTimeZone,
+      );
+      setAvailableDates({ ...newSlotsAtTimeZone });
+    }
+  }, []);
   const [isLoading, setIsLoading] = useState(false);
   const [timeSlotVisible, setTimeSlotVisible] = useState(false);
   const [bookFormVisible, setBookFormVisible] = useState(false);
@@ -67,7 +80,7 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
         selectedRange,
       );
       const newAvailableDays = { ...selectedAvailableDays };
-      updateAvailableDays(newAvailableDays);
+      updateUserAvailableDays(newAvailableDays);
     },
     [availableDates],
   );
@@ -78,14 +91,16 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
     closeDialog();
   }
 
-  const onChangeTimeZone = () => {
-    // if (!!currentUser.freeDates) {
-    //   // TODO change freedates to handle object instead of list
-    //   const availableDatesTZ = currentUser.freeDates?.map((availableDate) =>
-    //     getTimeSlotAtTimeZone(availableDate, timezone),
-    //   );
-    //   setAvailableDates(availableDatesTZ);
-    // }
+  const onChangeTimeZone = (newTimezone) => {
+    if (!!currentUser.freeDates) {
+      // TODO change freedates to handle object instead of list
+      const newSlotsAtTimeZone = adaptAvailableDatesAtTimeZone(
+        currentUser.freeDates,
+        newTimezone,
+      );
+
+      setAvailableDates({ ...newSlotsAtTimeZone });
+    }
   };
 
   const handleDayClicked = ({ selectedDay, isAvailableDay }) => {
@@ -119,7 +134,7 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
     }
   };
 
-  const updateAvailableDays = (updatedAvailableDays) => {
+  const updateUserAvailableDays = (updatedAvailableDays) => {
     setIsLoading(true);
     updateProfile({ freeDates: updatedAvailableDays }, currentUser.id)
       .then((response) => {
@@ -197,7 +212,7 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
           <Grid item xs>
             <CalendarView
               onDayClick={handleDayClicked}
-              updateAvailableDays={updateAvailableDays}
+              updateAvailableDays={updateUserAvailableDays}
               containerStyle={classes.cardBorder}
               isEditable={true}
               events={currentUser?.events}

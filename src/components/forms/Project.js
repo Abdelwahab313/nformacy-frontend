@@ -1,26 +1,31 @@
+import React, { Fragment } from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import TextField from '@material-ui/core/TextField';
-import React, { Fragment } from 'react';
-import { useStyles } from '../../styles/formsStyles';
+import { useStyles } from 'styles/formsStyles';
 import ReactTooltip from 'react-tooltip';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Input } from '@material-ui/core';
-import t from '../../locales/en/freelancerProfile.json';
+import t from 'locales/en/freelancerProfile.json';
 import Link from '@material-ui/core/Link';
 import ErrorMessage from '../errors/ErrorMessage';
-import FieldsOfExperience from './FieldsOfExpereience';
+import CustomTypography from 'components/typography/Typography';
+import HelpIcon from '@material-ui/icons/Help';
+import FieldsSelect from 'components/inputs/FieldsSelect/FieldsSelect';
+import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 const Project = () => {
   const {
     control,
     user,
     register,
-    setDeletedEducations,
+    setValue,
+    setDeletedProjects,
     errors,
   } = useFormContext();
   const classes = useStyles();
@@ -28,7 +33,6 @@ const Project = () => {
     control,
     name: 'projects',
   });
-
   return (
     <Container className={classes.nestedContainer}>
       <Grid container alignItems='center'>
@@ -69,13 +73,99 @@ const Project = () => {
                   inputRef={register({ required: t['requiredMessage'] })}
                 />
                 <ErrorMessage
-                  errorField={
-                    errors.projects && errors.projects[index]?.title
-                  }
+                  errorField={errors.projects && errors.projects[index]?.title}
                 />
               </Container>
 
-              <FieldsOfExperience />
+              <FieldsSelect
+                initialFields={item.fields}
+                initialMajorFields={item.majorFieldIds}
+                updateMajorFields={(updatedMajorFields) => {
+                  setValue(
+                    `projects[${index}].majorFields`,
+                    updatedMajorFields,
+                  );
+                }}
+                updateFields={(updatedFields) => {
+                  setValue(`projects[${index}].fields`, updatedFields);
+                }}>
+                {({ MajorField, Field }) => (
+                  <Fragment>
+                    <Container maxWidth={false} className={classes.formControl}>
+                      <div className={classes.formHeader}>
+                        <Typography
+                          gutterBottom
+                          className={classes.fieldLabelStylesDesktop}>
+                          {t['experiencedIn']}
+                        </Typography>
+                        <HelpIcon
+                          className={classes.formHeaderIcon}
+                          data-tip={t['experiencedInHint']}
+                          color='primary'
+                          fontSize='small'
+                        />
+                      </div>
+                      <CustomTypography
+                        variant='body1'
+                        fontWeight='light'
+                        className={classes.removeNestedText}
+                        gutterBottom>
+                        {t['experiencedInHint']}
+                      </CustomTypography>
+                      <Controller
+                        as={({ field }) => (
+                          <MajorField
+                            id={`projects-majorFields-${index}`}
+                            name={`projects[${index}].majorFields`}
+                            {...field}
+                          />
+                        )}
+                        name={`projects[${index}].majorFields`}
+                        control={control}
+                        defaultValue={item.majorFields} // make sure to set up defaultValue
+                      />
+                      <ErrorMessage
+                        errorField={errors.majorFieldsOfExperience}
+                      />
+                    </Container>
+                    <Container maxWidth={false} className={classes.formControl}>
+                      <div className={classes.formHeader}>
+                        <Typography
+                          gutterBottom
+                          className={classes.fieldLabelStylesDesktop}>
+                          {t['specificallyIn']}
+                        </Typography>
+                        <HelpIcon
+                          className={classes.formHeaderIcon}
+                          data-tip={t['specificallyInHint']}
+                          color='primary'
+                          fontSize='small'
+                        />
+                      </div>
+                      <CustomTypography
+                        variant='body1'
+                        fontWeight='light'
+                        className={classes.removeNestedText}
+                        gutterBottom>
+                        {t['specificallyInHint']}
+                      </CustomTypography>
+                      <Controller
+                        as={({ field }) => (
+                          <Field
+                            id={`projects-fields-${index}`}
+                            name={`projects[${index}].fields`}
+                            {...field}
+                          />
+                        )}
+                        name={`projects[${index}].fields`}
+                        control={control}
+                        defaultValue={item.fields} // make sure to set up defaultValue
+                      />
+                      <ErrorMessage errorField={errors.fields} />
+                    </Container>
+                  </Fragment>
+                )}
+              </FieldsSelect>
 
               <Container maxWidth={false} className={classes.formControl}>
                 <TextField
@@ -98,6 +188,45 @@ const Project = () => {
                   }
                 />
               </Container>
+              <Grid>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <Container maxWidth={false} className={classes.formControl}>
+                    <Controller
+                      rules={{ required: t['requiredMessage'] }}
+                      name={`projects[${index}].completedAt`}
+                      control={control}
+                      as={
+                        <DatePicker
+                          id={`projects-completedAt-${index}`}
+                          inputVariant='outlined'
+                          autoOk
+                          views={['year', 'month']}
+                          format='MM/yyyy'
+                          margin='normal'
+                          label={t['completedBy']}
+                          maxDate={Date.now()}
+                          onChange={(value) => value[0]}
+                          InputProps={{
+                            classes: {
+                              notchedOutline: classes.textField,
+                            },
+                          }}
+                        />
+                      }
+                    />
+                    {errors.projects && errors.projects[index]?.completedAt && (
+                      <Grid maxWidth={false}>
+                        <ErrorMessage
+                          errorField={
+                            errors.projects &&
+                            errors.projects[index]?.completedAt
+                          }
+                        />
+                      </Grid>
+                    )}
+                  </Container>
+                </MuiPickersUtilsProvider>
+              </Grid>
 
               <Container maxWidth={false} className={classes.formControl}>
                 <Link
@@ -108,9 +237,9 @@ const Project = () => {
                   component='button'
                   variant='body2'
                   onClick={() => {
-                    if (!!item.school) {
+                    if (!!item.title) {
                       item['_destroy'] = true;
-                      setDeletedEducations((prevItems) => [...prevItems, item]);
+                      setDeletedProjects((prevItems) => [...prevItems, item]);
                     }
                     projectForm.remove(index);
                   }}>
@@ -120,11 +249,11 @@ const Project = () => {
             </CardContent>
           </Card>
         ))}
-        <ErrorMessage errorField={errors.educationLength} />
+        <ErrorMessage errorField={errors.projectLength} />
         <section className={classes.formControl}>
           <Link
             className={classes.fieldLabelStylesDesktop}
-            id='add-education'
+            id='add-project'
             component='button'
             variant='body2'
             onClick={() => projectForm.append({})}>

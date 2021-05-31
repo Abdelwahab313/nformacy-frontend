@@ -39,6 +39,7 @@ const SelectTimeZone = ({ onChange, defaultTimezoneName, ...rest }) => {
     if (defaultTimezoneName === undefined) {
       return undefined;
     }
+    // console.log('this is a ', defaultTimezoneName);
     return options.find((option) => option.value === defaultTimezoneName);
   }, [options, defaultTimezoneName]);
 
@@ -54,6 +55,7 @@ const SelectTimeZone = ({ onChange, defaultTimezoneName, ...rest }) => {
       value={timeZoneName}
       autoHighlight
       onChange={handleChange}
+      disabled
       getOptionLabel={(option) => option.label}
       renderInput={(params) => (
         <TextField
