@@ -1,8 +1,9 @@
-rm -r build.zip build/       
+
+rm -rf build.zip build/       
 npm run build:prod
+zip -vr build.zip build/
 
-ssh -i ~/ssh_keys/frontend-machine.pem  ec2-user@35.161.116.65 'rm -r frontend/build frontend/build.zip'
-
+ssh -i ~/ssh_keys/frontend-machine.pem  ec2-user@35.161.116.65 'rm -rf frontend/build frontend/build.zip'
 
 scp -i ~/ssh_keys/frontend-machine.pem build.zip ec2-user@35.161.116.65:frontend
 
