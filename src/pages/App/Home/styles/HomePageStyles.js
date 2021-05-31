@@ -115,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   askQuestionBox: {
-    padding: theme.spacing(3),
+    padding: 10,
     backgroundColor: whiteLilac,
     borderRadius: 20,
     border: '1px solid #ecedf0',
@@ -238,7 +238,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   threeBtnsContainer: {
-    minHeight: 310,
+    minHeight: 250,
     [theme.breakpoints.down('md')]: {
       display: 'flex',
       justifyContent: 'space-between',
