@@ -19,7 +19,7 @@ export const RoutesPaths = {
     AddAdvisor: '/admin/createAdvisor',
     AdvisersDetails: '/admin/advisors/edit',
     Clients: '/admin/clients',
-    ClientsDetails: '/admin/clients/clientInfo',
+    ClientProfileDetails: '/admin/clients/clientInfo',
     ClientDetailsView: '/admin/clients/clientView',
     ClientDetails: '/admin/clients/clientDetails',
     ConsultantsDetails: '/admin/consultants/consultantInfo',

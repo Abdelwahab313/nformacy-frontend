@@ -34,8 +34,8 @@ import AdminCalendarDetails from 'pages/Admin/Calendar';
 import ConsultantDetails from 'pages/Admin/Consultants/edit/subComponents/ConsultantDetails';
 import AdminProfile from 'pages/Admin/Admins/edit/subComponents/AdminProfile';
 import ChangePasswordPage from 'pages/ChangePassword';
-import ClientDetails from 'pages/Admin/Clients/edit/subComponents.js/ClientDetails';
 import ClientsServicesList from 'pages/Admin/Clients/list/ClientsServicesList';
+import ClientDetailsList from 'pages/Admin/Clients/list/ClientDetailsList';
 
 const adminRoutes = [
   {
@@ -67,7 +67,7 @@ const adminRoutes = [
     hasDashboardLink: AdminGuardian.showClientsPanel(),
   },
   {
-    path: RoutesPaths.Admin.ClientsDetails,
+    path: RoutesPaths.Admin.ClientProfileDetails,
     name: 'Client Details',
     icon: BusinessCenterIcon,
     component: ClientsDetailsInfo,
@@ -84,7 +84,7 @@ const adminRoutes = [
     path: RoutesPaths.Admin.ClientDetails,
     name: 'Client Details',
     icon: BusinessCenterIcon,
-    component: ClientDetails,
+    component: ClientDetailsList,
     hasDashboardLink: false,
   },
   {

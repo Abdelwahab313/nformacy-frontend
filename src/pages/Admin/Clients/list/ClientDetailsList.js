@@ -1,18 +1,18 @@
 import React from 'react';
 import GridItem from '../../../../components/grid/GridItem';
+
 import Card from '../../../../components/card/Card';
 import CardBody from '../../../../components/card/CardBody';
 import GridContainer from '../../../../components/grid/GridContainer';
-import ClientDetailsView from 'templates/clients/ClientDetailsView';
 import LoadingCircle from 'components/progress/LoadingCircle';
-import useFetchCorporateActivities from 'hooks/useFetchCorporateActivities';
-import { useLocation } from 'react-router';
+import ClientDetails from '../edit/subComponents.js/ClientDetails';
+import { fetchClients } from 'apis/clientsAPI';
+import useFetchData from 'hooks/useFetchData';
 
-const ClientsServicesList = () => {
-  const location = useLocation();
-  const userId = location?.state?.userId;
-  const { activities: services, isLoading } = useFetchCorporateActivities(userId);
-
+const ClientDetailsList = () => {
+  const { fetchedData: clients, isLoading } = useFetchData(() => {
+    return fetchClients();
+  });
   if (isLoading) {
     return <LoadingCircle />;
   }
@@ -22,7 +22,7 @@ const ClientsServicesList = () => {
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
           <CardBody id='questionsList'>
-            <ClientDetailsView services={services} />
+            <ClientDetails clients={clients} />
           </CardBody>
         </Card>
       </GridItem>
@@ -30,4 +30,4 @@ const ClientsServicesList = () => {
   );
 };
 
-export default ClientsServicesList;
+export default ClientDetailsList;

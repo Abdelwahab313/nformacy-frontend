@@ -155,9 +155,17 @@ export const getAdvisorDetails = (adviserId) => {
   };
 };
 
+export const getClientProfileDetails = (clientId) => {
+  return {
+    pathname: RoutesPaths.Admin.ClientProfileDetails,
+    state: {
+      clientId: clientId,
+    },
+  };
+};
 export const getClientDetails = (clientId) => {
   return {
-    pathname: RoutesPaths.Admin.ClientsDetails,
+    pathname: RoutesPaths.Admin.ClientDetails,
     state: {
       clientId: clientId,
     },

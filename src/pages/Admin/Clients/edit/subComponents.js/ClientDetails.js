@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import MUIDataTable from 'mui-datatables';
@@ -7,7 +7,8 @@ import authManager from 'services/authManager';
 import { Chip } from '@material-ui/core';
 import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
-import { getClientDetails } from 'services/navigation';
+import { getClientProfileDetails } from 'services/navigation';
+import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -46,7 +47,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'role',
+      name: 'jobTitle',
       label: t('role'),
       options: {
         ...defaultColumnOption,
@@ -54,7 +55,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'dateAdded',
+      name: 'createdAt',
       label: t('dateAdded'),
       options: {
         ...defaultColumnOption,
@@ -112,10 +113,16 @@ const parseClientsTableData = (clients) => {
       </div>
     )),
     fields: <FieldsChips fields={client.fields} />,
-    userName:
-      <LinkText to={getClientDetails(client.id)}>
-        {'aml'}
+    id:
+      <LinkText to={getClientProfileDetails(client.id)}>
+        {client.id}
       </LinkText>,
+    createdAt:
+      <Fragment>
+        {formattedDateMonthAndDay(
+          new Date(client.createdAt),
+        )}
+      </Fragment>
   }));
 };
 

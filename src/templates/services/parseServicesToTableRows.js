@@ -3,7 +3,7 @@ import {
   getQuestionDetailsLink,
   getServiceDetailsLink,
   getEditServiceDetailsLink,
-  getClientDetails,
+  getClientProfileDetails,
 } from 'services/navigation';
 import LinkText from 'components/typography/LinkText';
 import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
@@ -42,7 +42,7 @@ const parseServicesToTableRows = (services, t) => {
     clientId: (
       <LinkText
         data-reference={service.userId}
-        to={getClientDetails(service.userId)}>
+        to={getClientProfileDetails(service.userId)}>
         <TextCroppedWithTooltip text={`#${service.userId}`} />
       </LinkText>
     ),
