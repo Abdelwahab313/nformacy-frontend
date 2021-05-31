@@ -174,9 +174,8 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
       id={'update-calendar-dialog'}>
       <DialogTitle id='dialog-title'>
         <Grid container justify={'space-between'}>
-          <Grid item>
+          <Grid item xs={11}>
             <Typography variant={'h6'}>{t['updateCalendarTitle']}</Typography>
-
             <Button
               id={'addAvailableTime'}
               variant='contained'
@@ -196,10 +195,12 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
               </Button>
             )}
           </Grid>
-          <Grid item>
+
+          <Grid item xs={1}>
             <IconButton
               id={'close-dialog'}
               aria-label='edit'
+              className={classes.closeBtnCalendar}
               onClick={onCloseDialog}>
               <CloseIcon color={'primary'} />
             </IconButton>
@@ -267,6 +268,11 @@ const useStyles = makeStyles((theme) => ({
   dialogMargin: {
     marginBottom: theme.spacing(2),
   },
+  closeBtnCalendar: {
+    [theme.breakpoints.up('sm')]: {
+      float: 'right'
+    }
+  }
 }));
 
 export default AvailableTimesCalendarDialog;

@@ -16,6 +16,10 @@ const HomeHeadBar = () => {
     : require('../../../../assets/consultant-bg.png');
   const [{ currentUser }] = useAuth();
 
+  const [profilePic,] = React.useState(
+    currentUser.avatar || require('../../../../assets/emptyavatar.jpg'),
+  );
+
   const onClickCompleteLater = () => {
     window.location.replace(RoutesPaths.App.UserRegistrationForm);
   };
@@ -61,7 +65,7 @@ const HomeHeadBar = () => {
       <Box className={classes.profileMobile}>
         <img
           id='profilePicture'
-          src={currentUser.avatar}
+          src={profilePic}
           className={classes.profilePictureMobile}
           alt='Profile Picture'
         />
