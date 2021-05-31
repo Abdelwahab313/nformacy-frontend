@@ -3,8 +3,8 @@ import { fetchCorporateActivities } from 'apis/homeAPI';
 import useFetchData from './useFetchData';
 import { getUserName } from 'core/user';
 
-const useFetchCorporateActivities = () => {
-  const { fetchedData, isLoading } = useFetchData(fetchCorporateActivities);
+const useFetchCorporateActivities = (userId) => {
+  const { fetchedData, isLoading } = useFetchData(() => fetchCorporateActivities(userId));
 
   const activities = useMemo(() => {
     if (!isLoading) {

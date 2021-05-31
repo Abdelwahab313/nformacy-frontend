@@ -8,6 +8,7 @@ import { Chip } from '@material-ui/core';
 import LinkText from 'components/typography/LinkText';
 import { getClientDetailsView } from 'services/navigation';
 import countryList from 'react-select-country-list';
+import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -129,6 +130,12 @@ const parseClientsTableData = (clients, countries) => {
           countries?.find(
             (country) => country.value === client.country,
           ).label}
+      </Fragment>,
+    createdAt:
+      <Fragment>
+        {formattedDateMonthAndDay(
+          new Date(client.createdAt),
+        )}
       </Fragment>
   }));
 };

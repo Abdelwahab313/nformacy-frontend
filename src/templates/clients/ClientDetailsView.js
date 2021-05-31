@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import MUIDataTable from 'mui-datatables';
@@ -8,6 +8,7 @@ import { Chip } from '@material-ui/core';
 import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
 import { getClientDetails } from 'services/navigation';
+import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -18,7 +19,7 @@ const getColumnsOptions = (classes, t) => {
 
   const columns = [
     {
-      name: 'date',
+      name: 'createdAt',
       label: t('date'),
       options: {
         ...defaultColumnOption,
@@ -28,7 +29,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'userName',
+      name: 'userId',
       label: t('userName/id'),
       options: {
         ...defaultColumnOption,
@@ -37,7 +38,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'serviceId',
+      name: 'serviceRef',
       label: t('serviceId'),
       options: {
         ...defaultColumnOption,
@@ -46,7 +47,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'type',
+      name: 'activityType',
       label: t('type'),
       options: {
         ...defaultColumnOption,
@@ -63,7 +64,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'fieldsAssigned',
+      name: 'fields',
       label: t('fieldsAssigned'),
       options: {
         ...defaultColumnOption,
@@ -112,8 +113,8 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const parseClientsTableData = (clients) => {
-  return clients?.map((client) => ({
+const parseClientsTableData = (services) => {
+  return services?.map((client) => ({
     ...client,
     industriesOfExperience: client.industriesOfExperience?.map((industry) => (
       <div key={industry.value}>
@@ -121,18 +122,24 @@ const parseClientsTableData = (clients) => {
       </div>
     )),
     fields: <FieldsChips fields={client.fields} />,
-    userName:
-      <LinkText to={getClientDetails(client.id)}>
-        {client.referenceNumber}
+    userId:
+      <LinkText to={getClientDetails(client.userId)}>
+        {client.userId}
       </LinkText>,
+    createdAt:
+      <Fragment>
+        {formattedDateMonthAndDay(
+          new Date(client.createdAt),
+        )}
+      </Fragment>
   }));
 };
 
-const ClientDetailsView = ({ clients }) => {
+const ClientDetailsView = ({ services }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
-  const clientsRows = parseClientsTableData(clients);
+  const clientsRows = parseClientsTableData(services);
   const tableOptions = {
     filterType: 'checkbox',
     selectableRows: 'none',

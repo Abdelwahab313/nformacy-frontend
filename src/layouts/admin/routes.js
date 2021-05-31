@@ -29,13 +29,13 @@ import ClientsList from 'pages/Admin/Clients/list';
 import ConsultantsList from 'pages/Admin/Consultants/list';
 import AdminGuardian from 'core/guardians/AdminGuardian';
 import ClientsDetailsInfo from 'pages/Admin/Clients/edit/subComponents.js/ClientsDetailsInfo';
-import ClientDetailsView from 'pages/Admin/Clients/edit/subComponents.js/ClientDetailsView';
 import { CalendarTodayOutlined } from '@material-ui/icons';
 import AdminCalendarDetails from 'pages/Admin/Calendar';
 import ConsultantDetails from 'pages/Admin/Consultants/edit/subComponents/ConsultantDetails';
 import AdminProfile from 'pages/Admin/Admins/edit/subComponents/AdminProfile';
 import ChangePasswordPage from 'pages/ChangePassword';
 import ClientDetails from 'pages/Admin/Clients/edit/subComponents.js/ClientDetails';
+import ClientsServicesList from 'pages/Admin/Clients/list/ClientsServicesList';
 
 const adminRoutes = [
   {
@@ -77,7 +77,7 @@ const adminRoutes = [
     path: RoutesPaths.Admin.ClientDetailsView,
     name: 'Client View',
     icon: BusinessCenterIcon,
-    component: ClientDetailsView,
+    component: ClientsServicesList,
     hasDashboardLink: false,
   },
   {

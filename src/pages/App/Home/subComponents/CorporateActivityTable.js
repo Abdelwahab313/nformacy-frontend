@@ -14,6 +14,7 @@ import { RoutesPaths } from 'constants/routesPath';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import parseServicesToTableRows from 'templates/services/parseServicesToTableRows';
 import useFetchCorporateActivities from 'hooks/useFetchCorporateActivities';
+import authManager from 'services/authManager';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -26,7 +27,6 @@ const StyledTableCell = withStyles((theme) => ({
   body: {
     fontSize: 14,
     textAlign: 'center',
-    // borderRight: '1px solid black',
   },
 }))(TableCell);
 
@@ -42,7 +42,8 @@ const StyledTableRow = withStyles((theme) => ({
 const CorporateActivityTable = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const { activities: services, isLoading } = useFetchCorporateActivities();
+  const currentUser = authManager.retrieveCurrentUser();
+  const { activities: services, isLoading } = useFetchCorporateActivities(currentUser.id);
   const servicesRows = parseServicesToTableRows(services, t);
   if (isLoading) {
     return <LoadingCircle />;
@@ -80,31 +81,31 @@ const CorporateActivityTable = () => {
                     Sorry, no matching records found
                   </TableCell>
                 ) : (
-                  servicesRows.map((service) => (
-                    <StyledTableRow
-                      reference-number={service.refNumber}
-                      key={service.id}>
-                      <StyledTableCell scope='row'>
-                        {service?.serviceOwner}
-                      </StyledTableCell>
-                      <StyledTableCell scope='row'>
-                        {service.requestType}
-                      </StyledTableCell>
-                      <StyledTableCell>{service.serviceRef}</StyledTableCell>
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {service.title}
-                      </StyledTableCell>
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {service.createdAt}
-                      </StyledTableCell>
-                      <StyledTableCell>{service.status}</StyledTableCell>
-                      <StyledTableCell
-                        className={[classes.desktopVisible, 'action']}>
-                        {service.action}
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  ))
-                )}
+                    servicesRows.map((service) => (
+                      <StyledTableRow
+                        reference-number={service.refNumber}
+                        key={service.id}>
+                        <StyledTableCell scope='row'>
+                          {service?.serviceOwner}
+                        </StyledTableCell>
+                        <StyledTableCell scope='row'>
+                          {service.requestType}
+                        </StyledTableCell>
+                        <StyledTableCell>{service.serviceRef}</StyledTableCell>
+                        <StyledTableCell className={classes.desktopVisible}>
+                          {service.title}
+                        </StyledTableCell>
+                        <StyledTableCell className={classes.desktopVisible}>
+                          {service.createdAt}
+                        </StyledTableCell>
+                        <StyledTableCell>{service.status}</StyledTableCell>
+                        <StyledTableCell
+                          className={[classes.desktopVisible, 'action']}>
+                          {service.action}
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))
+                  )}
               </TableBody>
             </Table>
           </TableContainer>

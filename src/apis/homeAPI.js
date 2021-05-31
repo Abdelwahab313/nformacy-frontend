@@ -16,9 +16,10 @@ export const fetchClientActivities = () => {
   }).then((response) => camelizeKeys(response));
 };
 
-export const fetchCorporateActivities = () => {
+export const fetchCorporateActivities = (userId) => {
   return axios({
     method: 'get',
     url: `${API_BASE_URL}/home/corporate_dashboard`,
+    params: { userId },
   }).then((response) => camelizeKeys(response));
 };

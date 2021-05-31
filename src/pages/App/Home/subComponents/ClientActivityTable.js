@@ -26,7 +26,6 @@ const StyledTableCell = withStyles((theme) => ({
   body: {
     fontSize: 14,
     textAlign: 'center',
-    // borderRight: '1px solid black',
   },
 }))(TableCell);
 
