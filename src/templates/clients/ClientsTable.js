@@ -136,6 +136,10 @@ const parseClientsTableData = (clients, countries) => {
         {formattedDateMonthAndDay(
           new Date(client.createdAt),
         )}
+      </Fragment>,
+    organizationName:
+      <Fragment>
+        {!client.organizationName ? 'No Organization' : client.organizationName}
       </Fragment>
   }));
 };
