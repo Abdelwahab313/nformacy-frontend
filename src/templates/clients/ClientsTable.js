@@ -81,7 +81,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'numberOfAccounts',
+      name: 'accountsCount',
       label: t('numberOfAccounts'),
       options: {
         ...defaultColumnOption,
