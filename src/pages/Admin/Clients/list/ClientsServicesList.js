@@ -10,7 +10,8 @@ import { useLocation } from 'react-router';
 
 const ClientsServicesList = () => {
   const location = useLocation();
-  const userId = location?.state?.userId;
+  const userId = location?.state?.clientId;
+
   const { activities: services, isLoading } = useFetchCorporateActivities(userId);
 
   if (isLoading) {

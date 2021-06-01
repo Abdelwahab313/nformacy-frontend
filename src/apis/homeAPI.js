@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_BASE_URL } from '../settings';
-import { camelizeKeys } from 'humps';
+import { camelizeKeys, decamelizeKeys } from 'humps';
 
 export const fetchFreelancerActivities = () => {
   return axios({
@@ -20,6 +20,6 @@ export const fetchCorporateActivities = (userId) => {
   return axios({
     method: 'get',
     url: `${API_BASE_URL}/home/corporate_dashboard`,
-    params: { userId },
+    params: decamelizeKeys({ userId }),
   }).then((response) => camelizeKeys(response));
 };
