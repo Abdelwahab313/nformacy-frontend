@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import MUIDataTable from 'mui-datatables';
 import Grid from '@material-ui/core/Grid';
 import { useStyles } from 'styles/Admin/questionTableStyles';
@@ -142,7 +142,7 @@ const parseClientsTableData = (clients, countries) => {
 
 
 const ClientsTable = ({ clients }) => {
-  const [countries] = useState(countryList().getData());
+  const countries = countryList().getData();
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);

@@ -16,9 +16,7 @@ const HomeHeadBar = () => {
     : require('../../../../assets/consultant-bg.png');
   const [{ currentUser }] = useAuth();
 
-  const [profilePic,] = React.useState(
-    currentUser.avatar || require('../../../../assets/emptyavatar.jpg'),
-  );
+  const profilePic = currentUser.avatar || require('../../../../assets/emptyavatar.jpg');
 
   const onClickCompleteLater = () => {
     window.location.replace(RoutesPaths.App.UserRegistrationForm);
