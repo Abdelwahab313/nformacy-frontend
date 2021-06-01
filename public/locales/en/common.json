@@ -557,5 +557,7 @@
   "dateAdded": "Date Added",
   "questions": "Questions",
   "calls": "Calls",
-  "assignmentsDays": "Assignments Days"
+  "assignmentsDays": "Assignments Days",
+  "servicesList": "Services List",
+  "clientDetails": "Client Details"
 }

@@ -7,7 +7,7 @@ import authManager from 'services/authManager';
 import { Chip } from '@material-ui/core';
 import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
-import { getClientDetails } from 'services/navigation';
+import { getClientDetails, getEditServiceDetailsLink } from 'services/navigation';
 import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 
 const getColumnsOptions = (classes, t) => {
@@ -47,7 +47,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'activityType',
+      name: 'assignmentType',
       label: t('type'),
       options: {
         ...defaultColumnOption,
@@ -131,7 +131,11 @@ const parseClientsTableData = (services) => {
         {formattedDateMonthAndDay(
           new Date(client.createdAt),
         )}
-      </Fragment>
+      </Fragment>,
+    serviceRef:
+      <LinkText to={getEditServiceDetailsLink(client.serviceId)}>
+        {client.serviceRef}
+      </LinkText>,
   }));
 };
 
@@ -155,7 +159,7 @@ const ClientDetailsView = ({ services }) => {
   };
   return (
     <MUIDataTable
-      title={t('clientsList')}
+      title={t('servicesList')}
       data={!!clientsRows ? clientsRows : []}
       columns={columns}
       options={tableOptions}
