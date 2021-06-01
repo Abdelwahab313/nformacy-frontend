@@ -11,6 +11,7 @@ import DIRECTIONS from '../../constants/direction';
 import Direction from 'components/grid/Direction';
 import { useTranslation } from 'react-i18next';
 import { RoutesPaths } from 'constants/routesPath';
+import authManager from 'services/authManager';
 
 const BreadcrumbsCustomSeparator = ({ pageName }) => {
   const classes = useStyles();
@@ -27,11 +28,11 @@ const BreadcrumbsCustomSeparator = ({ pageName }) => {
               DIRECTIONS[locale] === 'ltr' ? (
                 <NavigateNextIcon color='primary' fontSize='small' />
               ) : (
-                <NavigateBeforeIcon color='primary' fontSize='small' />
-              )
+                  <NavigateBeforeIcon color='primary' fontSize='small' />
+                )
             }
             aria-label='breadcrumb'>
-            <Link color='inherit' href={RoutesPaths.App.Dashboard}>
+            <Link color='inherit' href={authManager.isAdmin() ? RoutesPaths.Admin.Services : RoutesPaths.App.Dashboard}>
               <Typography id={'home-breadcrumb'}>{t('common:home')}</Typography>
             </Link>
             <Typography color={'primary'}>{pageName}</Typography>

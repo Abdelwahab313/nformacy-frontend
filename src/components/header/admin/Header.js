@@ -14,6 +14,7 @@ import AdminNavbarLinks from 'components/header/admin/AdminNavbarLinks.js';
 
 import styles from 'assets/jss/material-dashboard-react/components/headerStyle.js';
 import Grid from '@material-ui/core/Grid';
+import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 
 const useStyles = makeStyles(styles);
 
@@ -43,7 +44,9 @@ const Header = (props) => {
       <Toolbar className={classes.container}>
         <div className={classes.flex}>
           {/* Here we create navbar brand, based on route name */}
-          <Grid className={classes.title}>{makeBrand()}</Grid>
+          <Grid className={classes.title}>
+            <BreadcrumbsCustomSeparator pageName={makeBrand()} />
+          </Grid>
         </div>
         <Hidden smDown implementation='css'>
           <AdminNavbarLinks />
