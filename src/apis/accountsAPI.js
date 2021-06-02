@@ -9,9 +9,10 @@ export const addAccount = (user) => {
     url: `${API_BASE_URL}/users/create_account`,
   }).then((response) => camelizeKeys(response));
 };
-export const fetchAccounts = () => {
+export const fetchAccounts = (corporateId) => {
   return axios({
     method: 'get',
     url: `${API_BASE_URL}/users/list_accounts`,
+    params: decamelizeKeys({ corporateId }),
   }).then((response) => camelizeKeys(response));
 };

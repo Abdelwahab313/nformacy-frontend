@@ -5,12 +5,16 @@ import CardBody from '../../../../components/card/CardBody';
 import GridContainer from '../../../../components/grid/GridContainer';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import useFetchData from 'hooks/useFetchData';
-import { fetchClients } from 'apis/clientsAPI';
 import AccountsTable from 'pages/App/Accounts/list/AccountsTable';
+import { fetchAccounts } from 'apis/accountsAPI';
+import { useLocation } from 'react-router';
 
 const SubAccountList = () => {
+  const location = useLocation();
+  const corporateId = location?.state?.corporateId;
+
   const { fetchedData: clients, isLoading } = useFetchData(() => {
-    return fetchClients();
+    return fetchAccounts(corporateId);
   });
 
   if (isLoading) {

@@ -16,13 +16,17 @@ import { Grid } from '@material-ui/core';
 import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import clsx from 'clsx';
 import PageContainer from 'components/grid/PageContainer';
+import { useLocation } from 'react-router';
 
 const CorporateAccountsList = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const classes = useStyles();
+  const location = useLocation();
+  const corporateId = location?.state?.corporateId;
+
   const { fetchedData: accounts, isLoading } = useFetchData(() => {
-    return fetchAccounts();
+    return fetchAccounts(corporateId);
   });
 
   if (isLoading) {
