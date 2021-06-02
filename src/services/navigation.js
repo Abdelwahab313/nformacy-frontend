@@ -88,11 +88,11 @@ export const getAdminQuestionsDashboardLink = () => {
   }
 };
 
-export const getSubAccounts = (accountId) => {
+export const getSubAccounts = (corporateId) => {
   return {
     pathname: RoutesPaths.Admin.SubAccount,
     state: {
-      accountId: accountId,
+      corporateId,
     },
   };
 };
