@@ -13,7 +13,7 @@ const SubAccountList = () => {
   const location = useLocation();
   const corporateId = location?.state?.corporateId;
 
-  const { fetchedData: clients, isLoading } = useFetchData(() => {
+  const { fetchedData: accounts, isLoading } = useFetchData(() => {
     return fetchAccounts(corporateId);
   });
 
@@ -26,7 +26,7 @@ const SubAccountList = () => {
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
           <CardBody id='questionsList'>
-            <AccountsTable clients={clients} />
+            <AccountsTable accounts={accounts} />
           </CardBody>
         </Card>
       </GridItem>
