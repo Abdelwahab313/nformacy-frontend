@@ -88,6 +88,15 @@ export const getAdminQuestionsDashboardLink = () => {
   }
 };
 
+export const getSubAccounts = (accountId) => {
+  return {
+    pathname: RoutesPaths.Admin.SubAccount,
+    state: {
+      accountId: accountId,
+    },
+  };
+};
+
 export const getAdminsList = () => {
   return {
     pathname: RoutesPaths.Admin.Admins,

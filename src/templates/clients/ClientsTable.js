@@ -6,7 +6,7 @@ import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
 import { Chip } from '@material-ui/core';
 import LinkText from 'components/typography/LinkText';
-import { getClientDetailsView } from 'services/navigation';
+import { getClientDetailsView, getSubAccounts } from 'services/navigation';
 import countryList from 'react-select-country-list';
 import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 
@@ -140,6 +140,12 @@ const parseClientsTableData = (clients, countries) => {
     organizationName:
       <Fragment>
         {!client.organizationName ? 'No Organization' : client.organizationName}
+      </Fragment>,
+    accountsCount:
+      <Fragment>
+        <LinkText to={getSubAccounts(client.id)}>
+          {client.accountsCount}
+        </LinkText>
       </Fragment>
   }));
 };

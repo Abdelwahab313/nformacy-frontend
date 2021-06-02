@@ -20,6 +20,7 @@ import ServicesList from 'pages/Admin/ServicesRequests/list';
 import ServiceDetails from 'pages/Admin/ServicesRequests/details';
 import Evaluations from 'pages/Admin/Evaluations';
 import AdminsList from 'pages/Admin/Admins/list';
+import SubAccountList from 'pages/Admin/Admins/list/SubAccountList';
 import AddAdmin from 'pages/Admin/Admins/list/AddAdmin';
 import AdvisorsList from 'pages/Admin/Advisors';
 import AddAdvisor from 'pages/Admin/Advisors/AddAdvisor';
@@ -146,6 +147,12 @@ const adminRoutes = [
     path: RoutesPaths.Admin.ChangePassword,
     name: 'Change Password',
     component: ChangePasswordPage,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.Admin.SubAccount,
+    name: 'Sub Account',
+    component: SubAccountList,
     hasDashboardLink: false,
   },
   {
