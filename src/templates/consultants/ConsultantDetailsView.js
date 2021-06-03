@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { Grid } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import MUIDataTable from 'mui-datatables';
-import Grid from '@material-ui/core/Grid';
 import { useStyles } from 'styles/Admin/questionTableStyles';
 import authManager from 'services/authManager';
-import { useTranslation } from 'react-i18next';
 import { Chip } from '@material-ui/core';
+import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
-import { getClientDetailsView, getSubAccounts } from 'services/navigation';
-import { getUserCountryLabel } from 'core/user';
+import { getClientDetails } from 'services/navigation';
 import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 
 const getColumnsOptions = (classes, t) => {
@@ -19,8 +19,8 @@ const getColumnsOptions = (classes, t) => {
 
   const columns = [
     {
-      name: 'id',
-      label: t('id'),
+      name: 'createdAt',
+      label: t('date'),
       options: {
         ...defaultColumnOption,
         display: true,
@@ -29,8 +29,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'firstName',
-      label: t('firstName'),
+      name: 'serviceRef',
+      label: t('assignmentId'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -38,8 +38,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'lastName',
-      label: t('lastName'),
+      name: 'assignmentType',
+      label: t('type'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -47,32 +47,24 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'organizationName',
-      label: t('organization'),
-      options: {
-        ...defaultColumnOption,
-        filter: false,
-      },
-    },
-    {
-      name: 'createdAt',
-      label: t('registrationDate'),
-      options: {
-        ...defaultColumnOption,
-        filter: false,
-        sort: true,
-      },
-    },
-    {
-      name: 'country',
-      label: t('location'),
+      name: 'client',
+      label: t('client'),
       options: {
         ...defaultColumnOption,
         filter: true,
       },
     },
     {
-      name: 'industriesOfExperience',
+      name: 'fields',
+      label: t('fieldsAssigned'),
+      options: {
+        ...defaultColumnOption,
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: 'industry',
       label: t('industry'),
       options: {
         ...defaultColumnOption,
@@ -81,8 +73,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'accountsCount',
-      label: t('numberOfAccounts'),
+      name: 'evaluation',
+      label: t('evaluation'),
       options: {
         ...defaultColumnOption,
         filter: true,
@@ -90,17 +82,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'packageType',
-      label: t('packageType'),
-      options: {
-        ...defaultColumnOption,
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: 'state',
-      label: t('state'),
+      name: 'fees',
+      label: t('fees'),
       options: {
         ...defaultColumnOption,
         filter: true,
@@ -112,35 +95,33 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const parseClientsTableData = (clients) => {
-  return clients?.map((client) => ({
+const parseClientsTableData = (services) => {
+  return services?.map((client) => ({
     ...client,
     industriesOfExperience: client.industriesOfExperience?.map((industry) => (
       <div key={industry.value}>
         <Chip label={industry.label} key={industry.value} />
       </div>
     )),
-    id: (
-      <LinkText to={getClientDetailsView(client.id)}>
-        {client.referenceNumber}
-      </LinkText>
-    ),
-    country: getUserCountryLabel(client.country),
-    createdAt: formattedDateMonthAndDay(new Date(client.createdAt)),
-    organizationName: !client.organizationName
-      ? 'No Organization'
-      : client.organizationName,
-    accountsCount: (
-      <LinkText to={getSubAccounts(client.id)}>{client.accountsCount}</LinkText>
-    ),
+    fields: <FieldsChips fields={client.fields} />,
+    userId:
+      <LinkText to={getClientDetails(client.userId)}>
+        {client.userId}
+      </LinkText>,
+    createdAt:
+      <Fragment>
+        {formattedDateMonthAndDay(
+          new Date(client.createdAt),
+        )}
+      </Fragment>
   }));
 };
 
-const ClientsTable = ({ clients }) => {
+const ConsultantDetailsView = ({ services }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
-  const clientsRows = parseClientsTableData(clients);
+  const clientsRows = parseClientsTableData(services);
   const tableOptions = {
     filterType: 'checkbox',
     selectableRows: 'none',
@@ -156,7 +137,7 @@ const ClientsTable = ({ clients }) => {
   };
   return (
     <MUIDataTable
-      title={t('clientsList')}
+      title={t('servicesList')}
       data={!!clientsRows ? clientsRows : []}
       columns={columns}
       options={tableOptions}
@@ -164,4 +145,4 @@ const ClientsTable = ({ clients }) => {
   );
 };
 
-export default ClientsTable;
+export default ConsultantDetailsView;

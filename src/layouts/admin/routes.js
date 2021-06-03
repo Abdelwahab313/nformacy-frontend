@@ -37,6 +37,7 @@ import AdminProfile from 'pages/Admin/Admins/edit/subComponents/AdminProfile';
 import ChangePasswordPage from 'pages/ChangePassword';
 import ClientsServicesList from 'pages/Admin/Clients/list/ClientsServicesList';
 import ClientDetailsList from 'pages/Admin/Clients/list/ClientDetailsList';
+import ConsultantsServicesList from 'pages/Admin/Consultants/list/ConsultantsServicesList';
 
 const adminRoutes = [
   {
@@ -79,6 +80,13 @@ const adminRoutes = [
     name: 'Client View',
     icon: BusinessCenterIcon,
     component: ClientsServicesList,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.Admin.ConsultantDetailsView,
+    name: 'Consultant View',
+    icon: BusinessCenterIcon,
+    component: ConsultantsServicesList,
     hasDashboardLink: false,
   },
   {

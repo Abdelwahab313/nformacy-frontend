@@ -547,7 +547,7 @@
   "callTime": "Call Time",
   "accountManagerName": "Account Manager Name",
   "registrationDate": "Registration Date",
-  "numberOfAccounts": "Number Of Accounts",
+  "numberOfAccounts": "Number of Accounts",
   "packageType": "Package Type",
   "userName/id": "User Name / ID",
   "deliverables": "Deliverables",
@@ -560,7 +560,9 @@
   "assignmentsDays": "Assignments Days",
   "servicesList": "Services List",
   "clientDetails": "Client Details",
-  "numberOfActivities": "Number Of Activities",
   "defaultSummary": " is a seasoned consultants with experience, spent most of them in ",
-  "activitiesList": "Activities List"
+  "activitiesList": "Activities List",
+  "numberOfActivities": "Number of Activities",
+  "numOfHours": "Number of Hours",
+  "hourlyRate": "Hourly rate"
 }

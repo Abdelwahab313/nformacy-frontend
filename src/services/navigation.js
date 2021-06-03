@@ -184,7 +184,16 @@ export const getClientDetailsView = (clientId) => {
   return {
     pathname: RoutesPaths.Admin.ClientDetailsView,
     state: {
-      clientId: clientId,
+      clientId,
+    },
+  };
+};
+
+export const getConsultantDetailsView = (consultantId) => {
+  return {
+    pathname: RoutesPaths.Admin.ConsultantDetailsView,
+    state: {
+      consultantId,
     },
   };
 };

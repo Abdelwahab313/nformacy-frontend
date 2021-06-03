@@ -21,6 +21,7 @@ export const RoutesPaths = {
     Clients: '/admin/clients',
     ClientProfileDetails: '/admin/clients/clientInfo',
     ClientDetailsView: '/admin/clients/clientView',
+    ConsultantDetailsView: '/admin/consultants/consultantView',
     ClientDetails: '/admin/clients/clientDetails',
     ConsultantsDetails: '/admin/consultants/consultantInfo',
     Consultants: '/admin/consultants',
