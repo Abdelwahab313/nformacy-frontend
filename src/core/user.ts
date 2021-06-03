@@ -1,4 +1,5 @@
 import { User } from './types';
+import countryList from 'react-select-country-list';
 
 export const getUserName = (user: User) => {
   return `${user?.firstName[0]}. ${user?.lastName}`;
@@ -26,4 +27,13 @@ const hasReviewMeetingScheduled = () => {
 };
 const hasReviewMeetingFinished = () => {
   return false;
+};
+
+export const getUserCountryLabel = (countryValue: string) => {
+  const countries = countryList().getData();
+
+  return (
+    countryValue &&
+    countries?.find((country) => country.value === countryValue)?.label
+  );
 };
