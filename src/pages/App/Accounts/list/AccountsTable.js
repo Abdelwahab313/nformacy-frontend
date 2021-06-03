@@ -64,34 +64,16 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'pointesConsumed',
-      label: t('pointesConsumed'),
+      name: 'servicesCount',
+      label: t('numberOfActivities'),
       options: {
         ...defaultColumnOption,
         filter: true,
-      },
-    },
-    {
-      name: 'pointsBalance',
-      label: t('pointsBalance'),
-      options: {
-        ...defaultColumnOption,
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: 'managePoints',
-      label: t('managePoints'),
-      options: {
-        ...defaultColumnOption,
-        filter: true,
-        sort: true,
       },
     },
     {
       name: 'deactivatedAt',
-      label: t('isDeactivated'),
+      label: t('state'),
       options: {
         ...defaultColumnOption,
         filter: true,

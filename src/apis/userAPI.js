@@ -26,6 +26,13 @@ const changeLocaleAPI = (userId, locale) => {
   }).then((response) => camelizeKeys(response));
 };
 
+const getUser = (userId) => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/users/${userId}`,
+  }).then((response) => camelizeKeys(response));
+};
+
 const completeClientProfile = (user) => {
   return axios({
     method: 'put',
@@ -136,5 +143,6 @@ export {
   deactivateUser,
   verifyEmail,
   fetchPointsList,
-  submitFullProfile
+  submitFullProfile,
+  getUser
 };

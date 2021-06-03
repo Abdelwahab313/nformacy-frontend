@@ -559,5 +559,6 @@
   "calls": "Calls",
   "assignmentsDays": "Assignments Days",
   "servicesList": "Services List",
-  "clientDetails": "Client Details"
+  "clientDetails": "Client Details",
+  "numberOfActivities": "Number Of Activities"
 }
