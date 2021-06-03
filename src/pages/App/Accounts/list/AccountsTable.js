@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import MUIDataTable from 'mui-datatables';
 import Grid from '@material-ui/core/Grid';
 import { useStyles } from 'styles/Admin/questionTableStyles';
@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import LinkText from 'components/typography/LinkText';
 import { getAccountDetails } from 'services/navigation';
 import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
+import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -113,6 +114,12 @@ const parseAccountsTableData = (accounts) => {
         <TextCroppedWithTooltip text={`#${account.id}`} />
       </LinkText>
     ),
+    createdAt:
+      <Fragment>
+        {formattedDateMonthAndDay(
+          new Date(account.createdAt),
+        )}
+      </Fragment>
   }));
 };
 
