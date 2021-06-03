@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import MUIDataTable from 'mui-datatables';
 import Grid from '@material-ui/core/Grid';
 import { useStyles } from 'styles/Admin/questionTableStyles';
@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Chip } from '@material-ui/core';
 import LinkText from 'components/typography/LinkText';
 import { getClientDetailsView, getSubAccounts } from 'services/navigation';
-import countryList from 'react-select-country-list';
+import { getUserCountryLabel } from 'core/user';
 import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 
 const getColumnsOptions = (classes, t) => {
@@ -112,7 +112,7 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const parseClientsTableData = (clients, countries) => {
+const parseClientsTableData = (clients) => {
   return clients?.map((client) => ({
     ...client,
     industriesOfExperience: client.industriesOfExperience?.map((industry) => (
@@ -120,43 +120,27 @@ const parseClientsTableData = (clients, countries) => {
         <Chip label={industry.label} key={industry.value} />
       </div>
     )),
-    id:
+    id: (
       <LinkText to={getClientDetailsView(client.id)}>
         {client.referenceNumber}
-      </LinkText>,
-    country:
-      <Fragment>
-        {client.country &&
-          countries?.find(
-            (country) => country.value === client.country,
-          ).label}
-      </Fragment>,
-    createdAt:
-      <Fragment>
-        {formattedDateMonthAndDay(
-          new Date(client.createdAt),
-        )}
-      </Fragment>,
-    organizationName:
-      <Fragment>
-        {!client.organizationName ? 'No Organization' : client.organizationName}
-      </Fragment>,
-    accountsCount:
-      <Fragment>
-        <LinkText to={getSubAccounts(client.id)}>
-          {client.accountsCount}
-        </LinkText>
-      </Fragment>
+      </LinkText>
+    ),
+    country: getUserCountryLabel(),
+    createdAt: formattedDateMonthAndDay(new Date(client.createdAt)),
+    organizationName: !client.organizationName
+      ? 'No Organization'
+      : client.organizationName,
+    accountsCount: (
+      <LinkText to={getSubAccounts(client.id)}>{client.accountsCount}</LinkText>
+    ),
   }));
 };
 
-
 const ClientsTable = ({ clients }) => {
-  const countries = countryList().getData();
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
-  const clientsRows = parseClientsTableData(clients, countries);
+  const clientsRows = parseClientsTableData(clients);
   const tableOptions = {
     filterType: 'checkbox',
     selectableRows: 'none',
