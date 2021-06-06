@@ -564,5 +564,9 @@
   "activitiesList": "Activities List",
   "numberOfActivities": "Number of Activities",
   "numOfHours": "Number of Hours",
-  "hourlyRate": "Hourly rate"
+  "hourlyRate": "Hourly rate",
+  "verificationForm": "Verification Form",
+  "meeting": "Meeting",
+  "recording": "Recording",
+  "consultantVerification": "Consultant Verification"
 }

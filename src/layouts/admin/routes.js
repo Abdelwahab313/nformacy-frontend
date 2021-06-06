@@ -38,6 +38,7 @@ import ChangePasswordPage from 'pages/ChangePassword';
 import ClientsServicesList from 'pages/Admin/Clients/list/ClientsServicesList';
 import ClientDetailsList from 'pages/Admin/Clients/list/ClientDetailsList';
 import ConsultantsServicesList from 'pages/Admin/Consultants/list/ConsultantsServicesList';
+import ConsultantVerification from 'pages/Admin/Consultants/verification/ConsultantVerification';
 
 const adminRoutes = [
   {
@@ -88,6 +89,13 @@ const adminRoutes = [
     icon: BusinessCenterIcon,
     component: ConsultantsServicesList,
     hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.Admin.ConsultantVerification,
+    name: 'Consultant Verification',
+    icon: BusinessCenterIcon,
+    component: ConsultantVerification,
+    hasDashboardLink: true,
   },
   {
     path: RoutesPaths.Admin.ClientDetails,
