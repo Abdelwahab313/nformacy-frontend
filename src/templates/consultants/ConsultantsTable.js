@@ -118,7 +118,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'points',
+      name: 'pointsCount',
       label: t('points'),
       options: {
         ...defaultColumnOption,
@@ -127,7 +127,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'numOfAnswers',
+      name: 'answersCount',
       label: t('numOfAnswers'),
       options: {
         ...defaultColumnOption,
@@ -136,7 +136,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'numOfCalls',
+      name: 'meetingsCount',
       label: t('numOfCalls'),
       options: {
         ...defaultColumnOption,
