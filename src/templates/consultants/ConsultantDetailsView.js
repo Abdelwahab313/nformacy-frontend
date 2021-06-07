@@ -7,7 +7,7 @@ import authManager from 'services/authManager';
 import { Chip } from '@material-ui/core';
 import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
-import { getClientDetails } from 'services/navigation';
+import { getClientDetails, getQuestionDetails } from 'services/navigation';
 import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 
 const getColumnsOptions = (classes, t) => {
@@ -29,7 +29,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'serviceRef',
+      name: 'assignmentId',
       label: t('assignmentId'),
       options: {
         ...defaultColumnOption,
@@ -95,33 +95,36 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const parseClientsTableData = (services) => {
-  return services?.map((client) => ({
-    ...client,
-    industriesOfExperience: client.industriesOfExperience?.map((industry) => (
-      <div key={industry.value}>
-        <Chip label={industry.label} key={industry.value} />
+const parseActivitiesTableData = (activities) => {
+  return activities?.map((activity) => ({
+    ...activity,
+    industry: (
+      <div key={activity?.industry?.value}>
+        <Chip label={activity?.industry?.label} key={activity?.industry?.value} />
       </div>
-    )),
-    fields: <FieldsChips fields={client.fields} />,
-    userId:
-      <LinkText to={getClientDetails(client.userId)}>
-        {client.userId}
+    ),
+    fields: <FieldsChips fields={activity?.question?.fields} />,
+    assignmentId: (<LinkText to={getQuestionDetails(activity.questionId)}>
+      {activity.questionRef}
+    </LinkText>),
+    client:
+      <LinkText to={getClientDetails(activity.clientId)}>
+        {activity.clientId}
       </LinkText>,
     createdAt:
       <Fragment>
         {formattedDateMonthAndDay(
-          new Date(client.createdAt),
+          new Date(activity.createdAt),
         )}
       </Fragment>
   }));
 };
 
-const ConsultantDetailsView = ({ services }) => {
+const ConsultantDetailsView = ({ activities }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
-  const clientsRows = parseClientsTableData(services);
+  const clientsRows = parseActivitiesTableData(activities);
   const tableOptions = {
     filterType: 'checkbox',
     selectableRows: 'none',

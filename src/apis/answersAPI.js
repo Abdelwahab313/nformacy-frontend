@@ -2,10 +2,11 @@ import axios from 'axios';
 import { API_BASE_URL } from '../settings';
 import { camelizeKeys, decamelizeKeys } from 'humps';
 
-export const fetchFreelancerAnswers = () => {
+export const fetchFreelancerAnswers = (userId) => {
   return axios({
     method: 'get',
     url: `${API_BASE_URL}/answers/freelancer_answers`,
+    params: decamelizeKeys({ userId }),
   }).then((response) => camelizeKeys(response));
 };
 
