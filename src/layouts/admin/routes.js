@@ -39,6 +39,7 @@ import ClientsServicesList from 'pages/Admin/Clients/list/ClientsServicesList';
 import ClientDetailsList from 'pages/Admin/Clients/list/ClientDetailsList';
 import ConsultantsServicesList from 'pages/Admin/Consultants/list/ConsultantsServicesList';
 import ConsultantVerification from 'pages/Admin/Consultants/verification/ConsultantVerification';
+import ConsultantVerificationForm from 'pages/Admin/Consultants/verification/consultantVerificationForm';
 
 const adminRoutes = [
   {
@@ -96,6 +97,13 @@ const adminRoutes = [
     icon: BusinessCenterIcon,
     component: ConsultantVerification,
     hasDashboardLink: true,
+  },
+  {
+    path: RoutesPaths.Admin.ConsultantVerificationForm,
+    name: 'Consultant Verification Form',
+    icon: BusinessCenterIcon,
+    component: ConsultantVerificationForm,
+    hasDashboardLink: false,
   },
   {
     path: RoutesPaths.Admin.ClientDetails,
