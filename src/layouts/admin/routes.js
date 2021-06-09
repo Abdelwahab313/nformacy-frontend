@@ -38,8 +38,9 @@ import ChangePasswordPage from 'pages/ChangePassword';
 import ClientsServicesList from 'pages/Admin/Clients/list/ClientsServicesList';
 import ClientDetailsList from 'pages/Admin/Clients/list/ClientDetailsList';
 import ConsultantsServicesList from 'pages/Admin/Consultants/list/ConsultantsServicesList';
-import ConsultantVerification from 'pages/Admin/Consultants/verification/ConsultantVerification';
-import ConsultantVerificationForm from 'pages/Admin/Consultants/verification/consultantVerificationForm';
+import ConsultantVerification from 'pages/Admin/ConsultantVerifications/list/ConsultantVerification';
+import ConsultantVerificationForm from 'pages/Admin/ConsultantVerifications/evaluation/consultantVerificationForm';
+import ConsultantVerificationDetails from 'pages/Admin/ConsultantVerifications/details/ConsultantVerificationDetails';
 
 const adminRoutes = [
   {
@@ -103,6 +104,13 @@ const adminRoutes = [
     name: 'Consultant Verification Form',
     icon: BusinessCenterIcon,
     component: ConsultantVerificationForm,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.Admin.ConsultantVerificationDetails,
+    name: 'Consultant View',
+    icon: BusinessCenterIcon,
+    component: ConsultantVerificationDetails,
     hasDashboardLink: false,
   },
   {

@@ -5,23 +5,10 @@ import Grid from '@material-ui/core/Grid';
 import { useStyles } from 'styles/Admin/questionTableStyles';
 import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
-import { Chip } from '@material-ui/core';
-import FieldsChips from 'components/chips/FieldsChips';
-import LinkText from 'components/typography/LinkText';
-import { getConsultantDetailsView } from 'services/navigation';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 
-import { getConsultantLevel, getUserCountryLabel } from 'core/user';
-
-export const getConsultantState = (user) => {
-  const stateStrings = {
-    1: 'Registration',
-    2: 'full profile',
-    3: 'interview',
-  };
-  const level = getConsultantLevel(user);
-  return stateStrings[level] || 'Active';
-};
+import RefIDLink from 'components/dataTableElements/RefIDLink';
+import { getMeetingDetailsPage } from 'services/navigation';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -68,12 +55,17 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'meeting',
+      name: 'id',
       label: t('meeting'),
       options: {
         ...defaultColumnOption,
         filter: true,
         sort: true,
+        customBodyRender: (meetingId) => {
+          return (
+            <RefIDLink refID={meetingId} onClickLink={() => getMeetingDetailsPage(meetingId)} />
+          );
+        },
       },
     },
     {
@@ -98,34 +90,21 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const parseConsultantsTableData = (consultants) => {
-  return consultants?.map((consultant) => ({
-    ...consultant,
-    industriesOfExperience: consultant.industriesOfExperience?.map(
-      (industry) => (
-        <div key={industry.value}>
-          <Chip label={industry.label} key={industry.value} />
-        </div>
-      ),
-    ),
-    dateJoined: formattedDateTimeNoSeconds(new Date(consultant.createdAt)),
-    state: getConsultantState(consultant),
-    fields: <FieldsChips fields={consultant.fields} />,
-    consultantRef: (
-      <LinkText to={getConsultantDetailsView(consultant.id)}>
-        {consultant.referenceNumber}
-      </LinkText>
-    ),
-    country: getUserCountryLabel(consultant.country),
-    fields: <FieldsChips fields={consultant.fields} />,
+const parseMeetingsTableData = (meetings) => {
+  return meetings?.map((meeting) => ({
+    ...meeting,
+    firstName: meeting?.freelancer?.firstName,
+    lastName: meeting?.freelancer?.lastName,
+    dateJoined: formattedDateTimeNoSeconds(new Date(meeting.createdAt)),
+
   }));
 };
 
-const ConsultantVerificationTable = ({ consultants }) => {
+const ConsultantVerificationTable = ({ meetings }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
-  const consultantsRows = parseConsultantsTableData(consultants);
+  const consultantsRows = parseMeetingsTableData(meetings);
   const tableOptions = {
     filterType: 'checkbox',
     selectableRows: 'none',

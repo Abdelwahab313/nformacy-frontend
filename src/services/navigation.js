@@ -127,6 +127,15 @@ export const getQuestionDetailsLinkForAdmin = (questionId) => {
   };
 };
 
+export const getMeetingDetailsPage = (meetingId) => {
+  return (
+    {
+      pathname: RoutesPaths.Admin.ConsultantVerificationDetails,
+      state: { meetingId },
+    }
+  )
+}
+
 export const getCallEvaluationLink = (meetingId, serviceId) => {
   return {
     pathname: RoutesPaths.App.CallEvaluation,

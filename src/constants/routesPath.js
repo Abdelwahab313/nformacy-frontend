@@ -23,7 +23,8 @@ export const RoutesPaths = {
     ClientDetailsView: '/admin/clients/clientView',
     ConsultantDetailsView: '/admin/consultants/consultantView',
     ConsultantVerification: '/admin/consultantVerification',
-    ConsultantVerificationForm: '/admin/consultantVerificationForm',
+    ConsultantVerificationForm: '/admin/consultantVerification/evaluation',
+    ConsultantVerificationDetails: '/admin/consultantVerification/details',
     ClientDetails: '/admin/clients/clientDetails',
     ConsultantsDetails: '/admin/consultants/consultantInfo',
     Consultants: '/admin/consultants',
@@ -33,7 +34,6 @@ export const RoutesPaths = {
     Evaluations: '/admin/viewEvaluations',
     ChangePassword: '/admin/changePassword',
     SubAccount: '/admin/subAccount',
-
   },
   App: {
     Login: '/login',
