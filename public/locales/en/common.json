@@ -570,5 +570,7 @@
   "recording": "Recording",
   "consultantVerification": "Consultant Verification",
   "hourlyRatedRequested": "Hourly Rated Requested",
-  "confirmVerifiedConsultant": "Confirm as a Verified Consultant"
+  "confirmVerifiedConsultant": "Confirm as a Verified Consultant",
+  "evaluationSubmitted": "Evaluation Submitted!",
+  "somethingWrong": "Something Wrong!"
 }

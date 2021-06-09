@@ -16,6 +16,10 @@ import authManager from 'services/authManager';
 import { getMajorFieldsFromSubfields } from 'core/fields';
 import SubmitButton from 'components/buttons/SubmitButton';
 import { useTranslation } from 'react-i18next';
+import { evaluateConsultantInterview } from 'apis/consultantEvaluationAPI';
+import { getConsultantVerificationList } from 'services/navigation';
+import { useSnackBar } from 'context/SnackBarContext';
+import { useHistory } from 'react-router';
 
 const ConsultantVerificationForm = () => {
   const classes = useStyles();
@@ -24,13 +28,19 @@ const ConsultantVerificationForm = () => {
   const subFields = currentUser.fields;
   const { fields: fieldsLabels, loading } = useFieldFetcher();
   const majorFields = getMajorFieldsFromSubfields(fieldsLabels, subFields);
+  const { showSuccessMessage, showErrorMessage } = useSnackBar();
+  const history = useHistory();
 
   const [consultantEvaluation, setConsultantEvaluation] = useState({
-    fieldsEvaluation: [],
+    fieldsRating: [],
     hourlyRate: 0,
     comment: '',
-    isVerified: false,
+    isApproved: false,
   });
+
+  const navigateToConsultantVerificationList = () => {
+    history.push(getConsultantVerificationList());
+  };
 
   useEffect(() => {
     if (!!majorFields) {
@@ -41,29 +51,36 @@ const ConsultantVerificationForm = () => {
       }));
       setConsultantEvaluation({
         ...consultantEvaluation,
-        fieldsEvaluation: majorFieldsWithRating,
+        fieldsRating: majorFieldsWithRating,
       });
     }
   }, [majorFields?.length]);
 
   const handleFieldsEvaluation = (e, fieldId) => {
-    const newFieldsEvaluation = consultantEvaluation?.fieldsEvaluation?.map(
+    const newFieldsEvaluation = consultantEvaluation?.fieldsRating?.map(
       (field) =>
         field.id == fieldId ? { ...field, rating: e.target.value } : field,
     );
     setConsultantEvaluation({
       ...consultantEvaluation,
-      fieldsEvaluation: [...newFieldsEvaluation],
+      fieldsRating: [...newFieldsEvaluation],
     });
   };
 
   const onSubmit = () => {
-    setConsultantEvaluation({
-      fieldsEvaluation: [],
-      hourlyRate: 0,
-      comment: '',
-      isVerified: false,
-    });
+    evaluateConsultantInterview({
+      ...consultantEvaluation,
+      userId: currentUser.id,
+    })
+      .then(() => {
+        showSuccessMessage(t('evaluationSubmitted'));
+        navigateToConsultantVerificationList();
+      })
+      .catch(({ response }) => {
+        response.data.errors.forEach(() => {
+          showErrorMessage(t('somethingWrong'));
+        });
+      });
   };
 
   if (loading)
@@ -73,7 +90,7 @@ const ConsultantVerificationForm = () => {
 
   return (
     <form noValidate autoComplete='off'>
-      {consultantEvaluation?.fieldsEvaluation?.map((field, key) => {
+      {consultantEvaluation?.fieldsRating?.map((field, key) => {
         return (
           <Fragment>
             <GridContainer>
@@ -185,14 +202,14 @@ const ConsultantVerificationForm = () => {
             onChange={(e) =>
               setConsultantEvaluation({
                 ...consultantEvaluation,
-                isVerified: e.target.value,
+                isApproved: e.target.value,
               })
             }
             name='position'>
             <GridContainer>
               <GridItem xs={6}>
                 <FormControlLabel
-                  value='yes'
+                  value={'t'}
                   control={<Radio color='primary' />}
                   label='Yes'
                   labelPlacement='end'
@@ -201,7 +218,7 @@ const ConsultantVerificationForm = () => {
             </GridContainer>
             <GridItem xs={6}>
               <FormControlLabel
-                value='no'
+                value={'f'}
                 control={<Radio color='primary' />}
                 label='No'
                 labelPlacement='end'

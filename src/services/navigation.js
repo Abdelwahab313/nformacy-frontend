@@ -128,13 +128,11 @@ export const getQuestionDetailsLinkForAdmin = (questionId) => {
 };
 
 export const getMeetingDetailsPage = (meetingId) => {
-  return (
-    {
-      pathname: RoutesPaths.Admin.ConsultantVerificationDetails,
-      state: { meetingId },
-    }
-  )
-}
+  return {
+    pathname: RoutesPaths.Admin.ConsultantVerificationDetails,
+    state: { meetingId },
+  };
+};
 
 export const getCallEvaluationLink = (meetingId, serviceId) => {
   return {
@@ -204,6 +202,11 @@ export const getConsultantDetailsView = (consultantId) => {
     state: {
       consultantId,
     },
+  };
+};
+export const getConsultantVerificationList = () => {
+  return {
+    pathname: RoutesPaths.Admin.ConsultantVerification,
   };
 };
 
