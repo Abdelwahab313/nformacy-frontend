@@ -568,5 +568,7 @@
   "verificationForm": "Verification Form",
   "meeting": "Meeting",
   "recording": "Recording",
-  "consultantVerification": "Consultant Verification"
+  "consultantVerification": "Consultant Verification",
+  "hourlyRatedRequested": "Hourly Rated Requested",
+  "confirmVerifiedConsultant": "Confirm as a Verified Consultant"
 }
