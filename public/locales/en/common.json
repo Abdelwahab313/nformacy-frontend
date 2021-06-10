@@ -561,5 +561,6 @@
   "servicesList": "Services List",
   "clientDetails": "Client Details",
   "numberOfActivities": "Number Of Activities",
-  "defaultSummary": " is a seasoned consultants with experience, spent most of them in "
+  "defaultSummary": " is a seasoned consultants with experience, spent most of them in ",
+  "activitiesList": "Activities List"
 }

@@ -54,7 +54,7 @@ const ConsultantActivityTable = () => {
     <HomePageCard
       title={t('myActivityTableTitle')}
       viewMoreText={t('viewAll')}
-      viewMoreUrl={RoutesPaths.App.ActivitiesList}>
+      viewMoreUrl={RoutesPaths.App.ConsultantActivitiesList}>
       <Grid container>
         <Grid item md={12} className={classes.activityTable}>
           <TableContainer component={Paper} className={classes.tableContainer}>
@@ -88,9 +88,12 @@ const ConsultantActivityTable = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {parsedActivitiesToTable.length === 0 ?
-                  <TableCell colspan="8" className={classes.noRecords}>Sorry, no matching records found</TableCell>
-                  : parsedActivitiesToTable.map((dataRow) => (
+                {parsedActivitiesToTable.length === 0 ? (
+                  <TableCell colspan='8' className={classes.noRecords}>
+                    Sorry, no matching records found
+                  </TableCell>
+                ) : (
+                  parsedActivitiesToTable.map((dataRow) => (
                     <StyledTableRow
                       reference-number={dataRow.activityId}
                       key={dataRow.id}>
@@ -120,7 +123,8 @@ const ConsultantActivityTable = () => {
                         {dataRow.timeAlarm}
                       </StyledTableCell>
                     </StyledTableRow>
-                  ))}
+                  ))
+                )}
               </TableBody>
             </Table>
           </TableContainer>
@@ -145,7 +149,7 @@ const useStyles = makeStyles((theme) => ({
   },
   noRecords: {
     textAlign: 'center',
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
 }));
 export default ConsultantActivityTable;
