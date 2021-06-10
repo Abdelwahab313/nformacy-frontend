@@ -11,7 +11,7 @@ import { CalendarLibraryForMobile } from './subComponents/CalendarLibraryForMobi
 import HomeHeadBar from './subComponents/HomeHeadBar';
 import ConsultantQuestionRoaster from './subComponents/ConsultantQuestionRoaster';
 import ConsultantPointsBox from './subComponents/ConsultantPointsBox';
-import ConsultantActivityTable from './subComponents/ConsultantActivityTable';
+import ConsultantActivityCard from './subComponents/ConsultantActivityCard';
 import UserLevelCard from './subComponents/UserLevelCard';
 import CalendarCardForTablet from './subComponents/CalendarCardForTablet';
 
@@ -41,7 +41,7 @@ const ConsultantHomePage = () => {
               </Grid>
             </Grid>
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
-              <ConsultantActivityTable />
+              <ConsultantActivityCard />
             </Grid>
             <Grid item xs={12} md={12} >
               <CalendarCardForTablet currentUser={currentUser} />

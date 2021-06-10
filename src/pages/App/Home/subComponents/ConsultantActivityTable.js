@@ -8,12 +8,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { useTranslation } from 'react-i18next';
-import HomePageCard from './HomePageCard';
-import { RoutesPaths } from 'constants/routesPath';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import useFetchFreelancerActivities from 'hooks/useFetchFreelancerActivities';
 import parseActivitiesToTableRow from 'templates/activities/parseActivitiesToTable';
+import { useTranslation } from 'react-i18next';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -51,86 +49,81 @@ const ConsultantActivityTable = () => {
   }
 
   return (
-    <HomePageCard
-      title={t('myActivityTableTitle')}
-      viewMoreText={t('viewAll')}
-      viewMoreUrl={RoutesPaths.App.ConsultantActivitiesList}>
-      <Grid container>
-        <Grid item md={12} className={classes.activityTable}>
-          <TableContainer component={Paper} className={classes.tableContainer}>
-            <Table stickyHeader aria-label='My Activity Table'>
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell>{t('activityId')}</StyledTableCell>
-                  <StyledTableCell>{t('assignmentType')}</StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>
-                    {t('title')}
-                  </StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>
-                    {t('requestDate')}
-                  </StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>
-                    {t('fields')}
-                  </StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>
-                    {t('answer')}
-                  </StyledTableCell>
-                  <StyledTableCell>{t('state')}</StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>
-                    {t('actionNeeded')}
-                  </StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>
-                    {t('time')}
-                  </StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>
-                    {t('alarm')}
-                  </StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {parsedActivitiesToTable.length === 0 ? (
-                  <TableCell colspan='8' className={classes.noRecords}>
-                    Sorry, no matching records found
-                  </TableCell>
-                ) : (
-                  parsedActivitiesToTable.map((dataRow) => (
-                    <StyledTableRow
-                      reference-number={dataRow.activityId}
-                      key={dataRow.id}>
-                      <StyledTableCell>{dataRow.activityId}</StyledTableCell>
-                      <StyledTableCell>{dataRow.requestType}</StyledTableCell>
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {dataRow.title}
-                      </StyledTableCell>
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {dataRow.date}
-                      </StyledTableCell>
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {dataRow.fields}
-                      </StyledTableCell>
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {dataRow.answerRef}
-                      </StyledTableCell>
-                      <StyledTableCell>{dataRow.status}</StyledTableCell>
-                      <StyledTableCell
-                        className={[classes.desktopVisible, 'action']}>
-                        {dataRow.action}
-                      </StyledTableCell>
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {dataRow.time}
-                      </StyledTableCell>
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {dataRow.timeAlarm}
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
+    <Grid container>
+      <Grid item md={12} className={classes.activityTable}>
+        <TableContainer component={Paper} className={classes.tableContainer}>
+          <Table stickyHeader aria-label='My Activity Table'>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>{t('activityId')}</StyledTableCell>
+                <StyledTableCell>{t('assignmentType')}</StyledTableCell>
+                <StyledTableCell className={classes.desktopVisible}>
+                  {t('title')}
+                </StyledTableCell>
+                <StyledTableCell className={classes.desktopVisible}>
+                  {t('requestDate')}
+                </StyledTableCell>
+                <StyledTableCell className={classes.desktopVisible}>
+                  {t('fields')}
+                </StyledTableCell>
+                <StyledTableCell className={classes.desktopVisible}>
+                  {t('answer')}
+                </StyledTableCell>
+                <StyledTableCell>{t('state')}</StyledTableCell>
+                <StyledTableCell className={classes.desktopVisible}>
+                  {t('actionNeeded')}
+                </StyledTableCell>
+                <StyledTableCell className={classes.desktopVisible}>
+                  {t('time')}
+                </StyledTableCell>
+                <StyledTableCell className={classes.desktopVisible}>
+                  {t('alarm')}
+                </StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {parsedActivitiesToTable.length === 0 ? (
+                <TableCell colspan='8' className={classes.noRecords}>
+                  Sorry, no matching records found
+                </TableCell>
+              ) : (
+                parsedActivitiesToTable.map((dataRow) => (
+                  <StyledTableRow
+                    reference-number={dataRow.activityId}
+                    key={dataRow.id}>
+                    <StyledTableCell>{dataRow.activityId}</StyledTableCell>
+                    <StyledTableCell>{dataRow.requestType}</StyledTableCell>
+                    <StyledTableCell className={classes.desktopVisible}>
+                      {dataRow.title}
+                    </StyledTableCell>
+                    <StyledTableCell className={classes.desktopVisible}>
+                      {dataRow.date}
+                    </StyledTableCell>
+                    <StyledTableCell className={classes.desktopVisible}>
+                      {dataRow.fields}
+                    </StyledTableCell>
+                    <StyledTableCell className={classes.desktopVisible}>
+                      {dataRow.answerRef}
+                    </StyledTableCell>
+                    <StyledTableCell>{dataRow.status}</StyledTableCell>
+                    <StyledTableCell
+                      className={[classes.desktopVisible, 'action']}>
+                      {dataRow.action}
+                    </StyledTableCell>
+                    <StyledTableCell className={classes.desktopVisible}>
+                      {dataRow.time}
+                    </StyledTableCell>
+                    <StyledTableCell className={classes.desktopVisible}>
+                      {dataRow.timeAlarm}
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Grid>
-    </HomePageCard>
+    </Grid>
   );
 };
 
