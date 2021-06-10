@@ -45,6 +45,12 @@ const FreelancersActivitiesPage = React.lazy(() =>
 const FreelancersActivitiesFullView = React.lazy(() =>
   import('pages/App/FreelancersAnswers/list/FreelancersActivitiesFullView'),
 );
+const ClientActivitiesFullView = React.lazy(() =>
+  import('pages/App/Home/subComponents/ClientActivitiesFullView'),
+);
+const CorporateActivitiesFullView = React.lazy(() =>
+  import('pages/App/Home/subComponents/CorporateActivitiesFullView'),
+);
 const CallEvaluationPage = React.lazy(() =>
   import('pages/App/MeetingEvaluation/CallEvaluation'),
 );
@@ -377,7 +383,24 @@ const appRoutes = [
     isPublic: false,
     hasDashboardLink: false,
   },
-
+  {
+    path: RoutesPaths.App.ClientActivitiesList,
+    name: 'Client Activities List',
+    icon: DashboardIcon,
+    Component: ClientActivitiesFullView,
+    includeLayout: true,
+    isPublic: false,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.App.CorporateActivitiesList,
+    name: 'Corporate Activities List',
+    icon: DashboardIcon,
+    Component: CorporateActivitiesFullView,
+    includeLayout: true,
+    isPublic: false,
+    hasDashboardLink: false,
+  },
   {
     path: RoutesPaths.App.EditProfile,
     name: 'Edit Profile',

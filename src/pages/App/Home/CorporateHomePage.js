@@ -11,9 +11,9 @@ import HomeHeadBar from './subComponents/HomeHeadBar';
 import AskTheExpertSection from './subComponents/AskTheExpertSection';
 import PointsBox from './subComponents/PointsBox';
 import ManageMyAccounts from './subComponents/ManageMyAccounts';
-import CorporateActivityTable from './subComponents/CorporateActivityTable';
 import FeedsTimeline from './subComponents/FeedsTimeline';
 import CalendarCardForTablet from './subComponents/CalendarCardForTablet';
+import CorporateActivityCard from './subComponents/CorporateActivityCard';
 
 const CorporateHomePage = () => {
   const classes = useStyles();
@@ -46,7 +46,7 @@ const CorporateHomePage = () => {
               </Grid>
             </Grid>
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
-              <CorporateActivityTable />
+              <CorporateActivityCard />
             </Grid>
             <Grid item xs={12} md={12} >
               <CalendarCardForTablet currentUser={currentUser} />
