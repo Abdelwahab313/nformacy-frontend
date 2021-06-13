@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import { grey } from 'styles/colors';
+import { grey, lightGrey, white } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
   noShadow: {
@@ -49,6 +49,11 @@ const useStyles = makeStyles((theme) => ({
     opacity: '0.8',
     borderRadius: '100%',
   },
+  defaultSummaryBtn: {
+    backgroundColor: lightGrey,
+    color: white,
+  },
+  summaryPopupContainer: { padding: '80px 20px' },
 }));
 
 export default useStyles;
