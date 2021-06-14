@@ -8,7 +8,7 @@ import ConsultantVerificationTable from './ConsultantVerificationTable';
 import useFetchData from 'hooks/useFetchData';
 import { fetchAdminMeetings } from 'apis/meetingsAPI';
 
-const ConsultantVerification = () => {
+const ConsultantVerificationsList = () => {
 
   const { fetchedData: meetings, isLoading } = useFetchData(fetchAdminMeetings);
 
@@ -29,4 +29,4 @@ const ConsultantVerification = () => {
   );
 };
 
-export default ConsultantVerification;
+export default ConsultantVerificationsList;

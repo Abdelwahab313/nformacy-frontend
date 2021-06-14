@@ -8,7 +8,9 @@ import { useTranslation } from 'react-i18next';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 
 import RefIDLink from 'components/dataTableElements/RefIDLink';
-import { getMeetingDetailsPage } from 'services/navigation';
+import { getConsultantDetails, getConsultantEvaluationFormPage, getMeetingDetailsPage } from 'services/navigation';
+import QuestionCountDown from 'components/counters/QuestionCountDown';
+import LinkText from 'components/typography/LinkText';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -19,13 +21,26 @@ const getColumnsOptions = (classes, t) => {
 
   const columns = [
     {
-      name: 'id',
-      label: t('id'),
+      name: 'consultantId',
+      options: {
+        ...defaultColumnOption,
+        display: false,
+        filter: false,
+      },
+    },
+    {
+      name: 'consultantRef',
+      label: t('consultantId'),
       options: {
         ...defaultColumnOption,
         display: true,
         filter: false,
-        sort: false,
+        sort: true,
+        customBodyRender: (consultantId, tableMeta) => {
+          return (
+            <RefIDLink refID={consultantId} onClickLink={() => getConsultantDetails(tableMeta.rowData[0])} />
+          );
+        },
       },
     },
     {
@@ -47,8 +62,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'dateJoined',
-      label: t('dateJoined'),
+      name: 'dateScheduled',
+      label: t('dateScheduled'),
       options: {
         ...defaultColumnOption,
         filter: true,
@@ -74,15 +89,33 @@ const getColumnsOptions = (classes, t) => {
       options: {
         ...defaultColumnOption,
         filter: true,
+        customBodyRender: (value, tableMeta) => {
+          return (
+            <LinkText to={getConsultantEvaluationFormPage(tableMeta.rowData[0])}>
+              Evaluate
+            </LinkText>
+
+          );
+        },
       },
     },
     {
-      name: 'recording',
-      label: t('recording'),
+      name: 'callTime',
+      label: t('time'),
       options: {
         ...defaultColumnOption,
         filter: true,
         sort: true,
+        customBodyRender: (callTime) => {
+          return (
+            <QuestionCountDown
+              date={callTime}
+              data-date={callTime}
+              showIcon={false}
+              className={'currentActionTime'}
+            />
+          )
+        }
       },
     },
   ];
@@ -95,8 +128,9 @@ const parseMeetingsTableData = (meetings) => {
     ...meeting,
     firstName: meeting?.freelancer?.firstName,
     lastName: meeting?.freelancer?.lastName,
-    dateJoined: formattedDateTimeNoSeconds(new Date(meeting.createdAt)),
-
+    dateScheduled: formattedDateTimeNoSeconds(new Date(meeting.createdAt)),
+    consultantId: meeting?.freelancer?.id,
+    consultantRef: meeting?.freelancer?.referenceNumber
   }));
 };
 

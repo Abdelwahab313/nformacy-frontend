@@ -22,7 +22,7 @@ export const RoutesPaths = {
     ClientProfileDetails: '/admin/clients/clientInfo',
     ClientDetailsView: '/admin/clients/clientView',
     ConsultantDetailsView: '/admin/consultants/consultantView',
-    ConsultantVerification: '/admin/consultantVerification',
+    ConsultantVerificationsList: '/admin/consultantVerification',
     ConsultantVerificationForm: '/admin/consultantVerification/evaluation',
     ConsultantVerificationDetails: '/admin/consultantVerification/details',
     ClientDetails: '/admin/clients/clientDetails',

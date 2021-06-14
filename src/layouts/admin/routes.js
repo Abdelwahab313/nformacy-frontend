@@ -38,9 +38,9 @@ import ChangePasswordPage from 'pages/ChangePassword';
 import ClientsServicesList from 'pages/Admin/Clients/list/ClientsServicesList';
 import ClientDetailsList from 'pages/Admin/Clients/list/ClientDetailsList';
 import ConsultantsServicesList from 'pages/Admin/Consultants/list/ConsultantsServicesList';
-import ConsultantVerification from 'pages/Admin/ConsultantVerifications/list/ConsultantVerification';
-import ConsultantVerificationForm from 'pages/Admin/ConsultantVerifications/evaluation/consultantVerificationForm';
-import ConsultantVerificationDetails from 'pages/Admin/ConsultantVerifications/details/ConsultantVerificationDetails';
+import ConsultantVerificationsList from 'pages/Admin/ConsultantVerifications/list/ConsultantVerificationsList';
+import ConsultantEvaluation from 'pages/Admin/ConsultantVerifications/evaluation/ConsultantEvaluation';
+import ConsultantMeetingDetails from 'pages/Admin/ConsultantVerifications/details/ConsultantMeetingDetails';
 
 const adminRoutes = [
   {
@@ -93,24 +93,24 @@ const adminRoutes = [
     hasDashboardLink: false,
   },
   {
-    path: RoutesPaths.Admin.ConsultantVerification,
+    path: RoutesPaths.Admin.ConsultantVerificationsList,
     name: 'Consultant Verification',
     icon: BusinessCenterIcon,
-    component: ConsultantVerification,
+    component: ConsultantVerificationsList,
     hasDashboardLink: true,
   },
   {
     path: RoutesPaths.Admin.ConsultantVerificationForm,
     name: 'Consultant Verification Form',
     icon: BusinessCenterIcon,
-    component: ConsultantVerificationForm,
+    component: ConsultantEvaluation,
     hasDashboardLink: false,
   },
   {
     path: RoutesPaths.Admin.ConsultantVerificationDetails,
     name: 'Consultant View',
     icon: BusinessCenterIcon,
-    component: ConsultantVerificationDetails,
+    component: ConsultantMeetingDetails,
     hasDashboardLink: false,
   },
   {

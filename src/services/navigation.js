@@ -134,6 +134,13 @@ export const getMeetingDetailsPage = (meetingId) => {
   };
 };
 
+export const getConsultantEvaluationFormPage = (consultantId) => {
+  return {
+    pathname: RoutesPaths.Admin.ConsultantVerificationForm,
+    state: { consultantId },
+  };
+};
+
 export const getCallEvaluationLink = (meetingId, serviceId) => {
   return {
     pathname: RoutesPaths.App.CallEvaluation,
@@ -206,7 +213,7 @@ export const getConsultantDetailsView = (consultantId) => {
 };
 export const getConsultantVerificationList = () => {
   return {
-    pathname: RoutesPaths.Admin.ConsultantVerification,
+    pathname: RoutesPaths.Admin.ConsultantVerificationsList,
   };
 };
 

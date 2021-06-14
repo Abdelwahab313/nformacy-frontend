@@ -1,6 +1,12 @@
 import { SERVICE_STATUS, meetingStatusActions } from 'constants/questionStatus';
 import authManager from 'services/authManager';
 
+export const MEETING_TYPES = {
+  CallService: 'call_service',
+  QuestionService: 'question_service',
+  ConsultantScreening: 'consultant_screening'
+}
+
 export const getMeetingStateKey = (meetingState, hasEvaluationSubmitted) => {
   let meetingStateKey = '';
   if (meetingState === SERVICE_STATUS.callFinished && hasEvaluationSubmitted) {
