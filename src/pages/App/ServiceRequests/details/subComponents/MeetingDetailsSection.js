@@ -6,14 +6,12 @@ import CandidateItem from './CandidateItem';
 import CardHeader from 'components/card/CardHeader';
 import Card from 'components/card/Card';
 import useStyles from '../styles/ShortlistCandidate';
-import {
-  formattedDateTimeNoSeconds,
-} from 'services/dateTimeParser';
+import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 import { SERVICE_STATUS } from 'constants/questionStatus';
 import { useLocation } from 'react-router';
 import { getCallEvaluationLink, history } from 'services/navigation';
 import authManager from 'services/authManager';
-import { MEETING_TYPES } from 'core/meeting';
+import { MEETING_TYPES, endCallTime } from 'core/meeting';
 
 const MeetingDetailsSection = ({ meeting }) => {
   const classes = useStyles();
@@ -24,9 +22,6 @@ const MeetingDetailsSection = ({ meeting }) => {
   const meetingState = meeting.state;
 
   const isMeetingFinished = meetingState === SERVICE_STATUS.callFinished;
-  // const remainingMinitues = getTimeDiffInMinutesFromNow(meeting.callTime);
-  // const isGreaterThanFifteenMinutes =
-  //   !isMeetingFinished && remainingMinitues >= 15;
 
   const handleClick = () => {
     if (!!isMeetingFinished) {
@@ -48,7 +43,7 @@ const MeetingDetailsSection = ({ meeting }) => {
     } else {
       return `${t('fututreMeetingHeader')} ${formattedDateTimeNoSeconds(
         new Date(meeting?.callTime),
-      )}`;
+      )} to ${endCallTime(meeting?.callTime)}`;
     }
   };
   const handleClientMeetingBtn = () => {
@@ -95,7 +90,6 @@ const MeetingDetailsSection = ({ meeting }) => {
                 onCandidateClick={() => handleClick()}
                 buttonText={handleFreelancerMeetingBtn()}
                 clientType={t('freelancer')}
-                // isDisabled={!!isGreaterThanFifteenMinutes}
               />
             </Box>
           </Grid>
@@ -111,7 +105,6 @@ const MeetingDetailsSection = ({ meeting }) => {
                 onCandidateClick={() => handleClick()}
                 buttonText={handleClientMeetingBtn()}
                 clientType={t('client')}
-                // isDisabled={!!isGreaterThanFifteenMinutes}
               />
             </Box>
           </Grid>
