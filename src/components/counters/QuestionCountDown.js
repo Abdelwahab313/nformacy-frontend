@@ -32,7 +32,7 @@ const QuestionCountDown = ({
   function counterRender() {
     return ({ days, hours, minutes, seconds, completed }) => {
       const remainingTimeFormatted = !!days
-        ? `${days} days ${hours}:${minutes}:${seconds}`
+        ? `${days} days ${hours}:${minutes}`
         : `${hours}:${minutes}:${seconds}`;
       return (
         <Typography

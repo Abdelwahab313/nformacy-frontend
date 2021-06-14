@@ -127,6 +127,20 @@ export const getQuestionDetailsLinkForAdmin = (questionId) => {
   };
 };
 
+export const getMeetingDetailsPage = (meetingId) => {
+  return {
+    pathname: RoutesPaths.Admin.ConsultantVerificationDetails,
+    state: { meetingId },
+  };
+};
+
+export const getConsultantEvaluationFormPage = (consultantId) => {
+  return {
+    pathname: RoutesPaths.Admin.ConsultantVerificationForm,
+    state: { consultantId },
+  };
+};
+
 export const getCallEvaluationLink = (meetingId, serviceId) => {
   return {
     pathname: RoutesPaths.App.CallEvaluation,
@@ -184,8 +198,22 @@ export const getClientDetailsView = (clientId) => {
   return {
     pathname: RoutesPaths.Admin.ClientDetailsView,
     state: {
-      clientId: clientId,
+      clientId,
     },
+  };
+};
+
+export const getConsultantDetailsView = (consultantId) => {
+  return {
+    pathname: RoutesPaths.Admin.ConsultantDetailsView,
+    state: {
+      consultantId,
+    },
+  };
+};
+export const getConsultantVerificationList = () => {
+  return {
+    pathname: RoutesPaths.Admin.ConsultantVerificationsList,
   };
 };
 

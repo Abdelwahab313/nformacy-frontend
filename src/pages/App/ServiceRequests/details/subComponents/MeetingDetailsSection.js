@@ -14,6 +14,7 @@ import { SERVICE_STATUS } from 'constants/questionStatus';
 import { useLocation } from 'react-router';
 import { getCallEvaluationLink, history } from 'services/navigation';
 import authManager from 'services/authManager';
+import { MEETING_TYPES } from 'core/meeting';
 
 const MeetingDetailsSection = ({ meeting }) => {
   const classes = useStyles();
@@ -36,8 +37,9 @@ const MeetingDetailsSection = ({ meeting }) => {
     }
   };
 
+  const isConsultantScreeningCall = meeting?.callType === MEETING_TYPES.ConsultantScreening
   const showFreelancerSection = !authManager.isNormalUser();
-  const showClientSection = !authManager.isClient();
+  const showClientSection = !authManager.isClient() && !isConsultantScreeningCall;
 
   const handleMeetingHeader = () => {
     if (!!isMeetingFinished) {
@@ -90,7 +92,7 @@ const MeetingDetailsSection = ({ meeting }) => {
                 bgcolor={lighterPink}
                 candidate={meeting.freelancer}
                 isFocused={true}
-                setFocusedCandidate={() => {}}
+                setFocusedCandidate={() => { }}
                 onCandidateClick={() => handleClick()}
                 buttonText={handleFreelancerMeetingBtn()}
                 clientType={t('freelancer')}
@@ -106,7 +108,7 @@ const MeetingDetailsSection = ({ meeting }) => {
                 bgcolor={lighterPink}
                 candidate={meeting.client}
                 isFocused={true}
-                setFocusedCandidate={() => {}}
+                setFocusedCandidate={() => { }}
                 onCandidateClick={() => handleClick()}
                 buttonText={handleClientMeetingBtn()}
                 clientType={t('client')}

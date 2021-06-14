@@ -62,10 +62,20 @@ const fetchScheduledMeetings = () => {
 };
 
 
+
+const fetchAdminMeetings = () => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/meetings/admin_meetings`,
+  }).then((response) => camelizeKeys(response));
+};
+
+
 export {
   fetchAllMeetings,
   fetchMeetingDetails,
   fetchScheduledMeetings,
+  fetchAdminMeetings,
   scheduleMeetingForCallService,
   scheduleMeetingWithFreelancer,
   scheduleMeetingWithConsultantManager,

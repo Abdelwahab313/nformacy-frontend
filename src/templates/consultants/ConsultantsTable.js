@@ -8,10 +8,10 @@ import { useTranslation } from 'react-i18next';
 import { Chip } from '@material-ui/core';
 import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
-import { getConsultantDetails } from 'services/navigation';
+import { getConsultantDetailsView } from 'services/navigation';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 
-import { getConsultantLevel } from 'core/user';
+import { getConsultantLevel, getUserCountryLabel } from 'core/user';
 
 export const getConsultantState = (user) => {
   const stateStrings = {
@@ -69,14 +69,6 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'dateJoined',
-      label: t('dateJoined'),
-      options: {
-        ...defaultColumnOption,
-        filter: true,
-      },
-    },
-    {
       name: 'state',
       label: t('state'),
       options: {
@@ -85,7 +77,23 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'fieldsAssigned',
+      name: 'dateJoined',
+      label: t('dateJoined'),
+      options: {
+        ...defaultColumnOption,
+        filter: true,
+      },
+    },
+    {
+      name: 'country',
+      label: t('location'),
+      options: {
+        ...defaultColumnOption,
+        filter: true,
+      },
+    },
+    {
+      name: 'fields',
       label: t('fieldsAssigned'),
       options: {
         ...defaultColumnOption,
@@ -93,8 +101,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'industriesOfExperience',
-      label: t('industry'),
+      name: 'level',
+      label: t('level'),
       options: {
         ...defaultColumnOption,
         filter: true,
@@ -102,42 +110,15 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'preference',
-      label: t('preference'),
+      name: 'hourlyRate',
+      label: t('hourlyRate'),
       options: {
         ...defaultColumnOption,
         filter: true,
       },
     },
     {
-      name: 'numOfAnswers',
-      label: t('numOfAnswers'),
-      options: {
-        ...defaultColumnOption,
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: 'numOfCalls',
-      label: t('numOfCalls'),
-      options: {
-        ...defaultColumnOption,
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: 'numOfDays',
-      label: t('numOfDays'),
-      options: {
-        ...defaultColumnOption,
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: 'points',
+      name: 'pointsCount',
       label: t('points'),
       options: {
         ...defaultColumnOption,
@@ -146,8 +127,26 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'grade',
-      label: t('grade'),
+      name: 'answersCount',
+      label: t('numOfAnswers'),
+      options: {
+        ...defaultColumnOption,
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: 'meetingsCount',
+      label: t('numOfCalls'),
+      options: {
+        ...defaultColumnOption,
+        filter: true,
+        sort: true,
+      },
+    },
+    {
+      name: 'numOfHours',
+      label: t('numOfHours'),
       options: {
         ...defaultColumnOption,
         filter: true,
@@ -173,10 +172,12 @@ const parseConsultantsTableData = (consultants) => {
     state: getConsultantState(consultant),
     fields: <FieldsChips fields={consultant.fields} />,
     consultantRef: (
-      <LinkText to={getConsultantDetails(consultant.id)}>
+      <LinkText to={getConsultantDetailsView(consultant.id)}>
         {consultant.referenceNumber}
       </LinkText>
     ),
+    country: getUserCountryLabel(consultant.country),
+    fields: <FieldsChips fields={consultant.fields} />,
   }));
 };
 
