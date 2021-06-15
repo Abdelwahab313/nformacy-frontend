@@ -180,7 +180,7 @@ const ConsultantAdvancedRegistrationForm = () => {
           const userFromStorage = JSON.parse(localStorage.getItem('user'));
           userFromStorage.cv = response.data.cv;
           authManager.updateUser(userFromStorage);
-          history.push(getDashboardLinkAfterSignup(true));
+          history.push(getDashboardLinkAfterSignup(false));
         })
         .finally(() => setLoading(false));
     }
