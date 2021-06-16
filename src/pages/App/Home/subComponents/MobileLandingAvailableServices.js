@@ -28,12 +28,10 @@ const MobileLandingAvailableServices = () => {
         classes.mobileServicesPadding,
         classes.mobileSolutionServicesVisible,
       ]}>
-      <Grid item xs={7} className={classes.serviceStepsContainerMargin}>
+      <Grid item xs={12} className={classes.serviceStepsContainerMargin}>
         <Grid container direction='row' justify='center'>
           <Grid item xs={12}>
-            <Box
-              textAlign='center'
-              className={[classes.mobileStep, classes.mobileFirstStep]}>
+            <Box textAlign='center' className={classes.mobileStep}>
               <img
                 className={classes.mobileServicesIcon}
                 src={require('../../../../assets/ask_experts.svg')}
@@ -56,9 +54,7 @@ const MobileLandingAvailableServices = () => {
             </Box>
           </Grid>
           <Grid item xs={12}>
-            <Box
-              textAlign='center'
-              className={[classes.mobileStep, classes.mobileSecondStep]}>
+            <Box textAlign='center' className={classes.mobileStep}>
               <img
                 className={classes.mobileServicesIcon}
                 src={require('../../../../assets/client-call.svg')}
@@ -107,9 +103,7 @@ const MobileLandingAvailableServices = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <Box
-              textAlign='center'
-              className={[classes.mobileStep, classes.mobileFirstStep]}>
+            <Box textAlign='center' className={classes.mobileStep}>
               <Fragment>
                 <img
                   className={classes.mobileServicesIcon}

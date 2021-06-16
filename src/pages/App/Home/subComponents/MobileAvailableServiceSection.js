@@ -28,12 +28,10 @@ const MobileAvailableServiceSection = () => {
         classes.mobileServicesPadding,
         classes.mobileServicesVisible,
       ]}>
-      <Grid item xs={7} className={classes.serviceStepsContainerMargin}>
+      <Grid item xs={12} className={classes.serviceStepsContainerMargin}>
         <Grid container direction='row' justify='center'>
           <Grid item xs={12}>
-            <Box
-              textAlign='center'
-              className={[classes.mobileStep, classes.mobileFirstStep]}>
+            <Box textAlign='center' className={classes.mobileStep}>
               <img
                 className={classes.MobileHowWorkIcon}
                 src={require('../../../../assets/client-call.svg')}
@@ -42,7 +40,10 @@ const MobileAvailableServiceSection = () => {
                 <CustomTypography
                   variant='body2'
                   fontWeight='bold'
-                  className={[classes.MobileWorkMainTextPadding, classes.dashboardServicesMobile]}>
+                  className={[
+                    classes.MobileWorkMainTextPadding,
+                    classes.dashboardServicesMobile,
+                  ]}>
                   {t('callTheExpert')}
                 </CustomTypography>
               </LinkText>
@@ -67,9 +68,7 @@ const MobileAvailableServiceSection = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <Box
-              textAlign='center'
-              className={[classes.mobileStep, classes.mobileFirstStep]}>
+            <Box textAlign='center' className={classes.mobileStep}>
               <Fragment>
                 <img
                   className={classes.MobileHowWorkIcon}
