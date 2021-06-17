@@ -2,7 +2,6 @@ import React from 'react';
 import { Grid, Typography, Divider, Box } from '@material-ui/core';
 import useStyles from '../styles/HomePageStyles';
 import HomePageCard from './HomePageCard';
-import { RoutesPaths } from 'constants/routesPath';
 import ShowMore from 'components/typography/ShowMore';
 import { useTranslation } from 'react-i18next';
 import ComingSoonWrapper from 'components/grid/ComingSoonWrapper';
@@ -15,8 +14,7 @@ const FeedsTimeline = () => {
     <Box mt={6}>
       <HomePageCard
         title={t('feedsTimeline')}
-        viewMoreText={t('viewAll')}
-        viewMoreUrl={RoutesPaths.App.Services}>
+        viewMoreText={t('viewAll')}>
         <Grid
           container
           className={[classes.askQuestionBox, classes.feedsTimelineContainer]}>

@@ -45,9 +45,6 @@ const FreelancersActivitiesPage = React.lazy(() =>
 const FreelancersActivitiesFullView = React.lazy(() =>
   import('pages/App/FreelancersAnswers/list/FreelancersActivitiesFullView'),
 );
-const ClientActivitiesFullView = React.lazy(() =>
-  import('pages/App/Home/subComponents/ClientActivitiesFullView'),
-);
 const CorporateActivitiesFullView = React.lazy(() =>
   import('pages/App/Home/subComponents/CorporateActivitiesFullView'),
 );
@@ -380,15 +377,6 @@ const appRoutes = [
     name: 'Consultant Activities List',
     icon: DashboardIcon,
     Component: FreelancersActivitiesFullView,
-    includeLayout: true,
-    isPublic: false,
-    hasDashboardLink: false,
-  },
-  {
-    path: RoutesPaths.App.ClientActivitiesList,
-    name: 'Client Activities List',
-    icon: DashboardIcon,
-    Component: ClientActivitiesFullView,
     includeLayout: true,
     isPublic: false,
     hasDashboardLink: false,

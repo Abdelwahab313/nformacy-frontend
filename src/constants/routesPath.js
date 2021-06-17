@@ -66,7 +66,6 @@ export const RoutesPaths = {
     Services: '/services/list',
     ActivitiesList: '/activities/list',
     ConsultantActivitiesList: '/consultant/activities',
-    ClientActivitiesList: '/client/activities',
     CorporateActivitiesList: '/corporate/activities',
     UserTypeSelection: '/user/type',
     EmailVerificationCallback: '/verifyEmail',

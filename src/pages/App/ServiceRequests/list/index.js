@@ -11,6 +11,7 @@ import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import useFetchClientActivities from 'hooks/useFetchClientActivities';
 import { useStyles } from 'styles/Admin/questionTableStyles';
+import authManager from 'services/authManager';
 
 const ServicesPage = () => {
   const { t } = useTranslation();
@@ -24,7 +25,13 @@ const ServicesPage = () => {
   return (
     <Box mx='auto' className={classes.boxContainer}>
       <GridItem xs={12} sm={12} md={12}>
-        <BreadcrumbsCustomSeparator pageName={t('serviceRequestList')} />
+        <BreadcrumbsCustomSeparator
+          pageName={
+            authManager.isAdmin()
+              ? t('serviceRequestList')
+              : t('myActivityTableTitle')
+          }
+        />
         <Card plain>
           <CardBody id='ServicesList'>
             <Direction>

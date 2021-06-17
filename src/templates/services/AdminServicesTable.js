@@ -3,6 +3,7 @@ import React from 'react';
 import MUIDataTable from 'mui-datatables';
 import Grid from '@material-ui/core/Grid';
 import { useStyles } from 'styles/Admin/questionTableStyles';
+import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
 import parseServicesToTableRows from './parseServicesToTableRows';
 
@@ -15,8 +16,36 @@ const getColumnsOptions = (classes, t) => {
 
   const columns = [
     {
+      name: 'serviceId',
+      label: t('id'),
+      options: {
+        display: false,
+        filter: false,
+        sort: false,
+      },
+    },
+    {
+      name: 'serviceRef',
+      label: t('serviceReferenceNumber'),
+      options: {
+        ...defaultColumnOption,
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: 'clientId',
+      label: t('clientRef'),
+      options: {
+        ...defaultColumnOption,
+        filter: false,
+        display: authManager.isAdmin(),
+        sort: true,
+      },
+    },
+    {
       name: 'requestType',
-      label: t('activityType'),
+      label: t('assignmentType'),
       options: {
         ...defaultColumnOption,
         filter: true,
@@ -24,8 +53,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'serviceRef',
-      label: t('refNo'),
+      name: 'createdAt',
+      label: t('postDate'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -42,12 +71,12 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'createdAt',
-      label: t('requestDate'),
+      name: 'fields',
+      label: t('fields'),
       options: {
         ...defaultColumnOption,
-        filter: false,
-        sort: true,
+        filter: true,
+        filterType: 'multiselect',
       },
     },
     {
@@ -58,6 +87,25 @@ const getColumnsOptions = (classes, t) => {
         filter: true,
         sort: true,
         display: false,
+      },
+    },
+    {
+      name: 'answersCount',
+      label: t('answersCount'),
+      options: {
+        ...defaultColumnOption,
+        filter: false,
+        sort: true,
+        display: authManager.isAdmin(),
+      },
+    },
+    {
+      name: 'questionRef',
+      label: t('questionRef'),
+      options: {
+        ...defaultColumnOption,
+        filter: false,
+        display: authManager.isAdmin(),
       },
     },
     {
@@ -84,7 +132,7 @@ const getColumnsOptions = (classes, t) => {
         filter: false,
         sort: true,
         customHeadLabelRender: () => (
-          <Grid className={classes.currentActionTimeContainer}>Time</Grid>
+          <Grid className={classes.currentActionTimeContainer}>By Time</Grid>
         ),
       },
     },
@@ -102,7 +150,7 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const ServicesTable = ({ services }) => {
+const AdminServicesTable = ({ services }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
@@ -115,6 +163,7 @@ const ServicesTable = ({ services }) => {
     fixedHeader: true,
     download: false,
     print: false,
+    viewColumns: authManager.isAdmin(),
     rowsPerPage: process.env.REACT_APP_ENV === 'e2e' ? 300 : 10,
     setRowProps: (row) => ({
       'row-reference': row[0],
@@ -122,7 +171,7 @@ const ServicesTable = ({ services }) => {
   };
   return (
     <MUIDataTable
-      title={t('myActivityTableTitle')}
+      title={t('serviceRequestList')}
       data={servicesRows}
       columns={columns}
       options={tableOptions}
@@ -130,4 +179,4 @@ const ServicesTable = ({ services }) => {
   );
 };
 
-export default ServicesTable;
+export default AdminServicesTable;

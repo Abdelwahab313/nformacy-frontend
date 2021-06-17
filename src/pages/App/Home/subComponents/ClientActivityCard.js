@@ -11,7 +11,7 @@ const ClientActivityCard = () => {
     <HomePageCard
       title={t('myActivityTableTitle')}
       viewMoreText={t('viewAll')}
-      viewMoreUrl={RoutesPaths.App.ClientActivitiesList}>
+      viewMoreUrl={RoutesPaths.App.Services}>
       <ClientActivityTable />
     </HomePageCard>
   );
