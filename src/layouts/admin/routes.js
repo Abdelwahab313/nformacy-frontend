@@ -41,6 +41,8 @@ import ConsultantsServicesList from 'pages/Admin/Consultants/list/ConsultantsSer
 import ConsultantVerificationsList from 'pages/Admin/ConsultantVerifications/list/ConsultantVerificationsList';
 import ConsultantEvaluation from 'pages/Admin/ConsultantVerifications/evaluation/ConsultantEvaluation';
 import ConsultantMeetingDetails from 'pages/Admin/ConsultantVerifications/details/ConsultantMeetingDetails';
+import ProjectsList from 'pages/Admin/Projects/list';
+import ProjectDetails from 'pages/Admin/Projects/ProjectDetails';
 
 const adminRoutes = [
   {
@@ -63,6 +65,13 @@ const adminRoutes = [
     icon: Person,
     component: ConsultantsList,
     hasDashboardLink: AdminGuardian.showConsultantsPanel(),
+  },
+  {
+    path: RoutesPaths.Admin.Projects,
+    name: 'Projects',
+    icon: Person,
+    component: ProjectsList,
+    hasDashboardLink: true,
   },
   {
     path: RoutesPaths.Admin.Clients,
@@ -167,6 +176,13 @@ const adminRoutes = [
     name: 'Post Question',
     icon: QuestionAnswerIcon,
     component: QuestionDetails,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.Admin.PostProject,
+    name: 'Post Project',
+    icon: QuestionAnswerIcon,
+    component: ProjectDetails,
     hasDashboardLink: false,
   },
   {

@@ -575,5 +575,11 @@
   "hourlyRatedRequested": "Hourly Rate Requested",
   "confirmVerifiedConsultant": "Confirm as a Verified Consultant",
   "evaluationSubmitted": "Evaluation Submitted!",
-  "somethingWrong": "Something Wrong!"
+  "somethingWrong": "Something Wrong!",
+  "projectsList": "Projects List",
+  "projectNumber": "Project Number",
+  "details": "Details",
+  "duration": "Duration",
+  "beneficiaries": "Beneficiaries",
+  "createNewProject": "Create New Project"
 }

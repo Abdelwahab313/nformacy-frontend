@@ -5,11 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import { useStyles } from 'styles/Admin/questionTableStyles';
 import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
-import { Chip } from '@material-ui/core';
 import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
 import { getConsultantDetailsView } from 'services/navigation';
-import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 
 import { getConsultantLevel, getUserCountryLabel } from 'core/user';
 
@@ -32,8 +30,8 @@ const getColumnsOptions = (classes, t) => {
 
   const columns = [
     {
-      name: 'consultantRef',
-      label: t('consultantRef'),
+      name: 'projectNumber',
+      label: t('projectNumber'),
       options: {
         ...defaultColumnOption,
         display: true,
@@ -42,8 +40,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'firstName',
-      label: t('firstName'),
+      name: 'title',
+      label: t('title'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -51,8 +49,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'lastName',
-      label: t('lastName'),
+      name: 'details',
+      label: t('details'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -60,8 +58,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'email',
-      label: t('email'),
+      name: 'duration',
+      label: t('duration'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -69,16 +67,8 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'state',
-      label: t('state'),
-      options: {
-        ...defaultColumnOption,
-        filter: true,
-      },
-    },
-    {
-      name: 'dateJoined',
-      label: t('dateJoined'),
+      name: 'fields',
+      label: t('fieldsAssigned'),
       options: {
         ...defaultColumnOption,
         filter: true,
@@ -93,16 +83,16 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'fields',
-      label: t('fieldsAssigned'),
+      name: 'consultants',
+      label: t('consultants'),
       options: {
         ...defaultColumnOption,
         filter: true,
       },
     },
     {
-      name: 'level',
-      label: t('level'),
+      name: 'beneficiaries',
+      label: t('beneficiaries'),
       options: {
         ...defaultColumnOption,
         filter: true,
@@ -110,47 +100,11 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'hourlyRate',
-      label: t('hourlyRate'),
+      name: 'state',
+      label: t('state'),
       options: {
         ...defaultColumnOption,
         filter: true,
-      },
-    },
-    {
-      name: 'pointsCount',
-      label: t('points'),
-      options: {
-        ...defaultColumnOption,
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: 'answersCount',
-      label: t('numOfAnswers'),
-      options: {
-        ...defaultColumnOption,
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: 'meetingsCount',
-      label: t('numOfCalls'),
-      options: {
-        ...defaultColumnOption,
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: 'numOfHours',
-      label: t('numOfHours'),
-      options: {
-        ...defaultColumnOption,
-        filter: true,
-        sort: true,
       },
     },
   ];
@@ -158,17 +112,9 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const parseConsultantsTableData = (consultants) => {
-  return consultants?.map((consultant) => ({
+const parseConsultantsTableData = (projects) => {
+  return projects?.map((consultant) => ({
     ...consultant,
-    industriesOfExperience: consultant.industriesOfExperience?.map(
-      (industry) => (
-        <div key={industry.value}>
-          <Chip label={industry.label} key={industry.value} />
-        </div>
-      ),
-    ),
-    dateJoined: formattedDateTimeNoSeconds(new Date(consultant.createdAt)),
     state: getConsultantState(consultant),
     consultantRef: (
       <LinkText to={getConsultantDetailsView(consultant.id)}>
@@ -180,11 +126,11 @@ const parseConsultantsTableData = (consultants) => {
   }));
 };
 
-const ConsultantsTable = ({ consultants }) => {
+const ProjectsTable = ({ projects }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
-  const consultantsRows = parseConsultantsTableData(consultants);
+  const consultantsRows = parseConsultantsTableData(projects);
   const tableOptions = {
     filterType: 'checkbox',
     selectableRows: 'none',
@@ -200,7 +146,7 @@ const ConsultantsTable = ({ consultants }) => {
   };
   return (
     <MUIDataTable
-      title={t('consultantsList')}
+      title={t('projectsList')}
       data={!!consultantsRows ? consultantsRows : []}
       columns={columns}
       options={tableOptions}
@@ -208,4 +154,4 @@ const ConsultantsTable = ({ consultants }) => {
   );
 };
 
-export default ConsultantsTable;
+export default ProjectsTable;
