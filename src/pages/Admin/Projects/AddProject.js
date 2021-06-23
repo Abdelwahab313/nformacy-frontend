@@ -3,29 +3,27 @@ import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import CardHeader from 'components/card/CardHeader';
 import { Grid, Typography } from '@material-ui/core';
-import { getAdvisorsList } from 'services/navigation';
 import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { addAdvisor } from 'apis/advisorAPI';
 import AddProjectForm from './AddProjectForm';
+import { RoutesPaths } from 'constants/routesPath';
 
 const AddProject = () => {
   const [user, setUser] = useState({});
   const history = useHistory();
   const { t } = useTranslation();
-  const navigatToAdvisersList = () => {
-    history.push(getAdvisorsList());
+
+  const handleCreateProject = () => {
+    history.push(RoutesPaths.Admin.Projects);
   };
 
-  const handleCreateAdviser = () => {
-    addAdvisor({
-      ...user,
-    })
-      .then(() => {
-        navigatToAdvisersList();
-      })
-      .catch(({}) => {});
-  };
+  // const handleCreateProject = () => {
+  //   addProject()
+  //     .then(() => {
+  //       navigateToProjectsList();
+  //     })
+  //     .catch(({}) => {});
+  // };
 
   return (
     <GridContainer>
@@ -44,9 +42,9 @@ const AddProject = () => {
           primaryButton={{
             id: 'createAdviserButton',
             onClick: () => {
-              handleCreateAdviser();
+              handleCreateProject();
             },
-            buttonText: 'Create Project',
+            buttonText: 'Next Step',
           }}
         />
       </GridItem>

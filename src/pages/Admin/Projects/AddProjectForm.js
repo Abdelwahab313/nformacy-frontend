@@ -15,6 +15,7 @@ import { selectStyle } from 'styles/formsStyles';
 import countryList from 'react-select-country-list';
 import moment from 'moment';
 import { projectManagers } from 'constants/dropDownOptions';
+import CreatableSelect from 'react-select/creatable';
 
 const AddProjectForm = ({ primaryButton, user, setUser }) => {
   const classes = useStyles();
@@ -101,11 +102,11 @@ const AddProjectForm = ({ primaryButton, user, setUser }) => {
                 <FormControl fullWidth id='country-select'>
                   <ReactSelectMaterialUi
                     fullWidth={true}
-                    placeholder={t('selectCountryMessage')}
+                    placeholder={t('selectProjectManager')}
                     SelectProps={{
                       styles: selectStyle,
                     }}
-                    options={countries}
+                    options={projectManagers}
                   />
                 </FormControl>
               </GridItem>
@@ -116,13 +117,14 @@ const AddProjectForm = ({ primaryButton, user, setUser }) => {
         <GridContainer className={classes.inputsRow}>
           <GridItem xs={12}>
             <FormControl fullWidth id='country-select'>
-              <ReactSelectMaterialUi
+              <CreatableSelect
                 fullWidth={true}
-                placeholder={t('selectProjectManager')}
+                placeholder={t('selectCountryMessage')}
                 SelectProps={{
                   styles: selectStyle,
                 }}
-                options={projectManagers}
+                isMulti
+                options={countries}
               />
             </FormControl>
           </GridItem>
@@ -142,7 +144,7 @@ const AddProjectForm = ({ primaryButton, user, setUser }) => {
                   shrink: true,
                 }}
                 inputProps={{
-                  step: 300, // 5 min
+                  step: 300,
                 }}
                 onChange={(e) => {
                   const time = new moment(e.target.value, 'HH:mm');
@@ -163,7 +165,7 @@ const AddProjectForm = ({ primaryButton, user, setUser }) => {
                   shrink: true,
                 }}
                 inputProps={{
-                  step: 300, // 5 min
+                  step: 300,
                 }}
                 onChange={(e) => {
                   const time = new moment(e.target.value, 'HH:mm');

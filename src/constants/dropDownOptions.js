@@ -17,7 +17,7 @@ const employmentStatus = [
 const projectManagers = [
   { value: 'amlMoustafa', label: 'Aml Moustafa' },
   { value: 'abdelwahabMahmoud', label: 'Abdelwahab Mahmoud' },
-  { value: 'amlMoustafa', label: 'Aml Moustafa' },
+  { value: 'ahmedAli', label: 'Ahmed Ali' },
 ];
 
 const organizationalLevel = [
