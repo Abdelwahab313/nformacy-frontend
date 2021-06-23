@@ -42,7 +42,7 @@ import ConsultantVerificationsList from 'pages/Admin/ConsultantVerifications/lis
 import ConsultantEvaluation from 'pages/Admin/ConsultantVerifications/evaluation/ConsultantEvaluation';
 import ConsultantMeetingDetails from 'pages/Admin/ConsultantVerifications/details/ConsultantMeetingDetails';
 import ProjectsList from 'pages/Admin/Projects/list';
-import ProjectDetails from 'pages/Admin/Projects/ProjectDetails';
+import AddProject from 'pages/Admin/Projects/AddProject';
 
 const adminRoutes = [
   {
@@ -179,10 +179,10 @@ const adminRoutes = [
     hasDashboardLink: false,
   },
   {
-    path: RoutesPaths.Admin.PostProject,
-    name: 'Post Project',
+    path: RoutesPaths.Admin.AddProject,
+    name: 'Add Project',
     icon: QuestionAnswerIcon,
-    component: ProjectDetails,
+    component: AddProject,
     hasDashboardLink: false,
   },
   {

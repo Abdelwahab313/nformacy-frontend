@@ -32,7 +32,7 @@ export const RoutesPaths = {
     ServiceDetails: '/admin/services/edit',
     Logout: '/admin/logout',
     PostQuestion: '/admin/postQuestion',
-    PostProject: '/admin/postProject',
+    AddProject: '/admin/addProject',
     Evaluations: '/admin/viewEvaluations',
     ChangePassword: '/admin/changePassword',
     SubAccount: '/admin/subAccount',

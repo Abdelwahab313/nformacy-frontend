@@ -27,7 +27,7 @@ const ProjectsList = () => {
     return <LoadingCircle />;
   }
   const navigateToPostProject = () => {
-    history.push(RoutesPaths.Admin.PostProject);
+    history.push(RoutesPaths.Admin.AddProject);
   };
 
   return (

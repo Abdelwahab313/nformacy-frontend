@@ -7,11 +7,9 @@ import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
 import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
-import { getConsultantDetailsView } from 'services/navigation';
-
 import { getConsultantLevel, getUserCountryLabel } from 'core/user';
 
-export const getConsultantState = (user) => {
+export const getProjectState = (user) => {
   const stateStrings = {
     1: 'Registration',
     2: 'full profile',
@@ -112,17 +110,13 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const parseConsultantsTableData = (projects) => {
-  return projects?.map((consultant) => ({
-    ...consultant,
-    state: getConsultantState(consultant),
-    consultantRef: (
-      <LinkText to={getConsultantDetailsView(consultant.id)}>
-        {consultant.referenceNumber}
-      </LinkText>
-    ),
-    country: getUserCountryLabel(consultant.country),
-    fields: <FieldsChips fields={consultant.fields} />,
+const parseProjectsTableData = (projects) => {
+  return projects?.map((project) => ({
+    ...project,
+    state: getProjectState(project),
+    projectNumber: <LinkText to={() => {}}>{project.projectNumber}</LinkText>,
+    country: getUserCountryLabel(project.country),
+    fields: <FieldsChips fields={project.fields} />,
   }));
 };
 
@@ -130,7 +124,7 @@ const ProjectsTable = ({ projects }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
-  const consultantsRows = parseConsultantsTableData(projects);
+  const projectsRows = parseProjectsTableData(projects);
   const tableOptions = {
     filterType: 'checkbox',
     selectableRows: 'none',
@@ -147,7 +141,7 @@ const ProjectsTable = ({ projects }) => {
   return (
     <MUIDataTable
       title={t('projectsList')}
-      data={!!consultantsRows ? consultantsRows : []}
+      data={!!projectsRows ? projectsRows : []}
       columns={columns}
       options={tableOptions}
     />

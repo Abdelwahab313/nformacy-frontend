@@ -14,6 +14,12 @@ const employmentStatus = [
   },
 ];
 
+const projectManagers = [
+  { value: 'amlMoustafa', label: 'Aml Moustafa' },
+  { value: 'abdelwahabMahmoud', label: 'Abdelwahab Mahmoud' },
+  { value: 'amlMoustafa', label: 'Aml Moustafa' },
+];
+
 const organizationalLevel = [
   { value: 'selfEmployed', label: 'Self Employed' },
   { value: 'notCurrentlyEmployed', label: 'Not Currently Employed' },
@@ -405,4 +411,5 @@ export {
   questionLanguages,
   questionTypesOfAssignmentTranslated,
   companySizeOptions,
+  projectManagers,
 };
