@@ -43,6 +43,7 @@ import ConsultantEvaluation from 'pages/Admin/ConsultantVerifications/evaluation
 import ConsultantMeetingDetails from 'pages/Admin/ConsultantVerifications/details/ConsultantMeetingDetails';
 import ProjectsList from 'pages/Admin/Projects/list';
 import AddProject from 'pages/Admin/Projects/AddProject';
+import AddProjectServiceForm from 'pages/Admin/Projects/AddProjectServiceForm';
 
 const adminRoutes = [
   {
@@ -183,6 +184,13 @@ const adminRoutes = [
     name: 'Add Project',
     icon: QuestionAnswerIcon,
     component: AddProject,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.Admin.AddProjectServiceForm,
+    name: 'Add Project Details',
+    icon: QuestionAnswerIcon,
+    component: AddProjectServiceForm,
     hasDashboardLink: false,
   },
   {

@@ -14,7 +14,7 @@ const AddProject = () => {
   const { t } = useTranslation();
 
   const handleCreateProject = () => {
-    history.push(RoutesPaths.Admin.Projects);
+    history.push(RoutesPaths.Admin.AddProjectServiceForm);
   };
 
   // const handleCreateProject = () => {
