@@ -15,11 +15,28 @@ export const fetchProjects = () => {
         },
       ],
       country: 'US',
-      consultants: 'Shawanna',
-      beneficiaries: 'Turner',
+      consultants: 2,
+      beneficiaries: 3,
     },
   ];
   return new Promise((resolve) => {
     resolve({ data: projects });
+  });
+};
+export const fetchProjectConsultants = () => {
+  const consultants = [
+    {
+      consultantRef: 1,
+      firstName: 'ahmed',
+      lastName: 'mohamed',
+    },
+    {
+      consultantRef: 2,
+      firstName: 'ali',
+      lastName: 'mstafa',
+    },
+  ];
+  return new Promise((resolve) => {
+    resolve({ data: consultants });
   });
 };

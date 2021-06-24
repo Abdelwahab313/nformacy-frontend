@@ -583,5 +583,6 @@
   "beneficiaries": "Beneficiaries",
   "createNewProject": "Create New Project",
   "addNewProject": "Add New Project",
-  "selectProjectManager": "Select Project Manager"
+  "selectProjectManager": "Select Project Manager",
+  "services": "Services"
 }

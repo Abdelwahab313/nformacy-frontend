@@ -72,7 +72,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   serviceRequestFieldsMobile: {
     [theme.breakpoints.down('md')]: {
-      marginBottom: 20
+      marginBottom: 20,
     },
   },
   answerContainerStyles: {
@@ -110,7 +110,7 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: '9px',
     marginRight: '20px',
     [theme.breakpoints.down('lg')]: {
-      fontSize: 'initial'
+      fontSize: 'initial',
     },
   },
   rejectedAnswer: {
@@ -164,6 +164,9 @@ export const useStyles = makeStyles((theme) => ({
   },
   addAccountDate: {
     width: '100%',
+  },
+  durationLabel: {
+    margin: 'auto',
   },
   addAccountContainer: {
     marginTop: theme.spacing(10),

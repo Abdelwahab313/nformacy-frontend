@@ -226,6 +226,11 @@ export const getConsultantVerificationList = () => {
     pathname: RoutesPaths.Admin.ConsultantVerificationsList,
   };
 };
+export const getProjectConsultantsList = () => {
+  return {
+    pathname: RoutesPaths.Admin.ProjectConsultants,
+  };
+};
 
 export const getAccountDetails = (accountId) => {
   return {

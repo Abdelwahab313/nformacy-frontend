@@ -70,10 +70,69 @@ const AddProjectForm = ({ primaryButton, user, setUser }) => {
             />
           </GridItem>
           <GridItem xs={12} sm={12} md={6}>
+            <GridContainer spacing={2}>
+              <GridItem className={classes.durationLabel} xs={4}>
+                {t('duration')}
+              </GridItem>
+              <GridItem xs={4}>
+                <form className={classes.container}>
+                  <TextField
+                    id='start-time-range-picker'
+                    label='Start time'
+                    type='time'
+                    value={moment(selectedRange?.startTime).format('HH:mm')}
+                    className={classes.textField}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    inputProps={{
+                      step: 300,
+                    }}
+                    onChange={(e) => {
+                      const time = new moment(e.target.value, 'HH:mm');
+                      updateTime('startTime', time);
+                    }}
+                  />
+                </form>
+              </GridItem>
+              <GridItem xs={4}>
+                <form className={classes.container}>
+                  <TextField
+                    id='end-time-range-picker'
+                    label='End time'
+                    type='time'
+                    value={moment(selectedRange?.endTime).format('HH:mm')}
+                    className={classes.textField}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    inputProps={{
+                      step: 300,
+                    }}
+                    onChange={(e) => {
+                      const time = new moment(e.target.value, 'HH:mm');
+                      handleEndTime(time);
+                    }}
+                  />
+                </form>
+                {!!errors.endTime && (
+                  <Typography variant={'body2'} className={classes.redFont}>
+                    {errors.endTime}
+                  </Typography>
+                )}
+              </GridItem>
+            </GridContainer>
+          </GridItem>
+        </GridContainer>
+        <GridContainer className={classes.inputsRow}>
+          <GridItem xs={12}>
             <TextField
               required
               label={t('details')}
               id='details'
+              multiline
+              rowsMin={3}
+              rowsMax={6}
               name='details'
               fullWidth
               value={user.details}
@@ -84,7 +143,6 @@ const AddProjectForm = ({ primaryButton, user, setUser }) => {
             />
           </GridItem>
         </GridContainer>
-
         <FieldsSelect
           initialFields={user.fields}
           updateFields={(newOptions) => {
@@ -127,57 +185,6 @@ const AddProjectForm = ({ primaryButton, user, setUser }) => {
                 options={countries}
               />
             </FormControl>
-          </GridItem>
-        </GridContainer>
-
-        <GridContainer className={classes.inputsRow} spacing={2}>
-          <GridItem xs={4}>{t('duration')}</GridItem>
-          <GridItem xs={4}>
-            <form className={classes.container}>
-              <TextField
-                id='start-time-range-picker'
-                label='Start time'
-                type='time'
-                value={moment(selectedRange?.startTime).format('HH:mm')}
-                className={classes.textField}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                inputProps={{
-                  step: 300,
-                }}
-                onChange={(e) => {
-                  const time = new moment(e.target.value, 'HH:mm');
-                  updateTime('startTime', time);
-                }}
-              />
-            </form>
-          </GridItem>
-          <GridItem xs={4}>
-            <form className={classes.container}>
-              <TextField
-                id='end-time-range-picker'
-                label='End time'
-                type='time'
-                value={moment(selectedRange?.endTime).format('HH:mm')}
-                className={classes.textField}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                inputProps={{
-                  step: 300,
-                }}
-                onChange={(e) => {
-                  const time = new moment(e.target.value, 'HH:mm');
-                  handleEndTime(time);
-                }}
-              />
-            </form>
-            {!!errors.endTime && (
-              <Typography variant={'body2'} className={classes.redFont}>
-                {errors.endTime}
-              </Typography>
-            )}
           </GridItem>
         </GridContainer>
       </CardBody>
