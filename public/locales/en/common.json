@@ -584,5 +584,6 @@
   "createNewProject": "Create New Project",
   "addNewProject": "Add New Project",
   "selectProjectManager": "Select Project Manager",
+  "selectFrequency": "Select Frequency",
   "services": "Services"
 }

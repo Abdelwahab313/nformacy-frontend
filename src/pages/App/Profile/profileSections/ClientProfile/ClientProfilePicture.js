@@ -51,7 +51,7 @@ const ClientProfilePicture = () => {
               <Typography
                 id='firstNameValue'
                 gutterBottom>
-                {user.current.firstName + ' ' + user.current.lastName}
+                {`${user.current.firstName} ${ user.current.lastName}`}
               </Typography>
             </Grid>
             <Grid item xs={2} className={classes.paperSectionHeaderStyles}>

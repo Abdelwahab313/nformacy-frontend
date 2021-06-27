@@ -19,6 +19,12 @@ const projectManagers = [
   { value: 'abdelwahabMahmoud', label: 'Abdelwahab Mahmoud' },
   { value: 'ahmedAli', label: 'Ahmed Ali' },
 ];
+const frequency = [
+  { value: 'month', label: 'Month' },
+  { value: 'twoMonth', label: 'Two Month' },
+  { value: 'sixMonths', label: 'Six Months' },
+  { value: 'year', label: 'Year' },
+];
 
 const organizationalLevel = [
   { value: 'selfEmployed', label: 'Self Employed' },
@@ -412,4 +418,5 @@ export {
   questionTypesOfAssignmentTranslated,
   companySizeOptions,
   projectManagers,
+  frequency,
 };

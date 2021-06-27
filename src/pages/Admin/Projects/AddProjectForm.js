@@ -78,7 +78,7 @@ const AddProjectForm = ({ primaryButton, user, setUser }) => {
                 <form className={classes.container}>
                   <TextField
                     id='start-time-range-picker'
-                    label='Start time'
+                    label='From'
                     type='time'
                     value={moment(selectedRange?.startTime).format('HH:mm')}
                     className={classes.textField}
@@ -99,7 +99,7 @@ const AddProjectForm = ({ primaryButton, user, setUser }) => {
                 <form className={classes.container}>
                   <TextField
                     id='end-time-range-picker'
-                    label='End time'
+                    label='To'
                     type='time'
                     value={moment(selectedRange?.endTime).format('HH:mm')}
                     className={classes.textField}
@@ -143,6 +143,21 @@ const AddProjectForm = ({ primaryButton, user, setUser }) => {
             />
           </GridItem>
         </GridContainer>
+        <GridContainer className={classes.inputsRow}>
+          <GridItem xs={12}>
+            <FormControl fullWidth id='country-select'>
+              <CreatableSelect
+                fullWidth={true}
+                placeholder={t('selectCountryMessage')}
+                SelectProps={{
+                  styles: selectStyle,
+                }}
+                isMulti
+                options={countries}
+              />
+            </FormControl>
+          </GridItem>
+        </GridContainer>
         <FieldsSelect
           initialFields={user.fields}
           updateFields={(newOptions) => {
@@ -171,22 +186,6 @@ const AddProjectForm = ({ primaryButton, user, setUser }) => {
             </GridContainer>
           )}
         </FieldsSelect>
-
-        <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12}>
-            <FormControl fullWidth id='country-select'>
-              <CreatableSelect
-                fullWidth={true}
-                placeholder={t('selectCountryMessage')}
-                SelectProps={{
-                  styles: selectStyle,
-                }}
-                isMulti
-                options={countries}
-              />
-            </FormControl>
-          </GridItem>
-        </GridContainer>
       </CardBody>
       <CardFooter>
         <ActionButtonsContainer primaryButton={primaryButton} />

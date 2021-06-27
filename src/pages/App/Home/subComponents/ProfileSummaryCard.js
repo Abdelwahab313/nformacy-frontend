@@ -32,7 +32,7 @@ const ProfileSummaryCard = () => {
         </Box>
         <CardContent>
           <Typography align={'center'} gutterBottom variant="h5" component="h1">
-            {user.current.firstName + ' ' + user.current.lastName}
+            {`${user.current.firstName} ${ user.current.lastName}`}
           </Typography>
           <Typography align={'center'} variant="body2" color="textSecondary" component="p">
             {authManager.isClient() ? user.current.jobTitle : 'Expert in: '}
