@@ -95,6 +95,7 @@ const Pointing = React.lazy(() => import('pages/App/Pointing'));
 const WelcomeAccountFormPage = React.lazy(() =>
   import('pages/App/WelcomeAccount'),
 );
+const JitsiCall = React.lazy(() => import('pages/App/Calls/JitsiCall'));
 
 const appRoutes = [
   {
@@ -445,6 +446,15 @@ const appRoutes = [
     Component: EmailVerificationPending,
     includeLayout: true,
     isPublic: false,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.App.JitsiCall,
+    name: 'Jitsi Meeting',
+    icon: DashboardIcon,
+    Component: JitsiCall,
+    includeLayout: false,
+    isPublic: true,
     hasDashboardLink: false,
   },
   {

@@ -1,17 +1,18 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/styles';
 import { Grid, Box, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { lighterPink } from 'styles/colors';
 import CandidateItem from './CandidateItem';
 import CardHeader from 'components/card/CardHeader';
 import Card from 'components/card/Card';
-import useStyles from '../styles/ShortlistCandidate';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
-import { SERVICE_STATUS } from 'constants/questionStatus';
+import { MEETING_STATUS, SERVICE_STATUS } from 'constants/questionStatus';
 import { useLocation } from 'react-router';
 import { getCallEvaluationLink, history } from 'services/navigation';
 import authManager from 'services/authManager';
 import { MEETING_TYPES, endCallTime } from 'core/meeting';
+import JoinJitsiMeetingButton from 'components/buttons/JoinJitsiMeetingButton';
 
 const MeetingDetailsSection = ({ meeting }) => {
   const classes = useStyles();
@@ -20,6 +21,7 @@ const MeetingDetailsSection = ({ meeting }) => {
   const serviceId = location?.state?.serviceId;
   const meetingId = meeting.id;
   const meetingState = meeting.state;
+  const canJoinMeeting = meeting.state === MEETING_STATUS.callScheduled;
 
   const isMeetingFinished = meetingState === SERVICE_STATUS.callFinished;
 
@@ -31,9 +33,11 @@ const MeetingDetailsSection = ({ meeting }) => {
     }
   };
 
-  const isConsultantScreeningCall = meeting?.callType === MEETING_TYPES.ConsultantScreening
+  const isConsultantScreeningCall =
+    meeting?.callType === MEETING_TYPES.ConsultantScreening;
   const showFreelancerSection = !authManager.isNormalUser();
-  const showClientSection = !authManager.isClient() && !isConsultantScreeningCall;
+  const showClientSection =
+    !authManager.isClient() && !isConsultantScreeningCall;
 
   const handleMeetingHeader = () => {
     if (!!isMeetingFinished) {
@@ -86,7 +90,7 @@ const MeetingDetailsSection = ({ meeting }) => {
                 bgcolor={lighterPink}
                 candidate={meeting.freelancer}
                 isFocused={true}
-                setFocusedCandidate={() => { }}
+                setFocusedCandidate={() => {}}
                 onCandidateClick={() => handleClick()}
                 buttonText={handleFreelancerMeetingBtn()}
                 clientType={t('freelancer')}
@@ -101,7 +105,7 @@ const MeetingDetailsSection = ({ meeting }) => {
                 bgcolor={lighterPink}
                 candidate={meeting.client}
                 isFocused={true}
-                setFocusedCandidate={() => { }}
+                setFocusedCandidate={() => {}}
                 onCandidateClick={() => handleClick()}
                 buttonText={handleClientMeetingBtn()}
                 clientType={t('client')}
@@ -110,8 +114,38 @@ const MeetingDetailsSection = ({ meeting }) => {
           </Grid>
         )}
       </Grid>
+      {!!canJoinMeeting && (
+        <Grid
+          container
+          justify='flex-end'
+          className={classes.joinButtonContainer}>
+          {/* <Grid item> */}
+          <JoinJitsiMeetingButton
+            buttonText={'Join call'}
+            meetingRoomId={meeting.jitsiRoomName}
+          />
+          {/* </Grid> */}
+        </Grid>
+      )}
     </Card>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  noShadow: {
+    // boxShadow: 'none',
+  },
+  shortlistContainer: {
+    marginTop: theme.spacing(6),
+    marginBottom: theme.spacing(6),
+    [theme.breakpoints.down('md')]: {
+      marginBottom: theme.spacing(2),
+      marginTop: theme.spacing(2),
+    },
+  },
+  joinButtonContainer: {
+    padding: 16,
+  },
+}));
 
 export default MeetingDetailsSection;
