@@ -588,5 +588,13 @@
   "services": "Services",
   "nextStep": "Next Step",
   "selectBenefeciaries": "Select Benefeciaries",
-  "selectConsultants": "Select Consultants"
+  "selectConsultants": "Select Consultants",
+  "activities": "Activities",
+  "consultantName": "Consultant Name",
+  "action": "Action",
+  "deliverable": "Deliverable",
+  "evaluations": "Evaluations",
+  "beneficiaryId": "Beneficiary ID",
+  "beneficiariesName": "Beneficiary Name",
+  "assignedConsultant": "Assigned Consultant"
 }

@@ -8,7 +8,10 @@ import { useTranslation } from 'react-i18next';
 import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
 import { getConsultantLevel, getUserCountryLabel } from 'core/user';
-import { getProjectConsultantsList } from 'services/navigation';
+import {
+  getProjectConsultantsList,
+  getProjectDetails,
+} from 'services/navigation';
 
 export const getProjectState = (user) => {
   const stateStrings = {
@@ -115,7 +118,9 @@ const parseProjectsTableData = (projects) => {
   return projects?.map((project) => ({
     ...project,
     state: getProjectState(project),
-    projectNumber: <LinkText to={() => {}}>{project.projectNumber}</LinkText>,
+    projectNumber: (
+      <LinkText to={getProjectDetails()}>{project.projectNumber}</LinkText>
+    ),
     country: getUserCountryLabel(project.country),
     fields: <FieldsChips fields={project.fields} />,
     consultants: (
@@ -123,7 +128,11 @@ const parseProjectsTableData = (projects) => {
         {project.consultants}
       </LinkText>
     ),
-    beneficiaries: <LinkText to={() => {}}>{project.beneficiaries}</LinkText>,
+    beneficiaries: (
+      <LinkText to={getProjectConsultantsList()}>
+        {project.beneficiaries}
+      </LinkText>
+    ),
   }));
 };
 

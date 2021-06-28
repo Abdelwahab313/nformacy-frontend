@@ -12,19 +12,11 @@ import FormControl from '@material-ui/core/FormControl';
 import { selectStyle } from 'styles/formsStyles';
 import { projectManagers } from 'constants/dropDownOptions';
 import SubmitButton from 'components/buttons/SubmitButton';
-import { RoutesPaths } from 'constants/routesPath';
-import { useHistory } from 'react-router';
 import CreatableSelect from 'react-select/creatable';
 
 const AddProjectListForm = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const history = useHistory();
-
-  const handleProjectServiceForm = () => {
-    history.push(RoutesPaths.Admin.ProjectConsultants);
-  };
-
   return (
     <Fragment>
       <GridContainer>
@@ -83,12 +75,7 @@ const AddProjectListForm = () => {
         </GridContainer>
       </CardBody>
       <CardFooter className={classes.nextStepBtn}>
-        <SubmitButton
-          onClick={() => {
-            handleProjectServiceForm();
-          }}
-          buttonText={t('submit')}
-        />
+        <SubmitButton onClick={() => {}} buttonText={t('submit')} />
       </CardFooter>
     </Fragment>
   );

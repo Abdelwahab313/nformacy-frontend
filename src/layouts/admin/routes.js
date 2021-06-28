@@ -46,6 +46,7 @@ import AddProject from 'pages/Admin/Projects/AddProject';
 import AddProjectServiceForm from 'pages/Admin/Projects/AddProjectServiceForm';
 import ProjectConsultantsList from 'pages/Admin/Projects/list/ProjectConsultantsList';
 import AddProjectListForm from 'pages/Admin/Projects/AddProjectListForm';
+import ProjectDetails from 'pages/Admin/Projects/ProjectDetails';
 
 const adminRoutes = [
   {
@@ -75,6 +76,13 @@ const adminRoutes = [
     icon: Person,
     component: ProjectsList,
     hasDashboardLink: true,
+  },
+  {
+    path: RoutesPaths.Admin.ProjectDetails,
+    name: 'Project Details',
+    icon: Person,
+    component: ProjectDetails,
+    hasDashboardLink: false,
   },
   {
     path: RoutesPaths.Admin.ProjectConsultants,
