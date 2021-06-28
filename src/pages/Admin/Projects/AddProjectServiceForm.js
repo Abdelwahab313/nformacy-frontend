@@ -23,7 +23,7 @@ const AddProjectServiceForm = () => {
   const history = useHistory();
 
   const handleProjectServiceForm = () => {
-    history.push(RoutesPaths.Admin.ProjectConsultants);
+    history.push(RoutesPaths.Admin.AddProjectListForm);
   };
 
   return (

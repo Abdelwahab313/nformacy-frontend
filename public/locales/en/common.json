@@ -586,5 +586,7 @@
   "selectProjectManager": "Select Project Manager",
   "selectFrequency": "Select Frequency",
   "services": "Services",
-  "nextStep": "Next Step"
+  "nextStep": "Next Step",
+  "selectBenefeciaries": "Select Benefeciaries",
+  "selectConsultants": "Select Consultants"
 }

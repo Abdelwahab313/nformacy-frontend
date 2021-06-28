@@ -45,6 +45,7 @@ import ProjectsList from 'pages/Admin/Projects/list';
 import AddProject from 'pages/Admin/Projects/AddProject';
 import AddProjectServiceForm from 'pages/Admin/Projects/AddProjectServiceForm';
 import ProjectConsultantsList from 'pages/Admin/Projects/list/ProjectConsultantsList';
+import AddProjectListForm from 'pages/Admin/Projects/AddProjectListForm';
 
 const adminRoutes = [
   {
@@ -199,6 +200,13 @@ const adminRoutes = [
     name: 'Add Project Details',
     icon: QuestionAnswerIcon,
     component: AddProjectServiceForm,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.Admin.AddProjectListForm,
+    name: 'Add Project Details',
+    icon: QuestionAnswerIcon,
+    component: AddProjectListForm,
     hasDashboardLink: false,
   },
   {
