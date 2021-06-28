@@ -17,14 +17,6 @@ const AddProject = () => {
     history.push(RoutesPaths.Admin.AddProjectServiceForm);
   };
 
-  // const handleCreateProject = () => {
-  //   addProject()
-  //     .then(() => {
-  //       navigateToProjectsList();
-  //     })
-  //     .catch(({}) => {});
-  // };
-
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>

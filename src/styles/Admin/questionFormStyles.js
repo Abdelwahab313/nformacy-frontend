@@ -180,4 +180,10 @@ export const useStyles = makeStyles((theme) => ({
   accountField: {
     marginTop: theme.spacing(4),
   },
+  nextStepBtn: { float: 'right' },
+  projectFormFields: {
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: 30,
+    },
+  },
 }));

@@ -24,8 +24,6 @@ const AddProjectForm = ({ primaryButton, user, setUser }) => {
   const [errors, setErrors] = useState({ endTime: '' });
 
   const [selectedRange, setSelectedRange] = useState({
-    startDate: '',
-    endDate: '',
     startTime: '',
     endTime: '',
   });
@@ -55,7 +53,11 @@ const AddProjectForm = ({ primaryButton, user, setUser }) => {
     <Fragment>
       <CardBody>
         <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={12} md={6}>
+          <GridItem
+            xs={12}
+            sm={12}
+            md={6}
+            className={classes.projectFormFields}>
             <TextField
               required
               label={t('title')}
@@ -74,7 +76,7 @@ const AddProjectForm = ({ primaryButton, user, setUser }) => {
               <GridItem className={classes.durationLabel} xs={4}>
                 {t('duration')}
               </GridItem>
-              <GridItem xs={4}>
+              <GridItem xs={12} sm={4} className={classes.projectFormFields}>
                 <form className={classes.container}>
                   <TextField
                     id='start-time-range-picker'
@@ -95,7 +97,7 @@ const AddProjectForm = ({ primaryButton, user, setUser }) => {
                   />
                 </form>
               </GridItem>
-              <GridItem xs={4}>
+              <GridItem xs={12} sm={4}>
                 <form className={classes.container}>
                   <TextField
                     id='end-time-range-picker'
@@ -165,13 +167,25 @@ const AddProjectForm = ({ primaryButton, user, setUser }) => {
           }}>
           {({ MajorField, Field }) => (
             <GridContainer className={classes.inputsRow}>
-              <GridItem xs={12} sm={12} md={4}>
+              <GridItem
+                xs={12}
+                sm={12}
+                md={4}
+                className={classes.projectFormFields}>
                 <MajorField />
               </GridItem>
-              <GridItem xs={12} sm={12} md={4}>
+              <GridItem
+                xs={12}
+                sm={12}
+                md={4}
+                className={classes.projectFormFields}>
                 <Field />
               </GridItem>
-              <GridItem xs={12} sm={12} md={4}>
+              <GridItem
+                xs={12}
+                sm={12}
+                md={4}
+                className={classes.projectFormFields}>
                 <FormControl fullWidth id='country-select'>
                   <ReactSelectMaterialUi
                     fullWidth={true}
