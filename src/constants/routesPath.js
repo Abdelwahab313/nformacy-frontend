@@ -71,6 +71,7 @@ export const RoutesPaths = {
     UserTypeSelection: '/user/type',
     EmailVerificationCallback: '/verifyEmail',
     EmailVerificationPending: '/verifyEmailPending',
+    JitsiCall: '/jitsiCall',
     OauthSuccess: '/oauthCallback',
     NotFound: '/error',
     Accounts: '/accounts',

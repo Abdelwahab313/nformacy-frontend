@@ -160,6 +160,16 @@ export const getCallEvaluationView = (meetingId) => {
   };
 };
 
+export const getJitsiCall = (jwt, roomId) => {
+  return {
+    pathname: RoutesPaths.App.JitsiCall,
+    state: {
+      jwt,
+      roomId,
+    },
+  };
+};
+
 export const getAdminDetails = (adminId) => {
   return {
     pathname: RoutesPaths.Admin.AdminDetails,
