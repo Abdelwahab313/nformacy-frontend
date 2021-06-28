@@ -8,19 +8,31 @@ import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
 import CardFooter from 'components/card/CardFooter';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
-import { Typography } from '@material-ui/core';
+import { Checkbox, InputLabel, Typography } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import ReactSelectMaterialUi from 'react-select-material-ui';
-import { selectStyle } from 'styles/formsStyles';
-import countryList from 'react-select-country-list';
+import { selectCheckBox, selectStyle } from 'styles/formsStyles';
 import moment from 'moment';
 import { projectManagers } from 'constants/dropDownOptions';
-import CreatableSelect from 'react-select/creatable';
+import RichTextEditorForm from 'components/forms/RichTextEditorForm';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import Direction from 'components/grid/Direction';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
 
-const AddProjectForm = ({ primaryButton, user, setUser }) => {
+const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
+const checkedIcon = <CheckBoxIcon fontSize='small' />;
+
+const AddProjectForm = ({
+  primaryButton,
+  user,
+  setUser,
+  richTextRef,
+  options,
+  ...props
+}) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const [countries] = useState(countryList().getData());
   const [errors, setErrors] = useState({ endTime: '' });
 
   const [selectedRange, setSelectedRange] = useState({
@@ -127,39 +139,59 @@ const AddProjectForm = ({ primaryButton, user, setUser }) => {
           </GridItem>
         </GridContainer>
         <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12}>
-            <TextField
-              required
-              label={t('details')}
-              id='details'
-              multiline
-              rowsMin={3}
-              rowsMax={6}
-              name='details'
-              fullWidth
-              value={user.details}
-              onChange={(e) => {
-                onChangeField('details', e.target.value);
-              }}
-              variant='outlined'
-            />
-          </GridItem>
-        </GridContainer>
-        <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12}>
+          <GridItem xs={12} sm={12} md={6}>
             <FormControl fullWidth id='country-select'>
-              <CreatableSelect
+              <Autocomplete
+                onChange={() => {}}
+                multiple
+                options={options || []}
+                disableCloseOnSelect
+                getOptionLabel={(option) => option.label}
+                getOptionSelected={(option, value) => {
+                  return option.id === value.id;
+                }}
+                renderOption={(option, { selected }) => (
+                  <Direction>
+                    <Checkbox
+                      icon={icon}
+                      color='primary'
+                      checkedIcon={checkedIcon}
+                      style={selectCheckBox}
+                      checked={selected}
+                    />
+                    {option.label}
+                  </Direction>
+                )}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant='outlined'
+                    label={'Select Country'}
+                  />
+                )}
+                {...props}
+              />
+              
+            </FormControl>
+          </GridItem>
+          <GridItem
+            xs={12}
+            sm={12}
+            md={6}
+            className={classes.projectFormFields}>
+            <FormControl fullWidth id='project-manager-select'>
+              <ReactSelectMaterialUi
                 fullWidth={true}
-                placeholder={t('selectCountryMessage')}
+                placeholder={t('selectProjectManager')}
                 SelectProps={{
                   styles: selectStyle,
                 }}
-                isMulti
-                options={countries}
+                options={projectManagers}
               />
             </FormControl>
           </GridItem>
         </GridContainer>
+
         <FieldsSelect
           initialFields={user.fields}
           updateFields={(newOptions) => {
@@ -170,36 +202,38 @@ const AddProjectForm = ({ primaryButton, user, setUser }) => {
               <GridItem
                 xs={12}
                 sm={12}
-                md={4}
+                md={6}
                 className={classes.projectFormFields}>
                 <MajorField />
               </GridItem>
               <GridItem
                 xs={12}
                 sm={12}
-                md={4}
+                md={6}
                 className={classes.projectFormFields}>
                 <Field />
-              </GridItem>
-              <GridItem
-                xs={12}
-                sm={12}
-                md={4}
-                className={classes.projectFormFields}>
-                <FormControl fullWidth id='country-select'>
-                  <ReactSelectMaterialUi
-                    fullWidth={true}
-                    placeholder={t('selectProjectManager')}
-                    SelectProps={{
-                      styles: selectStyle,
-                    }}
-                    options={projectManagers}
-                  />
-                </FormControl>
               </GridItem>
             </GridContainer>
           )}
         </FieldsSelect>
+        <GridContainer className={classes.inputsRow}>
+          <GridItem xs={12} sm={12} md={12}>
+            <InputLabel className={classes.contentTitle}>
+              {t('details')}
+            </InputLabel>
+            <GridContainer className={classes.questionContainer}>
+              <GridItem xs={12}>
+                <RichTextEditorForm
+                  onContentUpdate={(value) => onChangeField('content', value)}
+                  updateRichTextMedia={(newRichTextMediaId) =>
+                    onChangeField('richTextMediaId', newRichTextMediaId)
+                  }
+                  richTextRef={richTextRef}
+                />
+              </GridItem>
+            </GridContainer>
+          </GridItem>
+        </GridContainer>
       </CardBody>
       <CardFooter>
         <ActionButtonsContainer primaryButton={primaryButton} />

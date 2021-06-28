@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import CardHeader from 'components/card/CardHeader';
@@ -7,11 +7,14 @@ import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import AddProjectForm from './AddProjectForm';
 import { RoutesPaths } from 'constants/routesPath';
+import countryList from 'react-select-country-list';
 
 const AddProject = () => {
   const [user, setUser] = useState({});
   const history = useHistory();
   const { t } = useTranslation();
+  const richTextRef = useRef(null);
+  const [countries] = useState(countryList().getData());
 
   const handleCreateProject = () => {
     history.push(RoutesPaths.Admin.AddProjectServiceForm);
@@ -29,6 +32,8 @@ const AddProject = () => {
         </CardHeader>
         <AddProjectForm
           user={user}
+          options={countries}
+          richTextRef={richTextRef}
           setUser={setUser}
           viewOnly
           primaryButton={{
