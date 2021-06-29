@@ -202,8 +202,8 @@ const ConsultantAdvancedRegistrationForm = () => {
         experiences: !!updatedFields.experiences
           ? [...updatedFields.experiences, ...deletedExperiences]
           : deletedExperiences,
-        projects: !!updatedFields.projects
-          ? [...updatedFields.projects, ...deletedProjects]
+        prevProjects: !!updatedFields.prevProjects
+          ? [...updatedFields.prevProjects, ...deletedProjects]
           : deletedExperiences,
       };
       setActiveStep(activeStep + 1);

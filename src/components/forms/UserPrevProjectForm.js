@@ -5,9 +5,9 @@ import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
 import { updateProfile } from '../../apis/userAPI';
 import { updateUser } from '../../pages/auth/context/authActions';
 import { useAuth } from '../../pages/auth/context/auth';
-import Project from './Project';
+import UserPrevProject from './UserPrevProject';
 
-const ProjectForm = ({ user, closeDialog }) => {
+const UserPrevProjectForm = ({ user, closeDialog }) => {
   const formMethods = useForm({
     defaultValues: { ...user.current },
   });
@@ -19,8 +19,8 @@ const ProjectForm = ({ user, closeDialog }) => {
     const userToBeSubmitted = {
       ...userData,
       id: user.current.id,
-      projects: !!userData.projects
-        ? [...userData.projects, ...deletedProjects]
+      prevProjects: !!userData.prevProjects
+        ? [...userData.prevProjects, ...deletedProjects]
         : deletedProjects,
     };
     updateProfile(userToBeSubmitted, user.current.id)
@@ -31,7 +31,7 @@ const ProjectForm = ({ user, closeDialog }) => {
       });
     user.current = {
       ...user.current,
-      projects: [],
+      prevProjects: [],
       ...userData,
     };
     closeDialog();
@@ -47,7 +47,7 @@ const ProjectForm = ({ user, closeDialog }) => {
         className={classes.nestedForm}
         noValidate
         onSubmit={formMethods.handleSubmit(onSubmitResume)}>
-        <Project />
+        <UserPrevProject />
         <Button
           id='saveResume'
           type='submit'
@@ -61,4 +61,4 @@ const ProjectForm = ({ user, closeDialog }) => {
   );
 };
 
-export default ProjectForm;
+export default UserPrevProjectForm;

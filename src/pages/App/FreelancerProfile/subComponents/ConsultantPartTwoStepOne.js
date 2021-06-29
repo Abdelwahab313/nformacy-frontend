@@ -5,7 +5,7 @@ import { useStyles } from 'styles/formsStyles';
 import Paper from '@material-ui/core/Paper';
 import CV from 'components/forms/CV';
 import WorkExperience from 'components/forms/WorkExperience';
-import Project from 'components/forms/Project';
+import UserPrevProject from 'components/forms/UserPrevProject';
 
 const ConsultantPartTwoStepOne = () => {
   const classes = useStyles();
@@ -32,7 +32,7 @@ const ConsultantPartTwoStepOne = () => {
               <WorkExperience />
             </Paper>
             <Paper className={classes.paperSection} elevation={5}>
-              <Project />
+              <UserPrevProject />
             </Paper>
           </Grid>
         </Grow>

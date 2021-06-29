@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import authManager from 'services/authManager';
 import ClientProfileContainer from './profileSections/ClientProfile/ClientProfileContainer';
 import CorporateProfileContainer from './profileSections/CorporateProfile/CorporateProfileContainer';
-import ProjectSection from './profileSections/ProjectSection';
+import UserPrevProjectSection from './profileSections/UserPrevProjectSection';
 
 const Profile = () => {
   const classes = useStyles();
@@ -54,7 +54,7 @@ const Profile = () => {
                 <FieldsOfSpecializationSection />
                 <WorkExperienceSection />
                 <EducationAndCertificationSection />
-                <ProjectSection />
+                <UserPrevProjectSection />
               </Fragment>
             </Fragment>
           )}
