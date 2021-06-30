@@ -20,9 +20,9 @@ const projectManagers = [
   { value: 'ahmedAli', label: 'Ahmed Ali' },
 ];
 const frequency = [
+  { value: 'day', label: 'Day' },
+  { value: 'week', label: 'Week' },
   { value: 'month', label: 'Month' },
-  { value: 'twoMonth', label: 'Two Month' },
-  { value: 'sixMonths', label: 'Six Months' },
   { value: 'year', label: 'Year' },
 ];
 

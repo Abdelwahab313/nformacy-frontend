@@ -8,28 +8,21 @@ import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
 import CardFooter from 'components/card/CardFooter';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
-import { Checkbox, InputLabel, Typography } from '@material-ui/core';
+import { InputLabel, Typography } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import ReactSelectMaterialUi from 'react-select-material-ui';
-import { selectCheckBox, selectStyle } from 'styles/formsStyles';
+import { selectStyle } from 'styles/formsStyles';
 import moment from 'moment';
 import { projectManagers } from 'constants/dropDownOptions';
 import RichTextEditorForm from 'components/forms/RichTextEditorForm';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import Direction from 'components/grid/Direction';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-
-const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
-const checkedIcon = <CheckBoxIcon fontSize='small' />;
+import AutoCompleteSelectField from 'components/inputs/AutoCompleteSelectField';
 
 const AddProjectForm = ({
   primaryButton,
-  user,
-  setUser,
+  project,
+  setProject,
   richTextRef,
   options,
-  ...props
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -40,7 +33,7 @@ const AddProjectForm = ({
     endTime: '',
   });
   const onChangeField = (name, checked) => {
-    setUser((prevData) => ({ ...prevData, [name]: checked }));
+    setProject((prevData) => ({ ...prevData, [name]: checked }));
   };
 
   const updateTime = (name, date) => {
@@ -76,7 +69,7 @@ const AddProjectForm = ({
               id='title'
               name='title'
               fullWidth
-              value={user.title}
+              value={project.title}
               onChange={(e) => {
                 onChangeField('title', e.target.value);
               }}
@@ -141,39 +134,23 @@ const AddProjectForm = ({
         <GridContainer className={classes.inputsRow}>
           <GridItem xs={12} sm={12} md={6}>
             <FormControl fullWidth id='country-select'>
-              <Autocomplete
-                onChange={() => {}}
-                multiple
-                options={options || []}
-                disableCloseOnSelect
-                getOptionLabel={(option) => option.label}
-                getOptionSelected={(option, value) => {
-                  return option.id === value.id;
+              <AutoCompleteSelectField
+                id='countrySelect'
+                name='countries'
+                inputLabel={t('selectCountry')}
+                options={options}
+                value={project.countries}
+                getOptionSelected={(option, selectedValue) => {
+                  return option.value === selectedValue.value;
                 }}
-                renderOption={(option, { selected }) => (
-                  <Direction>
-                    <Checkbox
-                      icon={icon}
-                      color='primary'
-                      checkedIcon={checkedIcon}
-                      style={selectCheckBox}
-                      checked={selected}
-                    />
-                    {option.label}
-                  </Direction>
-                )}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    variant='outlined'
-                    label={'Select Country'}
-                  />
-                )}
-                {...props}
+                onChange={(newValue) => {
+                  onChangeField('countries', newValue);
+                }}
+                multiple
               />
-              
             </FormControl>
           </GridItem>
+
           <GridItem
             xs={12}
             sm={12}
@@ -193,7 +170,7 @@ const AddProjectForm = ({
         </GridContainer>
 
         <FieldsSelect
-          initialFields={user.fields}
+          initialFields={project.fields}
           updateFields={(newOptions) => {
             onChangeField('fields', newOptions);
           }}>

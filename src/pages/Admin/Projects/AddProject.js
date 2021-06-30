@@ -10,7 +10,7 @@ import { RoutesPaths } from 'constants/routesPath';
 import countryList from 'react-select-country-list';
 
 const AddProject = () => {
-  const [user, setUser] = useState({});
+  const [project, setProject] = useState({});
   const history = useHistory();
   const { t } = useTranslation();
   const richTextRef = useRef(null);
@@ -31,10 +31,10 @@ const AddProject = () => {
           </Grid>
         </CardHeader>
         <AddProjectForm
-          user={user}
+          project={project}
           options={countries}
           richTextRef={richTextRef}
-          setUser={setUser}
+          setProject={setProject}
           viewOnly
           primaryButton={{
             id: 'createAdviserButton',

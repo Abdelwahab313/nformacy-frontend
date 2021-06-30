@@ -5,8 +5,12 @@ import CardBody from 'components/card/CardBody';
 import { useStyles } from 'styles/Admin/questionFormStyles';
 import TextField from '@material-ui/core/TextField';
 import CardFooter from 'components/card/CardFooter';
-import { Checkbox, Grid, Typography } from '@material-ui/core';
-import CustomTypography from 'components/typography/Typography';
+import {
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  Typography,
+} from '@material-ui/core';
 import CardHeader from 'components/card/CardHeader';
 import { useTranslation } from 'react-i18next';
 import FormControl from '@material-ui/core/FormControl';
@@ -41,18 +45,15 @@ const AddProjectServiceForm = () => {
       </GridContainer>
       <CardBody>
         <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={3}>
-            <CustomTypography variant={'body1'}>
-              {'Ask the Expert'}
-            </CustomTypography>
-          </GridItem>
-          <GridItem xs={12} sm={3}>
-            <Checkbox
-              color='primary'
-              inputProps={{ 'aria-label': 'secondary checkbox' }}
+          <GridItem xs={12} sm={4}>
+            <FormControlLabel
+              value='start'
+              control={<Checkbox color='primary' />}
+              label={t('askTheExpert')}
+              labelPlacement='end'
             />
           </GridItem>
-          <GridItem xs={12} sm={3}>
+          <GridItem xs={12} sm={4}>
             <TextField
               id='standard-number'
               label='Amount'
@@ -63,7 +64,7 @@ const AddProjectServiceForm = () => {
               variant='outlined'
             />
           </GridItem>
-          <GridItem xs={12} sm={3}>
+          <GridItem xs={12} sm={4}>
             <FormControl fullWidth id='country-select'>
               <ReactSelectMaterialUi
                 fullWidth={true}
@@ -76,19 +77,17 @@ const AddProjectServiceForm = () => {
             </FormControl>
           </GridItem>
         </GridContainer>
+
         <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={3}>
-            <CustomTypography variant={'body1'}>
-              {'Call the Expert'}
-            </CustomTypography>
-          </GridItem>
-          <GridItem xs={12} sm={3}>
-            <Checkbox
-              color='primary'
-              inputProps={{ 'aria-label': 'secondary checkbox' }}
+          <GridItem xs={12} sm={4}>
+            <FormControlLabel
+              value='start'
+              control={<Checkbox color='primary' />}
+              label={t('callTheExpert')}
+              labelPlacement='end'
             />
           </GridItem>
-          <GridItem xs={12} sm={3}>
+          <GridItem xs={12} sm={4}>
             <TextField
               id='standard-number'
               label='Amount'
@@ -99,7 +98,7 @@ const AddProjectServiceForm = () => {
               variant='outlined'
             />
           </GridItem>
-          <GridItem xs={12} sm={3}>
+          <GridItem xs={12} sm={4}>
             <FormControl fullWidth id='country-select'>
               <ReactSelectMaterialUi
                 fullWidth={true}
@@ -112,19 +111,17 @@ const AddProjectServiceForm = () => {
             </FormControl>
           </GridItem>
         </GridContainer>
+
         <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={3}>
-            <CustomTypography variant={'body1'}>
-              {'Mentoring the Expert'}
-            </CustomTypography>
-          </GridItem>
-          <GridItem xs={12} sm={3}>
-            <Checkbox
-              color='primary'
-              inputProps={{ 'aria-label': 'secondary checkbox' }}
+          <GridItem xs={12} sm={4}>
+            <FormControlLabel
+              value='start'
+              control={<Checkbox color='primary' />}
+              label={t('mentoringTheExpert')}
+              labelPlacement='end'
             />
           </GridItem>
-          <GridItem xs={12} sm={3}>
+          <GridItem xs={12} sm={4}>
             <TextField
               id='standard-number'
               label='Amount'
@@ -135,7 +132,7 @@ const AddProjectServiceForm = () => {
               variant='outlined'
             />
           </GridItem>
-          <GridItem xs={12} sm={3}>
+          <GridItem xs={12} sm={4}>
             <FormControl fullWidth id='country-select'>
               <ReactSelectMaterialUi
                 fullWidth={true}
@@ -148,19 +145,17 @@ const AddProjectServiceForm = () => {
             </FormControl>
           </GridItem>
         </GridContainer>
+
         <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={3}>
-            <CustomTypography variant={'body1'}>
-              {'Hire the Expert'}
-            </CustomTypography>
-          </GridItem>
-          <GridItem xs={12} sm={3}>
-            <Checkbox
-              color='primary'
-              inputProps={{ 'aria-label': 'secondary checkbox' }}
+          <GridItem xs={12} sm={4}>
+            <FormControlLabel
+              value='start'
+              control={<Checkbox color='primary' />}
+              label={t('hireTheExpert')}
+              labelPlacement='end'
             />
           </GridItem>
-          <GridItem xs={12} sm={3}>
+          <GridItem xs={12} sm={4}>
             <TextField
               id='standard-number'
               label='Amount'
@@ -171,7 +166,7 @@ const AddProjectServiceForm = () => {
               variant='outlined'
             />
           </GridItem>
-          <GridItem xs={12} sm={3}>
+          <GridItem xs={12} sm={4}>
             <FormControl fullWidth id='country-select'>
               <ReactSelectMaterialUi
                 fullWidth={true}

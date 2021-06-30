@@ -596,5 +596,7 @@
   "evaluations": "Evaluations",
   "beneficiaryId": "Beneficiary ID",
   "beneficiariesName": "Beneficiary Name",
-  "assignedConsultant": "Assigned Consultant"
+  "assignedConsultant": "Assigned Consultant",
+  "mentoringTheExpert": "Mentoring The Expert",
+  "hireTheExpert": "Hire The Expert"
 }
