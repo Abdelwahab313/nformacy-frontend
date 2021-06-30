@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import CardHeader from 'components/card/CardHeader';
@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import AddProjectForm from './AddProjectForm';
 import { RoutesPaths } from 'constants/routesPath';
 import countryList from 'react-select-country-list';
+import moment from 'moment';
 
 const AddProject = () => {
   const [project, setProject] = useState({});
@@ -19,7 +20,15 @@ const AddProject = () => {
   const handleCreateProject = () => {
     history.push(RoutesPaths.Admin.AddProjectServiceForm);
   };
-
+  const defaultTimeZone = useMemo(
+    () => Intl.DateTimeFormat().resolvedOptions().timeZone,
+    [],
+  );
+  const [initialRange] = useState({
+    timeZone: defaultTimeZone,
+    startDate: moment(),
+    endDate: moment(),
+  });
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
@@ -35,6 +44,7 @@ const AddProject = () => {
           options={countries}
           richTextRef={richTextRef}
           setProject={setProject}
+          initialRange={initialRange}
           viewOnly
           primaryButton={{
             id: 'createAdviserButton',

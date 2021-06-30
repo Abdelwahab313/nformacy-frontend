@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import FieldsSelect from 'components/inputs/FieldsSelect/FieldsSelect';
@@ -8,14 +8,18 @@ import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
 import CardFooter from 'components/card/CardFooter';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
-import { InputLabel, Typography } from '@material-ui/core';
+import { InputLabel } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import ReactSelectMaterialUi from 'react-select-material-ui';
 import { selectStyle } from 'styles/formsStyles';
-import moment from 'moment';
 import { projectManagers } from 'constants/dropDownOptions';
 import RichTextEditorForm from 'components/forms/RichTextEditorForm';
 import AutoCompleteSelectField from 'components/inputs/AutoCompleteSelectField';
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 const AddProjectForm = ({
   primaryButton,
@@ -23,12 +27,14 @@ const AddProjectForm = ({
   setProject,
   richTextRef,
   options,
+  initialRange,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const [errors, setErrors] = useState({ endTime: '' });
 
   const [selectedRange, setSelectedRange] = useState({
+    startDate: '',
+    endDate: '',
     startTime: '',
     endTime: '',
   });
@@ -43,17 +49,10 @@ const AddProjectForm = ({
     }));
   };
 
-  const handleEndTime = (newEndDate) => {
-    setErrors({ endTime: '' });
-    const isValidEndTime = moment(selectedRange.startTime).isBefore(
-      moment(newEndDate),
-    );
-    if (isValidEndTime) {
-      updateTime('endTime', newEndDate);
-    } else {
-      setErrors({ endTime: 'End time should be after start time' });
-    }
-  };
+  useEffect(() => {
+    setSelectedRange(initialRange);
+  }, [initialRange.startDate]);
+
   return (
     <Fragment>
       <CardBody>
@@ -76,61 +75,54 @@ const AddProjectForm = ({
               variant='outlined'
             />
           </GridItem>
-          <GridItem xs={12} sm={12} md={6}>
-            <GridContainer spacing={2}>
-              <GridItem className={classes.durationLabel} xs={4}>
+          <GridItem xs={12} md={6}>
+            <GridContainer>
+              <GridItem className={classes.durationLabel} xs={3}>
                 {t('duration')}
               </GridItem>
-              <GridItem xs={12} sm={4} className={classes.projectFormFields}>
-                <form className={classes.container}>
-                  <TextField
-                    id='start-time-range-picker'
-                    label='From'
-                    type='time'
-                    value={moment(selectedRange?.startTime).format('HH:mm')}
-                    className={classes.textField}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    inputProps={{
-                      step: 300,
-                    }}
-                    onChange={(e) => {
-                      const time = new moment(e.target.value, 'HH:mm');
-                      updateTime('startTime', time);
-                    }}
-                  />
-                </form>
-              </GridItem>
-              <GridItem xs={12} sm={4}>
-                <form className={classes.container}>
-                  <TextField
-                    id='end-time-range-picker'
-                    label='To'
-                    type='time'
-                    value={moment(selectedRange?.endTime).format('HH:mm')}
-                    className={classes.textField}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    inputProps={{
-                      step: 300,
-                    }}
-                    onChange={(e) => {
-                      const time = new moment(e.target.value, 'HH:mm');
-                      handleEndTime(time);
-                    }}
-                  />
-                </form>
-                {!!errors.endTime && (
-                  <Typography variant={'body2'} className={classes.redFont}>
-                    {errors.endTime}
-                  </Typography>
-                )}
+              <GridItem xs={9} className={classes.projectFormFields}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <GridContainer>
+                    <GridItem xs={12} sm={6}>
+                      <KeyboardDatePicker
+                        disableToolbar
+                        autoOk
+                        variant='inline'
+                        format='dd/MM/yyyy'
+                        margin='normal'
+                        id='start-date-range-picker'
+                        label={t['startDate']}
+                        value={selectedRange.startDate}
+                        onChange={(date) => updateTime('startDate', date)}
+                        KeyboardButtonProps={{
+                          'aria-label': 'change date',
+                        }}
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={6}>
+                      <KeyboardDatePicker
+                        disableToolbar
+                        autoOk
+                        variant='inline'
+                        format='dd/MM/yyyy'
+                        margin='normal'
+                        id='end-date-range-picker'
+                        label={t['endDate']}
+                        value={selectedRange.endDate}
+                        onChange={(date) => updateTime('endDate', date)}
+                        minDate={selectedRange.startDate}
+                        KeyboardButtonProps={{
+                          'aria-label': 'change date',
+                        }}
+                      />
+                    </GridItem>
+                  </GridContainer>
+                </MuiPickersUtilsProvider>
               </GridItem>
             </GridContainer>
           </GridItem>
         </GridContainer>
+
         <GridContainer className={classes.inputsRow}>
           <GridItem xs={12} sm={12} md={6}>
             <FormControl fullWidth id='country-select'>
