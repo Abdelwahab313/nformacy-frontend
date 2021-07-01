@@ -23,17 +23,74 @@ export const fetchProjects = () => {
     resolve({ data: projects });
   });
 };
+export const fetchConsultantsList = () => {
+  const projects = [
+    {
+      firstName: 'Ahmed',
+      lastName: 'Mohamed',
+      fields: [
+        {
+          id: 1,
+          majorFieldId: 1,
+          createdAt: '2021-05-06T16:03:27.130Z',
+          updatedAt: '2021-05-06T16:03:27.189Z',
+          label: 'Audit',
+        },
+      ],
+      country: 'US',
+      checked: true,
+    },
+    {
+      firstName: 'Abdelwahab',
+      lastName: 'Mahmoud',
+      fields: [
+        {
+          id: 1,
+          majorFieldId: 1,
+          createdAt: '2021-05-06T16:03:27.130Z',
+          updatedAt: '2021-05-06T16:03:27.189Z',
+          label: 'Audit',
+        },
+      ],
+      country: 'US',
+      checked: false,
+    },
+  ];
+  return new Promise((resolve) => {
+    resolve({ data: projects });
+  });
+};
 export const fetchProjectConsultants = () => {
   const consultants = [
     {
       consultantRef: 1,
       firstName: 'ahmed',
       lastName: 'mohamed',
+      fields: [
+        {
+          id: 1,
+          majorFieldId: 1,
+          createdAt: '2021-05-06T16:03:27.130Z',
+          updatedAt: '2021-05-06T16:03:27.189Z',
+          label: 'Audit',
+        },
+      ],
+      numberOfProjects: 3,
     },
     {
       consultantRef: 2,
       firstName: 'ali',
       lastName: 'mstafa',
+      fields: [
+        {
+          id: 2,
+          majorFieldId: 1,
+          createdAt: '2021-05-06T16:03:27.130Z',
+          updatedAt: '2021-05-06T16:03:27.189Z',
+          label: 'Audit',
+        },
+      ],
+      numberOfProjects: 1,
     },
   ];
   return new Promise((resolve) => {

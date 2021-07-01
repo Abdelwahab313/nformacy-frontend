@@ -11,7 +11,7 @@ import { fetchProjects } from 'apis/projectsAPI';
 import SubmitButton from 'components/buttons/SubmitButton';
 import AddIcon from '@material-ui/icons/Add';
 import { useTranslation } from 'react-i18next';
-import { useStyles } from 'styles/Admin/postQuestionStyles';
+import { useStyles } from 'styles/Admin/postProjectStyles';
 import { useHistory } from 'react-router';
 import { RoutesPaths } from 'constants/routesPath';
 
@@ -34,14 +34,14 @@ const ProjectsList = () => {
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <SubmitButton
-          id='postQuestionButton'
-          className={classes.postQuestionButton}
+          id='postProjectButton'
+          className={classes.postProjectButton}
           buttonText={t('createNewProject')}
           startIcon={<AddIcon />}
           onClick={navigateToPostProject}
         />
         <Card plain>
-          <CardBody id='questionsList'>
+          <CardBody id='projectsList'>
             <ProjectsTable projects={projects} />
           </CardBody>
         </Card>

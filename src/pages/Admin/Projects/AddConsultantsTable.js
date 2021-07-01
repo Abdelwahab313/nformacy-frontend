@@ -5,8 +5,19 @@ import Grid from '@material-ui/core/Grid';
 import { useStyles } from 'styles/Admin/questionTableStyles';
 import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
-import LinkText from 'components/typography/LinkText';
 import FieldsChips from 'components/chips/FieldsChips';
+import { getConsultantLevel, getUserCountryLabel } from 'core/user';
+import Checkbox from '@material-ui/core/Checkbox';
+
+export const getProjectState = (user) => {
+  const stateStrings = {
+    1: 'Registration',
+    2: 'full profile',
+    3: 'interview',
+  };
+  const level = getConsultantLevel(user);
+  return stateStrings[level] || 'Active';
+};
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -16,16 +27,6 @@ const getColumnsOptions = (classes, t) => {
   };
 
   const columns = [
-    {
-      name: 'consultantRef',
-      label: t('consultantRef'),
-      options: {
-        ...defaultColumnOption,
-        display: true,
-        filter: false,
-        sort: false,
-      },
-    },
     {
       name: 'firstName',
       label: t('firstName'),
@@ -44,22 +45,29 @@ const getColumnsOptions = (classes, t) => {
         sort: true,
       },
     },
+
     {
       name: 'fields',
       label: t('fieldsAssigned'),
       options: {
         ...defaultColumnOption,
-        filter: false,
-        sort: true,
+        filter: true,
       },
     },
     {
-      name: 'numberOfProjects',
-      label: t('numberOfProjects'),
+      name: 'country',
+      label: t('location'),
       options: {
         ...defaultColumnOption,
-        filter: false,
-        sort: true,
+        filter: true,
+      },
+    },
+    {
+      name: 'checked',
+      label: t('checked'),
+      options: {
+        ...defaultColumnOption,
+        filter: true,
       },
     },
   ];
@@ -67,21 +75,26 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const parseConsultantsTableData = (consultants) => {
-  return consultants?.map((consultant) => ({
-    ...consultant,
-    consultantRef: (
-      <LinkText to={() => {}}>{consultant.consultantRef}</LinkText>
+const parseProjectsTableData = (projects) => {
+  return projects?.map((project) => ({
+    ...project,
+    state: getProjectState(project),
+    country: getUserCountryLabel(project.country),
+    fields: <FieldsChips fields={project.fields} />,
+    checked: (
+      <Checkbox
+        color='primary'
+        inputProps={{ 'aria-label': 'secondary checkbox' }}
+      />
     ),
-    fields: <FieldsChips fields={consultant.fields} />,
   }));
 };
 
-const ProjectConsultantsTable = ({ consultants }) => {
+const AddConsultantsTable = ({ projects }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
-  const consultantsRows = parseConsultantsTableData(consultants);
+  const projectsRows = parseProjectsTableData(projects);
   const tableOptions = {
     filterType: 'checkbox',
     selectableRows: 'none',
@@ -98,11 +111,11 @@ const ProjectConsultantsTable = ({ consultants }) => {
   return (
     <MUIDataTable
       title={t('consultantsList')}
-      data={!!consultantsRows ? consultantsRows : []}
+      data={!!projectsRows ? projectsRows : []}
       columns={columns}
       options={tableOptions}
     />
   );
 };
 
-export default ProjectConsultantsTable;
+export default AddConsultantsTable;
