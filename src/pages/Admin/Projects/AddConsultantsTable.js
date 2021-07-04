@@ -9,7 +9,7 @@ import FieldsChips from 'components/chips/FieldsChips';
 import { getConsultantLevel, getUserCountryLabel } from 'core/user';
 import Checkbox from '@material-ui/core/Checkbox';
 
-export const getProjectState = (user) => {
+export const getConsultantState = (user) => {
   const stateStrings = {
     1: 'Registration',
     2: 'full profile',
@@ -27,6 +27,14 @@ const getColumnsOptions = (classes, t) => {
   };
 
   const columns = [
+    {
+      name: 'checked',
+      label: t('checked'),
+      options: {
+        ...defaultColumnOption,
+        filter: true,
+      },
+    },
     {
       name: 'firstName',
       label: t('firstName'),
@@ -62,25 +70,17 @@ const getColumnsOptions = (classes, t) => {
         filter: true,
       },
     },
-    {
-      name: 'checked',
-      label: t('checked'),
-      options: {
-        ...defaultColumnOption,
-        filter: true,
-      },
-    },
   ];
 
   return columns;
 };
 
-const parseProjectsTableData = (projects) => {
-  return projects?.map((project) => ({
-    ...project,
-    state: getProjectState(project),
-    country: getUserCountryLabel(project.country),
-    fields: <FieldsChips fields={project.fields} />,
+const parseConsultantsTableData = (consultants) => {
+  return consultants?.map((consultant) => ({
+    ...consultant,
+    state: getConsultantState(consultant),
+    country: getUserCountryLabel(consultant.country),
+    fields: <FieldsChips fields={consultant.fields} />,
     checked: (
       <Checkbox
         color='primary'
@@ -90,11 +90,11 @@ const parseProjectsTableData = (projects) => {
   }));
 };
 
-const AddConsultantsTable = ({ projects }) => {
+const AddConsultantsTable = ({ consultants }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
-  const projectsRows = parseProjectsTableData(projects);
+  const consultantsRows = parseConsultantsTableData(consultants);
   const tableOptions = {
     filterType: 'checkbox',
     selectableRows: 'none',
@@ -111,7 +111,7 @@ const AddConsultantsTable = ({ projects }) => {
   return (
     <MUIDataTable
       title={t('consultantsList')}
-      data={!!projectsRows ? projectsRows : []}
+      data={!!consultantsRows ? consultantsRows : []}
       columns={columns}
       options={tableOptions}
     />

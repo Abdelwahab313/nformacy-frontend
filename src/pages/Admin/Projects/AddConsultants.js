@@ -5,10 +5,15 @@ import AddConsultantsTable from './AddConsultantsTable';
 import { fetchConsultantsList } from 'apis/projectsAPI';
 import useFetchData from 'hooks/useFetchData';
 import LoadingCircle from 'components/progress/LoadingCircle';
+import SubmitButton from 'components/buttons/SubmitButton';
+import { useStyles } from 'styles/Admin/postProjectStyles';
+import { useTranslation } from 'react-i18next';
 
 const AddConsultants = () => {
+  const classes = useStyles();
+  const { t } = useTranslation();
 
-  const { fetchedData: projects, isLoading } = useFetchData(() => {
+  const { fetchedData: consultants, isLoading } = useFetchData(() => {
     return fetchConsultantsList();
   });
 
@@ -18,14 +23,15 @@ const AddConsultants = () => {
 
   return (
     <GridContainer>
-      <GridItem xs={12} sm={12} md={12}>
-        <AddConsultantsTable
-          projects={projects}
-          primaryButton={{
-            id: 'createAdviserButton',
-            onClick: () => {},
-            buttonText: 'Add Consultants',
-          }}
+      <GridItem xs={12}>
+        <AddConsultantsTable consultants={consultants} />
+      </GridItem>
+      <GridItem xs={12}>
+        <SubmitButton
+          id='postProjectButton'
+          className={classes.addNewConsultantBtn}
+          buttonText={t('createNewConsultant')}
+          onClick={() => {}}
         />
       </GridItem>
     </GridContainer>

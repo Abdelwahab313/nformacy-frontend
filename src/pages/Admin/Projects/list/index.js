@@ -32,7 +32,7 @@ const ProjectsList = () => {
 
   return (
     <GridContainer>
-      <GridItem xs={12} sm={12} md={12}>
+      <GridItem xs={12}>
         <SubmitButton
           id='postProjectButton'
           className={classes.postProjectButton}

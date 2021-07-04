@@ -600,5 +600,7 @@
   "mentoringTheExpert": "Mentoring The Expert",
   "hireTheExpert": "Hire The Expert",
   "numberOfProjects": "Number of Projects",
-  "addConsultants": "Add Consultants"
+  "addConsultants": "Add Consultants",
+  "checked": "Checked",
+  "createNewConsultant": "Create New Consultant"
 }
