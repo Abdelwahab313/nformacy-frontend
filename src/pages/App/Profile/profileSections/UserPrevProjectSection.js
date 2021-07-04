@@ -18,13 +18,13 @@ import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
 import TimelineDot from '@material-ui/lab/TimelineDot';
 import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
-import ProjectForm from 'components/forms/ProjectForm.js';
+import UserPrevProjectForm from 'components/forms/UserPrevProjectForm.js';
 import { flatMap } from 'lodash';
 import useUserFieldsFetcher from 'hooks/useUserFieldsFetcher.js';
 import moment from 'moment';
 import ProjectFieldsChips from 'components/chips/ProjectFieldsChips';
 
-const ProjectSection = () => {
+const UserPrevProjectSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
   const [resume, setResume] = useState([]);
   const [open, setOpen] = useState(false);
@@ -43,7 +43,7 @@ const ProjectSection = () => {
   };
   const mergeHistory = () => {
     const history = [];
-    user.current.projects.forEach((project) => {
+    user.current.prevProjects.forEach((project) => {
       const historyEntry = {
         type: 'project',
         ...project,
@@ -106,7 +106,7 @@ const ProjectSection = () => {
         open={open}>
         <DialogContent>
           <Grid container>
-            <ProjectForm user={user}
+            <UserPrevProjectForm user={user}
               fields={flatMap(currentUserFields)}
               updateFields={() => updateUserFields()}
               closeDialog={handleClose} />
@@ -140,4 +140,4 @@ const ProjectSection = () => {
   );
 };
 
-export default ProjectSection;
+export default UserPrevProjectSection;

@@ -19,7 +19,7 @@ import FieldsSelect from 'components/inputs/FieldsSelect/FieldsSelect';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
-const Project = () => {
+const UserPrevProject = () => {
   const {
     control,
     user,
@@ -31,7 +31,7 @@ const Project = () => {
   const classes = useStyles();
   const projectForm = useFieldArray({
     control,
-    name: 'projects',
+    name: 'prevProjects',
   });
   return (
     <Container className={classes.nestedContainer}>
@@ -48,11 +48,11 @@ const Project = () => {
           <Card key={item.id} className={classes.nestedCardContainer}>
             <ReactTooltip globalEventOff={'click'} />
             <CardContent>
-              {!!user.current.projects[index] && (
+              {!!user.current.prevProjects[index] && (
                 <Input
                   label={'id'}
                   type='hidden'
-                  name={`projects[${index}][id]`}
+                  name={`prevProjects[${index}][id]`}
                   defaultValue={item.id}
                   inputRef={register()}
                 />
@@ -63,7 +63,7 @@ const Project = () => {
                   id={`projects-title-${index}`}
                   label={t['title']}
                   variant='outlined'
-                  name={`projects[${index}].title`}
+                  name={`prevProjects[${index}].title`}
                   defaultValue={item.title}
                   InputProps={{
                     classes: {
@@ -73,7 +73,7 @@ const Project = () => {
                   inputRef={register({ required: t['requiredMessage'] })}
                 />
                 <ErrorMessage
-                  errorField={errors.projects && errors.projects[index]?.title}
+                  errorField={errors.prevProjects && errors.prevProjects[index]?.title}
                 />
               </Container>
 
@@ -82,12 +82,12 @@ const Project = () => {
                 initialMajorFields={item.majorFieldIds}
                 updateMajorFields={(updatedMajorFields) => {
                   setValue(
-                    `projects[${index}].majorFields`,
+                    `prevProjects[${index}].majorFields`,
                     updatedMajorFields,
                   );
                 }}
                 updateFields={(updatedFields) => {
-                  setValue(`projects[${index}].fields`, updatedFields);
+                  setValue(`prevProjects[${index}].fields`, updatedFields);
                 }}>
                 {({ MajorField, Field }) => (
                   <Fragment>
@@ -116,11 +116,11 @@ const Project = () => {
                         as={({ field }) => (
                           <MajorField
                             id={`projects-majorFields-${index}`}
-                            name={`projects[${index}].majorFields`}
+                            name={`prevProjects[${index}].majorFields`}
                             {...field}
                           />
                         )}
-                        name={`projects[${index}].majorFields`}
+                        name={`prevProjects[${index}].majorFields`}
                         control={control}
                         defaultValue={item.majorFields} // make sure to set up defaultValue
                       />
@@ -153,11 +153,11 @@ const Project = () => {
                         as={({ field }) => (
                           <Field
                             id={`projects-fields-${index}`}
-                            name={`projects[${index}].fields`}
+                            name={`prevProjects[${index}].fields`}
                             {...field}
                           />
                         )}
-                        name={`projects[${index}].fields`}
+                        name={`prevProjects[${index}].fields`}
                         control={control}
                         defaultValue={item.fields} // make sure to set up defaultValue
                       />
@@ -173,7 +173,7 @@ const Project = () => {
                   id={`projects-role-${index}`}
                   label={t['jobRole']}
                   variant='outlined'
-                  name={`projects[${index}].jobRole`}
+                  name={`prevProjects[${index}].jobRole`}
                   defaultValue={item.jobRole}
                   InputProps={{
                     classes: {
@@ -184,7 +184,7 @@ const Project = () => {
                 />
                 <ErrorMessage
                   errorField={
-                    errors.projects && errors.projects[index]?.jobRole
+                    errors.prevProjects && errors.prevProjects[index]?.jobRole
                   }
                 />
               </Container>
@@ -193,7 +193,7 @@ const Project = () => {
                   <Container maxWidth={false} className={classes.formControl}>
                     <Controller
                       rules={{ required: t['requiredMessage'] }}
-                      name={`projects[${index}].completedAt`}
+                      name={`prevProjects[${index}].completedAt`}
                       control={control}
                       as={
                         <DatePicker
@@ -214,12 +214,12 @@ const Project = () => {
                         />
                       }
                     />
-                    {errors.projects && errors.projects[index]?.completedAt && (
+                    {errors.prevProjects && errors.prevProjects[index]?.completedAt && (
                       <Grid maxWidth={false}>
                         <ErrorMessage
                           errorField={
-                            errors.projects &&
-                            errors.projects[index]?.completedAt
+                            errors.prevProjects &&
+                            errors.prevProjects[index]?.completedAt
                           }
                         />
                       </Grid>
@@ -265,4 +265,4 @@ const Project = () => {
   );
 };
 
-export default Project;
+export default UserPrevProject;
