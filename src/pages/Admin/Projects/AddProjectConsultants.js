@@ -12,7 +12,7 @@ import { Fragment } from 'react';
 import { useHistory } from 'react-router';
 import { RoutesPaths } from 'constants/routesPath';
 
-const AddConsultants = () => {
+const AddProjectConsultants = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const history = useHistory();
@@ -42,7 +42,7 @@ const AddConsultants = () => {
             id='postProjectButton'
             className={classes.addNewConsultantBtn}
             buttonText={t('createNewConsultant')}
-            onClick={() => {}}
+            onClick={() => history.push(RoutesPaths.Admin.AddConsultant)}
           />
         </GridItem>
         <GridItem xs={2}>
@@ -57,4 +57,4 @@ const AddConsultants = () => {
     </Fragment>
   );
 };
-export default AddConsultants;
+export default AddProjectConsultants;
