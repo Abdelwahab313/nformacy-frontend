@@ -2,21 +2,31 @@ import React, { Fragment } from 'react';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import CardBody from 'components/card/CardBody';
-import { useStyles } from 'styles/Admin/questionFormStyles';
-import CardFooter from 'components/card/CardFooter';
 import { Grid, Typography } from '@material-ui/core';
-import CustomTypography from 'components/typography/Typography';
 import CardHeader from 'components/card/CardHeader';
 import { useTranslation } from 'react-i18next';
-import FormControl from '@material-ui/core/FormControl';
-import { selectStyle } from 'styles/formsStyles';
-import { projectManagers } from 'constants/dropDownOptions';
-import SubmitButton from 'components/buttons/SubmitButton';
-import CreatableSelect from 'react-select/creatable';
+import AddConsultantsTable from './AddConsultantsTable';
+import useFetchData from 'hooks/useFetchData';
+import { fetchBeneficiariesList, fetchConsultantsList } from 'apis/projectsAPI';
+import LoadingCircle from 'components/progress/LoadingCircle';
+import AddBeneficiariesTable from './AddBenficiariesTable';
+import { useStyles } from 'styles/Admin/postProjectStyles';
 
 const AddProjectListForm = () => {
-  const classes = useStyles();
   const { t } = useTranslation();
+  const classes = useStyles();
+
+  const { fetchedData: consultants, isLoading } = useFetchData(() => {
+    return fetchConsultantsList();
+  });
+  const { fetchedData: beneficiaries } = useFetchData(() => {
+    return fetchBeneficiariesList();
+  });
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+
   return (
     <Fragment>
       <GridContainer>
@@ -31,52 +41,25 @@ const AddProjectListForm = () => {
         </GridItem>
       </GridContainer>
       <CardBody>
-        <GridContainer className={classes.inputsRow}>
-          <GridItem xs={3}>
-            <CustomTypography variant={'body1'}>
-              {'Consultants List'}
-            </CustomTypography>
-          </GridItem>
-
-          <GridItem xs={9}>
-            <FormControl fullWidth id='country-select'>
-              <CreatableSelect
-                fullWidth={true}
-                placeholder={t('selectConsultants')}
-                SelectProps={{
-                  styles: selectStyle,
-                }}
-                isMulti
-                options={projectManagers}
-              />
-            </FormControl>
-          </GridItem>
-        </GridContainer>
-        <GridContainer className={classes.inputsRow}>
-          <GridItem xs={3}>
-            <CustomTypography variant={'body1'}>
-              {'Benefeciaries List'}
-            </CustomTypography>
-          </GridItem>
-
-          <GridItem xs={9}>
-            <FormControl fullWidth id='country-select'>
-              <CreatableSelect
-                fullWidth={true}
-                placeholder={t('selectBenefeciaries')}
-                SelectProps={{
-                  styles: selectStyle,
-                }}
-                isMulti
-                options={projectManagers}
-              />
-            </FormControl>
-          </GridItem>
-        </GridContainer>
+        <AddConsultantsTable consultants={consultants} />
       </CardBody>
-      <CardFooter className={classes.nextStepBtn}>
-        <SubmitButton onClick={() => {}} buttonText={t('submit')} />
-      </CardFooter>
+
+      <GridContainer className={classes.beneficiariesSection}>
+        <GridItem xs={12} sm={12} md={12}>
+          <CardHeader color='primary'>
+            <Grid container>
+              <Grid item md={6} xs={6}>
+                <Typography component={'h4'}>
+                  {t('beneficiariesList')}
+                </Typography>
+              </Grid>
+            </Grid>
+          </CardHeader>
+        </GridItem>
+      </GridContainer>
+      <CardBody>
+        <AddBeneficiariesTable beneficiaries={beneficiaries} />
+      </CardBody>
     </Fragment>
   );
 };

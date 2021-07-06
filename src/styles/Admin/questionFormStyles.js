@@ -186,4 +186,8 @@ export const useStyles = makeStyles((theme) => ({
       marginBottom: 30,
     },
   },
+  addNewConsultantBtn: {
+    float: 'right',
+    margin: theme.spacing(2),
+  },
 }));

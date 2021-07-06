@@ -602,5 +602,8 @@
   "numberOfProjects": "Number of Projects",
   "addConsultants": "Add Consultants",
   "checked": "Checked",
-  "createNewConsultant": "Create New Consultant"
+  "createNewConsultant": "Create New Consultant",
+  "beneficiariesList": "Beneficiaries List",
+  "createNewBeneficiary": "Create New Beneficiary",
+  "addBeneficiaries": "Add Beneficiaries"
 }

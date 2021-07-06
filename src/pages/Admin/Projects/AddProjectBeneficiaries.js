@@ -1,8 +1,7 @@
 import React from 'react';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
-import AddConsultantsTable from './AddConsultantsTable';
-import { fetchConsultantsList } from 'apis/projectsAPI';
+import { fetchBeneficiariesList } from 'apis/projectsAPI';
 import useFetchData from 'hooks/useFetchData';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { Fragment } from 'react';
@@ -11,14 +10,15 @@ import { useStyles } from 'styles/Admin/postProjectStyles';
 import { useHistory } from 'react-router';
 import SubmitButton from 'components/buttons/SubmitButton';
 import { useTranslation } from 'react-i18next';
+import AddBeneficiariesTable from './AddBenficiariesTable';
 
-const AddProjectConsultants = () => {
+const AddProjectBeneficiaries = () => {
   const classes = useStyles();
   const history = useHistory();
   const { t } = useTranslation();
 
-  const { fetchedData: consultants, isLoading } = useFetchData(() => {
-    return fetchConsultantsList();
+  const { fetchedData: beneficiaries, isLoading } = useFetchData(() => {
+    return fetchBeneficiariesList();
   });
 
   if (isLoading) {
@@ -29,19 +29,19 @@ const AddProjectConsultants = () => {
     <Fragment>
       <GridContainer>
         <GridItem xs={12}>
-          <AddConsultantsTable consultants={consultants} />
+          <AddBeneficiariesTable beneficiaries={beneficiaries} />
         </GridItem>
       </GridContainer>
       <SubmitButton
         id='postProjectButton'
         className={classes.addNewConsultantBtn}
-        buttonText={t('createNewConsultant')}
+        buttonText={t('createNewBeneficiary')}
         onClick={() => history.push(RoutesPaths.Admin.AddConsultant)}
       />
       <SubmitButton
         id='postProjectButton'
         className={classes.addNewConsultantBtn}
-        buttonText={t('addConsultants')}
+        buttonText={t('com')}
         onClick={() => {
           history.push(RoutesPaths.Admin.ProjectConsultants);
         }}
@@ -49,4 +49,4 @@ const AddProjectConsultants = () => {
     </Fragment>
   );
 };
-export default AddProjectConsultants;
+export default AddProjectBeneficiaries;

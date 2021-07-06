@@ -7,5 +7,9 @@ export const useStyles = makeStyles((theme) => ({
   addNewConsultantBtn: {
     float: 'right',
     marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(2),
+  },
+  beneficiariesSection: {
+    marginTop: theme.spacing(3),
   },
 }));

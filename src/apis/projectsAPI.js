@@ -90,6 +90,29 @@ export const fetchConsultantsList = () => {
     resolve({ data: projects });
   });
 };
+export const fetchBeneficiariesList = () => {
+  const beneficiaries = [
+    {
+      firstName: 'Ahmed',
+      lastName: 'Mohamed',
+      fields: [
+        {
+          id: 1,
+          majorFieldId: 1,
+          createdAt: '2021-05-06T16:03:27.130Z',
+          updatedAt: '2021-05-06T16:03:27.189Z',
+          label: 'Audit',
+        },
+      ],
+      country: 'US',
+      checked: true,
+    },
+  ];
+  return new Promise((resolve) => {
+    resolve({ data: beneficiaries });
+  });
+};
+
 export const fetchProjectConsultants = () => {
   const consultants = [
     {
