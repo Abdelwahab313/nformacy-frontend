@@ -9,6 +9,7 @@ import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
 import { getConsultantLevel, getUserCountryLabel } from 'core/user';
 import {
+  getProjectBeneficiariesList,
   getProjectConsultantsList,
   getProjectDetails,
 } from 'services/navigation';
@@ -129,7 +130,7 @@ const parseProjectsTableData = (projects) => {
       </LinkText>
     ),
     beneficiaries: (
-      <LinkText to={getProjectConsultantsList()}>
+      <LinkText to={getProjectBeneficiariesList()}>
         {project.beneficiaries}
       </LinkText>
     ),

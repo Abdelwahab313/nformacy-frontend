@@ -49,6 +49,7 @@ import AddProjectListForm from 'pages/Admin/Projects/AddProjectListForm';
 import ProjectDetails from 'pages/Admin/Projects/ProjectDetails';
 import AddProjectConsultants from 'pages/Admin/Projects/AddProjectConsultants';
 import AddConsultant from 'pages/Admin/Consultants/edit/AddConsultant';
+import ProjectBeneficiariesList from 'pages/Admin/Projects/list/ProjectBeneficiariesList';
 
 const adminRoutes = [
   {
@@ -105,6 +106,13 @@ const adminRoutes = [
     name: 'Consultants',
     icon: Person,
     component: ProjectConsultantsList,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.Admin.ProjectBeneficiaries,
+    name: 'Consultants',
+    icon: Person,
+    component: ProjectBeneficiariesList,
     hasDashboardLink: false,
   },
   {

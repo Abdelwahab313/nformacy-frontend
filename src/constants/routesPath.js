@@ -36,6 +36,7 @@ export const RoutesPaths = {
     AddProjectServiceForm: '/admin/projects/solutionsForm',
     AddProjectListForm: '/admin/projects/projectListForm',
     ProjectConsultants: '/admin/projects/consutantsList',
+    ProjectBeneficiaries: '/admin/projects/beneficiariesList',
     ServiceDetails: '/admin/services/edit',
     Logout: '/admin/logout',
     PostQuestion: '/admin/postQuestion',

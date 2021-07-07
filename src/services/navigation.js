@@ -231,6 +231,11 @@ export const getProjectConsultantsList = () => {
     pathname: RoutesPaths.Admin.ProjectConsultants,
   };
 };
+export const getProjectBeneficiariesList = () => {
+  return {
+    pathname: RoutesPaths.Admin.ProjectBeneficiaries,
+  };
+};
 export const getProjectDetails = () => {
   return {
     pathname: RoutesPaths.Admin.ProjectDetails,
