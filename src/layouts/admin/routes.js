@@ -50,6 +50,8 @@ import ProjectDetails from 'pages/Admin/Projects/ProjectDetails';
 import AddProjectConsultants from 'pages/Admin/Projects/AddProjectConsultants';
 import AddConsultant from 'pages/Admin/Consultants/edit/AddConsultant';
 import ProjectBeneficiariesList from 'pages/Admin/Projects/list/ProjectBeneficiariesList';
+import AddProjectBeneficiaries from 'pages/Admin/Projects/AddProjectBeneficiaries';
+import AddBeneficiary from 'pages/Admin/Beneficiaries/edit/AddBeneficiary';
 
 const adminRoutes = [
   {
@@ -88,10 +90,24 @@ const adminRoutes = [
     hasDashboardLink: false,
   },
   {
+    path: RoutesPaths.Admin.AddBeneficiary,
+    name: 'Add Beneficiary',
+    icon: BusinessCenterIcon,
+    component: AddBeneficiary,
+    hasDashboardLink: false,
+  },
+  {
     path: RoutesPaths.Admin.AddProjectConsultants,
     name: 'Add Consultants',
     icon: BusinessCenterIcon,
     component: AddProjectConsultants,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.Admin.AddProjectBeneficiaries,
+    name: 'Add Consultants',
+    icon: BusinessCenterIcon,
+    component: AddProjectBeneficiaries,
     hasDashboardLink: false,
   },
   {

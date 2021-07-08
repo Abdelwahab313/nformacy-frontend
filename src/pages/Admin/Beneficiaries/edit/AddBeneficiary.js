@@ -7,9 +7,9 @@ import { Typography, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 import { useSnackBar } from 'context/SnackBarContext';
-import AddConsultantForm from './subComponents/AddConsultantForm';
+import AddBeneficiaryForm from './subComponents/AddBeneficiaryForm';
 
-const AddConsultant = () => {
+const AddBeneficiary = () => {
   const { t } = useTranslation();
   const [user, setUser] = useState({});
   const history = useHistory();
@@ -19,19 +19,11 @@ const AddConsultant = () => {
     history.goBack();
   };
 
-  const onSubmitConsultant = () => {
+  const onSubmitBeneficiary = () => {
     showSuccessMessage(
       t('Created Successfully! Email has been sent to the user.'),
     );
     navigateAfterSave();
-
-    // if (!!validate(user)) {
-    //   updateAdmin(adminId, {
-    //     ...user,
-    //   }).then(() => {
-    //     showSuccessMessage(t('adminUpdated'));
-    //   });
-    // }
   };
 
   return (
@@ -42,19 +34,19 @@ const AddConsultant = () => {
             <Grid container>
               <Grid item md={12} xs={12}>
                 <Typography component={'h4'} id={'post-service-page-header'}>
-                  {t('addConsultant')}
+                  {t('addBeneficiary')}
                 </Typography>
               </Grid>
             </Grid>
           </CardHeader>
-          <AddConsultantForm
+          <AddBeneficiaryForm
             user={user}
             setUser={setUser}
             viewOnly
             canEditPassword
             primaryButton={{
               id: 'createAdminButton',
-              onClick: onSubmitConsultant,
+              onClick: onSubmitBeneficiary,
               buttonText: 'Create',
             }}
           />
@@ -64,4 +56,4 @@ const AddConsultant = () => {
   );
 };
 
-export default AddConsultant;
+export default AddBeneficiary;

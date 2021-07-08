@@ -36,14 +36,14 @@ const AddProjectBeneficiaries = () => {
         id='postProjectButton'
         className={classes.addNewConsultantBtn}
         buttonText={t('createNewBeneficiary')}
-        onClick={() => history.push(RoutesPaths.Admin.AddConsultant)}
+        onClick={() => history.push(RoutesPaths.Admin.AddBeneficiary)}
       />
       <SubmitButton
         id='postProjectButton'
         className={classes.addNewConsultantBtn}
-        buttonText={t('com')}
+        buttonText={t('addBeneficiaries')}
         onClick={() => {
-          history.push(RoutesPaths.Admin.ProjectConsultants);
+          history.push(RoutesPaths.Admin.ProjectBeneficiaries);
         }}
       />
     </Fragment>

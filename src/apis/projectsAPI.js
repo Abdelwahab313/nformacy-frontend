@@ -180,3 +180,53 @@ export const fetchProjectConsultants = () => {
     resolve({ data: consultants });
   });
 };
+
+export const fetchProjectBeneficiaries = () => {
+  const beneficiaries = [
+    {
+      beneficiaryRef: 1,
+      firstName: 'ahmed',
+      lastName: 'mohamed',
+      fields: [
+        {
+          id: 1,
+          majorFieldId: 1,
+          createdAt: '2021-05-06T16:03:27.130Z',
+          updatedAt: '2021-05-06T16:03:27.189Z',
+          label: 'Audit',
+        },
+      ],
+    },
+    {
+      beneficiaryRef: 2,
+      firstName: 'ali',
+      lastName: 'mstafa',
+      fields: [
+        {
+          id: 2,
+          majorFieldId: 1,
+          createdAt: '2021-05-06T16:03:27.130Z',
+          updatedAt: '2021-05-06T16:03:27.189Z',
+          label: 'Audit',
+        },
+      ],
+    },
+    {
+      beneficiaryRef: 3,
+      firstName: 'Ahmed',
+      lastName: 'Mohamed',
+      fields: [
+        {
+          id: 1,
+          majorFieldId: 1,
+          createdAt: '2021-05-06T16:03:27.130Z',
+          updatedAt: '2021-05-06T16:03:27.189Z',
+          label: 'Audit',
+        },
+      ],
+    },
+  ];
+  return new Promise((resolve) => {
+    resolve({ data: beneficiaries });
+  });
+};

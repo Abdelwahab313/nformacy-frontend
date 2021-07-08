@@ -606,5 +606,8 @@
   "createNewConsultant": "Create New Consultant",
   "beneficiariesList": "Beneficiaries List",
   "createNewBeneficiary": "Create New Beneficiary",
-  "addBeneficiaries": "Add Beneficiaries"
+  "addBeneficiaries": "Add Beneficiaries",
+  "beneficiaryRef": "Beneficiary Reference",
+  "addBeneficiary": "Add Beneficiary",
+  "addConsultant": "Add Consultant"
 }
