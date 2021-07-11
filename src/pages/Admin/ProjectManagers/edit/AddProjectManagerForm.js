@@ -13,7 +13,11 @@ import { useTranslation } from 'react-i18next';
 import CardFooter from 'components/card/CardFooter';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 
-const AddAdvisorForm = ({ primaryButton, user, setUser }) => {
+const AddProjectManagerForm = ({
+  primaryButton,
+  user,
+  setUser,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const isNewForm = !user.id;
@@ -144,4 +148,4 @@ const AddAdvisorForm = ({ primaryButton, user, setUser }) => {
   );
 };
 
-export default AddAdvisorForm;
+export default AddProjectManagerForm;

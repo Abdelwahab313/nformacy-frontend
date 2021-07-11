@@ -31,7 +31,9 @@ class AdminGuardianClass extends GuardianBase {
   }
 
   showAdvisersPanel() {
-    return this.isSuperAdmin() || this.hasAdvisorsManagementsRole();
+    // TODO return this temporariy after show how will the product will be
+    return false
+    // return this.isSuperAdmin() || this.hasAdvisorsManagementsRole();
   }
 }
 

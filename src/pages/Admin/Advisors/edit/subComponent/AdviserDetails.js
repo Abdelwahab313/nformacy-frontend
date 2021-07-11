@@ -40,7 +40,6 @@ const AdvisersDetails = () => {
     return <LoadingCircle />;
   }
   const validate = (user) => {
-    const canEditPassword = true;
     if (!user.firstName) {
       showErrorMessage(t('requiredFirstName'));
       return false;
@@ -53,18 +52,6 @@ const AdvisersDetails = () => {
       showErrorMessage(t('requiredEmail'));
       return false;
     }
-    if (!user.password && !canEditPassword) {
-      showErrorMessage(t('requiredPassword'));
-      return false;
-    }
-    if (!user.confirmPassword && !canEditPassword) {
-      showErrorMessage(t('requiredConfirmPassword'));
-      return false;
-    }
-    if (user.password !== user.confirmPassword) {
-      showErrorMessage(t('passwordsNotMatching'));
-      return false;
-    }
     return true;
   };
 
@@ -72,11 +59,12 @@ const AdvisersDetails = () => {
     if (!!validate(user)) {
       updateAdviser(adviserId, {
         ...user,
-      }).then(() => {
-        showSuccessMessage(t('adviserUpdated'));
-        navigatToAdvisersList();
       })
-        .catch(() => { });
+        .then(() => {
+          showSuccessMessage(t('adviserUpdated'));
+          navigatToAdvisersList();
+        })
+        .catch(() => {});
     }
   };
 
@@ -97,7 +85,6 @@ const AdvisersDetails = () => {
             user={user}
             setUser={setUser}
             viewOnly
-            canEditPassword
             primaryButton={{
               id: 'createAdminButton',
               onClick: onSubmitAdviser,

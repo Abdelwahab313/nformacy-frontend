@@ -5,7 +5,7 @@ export const fetchProjects = () => {
       title: 'Product Management',
       details:
         'an organisational function within a company dealing with new product development,etc...',
-      duration: '18:00 - 19:00',
+      duration: '14th Jun - 30th Dec',
       fields: [
         {
           id: 1,
@@ -24,8 +24,8 @@ export const fetchProjects = () => {
       title: 'Marketing Management',
       details:
         'organizational discipline which focuses on the practical application of marketing orientation',
-      duration: '15:00 - 17:00',
-      fields: [
+        duration: '19th Jan - 20th Nov',
+        fields: [
         {
           id: 2,
           majorFieldId: 2,
@@ -43,8 +43,8 @@ export const fetchProjects = () => {
       title: 'Content Calendar',
       details:
         'editorial calendar, or publishing schedule, is used by bloggers, publishers, businesses',
-      duration: '12:00 - 13:00',
-      fields: [
+        duration: '14th Jun - 30th Dec',
+        fields: [
         {
           id: 3,
           majorFieldId: 3,
@@ -62,8 +62,8 @@ export const fetchProjects = () => {
       title: 'Sales CRM',
       details:
         'tool for managing all touchpoints with prospects or customers throughout the sales process.',
-      duration: '16:00 - 17:00',
-      fields: [
+        duration: '16th Feb - 30th Oct',
+        fields: [
         {
           id: 4,
           majorFieldId: 4,
@@ -80,7 +80,7 @@ export const fetchProjects = () => {
       projectNumber: 5,
       title: 'Marketing Plan',
       details: 'art of an overall business plan.',
-      duration: '14:00 - 17:00',
+      duration: '16th Jan - 30th Oct',
       fields: [
         {
           id: 5,

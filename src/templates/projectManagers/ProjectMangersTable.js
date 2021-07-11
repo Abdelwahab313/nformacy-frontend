@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import { useStyles } from 'styles/Admin/questionTableStyles';
 import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
-import { Chip } from '@material-ui/core';
 import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
 import { getProjectManagerDetails } from 'services/navigation';
@@ -19,8 +18,8 @@ const getColumnsOptions = (classes, t) => {
 
   const columns = [
     {
-      name: 'advisorRef',
-      label: t('advisorRef'),
+      name: 'projectMangerRef',
+      label: t('projectMangerRef'),
       options: {
         ...defaultColumnOption,
         display: true,
@@ -56,15 +55,6 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'dateJoined',
-      label: t('dateJoined'),
-      options: {
-        ...defaultColumnOption,
-        filter: false,
-        sort: true,
-      },
-    },
-    {
       name: 'fields',
       label: t('fieldsAssigned'),
       options: {
@@ -73,53 +63,18 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'subFields',
-      label: t('subFields'),
-      options: {
-        ...defaultColumnOption,
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: 'industriesOfExperience',
-      label: t('industry'),
-      options: {
-        ...defaultColumnOption,
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: 'acceptedAssignment',
-      label: t('acceptedAssignment'),
+      name: 'assignedProjects',
+      label: t('assignedProjects'),
       options: {
         ...defaultColumnOption,
         filter: false,
         sort: true,
       },
     },
+    
     {
-      name: 'deadlineAssignment',
-      label: t('deadlineAssignment'),
-      options: {
-        ...defaultColumnOption,
-        filter: false,
-        sort: true,
-      },
-    },
-    {
-      name: 'rating',
-      label: t('rating'),
-      options: {
-        ...defaultColumnOption,
-        filter: false,
-        sort: true,
-      },
-    },
-    {
-      name: 'update',
-      label: t('update'),
+      name: 'status',
+      label: t('Status'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -131,27 +86,22 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const parseAdvisorsTableData = (advisors) => {
-  return advisors?.map((advisor) => ({
-    ...advisor,
-    industriesOfExperience: advisor.industriesOfExperience?.map((industry) => (
-      <div key={industry.value}>
-        <Chip label={industry.label} key={industry.value} />
-      </div>
-    )),
-    fields: <FieldsChips fields={advisor.fields} />,
-    advisorRef:
-      <LinkText to={getProjectManagerDetails(advisor.id)}>
-        {advisor.referenceNumber}
+const parseProjectManagersTableData = (projectManagers) => {
+  return projectManagers?.map((projectManager) => ({
+    ...projectManager,
+    fields: <FieldsChips fields={projectManager.fields} />,
+    projectMangerRef:
+      <LinkText to={getProjectManagerDetails(projectManager.id)}>
+        {projectManager.referenceNumber}
       </LinkText>,
   }));
 };
 
-const AdvisorsTable = ({ advisors }) => {
+const ProjectMangersTable = ({ projectManagers }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
-  const advisorsRows = parseAdvisorsTableData(advisors);
+  const projectManagersRows = parseProjectManagersTableData(projectManagers);
 
   const tableOptions = {
     filterType: 'checkbox',
@@ -168,12 +118,12 @@ const AdvisorsTable = ({ advisors }) => {
   };
   return (
     <MUIDataTable
-      title={t('advisorsList')}
-      data={!!advisorsRows ? advisorsRows : []}
+      title={t('projectManagersList')}
+      data={!!projectManagersRows ? projectManagersRows : []}
       columns={columns}
       options={tableOptions}
     />
   );
 };
 
-export default AdvisorsTable;
+export default ProjectMangersTable;

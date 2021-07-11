@@ -52,6 +52,8 @@ import AddConsultant from 'pages/Admin/Consultants/edit/AddConsultant';
 import ProjectBeneficiariesList from 'pages/Admin/Projects/list/ProjectBeneficiariesList';
 import AddProjectBeneficiaries from 'pages/Admin/Projects/AddProjectBeneficiaries';
 import AddBeneficiary from 'pages/Admin/Beneficiaries/edit/AddBeneficiary';
+import ProjectManagersList from 'pages/Admin/ProjectManagers/list/ProjectManagersList';
+import AddProjectManger from 'pages/Admin/ProjectManagers/edit/AddProjectManager';
 
 const adminRoutes = [
   {
@@ -214,6 +216,20 @@ const adminRoutes = [
     icon: PeopleIcon,
     component: AdvisorsList,
     hasDashboardLink: AdminGuardian.showAdvisersPanel(),
+  },
+  {
+    path: RoutesPaths.Admin.ProjectManagersList,
+    name: 'Project Managers',
+    icon: BusinessCenterIcon,
+    component: ProjectManagersList,
+    hasDashboardLink: true,
+  },
+  {
+    path: RoutesPaths.Admin.AddProjectManager,
+    name: 'Add Project Managers',
+    icon: BusinessCenterIcon,
+    component: AddProjectManger,
+    hasDashboardLink: false,
   },
   {
     path: RoutesPaths.Admin.Calendar,
