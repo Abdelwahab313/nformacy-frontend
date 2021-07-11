@@ -34,7 +34,7 @@ const AddProjectListForm = () => {
           <CardHeader color='primary'>
             <Grid container>
               <Grid item md={6} xs={6}>
-                <Typography component={'h4'}>{t('ConsultantsList')}</Typography>
+                <Typography component={'h4'}>{t('consultantsList')}</Typography>
               </Grid>
             </Grid>
           </CardHeader>

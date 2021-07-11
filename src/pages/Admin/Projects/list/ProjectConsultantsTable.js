@@ -6,7 +6,7 @@ import { useStyles } from 'styles/Admin/questionTableStyles';
 import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
 import LinkText from 'components/typography/LinkText';
-import FieldsChips from 'components/chips/FieldsChips';
+import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -73,7 +73,7 @@ const parseConsultantsTableData = (consultants) => {
     consultantRef: (
       <LinkText to={() => {}}>{consultant.consultantRef}</LinkText>
     ),
-    fields: <FieldsChips fields={consultant.fields} />,
+    fields: <ColoredFieldsChips fields={consultant.fields} />,
   }));
 };
 

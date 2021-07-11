@@ -5,9 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import { useStyles } from 'styles/Admin/questionTableStyles';
 import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
-import FieldsChips from 'components/chips/FieldsChips';
 import { getConsultantLevel, getUserCountryLabel } from 'core/user';
 import Checkbox from '@material-ui/core/Checkbox';
+import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
 
 export const getBeneficiaryState = (user) => {
   const stateStrings = {
@@ -80,7 +80,7 @@ const parseBeneficiariesTableData = (beneficiaries) => {
     ...beneficiary,
     state: getBeneficiaryState(beneficiary),
     country: getUserCountryLabel(beneficiary.country),
-    fields: <FieldsChips fields={beneficiary.fields} />,
+    fields: <ColoredFieldsChips fields={beneficiary.fields} />,
     checked: (
       <Checkbox
         color='primary'

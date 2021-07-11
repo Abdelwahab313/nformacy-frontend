@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import { useStyles } from 'styles/Admin/questionTableStyles';
 import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
-import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
 import { getConsultantLevel, getUserCountryLabel } from 'core/user';
 import {
@@ -13,6 +12,7 @@ import {
   getProjectConsultantsList,
   getProjectDetails,
 } from 'services/navigation';
+import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
 
 export const getProjectState = (user) => {
   const stateStrings = {
@@ -123,7 +123,7 @@ const parseProjectsTableData = (projects) => {
       <LinkText to={getProjectDetails()}>{project.projectNumber}</LinkText>
     ),
     country: getUserCountryLabel(project.country),
-    fields: <FieldsChips fields={project.fields} />,
+    fields: <ColoredFieldsChips fields={project.fields} />,
     consultants: (
       <LinkText to={getProjectConsultantsList()}>
         {project.consultants}

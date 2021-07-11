@@ -2,8 +2,9 @@ export const fetchProjects = () => {
   const projects = [
     {
       projectNumber: 1,
-      title: 'project1',
-      details: 'project 1 details',
+      title: 'Product Management',
+      details:
+        'an organisational function within a company dealing with new product development,etc...',
       duration: '18:00 - 19:00',
       fields: [
         {
@@ -14,8 +15,83 @@ export const fetchProjects = () => {
           label: 'Audit',
         },
       ],
+      country: 'EG',
+      consultants: 4,
+      beneficiaries: 3,
+    },
+    {
+      projectNumber: 2,
+      title: 'Marketing Management',
+      details:
+        'organizational discipline which focuses on the practical application of marketing orientation',
+      duration: '15:00 - 17:00',
+      fields: [
+        {
+          id: 2,
+          majorFieldId: 2,
+          createdAt: '2021-05-06T16:03:27.130Z',
+          updatedAt: '2021-05-06T16:03:27.189Z',
+          label: '"Accounting"',
+        },
+      ],
       country: 'US',
-      consultants: 2,
+      consultants: 4,
+      beneficiaries: 3,
+    },
+    {
+      projectNumber: 3,
+      title: 'Content Calendar',
+      details:
+        'editorial calendar, or publishing schedule, is used by bloggers, publishers, businesses',
+      duration: '12:00 - 13:00',
+      fields: [
+        {
+          id: 3,
+          majorFieldId: 3,
+          createdAt: '2021-05-06T16:03:27.130Z',
+          updatedAt: '2021-05-06T16:03:27.189Z',
+          label: 'Costing',
+        },
+      ],
+      country: 'AT',
+      consultants: 4,
+      beneficiaries: 3,
+    },
+    {
+      projectNumber: 4,
+      title: 'Sales CRM',
+      details:
+        'tool for managing all touchpoints with prospects or customers throughout the sales process.',
+      duration: '16:00 - 17:00',
+      fields: [
+        {
+          id: 4,
+          majorFieldId: 4,
+          createdAt: '2021-05-06T16:03:27.130Z',
+          updatedAt: '2021-05-06T16:03:27.189Z',
+          label: 'Coaching',
+        },
+      ],
+      country: 'BS',
+      consultants: 4,
+      beneficiaries: 3,
+    },
+    {
+      projectNumber: 5,
+      title: 'Marketing Plan',
+      details: 'art of an overall business plan.',
+      duration: '14:00 - 17:00',
+      fields: [
+        {
+          id: 5,
+          majorFieldId: 5,
+          createdAt: '2021-05-06T16:03:27.130Z',
+          updatedAt: '2021-05-06T16:03:27.189Z',
+          label: 'Audit',
+        },
+      ],
+      country: 'DE',
+      consultants: 4,
       beneficiaries: 3,
     },
   ];
@@ -45,14 +121,14 @@ export const fetchConsultantsList = () => {
       lastName: 'Mahmoud',
       fields: [
         {
-          id: 1,
-          majorFieldId: 1,
+          id: 2,
+          majorFieldId: 2,
           createdAt: '2021-05-06T16:03:27.130Z',
           updatedAt: '2021-05-06T16:03:27.189Z',
           label: 'Audit',
         },
       ],
-      country: 'US',
+      country: 'EG',
       checked: false,
     },
     {
@@ -60,14 +136,14 @@ export const fetchConsultantsList = () => {
       lastName: 'Ali',
       fields: [
         {
-          id: 1,
-          majorFieldId: 1,
+          id: 3,
+          majorFieldId: 3,
           createdAt: '2021-05-06T16:03:27.130Z',
           updatedAt: '2021-05-06T16:03:27.189Z',
           label: 'Audit',
         },
       ],
-      country: 'US',
+      country: 'JO',
       checked: false,
     },
     {
@@ -75,14 +151,14 @@ export const fetchConsultantsList = () => {
       lastName: 'Moustafa',
       fields: [
         {
-          id: 1,
-          majorFieldId: 1,
+          id: 4,
+          majorFieldId: 4,
           createdAt: '2021-05-06T16:03:27.130Z',
           updatedAt: '2021-05-06T16:03:27.189Z',
           label: 'Audit',
         },
       ],
-      country: 'US',
+      country: 'AL',
       checked: false,
     },
   ];
@@ -104,7 +180,7 @@ export const fetchBeneficiariesList = () => {
           label: 'Audit',
         },
       ],
-      country: 'US',
+      country: 'IT',
       checked: true,
     },
   ];
@@ -137,7 +213,7 @@ export const fetchProjectConsultants = () => {
       fields: [
         {
           id: 2,
-          majorFieldId: 1,
+          majorFieldId: 2,
           createdAt: '2021-05-06T16:03:27.130Z',
           updatedAt: '2021-05-06T16:03:27.189Z',
           label: 'Audit',
@@ -151,8 +227,8 @@ export const fetchProjectConsultants = () => {
       lastName: 'Mohamed',
       fields: [
         {
-          id: 1,
-          majorFieldId: 1,
+          id: 3,
+          majorFieldId: 3,
           createdAt: '2021-05-06T16:03:27.130Z',
           updatedAt: '2021-05-06T16:03:27.189Z',
           label: 'Audit',
@@ -166,8 +242,8 @@ export const fetchProjectConsultants = () => {
       lastName: 'Mahmoud',
       fields: [
         {
-          id: 1,
-          majorFieldId: 1,
+          id: 4,
+          majorFieldId: 4,
           createdAt: '2021-05-06T16:03:27.130Z',
           updatedAt: '2021-05-06T16:03:27.189Z',
           label: 'Audit',
@@ -204,7 +280,7 @@ export const fetchProjectBeneficiaries = () => {
       fields: [
         {
           id: 2,
-          majorFieldId: 1,
+          majorFieldId: 2,
           createdAt: '2021-05-06T16:03:27.130Z',
           updatedAt: '2021-05-06T16:03:27.189Z',
           label: 'Audit',
@@ -217,8 +293,8 @@ export const fetchProjectBeneficiaries = () => {
       lastName: 'Mohamed',
       fields: [
         {
-          id: 1,
-          majorFieldId: 1,
+          id: 3,
+          majorFieldId: 3,
           createdAt: '2021-05-06T16:03:27.130Z',
           updatedAt: '2021-05-06T16:03:27.189Z',
           label: 'Audit',

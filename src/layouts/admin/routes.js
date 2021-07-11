@@ -252,7 +252,7 @@ const adminRoutes = [
   },
   {
     path: RoutesPaths.Admin.AddProjectListForm,
-    name: 'Add Project Details',
+    name: 'Consultants and Beneficiaries List',
     icon: QuestionAnswerIcon,
     component: AddProjectListForm,
     hasDashboardLink: false,
