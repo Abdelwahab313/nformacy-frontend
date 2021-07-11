@@ -6,11 +6,11 @@ import { useQuery } from 'react-query';
 import authManager from 'services/authManager';
 import { immortalQueryConfig } from 'settings';
 import CorporateHomePage from './CorporateHomePage';
-import ConsultantHomePage from './ConsultantHomePage';
 import SuccessDialogPage from './subComponents/SuccessDialogPage';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { useHistory, useLocation } from 'react-router';
 import SaasClientHomePage from './SaasClientHomePage';
+import SaasConsultantHomePage from './SaasConsultantHomePage';
 
 const HomePage = () => {
   const [, dispatch] = useAuth();
@@ -29,7 +29,7 @@ const HomePage = () => {
     } else if (!!authManager.isCorporate()) {
       return <CorporateHomePage />;
     } else {
-      return <ConsultantHomePage />;
+      return <SaasConsultantHomePage />;
     }
   };
   const { isFetching } = useQuery('userDetails', fetchUserDetails, {
