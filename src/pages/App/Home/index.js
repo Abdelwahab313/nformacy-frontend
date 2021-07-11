@@ -5,12 +5,12 @@ import { updateUser } from 'pages/auth/context/authActions';
 import { useQuery } from 'react-query';
 import authManager from 'services/authManager';
 import { immortalQueryConfig } from 'settings';
-import CorporateHomePage from './CorporateHomePage';
 import SuccessDialogPage from './subComponents/SuccessDialogPage';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { useHistory, useLocation } from 'react-router';
 import SaasClientHomePage from './SaasClientHomePage';
 import SaasConsultantHomePage from './SaasConsultantHomePage';
+import SaasCorporateHomePage from './SaasCorporateHomePage';
 
 const HomePage = () => {
   const [, dispatch] = useAuth();
@@ -27,7 +27,7 @@ const HomePage = () => {
     if (!!authManager.isOnlyClient()) {
       return <SaasClientHomePage />;
     } else if (!!authManager.isCorporate()) {
-      return <CorporateHomePage />;
+      return <SaasCorporateHomePage />;
     } else {
       return <SaasConsultantHomePage />;
     }
