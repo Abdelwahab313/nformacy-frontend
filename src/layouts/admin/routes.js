@@ -80,7 +80,7 @@ const adminRoutes = [
   {
     path: RoutesPaths.Admin.Projects,
     name: 'Projects',
-    icon: Person,
+    icon: BubbleChart,
     component: ProjectsList,
     hasDashboardLink: true,
   },
@@ -135,8 +135,8 @@ const adminRoutes = [
   },
   {
     path: RoutesPaths.Admin.Clients,
-    name: 'Clients',
-    icon: BubbleChart,
+    name: 'beneficiaries',
+    icon: Person,
     component: ClientsList,
     hasDashboardLink: AdminGuardian.showClientsPanel(),
   },
@@ -220,7 +220,7 @@ const adminRoutes = [
   {
     path: RoutesPaths.Admin.ProjectManagersList,
     name: 'Project Managers',
-    icon: BusinessCenterIcon,
+    icon: PeopleIcon,
     component: ProjectManagersList,
     hasDashboardLink: true,
   },
