@@ -6,10 +6,13 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import ProjectsTable from './ProjectsTable';
-import ProjectActivitiesTable from './ProjectActivitiesTable';
-import ProjectConsultantsTable from './ProjectConsultantsTable';
-import ProjectBeneficiariesTable from './ProjectBeneficiariesTable';
+import ProjectConsultantsList from './list/ProjectConsultantsList';
+import ProjectBeneficiariesList from './list/ProjectBeneficiariesList';
+import LoadingCircle from 'components/progress/LoadingCircle';
+import AdminServicesTable from 'templates/services/AdminServicesTable';
+import useFetchData from 'hooks/useFetchData';
+import { fetchServices } from 'apis/servicesAPI';
+import ProjectDetailsView from './ProjectDetailsView';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -51,13 +54,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProjectDetails() {
+const ProjectDetails = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+
+  const { fetchedData: services, isLoading } = useFetchData(fetchServices);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
 
   return (
     <div className={classes.root}>
@@ -73,17 +81,19 @@ export default function ProjectDetails() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <ProjectsTable />
+        <ProjectDetailsView />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ProjectActivitiesTable />
+        <AdminServicesTable services={services} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <ProjectConsultantsTable />
+        <ProjectConsultantsList />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <ProjectBeneficiariesTable />
+        <ProjectBeneficiariesList />
       </TabPanel>
     </div>
   );
-}
+};
+
+export default ProjectDetails;

@@ -24,8 +24,8 @@ export const fetchProjects = () => {
       title: 'Marketing Management',
       details:
         'organizational discipline which focuses on the practical application of marketing orientation',
-        duration: '19th Jan - 20th Nov',
-        fields: [
+      duration: '19th Jan - 20th Nov',
+      fields: [
         {
           id: 2,
           majorFieldId: 2,
@@ -43,8 +43,8 @@ export const fetchProjects = () => {
       title: 'Content Calendar',
       details:
         'editorial calendar, or publishing schedule, is used by bloggers, publishers, businesses',
-        duration: '14th Jun - 30th Dec',
-        fields: [
+      duration: '14th Jun - 30th Dec',
+      fields: [
         {
           id: 3,
           majorFieldId: 3,
@@ -62,8 +62,8 @@ export const fetchProjects = () => {
       title: 'Sales CRM',
       details:
         'tool for managing all touchpoints with prospects or customers throughout the sales process.',
-        duration: '16th Feb - 30th Oct',
-        fields: [
+      duration: '16th Feb - 30th Oct',
+      fields: [
         {
           id: 4,
           majorFieldId: 4,
@@ -188,7 +188,6 @@ export const fetchBeneficiariesList = () => {
     resolve({ data: beneficiaries });
   });
 };
-
 export const fetchProjectConsultants = () => {
   const consultants = [
     {
@@ -256,7 +255,6 @@ export const fetchProjectConsultants = () => {
     resolve({ data: consultants });
   });
 };
-
 export const fetchProjectBeneficiaries = () => {
   const beneficiaries = [
     {
@@ -304,5 +302,28 @@ export const fetchProjectBeneficiaries = () => {
   ];
   return new Promise((resolve) => {
     resolve({ data: beneficiaries });
+  });
+};
+export const fetchProjectDetails = () => {
+  const projects = [
+    {
+      projectNumber: 1,
+      title: 'Product Management',
+      details:
+        'an organisational function within a company dealing with new product development,etc...',
+      fields: [
+        {
+          id: 1,
+          majorFieldId: 1,
+          createdAt: '2021-05-06T16:03:27.130Z',
+          updatedAt: '2021-05-06T16:03:27.189Z',
+          label: 'Audit',
+        },
+      ],
+      location: 'EG',
+    },
+  ];
+  return new Promise((resolve) => {
+    resolve({ data: projects });
   });
 };
