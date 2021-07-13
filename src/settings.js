@@ -33,3 +33,5 @@ export const immortalQueryConfig = {
   refetchOnReconnect: false,
   refetchOnMount: true,
 };
+
+export const IS_Nformacy_APP = false;

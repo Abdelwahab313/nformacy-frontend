@@ -29,6 +29,7 @@ import AnswerOwner from './AnswerOwner';
 import { getConsultantDetails } from 'services/navigation';
 import LinkText from 'components/typography/LinkText';
 import AnswerGuardian from 'core/guardians/AnswerGuardian';
+import { IS_Nformacy_APP } from 'settings';
 
 const AnswerView = ({
   answer,
@@ -45,6 +46,8 @@ const AnswerView = ({
   const { t } = useTranslation();
   const [answerState, setAnswerState] = useState(answer.state);
   const [showAnswerOwnerCard, setShowAnswerOwnerCard] = useState(false);
+
+  const showRating = IS_Nformacy_APP;
 
   const onChangeRating = (index, newValue) => {
     setRating(index, newValue);
@@ -73,7 +76,7 @@ const AnswerView = ({
       <div className={answerState === 'rejected' ? classes.rejectedAnswer : ''}>
         <GridContainer>
           <GridItem xs={12} className={classes.answerRowStyles}>
-            {!authManager.isAdviser() && (
+            {showRating && !authManager.isAdviser() && (
               <Rating
                 name={`rateAnswer-${index}`}
                 readOnly={true}
@@ -160,7 +163,7 @@ const AnswerView = ({
             </GridItem>
           )}
           <GridItem xs={2} className={classes.answerRowStyles}>
-            {AnswerGuardian.canRateAnswer(answerState) && (
+            {showRating && AnswerGuardian.canRateAnswer(answerState) && (
               <Rating
                 name={`rateAnswer-${index}`}
                 readOnly={false}
@@ -186,10 +189,7 @@ const AnswerView = ({
             )}
           </GridItem>
           <Grid container direction='row-reverse' alignItems='flex-end'>
-            {!!AnswerGuardian.canRollbackAnswer(
-              answerState,
-              questionState,
-            ) && (
+            {!!AnswerGuardian.canRollbackAnswer(answerState, questionState) && (
               <SubmitButton
                 id={`rollback-${answer.referenceNumber}`}
                 className={classes.rollbackButton}

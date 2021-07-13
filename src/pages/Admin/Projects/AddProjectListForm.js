@@ -11,6 +11,9 @@ import { fetchBeneficiariesList, fetchConsultantsList } from 'apis/projectsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import AddBeneficiariesTable from './AddBenficiariesTable';
 import { useStyles } from 'styles/Admin/postProjectStyles';
+import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
+import { history } from 'services/navigation';
+import { RoutesPaths } from 'constants/routesPath';
 
 const AddProjectListForm = () => {
   const { t } = useTranslation();
@@ -22,6 +25,10 @@ const AddProjectListForm = () => {
   const { fetchedData: beneficiaries } = useFetchData(() => {
     return fetchBeneficiariesList();
   });
+
+  const handleSubmit = () => {
+    history.push(RoutesPaths.Admin.Projects)
+  }
 
   if (isLoading) {
     return <LoadingCircle />;
@@ -60,6 +67,16 @@ const AddProjectListForm = () => {
       <CardBody>
         <AddBeneficiariesTable beneficiaries={beneficiaries} />
       </CardBody>
+      <ActionButtonsContainer
+        primaryButton={{
+          id: 'addBenefeciariesAndConsultant',
+          onClick: () => {
+            handleSubmit();
+          },
+          buttonText: 'Submit',
+        }}
+      />
+      {/* <ActionBut */}
     </Fragment>
   );
 };

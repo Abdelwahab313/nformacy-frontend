@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import DonutLargeIcon from '@material-ui/icons/DonutLarge';
+import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
 
 const cardWidth = 320;
 const borderRadius = 8;
@@ -45,6 +47,21 @@ const Title = styled.span`
   transition: ${transition};
 `;
 
+const IconsConainer = styled.div`
+  // position: absolute;
+  // bottom: 12px;
+  left: 12px;
+  display: flex;
+`;
+
+const PercentageText = styled.span`
+  display: block;
+  font-size: 0.875em;
+  color: #999999;
+  transition: ${transition};
+  transition-delay: 0.04s;
+`;
+
 const Description = styled.span`
   display: block;
   font-size: 0.875em;
@@ -62,6 +79,22 @@ const BottomBar = styled.span`
   background: ${(props) => props.background && props.background};
   border-radius: 0 0 ${borderRadius}px ${borderRadius}px;
   transition: ${transition};
+`;
+
+const Percentage = styled.a`
+    font-size: 13px;
+    height: 20px;
+    margin-right: 5px;
+    border-radius: 3px;
+    background-color: rgba(0,0,0,.07);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 5px;
+    color: #fff;
+    transition: .15s;
+}
 `;
 
 const Style = styled.button`
@@ -112,12 +145,22 @@ const Style = styled.button`
   }
 `;
 
-const ProjectCard = ({ hexa, title, description, image }) => (
+const ProjectCard = ({ hexa, title, percentage, assignmentsCount, image }) => (
   <Style>
     <Screenshot image={image} />
     <Content>
       <Title>{title}</Title>
-      <Description>{description}</Description>
+      <IconsConainer>
+        <Percentage>
+          <PercentageText>`{percentage}%`</PercentageText>
+          <DonutLargeIcon />
+        </Percentage>
+        <Percentage>
+          <PercentageText>{assignmentsCount}</PercentageText>
+          <CollectionsBookmarkIcon />
+        </Percentage>
+      </IconsConainer>
+      <Description></Description>
       <BottomBar background={hexa} />
     </Content>
   </Style>
