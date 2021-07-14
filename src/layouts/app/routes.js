@@ -3,6 +3,8 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import { VpnKey } from '@material-ui/icons';
 import { RoutesPaths } from 'constants/routesPath';
 
+const ProjectDetails = React.lazy(() => import('pages/App/Projects/details'));
+
 const UserTypeSelection = React.lazy(() =>
   import('pages/App/register/UserTypeSelection'),
 );
@@ -334,6 +336,16 @@ const appRoutes = [
     name: 'Services',
     icon: DashboardIcon,
     Component: ServicesPage,
+    includeLayout: true,
+    isPublic: false,
+    hasDashboardLink: false,
+  },
+
+  {
+    path: RoutesPaths.App.ProjectDetails,
+    name: 'Project Details',
+    icon: DashboardIcon,
+    Component: ProjectDetails,
     includeLayout: true,
     isPublic: false,
     hasDashboardLink: false,

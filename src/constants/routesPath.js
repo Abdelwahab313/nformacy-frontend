@@ -78,6 +78,7 @@ export const RoutesPaths = {
     EditProfile: '/user/edit',
     AllNotifications: '/notifications',
     Services: '/services/list',
+    ProjectDetails: '/projects/details',
     ActivitiesList: '/activities/list',
     ConsultantActivitiesList: '/consultant/activities',
     CorporateActivitiesList: '/corporate/activities',

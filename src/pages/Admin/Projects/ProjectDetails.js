@@ -13,6 +13,7 @@ import AdminServicesTable from 'templates/services/AdminServicesTable';
 import useFetchData from 'hooks/useFetchData';
 import { fetchServices } from 'apis/servicesAPI';
 import ProjectDetailsView from './ProjectDetailsView';
+import { fetchProjectDetails } from 'apis/projectsAPI';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -59,6 +60,9 @@ const ProjectDetails = () => {
   const [value, setValue] = React.useState(0);
 
   const { fetchedData: services, isLoading } = useFetchData(fetchServices);
+  const { fetchedData: projects } = useFetchData(() => {
+    return fetchProjectDetails();
+  });
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -81,7 +85,7 @@ const ProjectDetails = () => {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <ProjectDetailsView />
+        <ProjectDetailsView project={projects[0]} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <AdminServicesTable services={services} />

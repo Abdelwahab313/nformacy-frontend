@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
+import { RoutesPaths } from 'constants/routesPath';
+import { history } from 'services/navigation';
 
 const cardWidth = 320;
 const borderRadius = 8;
@@ -146,7 +148,10 @@ const Style = styled.button`
 `;
 
 const ProjectCard = ({ hexa, title, percentage, assignmentsCount, image }) => (
-  <Style>
+  <Style
+    onClick={() => {
+      history.push(RoutesPaths.App.ProjectDetails);
+    }}>
     <Screenshot image={image} />
     <Content>
       <Title>{title}</Title>

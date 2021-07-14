@@ -6,23 +6,14 @@ import Divider from '@material-ui/core/Divider';
 import { useStyles } from 'styles/formsStyles';
 import { useTranslation } from 'react-i18next';
 import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
-import useFetchData from 'hooks/useFetchData';
-import { fetchProjectDetails } from 'apis/projectsAPI';
-import LoadingCircle from 'components/progress/LoadingCircle';
 import { getUserCountryLabel } from 'core/user';
+import CustomTypography from 'components/typography/Typography';
 
-const ProjectDetailsView = () => {
+const ProjectDetailsView = ({ project }) => {
   const { t } = useTranslation();
   const classes = useStyles();
-  const { fetchedData: projects, isLoading } = useFetchData(() => {
-    return fetchProjectDetails();
-  });
 
-  if (isLoading) {
-    return <LoadingCircle />;
-  }
-
-  const country = getUserCountryLabel(projects[0].location);
+  const country = getUserCountryLabel(project.location);
   return (
     <Grid item id='basicInfo'>
       <Paper className={classes.paperSection} elevation={3}>
@@ -52,12 +43,9 @@ const ProjectDetailsView = () => {
                 </Typography>
               </Grid>
               <Grid item xs={8}>
-                <Typography
-                  id='projectNumberValue'
-                  gutterBottom
-                  className={classes.fieldValueStyles}>
-                  {projects[0].projectNumber}
-                </Typography>
+                <CustomTypography id='projectNumberValue' gutterBottom>
+                  {project.projectNumber}
+                </CustomTypography>
               </Grid>
             </Grid>
             <Grid container className={classes.sectionRowStyles}>
@@ -73,7 +61,7 @@ const ProjectDetailsView = () => {
                   id='projectTitle'
                   gutterBottom
                   className={classes.fieldValueStyles}>
-                  {projects[0].title}
+                  {project.title}
                 </Typography>
               </Grid>
             </Grid>
@@ -86,12 +74,9 @@ const ProjectDetailsView = () => {
                 </Typography>
               </Grid>
               <Grid item xs={8}>
-                <Typography
-                  id='projectDetails'
-                  gutterBottom
-                  className={classes.fieldValueStyles}>
-                  {projects[0].details}
-                </Typography>
+                <CustomTypography id='projectNumberValue' gutterBottom variant={'h6'}>
+                  {project.details}
+                </CustomTypography>
               </Grid>
             </Grid>
             <Grid container className={classes.sectionRowStyles}>
@@ -107,7 +92,7 @@ const ProjectDetailsView = () => {
                   id='projectFields'
                   gutterBottom
                   className={classes.fieldValueStyles}>
-                  <ColoredFieldsChips fields={projects[0].fields} />
+                  <ColoredFieldsChips fields={project.fields} />
                 </Typography>
               </Grid>
             </Grid>
