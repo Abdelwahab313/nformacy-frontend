@@ -19,6 +19,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../styles/toastNotifications.css';
 import ProjectManagerSidebar from 'components/sidebar/ProjectManagerSidebar';
+import authManager from 'services/authManager';
 
 let ps;
 
@@ -30,8 +31,7 @@ export default function AdminLayout({ ...rest }) {
   // ref to help us initialize PerfectScrollbar on windows devices
   const mainPanel = React.createRef();
 
-  const isProjectManager = true;
-  // const isProjectManager = authManager.isProjectManager();
+  const isProjectManager = authManager.isProjectManager();
 
   // states and functions
   const [mobileOpen, setMobileOpen] = React.useState(false);
