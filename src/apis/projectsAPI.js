@@ -18,6 +18,9 @@ export const fetchProjects = () => {
       country: 'EG',
       consultants: 4,
       beneficiaries: 3,
+      askCredit: '20 Monthly',
+      mentoring: 'Yes',
+      assign: 'No'
     },
     {
       projectNumber: 2,
@@ -37,6 +40,9 @@ export const fetchProjects = () => {
       country: 'US',
       consultants: 4,
       beneficiaries: 3,
+      askCredit: '15 Monthly',
+      mentoring: 'No',
+      assign: 'Yes'
     },
     {
       projectNumber: 3,
@@ -56,6 +62,9 @@ export const fetchProjects = () => {
       country: 'AT',
       consultants: 4,
       beneficiaries: 3,
+      askCredit: '25 Monthly',
+      mentoring: 'Yes',
+      assign: 'No'
     },
     {
       projectNumber: 4,
@@ -75,6 +84,9 @@ export const fetchProjects = () => {
       country: 'BS',
       consultants: 4,
       beneficiaries: 3,
+      askCredit: '20 Monthly',
+      mentoring: 'No',
+      assign: 'No'
     },
     {
       projectNumber: 5,
@@ -93,6 +105,9 @@ export const fetchProjects = () => {
       country: 'DE',
       consultants: 4,
       beneficiaries: 3,
+      askCredit: '40 Monthly',
+      mentoring: 'Yes',
+      assign: 'Yes'
     },
   ];
   return new Promise((resolve) => {
