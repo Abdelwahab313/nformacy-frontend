@@ -93,6 +93,17 @@ class AuthManager {
     }
   };
 
+  isProjectManager = () => {
+    let user;
+    try {
+      const loadedUserString = localStorage.getItem('user');
+      user = !!loadedUserString ? JSON.parse(loadedUserString) : undefined;
+      return user.roles.some((role) => role.name === 'projectManager');
+    } catch (e) {
+      return false;
+    }
+  };
+
   isAdviser = () => {
     let user;
     try {

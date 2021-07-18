@@ -18,6 +18,7 @@ import AdminRouter from 'layouts/admin/AdminRouter';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../styles/toastNotifications.css';
+import ProjectManagerSidebar from 'components/sidebar/ProjectManagerSidebar';
 
 let ps;
 
@@ -28,6 +29,10 @@ export default function AdminLayout({ ...rest }) {
   const classes = useStyles();
   // ref to help us initialize PerfectScrollbar on windows devices
   const mainPanel = React.createRef();
+
+  const isProjectManager = true;
+  // const isProjectManager = authManager.isProjectManager();
+
   // states and functions
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -60,16 +65,28 @@ export default function AdminLayout({ ...rest }) {
   }, [mainPanel]);
   return (
     <div className={classes.wrapper}>
-      <Sidebar
-        id={'adminSidebar'}
-        routes={adminRoutes.filter((route) => !!route.hasDashboardLink)}
-        logo={logo}
-        image={bgImage}
-        handleDrawerToggle={handleDrawerToggle}
-        open={mobileOpen}
-        color={'blue'}
-        {...rest}
-      />
+      {!!isProjectManager ? (
+        <ProjectManagerSidebar
+          id={'projectManagerSidebar'}
+          logo={logo}
+          image={bgImage}
+          handleDrawerToggle={handleDrawerToggle}
+          open={mobileOpen}
+          color={'blue'}
+          {...rest}
+        />
+      ) : (
+        <Sidebar
+          id={'adminSidebar'}
+          routes={adminRoutes.filter((route) => !!route.hasDashboardLink)}
+          logo={logo}
+          image={bgImage}
+          handleDrawerToggle={handleDrawerToggle}
+          open={mobileOpen}
+          color={'blue'}
+          {...rest}
+        />
+      )}
       <div className={classes.mainPanel} ref={mainPanel}>
         <AdminHeader
           routes={adminRoutes}
