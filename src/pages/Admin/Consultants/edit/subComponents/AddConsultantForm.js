@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { industries } from 'constants/dropDownOptions';
 import humanizedTimeSpan from 'services/humanizedTimeSpan';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
@@ -12,6 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
 import CardFooter from 'components/card/CardFooter';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
+import countryList from 'react-select-country-list';
 
 const AddConsultantForm = ({
   primaryButton,
@@ -22,6 +22,7 @@ const AddConsultantForm = ({
   const classes = useStyles();
   const { t } = useTranslation();
   const isNewForm = !user.id;
+  const countries = countryList().getData();
 
   const onChangeField = (name, value) => {
     setUser((prevData) => ({ ...prevData, [name]: value }));
@@ -157,15 +158,10 @@ const AddConsultantForm = ({
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
                 <DropdownSelectField
-                  multiple
                   fieldId='country'
                   fieldName='country'
-                  fieldOptions={industries}
-                  fieldValue={
-                    !!user.country
-                      ? user.country
-                      : []
-                  }
+                  fieldOptions={countries}
+                  fieldValue={!!user.country ? user.country : []}
                   onFieldChange={(option) =>
                     onChangeField('country', option)
                   }

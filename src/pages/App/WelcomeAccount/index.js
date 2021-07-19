@@ -32,7 +32,8 @@ const WelcomeAccountFormPage = () => {
       confirmAccount(resetPasswordToken, values)
         .then((response) => {
           showSuccessMessage(response?.message);
-          history.push(RoutesPaths.App.Accounts);
+          //@TODO need to change this to habdle other accounts created
+          history.push(RoutesPaths.App.ConsultantFullRegistrationForm);
         })
         .catch((reason) => {
           setResponseMessage(

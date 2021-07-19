@@ -58,7 +58,7 @@ export const RoutesPaths = {
     Logout: '/logout',
     UserRegistrationForm: '/user/profile',
     ConsultantAdvancedRegistrationForm: '/user/profile/advanced',
-    SubmitAnswerNote: '/answer/success',
+    ConsultantFullRegistrationForm: '/user/profile/full',
     LandingPage: '/',
     ContactUs: '/contactUs',
     Solutions: '/solutions',

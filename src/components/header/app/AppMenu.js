@@ -38,6 +38,7 @@ export default function AppMenuDrawer({ menuList }) {
           <NavLink
             exact
             to={prop.path}
+            key={key}
             className={classes.menuItemText}
             activeClassName={classes.active}>
             <ListItem button key={key}>

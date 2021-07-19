@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 import { useSnackBar } from 'context/SnackBarContext';
 import AddConsultantForm from './subComponents/AddConsultantForm';
+import { createConsultant } from 'apis/userAPI';
 
 const AddConsultant = () => {
   const { t } = useTranslation();
@@ -20,18 +21,12 @@ const AddConsultant = () => {
   };
 
   const onSubmitConsultant = () => {
-    showSuccessMessage(
-      t('Created Successfully! Email has been sent to the user.'),
-    );
-    navigateAfterSave();
-
-    // if (!!validate(user)) {
-    //   updateAdmin(adminId, {
-    //     ...user,
-    //   }).then(() => {
-    //     showSuccessMessage(t('adminUpdated'));
-    //   });
-    // }
+    createConsultant(user).then(() => {
+      showSuccessMessage(
+        t('Created Successfully! Email has been sent to the user.'),
+      );
+      navigateAfterSave();
+    });
   };
 
   return (

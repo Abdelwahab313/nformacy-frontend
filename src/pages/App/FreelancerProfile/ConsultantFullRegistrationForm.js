@@ -24,8 +24,10 @@ import SubmitButton from 'components/buttons/SubmitButton';
 import ConsultantPartTwoStepTwo from './subComponents/ConsultantPartTwoStepTwo';
 import TermsAndConditionsCheckbox from './subComponents/TermsAndConditionsCheckbox';
 import BackButton from './subComponents/BackButton';
+import StepOne from './subComponents/StepOne';
+import StepTwo from './subComponents/StepTwo';
 
-const ConsultantAdvancedRegistrationForm = () => {
+const ConsultantFullRegistrationForm = () => {
   const currentUser = authManager.retrieveCurrentUser();
   const user = useRef(currentUser);
   const classes = useStyles();
@@ -41,6 +43,8 @@ const ConsultantAdvancedRegistrationForm = () => {
   const [isTermsChecked, setIsTermsChecked] = useState(false);
 
   const consultantStepsFields = [
+    ['gender', 'country', 'mobileNumber', 'currentEmploymentStatus'],
+    ['industriesOfExperience', 'fields'],
     [],
     ['languageOfAssignments', 'typesOfAssignments'],
   ];
@@ -58,6 +62,8 @@ const ConsultantAdvancedRegistrationForm = () => {
     mode: 'onChange',
     defaultValues: {
       ...user.current,
+      mobileNumber: user.current.mobileNumber || '',
+      fields: user.current.fields || [],
     },
   });
   const currentStepFields = useMemo(() => {
@@ -79,7 +85,7 @@ const ConsultantAdvancedRegistrationForm = () => {
   const isGoNextDisabled = isCurrentstepInvalid() || loading;
 
   const isFinalStep = useMemo(() => {
-    return activeStep === 1;
+    return activeStep === 3;
   }, [activeStep]);
 
   const nestedFieldsValidation = () => {
@@ -87,7 +93,7 @@ const ConsultantAdvancedRegistrationForm = () => {
     const watchExperiences = watch('experiences');
     const watchEducations = watch('educations');
 
-    if (activeStep === 0) {
+    if (activeStep === 2) {
       let experiences = [...watchExperiences];
       experiences = experiences.filter(
         (exp) => !deletedExperiences.includes(exp),
@@ -100,7 +106,7 @@ const ConsultantAdvancedRegistrationForm = () => {
         );
         isValid = false;
       }
-    } else {
+    } else if  (activeStep === 3)  {
       let educations = [...watchEducations];
       educations = educations.filter((edu) => !deletedEducations.includes(edu));
       if (educations.length === 0) {
@@ -123,6 +129,9 @@ const ConsultantAdvancedRegistrationForm = () => {
       educations: !!userData.educations
         ? [...userData.educations, ...deletedEducations]
         : deletedEducations,
+      projects: !!userData.projects
+        ? [...userData.projects, ...deletedProjects]
+        : deletedProjects,
       certifications: !!userData.certifications
         ? [...userData.certifications, ...deletedCertification]
         : deletedCertification,
@@ -196,7 +205,7 @@ const ConsultantAdvancedRegistrationForm = () => {
 
   function proceedToNextStep() {
     const updatedFields = getValues({ nest: true });
-    if (activeStep < 2 && nestedFieldsValidation()) {
+    if (activeStep < 3 && nestedFieldsValidation()) {
       user.current = {
         ...user.current,
         ...updatedFields,
@@ -238,8 +247,10 @@ const ConsultantAdvancedRegistrationForm = () => {
           cv={cv}
           setCV={setCV}
           watch={watch}>
-          {activeStep === 0 && <ConsultantPartTwoStepOne />}
-          {activeStep === 1 && <ConsultantPartTwoStepTwo />}
+          {activeStep === 0 && <StepOne />}
+          {activeStep === 1 && <StepTwo />}
+          {activeStep === 2 && <ConsultantPartTwoStepOne />}
+          {activeStep === 3 && <ConsultantPartTwoStepTwo />}
         </FormContext>
         {!!isFinalStep && (
           <Grid
@@ -294,4 +305,4 @@ const ConsultantAdvancedRegistrationForm = () => {
   );
 };
 
-export default ConsultantAdvancedRegistrationForm;
+export default ConsultantFullRegistrationForm;

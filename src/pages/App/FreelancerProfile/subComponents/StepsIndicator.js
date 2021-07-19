@@ -6,11 +6,13 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import PersonIcon from '@material-ui/icons/Person';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
+import SchoolIcon from '@material-ui/icons/School';
 import SettingsIcon from '@material-ui/icons/Settings';
 import StepConnector from '@material-ui/core/StepConnector';
 import { lightGrey, lighterGrey, darkBlue } from 'styles/colors';
 import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
+import { IS_Nformacy_APP } from 'settings';
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -63,6 +65,7 @@ function ColorlibStepIcon(props) {
     1: <PersonIcon />,
     2: <SettingsIcon />,
     3: <BusinessCenterIcon />,
+    4: <SchoolIcon />,
   };
 
   return (
@@ -96,6 +99,14 @@ function getSteps(t, isCorporateUser) {
     } else {
       return [t('personalInfo'), t('workInformation')];
     }
+  }
+  if (!IS_Nformacy_APP) {
+    return [
+      t('personalInfo'),
+      t('specializationAndPreferences'),
+      t('Experience'),
+      t('Education'),
+    ];
   } else {
     return [t('personalInfo'), t('specializationAndPreferences')];
   }
@@ -115,10 +126,7 @@ const StepsIndicator = (props) => {
         connector={<ColorlibConnector />}>
         {steps.map((label) => (
           <Step key={label}>
-            <StepLabel
-              StepIconComponent={ColorlibStepIcon}>
-              {label}
-            </StepLabel>
+            <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>

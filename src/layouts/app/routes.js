@@ -2,6 +2,7 @@ import React from 'react';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import { VpnKey } from '@material-ui/icons';
 import { RoutesPaths } from 'constants/routesPath';
+import ConsultantFullRegistrationForm from 'pages/App/FreelancerProfile/ConsultantFullRegistrationForm';
 
 const ProjectDetails = React.lazy(() => import('pages/App/Projects/details'));
 
@@ -249,6 +250,15 @@ const appRoutes = [
     name: 'Profile',
     icon: DashboardIcon,
     Component: ConsultantAdvancedRegistrationForm,
+    includeLayout: true,
+    isPublic: false,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.App.ConsultantFullRegistrationForm,
+    name: 'Full Profile',
+    icon: DashboardIcon,
+    Component: ConsultantFullRegistrationForm,
     includeLayout: true,
     isPublic: false,
     hasDashboardLink: false,
