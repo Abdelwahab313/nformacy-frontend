@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import FormControl from '@material-ui/core/FormControl';
 import ReactSelectMaterialUi from 'react-select-material-ui';
 import { selectStyle } from 'styles/formsStyles';
-import { frequency, projectManagers } from 'constants/dropDownOptions';
+import { frequency } from 'constants/dropDownOptions';
 import SubmitButton from 'components/buttons/SubmitButton';
 import { RoutesPaths } from 'constants/routesPath';
 import { useHistory } from 'react-router';
@@ -31,15 +31,8 @@ import LinkText from 'components/typography/LinkText';
 import { Dialog } from '@material-ui/core';
 import { DialogContent } from '@material-ui/core';
 import Transition from 'components/animations/Transition';
-import { Paper } from '@material-ui/core';
-import { TableContainer } from '@material-ui/core';
-import { TableHead } from '@material-ui/core';
-import { TableRow } from '@material-ui/core';
-import { withStyles } from '@material-ui/core';
-import { TableCell } from '@material-ui/core';
-import { TableBody } from '@material-ui/core';
-import { Table } from '@material-ui/core';
 import { DialogActions } from '@material-ui/core';
+import EditMentorsDialog from './EditMentorsDialog';
 
 const AddProjectServiceForm = () => {
   const classes = useStyles();
@@ -374,29 +367,6 @@ const AddProjectServiceForm = () => {
   );
 };
 
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: '#3a3b4b',
-    color: theme.palette.common.white,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    whiteSpace: 'nowrap',
-  },
-  body: {
-    fontSize: 14,
-    textAlign: 'center',
-  },
-}))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-    height: '75px',
-  },
-}))(TableRow);
-
 const MentorsSetting = () => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -409,70 +379,6 @@ const MentorsSetting = () => {
     setOpen(false);
   };
 
-  const clients = [
-    {
-      id: 1,
-      firstName: 'William',
-      lastName: 'Michael',
-      organizationName: 'Netflix',
-    },
-    {
-      id: 2,
-      firstName: 'Sam',
-      lastName: 'Micheal',
-      organizationName: 'Amazon',
-    },
-    {
-      id: 3,
-      firstName: 'Erik',
-      lastName: 'Ericksen',
-      organizationName: 'nformacy',
-    },
-    {
-      id: 4,
-      firstName: 'Jake',
-      lastName: 'Oliver',
-      organizationName: 'nformacy',
-    },
-    {
-      id: 5,
-      firstName: 'Jason',
-      lastName: 'Sam',
-      organizationName: 'nformacy',
-    },
-    {
-      id: 6,
-      firstName: 'Harry',
-      lastName: 'James',
-      organizationName: 'nformacy',
-    },
-    {
-      id: 7,
-      firstName: 'George',
-      lastName: 'David',
-      organizationName: 'nformacy',
-    },
-  ];
-  const parseClientsToTableRows = (clients) => {
-    return clients?.map((client) => ({
-      ...clients,
-      firstName: (
-        <CustomTypography variant={'body1'}>
-          {client.firstName}
-        </CustomTypography>
-      ),
-      lastName: (
-        <CustomTypography variant={'body1'}>{client.lastName}</CustomTypography>
-      ),
-      organizationName: (
-        <CustomTypography variant={'body1'}>
-          {client.organizationName}
-        </CustomTypography>
-      ),
-    }));
-  };
-  const servicesRows = parseClientsToTableRows(clients, t);
-
   return (
     <>
       <Dialog
@@ -484,61 +390,7 @@ const MentorsSetting = () => {
         <DialogContent className={classes.mentorsDialogContainer}>
           <Grid container>
             <Grid item md={12} className={classes.activityTable}>
-              <TableContainer
-                component={Paper}
-                className={classes.tableContainer}>
-                <Table stickyHeader aria-label='My Activity Table'>
-                  <TableHead>
-                    <TableRow>
-                      <StyledTableCell>
-                        {t('beneficiaryFirstName')}
-                      </StyledTableCell>
-                      <StyledTableCell>
-                        {t('beneficiaryLastName')}
-                      </StyledTableCell>
-                      <StyledTableCell>{t('organizationName')}</StyledTableCell>
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {t('consultantName')}
-                      </StyledTableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {servicesRows.length === 0 ? (
-                      <TableCell colspan='8' className={classes.noRecords}>
-                        Sorry, no matching records found
-                      </TableCell>
-                    ) : (
-                      servicesRows.map((client) => (
-                        <StyledTableRow
-                          reference-number={client.RefNumber}
-                          key={client.id}>
-                          <StyledTableCell scope='row'>
-                            {client.firstName}
-                          </StyledTableCell>
-                          <StyledTableCell scope='row'>
-                            {client.lastName}
-                          </StyledTableCell>
-                          <StyledTableCell>
-                            {client.organizationName}
-                          </StyledTableCell>
-                          <StyledTableCell className={classes.desktopVisible}>
-                            <FormControl fullWidth id='project-manager-select'>
-                              <ReactSelectMaterialUi
-                                fullWidth={true}
-                                placeholder={'Select Mentor'}
-                                SelectProps={{
-                                  styles: selectStyle,
-                                }}
-                                options={projectManagers}
-                              />
-                            </FormControl>
-                          </StyledTableCell>
-                        </StyledTableRow>
-                      ))
-                    )}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+              <EditMentorsDialog />
             </Grid>
           </Grid>
         </DialogContent>

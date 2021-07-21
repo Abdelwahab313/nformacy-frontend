@@ -193,4 +193,8 @@ export const useStyles = makeStyles((theme) => ({
   mentorsDialogContainer: {
     minWidth: 800,
   },
+  editMentorsBtn: {
+    float: 'right',
+    marginTop: theme.spacing(2),
+  },
 }));
