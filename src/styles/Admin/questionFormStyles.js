@@ -190,4 +190,7 @@ export const useStyles = makeStyles((theme) => ({
     float: 'right',
     margin: theme.spacing(2),
   },
+  mentorsDialogContainer: {
+    minWidth: 800,
+  },
 }));

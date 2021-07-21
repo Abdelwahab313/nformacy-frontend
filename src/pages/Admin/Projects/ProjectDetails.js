@@ -15,6 +15,7 @@ import { fetchServices } from 'apis/servicesAPI';
 import ProjectDetailsView from './ProjectDetailsView';
 import { fetchProjectDetails } from 'apis/projectsAPI';
 import AddProjectServiceForm from './AddProjectServiceForm';
+import MentoringList from './MentoringList';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -84,6 +85,7 @@ const ProjectDetails = () => {
           <Tab label='Consultants' {...a11yProps(2)} />
           <Tab label='Beneficiaries' {...a11yProps(3)} />
           <Tab label='Settings' {...a11yProps(4)} />
+          <Tab label='Mentoring' {...a11yProps(4)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -100,6 +102,9 @@ const ProjectDetails = () => {
       </TabPanel>
       <TabPanel value={value} index={4}>
         <AddProjectServiceForm />
+      </TabPanel>
+      <TabPanel value={value} index={5}>
+        <MentoringList />
       </TabPanel>
     </div>
   );

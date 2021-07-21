@@ -620,5 +620,8 @@
   "beneficiaryRef": "Beneficiary Reference",
   "addBeneficiary": "Add Beneficiary",
   "addConsultant": "Add Consultant",
-  "projectDetails": "Project Details"
+  "projectDetails": "Project Details",
+  "assignMentorsForBeneficiaries": "Assign Mentors for Beneficiaries",
+  "beneficiaryFirstName": "Beneficiary First Name",
+  "beneficiaryLastName": "Beneficiary Last Name"
 }

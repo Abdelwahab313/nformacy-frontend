@@ -27,6 +27,19 @@ import {
 import DateFnsUtils from '@date-io/date-fns';
 import moment from 'moment';
 import CustomTypography from 'components/typography/Typography';
+import LinkText from 'components/typography/LinkText';
+import { Dialog } from '@material-ui/core';
+import { DialogContent } from '@material-ui/core';
+import Transition from 'components/animations/Transition';
+import { Paper } from '@material-ui/core';
+import { TableContainer } from '@material-ui/core';
+import { TableHead } from '@material-ui/core';
+import { TableRow } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
+import { TableCell } from '@material-ui/core';
+import { TableBody } from '@material-ui/core';
+import { Table } from '@material-ui/core';
+import { DialogActions } from '@material-ui/core';
 
 const AddProjectServiceForm = () => {
   const classes = useStyles();
@@ -45,8 +58,8 @@ const AddProjectServiceForm = () => {
   const updateContaraint = () => {};
 
   const onCheckMentoring = (e) => {
-    setShowMentoringSetting(e.target.checked)
-  }
+    setShowMentoringSetting(e.target.checked);
+  };
   return (
     <Fragment>
       <GridContainer>
@@ -275,9 +288,14 @@ const AddProjectServiceForm = () => {
           <GridItem xs={12} sm={4}>
             <FormControlLabel
               value='start'
-              control={<Checkbox color='primary'  onChange={(e) => {
-                onCheckMentoring(e);
-              }} />}
+              control={
+                <Checkbox
+                  color='primary'
+                  onChange={(e) => {
+                    onCheckMentoring(e);
+                  }}
+                />
+              }
               label={t('mentoringTheExpert')}
               labelPlacement='end'
             />
@@ -356,13 +374,46 @@ const AddProjectServiceForm = () => {
   );
 };
 
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: '#3a3b4b',
+    color: theme.palette.common.white,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    whiteSpace: 'nowrap',
+  },
+  body: {
+    fontSize: 14,
+    textAlign: 'center',
+  },
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    height: '75px',
+  },
+}))(TableRow);
+
 const MentorsSetting = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const clients = [
     {
       id: 1,
-      firstName: 'Ahmed',
-      lastName: 'Ali',
+      firstName: 'William',
+      lastName: 'Michael',
       organizationName: 'Netflix',
     },
     {
@@ -377,36 +428,137 @@ const MentorsSetting = () => {
       lastName: 'Ericksen',
       organizationName: 'nformacy',
     },
+    {
+      id: 4,
+      firstName: 'Jake',
+      lastName: 'Oliver',
+      organizationName: 'nformacy',
+    },
+    {
+      id: 5,
+      firstName: 'Jason',
+      lastName: 'Sam',
+      organizationName: 'nformacy',
+    },
+    {
+      id: 6,
+      firstName: 'Harry',
+      lastName: 'James',
+      organizationName: 'nformacy',
+    },
+    {
+      id: 7,
+      firstName: 'George',
+      lastName: 'David',
+      organizationName: 'nformacy',
+    },
   ];
+  const parseClientsToTableRows = (clients) => {
+    return clients?.map((client) => ({
+      ...clients,
+      firstName: (
+        <CustomTypography variant={'body1'}>
+          {client.firstName}
+        </CustomTypography>
+      ),
+      lastName: (
+        <CustomTypography variant={'body1'}>{client.lastName}</CustomTypography>
+      ),
+      organizationName: (
+        <CustomTypography variant={'body1'}>
+          {client.organizationName}
+        </CustomTypography>
+      ),
+    }));
+  };
+  const servicesRows = parseClientsToTableRows(clients, t);
+
   return (
     <>
-      <CustomTypography variant='h6'>
-        Assign Mentors for Beneficiaries
-      </CustomTypography>
-      {clients.map((client) => (
-        <GridContainer className={classes.inputsRow}>
-          <GridItem xs={3}>
-            <CustomTypography>
-              {`${client.firstName} ${client.lastName}`}
-            </CustomTypography>
-          </GridItem>
-          <GridItem xs={3}>
-            <CustomTypography>{client.organizationName}</CustomTypography>
-          </GridItem>
-          <GridItem xs={3}>
-            <FormControl fullWidth id='project-manager-select'>
-              <ReactSelectMaterialUi
-                fullWidth={true}
-                placeholder={'Select Mentor'}
-                SelectProps={{
-                  styles: selectStyle,
-                }}
-                options={projectManagers}
-              />
-            </FormControl>
-          </GridItem>
-        </GridContainer>
-      ))}
+      <Dialog
+        TransitionComponent={Transition}
+        maxWidth='lg'
+        PaperProps={{ id: 'fieldsOfSpecializationDialog' }}
+        onClose={handleClose}
+        open={open}>
+        <DialogContent className={classes.mentorsDialogContainer}>
+          <Grid container>
+            <Grid item md={12} className={classes.activityTable}>
+              <TableContainer
+                component={Paper}
+                className={classes.tableContainer}>
+                <Table stickyHeader aria-label='My Activity Table'>
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell>
+                        {t('beneficiaryFirstName')}
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        {t('beneficiaryLastName')}
+                      </StyledTableCell>
+                      <StyledTableCell>{t('organizationName')}</StyledTableCell>
+                      <StyledTableCell className={classes.desktopVisible}>
+                        {t('consultantName')}
+                      </StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {servicesRows.length === 0 ? (
+                      <TableCell colspan='8' className={classes.noRecords}>
+                        Sorry, no matching records found
+                      </TableCell>
+                    ) : (
+                      servicesRows.map((client) => (
+                        <StyledTableRow
+                          reference-number={client.RefNumber}
+                          key={client.id}>
+                          <StyledTableCell scope='row'>
+                            {client.firstName}
+                          </StyledTableCell>
+                          <StyledTableCell scope='row'>
+                            {client.lastName}
+                          </StyledTableCell>
+                          <StyledTableCell>
+                            {client.organizationName}
+                          </StyledTableCell>
+                          <StyledTableCell className={classes.desktopVisible}>
+                            <FormControl fullWidth id='project-manager-select'>
+                              <ReactSelectMaterialUi
+                                fullWidth={true}
+                                placeholder={'Select Mentor'}
+                                SelectProps={{
+                                  styles: selectStyle,
+                                }}
+                                options={projectManagers}
+                              />
+                            </FormControl>
+                          </StyledTableCell>
+                        </StyledTableRow>
+                      ))
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
+          </Grid>
+        </DialogContent>
+        <DialogActions>
+          <SubmitButton
+            onClick={handleClose}
+            color='primary'
+            buttonText={'Submit'}
+          />
+        </DialogActions>
+      </Dialog>
+
+      <LinkText to={() => {}}>
+        <CustomTypography
+          color='primary'
+          variant='body1'
+          onClick={handleClickOpen}>
+          {t('assignMentorsForBeneficiaries')}
+        </CustomTypography>
+      </LinkText>
     </>
   );
 };
