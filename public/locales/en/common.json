@@ -623,5 +623,6 @@
   "projectDetails": "Project Details",
   "assignMentorsForBeneficiaries": "Assign Mentors for Beneficiaries",
   "beneficiaryFirstName": "Beneficiary First Name",
-  "beneficiaryLastName": "Beneficiary Last Name"
+  "beneficiaryLastName": "Beneficiary Last Name",
+  "mentoringWithTheExpertTitle": "Mentoring with the Expert"
 }

@@ -20,7 +20,7 @@ const services = (t) => [
   },
   {
     name: 'assignExpert',
-    title: t('assignExpertServiceTitle'),
+    title: t('mentoringWithTheExpertTitle'),
     description: t('assignExpertServiceDescription'),
     icon: require('../../../../assets/consultant.png'),
     btnTxt: t('assignExpertServiceButton'),
@@ -28,7 +28,7 @@ const services = (t) => [
   },
   {
     name: 'project',
-    title: t('projectServiceTitle'),
+    title: t('assignExpertServiceTitle'),
     description: t('projectServiceDescription'),
     icon: require('../../../../assets/client-project.svg'),
     btnTxt: t('projectServiceButton'),
