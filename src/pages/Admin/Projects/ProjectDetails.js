@@ -14,7 +14,7 @@ import useFetchData from 'hooks/useFetchData';
 import { fetchServices } from 'apis/servicesAPI';
 import ProjectDetailsView from './ProjectDetailsView';
 import { fetchProjectDetails } from 'apis/projectsAPI';
-import AddProjectServiceForm from './AddProjectServiceForm';
+import ProjectSettingsForm from './ProjectSettingsForm';
 import MentoringList from './MentoringList';
 
 function TabPanel(props) {
@@ -101,7 +101,7 @@ const ProjectDetails = () => {
         <ProjectBeneficiariesList />
       </TabPanel>
       <TabPanel value={value} index={4}>
-        <AddProjectServiceForm />
+        <ProjectSettingsForm />
       </TabPanel>
       <TabPanel value={value} index={5}>
         <MentoringList />

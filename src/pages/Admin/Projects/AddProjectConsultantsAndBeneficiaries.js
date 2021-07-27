@@ -15,7 +15,7 @@ import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import { history } from 'services/navigation';
 import { RoutesPaths } from 'constants/routesPath';
 
-const AddProjectListForm = () => {
+const AddProjectConsultantsAndBeneficiaries = () => {
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -27,8 +27,8 @@ const AddProjectListForm = () => {
   });
 
   const handleSubmit = () => {
-    history.push(RoutesPaths.Admin.Projects)
-  }
+    history.push(RoutesPaths.Admin.Projects);
+  };
 
   if (isLoading) {
     return <LoadingCircle />;
@@ -76,9 +76,8 @@ const AddProjectListForm = () => {
           buttonText: 'Submit',
         }}
       />
-      {/* <ActionBut */}
     </Fragment>
   );
 };
 
-export default AddProjectListForm;
+export default AddProjectConsultantsAndBeneficiaries;

@@ -1,3 +1,7 @@
+import axios from 'axios';
+import { API_BASE_URL } from '../settings';
+import { camelizeKeys, decamelizeKeys } from 'humps';
+
 export const fetchProjects = () => {
   const projects = [
     {
@@ -20,7 +24,7 @@ export const fetchProjects = () => {
       beneficiaries: 3,
       askCredit: '20 Monthly',
       mentoring: 'Yes',
-      assign: 'No'
+      assign: 'No',
     },
     {
       projectNumber: 2,
@@ -42,7 +46,7 @@ export const fetchProjects = () => {
       beneficiaries: 3,
       askCredit: '15 Monthly',
       mentoring: 'No',
-      assign: 'Yes'
+      assign: 'Yes',
     },
     {
       projectNumber: 3,
@@ -64,7 +68,7 @@ export const fetchProjects = () => {
       beneficiaries: 3,
       askCredit: '25 Monthly',
       mentoring: 'Yes',
-      assign: 'No'
+      assign: 'No',
     },
     {
       projectNumber: 4,
@@ -86,7 +90,7 @@ export const fetchProjects = () => {
       beneficiaries: 3,
       askCredit: '20 Monthly',
       mentoring: 'No',
-      assign: 'No'
+      assign: 'No',
     },
     {
       projectNumber: 5,
@@ -107,13 +111,38 @@ export const fetchProjects = () => {
       beneficiaries: 3,
       askCredit: '40 Monthly',
       mentoring: 'Yes',
-      assign: 'Yes'
+      assign: 'Yes',
     },
   ];
   return new Promise((resolve) => {
     resolve({ data: projects });
   });
 };
+
+const createProject = (project) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/projects`,
+    data: decamelizeKeys({ ...project }),
+  }).then((response) => camelizeKeys(response));
+};
+
+const updateProject = (project) => {
+  return axios({
+    method: 'put',
+    url: `${API_BASE_URL}/projects/${project.id}`,
+    data: decamelizeKeys({ ...project }),
+  }).then((response) => camelizeKeys(response));
+};
+
+export const createOrUpdateProject = (project) => {
+  if (!!project.id) {
+    return updateProject(project);
+  } else {
+    return createProject(project);
+  }
+};
+
 export const fetchConsultantsList = () => {
   const projects = [
     {

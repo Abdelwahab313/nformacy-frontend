@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import FieldsSelect from 'components/inputs/FieldsSelect/FieldsSelect';
@@ -20,38 +20,23 @@ import {
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import countryList from 'react-select-country-list';
 
 const AddProjectForm = ({
   primaryButton,
   project,
   setProject,
-  richTextRef,
-  options,
-  initialRange,
+  richTextRef
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const [countries] = useState(countryList().getData());
 
-  const [selectedRange, setSelectedRange] = useState({
-    startDate: '',
-    endDate: '',
-    startTime: '',
-    endTime: '',
-  });
-  const onChangeField = (name, checked) => {
-    setProject((prevData) => ({ ...prevData, [name]: checked }));
+  // @TODO needs to handle the project managers list
+  const onChangeField = (name, value) => {
+    // console.log('---------', { project });
+    setProject((prevData) => ({ ...prevData, [name]: value }));
   };
-
-  const updateTime = (name, date) => {
-    setSelectedRange((prevState) => ({
-      ...prevState,
-      [name]: date,
-    }));
-  };
-
-  useEffect(() => {
-    setSelectedRange(initialRange);
-  }, [initialRange.startDate]);
 
   return (
     <Fragment>
@@ -92,8 +77,8 @@ const AddProjectForm = ({
                         margin='normal'
                         id='start-date-range-picker'
                         label={t['startDate']}
-                        value={selectedRange.startDate}
-                        onChange={(date) => updateTime('startDate', date)}
+                        value={project.startDate}
+                        onChange={(date) => onChangeField('startDate', date)}
                         KeyboardButtonProps={{
                           'aria-label': 'change date',
                         }}
@@ -108,9 +93,9 @@ const AddProjectForm = ({
                         margin='normal'
                         id='end-date-range-picker'
                         label={t['endDate']}
-                        value={selectedRange.endDate}
-                        onChange={(date) => updateTime('endDate', date)}
-                        minDate={selectedRange.startDate}
+                        value={project.endDate}
+                        onChange={(date) => onChangeField('endDate', date)}
+                        minDate={project.startDate}
                         KeyboardButtonProps={{
                           'aria-label': 'change date',
                         }}
@@ -130,7 +115,7 @@ const AddProjectForm = ({
                 id='countrySelect'
                 name='countries'
                 inputLabel={t('selectCountry')}
-                options={options}
+                options={countries}
                 value={project.countries}
                 getOptionSelected={(option, selectedValue) => {
                   return option.value === selectedValue.value;

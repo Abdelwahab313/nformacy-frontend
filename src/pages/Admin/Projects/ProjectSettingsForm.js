@@ -34,7 +34,7 @@ import Transition from 'components/animations/Transition';
 import { DialogActions } from '@material-ui/core';
 import EditMentorsDialog from './EditMentorsDialog';
 
-const AddProjectServiceForm = () => {
+const ProjectSettingsForm = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const history = useHistory();
@@ -415,4 +415,4 @@ const MentorsSetting = () => {
   );
 };
 
-export default AddProjectServiceForm;
+export default ProjectSettingsForm;
