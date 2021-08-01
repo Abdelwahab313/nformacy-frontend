@@ -127,6 +127,14 @@ const createProject = (project) => {
   }).then((response) => camelizeKeys(response));
 };
 
+export const submitProjectSettings = (projectSettings) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/project_settings`,
+    data: decamelizeKeys({ ...projectSettings }),
+  }).then((response) => camelizeKeys(response));
+};
+
 const updateProject = (project) => {
   return axios({
     method: 'put',

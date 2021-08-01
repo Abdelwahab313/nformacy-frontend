@@ -25,7 +25,6 @@ import {
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import moment from 'moment';
 import CustomTypography from 'components/typography/Typography';
 import LinkText from 'components/typography/LinkText';
 import { Dialog } from '@material-ui/core';
@@ -33,26 +32,33 @@ import { DialogContent } from '@material-ui/core';
 import Transition from 'components/animations/Transition';
 import { DialogActions } from '@material-ui/core';
 import EditMentorsDialog from './EditMentorsDialog';
+import { submitProjectSettings } from 'apis/projectsAPI';
 
 const ProjectSettingsForm = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const history = useHistory();
   const [showMentoringSetting, setShowMentoringSetting] = useState();
-  const constraint = {
-    startDate: moment('10-10-2019').toDate(),
-    endDate: moment('1-1-2022').toDate(),
-  };
+  const [projectSettings, setProjectSettings] = useState({
+    askSettings: {},
+    callSettings: {},
+    hireSettings: {},
+    mentorSettings: {},
+  });
 
   const handleProjectServiceForm = () => {
-    history.push(RoutesPaths.Admin.AddProjectListForm);
+    submitProjectSettings({ ...projectSettings, projectId: 1 })
+      .then(() => {
+        history.push(RoutesPaths.Admin.AddProjectListForm);
+      })
+      .catch(() => {});
   };
 
-  const updateContaraint = () => {};
-
-  const onCheckMentoring = (e) => {
-    setShowMentoringSetting(e.target.checked);
+  // console.log('==============', { projectSettings });
+  const onCheckMentoring = (checked) => {
+    setShowMentoringSetting(checked);
   };
+
   return (
     <Fragment>
       <GridContainer>
@@ -67,292 +73,51 @@ const ProjectSettingsForm = () => {
         </GridItem>
       </GridContainer>
       <CardBody>
-        <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={4}>
-            <FormControlLabel
-              value='start'
-              control={<Checkbox color='primary' />}
-              label={t('askTheExpert')}
-              labelPlacement='end'
-            />
-          </GridItem>
+        <SettingRow
+          serviceKey={'askSettings'}
+          serviceSetting={projectSettings['askSettings']}
+          updateServiceSetting={(serviceSetting) => {
+            setProjectSettings({
+              ...projectSettings,
+              askSettings: serviceSetting,
+            });
+          }}
+        />
 
-          <GridItem xs={12} sm={2}>
-            <TextField
-              id='standard-number'
-              label='Amount'
-              type='number'
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant='outlined'
-            />
-          </GridItem>
-          <GridItem xs={12} sm={2}>
-            <FormControl fullWidth id='country-select'>
-              <ReactSelectMaterialUi
-                fullWidth={true}
-                placeholder={t('selectFrequency')}
-                SelectProps={{
-                  styles: selectStyle,
-                }}
-                options={frequency}
-              />
-            </FormControl>
-          </GridItem>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <GridItem xs={12} sm={2}>
-              <KeyboardDatePicker
-                disableToolbar
-                autoOk
-                variant='inline'
-                format='dd/MM/yyyy'
-                margin='normal'
-                id='start-date-range-picker'
-                label={t['startDate']}
-                value={constraint.startDate}
-                onChange={(date) => updateContaraint('startDate', date)}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-            </GridItem>
-            <GridItem xs={12} sm={2}>
-              <KeyboardDatePicker
-                disableToolbar
-                autoOk
-                variant='inline'
-                format='dd/MM/yyyy'
-                margin='normal'
-                id='end-date-range-picker'
-                label={t['endDate']}
-                value={constraint.endDate}
-                onChange={(date) => updateContaraint('endDate', date)}
-                minDate={constraint.startDate}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-            </GridItem>
-          </MuiPickersUtilsProvider>
-        </GridContainer>
+        <SettingRow
+          serviceKey={'callSettings'}
+          serviceSetting={projectSettings['callSettings']}
+          updateServiceSetting={(serviceSetting) => {
+            setProjectSettings({
+              ...projectSettings,
+              callSettings: serviceSetting,
+            });
+          }}
+        />
 
-        <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={4}>
-            <FormControlLabel
-              value='start'
-              control={<Checkbox color='primary' />}
-              label={t('callTheExpert')}
-              labelPlacement='end'
-            />
-          </GridItem>
+        <SettingRow
+          serviceKey={'hireSettings'}
+          serviceSetting={projectSettings['hireSettings']}
+          updateServiceSetting={(serviceSetting) => {
+            setProjectSettings({
+              ...projectSettings,
+              hireSettings: serviceSetting,
+            });
+          }}
+        />
 
-          <GridItem xs={12} sm={2}>
-            <TextField
-              id='standard-number'
-              label='Amount'
-              type='number'
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant='outlined'
-            />
-          </GridItem>
-          <GridItem xs={12} sm={2}>
-            <FormControl fullWidth id='country-select'>
-              <ReactSelectMaterialUi
-                fullWidth={true}
-                placeholder={t('selectFrequency')}
-                SelectProps={{
-                  styles: selectStyle,
-                }}
-                options={frequency}
-              />
-            </FormControl>
-          </GridItem>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <GridItem xs={12} sm={2}>
-              <KeyboardDatePicker
-                disableToolbar
-                autoOk
-                variant='inline'
-                format='dd/MM/yyyy'
-                margin='normal'
-                id='start-date-range-picker'
-                label={t['startDate']}
-                value={constraint.startDate}
-                onChange={(date) => updateContaraint('startDate', date)}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-            </GridItem>
-            <GridItem xs={12} sm={2}>
-              <KeyboardDatePicker
-                disableToolbar
-                autoOk
-                variant='inline'
-                format='dd/MM/yyyy'
-                margin='normal'
-                id='end-date-range-picker'
-                label={t['endDate']}
-                value={constraint.endDate}
-                onChange={(date) => updateContaraint('endDate', date)}
-                minDate={constraint.startDate}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-            </GridItem>
-          </MuiPickersUtilsProvider>
-        </GridContainer>
+        <SettingRow
+          serviceKey={'mentorSettings'}
+          serviceSetting={projectSettings['mentorSettings']}
+          updateServiceSetting={(serviceSetting) => {
+            setProjectSettings({
+              ...projectSettings,
+              mentorSettings: serviceSetting,
+            });
+          }}
+          onCheck={(checked) => onCheckMentoring(checked)}
+        />
 
-        <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={4}>
-            <FormControlLabel
-              value='start'
-              control={<Checkbox color='primary' />}
-              label={t('hireTheExpert')}
-              labelPlacement='end'
-            />
-          </GridItem>
-
-          <GridItem xs={12} sm={2}>
-            <TextField
-              id='standard-number'
-              label='Amount'
-              type='number'
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant='outlined'
-            />
-          </GridItem>
-          <GridItem xs={12} sm={2}>
-            <FormControl fullWidth id='country-select'>
-              <ReactSelectMaterialUi
-                fullWidth={true}
-                placeholder={t('selectFrequency')}
-                SelectProps={{
-                  styles: selectStyle,
-                }}
-                options={frequency}
-              />
-            </FormControl>
-          </GridItem>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <GridItem xs={12} sm={2}>
-              <KeyboardDatePicker
-                disableToolbar
-                autoOk
-                variant='inline'
-                format='dd/MM/yyyy'
-                margin='normal'
-                id='start-date-range-picker'
-                label={t['startDate']}
-                value={constraint.startDate}
-                onChange={(date) => updateContaraint('startDate', date)}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-            </GridItem>
-            <GridItem xs={12} sm={2}>
-              <KeyboardDatePicker
-                disableToolbar
-                autoOk
-                variant='inline'
-                format='dd/MM/yyyy'
-                margin='normal'
-                id='end-date-range-picker'
-                label={t['endDate']}
-                value={constraint.endDate}
-                onChange={(date) => updateContaraint('endDate', date)}
-                minDate={constraint.startDate}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-            </GridItem>
-          </MuiPickersUtilsProvider>
-        </GridContainer>
-
-        <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={4}>
-            <FormControlLabel
-              value='start'
-              control={
-                <Checkbox
-                  color='primary'
-                  onChange={(e) => {
-                    onCheckMentoring(e);
-                  }}
-                />
-              }
-              label={t('mentoringTheExpert')}
-              labelPlacement='end'
-            />
-          </GridItem>
-
-          <GridItem xs={12} sm={2}>
-            <TextField
-              id='standard-number'
-              label='Amount'
-              type='number'
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant='outlined'
-            />
-          </GridItem>
-          <GridItem xs={12} sm={2}>
-            <FormControl fullWidth id='country-select'>
-              <ReactSelectMaterialUi
-                fullWidth={true}
-                placeholder={t('selectFrequency')}
-                SelectProps={{
-                  styles: selectStyle,
-                }}
-                options={frequency}
-              />
-            </FormControl>
-          </GridItem>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <GridItem xs={12} sm={2}>
-              <KeyboardDatePicker
-                disableToolbar
-                autoOk
-                variant='inline'
-                format='dd/MM/yyyy'
-                margin='normal'
-                id='start-date-range-picker'
-                label={t['startDate']}
-                value={constraint.startDate}
-                onChange={(date) => updateContaraint('startDate', date)}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-            </GridItem>
-            <GridItem xs={12} sm={2}>
-              <KeyboardDatePicker
-                disableToolbar
-                autoOk
-                variant='inline'
-                format='dd/MM/yyyy'
-                margin='normal'
-                id='end-date-range-picker'
-                label={t['endDate']}
-                value={constraint.endDate}
-                onChange={(date) => updateContaraint('endDate', date)}
-                minDate={constraint.startDate}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-            </GridItem>
-          </MuiPickersUtilsProvider>
-        </GridContainer>
         {showMentoringSetting && <MentorsSetting />}
       </CardBody>
       <CardFooter className={classes.nextStepBtn}>
@@ -364,6 +129,108 @@ const ProjectSettingsForm = () => {
         />
       </CardFooter>
     </Fragment>
+  );
+};
+
+const SettingRow = ({
+  serviceKey,
+  serviceSetting,
+  updateServiceSetting,
+  onCheck,
+}) => {
+  const classes = useStyles();
+  const { t } = useTranslation();
+
+  const serviceKeysTitle = {
+    askSettings: t('askTheExpert'),
+    callSettings: t('callTheExpert'),
+    hireSettings: t('hireTheExpert'),
+    mentorSettings: t('mentoringTheExpert'),
+  };
+  const onChangeField = (name, value) => {
+    updateServiceSetting({
+      ...serviceSetting,
+      [name]: value,
+    });
+  };
+
+  return (
+    <GridContainer className={classes.inputsRow}>
+      <GridItem xs={12} sm={4}>
+        <FormControlLabel
+          value='start'
+          control={
+            <Checkbox
+              color='primary'
+              onChange={(e) => onCheck?.(e.target.checked)}
+            />
+          }
+          label={serviceKeysTitle[serviceKey]}
+          labelPlacement='end'
+        />
+      </GridItem>
+
+      <GridItem xs={12} sm={2}>
+        <TextField
+          id='standard-number'
+          label='Amount'
+          type='number'
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant='outlined'
+          onChange={(e) => onChangeField('amount', e.target.value)}
+        />
+      </GridItem>
+      <GridItem xs={12} sm={2}>
+        <FormControl fullWidth id='country-select'>
+          <ReactSelectMaterialUi
+            fullWidth={true}
+            placeholder={t('selectFrequency')}
+            SelectProps={{
+              styles: selectStyle,
+            }}
+            options={frequency}
+            onChange={(value) => onChangeField('frequency', value)}
+          />
+        </FormControl>
+      </GridItem>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <GridItem xs={12} sm={2}>
+          <KeyboardDatePicker
+            disableToolbar
+            autoOk
+            variant='inline'
+            format='dd/MM/yyyy'
+            margin='normal'
+            id='start-date-range-picker'
+            label={t['startDate']}
+            value={serviceSetting.startDate}
+            onChange={(date) => onChangeField('startDate', date)}
+            KeyboardButtonProps={{
+              'aria-label': 'change date',
+            }}
+          />
+        </GridItem>
+        <GridItem xs={12} sm={2}>
+          <KeyboardDatePicker
+            disableToolbar
+            autoOk
+            variant='inline'
+            format='dd/MM/yyyy'
+            margin='normal'
+            id='end-date-range-picker'
+            label={t['endDate']}
+            value={serviceSetting.endDate}
+            onChange={(date) => onChangeField('endDate', date)}
+            minDate={serviceSetting.startDate}
+            KeyboardButtonProps={{
+              'aria-label': 'change date',
+            }}
+          />
+        </GridItem>
+      </MuiPickersUtilsProvider>
+    </GridContainer>
   );
 };
 
