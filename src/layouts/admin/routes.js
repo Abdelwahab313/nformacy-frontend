@@ -45,7 +45,6 @@ import ProjectsList from 'pages/Admin/Projects/list';
 import AddProject from 'pages/Admin/Projects/add/AddProject';
 import ProjectSettingsForm from 'pages/Admin/Projects/ProjectSettingsForm';
 import ProjectConsultantsList from 'pages/Admin/Projects/list/ProjectConsultantsList';
-import AddProjectConsultantsAndBeneficiaries from 'pages/Admin/Projects/AddProjectConsultantsAndBeneficiaries';
 import ProjectDetails from 'pages/Admin/Projects/ProjectDetails';
 import AddProjectConsultants from 'pages/Admin/Projects/AddProjectConsultants';
 import AddConsultant from 'pages/Admin/Consultants/edit/AddConsultant';
@@ -54,6 +53,8 @@ import AddProjectBeneficiaries from 'pages/Admin/Projects/AddProjectBeneficiarie
 import AddBeneficiary from 'pages/Admin/Beneficiaries/edit/AddBeneficiary';
 import ProjectManagersList from 'pages/Admin/ProjectManagers/list/ProjectManagersList';
 import AddProjectManger from 'pages/Admin/ProjectManagers/edit/AddProjectManager';
+import ListOfProjectBeneficiaries from 'pages/Admin/Projects/ListOfProjectBeneficiaries';
+import ListOfProjectConsultants from 'pages/Admin/Projects/ListOfProjectConsultants';
 
 const adminRoutes = [
   {
@@ -267,10 +268,17 @@ const adminRoutes = [
     hasDashboardLink: false,
   },
   {
-    path: RoutesPaths.Admin.AddProjectListForm,
-    name: 'Consultants and Beneficiaries List',
+    path: RoutesPaths.Admin.ListOfProjectConsultants,
+    name: 'Consultants List',
     icon: QuestionAnswerIcon,
-    component: AddProjectConsultantsAndBeneficiaries,
+    component: ListOfProjectConsultants,
+    hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.Admin.ListOfProjectBeneficiaries,
+    name: 'Beneficiaries List',
+    icon: QuestionAnswerIcon,
+    component: ListOfProjectBeneficiaries,
     hasDashboardLink: false,
   },
   {

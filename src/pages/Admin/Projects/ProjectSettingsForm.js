@@ -49,12 +49,11 @@ const ProjectSettingsForm = () => {
   const handleProjectServiceForm = () => {
     submitProjectSettings({ ...projectSettings, projectId: 1 })
       .then(() => {
-        history.push(RoutesPaths.Admin.AddProjectListForm);
+        history.push(RoutesPaths.Admin.ListOfProjectConsultants);
       })
       .catch(() => {});
   };
 
-  // console.log('==============', { projectSettings });
   const onCheckMentoring = (checked) => {
     setShowMentoringSetting(checked);
   };
