@@ -379,3 +379,11 @@ export const fetchProjectDetails = () => {
     resolve({ data: projects });
   });
 };
+
+export const addConsultants = (projectId, consultantIds) => {
+  return axios({
+    method: 'post',
+    data: decamelizeKeys({ consultantIds }),
+    url: `${API_BASE_URL}/projects/${projectId}/add_consultants`,
+  }).then((response) => camelizeKeys(response));
+};

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import CardBody from 'components/card/CardBody';
@@ -12,16 +12,21 @@ import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import { history } from 'services/navigation';
 import { RoutesPaths } from 'constants/routesPath';
 import { fetchConsultants } from 'apis/consultantsAPI';
+import { addConsultants } from 'apis/projectsAPI';
 
 const ListOfProjectConsultants = () => {
   const { t } = useTranslation();
+  const [consultantIds, setConsultantIds] = useState([]);
 
+  const projectId = 1;
   const { fetchedData: consultants, isLoading } = useFetchData(() => {
     return fetchConsultants();
   });
 
-  const handleSubmit = () => {
-    history.push(RoutesPaths.Admin.ListOfProjectBeneficiaries);
+  const onAddConsultant = () => {
+    addConsultants(projectId, consultantIds).then(() => {
+      history.push(RoutesPaths.Admin.ListOfProjectBeneficiaries);
+    });
   };
 
   if (isLoading) {
@@ -42,14 +47,17 @@ const ListOfProjectConsultants = () => {
         </GridItem>
       </GridContainer>
       <CardBody>
-        <AddConsultantsTable consultants={consultants} />
+        <AddConsultantsTable
+          setConsultantIds={setConsultantIds}
+          consultants={consultants}
+        />
       </CardBody>
 
       <ActionButtonsContainer
         primaryButton={{
           id: 'addConsultant',
           onClick: () => {
-            handleSubmit();
+            onAddConsultant();
           },
           buttonText: 'Next',
         }}

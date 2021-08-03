@@ -75,26 +75,44 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const parseConsultantsTableData = (consultants) => {
+const parseConsultantsTableData = (consultants, setConsultantIds) => {
   return consultants?.map((consultant) => ({
     ...consultant,
     state: getConsultantState(consultant),
     country: getUserCountryLabel(consultant.country),
     fields: <ColoredFieldsChips fields={consultant.fields} />,
     checked: (
+      // TODO: handle onChange in checkbox
       <Checkbox
         color='primary'
+        onChange={(e) => {
+          if (e.target.checked) {
+            setConsultantIds((prevConsultantId) => [
+              ...prevConsultantId,
+              consultant.id,
+            ]);
+          } else {
+            setConsultantIds((prevConsultantId) => [
+              ...prevConsultantId.filter(
+                (consultantId) => consultantId !== consultant.id,
+              ),
+            ]);
+          }
+        }}
         inputProps={{ 'aria-label': 'secondary checkbox' }}
       />
     ),
   }));
 };
 
-const AddConsultantsTable = ({ consultants }) => {
+const AddConsultantsTable = ({ consultants, setConsultantIds }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
-  const consultantsRows = parseConsultantsTableData(consultants);
+  const consultantsRows = parseConsultantsTableData(
+    consultants,
+    setConsultantIds,
+  );
   const tableOptions = {
     filterType: 'checkbox',
     selectableRows: 'none',
