@@ -6,20 +6,20 @@ import { Grid, Typography } from '@material-ui/core';
 import CardHeader from 'components/card/CardHeader';
 import { useTranslation } from 'react-i18next';
 import useFetchData from 'hooks/useFetchData';
-import { fetchBeneficiariesList } from 'apis/projectsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import AddBeneficiariesTable from './AddBenficiariesTable';
 import { useStyles } from 'styles/Admin/postProjectStyles';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import { history } from 'services/navigation';
 import { RoutesPaths } from 'constants/routesPath';
+import { fetchClients } from 'apis/clientsAPI';
 
 const ListOfProjectBeneficiaries = () => {
   const { t } = useTranslation();
   const classes = useStyles();
 
   const { fetchedData: beneficiaries, isLoading } = useFetchData(() => {
-    return fetchBeneficiariesList();
+    return fetchClients();
   });
 
   const handleSubmit = () => {

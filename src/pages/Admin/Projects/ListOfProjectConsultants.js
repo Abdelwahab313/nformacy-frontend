@@ -7,17 +7,17 @@ import CardHeader from 'components/card/CardHeader';
 import { useTranslation } from 'react-i18next';
 import AddConsultantsTable from './AddConsultantsTable';
 import useFetchData from 'hooks/useFetchData';
-import { fetchConsultantsList } from 'apis/projectsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import { history } from 'services/navigation';
 import { RoutesPaths } from 'constants/routesPath';
+import { fetchConsultants } from 'apis/consultantsAPI';
 
 const ListOfProjectConsultants = () => {
   const { t } = useTranslation();
 
   const { fetchedData: consultants, isLoading } = useFetchData(() => {
-    return fetchConsultantsList();
+    return fetchConsultants();
   });
 
   const handleSubmit = () => {
