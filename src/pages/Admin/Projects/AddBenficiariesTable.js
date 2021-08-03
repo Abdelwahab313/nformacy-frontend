@@ -75,26 +75,44 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const parseBeneficiariesTableData = (beneficiaries) => {
+const parseBeneficiariesTableData = (beneficiaries, setBeneficiaryIds) => {
   return beneficiaries?.map((beneficiary) => ({
     ...beneficiary,
     state: getBeneficiaryState(beneficiary),
     country: getUserCountryLabel(beneficiary.country),
     fields: <ColoredFieldsChips fields={beneficiary.fields} />,
+    // TODO: handle onChange in checkbox
     checked: (
       <Checkbox
         color='primary'
+        onChange={(e) => {
+          if (e.target.checked) {
+            setBeneficiaryIds((prevBeneficiaryId) => [
+              ...prevBeneficiaryId,
+              beneficiary.id,
+            ]);
+          } else {
+            setBeneficiaryIds((prevBeneficiaryId) => [
+              ...prevBeneficiaryId.filter(
+                (beneficiaryId) => beneficiaryId !== beneficiary.id,
+              ),
+            ]);
+          }
+        }}
         inputProps={{ 'aria-label': 'secondary checkbox' }}
       />
     ),
   }));
 };
 
-const AddBeneficiariesTable = ({ beneficiaries }) => {
+const AddBeneficiariesTable = ({ beneficiaries, setBeneficiaryIds }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
-  const beneficiariesRows = parseBeneficiariesTableData(beneficiaries);
+  const beneficiariesRows = parseBeneficiariesTableData(
+    beneficiaries,
+    setBeneficiaryIds,
+  );
   const tableOptions = {
     filterType: 'checkbox',
     selectableRows: 'none',

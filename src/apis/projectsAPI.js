@@ -387,3 +387,11 @@ export const addConsultants = (projectId, consultantIds) => {
     url: `${API_BASE_URL}/projects/${projectId}/add_consultants`,
   }).then((response) => camelizeKeys(response));
 };
+
+export const addBeneficiaries = (projectId, beneficiaryIds) => {
+  return axios({
+    method: 'post',
+    data: decamelizeKeys({ beneficiaryIds }),
+    url: `${API_BASE_URL}/projects/${projectId}/add_beneficiaries`,
+  }).then((response) => camelizeKeys(response));
+};

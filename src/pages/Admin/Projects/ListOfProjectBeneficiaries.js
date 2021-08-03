@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import CardBody from 'components/card/CardBody';
@@ -13,17 +13,23 @@ import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import { history } from 'services/navigation';
 import { RoutesPaths } from 'constants/routesPath';
 import { fetchClients } from 'apis/clientsAPI';
+import { addBeneficiaries } from 'apis/projectsAPI';
 
 const ListOfProjectBeneficiaries = () => {
   const { t } = useTranslation();
   const classes = useStyles();
 
+  const [beneficiaryIds, setBeneficiaryIds] = useState([]);
+
+  const projectId = 1;
   const { fetchedData: beneficiaries, isLoading } = useFetchData(() => {
     return fetchClients();
   });
 
-  const handleSubmit = () => {
-    history.push(RoutesPaths.Admin.Projects);
+  const onAddBeneficiaries = () => {
+    addBeneficiaries(projectId, beneficiaryIds).then(() => {
+      history.push(RoutesPaths.Admin.Projects);
+    });
   };
 
   if (isLoading) {
@@ -47,14 +53,17 @@ const ListOfProjectBeneficiaries = () => {
       </GridContainer>
 
       <CardBody>
-        <AddBeneficiariesTable beneficiaries={beneficiaries} />
+        <AddBeneficiariesTable
+          setBeneficiaryIds={setBeneficiaryIds}
+          beneficiaries={beneficiaries}
+        />
       </CardBody>
 
       <ActionButtonsContainer
         primaryButton={{
           id: 'addBenefeciaries',
           onClick: () => {
-            handleSubmit();
+            onAddBeneficiaries();
           },
           buttonText: 'Submit',
         }}
