@@ -32,7 +32,7 @@ import { DialogContent } from '@material-ui/core';
 import Transition from 'components/animations/Transition';
 import { DialogActions } from '@material-ui/core';
 import EditMentorsDialog from './EditMentorsDialog';
-import { submitProjectSettings } from 'apis/projectsAPI';
+import {  submitProjectSettings } from 'apis/projectsAPI';
 
 const ProjectSettingsForm = () => {
   const classes = useStyles();
@@ -238,6 +238,8 @@ const MentorsSetting = () => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
+  const [mentors, setMentors] = useState([]);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -245,6 +247,14 @@ const MentorsSetting = () => {
     setOpen(false);
   };
 
+  const onSelectConsultant = (beneficiaryId, consultantId) => {
+    setMentors((prevMentors) => [
+      ...prevMentors.filter(
+        (beneficiaryId) => mentors.beneficiaryId !== beneficiaryId,
+      ),
+      { beneficiaryId, consultantId },
+    ]);
+  };
   return (
     <>
       <Dialog
@@ -256,7 +266,7 @@ const MentorsSetting = () => {
         <DialogContent className={classes.mentorsDialogContainer}>
           <Grid container>
             <Grid item md={12} className={classes.activityTable}>
-              <EditMentorsDialog />
+              <EditMentorsDialog onSelectConsultant={onSelectConsultant} />
             </Grid>
           </Grid>
         </DialogContent>

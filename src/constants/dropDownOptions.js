@@ -15,9 +15,9 @@ const employmentStatus = [
 ];
 
 const projectManagers = [
-  { value: 'amlMoustafa', label: 'Aml Moustafa' },
-  { value: 'abdelwahabMahmoud', label: 'Abdelwahab Mahmoud' },
-  { value: 'ahmedAli', label: 'Ahmed Ali' },
+  { value: 1, label: 'Aml Moustafa' },
+  { value: 2, label: 'Abdelwahab Mahmoud' },
+  { value: 3, label: 'Ahmed Ali' },
 ];
 const frequency = [
   { value: 'day', label: 'Day' },

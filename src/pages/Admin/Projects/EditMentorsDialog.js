@@ -38,7 +38,7 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-const EditMentorsDialog = () => {
+const EditMentorsDialog = ({ onSelectConsultant }) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -89,7 +89,7 @@ const EditMentorsDialog = () => {
 
   const parseClientsToTableRows = (clients) => {
     return clients?.map((client) => ({
-      ...clients,
+      ...client,
       firstName: (
         <CustomTypography variant={'body1'}>
           {client.firstName}
@@ -144,6 +144,7 @@ const EditMentorsDialog = () => {
                         styles: selectStyle,
                       }}
                       options={projectManagers}
+                      onChange={(value) => onSelectConsultant(client.id, value)}
                     />
                   </FormControl>
                 </StyledTableCell>
