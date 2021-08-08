@@ -32,7 +32,7 @@ import { DialogContent } from '@material-ui/core';
 import Transition from 'components/animations/Transition';
 import { DialogActions } from '@material-ui/core';
 import EditMentorsDialog from './EditMentorsDialog';
-import {  submitProjectSettings } from 'apis/projectsAPI';
+import { addMentors, submitProjectSettings } from 'apis/projectsAPI';
 
 const ProjectSettingsForm = () => {
   const classes = useStyles();
@@ -237,8 +237,10 @@ const MentorsSetting = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-
   const [mentors, setMentors] = useState([]);
+  const history = useHistory();
+
+  const projectId = 1;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -255,6 +257,13 @@ const MentorsSetting = () => {
       { beneficiaryId, consultantId },
     ]);
   };
+
+  const handleSubmit = () => {
+    addMentors(projectId, mentors).then(() => {
+      history.push(RoutesPaths.Admin.Projects);
+    });
+  };
+
   return (
     <>
       <Dialog
@@ -272,7 +281,7 @@ const MentorsSetting = () => {
         </DialogContent>
         <DialogActions>
           <SubmitButton
-            onClick={handleClose}
+            onClick={handleSubmit}
             color='primary'
             buttonText={'Submit'}
           />

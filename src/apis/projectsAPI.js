@@ -395,3 +395,11 @@ export const addBeneficiaries = (projectId, beneficiaryIds) => {
     url: `${API_BASE_URL}/projects/${projectId}/add_beneficiaries`,
   }).then((response) => camelizeKeys(response));
 };
+
+export const addMentors = (projectId, projectMentorsAttributes) => {
+  return axios({
+    method: 'post',
+    data: decamelizeKeys({ projectMentorsAttributes }),
+    url: `${API_BASE_URL}/projects/${projectId}/add_mentors`,
+  }).then((response) => camelizeKeys(response));
+};
