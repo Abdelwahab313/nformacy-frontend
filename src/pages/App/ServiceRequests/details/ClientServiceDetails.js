@@ -31,13 +31,14 @@ const ClientServiceDetails = ({ serviceDetails }) => {
               </GridItem>
             ))}
           </GridContainer>
-          {serviceDetails.state === SERVICE_STATUS.clientSelection &&
-            serviceDetails.candidates?.length > 0 && (
-              <ShortlistCandidate
-                candidates={serviceDetails?.candidates}
-                serviceId={serviceDetails.id}
-              />
-            )}
+          {(serviceDetails.state === SERVICE_STATUS.clientSelection ||
+            SERVICE_STATUS.pendingMentorAvailability) && (
+            // serviceDetails.candidates?.length > 0 && (
+            <ShortlistCandidate
+              candidates={serviceDetails?.candidates}
+              serviceId={serviceDetails.id}
+            />
+          )}
 
           {serviceDetails.assignmentType === 'question' &&
             !!serviceDetails?.question.answers && (

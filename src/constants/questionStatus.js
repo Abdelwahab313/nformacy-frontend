@@ -20,6 +20,7 @@ const SERVICE_STATUS = {
   callScheduled: 'call_scheduled',
   callFinished: 'call_finished',
   closed: 'closed',
+  pendingMentorAvailability: 'Pending for Mentor Availability',
 };
 
 const MEETING_STATUS = {
