@@ -12,8 +12,11 @@ import { useTranslation } from 'react-i18next';
 import { useStyles } from 'styles/Admin/questionFormStyles';
 import FormControl from '@material-ui/core/FormControl';
 import ReactSelectMaterialUi from 'react-select-material-ui';
-import { projectManagers } from 'constants/dropDownOptions';
 import { selectStyle } from 'styles/formsStyles';
+import LoadingCircle from 'components/progress/LoadingCircle';
+import useFetchData from 'hooks/useFetchData';
+import { fetchClients } from 'apis/clientsAPI';
+import { fetchConsultants } from 'apis/consultantsAPI';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -42,50 +45,13 @@ const EditMentorsDialog = ({ onSelectConsultant }) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const clients = [
-    {
-      id: 1,
-      firstName: 'William',
-      lastName: 'Michael',
-      organizationName: 'Netflix',
-    },
-    {
-      id: 2,
-      firstName: 'Sam',
-      lastName: 'Micheal',
-      organizationName: 'Amazon',
-    },
-    {
-      id: 3,
-      firstName: 'Erik',
-      lastName: 'Ericksen',
-      organizationName: 'nformacy',
-    },
-    {
-      id: 4,
-      firstName: 'Jake',
-      lastName: 'Oliver',
-      organizationName: 'nformacy',
-    },
-    {
-      id: 5,
-      firstName: 'Jason',
-      lastName: 'Sam',
-      organizationName: 'nformacy',
-    },
-    {
-      id: 6,
-      firstName: 'Harry',
-      lastName: 'James',
-      organizationName: 'nformacy',
-    },
-    {
-      id: 7,
-      firstName: 'George',
-      lastName: 'David',
-      organizationName: 'nformacy',
-    },
-  ];
+  const { fetchedData: clients, isLoading } = useFetchData(() => {
+    return fetchClients();
+  });
+
+  const { fetchedData: consultants } = useFetchData(() => {
+    return fetchConsultants();
+  });
 
   const parseClientsToTableRows = (clients) => {
     return clients?.map((client) => ({
@@ -106,6 +72,10 @@ const EditMentorsDialog = ({ onSelectConsultant }) => {
     }));
   };
   const servicesRows = parseClientsToTableRows(clients, t);
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
 
   return (
     <TableContainer component={Paper} className={classes.tableContainer}>
@@ -143,7 +113,13 @@ const EditMentorsDialog = ({ onSelectConsultant }) => {
                       SelectProps={{
                         styles: selectStyle,
                       }}
-                      options={projectManagers}
+                      options={consultants.map((consultant) => {
+                        var consultantName = {
+                          value: consultant.id,
+                          label: `${consultant.firstName} ${consultant.lastName}`,
+                        };
+                        return consultantName;
+                      })}
                       onChange={(value) => onSelectConsultant(client.id, value)}
                     />
                   </FormControl>
