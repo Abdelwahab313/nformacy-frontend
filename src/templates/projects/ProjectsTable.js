@@ -6,13 +6,13 @@ import { useStyles } from 'styles/Admin/questionTableStyles';
 import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
 import LinkText from 'components/typography/LinkText';
-import { getUserCountryLabel } from 'core/user';
 import {
   getProjectBeneficiariesList,
   getProjectConsultantsList,
   getProjectDetails,
 } from 'services/navigation';
 import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
+import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -23,7 +23,7 @@ const getColumnsOptions = (classes, t) => {
 
   const columns = [
     {
-      name: 'projectNumber',
+      name: 'id',
       label: t('projectNumber'),
       options: {
         ...defaultColumnOption,
@@ -68,7 +68,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'country',
+      name: 'countries',
       label: t('location'),
       options: {
         ...defaultColumnOption,
@@ -76,7 +76,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'consultants',
+      name: 'consultantsCount',
       label: t('consultants'),
       options: {
         ...defaultColumnOption,
@@ -84,7 +84,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'beneficiaries',
+      name: 'beneficiariesCount',
       label: t('beneficiaries'),
       options: {
         ...defaultColumnOption,
@@ -124,19 +124,25 @@ const getColumnsOptions = (classes, t) => {
 const parseProjectsTableData = (projects) => {
   return projects?.map((project) => ({
     ...project,
-    projectNumber: (
-      <LinkText to={getProjectDetails()}>{project.projectNumber}</LinkText>
-    ),
-    country: getUserCountryLabel(project.country),
+    id: <LinkText to={getProjectDetails()}>{project.id}</LinkText>,
+
+    duration: `${formattedDateTimeNoSeconds(
+      new Date(project.startDate),
+    )} - ${formattedDateTimeNoSeconds(new Date(project.endDate))}  `,
+
     fields: <ColoredFieldsChips fields={project.fields} />,
-    consultants: (
+
+    countries: project.countries.map((country) => country.label),
+
+    consultantsCount: (
       <LinkText to={getProjectConsultantsList()}>
-        {project.consultants}
+        {project.consultantsCount}
       </LinkText>
     ),
-    beneficiaries: (
+
+    beneficiariesCount: (
       <LinkText to={getProjectBeneficiariesList()}>
-        {project.beneficiaries}
+        {project.beneficiariesCount}
       </LinkText>
     ),
   }));
