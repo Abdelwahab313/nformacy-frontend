@@ -110,11 +110,26 @@ const ServiceRequestForm = ({
           }}>
           {({ MajorField, Field }) => (
             <GridContainer className={classes.inputsRow}>
-              <GridItem xs={12} sm={12} md={4} className={classes.serviceRequestFieldsMobile}>
-                <MajorField single disabled={viewOnly} inputLabel={t('serviceFieldsTitle')} />
+              <GridItem
+                xs={12}
+                sm={12}
+                md={4}
+                className={classes.serviceRequestFieldsMobile}>
+                <MajorField
+                  single
+                  disabled={viewOnly}
+                  inputLabel={t('serviceFieldsTitle')}
+                />
               </GridItem>
-              <GridItem xs={12} sm={12} md={4} className={classes.serviceRequestFieldsMobile}>
-                <Field disabled={viewOnly} inputLabel={t('serviceSubFieldsTitle')} />
+              <GridItem
+                xs={12}
+                sm={12}
+                md={4}
+                className={classes.serviceRequestFieldsMobile}>
+                <Field
+                  disabled={viewOnly}
+                  inputLabel={t('serviceSubFieldsTitle')}
+                />
                 <ErrorMessage errorField={errors.fields} />
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
@@ -132,7 +147,11 @@ const ServiceRequestForm = ({
           )}
         </FieldsSelect>
         <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={12} md={8} className={classes.serviceRequestFieldsMobile}>
+          <GridItem
+            xs={12}
+            sm={12}
+            md={8}
+            className={classes.serviceRequestFieldsMobile}>
             <TextField
               label={t('title')}
               id='title'
@@ -147,7 +166,11 @@ const ServiceRequestForm = ({
             />
             <ErrorMessage errorField={errors.title} />
           </GridItem>
-          <GridItem xs={12} sm={12} md={2} className={classes.serviceRequestFieldsMobile}>
+          <GridItem
+            xs={12}
+            sm={12}
+            md={2}
+            className={classes.serviceRequestFieldsMobile}>
             <DropdownSelectField
               fieldId='questionLanguage'
               fieldName='QuestionLanguage'
@@ -164,7 +187,11 @@ const ServiceRequestForm = ({
               disabled={viewOnly}
             />
           </GridItem>
-          <GridItem xs={12} sm={12} md={2} className={classes.serviceRequestFieldsMobile}>
+          <GridItem
+            xs={12}
+            sm={12}
+            md={2}
+            className={classes.serviceRequestFieldsMobile}>
             <DropdownSelectField
               fieldId='assignmentType'
               fieldName='AssignmentType'

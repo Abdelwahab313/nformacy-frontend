@@ -188,7 +188,6 @@ export const getAdvisorDetails = (adviserId) => {
   };
 };
 
-
 export const getProjectManagerDetails = (projectManagerId) => {
   return {
     pathname: RoutesPaths.Admin.AddProjectManager,
@@ -246,9 +245,12 @@ export const getProjectBeneficiariesList = () => {
     pathname: RoutesPaths.Admin.ProjectBeneficiaries,
   };
 };
-export const getProjectDetails = () => {
+export const getProjectDetails = (projectId) => {
   return {
     pathname: RoutesPaths.Admin.ProjectDetails,
+    state: {
+      projectId: projectId,
+    },
   };
 };
 export const getAccountDetails = (accountId) => {

@@ -124,7 +124,7 @@ const getColumnsOptions = (classes, t) => {
 const parseProjectsTableData = (projects) => {
   return projects?.map((project) => ({
     ...project,
-    id: <LinkText to={getProjectDetails()}>{project.id}</LinkText>,
+    id: <LinkText to={getProjectDetails(project.id)}>{project.id}</LinkText>,
 
     duration: `${formattedDateTimeNoSeconds(
       new Date(project.startDate),
@@ -132,7 +132,7 @@ const parseProjectsTableData = (projects) => {
 
     fields: <ColoredFieldsChips fields={project.fields} />,
 
-    countries: project.countries.map((country) => country.label),
+    countries: project?.countries?.map((country) => country.label),
 
     consultantsCount: (
       <LinkText to={getProjectConsultantsList()}>

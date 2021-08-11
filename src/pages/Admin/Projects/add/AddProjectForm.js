@@ -178,7 +178,7 @@ const AddProjectForm = ({
             <GridContainer className={classes.questionContainer}>
               <GridItem xs={12}>
                 <RichTextEditorForm
-                  onContentUpdate={(value) => onChangeField('content', value)}
+                  onContentUpdate={(value) => onChangeField('details', value)}
                   updateRichTextMedia={(newRichTextMediaId) =>
                     onChangeField('richTextMediaId', newRichTextMediaId)
                   }

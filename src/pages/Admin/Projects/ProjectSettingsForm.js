@@ -33,6 +33,7 @@ import Transition from 'components/animations/Transition';
 import { DialogActions } from '@material-ui/core';
 import EditMentorsDialog from './EditMentorsDialog';
 import { addMentors, submitProjectSettings } from 'apis/projectsAPI';
+import { useSnackBar } from 'context/SnackBarContext';
 
 const ProjectSettingsForm = () => {
   const classes = useStyles();
@@ -238,7 +239,7 @@ const MentorsSetting = () => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [mentors, setMentors] = useState([]);
-  const history = useHistory();
+  const { showSuccessMessage } = useSnackBar();
 
   const projectId = 1;
 
@@ -260,7 +261,8 @@ const MentorsSetting = () => {
 
   const handleSubmit = () => {
     addMentors(projectId, mentors).then(() => {
-      history.push(RoutesPaths.Admin.Projects);
+      showSuccessMessage(t('Mentors Added Successfully!'));
+      handleClose();
     });
   };
 

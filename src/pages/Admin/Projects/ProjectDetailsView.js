@@ -6,14 +6,12 @@ import Divider from '@material-ui/core/Divider';
 import { useStyles } from 'styles/formsStyles';
 import { useTranslation } from 'react-i18next';
 import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
-import { getUserCountryLabel } from 'core/user';
 import CustomTypography from 'components/typography/Typography';
 
 const ProjectDetailsView = ({ project }) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const country = getUserCountryLabel(project.location);
   return (
     <Grid item id='basicInfo'>
       <Paper className={classes.paperSection} elevation={3}>
@@ -36,81 +34,90 @@ const ProjectDetailsView = ({ project }) => {
             className={classes.sectionRowContainerStyles}>
             <Grid container className={classes.sectionRowStyles}>
               <Grid item xs={4}>
-                <Typography
+                <CustomTypography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
                   {t('projectNumber')}
-                </Typography>
+                </CustomTypography>
               </Grid>
               <Grid item xs={8}>
-                <CustomTypography id='projectNumberValue' gutterBottom>
-                  {project.projectNumber}
+                <CustomTypography
+                  variant={'body1'}
+                  id='projectNumberValue'
+                  gutterBottom>
+                  {project?.id}
                 </CustomTypography>
               </Grid>
             </Grid>
             <Grid container className={classes.sectionRowStyles}>
               <Grid item xs={4}>
-                <Typography
+                <CustomTypography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
                   {t('title')}
-                </Typography>
+                </CustomTypography>
               </Grid>
               <Grid item xs={8}>
-                <Typography
+                <CustomTypography
+                  variant={'body1'}
                   id='projectTitle'
                   gutterBottom
                   className={classes.fieldValueStyles}>
-                  {project.title}
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid container className={classes.sectionRowStyles}>
-              <Grid item xs={4}>
-                <Typography
-                  gutterBottom
-                  className={classes.fieldLabelStylesDesktop}>
-                  {t('details')}
-                </Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <CustomTypography id='projectNumberValue' gutterBottom variant={'h6'}>
-                  {project.details}
+                  {project?.title}
                 </CustomTypography>
               </Grid>
             </Grid>
             <Grid container className={classes.sectionRowStyles}>
               <Grid item xs={4}>
-                <Typography
+                <CustomTypography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  {t('fields')}
-                </Typography>
+                  {t('details')}
+                </CustomTypography>
               </Grid>
               <Grid item xs={8}>
-                <Typography
-                  id='projectFields'
-                  gutterBottom
-                  className={classes.fieldValueStyles}>
-                  <ColoredFieldsChips fields={project.fields} />
-                </Typography>
+                <CustomTypography
+                  variant={'body1'}
+                  id='projectNumberValue'
+                  gutterBottom>
+                  {project?.details}
+                </CustomTypography>
               </Grid>
             </Grid>
             <Grid container className={classes.sectionRowStyles}>
               <Grid item xs={4}>
-                <Typography
+                <CustomTypography
+                  gutterBottom
+                  className={classes.fieldLabelStylesDesktop}>
+                  {t('fields')}
+                </CustomTypography>
+              </Grid>
+              <Grid item xs={8}>
+                <CustomTypography
+                  variant={'body1'}
+                  id='projectFields'
+                  gutterBottom
+                  className={classes.fieldValueStyles}>
+                  <ColoredFieldsChips fields={project?.fields} />
+                </CustomTypography>
+              </Grid>
+            </Grid>
+            <Grid container className={classes.sectionRowStyles}>
+              <Grid item xs={4}>
+                <CustomTypography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
                   {t('location')}
-                </Typography>
+                </CustomTypography>
               </Grid>
               <Grid item xs={8}>
-                <Typography
+                <CustomTypography
+                  variant={'body1'}
                   id='projectLocation'
                   gutterBottom
                   className={classes.fieldValueStyles}>
-                  {country}
-                </Typography>
+                  {project?.countries?.map((country) => country.label)}
+                </CustomTypography>
               </Grid>
             </Grid>
           </Grid>

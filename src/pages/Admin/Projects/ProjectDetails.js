@@ -13,7 +13,7 @@ import AdminServicesTable from 'templates/services/AdminServicesTable';
 import useFetchData from 'hooks/useFetchData';
 import { fetchServices } from 'apis/servicesAPI';
 import ProjectDetailsView from './ProjectDetailsView';
-import { fetchProjectDetails } from 'apis/projectsAPI';
+import { fetchProjects } from 'apis/projectsAPI';
 import ProjectSettingsForm from './ProjectSettingsForm';
 import MentoringList from './MentoringList';
 
@@ -63,7 +63,7 @@ const ProjectDetails = () => {
 
   const { fetchedData: services, isLoading } = useFetchData(fetchServices);
   const { fetchedData: projects } = useFetchData(() => {
-    return fetchProjectDetails();
+    return fetchProjects();
   });
 
   const handleChange = (event, newValue) => {
