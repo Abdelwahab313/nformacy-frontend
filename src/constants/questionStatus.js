@@ -17,10 +17,10 @@ const SERVICE_STATUS = {
   questionStarted: 'question_started',
   clientSelection: 'client_selection',
   answersCollected: 'answers_collected',
+  pendingMentorAvailability: 'consultant_update_time',
   callScheduled: 'call_scheduled',
   callFinished: 'call_finished',
   closed: 'closed',
-  pendingMentorAvailability: 'Pending for Mentor Availability',
 };
 
 const MEETING_STATUS = {
@@ -33,6 +33,13 @@ const EDITABLE_SERVICE_STATUS = [
   SERVICE_STATUS.pending,
   SERVICE_STATUS.returned,
 ];
+
+const ASSIGNEMNT_TYPES = {
+  question: 'question',
+  call: 'call',
+  project: 'project',
+  mentoring: 'mentoring',
+};
 
 const ANSWER_STATUS = {
   draft: 'draft',
@@ -158,6 +165,16 @@ const serviceActions = {
     },
     action: {},
   },
+  [SERVICE_STATUS.pendingMentorAvailability]: {
+    status: {
+      freelancer: 'client_pendingAvailability_status',
+      client: 'client_pendingAvailability_status',
+      admin: 'client_pendingAvailability_status',
+    },
+    action: {
+      freelancer: 'client_pendingAvailability_status',
+    },
+  },
 };
 
 const meetingStatusActions = {
@@ -282,6 +299,7 @@ export {
   ANSWER_STATUS,
   EDITABLE_SERVICE_STATUS,
   MEETING_STATUS,
+  ASSIGNEMNT_TYPES,
   meetingStatusActions,
   questionStatusActions,
   serviceActions,

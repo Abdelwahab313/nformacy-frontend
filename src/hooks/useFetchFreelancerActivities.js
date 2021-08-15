@@ -3,6 +3,17 @@ import { fetchFreelancerActivities } from 'apis/homeAPI';
 import useFetchData from './useFetchData';
 import { MEETING_STATUS } from 'constants/questionStatus';
 
+const sortByRecentlyUpdated = (arr) => {
+  return arr.sort((a, b) => {
+    var keyA = new Date(a.updatedAt),
+      keyB = new Date(b.updatedAt);
+    // Compare the 2 dates
+    if (keyA < keyB) return -1;
+    if (keyA > keyB) return 1;
+    return 0;
+  });
+};
+
 const useFetchFreelancerActivities = () => {
   const { fetchedData, isLoading } = useFetchData(fetchFreelancerActivities);
 
@@ -10,7 +21,11 @@ const useFetchFreelancerActivities = () => {
     if (!isLoading) {
       const formattedAnswers = formatAnswersToActivity(fetchedData.answers);
       const formattedMeetings = formatMeetingsToActivity(fetchedData.meetings);
-      return [...formattedAnswers, ...formattedMeetings];
+      return sortByRecentlyUpdated([
+        ...formattedAnswers,
+        ...formattedMeetings,
+        ...fetchedData.mentorServices,
+      ]);
     }
   }, [fetchedData, isLoading]);
 
@@ -65,7 +80,8 @@ const formatMeetingsToActivity = (meetings) => {
     fields: meeting.service?.question?.fields,
     meetingState: meeting.state,
     meetingRef: meeting.referenceNumber,
-    meetingTime: (meeting.state === MEETING_STATUS.callScheduled) && meeting.callTime,
+    meetingTime:
+      meeting.state === MEETING_STATUS.callScheduled && meeting.callTime,
     hasEvaluationSubmitted: !!meeting.freelancerEvaluationId,
   }));
 };

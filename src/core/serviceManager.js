@@ -1,3 +1,4 @@
+import { ASSIGNEMNT_TYPES } from 'constants/questionStatus';
 import authManager from 'services/authManager';
 
 class ServiceManager {
@@ -12,6 +13,10 @@ class ServiceManager {
       serviceTime = service?.meetingTime;
     }
     return serviceTime;
+  }
+
+  static isMentoringService(service) {
+    return service.assignmentType === ASSIGNEMNT_TYPES.mentoring;
   }
 }
 

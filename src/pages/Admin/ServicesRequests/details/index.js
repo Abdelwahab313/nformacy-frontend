@@ -42,7 +42,7 @@ const ServiceDetails = () => {
     history.push(RoutesPaths.Admin.QuestionsDetails, { questionId });
   };
 
-  const { serviceId } = location?.state?.service;
+  const serviceId = location?.state?.service?.serviceId;
   const [isLoading, setIsLoading] = useState(false);
   const isNewService = !serviceId;
   const { t } = useTranslation();

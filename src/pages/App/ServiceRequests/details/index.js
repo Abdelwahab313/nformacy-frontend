@@ -6,6 +6,8 @@ import { fetchServiceDetails } from 'apis/servicesAPI';
 import ClientServiceDetails from './ClientServiceDetails';
 import FreelancerServiceDetails from './FreelancerServiceDetails';
 import authManager from 'services/authManager';
+import ServiceManager from 'core/serviceManager';
+import MentoringServiceDetails from './MentoringServiceDetails';
 
 const ServiceDetails = () => {
   const location = useLocation();
@@ -17,6 +19,9 @@ const ServiceDetails = () => {
     return <LoadingCircle />;
   }
 
+  if (ServiceManager.isMentoringService(serviceDetails)) {
+    return <MentoringServiceDetails serviceDetails={serviceDetails} />;
+  }
   if (authManager.isClient()) {
     return <ClientServiceDetails serviceDetails={serviceDetails} />;
   } else {

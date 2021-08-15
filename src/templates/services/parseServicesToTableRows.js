@@ -14,10 +14,7 @@ import ServiceActionLink from 'templates/services/ServiceActionLink';
 import QuestionRemainingTimeAlarm from 'components/feedback/QuestionRemainingTimeAlarm';
 import CustomTypography from 'components/typography/Typography';
 import { Typography } from '@material-ui/core';
-import {
-  EDITABLE_SERVICE_STATUS,
-  SERVICE_STATUS,
-} from 'constants/questionStatus';
+import { EDITABLE_SERVICE_STATUS } from 'constants/questionStatus';
 import ServiceManager from 'core/serviceManager';
 import QuestionCountDown from 'components/counters/QuestionCountDown';
 import MeetingAlarm from 'components/feedback/MeetingAlarm';
@@ -75,30 +72,17 @@ const parseServicesToTableRows = (services, t) => {
     ) : (
       ''
     ),
-    // TODO change assignmetType condition
-    status:
-      service.assignmentType === 'mentor'
-        ? SERVICE_STATUS.pendingMentorAvailability
-        : t(
-            `serviceStatus:${getServiceStatus(
-              service.serviceState,
-              service.questionState,
-              service.meetingState,
-              service.hasEvaluationSubmitted,
-              !!service.meetingId,
-            )}`,
-          ),
-    // status: !!service.serviceState
-    //   ? t(
-    //       `serviceStatus:${getServiceStatus(
-    //         service.serviceState,
-    //         service.questionState,
-    //         service.meetingState,
-    //         service.hasEvaluationSubmitted,
-    //         !!service.meetingId,
-    //       )}`,
-    //     )
-    //   : 'pending',
+    status: !!service.serviceState
+      ? t(
+          `serviceStatus:${getServiceStatus(
+            service.serviceState,
+            service.questionState,
+            service.meetingState,
+            service.hasEvaluationSubmitted,
+            !!service.meetingId,
+          )}`,
+        )
+      : '',
     action: (
       <ServiceActionLink
         status={service.serviceState}
