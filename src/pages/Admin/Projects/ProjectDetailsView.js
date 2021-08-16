@@ -7,6 +7,7 @@ import { useStyles } from 'styles/formsStyles';
 import { useTranslation } from 'react-i18next';
 import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
 import CustomTypography from 'components/typography/Typography';
+import createMarkup from 'services/markup';
 
 const ProjectDetailsView = ({ project }) => {
   const { t } = useTranslation();
@@ -80,7 +81,10 @@ const ProjectDetailsView = ({ project }) => {
                   variant={'body1'}
                   id='projectNumberValue'
                   gutterBottom>
-                  {project?.details}
+                  <div
+                    className={classes.detailsText}
+                    dangerouslySetInnerHTML={createMarkup(project?.details)}
+                  />
                 </CustomTypography>
               </Grid>
             </Grid>

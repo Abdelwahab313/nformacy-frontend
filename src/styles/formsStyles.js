@@ -529,6 +529,7 @@ export const useStyles = makeStyles((theme) => ({
     marginLeft: 30,
     color: darkBlue,
   },
+  detailsText: { margin: '-15px 0' },
 }));
 
 export const selectStyle = {

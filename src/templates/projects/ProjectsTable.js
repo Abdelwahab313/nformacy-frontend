@@ -13,6 +13,7 @@ import {
 } from 'services/navigation';
 import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
+import createMarkup from 'services/markup';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -139,6 +140,8 @@ const parseProjectsTableData = (projects) => {
         {project.consultantsCount}
       </LinkText>
     ),
+
+    details: <div dangerouslySetInnerHTML={createMarkup(project.details)} />,
 
     beneficiariesCount: (
       <LinkText to={getProjectBeneficiariesList()}>
