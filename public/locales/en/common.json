@@ -68,6 +68,8 @@
   "attachMedia": "Attach",
   "questionDetails": "Question Details",
   "serviceDetails": "Service Details",
+  "mentoringServiceDetails": "Mentoring Service Details",
+  "mentorDetails":"Mentor Details",
   "consultant": "Consultant",
   "consultantId": "Consultant Id",
   "myActivityTableTitle": "My Activities",

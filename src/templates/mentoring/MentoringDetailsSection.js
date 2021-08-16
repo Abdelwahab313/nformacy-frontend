@@ -20,22 +20,23 @@ const MentoringDetailsSection = ({ serviceDetails }) => {
   const { showSuccessMessage } = useSnackBar();
   const history = useHistory();
   const serviceId = serviceDetails?.id;
-  const user = serviceDetails?.mentoring?.consultant;
+  const consultant = serviceDetails?.mentoring?.consultant;
+  // const beneficiary = serviceDetails?.mentoring?.consultant;
   const closeCalendar = () => {
     setShowCalendar(false);
   };
 
   const onSubmitDate = (selectedTime) => {
-    scheduleMeetingWithFreelancer(serviceId, selectedTime, user.id).then(() => {
+    scheduleMeetingWithFreelancer(serviceId, selectedTime, consultant.id).then(() => {
       showSuccessMessage(
-        `Meeting has been scheduled successfully with ${getUserName(user)}`,
+        `Meeting has been scheduled successfully with ${getUserName(consultant)}`,
       );
       history.push(RoutesPaths.App.Dashboard);
     });
     closeCalendar();
   };
 
-  if (!user) {
+  if (!consultant || !!serviceDetails.meetings?.length) {
     return '';
   }
   return (
@@ -43,7 +44,7 @@ const MentoringDetailsSection = ({ serviceDetails }) => {
       <Card className={classes.noShadow}>
         <CardHeader color='primary'>
           <Typography component={'h4'} id={'Shortlist'}>
-            {t('shortlistCandidate')}
+            {t('mentorDetails')}
           </Typography>
         </CardHeader>
         <Grid
@@ -55,7 +56,7 @@ const MentoringDetailsSection = ({ serviceDetails }) => {
               <Box className={'shortlistedConsultants'}>
                 <CandidateItem
                   bgcolor={lighterPink}
-                  candidate={user}
+                  candidate={consultant}
                   isFocused={true}
                   setFocusedCandidate={() => {}}
                   onCandidateClick={() => {
@@ -70,7 +71,7 @@ const MentoringDetailsSection = ({ serviceDetails }) => {
             open={showCalendar}
             onClose={closeCalendar}
             onSubmitDate={onSubmitDate}
-            candidate={user}
+            candidate={consultant}
           />
         </Grid>
       </Card>

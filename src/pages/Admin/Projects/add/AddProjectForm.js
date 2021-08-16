@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import FieldsSelect from 'components/inputs/FieldsSelect/FieldsSelect';
@@ -14,27 +14,24 @@ import ReactSelectMaterialUi from 'react-select-material-ui';
 import { selectStyle } from 'styles/formsStyles';
 import { projectManagers } from 'constants/dropDownOptions';
 import RichTextEditorForm from 'components/forms/RichTextEditorForm';
-import AutoCompleteSelectField from 'components/inputs/AutoCompleteSelectField';
 import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import countryList from 'react-select-country-list';
+import CountrySelectField from 'components/inputs/CountrySelectField';
 
 const AddProjectForm = ({
   primaryButton,
   project,
   setProject,
-  richTextRef
+  richTextRef,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const [countries] = useState(countryList().getData());
 
   // @TODO needs to handle the project managers list
   const onChangeField = (name, value) => {
-    // console.log('---------', { project });
     setProject((prevData) => ({ ...prevData, [name]: value }));
   };
 
@@ -111,19 +108,12 @@ const AddProjectForm = ({
         <GridContainer className={classes.inputsRow}>
           <GridItem xs={12} sm={12} md={6}>
             <FormControl fullWidth id='country-select'>
-              <AutoCompleteSelectField
-                id='countrySelect'
-                name='countries'
-                inputLabel={t('selectCountry')}
-                options={countries}
-                value={project.countries}
-                getOptionSelected={(option, selectedValue) => {
-                  return option.value === selectedValue.value;
-                }}
-                onChange={(newValue) => {
+              <CountrySelectField
+                fieldValue={project.countries}
+                fieldLabel={t('selectCountry')}
+                onFieldChange={(newValue) => {
                   onChangeField('countries', newValue);
                 }}
-                multiple
               />
             </FormControl>
           </GridItem>

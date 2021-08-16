@@ -17,7 +17,7 @@ const MentoringServiceDetails = ({ serviceDetails }) => {
     <Direction>
       <Grid container alignItems={'center'} justify={'center'}>
         <Grid item xs={10} sm={10}>
-          <BreadcrumbsCustomSeparator pageName={t('serviceDetails')} />
+          <BreadcrumbsCustomSeparator pageName={t('mentoringServiceDetails')} />
           <ServiceView serviceDetails={serviceDetails} />
           <GridContainer>
             {serviceDetails?.meetings?.map((meeting) => (

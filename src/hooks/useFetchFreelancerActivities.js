@@ -8,8 +8,8 @@ const sortByRecentlyUpdated = (arr) => {
     var keyA = new Date(a.updatedAt),
       keyB = new Date(b.updatedAt);
     // Compare the 2 dates
-    if (keyA < keyB) return -1;
-    if (keyA > keyB) return 1;
+    if (keyA > keyB) return -1;
+    if (keyA < keyB) return 1;
     return 0;
   });
 };
@@ -21,10 +21,11 @@ const useFetchFreelancerActivities = () => {
     if (!isLoading) {
       const formattedAnswers = formatAnswersToActivity(fetchedData.answers);
       const formattedMeetings = formatMeetingsToActivity(fetchedData.meetings);
+      const fetchedMentorServices = formatMentoringToActivity(fetchedData.mentorServices);
       return sortByRecentlyUpdated([
         ...formattedAnswers,
         ...formattedMeetings,
-        ...fetchedData.mentorServices,
+        ...fetchedMentorServices,
       ]);
     }
   }, [fetchedData, isLoading]);
@@ -42,6 +43,7 @@ const formatAnswersToActivity = (answers) => {
   return answers?.map((answer) => ({
     activityType: 'answer',
     answerId: answer.id,
+    updatedAt: answer.updatedAt,
     serviceId: answer.question?.service?.id,
     questionId: answer.question.id,
     questionRef: answer.question.referenceNumber,
@@ -67,6 +69,7 @@ const formatMeetingsToActivity = (meetings) => {
     serviceId: meeting.serviceId,
     questionId: meeting.service?.question?.id,
     meetingId: meeting.id,
+    updatedAt: meeting.updatedAt,
     questionRef: meeting.service?.question?.referenceNumber,
     answerRef: null,
     answerState: null,
@@ -83,6 +86,33 @@ const formatMeetingsToActivity = (meetings) => {
     meetingTime:
       meeting.state === MEETING_STATUS.callScheduled && meeting.callTime,
     hasEvaluationSubmitted: !!meeting.freelancerEvaluationId,
+  }));
+};
+
+const formatMentoringToActivity = (mentorServices) => {
+  if (!(mentorServices?.length >= 0)) {
+    return [];
+  }
+  return mentorServices?.map((mentorService) => ({
+    activityType: 'mentoring',
+    serviceId: mentorService.id,
+    questionId: mentorService.question?.id,
+    updatedAt: mentorService.updatedAt,
+    answerRef: null,
+    answerState: null,
+    questionState: mentorService?.question?.state,
+    serviceState: mentorService?.state,
+    serviceRef: mentorService.referenceNumber,
+    questionTime: mentorService?.currentActionTime,
+    assignmentType: mentorService?.assignmentType,
+    title: mentorService?.title,
+    createdAt: mentorService.createdAt,
+    fields: mentorService?.fields,
+    meetingState: mentorService.state,
+    meetingRef: mentorService.referenceNumber,
+    meetingTime:
+      mentorService.state === MEETING_STATUS.callScheduled && mentorService.callTime,
+    hasEvaluationSubmitted: !!mentorService.freelancerEvaluationId,
   }));
 };
 

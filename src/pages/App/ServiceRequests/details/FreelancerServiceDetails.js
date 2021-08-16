@@ -10,8 +10,8 @@ import QuestionDetailedView from 'pages/App/FreelancersAnswers/edit/subComponent
 const FreelancerServiceDetails = ({ serviceDetails }) => {
   const { t } = useTranslation();
 
-  const answer = serviceDetails?.answers[0];
-  const meeting = serviceDetails?.meetings[0];
+  const answer = serviceDetails?.answers?.[0];
+  const meeting = serviceDetails?.meetings?.[0];
 
   return (
     <Grid container justify={'center'} alignContent={'center'}>
@@ -26,7 +26,7 @@ const FreelancerServiceDetails = ({ serviceDetails }) => {
         </GridItem>
       </Grid>
       <Grid item xs={12} sm={10}>
-        <AnswerView answer={answer} />
+        {!!answer?.id && <AnswerView answer={answer} />}
       </Grid>
     </Grid>
   );
