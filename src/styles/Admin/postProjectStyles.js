@@ -12,4 +12,5 @@ export const useStyles = makeStyles((theme) => ({
   beneficiariesSection: {
     marginTop: theme.spacing(3),
   },
+  addConsultantsTable: { marginBottom: 30 },
 }));
