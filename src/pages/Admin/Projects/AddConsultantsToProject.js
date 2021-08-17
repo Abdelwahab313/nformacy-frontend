@@ -11,14 +11,12 @@ import { useStyles } from 'styles/Admin/postProjectStyles';
 import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
-import { createConsultant } from 'apis/userAPI';
 
 const AddConsultantsToProject = () => {
   const classes = useStyles();
   const history = useHistory();
   const { t } = useTranslation();
   const [consultantIds, setConsultantIds] = useState([]);
-  const [user] = useState({});
 
   const projectId = 1;
 
@@ -37,10 +35,9 @@ const AddConsultantsToProject = () => {
   };
 
   const onCreateConsultants = () => {
-    createConsultant(user).then(() => {
-      history.push(RoutesPaths.Admin.AddBeneficiariesToProjectWizard);
-    });
+    history.push(RoutesPaths.Admin.AddConsultant);
   };
+
   return (
     <Fragment>
       <GridContainer>

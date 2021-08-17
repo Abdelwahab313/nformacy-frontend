@@ -82,7 +82,6 @@ const ProjectDetailsView = ({ project }) => {
                   id='projectNumberValue'
                   gutterBottom>
                   <div
-                    className={classes.detailsText}
                     dangerouslySetInnerHTML={createMarkup(project?.details)}
                   />
                 </CustomTypography>

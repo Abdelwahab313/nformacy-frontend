@@ -13,12 +13,10 @@ import { history } from 'services/navigation';
 import { RoutesPaths } from 'constants/routesPath';
 import { fetchConsultants } from 'apis/consultantsAPI';
 import { addConsultants } from 'apis/projectsAPI';
-import { createConsultant } from 'apis/userAPI';
 
 const AddConsutlantsToProjectWizard = () => {
   const { t } = useTranslation();
   const [consultantIds, setConsultantIds] = useState([]);
-  const [user] = useState({});
 
   const projectId = 1;
   const { fetchedData: consultants, isLoading } = useFetchData(() => {
@@ -26,15 +24,13 @@ const AddConsutlantsToProjectWizard = () => {
   });
 
   const onAddConsultant = () => {
-    createConsultant(user).then(() => {
+    addConsultants(projectId, consultantIds).then(() => {
       history.push(RoutesPaths.Admin.AddBeneficiariesToProjectWizard);
     });
   };
 
   const onCreateConsultants = () => {
-    addConsultants(projectId, consultantIds).then(() => {
-      history.push(RoutesPaths.Admin.AddBeneficiariesToProjectWizard);
-    });
+    history.push(RoutesPaths.Admin.AddConsultant);
   };
 
   if (isLoading) {
