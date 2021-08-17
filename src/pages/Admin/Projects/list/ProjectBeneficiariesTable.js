@@ -7,6 +7,7 @@ import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
 import LinkText from 'components/typography/LinkText';
 import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
+import { getClientDetails } from 'services/navigation';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -24,6 +25,15 @@ const getColumnsOptions = (classes, t) => {
         display: true,
         filter: false,
         sort: false,
+      },
+    },
+    {
+      name: 'email',
+      label: t('email'),
+      options: {
+        ...defaultColumnOption,
+        filter: false,
+        sort: true,
       },
     },
     {
@@ -62,7 +72,12 @@ const parseBeneficiariesTableData = (beneficiaries) => {
   return beneficiaries?.map((beneficiary) => ({
     ...beneficiary,
     beneficiaryRef: (
-      <LinkText to={() => {}}>{beneficiary.beneficiaryRef}</LinkText>
+      <LinkText
+        to={() => {
+          getClientDetails(beneficiary.id);
+        }}>
+        {beneficiary.referenceNumber}
+      </LinkText>
     ),
     fields: <ColoredFieldsChips fields={beneficiary.fields} />,
   }));

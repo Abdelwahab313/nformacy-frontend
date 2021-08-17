@@ -20,7 +20,7 @@ const ProjectBeneficiariesList = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const { fetchedData: beneficiaries, isLoading } = useFetchData(() => {
-    return fetchProjectBeneficiaries();
+    return fetchProjectBeneficiaries(1);
   });
 
   if (isLoading) {

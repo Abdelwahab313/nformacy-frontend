@@ -7,6 +7,7 @@ import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
 import LinkText from 'components/typography/LinkText';
 import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
+import { getConsultantDetails } from 'services/navigation';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -27,6 +28,15 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
+      name: 'email',
+      label: t('email'),
+      options: {
+        ...defaultColumnOption,
+        filter: false,
+        sort: true,
+      },
+    },
+    {
       name: 'firstName',
       label: t('firstName'),
       options: {
@@ -38,6 +48,15 @@ const getColumnsOptions = (classes, t) => {
     {
       name: 'lastName',
       label: t('lastName'),
+      options: {
+        ...defaultColumnOption,
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: 'email',
+      label: t('email'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -71,7 +90,12 @@ const parseConsultantsTableData = (consultants) => {
   return consultants?.map((consultant) => ({
     ...consultant,
     consultantRef: (
-      <LinkText to={() => {}}>{consultant.consultantRef}</LinkText>
+      <LinkText
+        to={() => {
+          getConsultantDetails(consultant.id);
+        }}>
+        {consultant.referenceNumber}
+      </LinkText>
     ),
     fields: <ColoredFieldsChips fields={consultant.fields} />,
   }));

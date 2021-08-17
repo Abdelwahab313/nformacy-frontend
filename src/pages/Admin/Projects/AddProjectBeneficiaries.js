@@ -1,7 +1,7 @@
 import React from 'react';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
-import { fetchBeneficiariesList } from 'apis/projectsAPI';
+import { fetchProjectBeneficiaries } from 'apis/projectsAPI';
 import useFetchData from 'hooks/useFetchData';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { Fragment } from 'react';
@@ -18,7 +18,7 @@ const AddProjectBeneficiaries = () => {
   const { t } = useTranslation();
 
   const { fetchedData: beneficiaries, isLoading } = useFetchData(() => {
-    return fetchBeneficiariesList();
+    return fetchProjectBeneficiaries(1);
   });
 
   if (isLoading) {

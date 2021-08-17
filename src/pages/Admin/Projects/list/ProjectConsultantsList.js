@@ -20,7 +20,7 @@ const ProjectConsultantsList = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const { fetchedData: consultants, isLoading } = useFetchData(() => {
-    return fetchProjectConsultants();
+    return fetchProjectConsultants(1);
   });
 
   if (isLoading) {

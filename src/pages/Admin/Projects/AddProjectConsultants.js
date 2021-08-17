@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import AddConsultantsTable from './AddConsultantsTable';
-import { addConsultants } from 'apis/projectsAPI';
+import { fetchProjectConsultants, addConsultants } from 'apis/projectsAPI';
 import useFetchData from 'hooks/useFetchData';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { Fragment } from 'react';
@@ -22,7 +22,7 @@ const AddProjectConsultants = () => {
   const projectId = 1;
 
   const { fetchedData: consultants, isLoading } = useFetchData(() => {
-    return fetchConsultants();
+    return fetchProjectConsultants(1);
   });
 
   if (isLoading) {

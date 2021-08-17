@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import CardHeader from 'components/card/CardHeader';
@@ -6,17 +6,36 @@ import { Grid, Typography } from '@material-ui/core';
 import AddProjectManagerForm from './AddProjectManagerForm';
 import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { addAdvisor } from 'apis/advisorAPI';
 import { useSnackBar } from 'context/SnackBarContext';
+import { createOrUpdateProjectManager } from 'apis/projectMangersAPI';
+import LoadingCircle from 'components/progress/LoadingCircle';
+import { getUser } from 'apis/userAPI';
+import { useLocation } from 'react-router';
 
 const AddProjectManger = () => {
-  const [user, setUser] = useState({});
   const history = useHistory();
   const { t } = useTranslation();
+  const location = useLocation();
+  const projectManagerId = location?.state?.projectManagerId;
+
+  const [user, setUser] = useState({ id: projectManagerId });
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigateAfterCreate = () => {
     history.goBack();
   };
   const { showSuccessMessage, showErrorMessage } = useSnackBar();
+
+  useEffect(() => {
+    setIsLoading(true);
+    getUser(projectManagerId)
+      .then((response) => {
+        setUser(response.data);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
   const validate = (user) => {
     if (!user.firstName) {
@@ -36,7 +55,7 @@ const AddProjectManger = () => {
 
   const handleCreateProjectManager = () => {
     if (!!validate(user)) {
-      addAdvisor({
+      createOrUpdateProjectManager({
         ...user,
       })
         .then(() => {
@@ -52,6 +71,10 @@ const AddProjectManger = () => {
         });
     }
   };
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
 
   return (
     <GridContainer>
