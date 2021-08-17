@@ -11,9 +11,8 @@ import { useStyles } from 'styles/Admin/postProjectStyles';
 import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
-import { fetchConsultants } from 'apis/consultantsAPI';
 
-const AddProjectConsultants = () => {
+const AddConsultantsToProject = () => {
   const classes = useStyles();
   const history = useHistory();
   const { t } = useTranslation();
@@ -70,4 +69,4 @@ const AddProjectConsultants = () => {
     </Fragment>
   );
 };
-export default AddProjectConsultants;
+export default AddConsultantsToProject;

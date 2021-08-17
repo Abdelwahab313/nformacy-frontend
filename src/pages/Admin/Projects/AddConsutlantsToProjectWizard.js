@@ -14,7 +14,7 @@ import { RoutesPaths } from 'constants/routesPath';
 import { fetchConsultants } from 'apis/consultantsAPI';
 import { addConsultants } from 'apis/projectsAPI';
 
-const ListOfProjectConsultants = () => {
+const AddConsutlantsToProjectWizard = () => {
   const { t } = useTranslation();
   const [consultantIds, setConsultantIds] = useState([]);
 
@@ -24,6 +24,12 @@ const ListOfProjectConsultants = () => {
   });
 
   const onAddConsultant = () => {
+    addConsultants(projectId, consultantIds).then(() => {
+      history.push(RoutesPaths.Admin.ListOfProjectBeneficiaries);
+    });
+  };
+
+  const onCreateConsultants = () => {
     addConsultants(projectId, consultantIds).then(() => {
       history.push(RoutesPaths.Admin.ListOfProjectBeneficiaries);
     });
@@ -55,15 +61,22 @@ const ListOfProjectConsultants = () => {
 
       <ActionButtonsContainer
         primaryButton={{
-          id: 'addConsultant',
+          id: 'addConsultants',
           onClick: () => {
             onAddConsultant();
           },
-          buttonText: 'Next',
+          buttonText: t('addConsultants'),
+        }}
+        secondaryButton={{
+          id: 'createConsultants',
+          onClick: () => {
+            onCreateConsultants();
+          },
+          buttonText: t('createConsultants'),
         }}
       />
     </Fragment>
   );
 };
 
-export default ListOfProjectConsultants;
+export default AddConsutlantsToProjectWizard;

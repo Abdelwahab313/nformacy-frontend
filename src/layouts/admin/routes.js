@@ -46,7 +46,7 @@ import AddProject from 'pages/Admin/Projects/add/AddProject';
 import ProjectSettingsForm from 'pages/Admin/Projects/ProjectSettingsForm';
 import ProjectConsultantsList from 'pages/Admin/Projects/list/ProjectConsultantsList';
 import ProjectDetails from 'pages/Admin/Projects/ProjectDetails';
-import AddProjectConsultants from 'pages/Admin/Projects/AddProjectConsultants';
+import AddConsultantsToProject from 'pages/Admin/Projects/AddConsultantsToProject';
 import AddConsultant from 'pages/Admin/Consultants/edit/AddConsultant';
 import ProjectBeneficiariesList from 'pages/Admin/Projects/list/ProjectBeneficiariesList';
 import AddProjectBeneficiaries from 'pages/Admin/Projects/AddProjectBeneficiaries';
@@ -54,7 +54,7 @@ import AddBeneficiary from 'pages/Admin/Beneficiaries/edit/AddBeneficiary';
 import ProjectManagersList from 'pages/Admin/ProjectManagers/list/ProjectManagersList';
 import AddProjectManger from 'pages/Admin/ProjectManagers/edit/AddProjectManager';
 import ListOfProjectBeneficiaries from 'pages/Admin/Projects/ListOfProjectBeneficiaries';
-import ListOfProjectConsultants from 'pages/Admin/Projects/ListOfProjectConsultants';
+import AddConsutlantsToProjectWizard from 'pages/Admin/Projects/AddConsutlantsToProjectWizard';
 
 const adminRoutes = [
   {
@@ -100,10 +100,10 @@ const adminRoutes = [
     hasDashboardLink: false,
   },
   {
-    path: RoutesPaths.Admin.AddProjectConsultants,
+    path: RoutesPaths.Admin.AddConsultantsToProject,
     name: 'Add Consultants',
     icon: BusinessCenterIcon,
-    component: AddProjectConsultants,
+    component: AddConsultantsToProject,
     hasDashboardLink: false,
   },
   {
@@ -268,10 +268,10 @@ const adminRoutes = [
     hasDashboardLink: false,
   },
   {
-    path: RoutesPaths.Admin.ListOfProjectConsultants,
+    path: RoutesPaths.Admin.AddConsutlantsToProjectWizard,
     name: 'Consultants List',
     icon: QuestionAnswerIcon,
-    component: ListOfProjectConsultants,
+    component: AddConsutlantsToProjectWizard,
     hasDashboardLink: false,
   },
   {
