@@ -50,7 +50,7 @@ const ProjectSettingsForm = () => {
   const handleProjectServiceForm = () => {
     submitProjectSettings({ ...projectSettings, projectId: 1 })
       .then(() => {
-        history.push(RoutesPaths.Admin.ListOfProjectConsultants);
+        history.push(RoutesPaths.Admin.AddConsutlantsToProjectWizard);
       })
       .catch(() => {});
   };

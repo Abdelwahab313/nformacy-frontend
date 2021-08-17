@@ -27,7 +27,7 @@ const ProjectConsultantsList = () => {
     return <LoadingCircle />;
   }
   const navigateToPostConsultant = () => {
-    history.push(RoutesPaths.Admin.AddProjectConsultants);
+    history.push(RoutesPaths.Admin.AddConsultantsToProject);
   };
 
   return (

@@ -118,7 +118,7 @@ const createConsultant = (user) => {
   return axios({
     method: 'post',
     url: `${API_BASE_URL}/users/create_user`,
-    data: decamelizeKeys({ ...user }),
+    data: decamelizeKeys({ ...user, role: 'freelancer' }),
   }).then((response) => camelizeKeys(response));
 };
 
@@ -153,5 +153,5 @@ export {
   verifyEmail,
   fetchPointsList,
   submitFullProfile,
-  getUser
+  getUser,
 };

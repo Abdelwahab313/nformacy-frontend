@@ -53,7 +53,7 @@ import AddProjectBeneficiaries from 'pages/Admin/Projects/AddProjectBeneficiarie
 import AddBeneficiary from 'pages/Admin/Beneficiaries/edit/AddBeneficiary';
 import ProjectManagersList from 'pages/Admin/ProjectManagers/list/ProjectManagersList';
 import AddProjectManger from 'pages/Admin/ProjectManagers/edit/AddProjectManager';
-import ListOfProjectBeneficiaries from 'pages/Admin/Projects/ListOfProjectBeneficiaries';
+import AddBeneficiariesToProjectWizard from 'pages/Admin/Projects/AddBeneficiariesToProjectWizard';
 import AddConsutlantsToProjectWizard from 'pages/Admin/Projects/AddConsutlantsToProjectWizard';
 
 const adminRoutes = [
@@ -275,10 +275,10 @@ const adminRoutes = [
     hasDashboardLink: false,
   },
   {
-    path: RoutesPaths.Admin.ListOfProjectBeneficiaries,
+    path: RoutesPaths.Admin.AddBeneficiariesToProjectWizard,
     name: 'Beneficiaries List',
     icon: QuestionAnswerIcon,
-    component: ListOfProjectBeneficiaries,
+    component: AddBeneficiariesToProjectWizard,
     hasDashboardLink: false,
   },
   {

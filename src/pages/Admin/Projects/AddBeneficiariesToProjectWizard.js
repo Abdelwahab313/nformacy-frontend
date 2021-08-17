@@ -15,7 +15,7 @@ import { RoutesPaths } from 'constants/routesPath';
 import { fetchClients } from 'apis/clientsAPI';
 import { addBeneficiaries } from 'apis/projectsAPI';
 
-const ListOfProjectBeneficiaries = () => {
+const AddBeneficiariesToProjectWizard = () => {
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -27,6 +27,12 @@ const ListOfProjectBeneficiaries = () => {
   });
 
   const onAddBeneficiaries = () => {
+    addBeneficiaries(projectId, beneficiaryIds).then(() => {
+      history.push(RoutesPaths.Admin.Projects);
+    });
+  };
+
+  const onCreateBeneficiaries = () => {
     addBeneficiaries(projectId, beneficiaryIds).then(() => {
       history.push(RoutesPaths.Admin.Projects);
     });
@@ -65,11 +71,18 @@ const ListOfProjectBeneficiaries = () => {
           onClick: () => {
             onAddBeneficiaries();
           },
-          buttonText: 'Submit',
+          buttonText: t('addBeneficiaries'),
+        }}
+        secondaryButton={{
+          id: 'createBeneficiaries',
+          onClick: () => {
+            onCreateBeneficiaries();
+          },
+          buttonText: t('createBeneficiaries'),
         }}
       />
     </Fragment>
   );
 };
 
-export default ListOfProjectBeneficiaries;
+export default AddBeneficiariesToProjectWizard;
