@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import CardBody from 'components/card/CardBody';
@@ -32,32 +32,56 @@ import { DialogContent } from '@material-ui/core';
 import Transition from 'components/animations/Transition';
 import { DialogActions } from '@material-ui/core';
 import EditMentorsDialog from './EditMentorsDialog';
-import { addMentors, submitProjectSettings } from 'apis/projectsAPI';
+import {
+  addMentors,
+  fetchProjectSettings,
+  submitProjectSettings,
+} from 'apis/projectsAPI';
 import { useSnackBar } from 'context/SnackBarContext';
+import LoadingCircle from 'components/progress/LoadingCircle';
 
 const ProjectSettingsForm = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const history = useHistory();
-  const [showMentoringSetting, setShowMentoringSetting] = useState();
+  const projectId = 1;
   const [projectSettings, setProjectSettings] = useState({
     askSettings: {},
     callSettings: {},
     hireSettings: {},
     mentorSettings: {},
   });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const showMentoringSetting = useMemo(
+    () => projectSettings?.mentorSettings?.isEnabled,
+    [projectSettings?.mentorSettings],
+  );
+
+  useEffect(() => {
+    if (projectId) {
+      setIsLoading(true);
+      fetchProjectSettings(projectId)
+        .then((response) => {
+          setProjectSettings(response.data);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }, []);
 
   const handleProjectServiceForm = () => {
-    submitProjectSettings({ ...projectSettings, projectId: 1 })
+    submitProjectSettings({ ...projectSettings, projectId: projectId })
       .then(() => {
         history.push(RoutesPaths.Admin.AddConsutlantsToProjectWizard);
       })
       .catch(() => {});
   };
 
-  const onCheckMentoring = (checked) => {
-    setShowMentoringSetting(checked);
-  };
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
 
   return (
     <Fragment>
@@ -115,7 +139,6 @@ const ProjectSettingsForm = () => {
               mentorSettings: serviceSetting,
             });
           }}
-          onCheck={(checked) => onCheckMentoring(checked)}
         />
 
         {showMentoringSetting && <MentorsSetting />}
@@ -132,12 +155,7 @@ const ProjectSettingsForm = () => {
   );
 };
 
-const SettingRow = ({
-  serviceKey,
-  serviceSetting,
-  updateServiceSetting,
-  onCheck,
-}) => {
+const SettingRow = ({ serviceKey, serviceSetting, updateServiceSetting }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -161,8 +179,9 @@ const SettingRow = ({
           value='start'
           control={
             <Checkbox
+              checked={!!serviceSetting.isEnabled}
               color='primary'
-              onChange={(e) => onCheck?.(e.target.checked)}
+              onChange={(e) => onChangeField('isEnabled', e.target.checked)}
             />
           }
           label={serviceKeysTitle[serviceKey]}
@@ -179,6 +198,7 @@ const SettingRow = ({
             shrink: true,
           }}
           variant='outlined'
+          value={serviceSetting.amount}
           onChange={(e) => onChangeField('amount', e.target.value)}
         />
       </GridItem>
@@ -190,6 +210,7 @@ const SettingRow = ({
             SelectProps={{
               styles: selectStyle,
             }}
+            value={serviceSetting.frequency}
             options={frequency}
             onChange={(value) => onChangeField('frequency', value)}
           />

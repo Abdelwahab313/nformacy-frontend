@@ -12,7 +12,7 @@ import {
   getProjectDetails,
 } from 'services/navigation';
 import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
-import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
+import { formatDate } from 'services/dateTimeParser';
 import createMarkup from 'services/markup';
 
 const getColumnsOptions = (classes, t) => {
@@ -127,9 +127,9 @@ const parseProjectsTableData = (projects) => {
     ...project,
     id: <LinkText to={getProjectDetails(project.id)}>{project.id}</LinkText>,
 
-    duration: `${formattedDateTimeNoSeconds(
-      new Date(project.startDate),
-    )} - ${formattedDateTimeNoSeconds(new Date(project.endDate))}  `,
+    duration: `${formatDate(new Date(project.startDate))} - \n ${formatDate(
+      new Date(project.endDate),
+    )}  `,
 
     fields: <ColoredFieldsChips fields={project.fields} />,
 

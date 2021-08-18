@@ -76,6 +76,10 @@ export const formattedDateMonthAndDay = (date, locale = LOCALES.en) => {
   return dateTimeFormat.format(date);
 };
 
+export const formatDate = (date) => {
+  return moment(date).format("YYYY-MM-DD")
+}
+
 export const getTimeDiffInHoursFromNow = (remainingTime) => {
   return moment.duration(moment(remainingTime).diff(moment())).asHours();
 };
