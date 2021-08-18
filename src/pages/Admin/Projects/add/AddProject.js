@@ -8,20 +8,37 @@ import { useTranslation } from 'react-i18next';
 import AddProjectForm from './AddProjectForm';
 import { RoutesPaths } from 'constants/routesPath';
 import { createOrUpdateProject } from 'apis/projectsAPI';
+import { useSnackBar } from 'context/SnackBarContext';
 
 const AddProject = () => {
   const [project, setProject] = useState({});
   const history = useHistory();
   const { t } = useTranslation();
   const richTextRef = useRef(null);
+  const { showSuccessMessage, showErrorMessage } = useSnackBar();
+
+  const validate = (project) => {
+    if (!project.title) {
+      showErrorMessage(t('requiredTitle'));
+      return false;
+    }
+    if (project.projectManager.options.length == 0) {
+      showErrorMessage(t('requiredProjectManager'));
+      return false;
+    }
+    return true;
+  };
 
   const handleCreateProject = () => {
     // @TODO needs to handle validation for the project fields
-    createOrUpdateProject({ ...project, projectManagerId: 1 })
-      .then(() => {
-        history.push(RoutesPaths.Admin.AddProjectSettings);
-      })
-      .catch(() => {});
+    if (!!validate(project)) {
+      createOrUpdateProject({ ...project, projectManagerId: 1 })
+        .then(() => {
+          showSuccessMessage(t('projectAdded'));
+          history.push(RoutesPaths.Admin.AddProjectSettings);
+        })
+        .catch(() => {});
+    }
   };
 
   return (

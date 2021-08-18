@@ -69,7 +69,7 @@
   "questionDetails": "Question Details",
   "serviceDetails": "Service Details",
   "mentoringServiceDetails": "Mentoring Service Details",
-  "mentorDetails":"Mentor Details",
+  "mentorDetails": "Mentor Details",
   "consultant": "Consultant",
   "consultantId": "Consultant Id",
   "myActivityTableTitle": "My Activities",
@@ -628,5 +628,8 @@
   "assignMentorsForBeneficiaries": "Assign Mentors for Beneficiaries",
   "beneficiaryFirstName": "Beneficiary First Name",
   "beneficiaryLastName": "Beneficiary Last Name",
-  "mentoringWithTheExpertTitle": "Mentoring with the Expert"
+  "mentoringWithTheExpertTitle": "Mentoring with the Expert",
+  "projectAdded": "Project added successfully.",
+  "requiredTitle": "Title is Required!",
+  "requiredProjectManager": "Project Manager is Required!"
 }

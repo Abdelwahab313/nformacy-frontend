@@ -125,7 +125,7 @@ const ProjectSettingsForm = () => {
           onClick={() => {
             handleProjectServiceForm();
           }}
-          buttonText={t('nextStep')}
+          buttonText={t('save')}
         />
       </CardFooter>
     </Fragment>
