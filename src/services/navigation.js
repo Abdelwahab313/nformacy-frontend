@@ -235,21 +235,73 @@ export const getConsultantVerificationList = () => {
     pathname: RoutesPaths.Admin.ConsultantVerificationsList,
   };
 };
-export const getProjectConsultantsList = () => {
+export const getProjectConsultantsList = (projectId) => {
   return {
     pathname: RoutesPaths.Admin.ProjectConsultants,
+    state: {
+      projectId,
+    },
   };
 };
-export const getProjectBeneficiariesList = () => {
+export const getProjectBeneficiariesList = (projectId) => {
   return {
     pathname: RoutesPaths.Admin.ProjectBeneficiaries,
+    state: {
+      projectId,
+    },
   };
 };
+
+export const getConsultantsProjectWizard = (projectId) => {
+  return {
+    pathname: RoutesPaths.Admin.AddConsutlantsToProjectWizard,
+    state: {
+      projectId,
+    },
+  };
+};
+
+export const getBeneficiariesProjectWizard = (projectId) => {
+  return {
+    pathname: RoutesPaths.Admin.AddBeneficiariesToProjectWizard,
+    state: {
+      projectId,
+    },
+  };
+};
+
+export const getAddConsultantsToProjectPath = (projectId) => {
+  return {
+    pathname: RoutesPaths.Admin.AddConsultantsToProject,
+    state: {
+      projectId,
+    },
+  };
+};
+
+export const getAddBeneficiariesToProjectPath = (projectId) => {
+  return {
+    pathname: RoutesPaths.Admin.AddBeneficiariesToProject,
+    state: {
+      projectId,
+    },
+  };
+};
+
+export const getEditProjectPath = (projectId) => {
+  return {
+    pathname: RoutesPaths.Admin.AddProject,
+    state: {
+      projectId,
+    },
+  };
+};
+
 export const getProjectDetails = (projectId) => {
   return {
     pathname: RoutesPaths.Admin.ProjectDetails,
     state: {
-      projectId: projectId,
+      projectId,
     },
   };
 };
@@ -257,7 +309,7 @@ export const getAccountDetails = (accountId) => {
   return {
     pathname: RoutesPaths.App.AccountDetails,
     state: {
-      accountId: accountId,
+      accountId,
     },
   };
 };

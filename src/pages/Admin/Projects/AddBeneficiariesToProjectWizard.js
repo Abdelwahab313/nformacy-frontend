@@ -14,14 +14,15 @@ import { history } from 'services/navigation';
 import { RoutesPaths } from 'constants/routesPath';
 import { fetchClients } from 'apis/clientsAPI';
 import { addBeneficiaries } from 'apis/projectsAPI';
+import useLocationState from 'hooks/useLocationState';
 
 const AddBeneficiariesToProjectWizard = () => {
   const { t } = useTranslation();
   const classes = useStyles();
 
   const [beneficiaryIds, setBeneficiaryIds] = useState([]);
+  const projectId = useLocationState((state) => state?.projectId);
 
-  const projectId = 1;
   const { fetchedData: beneficiaries, isLoading } = useFetchData(() => {
     return fetchClients();
   });
@@ -33,9 +34,7 @@ const AddBeneficiariesToProjectWizard = () => {
   };
 
   const onCreateBeneficiaries = () => {
-    addBeneficiaries(projectId, beneficiaryIds).then(() => {
-      history.push(RoutesPaths.Admin.Projects);
-    });
+    history.push(RoutesPaths.Admin.AddBeneficiary);
   };
 
   if (isLoading) {

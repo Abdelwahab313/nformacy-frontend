@@ -8,14 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import ProjectConsultantsList from './list/ProjectConsultantsList';
 import ProjectBeneficiariesList from './list/ProjectBeneficiariesList';
-import LoadingCircle from 'components/progress/LoadingCircle';
-import AdminServicesTable from 'templates/services/AdminServicesTable';
-import useFetchData from 'hooks/useFetchData';
-import { fetchServices } from 'apis/servicesAPI';
 import ProjectDetailsView from './ProjectDetailsView';
-import { fetchProjects } from 'apis/projectsAPI';
 import ProjectSettingsForm from './ProjectSettingsForm';
 import MentoringList from './MentoringList';
+import ProjectServicesList from './ProjectServicesList';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -59,25 +55,17 @@ const useStyles = makeStyles((theme) => ({
 
 const ProjectDetails = () => {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-
-  const { fetchedData: services, isLoading } = useFetchData(fetchServices);
-  const { fetchedData: projects } = useFetchData(() => {
-    return fetchProjects();
-  });
+  const [selectedTab, setSelectedTab] = React.useState(0);
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setSelectedTab(newValue);
   };
-  if (isLoading) {
-    return <LoadingCircle />;
-  }
 
   return (
     <div className={classes.root}>
       <AppBar position='static'>
         <Tabs
-          value={value}
+          value={selectedTab}
           onChange={handleChange}
           aria-label='simple tabs example'>
           <Tab label='Projects' {...a11yProps(0)} />
@@ -85,25 +73,25 @@ const ProjectDetails = () => {
           <Tab label='Consultants' {...a11yProps(2)} />
           <Tab label='Beneficiaries' {...a11yProps(3)} />
           <Tab label='Settings' {...a11yProps(4)} />
-          <Tab label='Mentoring' {...a11yProps(4)} />
+          <Tab label='Mentoring' {...a11yProps(5)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
-        <ProjectDetailsView project={projects[0]} />
+      <TabPanel value={selectedTab} index={0}>
+        <ProjectDetailsView />
       </TabPanel>
-      <TabPanel value={value} index={1}>
-        <AdminServicesTable services={services} />
+      <TabPanel value={selectedTab} index={1}>
+        <ProjectServicesList />
       </TabPanel>
-      <TabPanel value={value} index={2}>
+      <TabPanel value={selectedTab} index={2}>
         <ProjectConsultantsList />
       </TabPanel>
-      <TabPanel value={value} index={3}>
+      <TabPanel value={selectedTab} index={3}>
         <ProjectBeneficiariesList />
       </TabPanel>
-      <TabPanel value={value} index={4}>
+      <TabPanel value={selectedTab} index={4}>
         <ProjectSettingsForm />
       </TabPanel>
-      <TabPanel value={value} index={5}>
+      <TabPanel value={selectedTab} index={5}>
         <MentoringList />
       </TabPanel>
     </div>

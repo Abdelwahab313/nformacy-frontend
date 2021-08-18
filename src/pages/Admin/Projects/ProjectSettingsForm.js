@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
+
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import CardBody from 'components/card/CardBody';
@@ -18,7 +19,6 @@ import ReactSelectMaterialUi from 'react-select-material-ui';
 import { selectStyle } from 'styles/formsStyles';
 import { frequency } from 'constants/dropDownOptions';
 import SubmitButton from 'components/buttons/SubmitButton';
-import { RoutesPaths } from 'constants/routesPath';
 import { useHistory } from 'react-router';
 import {
   KeyboardDatePicker,
@@ -39,12 +39,15 @@ import {
 } from 'apis/projectsAPI';
 import { useSnackBar } from 'context/SnackBarContext';
 import LoadingCircle from 'components/progress/LoadingCircle';
+import useLocationState from 'hooks/useLocationState';
+import { getConsultantsProjectWizard } from 'services/navigation';
 
 const ProjectSettingsForm = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const history = useHistory();
-  const projectId = 1;
+  const projectId = useLocationState((state) => state?.projectId);
+
   const [projectSettings, setProjectSettings] = useState({
     askSettings: {},
     callSettings: {},
@@ -74,7 +77,7 @@ const ProjectSettingsForm = () => {
   const handleProjectServiceForm = () => {
     submitProjectSettings({ ...projectSettings, projectId: projectId })
       .then(() => {
-        history.push(RoutesPaths.Admin.AddConsutlantsToProjectWizard);
+        history.push(getConsultantsProjectWizard(projectId));
       })
       .catch(() => {});
   };

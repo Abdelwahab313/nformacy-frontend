@@ -8,10 +8,29 @@ import { useTranslation } from 'react-i18next';
 import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
 import CustomTypography from 'components/typography/Typography';
 import createMarkup from 'services/markup';
+import LoadingCircle from 'components/progress/LoadingCircle';
+import { fetchProjectDetails } from 'apis/projectsAPI';
+import useFetchData from 'hooks/useFetchData';
+import useLocationState from 'hooks/useLocationState';
+import EditIcon from '@material-ui/icons/Edit';
+import { Box, IconButton } from '@material-ui/core';
+import { getEditProjectPath, history } from 'services/navigation';
 
-const ProjectDetailsView = ({ project }) => {
+const ProjectDetailsView = () => {
   const { t } = useTranslation();
   const classes = useStyles();
+
+  const projectId = useLocationState((state) => state?.projectId);
+  const { fetchedData: project, isLoading } = useFetchData(() => {
+    return fetchProjectDetails(projectId);
+  });
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+  const handleClickEditButton = () => {
+    history.push(getEditProjectPath(projectId));
+  };
 
   return (
     <Grid item id='basicInfo'>
@@ -21,6 +40,14 @@ const ProjectDetailsView = ({ project }) => {
             <Typography gutterBottom className={classes.sectionHeaderStyles}>
               {t('projectDetails')}
             </Typography>
+            <Box marginLeft={'auto'}>
+              <IconButton
+                aria-label='edit'
+                id='editProjectInfo'
+                onClick={handleClickEditButton}>
+                <EditIcon color={'primary'} />
+              </IconButton>
+            </Box>
           </Grid>
         </Grid>
         <Divider variant='middle' />
@@ -98,6 +125,7 @@ const ProjectDetailsView = ({ project }) => {
               <Grid item xs={8}>
                 <CustomTypography
                   variant={'body1'}
+                  component={'div'}
                   id='projectFields'
                   gutterBottom
                   className={classes.fieldValueStyles}>

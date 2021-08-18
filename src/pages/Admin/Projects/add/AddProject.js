@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import CardHeader from 'components/card/CardHeader';
@@ -7,8 +7,10 @@ import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import AddProjectForm from './AddProjectForm';
 import { RoutesPaths } from 'constants/routesPath';
-import { createOrUpdateProject } from 'apis/projectsAPI';
+import { createOrUpdateProject, fetchProjectDetails } from 'apis/projectsAPI';
 import { useSnackBar } from 'context/SnackBarContext';
+import useLocationState from 'hooks/useLocationState';
+import LoadingCircle from 'components/progress/LoadingCircle';
 
 const AddProject = () => {
   const [project, setProject] = useState({});
@@ -16,6 +18,21 @@ const AddProject = () => {
   const { t } = useTranslation();
   const richTextRef = useRef(null);
   const { showSuccessMessage, showErrorMessage } = useSnackBar();
+  const [isLoading, setIsLoading] = useState(false);
+  const projectId = useLocationState((state) => state?.projectId);
+
+  useEffect(() => {
+    if (projectId) {
+      setIsLoading(true);
+      fetchProjectDetails(projectId)
+        .then((response) => {
+          setProject(response.data);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }, []);
 
   const validate = (project) => {
     if (!project.title) {
@@ -40,6 +57,10 @@ const AddProject = () => {
         .catch(() => {});
     }
   };
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
 
   return (
     <GridContainer>

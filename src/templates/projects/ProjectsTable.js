@@ -136,7 +136,7 @@ const parseProjectsTableData = (projects) => {
     countries: project?.countries?.map((country) => country.label),
 
     consultantsCount: (
-      <LinkText to={getProjectConsultantsList()}>
+      <LinkText to={getProjectConsultantsList(project.id)}>
         {project.consultantsCount}
       </LinkText>
     ),
@@ -144,7 +144,7 @@ const parseProjectsTableData = (projects) => {
     details: <div dangerouslySetInnerHTML={createMarkup(project.details)} />,
 
     beneficiariesCount: (
-      <LinkText to={getProjectBeneficiariesList()}>
+      <LinkText to={getProjectBeneficiariesList(project.id)}>
         {project.beneficiariesCount}
       </LinkText>
     ),

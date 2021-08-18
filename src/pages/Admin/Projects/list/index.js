@@ -1,9 +1,9 @@
 import React from 'react';
-import GridItem from '../../../../components/grid/GridItem';
+import GridItem from 'components/grid/GridItem';
 
-import Card from '../../../../components/card/Card';
-import CardBody from '../../../../components/card/CardBody';
-import GridContainer from '../../../../components/grid/GridContainer';
+import Card from 'components/card/Card';
+import CardBody from 'components/card/CardBody';
+import GridContainer from 'components/grid/GridContainer';
 import useFetchData from 'hooks/useFetchData';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import ProjectsTable from 'templates/projects/ProjectsTable';
@@ -13,7 +13,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { useTranslation } from 'react-i18next';
 import { useStyles } from 'styles/Admin/postProjectStyles';
 import { useHistory } from 'react-router';
-import { RoutesPaths } from 'constants/routesPath';
+import { getEditProjectPath } from 'services/navigation';
 
 const ProjectsList = () => {
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ const ProjectsList = () => {
     return <LoadingCircle />;
   }
   const navigateToPostProject = () => {
-    history.push(RoutesPaths.Admin.AddProject);
+    history.push(getEditProjectPath());
   };
 
   return (

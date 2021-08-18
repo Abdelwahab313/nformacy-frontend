@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import AddConsultantsTable from './AddConsultantsTable';
-import { fetchProjectConsultants, addConsultants } from 'apis/projectsAPI';
+import { addConsultants } from 'apis/projectsAPI';
 import useFetchData from 'hooks/useFetchData';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { Fragment } from 'react';
@@ -11,22 +11,21 @@ import { useStyles } from 'styles/Admin/postProjectStyles';
 import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
+import useLocationState from 'hooks/useLocationState';
+import { fetchConsultants } from 'apis/consultantsAPI';
 
 const AddConsultantsToProject = () => {
   const classes = useStyles();
   const history = useHistory();
   const { t } = useTranslation();
-  const [consultantIds, setConsultantIds] = useState([]);
 
-  const projectId = 1;
+  // TODO: handle already checked consultants as will be updated
+  const [consultantIds, setConsultantIds] = useState([]);
+  const projectId = useLocationState((state) => state?.projectId);
 
   const { fetchedData: consultants, isLoading } = useFetchData(() => {
-    return fetchProjectConsultants(1);
+    return fetchConsultants();
   });
-
-  if (isLoading) {
-    return <LoadingCircle />;
-  }
 
   const onAddConsultant = () => {
     addConsultants(projectId, consultantIds).then(() => {
@@ -38,6 +37,9 @@ const AddConsultantsToProject = () => {
     history.push(RoutesPaths.Admin.AddConsultant);
   };
 
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
   return (
     <Fragment>
       <GridContainer>

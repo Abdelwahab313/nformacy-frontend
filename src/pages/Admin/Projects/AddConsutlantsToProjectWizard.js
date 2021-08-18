@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import CardBody from 'components/card/CardBody';
@@ -9,23 +10,24 @@ import AddConsultantsTable from './AddConsultantsTable';
 import useFetchData from 'hooks/useFetchData';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
-import { history } from 'services/navigation';
+import { getBeneficiariesProjectWizard, history } from 'services/navigation';
 import { RoutesPaths } from 'constants/routesPath';
 import { fetchConsultants } from 'apis/consultantsAPI';
 import { addConsultants } from 'apis/projectsAPI';
+import useLocationState from 'hooks/useLocationState';
 
 const AddConsutlantsToProjectWizard = () => {
   const { t } = useTranslation();
   const [consultantIds, setConsultantIds] = useState([]);
+  const projectId = useLocationState((state) => state?.projectId);
 
-  const projectId = 1;
   const { fetchedData: consultants, isLoading } = useFetchData(() => {
     return fetchConsultants();
   });
 
   const onAddConsultant = () => {
     addConsultants(projectId, consultantIds).then(() => {
-      history.push(RoutesPaths.Admin.AddBeneficiariesToProjectWizard);
+      history.push(getBeneficiariesProjectWizard(projectId));
     });
   };
 

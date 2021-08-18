@@ -1,9 +1,9 @@
 import React from 'react';
-import GridItem from '../../../../components/grid/GridItem';
 
-import Card from '../../../../components/card/Card';
-import CardBody from '../../../../components/card/CardBody';
-import GridContainer from '../../../../components/grid/GridContainer';
+import GridItem from 'components/grid/GridItem';
+import Card from 'components/card/Card';
+import CardBody from 'components/card/CardBody';
+import GridContainer from 'components/grid/GridContainer';
 import useFetchData from 'hooks/useFetchData';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { fetchProjectBeneficiaries } from 'apis/projectsAPI';
@@ -11,16 +11,18 @@ import SubmitButton from 'components/buttons/SubmitButton';
 import AddIcon from '@material-ui/icons/Add';
 import { useStyles } from 'styles/Admin/postProjectStyles';
 import { useTranslation } from 'react-i18next';
-import { RoutesPaths } from 'constants/routesPath';
 import { useHistory } from 'react-router';
 import ProjectBeneficiariesTable from './ProjectBeneficiariesTable';
+import useLocationState from 'hooks/useLocationState';
+import { getAddBeneficiariesToProjectPath } from 'services/navigation';
 
 const ProjectBeneficiariesList = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const history = useHistory();
+  const projectId = useLocationState((state) => state?.projectId);
   const { fetchedData: beneficiaries, isLoading } = useFetchData(() => {
-    return fetchProjectBeneficiaries(1);
+    return fetchProjectBeneficiaries(projectId);
   });
 
   if (isLoading) {
@@ -36,7 +38,7 @@ const ProjectBeneficiariesList = () => {
           buttonText={t('addBeneficiaries')}
           startIcon={<AddIcon />}
           onClick={() => {
-            history.push(RoutesPaths.Admin.AddBeneficiariesToProject);
+            history.push(getAddBeneficiariesToProjectPath(projectId));
           }}
         />
         <Card plain>

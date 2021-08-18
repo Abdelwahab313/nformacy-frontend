@@ -47,6 +47,13 @@ export const fetchProjectBeneficiaries = (projectId) => {
   }).then((response) => camelizeKeys(response));
 };
 
+export const fetchProjectServices = (projectId) => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/projects/${projectId}/services`,
+  }).then((response) => camelizeKeys(response));
+};
+
 export const fetchProjectSettings = (projectId) => {
   return axios({
     method: 'get',
@@ -78,28 +85,11 @@ export const submitProjectSettings = (projectSettings) => {
   }
 };
 
-export const fetchProjectDetails = () => {
-  const projects = [
-    {
-      projectNumber: 1,
-      title: 'Product Management',
-      details:
-        'an organisational function within a company dealing with new product development,etc...',
-      fields: [
-        {
-          id: 1,
-          majorFieldId: 1,
-          createdAt: '2021-05-06T16:03:27.130Z',
-          updatedAt: '2021-05-06T16:03:27.189Z',
-          label: 'Audit',
-        },
-      ],
-      location: 'EG',
-    },
-  ];
-  return new Promise((resolve) => {
-    resolve({ data: projects });
-  });
+export const fetchProjectDetails = (projectId) => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/projects/${projectId}`,
+  }).then((response) => camelizeKeys(response));
 };
 
 export const addConsultants = (projectId, consultantIds) => {

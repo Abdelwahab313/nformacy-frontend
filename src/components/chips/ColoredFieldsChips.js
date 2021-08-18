@@ -48,7 +48,7 @@ const ColoredFieldsChips = ({ fields }) => {
         <Grid key={key}>
           <Tooltip
             title={
-              <CustomTypography variant='body1'>
+              <CustomTypography variant='body1' component={'div'}>
                 {majorField.subfields.map((field, key) => (
                   <Grid key={key} id={`questionSubFields-${key}`} item>
                     {field.label}
