@@ -122,6 +122,14 @@ const createConsultant = (user) => {
   }).then((response) => camelizeKeys(response));
 };
 
+const createBeneficiary = (user) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/users/create_user`,
+    data: decamelizeKeys({ ...user, role: 'client' }),
+  }).then((response) => camelizeKeys(response));
+};
+
 const deactivateUser = (userId) => {
   return axios({
     method: 'post',
@@ -149,6 +157,7 @@ export {
   addUserRole,
   completeClientProfile,
   createConsultant,
+  createBeneficiary,
   deactivateUser,
   verifyEmail,
   fetchPointsList,
