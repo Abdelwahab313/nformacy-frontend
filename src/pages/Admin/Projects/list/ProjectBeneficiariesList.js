@@ -36,12 +36,12 @@ const ProjectBeneficiariesList = () => {
           buttonText={t('addBeneficiaries')}
           startIcon={<AddIcon />}
           onClick={() => {
-            history.push(RoutesPaths.Admin.AddProjectBeneficiaries);
+            history.push(RoutesPaths.Admin.AddBeneficiariesToProject);
           }}
         />
         <Card plain>
           <CardBody id='beneficiariesList'>
-          <ProjectBeneficiariesTable beneficiaries={beneficiaries} />
+            <ProjectBeneficiariesTable beneficiaries={beneficiaries} />
           </CardBody>
         </Card>
       </GridItem>

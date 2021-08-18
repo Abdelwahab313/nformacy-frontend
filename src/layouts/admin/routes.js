@@ -49,7 +49,7 @@ import ProjectDetails from 'pages/Admin/Projects/ProjectDetails';
 import AddConsultantsToProject from 'pages/Admin/Projects/AddConsultantsToProject';
 import AddConsultant from 'pages/Admin/Consultants/edit/AddConsultant';
 import ProjectBeneficiariesList from 'pages/Admin/Projects/list/ProjectBeneficiariesList';
-import AddProjectBeneficiaries from 'pages/Admin/Projects/AddProjectBeneficiaries';
+import AddBeneficiariesToProject from 'pages/Admin/Projects/AddBeneficiariesToProject';
 import AddBeneficiary from 'pages/Admin/Beneficiaries/edit/AddBeneficiary';
 import ProjectManagersList from 'pages/Admin/ProjectManagers/list/ProjectManagersList';
 import AddProjectManger from 'pages/Admin/ProjectManagers/edit/AddProjectManager';
@@ -107,10 +107,10 @@ const adminRoutes = [
     hasDashboardLink: false,
   },
   {
-    path: RoutesPaths.Admin.AddProjectBeneficiaries,
-    name: 'Add Consultants',
+    path: RoutesPaths.Admin.AddBeneficiariesToProject,
+    name: 'Add Beneficiaries',
     icon: BusinessCenterIcon,
-    component: AddProjectBeneficiaries,
+    component: AddBeneficiariesToProject,
     hasDashboardLink: false,
   },
   {

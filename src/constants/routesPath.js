@@ -32,7 +32,7 @@ export const RoutesPaths = {
     Consultants: '/admin/consultants',
     Projects: '/admin/projects',
     AddConsultantsToProject: '/admin/projects/addConsultants',
-    AddProjectBeneficiaries: '/admin/projects/addBeneficiaries',
+    AddBeneficiariesToProject: '/admin/projects/addBeneficiaries',
     ProjectDetails: '/admin/projects/projectDetails',
     AddProject: '/admin/projects/addProject',
     AddProjectSettings: '/admin/projects/solutionsForm',

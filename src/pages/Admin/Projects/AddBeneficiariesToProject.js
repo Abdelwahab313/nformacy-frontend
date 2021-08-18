@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import AddBeneficiariesTable from './AddBenficiariesTable';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 
-const AddProjectBeneficiaries = () => {
+const AddBeneficiariesToProject = () => {
   const classes = useStyles();
   const history = useHistory();
   const { t } = useTranslation();
@@ -26,7 +26,7 @@ const AddProjectBeneficiaries = () => {
 
   const onAddBeneficiaries = () => {
     addBeneficiaries(projectId, beneficiaryIds).then(() => {
-      history.push(RoutesPaths.Admin.AddBeneficiariesToProjectWizard);
+      history.push(RoutesPaths.Admin.Projects);
     });
   };
 
@@ -68,4 +68,4 @@ const AddProjectBeneficiaries = () => {
     </Fragment>
   );
 };
-export default AddProjectBeneficiaries;
+export default AddBeneficiariesToProject;
