@@ -39,15 +39,15 @@ export default function ProjectManagerSidebar(props) {
     icon: DashboardIcon,
     component: ProjectDetails,
     hasDashboardLink: false,
-    projectId: project.projectNumber,
+    projectId: project.id,
   }));
 
-  // TODO needs to handle
+  // TODO: needs to handle
   routes.push(adminRoutes[adminRoutes.length - 17]);
-  
+
   // verifies if routeName is the one active (in browser input)
-  // TODO replace with active route
-  function activeRoute() {
+  // TODO: replace with active route
+  function activeRoute(projectIds, projectId) {
     return false;
   }
 
@@ -55,6 +55,7 @@ export default function ProjectManagerSidebar(props) {
     return <LoadingCircle />;
   }
   const { color, logo, image, logoText } = props;
+  console.log({ routes });
   let links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
@@ -68,7 +69,11 @@ export default function ProjectManagerSidebar(props) {
         });
         return (
           <NavLink
-            to={itemPath}
+            to={{
+              pathname: itemPath,
+              key: prop.projectId,
+              state: { projectId: prop.projectId },
+            }}
             key={key}
             className={classes.item}
             activeClassName='active'>
