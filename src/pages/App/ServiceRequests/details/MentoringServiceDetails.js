@@ -4,11 +4,11 @@ import { Grid } from '@material-ui/core';
 import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import Direction from 'components/grid/Direction';
-import MeetingDetailsSection from './subComponents/MeetingDetailsSection';
 import ServiceView from './subComponents/ServiceView';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import MentoringDetailsSection from 'templates/mentoring/MentoringDetailsSection';
+import MentoringMeetingDetailsSection from './subComponents/MentoringMeetingDetailsSection';
 
 const MentoringServiceDetails = ({ serviceDetails }) => {
   const { t } = useTranslation();
@@ -22,7 +22,7 @@ const MentoringServiceDetails = ({ serviceDetails }) => {
           <GridContainer>
             {serviceDetails?.meetings?.map((meeting) => (
               <GridItem xs={6}>
-                <MeetingDetailsSection meeting={meeting} />
+                <MentoringMeetingDetailsSection meeting={meeting} />
               </GridItem>
             ))}
           </GridContainer>
