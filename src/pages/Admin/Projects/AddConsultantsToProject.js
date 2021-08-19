@@ -29,7 +29,7 @@ const AddConsultantsToProject = () => {
 
   const onAddConsultant = () => {
     addConsultants(projectId, consultantIds).then(() => {
-      history.push(RoutesPaths.Admin.AddBeneficiariesToProjectWizard);
+      history.push(RoutesPaths.Admin.Projects);
     });
   };
 

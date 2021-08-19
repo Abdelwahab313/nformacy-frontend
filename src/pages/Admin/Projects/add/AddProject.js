@@ -39,7 +39,7 @@ const AddProject = () => {
       showErrorMessage(t('requiredTitle'));
       return false;
     }
-    if (project.projectManager.options.length == 0) {
+    if (project.projectManagerId === undefined) {
       showErrorMessage(t('requiredProjectManager'));
       return false;
     }

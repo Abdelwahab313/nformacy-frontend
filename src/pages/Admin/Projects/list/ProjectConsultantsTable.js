@@ -55,15 +55,6 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'email',
-      label: t('email'),
-      options: {
-        ...defaultColumnOption,
-        filter: false,
-        sort: true,
-      },
-    },
-    {
       name: 'fields',
       label: t('fieldsAssigned'),
       options: {

@@ -12,14 +12,16 @@ import { InputLabel } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import ReactSelectMaterialUi from 'react-select-material-ui';
 import { selectStyle } from 'styles/formsStyles';
-import { projectManagers } from 'constants/dropDownOptions';
 import RichTextEditorForm from 'components/forms/RichTextEditorForm';
+import { fetchProjectManagers } from 'apis/projectMangersAPI';
 import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import CountrySelectField from 'components/inputs/CountrySelectField';
+import LoadingCircle from 'components/progress/LoadingCircle';
+import useFetchData from 'hooks/useFetchData';
 
 const AddProjectForm = ({
   primaryButton,
@@ -29,6 +31,14 @@ const AddProjectForm = ({
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+
+  const { fetchedData: projectManagers, isLoading } = useFetchData(() => {
+    return fetchProjectManagers();
+  });
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
 
   // @TODO needs to handle the project managers list
   const onChangeField = (name, value) => {
@@ -130,7 +140,16 @@ const AddProjectForm = ({
                 SelectProps={{
                   styles: selectStyle,
                 }}
-                options={projectManagers}
+                options={projectManagers.map((projectManager) => {
+                  var projectManagerName = {
+                    value: projectManager.id,
+                    label: `${projectManager.firstName} ${projectManager.lastName}`,
+                  };
+                  return projectManagerName;
+                })}
+                onChange={(newValue) => {
+                  onChangeField('projectManagerId', newValue);
+                }}
               />
             </FormControl>
           </GridItem>

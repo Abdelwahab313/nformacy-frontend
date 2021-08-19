@@ -158,18 +158,18 @@ const AddBeneficiaryForm = ({
               <GridItem xs={12} sm={12} md={4}>
                 <DropdownSelectField
                   multiple
-                  fieldId='country'
-                  fieldName='country'
+                  fieldId='industriesOfExperience'
+                  fieldName='industriesOfExperience'
                   fieldOptions={industries}
                   fieldValue={
-                    !!user.country
-                      ? user.country
+                    !!user.industriesOfExperience
+                      ? user.industriesOfExperience
                       : []
                   }
                   onFieldChange={(option) =>
-                    onChangeField('country', option)
+                    onChangeField('industriesOfExperience', option)
                   }
-                  fieldLabel={t('Country')}
+                  fieldLabel={t('industry')}
                 />
               </GridItem>
             </GridContainer>
