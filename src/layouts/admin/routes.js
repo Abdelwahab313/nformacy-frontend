@@ -55,6 +55,7 @@ import ProjectManagersList from 'pages/Admin/ProjectManagers/list/ProjectManager
 import AddProjectManger from 'pages/Admin/ProjectManagers/edit/AddProjectManager';
 import AddBeneficiariesToProjectWizard from 'pages/Admin/Projects/AddBeneficiariesToProjectWizard';
 import AddConsutlantsToProjectWizard from 'pages/Admin/Projects/AddConsutlantsToProjectWizard';
+import { IS_Nformacy_APP } from 'settings';
 
 const adminRoutes = [
   {
@@ -167,7 +168,7 @@ const adminRoutes = [
     name: 'Consultant Verification',
     icon: BusinessCenterIcon,
     component: ConsultantVerificationsList,
-    hasDashboardLink: true,
+    hasDashboardLink: IS_Nformacy_APP,
   },
   {
     path: RoutesPaths.Admin.ConsultantVerificationForm,
@@ -209,7 +210,7 @@ const adminRoutes = [
     name: 'Admins',
     icon: PeopleIcon,
     component: AdminsList,
-    hasDashboardLink: AdminGuardian.isSuperAdmin(),
+    hasDashboardLink: IS_Nformacy_APP,
   },
   {
     path: RoutesPaths.Admin.Advisors,
