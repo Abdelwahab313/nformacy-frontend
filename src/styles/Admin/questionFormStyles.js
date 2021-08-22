@@ -197,4 +197,7 @@ export const useStyles = makeStyles((theme) => ({
     float: 'right',
     marginTop: theme.spacing(2),
   },
+  clickableTextButton: {
+    cursor: 'pointer',
+  },
 }));

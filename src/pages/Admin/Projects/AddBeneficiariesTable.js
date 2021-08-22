@@ -53,7 +53,15 @@ const getColumnsOptions = (classes, t) => {
         sort: true,
       },
     },
-
+    {
+      name: 'email',
+      label: t('email'),
+      options: {
+        ...defaultColumnOption,
+        filter: false,
+        sort: true,
+      },
+    },
     {
       name: 'fields',
       label: t('fieldsAssigned'),
@@ -75,7 +83,11 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const parseBeneficiariesTableData = (beneficiaries, setBeneficiaryIds) => {
+const parseBeneficiariesTableData = (
+  beneficiaries,
+  beneficiaryIds,
+  setBeneficiaryIds,
+) => {
   return beneficiaries?.map((beneficiary) => ({
     ...beneficiary,
     state: getBeneficiaryState(beneficiary),
@@ -85,6 +97,7 @@ const parseBeneficiariesTableData = (beneficiaries, setBeneficiaryIds) => {
     checked: (
       <Checkbox
         color='primary'
+        checked={beneficiaryIds?.includes(beneficiary.id)}
         onChange={(e) => {
           if (e.target.checked) {
             setBeneficiaryIds((prevBeneficiaryId) => [
@@ -105,12 +118,17 @@ const parseBeneficiariesTableData = (beneficiaries, setBeneficiaryIds) => {
   }));
 };
 
-const AddBeneficiariesTable = ({ beneficiaries, setBeneficiaryIds }) => {
+const AddBeneficiariesTable = ({
+  beneficiaries,
+  beneficiaryIds,
+  setBeneficiaryIds,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
   const beneficiariesRows = parseBeneficiariesTableData(
     beneficiaries,
+    beneficiaryIds,
     setBeneficiaryIds,
   );
   const tableOptions = {

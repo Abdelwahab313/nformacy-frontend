@@ -54,6 +54,13 @@ export const fetchProjectServices = (projectId) => {
   }).then((response) => camelizeKeys(response));
 };
 
+export const fetchProjectMentors = (projectId) => {
+  return axios({
+    method: 'get',
+    url: `${API_BASE_URL}/projects/${projectId}/mentors`,
+  }).then((response) => camelizeKeys(response));
+};
+
 export const fetchProjectSettings = (projectId) => {
   return axios({
     method: 'get',

@@ -57,6 +57,14 @@ import AddBeneficiariesToProjectWizard from 'pages/Admin/Projects/AddBeneficiari
 import AddConsutlantsToProjectWizard from 'pages/Admin/Projects/AddConsutlantsToProjectWizard';
 import { IS_Nformacy_APP } from 'settings';
 
+export const calendarRoute = {
+  path: RoutesPaths.Admin.Calendar,
+  name: 'Calendar',
+  icon: CalendarTodayOutlined,
+  component: AdminCalendarDetails,
+  hasDashboardLink: true,
+};
+
 const adminRoutes = [
   {
     path: RoutesPaths.Admin.Dashboard,
@@ -233,13 +241,7 @@ const adminRoutes = [
     component: AddProjectManger,
     hasDashboardLink: false,
   },
-  {
-    path: RoutesPaths.Admin.Calendar,
-    name: 'Calendar',
-    icon: CalendarTodayOutlined,
-    component: AdminCalendarDetails,
-    hasDashboardLink: true,
-  },
+  calendarRoute,
   {
     path: RoutesPaths.Admin.Notifications,
     name: 'Notifications',

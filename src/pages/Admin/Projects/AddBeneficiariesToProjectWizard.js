@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
 import CardBody from 'components/card/CardBody';
@@ -7,13 +7,13 @@ import CardHeader from 'components/card/CardHeader';
 import { useTranslation } from 'react-i18next';
 import useFetchData from 'hooks/useFetchData';
 import LoadingCircle from 'components/progress/LoadingCircle';
-import AddBeneficiariesTable from './AddBenficiariesTable';
+import AddBeneficiariesTable from './AddBeneficiariesTable';
 import { useStyles } from 'styles/Admin/postProjectStyles';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import { history } from 'services/navigation';
 import { RoutesPaths } from 'constants/routesPath';
 import { fetchClients } from 'apis/clientsAPI';
-import { addBeneficiaries } from 'apis/projectsAPI';
+import { addBeneficiaries, fetchProjectBeneficiaries } from 'apis/projectsAPI';
 import useLocationState from 'hooks/useLocationState';
 
 const AddBeneficiariesToProjectWizard = () => {
@@ -21,11 +21,32 @@ const AddBeneficiariesToProjectWizard = () => {
   const classes = useStyles();
 
   const [beneficiaryIds, setBeneficiaryIds] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const projectId = useLocationState((state) => state?.projectId);
 
-  const { fetchedData: beneficiaries, isLoading } = useFetchData(() => {
+  const { fetchedData: beneficiaries } = useFetchData(() => {
     return fetchClients();
   });
+
+
+  useEffect(() => {
+    if (!!projectId) {
+      setIsLoading(true);
+      fetchProjectBeneficiaries(projectId)
+        .then((response) => {
+          const beneficiariesList = response.data;
+          if (beneficiariesList.length > 0) {
+            setBeneficiaryIds(
+              beneficiariesList.map((beneficiary) => beneficiary.id),
+            );
+          }
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }, []);
 
   const onAddBeneficiaries = () => {
     addBeneficiaries(projectId, beneficiaryIds).then(() => {
@@ -60,6 +81,7 @@ const AddBeneficiariesToProjectWizard = () => {
       <CardBody>
         <AddBeneficiariesTable
           setBeneficiaryIds={setBeneficiaryIds}
+          beneficiaryIds={beneficiaryIds}
           beneficiaries={beneficiaries}
         />
       </CardBody>

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
@@ -13,17 +13,37 @@ import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import { getBeneficiariesProjectWizard, history } from 'services/navigation';
 import { RoutesPaths } from 'constants/routesPath';
 import { fetchConsultants } from 'apis/consultantsAPI';
-import { addConsultants } from 'apis/projectsAPI';
+import { addConsultants, fetchProjectConsultants } from 'apis/projectsAPI';
 import useLocationState from 'hooks/useLocationState';
 
 const AddConsutlantsToProjectWizard = () => {
   const { t } = useTranslation();
+
   const [consultantIds, setConsultantIds] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const projectId = useLocationState((state) => state?.projectId);
 
-  const { fetchedData: consultants, isLoading } = useFetchData(() => {
+  const { fetchedData: consultants } = useFetchData(() => {
     return fetchConsultants();
   });
+
+  useEffect(() => {
+    if (!!projectId) {
+      setIsLoading(true);
+      fetchProjectConsultants(projectId)
+        .then((response) => {
+          const consultantsList = response.data;
+          if (consultantsList.length > 0) {
+            setConsultantIds(
+              consultantsList.map((consultant) => consultant.id),
+            );
+          }
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }, []);
 
   const onAddConsultant = () => {
     addConsultants(projectId, consultantIds).then(() => {
@@ -55,6 +75,7 @@ const AddConsutlantsToProjectWizard = () => {
       <CardBody>
         <AddConsultantsTable
           setConsultantIds={setConsultantIds}
+          consultantIds={consultantIds}
           consultants={consultants}
         />
       </CardBody>

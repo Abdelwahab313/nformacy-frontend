@@ -53,7 +53,15 @@ const getColumnsOptions = (classes, t) => {
         sort: true,
       },
     },
-
+    {
+      name: 'email',
+      label: t('email'),
+      options: {
+        ...defaultColumnOption,
+        filter: false,
+        sort: true,
+      },
+    },
     {
       name: 'fields',
       label: t('fieldsAssigned'),
@@ -75,7 +83,11 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const parseConsultantsTableData = (consultants, setConsultantIds) => {
+const parseConsultantsTableData = (
+  consultants,
+  consultantIds,
+  setConsultantIds,
+) => {
   return consultants?.map((consultant) => ({
     ...consultant,
     state: getConsultantState(consultant),
@@ -85,6 +97,7 @@ const parseConsultantsTableData = (consultants, setConsultantIds) => {
       // TODO: handle onChange in checkbox
       <Checkbox
         color='primary'
+        checked={consultantIds?.includes(consultant.id)}
         onChange={(e) => {
           if (e.target.checked) {
             setConsultantIds((prevConsultantId) => [
@@ -105,12 +118,17 @@ const parseConsultantsTableData = (consultants, setConsultantIds) => {
   }));
 };
 
-const AddConsultantsTable = ({ consultants, setConsultantIds }) => {
+const AddConsultantsTable = ({
+  consultants,
+  consultantIds,
+  setConsultantIds,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const columns = getColumnsOptions(classes, t);
   const consultantsRows = parseConsultantsTableData(
     consultants,
+    consultantIds,
     setConsultantIds,
   );
   const tableOptions = {

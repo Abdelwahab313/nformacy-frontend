@@ -16,7 +16,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 
 import SidebarStyles from './SidebarStyles';
 import authManager from 'services/authManager';
-import adminRoutes from 'layouts/admin/routes';
+import { calendarRoute } from 'layouts/admin/routes';
 import useFetchData from 'hooks/useFetchData';
 import { fetchProjects } from 'apis/projectsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
@@ -43,7 +43,7 @@ export default function ProjectManagerSidebar(props) {
   }));
 
   // TODO: needs to handle
-  routes.push(adminRoutes[adminRoutes.length - 17]);
+  routes.push(calendarRoute);
 
   // verifies if routeName is the one active (in browser input)
   // TODO: replace with active route

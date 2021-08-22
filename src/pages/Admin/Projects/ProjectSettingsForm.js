@@ -26,7 +26,6 @@ import {
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import CustomTypography from 'components/typography/Typography';
-import LinkText from 'components/typography/LinkText';
 import { Dialog } from '@material-ui/core';
 import { DialogContent } from '@material-ui/core';
 import Transition from 'components/animations/Transition';
@@ -144,7 +143,7 @@ const ProjectSettingsForm = () => {
           }}
         />
 
-        {showMentoringSetting && <MentorsSetting />}
+        {showMentoringSetting && <MentorsSetting projectId={projectId} />}
       </CardBody>
       <CardFooter className={classes.nextStepBtn}>
         <SubmitButton
@@ -258,14 +257,12 @@ const SettingRow = ({ serviceKey, serviceSetting, updateServiceSetting }) => {
   );
 };
 
-const MentorsSetting = () => {
+const MentorsSetting = ({ projectId }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [mentors, setMentors] = useState([]);
   const { showSuccessMessage } = useSnackBar();
-
-  const projectId = 1;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -314,14 +311,13 @@ const MentorsSetting = () => {
         </DialogActions>
       </Dialog>
 
-      <LinkText to={() => {}}>
-        <CustomTypography
-          color='primary'
-          variant='body1'
-          onClick={handleClickOpen}>
-          {t('assignMentorsForBeneficiaries')}
-        </CustomTypography>
-      </LinkText>
+      <CustomTypography
+        color='primary'
+        variant='body1'
+        className={classes.clickableTextButton}
+        onClick={handleClickOpen}>
+        {t('assignMentorsForBeneficiaries')}
+      </CustomTypography>
     </>
   );
 };

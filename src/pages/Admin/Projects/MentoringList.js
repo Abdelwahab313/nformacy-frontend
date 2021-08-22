@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { useStyles } from 'styles/Admin/questionFormStyles';
 import { Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +17,10 @@ import { TableBody } from '@material-ui/core';
 import { Table } from '@material-ui/core';
 import { DialogActions } from '@material-ui/core';
 import EditMentorsDialog from './EditMentorsDialog';
+import useLocationState from 'hooks/useLocationState';
+import useFetchData from 'hooks/useFetchData';
+import { fetchProjectMentors } from 'apis/projectsAPI';
+import LoadingCircle from 'components/progress/LoadingCircle';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -45,68 +49,49 @@ const MentoringList = () => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const projectId = useLocationState((state) => state?.projectId);
+
+  const { fetchedData: projectMentors, isLoading } = useFetchData(() =>
+    fetchProjectMentors(projectId),
+  );
 
   const handleClickOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
 
-  const clients = [
-    {
-      id: 1,
-      firstName: 'William',
-      lastName: 'Michael',
-      organizationName: 'Netflix',
-      consultantName: 'Noah',
-    },
-    {
-      id: 2,
-      firstName: 'Sam',
-      lastName: 'Micheal',
-      organizationName: 'Amazon',
-      consultantName: 'James',
-    },
-    {
-      id: 3,
-      firstName: 'Erik',
-      lastName: 'Ericksen',
-      organizationName: 'nformacy',
-      consultantName: 'Joseph',
-    },
-    {
-      id: 4,
-      firstName: 'Jake',
-      lastName: 'Oliver',
-      organizationName: 'nformacy',
-      consultantName: 'Robert',
-    },
-  ];
-  const parseClientsToTableRows = (clients) => {
-    return clients?.map((client) => ({
-      ...clients,
+  const parseClientsToTableRows = (projectMentors) => {
+    return projectMentors?.map((projectMentors) => ({
+      ...projectMentors,
       firstName: (
         <CustomTypography variant={'body1'}>
-          {client.firstName}
+          {projectMentors.beneficiary.firstName}
         </CustomTypography>
       ),
       lastName: (
-        <CustomTypography variant={'body1'}>{client.lastName}</CustomTypography>
+        <CustomTypography variant={'body1'}>
+          {projectMentors.beneficiary.lastName}
+        </CustomTypography>
       ),
       organizationName: (
         <CustomTypography variant={'body1'}>
-          {client.organizationName}
+          {projectMentors.beneficiary.organizationName}
         </CustomTypography>
       ),
       consultantName: (
         <CustomTypography variant={'body1'}>
-          {client.consultantName}
+          {projectMentors.consultant.email}
         </CustomTypography>
       ),
     }));
   };
-  const servicesRows = parseClientsToTableRows(clients, t);
+  const servicesRows = parseClientsToTableRows(projectMentors, t);
 
   return (
     <>
