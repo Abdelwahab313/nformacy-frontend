@@ -101,6 +101,7 @@ const MentoringMeetingDetailsSection = ({ meeting }) => {
             <Box className={'shortlistedConsultants'}>
               <MeetingMembersDetails
                 bgcolor={lighterPink}
+                meeting={meeting}
                 candidate={meeting.client}
                 isFocused={true}
                 setFocusedCandidate={() => {}}

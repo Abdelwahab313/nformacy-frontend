@@ -1,5 +1,8 @@
 import React from 'react';
-import { getAnswerQuestionLink, getServiceDetailsLink } from 'services/navigation';
+import {
+  getAnswerQuestionLink,
+  getServiceDetailsLink,
+} from 'services/navigation';
 import LinkText from 'components/typography/LinkText';
 import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
 import { getAnswerState } from 'core/answerStatus';
@@ -27,10 +30,12 @@ const parseActivitiesToTableRow = (activities, t) => {
         </LinkText>
       ),
 
-    requestType:
-      activity.activityType === 'answer'
-        ? t(`screening_${activity.assignmentType}`)
-        : t('call'),
+    requestType: (function() {
+      if (activity.activityType === 'answer')
+        return t(`screening_${activity.assignmentType}`);
+      else if (activity.activityType === 'mentoring') return t('mentoring');
+      else return t('call');
+    })(),
     title: <TextCroppedWithTooltip text={activity.title} />,
     date: (
       <CustomTypography variant='body2' gutterBottom>
