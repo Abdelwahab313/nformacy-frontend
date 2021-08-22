@@ -51,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: 0,
   },
+  projectAppBar: {
+    marginTop: 40,
+  },
 }));
 
 const ProjectDetails = () => {
@@ -63,35 +66,34 @@ const ProjectDetails = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position='static'>
+      <ProjectDetailsView />
+
+      <AppBar className={classes.projectAppBar} position='static'>
         <Tabs
           value={selectedTab}
           onChange={handleChange}
           aria-label='simple tabs example'>
-          <Tab label='Projects' {...a11yProps(0)} />
-          <Tab label='Activities' {...a11yProps(1)} />
-          <Tab label='Consultants' {...a11yProps(2)} />
-          <Tab label='Beneficiaries' {...a11yProps(3)} />
-          <Tab label='Settings' {...a11yProps(4)} />
-          <Tab label='Mentoring' {...a11yProps(5)} />
+          <Tab label='Activities' {...a11yProps(0)} />
+          <Tab label='Consultants' {...a11yProps(1)} />
+          <Tab label='Beneficiaries' {...a11yProps(2)} />
+          <Tab label='Settings' {...a11yProps(3)} />
+          <Tab label='Mentoring' {...a11yProps(4)} />
         </Tabs>
       </AppBar>
+
       <TabPanel value={selectedTab} index={0}>
-        <ProjectDetailsView />
-      </TabPanel>
-      <TabPanel value={selectedTab} index={1}>
         <ProjectServicesList />
       </TabPanel>
-      <TabPanel value={selectedTab} index={2}>
+      <TabPanel value={selectedTab} index={1}>
         <ProjectConsultantsList />
       </TabPanel>
-      <TabPanel value={selectedTab} index={3}>
+      <TabPanel value={selectedTab} index={2}>
         <ProjectBeneficiariesList />
       </TabPanel>
-      <TabPanel value={selectedTab} index={4}>
+      <TabPanel value={selectedTab} index={3}>
         <ProjectSettingsForm />
       </TabPanel>
-      <TabPanel value={selectedTab} index={5}>
+      <TabPanel value={selectedTab} index={4}>
         <MentoringList />
       </TabPanel>
     </div>
