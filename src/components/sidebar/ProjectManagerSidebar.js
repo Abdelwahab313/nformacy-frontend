@@ -55,7 +55,6 @@ export default function ProjectManagerSidebar(props) {
     return <LoadingCircle />;
   }
   const { color, logo, image, logoText } = props;
-  console.log({ routes });
   let links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {

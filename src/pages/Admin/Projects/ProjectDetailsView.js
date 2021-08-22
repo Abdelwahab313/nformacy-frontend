@@ -34,6 +34,7 @@ const ProjectDetailsView = () => {
 
   return (
     <Grid item id='basicInfo'>
+      <CustomTypography variant='h6'>{project.title}</CustomTypography>
       <Paper className={classes.paperSection} elevation={3}>
         <Grid container justify={'space-between'}>
           <Grid item xs={12} className={classes.paperSectionHeaderStyles}>
