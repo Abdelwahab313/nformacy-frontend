@@ -51,6 +51,9 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     flexGrow: 1,
   },
+  detailsContainer: {
+    alignItems: 'center',
+  },
   comingSoon: {
     textAlign: 'center',
     padding: 80,
@@ -381,7 +384,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   sectionRowStyles: {
     display: 'flex',
-    margin: '15px 0',
+    // margin: '15px 0',
   },
   sectionRowContainerStyles: {
     display: 'flex',

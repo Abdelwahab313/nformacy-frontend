@@ -96,7 +96,9 @@ const ProjectDetailsView = () => {
                 </CustomTypography>
               </Grid>
             </Grid>
-            <Grid container className={classes.sectionRowStyles}>
+            <Grid
+              container
+              className={[classes.sectionRowStyles, classes.detailsContainer]}>
               <Grid item xs={4}>
                 <CustomTypography
                   gutterBottom
