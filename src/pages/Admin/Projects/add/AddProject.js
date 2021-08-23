@@ -6,11 +6,11 @@ import { Grid, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import AddProjectForm from './AddProjectForm';
-import { RoutesPaths } from 'constants/routesPath';
 import { createOrUpdateProject, fetchProjectDetails } from 'apis/projectsAPI';
 import { useSnackBar } from 'context/SnackBarContext';
 import useLocationState from 'hooks/useLocationState';
 import LoadingCircle from 'components/progress/LoadingCircle';
+import { getProjectSettingsWizard } from 'services/navigation';
 
 const AddProject = () => {
   const [project, setProject] = useState({});
@@ -52,7 +52,7 @@ const AddProject = () => {
       createOrUpdateProject({ ...project, projectManagerId: 1 })
         .then(() => {
           showSuccessMessage(t('projectAdded'));
-          history.push(RoutesPaths.Admin.AddProjectSettings);
+          history.push(getProjectSettingsWizard(projectId));
         })
         .catch(() => {});
     }

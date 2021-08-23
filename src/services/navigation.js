@@ -254,6 +254,15 @@ export const getProjectBeneficiariesList = (projectId) => {
   };
 };
 
+export const getProjectSettingsWizard = (projectId) => {
+  return {
+    pathname: RoutesPaths.Admin.AddProjectSettings,
+    state: {
+      projectId,
+    },
+  };
+};
+
 export const getConsultantsProjectWizard = (projectId) => {
   return {
     pathname: RoutesPaths.Admin.AddConsutlantsToProjectWizard,
