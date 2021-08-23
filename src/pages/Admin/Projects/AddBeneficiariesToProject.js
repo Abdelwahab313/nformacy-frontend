@@ -66,7 +66,7 @@ const AddBeneficiariesToProject = () => {
         <GridItem xs={12} className={classes.addConsultantsTable}>
           <AddBeneficiariesTable
             setBeneficiaryIds={setBeneficiaryIds}
-            benefeciaryIds={beneficiaryIds}
+            beneficiaryIds={beneficiaryIds}
             beneficiaries={beneficiaries}
           />
         </GridItem>

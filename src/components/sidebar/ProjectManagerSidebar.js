@@ -22,6 +22,9 @@ import { fetchProjects } from 'apis/projectsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { RoutesPaths } from 'constants/routesPath';
 import ProjectDetails from 'pages/Admin/Projects/ProjectDetails';
+import CustomTypography from 'components/typography/Typography';
+import { pushWithForceRefresh } from 'services/navigation';
+import useLocationState from 'hooks/useLocationState';
 
 const useStyles = makeStyles(SidebarStyles);
 
@@ -29,6 +32,7 @@ export default function ProjectManagerSidebar(props) {
   const classes = useStyles();
   const currentUser = authManager.retrieveCurrentUser();
 
+  const currentProjectId = useLocationState((state) => state?.projectId);
   const { fetchedData: projects, isLoading } = useFetchData(() => {
     return fetchProjects();
   });
@@ -47,9 +51,6 @@ export default function ProjectManagerSidebar(props) {
 
   // verifies if routeName is the one active (in browser input)
   // TODO: replace with active route
-  function activeRoute(projectIds, projectId) {
-    return false;
-  }
 
   if (isLoading) {
     return <LoadingCircle />;
@@ -58,20 +59,23 @@ export default function ProjectManagerSidebar(props) {
   let links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
+        const isActiveRoute = prop.projectId === currentProjectId;
         const itemPath = prop.path;
         let listItemClasses = classNames({
-          [' ' + classes[color]]: activeRoute(itemPath),
+          [' ' + classes[color]]: isActiveRoute,
         });
 
         const whiteFontClasses = classNames({
-          [' ' + classes.whiteFont]: activeRoute(itemPath),
+          [' ' + classes.whiteFont]: isActiveRoute,
         });
         return (
-          <NavLink
-            to={{
-              pathname: itemPath,
-              key: prop.projectId,
-              state: { projectId: prop.projectId },
+          <CustomTypography
+            onClick={() => {
+              pushWithForceRefresh({
+                pathname: itemPath,
+                key: prop.projectId,
+                state: { projectId: prop.projectId },
+              });
             }}
             key={key}
             className={classes.item}
@@ -90,7 +94,7 @@ export default function ProjectManagerSidebar(props) {
                 disableTypography={true}
               />
             </ListItem>
-          </NavLink>
+          </CustomTypography>
         );
       })}
     </List>

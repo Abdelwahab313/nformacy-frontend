@@ -126,28 +126,25 @@ const parseProjectsTableData = (projects) => {
   return projects?.map((project) => ({
     ...project,
     id: <LinkText to={getProjectDetails(project.id)}>{project.id}</LinkText>,
-
+    
+    details: <div dangerouslySetInnerHTML={createMarkup(project.details)} />,
     duration: `${formatDate(new Date(project.startDate))} - \n ${formatDate(
       new Date(project.endDate),
     )}  `,
-
     fields: <ColoredFieldsChips fields={project.fields} />,
-
     countries: project?.countries?.map((country) => country.label),
-
     consultantsCount: (
       <LinkText to={getProjectConsultantsList(project.id)}>
         {project.consultantsCount}
       </LinkText>
     ),
-
-    details: <div dangerouslySetInnerHTML={createMarkup(project.details)} />,
-
     beneficiariesCount: (
       <LinkText to={getProjectBeneficiariesList(project.id)}>
         {project.beneficiariesCount}
       </LinkText>
     ),
+
+    
   }));
 };
 

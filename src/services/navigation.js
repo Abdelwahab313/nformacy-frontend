@@ -6,6 +6,8 @@ import AdminGuardian from 'core/guardians/AdminGuardian';
 
 export const history = createHistory();
 
+export const pushWithForceRefresh = createHistory({ forceRefresh: true }).push;
+
 export const getQuestionDetailsLink = (questionId, serviceId) => {
   if (authManager.isAdmin()) {
     return getQuestionDetailsLinkForAdmin(questionId);
