@@ -14,6 +14,7 @@ import {
 import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
 import { formatDate } from 'services/dateTimeParser';
 import createMarkup from 'services/markup';
+import CheckBox from 'components/inputs/CheckBox';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -94,7 +95,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'askCredit',
+      name: 'askEnabled',
       label: t('ask'),
       options: {
         ...defaultColumnOption,
@@ -102,7 +103,7 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'mentoring',
+      name: 'mentoringEnabled',
       label: t('mentoring'),
       options: {
         ...defaultColumnOption,
@@ -110,7 +111,15 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'assign',
+      name: 'assignEnabled',
+      label: t('assign'),
+      options: {
+        ...defaultColumnOption,
+        filter: true,
+      },
+    },
+    {
+      name: 'callEnabled',
       label: t('assign'),
       options: {
         ...defaultColumnOption,
@@ -122,11 +131,14 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
+const ProjectSettingEnabledCheck = ({ checked }) => {
+  return <CheckBox checked={checked} disabled />;
+};
+
 const parseProjectsTableData = (projects) => {
   return projects?.map((project) => ({
     ...project,
     id: <LinkText to={getProjectDetails(project.id)}>{project.id}</LinkText>,
-    
     details: <div dangerouslySetInnerHTML={createMarkup(project.details)} />,
     duration: `${formatDate(new Date(project.startDate))} - \n ${formatDate(
       new Date(project.endDate),
@@ -143,8 +155,24 @@ const parseProjectsTableData = (projects) => {
         {project.beneficiariesCount}
       </LinkText>
     ),
-
-    
+    askEnabled: (
+      <ProjectSettingEnabledCheck checked={!!project?.askSettings?.isEnabled} />
+    ),
+    mentoringEnabled: (
+      <ProjectSettingEnabledCheck
+        checked={!!project?.mentorSettings?.isEnabled}
+      />
+    ),
+    assignEnabled: (
+      <ProjectSettingEnabledCheck
+        checked={!!project?.assignSettings?.isEnabled}
+      />
+    ),
+    callEnabled: (
+      <ProjectSettingEnabledCheck
+        checked={!!project?.callSettings?.isEnabled}
+      />
+    ),
   }));
 };
 
