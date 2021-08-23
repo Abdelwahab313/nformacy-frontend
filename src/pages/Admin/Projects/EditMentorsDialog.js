@@ -15,8 +15,11 @@ import ReactSelectMaterialUi from 'react-select-material-ui';
 import { selectStyle } from 'styles/formsStyles';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import useFetchData from 'hooks/useFetchData';
-import { fetchClients } from 'apis/clientsAPI';
-import { fetchConsultants } from 'apis/consultantsAPI';
+import {
+  fetchProjectBeneficiaries,
+  fetchProjectConsultants,
+} from 'apis/projectsAPI';
+import useLocationState from 'hooks/useLocationState';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -44,13 +47,14 @@ const StyledTableRow = withStyles((theme) => ({
 const EditMentorsDialog = ({ onSelectConsultant }) => {
   const { t } = useTranslation();
   const classes = useStyles();
+  const projectId = useLocationState((state) => state?.projectId);
 
   const { fetchedData: clients, isLoading } = useFetchData(() => {
-    return fetchClients();
+    return fetchProjectBeneficiaries(projectId);
   });
 
   const { fetchedData: consultants } = useFetchData(() => {
-    return fetchConsultants();
+    return fetchProjectConsultants(projectId);
   });
 
   const parseClientsToTableRows = (clients) => {
