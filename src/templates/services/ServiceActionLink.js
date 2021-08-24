@@ -12,8 +12,12 @@ import {
   getCallEvaluationLink,
   getEditServiceDetailsLink,
 } from 'services/navigation';
-import { EDITABLE_SERVICE_STATUS, SERVICE_STATUS } from 'constants/questionStatus';
+import {
+  EDITABLE_SERVICE_STATUS,
+  SERVICE_STATUS,
+} from 'constants/questionStatus';
 import { getMeetingAction } from 'core/meeting';
+import UpdateAvailability from 'pages/App/ServiceRequests/details/UpdateAvailibility';
 
 const ServiceActionLink = ({
   status,
@@ -28,13 +32,25 @@ const ServiceActionLink = ({
   const hasRelatedQuestion = !!questionId;
   const hasRelatedMeeting = !!meetingId;
   let actionNeeded;
+
   if (hasRelatedMeeting) {
     actionNeeded = getMeetingAction(meetingState, hasEvaluationSubmitted);
   } else {
     actionNeeded = getServiceAction(status, questionState);
   }
+
   if (!actionNeeded) {
     return '';
+  }
+
+  if (status === SERVICE_STATUS.pendingMentorAvailability) {
+    return (
+      <UpdateAvailability
+        status={status}
+        serviceId={serviceId}
+        actionNeeded={actionNeeded}
+      />
+    );
   }
 
   let redirectURL = () => {
@@ -43,8 +59,8 @@ const ServiceActionLink = ({
     } else if (hasRelatedQuestion) {
       return getQuestionDetailsLink(questionId, serviceId);
     } else if (EDITABLE_SERVICE_STATUS.includes(status)) {
-        return getEditServiceDetailsLink(serviceId);
-      } else {
+      return getEditServiceDetailsLink(serviceId);
+    } else {
       return getServiceDetailsLink(serviceId);
     }
   };
