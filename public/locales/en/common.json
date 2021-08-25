@@ -631,5 +631,6 @@
   "mentoringWithTheExpertTitle": "Mentoring with the Expert",
   "projectAdded": "Project added successfully.",
   "requiredTitle": "Title is Required!",
-  "requiredProjectManager": "Project Manager is Required!"
+  "requiredProjectManager": "Project Manager is Required!",
+  "assignProjectManager": "Assign Project Manager *"
 }

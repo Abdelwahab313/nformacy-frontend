@@ -10,8 +10,6 @@ import CardFooter from 'components/card/CardFooter';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import { InputLabel } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
-import ReactSelectMaterialUi from 'react-select-material-ui';
-import { selectStyle } from 'styles/formsStyles';
 import RichTextEditorForm from 'components/forms/RichTextEditorForm';
 import { fetchProjectManagers } from 'apis/projectMangersAPI';
 import {
@@ -22,6 +20,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import CountrySelectField from 'components/inputs/CountrySelectField';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import useFetchData from 'hooks/useFetchData';
+import AssignedProjectManagerSelect from '../subComponents/AssignedProjectManagerSelect';
 
 const AddProjectForm = ({
   primaryButton,
@@ -133,25 +132,10 @@ const AddProjectForm = ({
             sm={12}
             md={6}
             className={classes.projectFormFields}>
-            <FormControl fullWidth id='project-manager-select'>
-              <ReactSelectMaterialUi
-                fullWidth={true}
-                placeholder={t('selectProjectManager')}
-                SelectProps={{
-                  styles: selectStyle,
-                }}
-                options={projectManagers.map((projectManager) => {
-                  var projectManagerName = {
-                    value: projectManager.id,
-                    label: `${projectManager.firstName} ${projectManager.lastName}`,
-                  };
-                  return projectManagerName;
-                })}
-                onChange={(newValue) => {
-                  onChangeField('projectManagerId', newValue);
-                }}
-              />
-            </FormControl>
+            <AssignedProjectManagerSelect
+              projectManagers={projectManagers}
+              onChangeField={onChangeField}
+            />
           </GridItem>
         </GridContainer>
 
