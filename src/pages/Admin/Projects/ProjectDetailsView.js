@@ -72,7 +72,7 @@ const ProjectDetailsView = () => {
               <Grid item xs={8}>
                 <CustomTypography
                   variant={'body1'}
-                  id='projectNumberValue'
+                  id='projectId'
                   gutterBottom>
                   {project?.id}
                 </CustomTypography>
@@ -109,9 +109,9 @@ const ProjectDetailsView = () => {
               <Grid item xs={8}>
                 <CustomTypography
                   variant={'body1'}
-                  id='projectNumberValue'
+                  id='projectDetails'
                   gutterBottom>
-                  <div
+                  <div className={classes.detailsText}
                     dangerouslySetInnerHTML={createMarkup(project?.details)}
                   />
                 </CustomTypography>

@@ -46,6 +46,7 @@ const ProjectSettingsForm = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const projectId = useLocationState((state) => state?.projectId);
+  const { showSuccessMessage, showErrorMessage } = useSnackBar();
 
   const [projectSettings, setProjectSettings] = useState({
     askSettings: {},
@@ -73,12 +74,28 @@ const ProjectSettingsForm = () => {
     }
   }, []);
 
+  const validate = () => {
+    if (!Object.values(projectSettings).some((val) => val.isEnabled === true)) {
+      showErrorMessage(t('settingsRequired'));
+      return false;
+    } else if (Object.values(projectSettings).includes('true')) {
+      if (projectSettings.askSettings.amount === undefined) {
+        showErrorMessage(t('requiredAmount'));
+        return false;
+      }
+    }
+    return true;
+  };
+
   const handleProjectServiceForm = () => {
-    submitProjectSettings({ ...projectSettings, projectId: projectId })
-      .then(() => {
-        history.push(getConsultantsProjectWizard(projectId));
-      })
-      .catch(() => {});
+    if (!!validate()) {
+      submitProjectSettings({ ...projectSettings, projectId: projectId })
+        .then(() => {
+          showSuccessMessage(t('serviceSaveSuccessfully'));
+          history.push(getConsultantsProjectWizard(projectId));
+        })
+        .catch(() => {});
+    }
   };
 
   if (isLoading) {

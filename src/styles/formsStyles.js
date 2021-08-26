@@ -44,6 +44,7 @@ export const useStyles = makeStyles((theme) => ({
     paddingLeft: 0,
     paddingRight: 0,
   },
+  detailsText: { display: 'flex' },
   freelancerProfileContainer: {
     display: 'flex',
     flexDirection: 'column',
