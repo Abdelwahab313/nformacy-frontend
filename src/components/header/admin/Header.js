@@ -14,21 +14,20 @@ import AdminNavbarLinks from 'components/header/admin/AdminNavbarLinks.js';
 
 import styles from 'assets/jss/material-dashboard-react/components/headerStyle.js';
 import Grid from '@material-ui/core/Grid';
-import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
+import AdminBreadcrumbsCustomSeparator from 'components/breadcrumbs/AdminBreadcrumbs';
 
 const useStyles = makeStyles(styles);
 
 const Header = (props) => {
   const classes = useStyles();
   const makeBrand = useCallback(() => {
-    let name;
-    props.routes.map((prop) => {
-      if (window.location.href.indexOf(prop.path) !== -1) {
-        name = prop.name;
-      }
-      return null;
+    let namesMatching = [];
+    const windowUrl = window.location.href;
+    props.routes.forEach((route) => {
+      if (windowUrl.indexOf(route.path) !== -1)
+        namesMatching.push(route.name);
     });
-    return name;
+    return namesMatching;
   }, []);
 
   const { color } = useMemo(() => props, [props]);
@@ -45,7 +44,7 @@ const Header = (props) => {
         <div className={classes.flex}>
           {/* Here we create navbar brand, based on route name */}
           <Grid className={classes.title}>
-            <BreadcrumbsCustomSeparator pageName={makeBrand()} />
+            <AdminBreadcrumbsCustomSeparator pageRoutes={makeBrand()} />
           </Grid>
         </div>
         <Hidden smDown implementation='css'>
