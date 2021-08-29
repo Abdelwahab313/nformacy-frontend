@@ -44,7 +44,7 @@ const BasicInfo = () => {
       </Container>
       <Container maxWidth={false} className={classes.formControl}>
         <Typography gutterBottom variant='subtitle2'>
-          {t["firstName"]}
+          {t['firstName']}
         </Typography>
         <TextField
           variant='outlined'
@@ -61,7 +61,7 @@ const BasicInfo = () => {
       </Container>
       <Container maxWidth={false} className={classes.formControl}>
         <Typography gutterBottom variant='subtitle2'>
-          {t["lastName"]}
+          {t['lastName']}
         </Typography>
         <TextField
           variant='outlined'
@@ -78,7 +78,7 @@ const BasicInfo = () => {
       </Container>
       <Container maxWidth={false} className={classes.formControl}>
         <Typography gutterBottom variant='subtitle2'>
-          {t["email"]}
+          {t['email']}
         </Typography>
         <TextField
           variant='outlined'
@@ -101,7 +101,7 @@ const BasicInfo = () => {
       </Container>
       <Container maxWidth={false} className={classes.formControl}>
         <Typography gutterBottom variant='subtitle2'>
-          {t["linkedInProfileUrl"]}
+          {t['linkedInProfileUrl']}
         </Typography>
         <TextField
           variant='outlined'

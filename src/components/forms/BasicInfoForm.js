@@ -12,7 +12,7 @@ const BasicInfoForm = ({ user, closeDialog, setProfilePic }) => {
     defaultValues: { ...user.current },
   });
   const [avatar, setAvatar] = useState([]);
-  const [_, dispatch] = useAuth();
+  const [, dispatch] = useAuth();
 
   const classes = useStyles();
   const onSubmitBasicInfo = (userData) => {
@@ -20,22 +20,20 @@ const BasicInfoForm = ({ user, closeDialog, setProfilePic }) => {
       ...userData,
       id: user.current.id,
     };
-    updateProfile(userToBeSubmitted, user.current.id)
-      .then((response) => {
-        updateUser(dispatch, response.data);
-      })
+    updateProfile(userToBeSubmitted, user.current.id).then((response) => {
+      updateUser(dispatch, response.data);
+    });
     if (avatar.length > 0) {
       const file = new Blob(avatar);
       const formData = new FormData();
       formData.append('avatar', file, avatar[0].name);
 
-      updateProfilePicture(formData, user.current.id)
-        .then((response) => {
-          updateUser(dispatch, response.data);
-          if (response.data.avatar) {
-            setProfilePic(response.data.avatar);
-          }
-        })
+      updateProfilePicture(formData, user.current.id).then((response) => {
+        updateUser(dispatch, response.data);
+        if (response.data.avatar) {
+          setProfilePic(response.data.avatar);
+        }
+      });
     }
     user.current = { ...user.current, ...userData };
     closeDialog();
@@ -48,7 +46,7 @@ const BasicInfoForm = ({ user, closeDialog, setProfilePic }) => {
         className={classes.nestedForm}
         noValidate
         onSubmit={formMethod.handleSubmit(onSubmitBasicInfo)}>
-        <BasicInfo/>
+        <BasicInfo />
         <Button
           id='saveBasicInfo'
           type='submit'

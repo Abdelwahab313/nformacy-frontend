@@ -18,7 +18,7 @@ const NewQuestion = () => {
   const { t } = useTranslation();
   const { assignmentType, content } = location?.state?.service;
   const richTextRef = useRef(null);
-  const [isLoading,] = useState(false);
+  const [isLoading] = useState(false);
   const [serviceRequest, setServiceRequest] = useState({
     fields: [],
     content: assignmentType === 'call' ? CONTENT_FOR_CALL : content,
@@ -29,7 +29,6 @@ const NewQuestion = () => {
   const isNoActionForm = serviceRequest?.state === SERVICE_STATUS.pending;
 
   let history = useHistory();
-
 
   if (isLoading) {
     return <LoadingCircle />;
@@ -66,8 +65,6 @@ const NewQuestion = () => {
     }
   };
 
-
-
   return (
     <Grid container alignItems={'center'} justify={'center'}>
       <GridItem xs={12} sm={12} md={8}>
@@ -85,16 +82,13 @@ const NewQuestion = () => {
               richTextRef={richTextRef}
               viewOnly={isNoActionForm}
               errors={errors}
-              primaryButton={
-                {
-                  id: 'submitQuestionButtonButton',
-                  onClick: () => {
-                    handleSubmit();
-                  },
-                  buttonText: t('submitQuestionButton')
-                }
-              }
-
+              primaryButton={{
+                id: 'submitQuestionButtonButton',
+                onClick: () => {
+                  handleSubmit();
+                },
+                buttonText: t('submitQuestionButton'),
+              }}
             />
           </Direction>
         </Card>

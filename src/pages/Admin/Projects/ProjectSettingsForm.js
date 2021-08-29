@@ -40,6 +40,7 @@ import { useSnackBar } from 'context/SnackBarContext';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import useLocationState from 'hooks/useLocationState';
 import { getConsultantsProjectWizard } from 'services/navigation';
+import ErrorMessage from 'components/errors/ErrorMessage';
 
 const ProjectSettingsForm = () => {
   const classes = useStyles();
@@ -47,6 +48,13 @@ const ProjectSettingsForm = () => {
   const history = useHistory();
   const projectId = useLocationState((state) => state?.projectId);
   const { showSuccessMessage, showErrorMessage } = useSnackBar();
+
+  const [isErrors, setIsErrors] = useState({
+    askSettings: { amount: 'error in amount' },
+    callSettings: { amount: 'error in amount' },
+    hireSettings: { amount: 'error in amount' },
+    mentorSettings: { amount: 'error in amount' },
+  });
 
   const [projectSettings, setProjectSettings] = useState({
     askSettings: {},
@@ -75,14 +83,25 @@ const ProjectSettingsForm = () => {
   }, []);
 
   const validate = () => {
+    const newErrors = [];
+    const enabledSettingKey = Object.keys(projectSettings).filter(
+      (serviceKey) => {
+        return projectSettings[serviceKey]?.isEnabled;
+      },
+    );
     if (!Object.values(projectSettings).some((val) => val.isEnabled === true)) {
       showErrorMessage(t('settingsRequired'));
       return false;
-    } else if (Object.values(projectSettings).includes('true')) {
-      if (projectSettings.askSettings.amount === undefined) {
-        showErrorMessage(t('requiredAmount'));
-        return false;
-      }
+    } else {
+      enabledSettingKey.forEach((serviceKey) => {
+        if (projectSettings[serviceKey].amount === undefined) {
+          newErrors[projectSettings[serviceKey].amount] = {
+            message: t('requiredAmount'),
+          };
+          setIsErrors(newErrors);
+          return false;
+        }
+      });
     }
     return true;
   };
@@ -125,6 +144,7 @@ const ProjectSettingsForm = () => {
               askSettings: serviceSetting,
             });
           }}
+          errors={isErrors?.askSettings?.amount}
         />
 
         <SettingRow
@@ -136,6 +156,7 @@ const ProjectSettingsForm = () => {
               callSettings: serviceSetting,
             });
           }}
+          errors={isErrors?.callSettings?.amount}
         />
 
         <SettingRow
@@ -147,6 +168,7 @@ const ProjectSettingsForm = () => {
               hireSettings: serviceSetting,
             });
           }}
+          errors={isErrors?.hireSettings?.amount}
         />
 
         <SettingRow
@@ -158,6 +180,7 @@ const ProjectSettingsForm = () => {
               mentorSettings: serviceSetting,
             });
           }}
+          errors={isErrors?.mentorSettings?.amount}
         />
 
         {showMentoringSetting && <MentorsSetting projectId={projectId} />}
@@ -174,7 +197,12 @@ const ProjectSettingsForm = () => {
   );
 };
 
-const SettingRow = ({ serviceKey, serviceSetting, updateServiceSetting }) => {
+const SettingRow = ({
+  serviceKey,
+  serviceSetting,
+  updateServiceSetting,
+  errors,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -219,7 +247,9 @@ const SettingRow = ({ serviceKey, serviceSetting, updateServiceSetting }) => {
           variant='outlined'
           value={serviceSetting.amount}
           onChange={(e) => onChangeField('amount', e.target.value)}
+          error={!errors}
         />
+        <ErrorMessage errorField={errors} />
       </GridItem>
       <GridItem xs={12} sm={2}>
         <FormControl fullWidth id='country-select'>
