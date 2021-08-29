@@ -83,7 +83,7 @@ const ProjectSettingsForm = () => {
   }, []);
 
   const validate = () => {
-    const newErrors = [];
+    const newErrors = {};
     const enabledSettingKey = Object.keys(projectSettings).filter(
       (serviceKey) => {
         return projectSettings[serviceKey]?.isEnabled;
@@ -94,16 +94,17 @@ const ProjectSettingsForm = () => {
       return false;
     } else {
       enabledSettingKey.forEach((serviceKey) => {
-        if (projectSettings[serviceKey].amount === undefined) {
-          newErrors[projectSettings[serviceKey].amount] = {
+        const settingRowErrors = {};
+        if (!projectSettings[serviceKey].amount) {
+          settingRowErrors['amount'] = {
             message: t('requiredAmount'),
           };
-          setIsErrors(newErrors);
-          return false;
         }
+        newErrors[serviceKey] = settingRowErrors;
       });
     }
-    return true;
+    setIsErrors({ ...newErrors });
+    return false;
   };
 
   const handleProjectServiceForm = () => {
@@ -144,7 +145,7 @@ const ProjectSettingsForm = () => {
               askSettings: serviceSetting,
             });
           }}
-          errors={isErrors?.askSettings?.amount}
+          errors={isErrors?.askSettings}
         />
 
         <SettingRow
@@ -156,7 +157,7 @@ const ProjectSettingsForm = () => {
               callSettings: serviceSetting,
             });
           }}
-          errors={isErrors?.callSettings?.amount}
+          errors={isErrors?.callSettings}
         />
 
         <SettingRow
@@ -168,7 +169,7 @@ const ProjectSettingsForm = () => {
               hireSettings: serviceSetting,
             });
           }}
-          errors={isErrors?.hireSettings?.amount}
+          errors={isErrors?.hireSettings}
         />
 
         <SettingRow
@@ -180,7 +181,7 @@ const ProjectSettingsForm = () => {
               mentorSettings: serviceSetting,
             });
           }}
-          errors={isErrors?.mentorSettings?.amount}
+          errors={isErrors?.mentorSettings}
         />
 
         {showMentoringSetting && <MentorsSetting projectId={projectId} />}
@@ -247,9 +248,9 @@ const SettingRow = ({
           variant='outlined'
           value={serviceSetting.amount}
           onChange={(e) => onChangeField('amount', e.target.value)}
-          error={!errors}
+          error={errors?.amount}
         />
-        <ErrorMessage errorField={errors} />
+        <ErrorMessage errorField={errors?.amount} />
       </GridItem>
       <GridItem xs={12} sm={2}>
         <FormControl fullWidth id='country-select'>
