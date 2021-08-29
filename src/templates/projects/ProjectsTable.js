@@ -120,7 +120,7 @@ const getColumnsOptions = (classes, t) => {
     },
     {
       name: 'callEnabled',
-      label: t('assign'),
+      label: t('call'),
       options: {
         ...defaultColumnOption,
         filter: true,

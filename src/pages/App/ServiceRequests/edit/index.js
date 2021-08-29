@@ -7,7 +7,11 @@ import GridItem from 'components/grid/GridItem';
 import Card from 'components/card/Card';
 import CardHeader from 'components/card/CardHeader';
 import ServiceRequestForm from 'templates/services/ServiceRequestForm';
-import { fetchServiceDetails, createOrUpdateService } from 'apis/servicesAPI';
+import {
+  fetchServiceDetails,
+  createOrUpdateService,
+  generateQuestion,
+} from 'apis/servicesAPI';
 import Direction from 'components/grid/Direction';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { useSnackBar } from 'context/SnackBarContext';
@@ -15,6 +19,7 @@ import { SERVICE_STATUS } from 'constants/questionStatus';
 import { RoutesPaths } from 'constants/routesPath';
 import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import ServiceGuardian from 'core/guardians/ServiceGuardian';
+import ServiceManager from 'core/serviceManager';
 
 const EditServiceRequest = () => {
   const location = useLocation();
@@ -78,23 +83,35 @@ const EditServiceRequest = () => {
     return true;
   };
 
+  const afterSaveCallback = () => {
+    showSuccessMessage(t('serviceSaved'));
+    navigatToDashboard();
+  };
+
   const handleSubmit = () => {
     if (!!validate(serviceRequest)) {
       createOrUpdateService({ ...serviceRequest, state: 'pending' })
-        .then(() => {
-          showSuccessMessage(t('serviceProcessed'));
-          navigatToDashboard();
+        .then((response) => {
+          const submittedServiceRequest = response.data;
+          if (
+            ServiceManager.shouldDeployQuestionDirectly(submittedServiceRequest)
+          ) {
+            generateQuestion(submittedServiceRequest.id).then(() => {
+              afterSaveCallback();
+            });
+          } else {
+            afterSaveCallback();
+          }
         })
-        .catch(() => { });
+        .catch(() => {});
     }
   };
   const handleSaveForLater = () => {
     createOrUpdateService({ ...serviceRequest, state: 'draft' })
       .then(() => {
-        showSuccessMessage(t('serviceSaved'));
-        navigatToDashboard();
+        afterSaveCallback();
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   return (
@@ -117,25 +134,25 @@ const EditServiceRequest = () => {
               primaryButton={
                 ServiceGuardian.showApplyChangesButton(serviceRequest)
                   ? {
-                    id: 'submitQuestionButtonButton',
-                    onClick: () => {
-                      handleSubmit();
-                    },
-                    buttonText: showDrafButtons
-                      ? t('submitQuestionButton')
-                      : t('applyChange'),
-                  }
+                      id: 'submitQuestionButtonButton',
+                      onClick: () => {
+                        handleSubmit();
+                      },
+                      buttonText: showDrafButtons
+                        ? t('submitQuestionButton')
+                        : t('applyChange'),
+                    }
                   : {}
               }
               secondaryButton={
                 showDrafButtons
                   ? {
-                    id: 'saveAndCompleteLaterButton',
-                    onClick: () => {
-                      handleSaveForLater();
-                    },
-                    buttonText: t('saveAndCompleteLater'),
-                  }
+                      id: 'saveAndCompleteLaterButton',
+                      onClick: () => {
+                        handleSaveForLater();
+                      },
+                      buttonText: t('saveAndCompleteLater'),
+                    }
                   : {}
               }
             />

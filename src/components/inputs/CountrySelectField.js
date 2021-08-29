@@ -41,7 +41,7 @@ const CountrySelectField = ({
       id='countrySelect'
       name='countries'
       options={countries}
-      value={fieldValue}
+      value={fieldValue || []}
       onChange={handleChange}
       classes={selectClasses}
       getOptionLabel={(option) => option.label}

@@ -49,7 +49,7 @@ const AddProject = () => {
   const handleCreateProject = () => {
     // @TODO needs to handle validation for the project fields
     if (!!validate(project)) {
-      createOrUpdateProject({ ...project, projectManagerId: 1 })
+      createOrUpdateProject({ ...project })
         .then(() => {
           showSuccessMessage(t('projectAdded'));
           history.push(getProjectSettingsWizard(projectId));

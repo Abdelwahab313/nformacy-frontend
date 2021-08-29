@@ -11,16 +11,13 @@ import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import { InputLabel } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import RichTextEditorForm from 'components/forms/RichTextEditorForm';
-import { fetchProjectManagers } from 'apis/projectMangersAPI';
 import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import CountrySelectField from 'components/inputs/CountrySelectField';
-import LoadingCircle from 'components/progress/LoadingCircle';
-import useFetchData from 'hooks/useFetchData';
-import AssignedProjectManagerSelect from '../subComponents/AssignedProjectManagerSelect';
+import ProjectManagerSelect from './ProjectManagerSelect';
 
 const AddProjectForm = ({
   primaryButton,
@@ -31,15 +28,6 @@ const AddProjectForm = ({
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const { fetchedData: projectManagers, isLoading } = useFetchData(() => {
-    return fetchProjectManagers();
-  });
-
-  if (isLoading) {
-    return <LoadingCircle />;
-  }
-
-  // @TODO needs to handle the project managers list
   const onChangeField = (name, value) => {
     setProject((prevData) => ({ ...prevData, [name]: value }));
   };
@@ -132,10 +120,14 @@ const AddProjectForm = ({
             sm={12}
             md={6}
             className={classes.projectFormFields}>
-            <AssignedProjectManagerSelect
-              projectManagers={projectManagers}
-              onChangeField={onChangeField}
-            />
+            <FormControl fullWidth id='project-manager-select'>
+              <ProjectManagerSelect
+                selectedProjectMangerId={project.projectManagerId}
+                onChangeProjectManagerId={(projectManagerId) =>
+                  onChangeField('projectManagerId', projectManagerId)
+                }
+              />
+            </FormControl>
           </GridItem>
         </GridContainer>
 
@@ -171,6 +163,7 @@ const AddProjectForm = ({
             <GridContainer className={classes.questionContainer}>
               <GridItem xs={12}>
                 <RichTextEditorForm
+                  initialContent={project?.details || ''}
                   onContentUpdate={(value) => onChangeField('details', value)}
                   updateRichTextMedia={(newRichTextMediaId) =>
                     onChangeField('richTextMediaId', newRichTextMediaId)
