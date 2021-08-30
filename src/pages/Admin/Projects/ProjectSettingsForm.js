@@ -41,6 +41,7 @@ import LoadingCircle from 'components/progress/LoadingCircle';
 import useLocationState from 'hooks/useLocationState';
 import { getConsultantsProjectWizard } from 'services/navigation';
 import ErrorMessage from 'components/errors/ErrorMessage';
+import _ from 'lodash';
 
 const ProjectSettingsForm = () => {
   const classes = useStyles();
@@ -108,8 +109,12 @@ const ProjectSettingsForm = () => {
         newErrors[serviceKey] = settingRowErrors;
       });
     }
-    setIsErrors({ ...newErrors });
-    return false;
+    if (Object.values(newErrors).some((val) => !_.isEmpty(val))) {
+      setIsErrors({ ...newErrors });
+      return false;
+    } else {
+      return true;
+    }
   };
 
   const handleProjectServiceForm = () => {
