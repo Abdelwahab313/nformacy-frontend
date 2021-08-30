@@ -96,7 +96,6 @@ const getColumnsOptions = (classes, t) => {
         filter: true,
         customBodyRender: (value, tableMeta) => {
           const projectId = tableMeta.rowData[0];
-          // eslint-disable-next-line no-console
           return generateLinkText(projectId, value, getProjectConsultantsList);
         },
       },
