@@ -23,6 +23,13 @@ const getColumnsOptions = (classes, t) => {
     ),
   };
 
+
+  const generateLinkText = (projectId, value, cb) => {
+    return <LinkText to={cb(projectId)}>
+      {value}
+    </LinkText>;
+  };
+
   const columns = [
     {
       name: 'id',
@@ -32,6 +39,9 @@ const getColumnsOptions = (classes, t) => {
         display: true,
         filter: false,
         sort: false,
+        customBodyRender: (value) => {
+          return <LinkText to={getProjectDetails(value)}>{value}</LinkText>;
+        },
       },
     },
     {
@@ -67,6 +77,7 @@ const getColumnsOptions = (classes, t) => {
       options: {
         ...defaultColumnOption,
         filter: true,
+        sort: false
       },
     },
     {
@@ -83,6 +94,11 @@ const getColumnsOptions = (classes, t) => {
       options: {
         ...defaultColumnOption,
         filter: true,
+        customBodyRender: (value, tableMeta) => {
+          const projectId = tableMeta.rowData[0];
+          // eslint-disable-next-line no-console
+          return generateLinkText(projectId, value, getProjectConsultantsList);
+        },
       },
     },
     {
@@ -92,6 +108,10 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: true,
         sort: true,
+        customBodyRender: (value, tableMeta) => {
+          const projectId = tableMeta.rowData[0];
+          return generateLinkText(projectId, value, getProjectBeneficiariesList);
+        }
       },
     },
     {
@@ -135,26 +155,30 @@ const ProjectSettingEnabledCheck = ({ checked }) => {
   return <CheckBox checked={checked} disabled />;
 };
 
+
+const renderCountries = (countries) => {
+  if (!countries) return '-';
+  if (countries.length <= 1) return countries[0].label;
+  let countriesInSingleString = '';
+  countries.forEach((country) => countriesInSingleString += `${country.label}, `);
+  return countriesInSingleString;
+};
+
+
+
 const parseProjectsTableData = (projects) => {
   return projects?.map((project) => ({
     ...project,
-    id: <LinkText to={getProjectDetails(project.id)}>{project.id}</LinkText>,
+    id: project.id,
     details: <div dangerouslySetInnerHTML={createMarkup(project.details)} />,
     duration: `${formatDate(new Date(project.startDate))} - \n ${formatDate(
       new Date(project.endDate),
     )}  `,
     fields: <ColoredFieldsChips fields={project.fields} />,
-    countries: project?.countries?.map((country) => country.label),
-    consultantsCount: (
-      <LinkText to={getProjectConsultantsList(project.id)}>
-        {project.consultantsCount}
-      </LinkText>
-    ),
-    beneficiariesCount: (
-      <LinkText to={getProjectBeneficiariesList(project.id)}>
-        {project.beneficiariesCount}
-      </LinkText>
-    ),
+    countries: renderCountries(project.countries),
+    consultantsCount:
+      project.consultantsCount,
+    beneficiariesCount: project.beneficiariesCount,
     askEnabled: (
       <ProjectSettingEnabledCheck checked={!!project?.askSettings?.isEnabled} />
     ),
@@ -179,7 +203,7 @@ const parseProjectsTableData = (projects) => {
 const ProjectsTable = ({ projects }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const columns = getColumnsOptions(classes, t);
+  const columns = getColumnsOptions(classes, t, projects);
   const projectsRows = parseProjectsTableData(projects);
   const tableOptions = {
     filterType: 'checkbox',
