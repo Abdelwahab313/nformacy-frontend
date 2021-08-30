@@ -632,6 +632,7 @@
   "projectAdded": "Project added successfully.",
   "requiredTitle": "Title is Required!",
   "requiredAmount": "Amount is Required!",
+  "requiredFrequency": "Frequency is Required!",
   "settingsRequired": "You should choose at least one service!",
   "requiredProjectManager": "Project Manager is Required!",
   "assignProjectManager": "Assign Project Manager *",

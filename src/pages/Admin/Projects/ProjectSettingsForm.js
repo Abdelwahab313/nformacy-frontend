@@ -100,6 +100,11 @@ const ProjectSettingsForm = () => {
             message: t('requiredAmount'),
           };
         }
+        if (!projectSettings[serviceKey].frequency) {
+          settingRowErrors['frequency'] = {
+            message: t('requiredFrequency'),
+          };
+        }
         newErrors[serviceKey] = settingRowErrors;
       });
     }
@@ -250,7 +255,10 @@ const SettingRow = ({
           onChange={(e) => onChangeField('amount', e.target.value)}
           error={errors?.amount}
         />
-        <ErrorMessage errorField={errors?.amount} />
+        <ErrorMessage
+          className={classes.errorMessage}
+          errorField={errors?.amount}
+        />
       </GridItem>
       <GridItem xs={12} sm={2}>
         <FormControl fullWidth id='country-select'>
@@ -263,8 +271,13 @@ const SettingRow = ({
             value={serviceSetting.frequency}
             options={frequency}
             onChange={(value) => onChangeField('frequency', value)}
+            error={errors?.frequency}
           />
         </FormControl>
+        <ErrorMessage
+          className={classes.errorMessage}
+          errorField={errors?.frequency}
+        />
       </GridItem>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <GridItem xs={12} sm={2}>
@@ -281,8 +294,14 @@ const SettingRow = ({
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}
+            error={errors?.startDate}
           />
         </GridItem>
+        <ErrorMessage
+          className={classes.errorMessage}
+          errorField={errors?.startDate}
+        />
+
         <GridItem xs={12} sm={2}>
           <KeyboardDatePicker
             disableToolbar
@@ -294,12 +313,16 @@ const SettingRow = ({
             label={t['endDate']}
             value={serviceSetting.endDate}
             onChange={(date) => onChangeField('endDate', date)}
-            minDate={serviceSetting.startDate}
+            minDate={serviceSetting.endDate}
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}
           />
         </GridItem>
+        <ErrorMessage
+          className={classes.errorMessage}
+          errorField={errors?.endDate}
+        />
       </MuiPickersUtilsProvider>
     </GridContainer>
   );

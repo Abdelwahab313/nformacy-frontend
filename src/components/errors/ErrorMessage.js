@@ -1,13 +1,9 @@
 import React from 'react';
 
-const ErrorMessage = ({ errorField }) => {
+const ErrorMessage = ({ errorField, className }) => {
   if (!!errorField) {
     return (
-      <span
-        style={{
-          color: 'red',
-          margin: '8px',
-        }}>
+      <span style={{ color: 'red' }} className={className}>
         {errorField.message}
       </span>
     );

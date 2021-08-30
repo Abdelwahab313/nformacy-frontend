@@ -82,6 +82,9 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     marginTop: theme.spacing(4),
   },
+  errorMessage: {
+    fontSize: 14,
+  },
   answerContent: {
     fontSize: '1.042vw',
     color: 'grey',
