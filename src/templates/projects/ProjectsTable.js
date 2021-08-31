@@ -13,8 +13,10 @@ import {
 } from 'services/navigation';
 import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
 import { formatDate } from 'services/dateTimeParser';
-import createMarkup from 'services/markup';
 import CheckBox from 'components/inputs/CheckBox';
+
+const checked = 'yes';
+const notChecked = 'no';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -25,9 +27,14 @@ const getColumnsOptions = (classes, t) => {
 
 
   const generateLinkText = (projectId, value, cb) => {
-    return <LinkText to={cb(projectId)}>
+    return <LinkText to={cb(projectId || value)}>
       {value}
     </LinkText>;
+  };
+
+
+  const getProjectId = (tableMeta) => {
+    return tableMeta.rowData[0];
   };
 
   const columns = [
@@ -40,22 +47,13 @@ const getColumnsOptions = (classes, t) => {
         filter: false,
         sort: false,
         customBodyRender: (value) => {
-          return <LinkText to={getProjectDetails(value)}>{value}</LinkText>;
+          return generateLinkText(null, value, getProjectDetails);
         },
       },
     },
     {
       name: 'title',
       label: t('title'),
-      options: {
-        ...defaultColumnOption,
-        filter: false,
-        sort: true,
-      },
-    },
-    {
-      name: 'details',
-      label: t('details'),
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -95,7 +93,7 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: true,
         customBodyRender: (value, tableMeta) => {
-          const projectId = tableMeta.rowData[0];
+          const projectId = getProjectId(tableMeta);
           return generateLinkText(projectId, value, getProjectConsultantsList);
         },
       },
@@ -108,7 +106,7 @@ const getColumnsOptions = (classes, t) => {
         filter: true,
         sort: true,
         customBodyRender: (value, tableMeta) => {
-          const projectId = tableMeta.rowData[0];
+          const projectId = getProjectId(tableMeta);
           return generateLinkText(projectId, value, getProjectBeneficiariesList);
         }
       },
@@ -119,6 +117,9 @@ const getColumnsOptions = (classes, t) => {
       options: {
         ...defaultColumnOption,
         filter: true,
+        customBodyRender: (value) => {
+          return <ProjectSettingEnabledCheck checked={value === checked} />;
+        }
       },
     },
     {
@@ -127,6 +128,9 @@ const getColumnsOptions = (classes, t) => {
       options: {
         ...defaultColumnOption,
         filter: true,
+        customBodyRender: (value) => {
+          return <ProjectSettingEnabledCheck checked={value === checked} />;
+        }
       },
     },
     {
@@ -135,6 +139,9 @@ const getColumnsOptions = (classes, t) => {
       options: {
         ...defaultColumnOption,
         filter: true,
+        customBodyRender: (value) => {
+          return <ProjectSettingEnabledCheck checked={value === checked} />;
+        }
       },
     },
     {
@@ -143,6 +150,9 @@ const getColumnsOptions = (classes, t) => {
       options: {
         ...defaultColumnOption,
         filter: true,
+        customBodyRender: (value) => {
+          return <ProjectSettingEnabledCheck checked={value === checked} />;
+        }
       },
     },
   ];
@@ -169,35 +179,21 @@ const parseProjectsTableData = (projects) => {
   return projects?.map((project) => ({
     ...project,
     id: project.id,
-    details: <div dangerouslySetInnerHTML={createMarkup(project.details)} />,
     duration: `${formatDate(new Date(project.startDate))} - \n ${formatDate(
       new Date(project.endDate),
     )}  `,
     fields: <ColoredFieldsChips fields={project.fields} />,
     countries: renderCountries(project.countries),
-    consultantsCount:
-      project.consultantsCount,
+    consultantsCount: project.consultantsCount,
     beneficiariesCount: project.beneficiariesCount,
-    askEnabled: (
-      <ProjectSettingEnabledCheck checked={!!project?.askSettings?.isEnabled} />
-    ),
-    mentoringEnabled: (
-      <ProjectSettingEnabledCheck
-        checked={!!project?.mentorSettings?.isEnabled}
-      />
-    ),
-    assignEnabled: (
-      <ProjectSettingEnabledCheck
-        checked={!!project?.assignSettings?.isEnabled}
-      />
-    ),
-    callEnabled: (
-      <ProjectSettingEnabledCheck
-        checked={!!project?.callSettings?.isEnabled}
-      />
-    ),
+    askEnabled: project?.askSettings?.isEnabled ? checked : notChecked,
+    mentoringEnabled: project?.mentorSettings?.isEnabled ? checked : notChecked,
+    assignEnabled: project?.assignSettings?.isEnabled ? checked : notChecked,
+    callEnabled: project?.callSettings?.isEnabled ? checked : notChecked
   }));
 };
+
+
 
 const ProjectsTable = ({ projects }) => {
   const classes = useStyles();
