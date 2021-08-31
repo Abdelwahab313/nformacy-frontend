@@ -12,12 +12,14 @@ import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
 import CardFooter from 'components/card/CardFooter';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
+import ErrorMessage from 'components/errors/ErrorMessage';
 
 const AddBeneficiaryForm = ({
   primaryButton,
   user,
   setUser,
   canEditPassword,
+  errors,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -77,8 +79,11 @@ const AddBeneficiaryForm = ({
                 onChangeField('firstName', e.target.value);
               }}
               variant='outlined'
+              error={errors?.firstName}
             />
+            <ErrorMessage errorField={errors?.firstName} />
           </GridItem>
+
           <GridItem xs={12} sm={12} md={4}>
             <TextField
               required
@@ -91,8 +96,11 @@ const AddBeneficiaryForm = ({
                 onChangeField('lastName', e.target.value);
               }}
               variant='outlined'
+              error={errors?.lastName}
             />
+            <ErrorMessage errorField={errors?.lastName} />
           </GridItem>
+
           <GridItem xs={12} sm={12} md={4}>
             <TextField
               required
@@ -105,9 +113,12 @@ const AddBeneficiaryForm = ({
                 onChangeField('email', e.target.value);
               }}
               variant='outlined'
+              error={errors?.email}
             />
+            <ErrorMessage errorField={errors?.email} />
           </GridItem>
         </GridContainer>
+
         {!canEditPassword && (
           <GridContainer className={classes.inputsRow}>
             <GridItem xs={12} sm={12} md={6}>

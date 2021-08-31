@@ -16,14 +16,13 @@ const AddConsultant = () => {
   const [user, setUser] = useState({});
   const history = useHistory();
   const { showSuccessMessage } = useSnackBar();
-
   const [isErrors, setIsErrors] = useState({});
+  const newErrors = {};
 
   const navigateAfterSave = () => {
     history.goBack();
   };
 
-  const newErrors = {};
 
   const validate = () => {
     const emailValidation = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;

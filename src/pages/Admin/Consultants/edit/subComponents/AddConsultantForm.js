@@ -84,6 +84,7 @@ const AddConsultantForm = ({
             />
             <ErrorMessage errorField={errors?.firstName} />
           </GridItem>
+
           <GridItem xs={12} sm={12} md={4}>
             <TextField
               required
@@ -100,6 +101,7 @@ const AddConsultantForm = ({
             />
             <ErrorMessage errorField={errors?.lastName} />
           </GridItem>
+
           <GridItem xs={12} sm={12} md={4}>
             <TextField
               required
@@ -118,6 +120,7 @@ const AddConsultantForm = ({
             <ErrorMessage errorField={errors?.email} />
           </GridItem>
         </GridContainer>
+
         {!canEditPassword && (
           <GridContainer className={classes.inputsRow}>
             <GridItem xs={12} sm={12} md={6}>
