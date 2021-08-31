@@ -12,12 +12,14 @@ import { useTranslation } from 'react-i18next';
 import CardFooter from 'components/card/CardFooter';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import countryList from 'react-select-country-list';
+import ErrorMessage from 'components/errors/ErrorMessage';
 
 const AddConsultantForm = ({
   primaryButton,
   user,
   setUser,
   canEditPassword,
+  errors,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -78,7 +80,9 @@ const AddConsultantForm = ({
                 onChangeField('firstName', e.target.value);
               }}
               variant='outlined'
+              error={errors?.firstName}
             />
+            <ErrorMessage errorField={errors?.firstName} />
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <TextField
@@ -92,7 +96,9 @@ const AddConsultantForm = ({
                 onChangeField('lastName', e.target.value);
               }}
               variant='outlined'
+              error={errors?.lastName}
             />
+            <ErrorMessage errorField={errors?.lastName} />
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <TextField
@@ -102,11 +108,14 @@ const AddConsultantForm = ({
               name='email'
               fullWidth
               value={user.email}
+              type='email'
               onChange={(e) => {
                 onChangeField('email', e.target.value);
               }}
               variant='outlined'
+              error={errors?.email}
             />
+            <ErrorMessage errorField={errors?.email} />
           </GridItem>
         </GridContainer>
         {!canEditPassword && (
@@ -162,9 +171,7 @@ const AddConsultantForm = ({
                   fieldName='country'
                   fieldOptions={countries}
                   fieldValue={!!user.country ? user.country : []}
-                  onFieldChange={(option) =>
-                    onChangeField('country', option)
-                  }
+                  onFieldChange={(option) => onChangeField('country', option)}
                   fieldLabel={t('Country')}
                 />
               </GridItem>
