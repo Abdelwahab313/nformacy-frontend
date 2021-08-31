@@ -42,6 +42,7 @@ import useLocationState from 'hooks/useLocationState';
 import { getConsultantsProjectWizard } from 'services/navigation';
 import ErrorMessage from 'components/errors/ErrorMessage';
 import _ from 'lodash';
+import moment from 'moment';
 
 const ProjectSettingsForm = () => {
   const classes = useStyles();
@@ -50,12 +51,7 @@ const ProjectSettingsForm = () => {
   const projectId = useLocationState((state) => state?.projectId);
   const { showSuccessMessage, showErrorMessage } = useSnackBar();
 
-  const [isErrors, setIsErrors] = useState({
-    askSettings: { amount: 'error in amount' },
-    callSettings: { amount: 'error in amount' },
-    hireSettings: { amount: 'error in amount' },
-    mentorSettings: { amount: 'error in amount' },
-  });
+  const [isErrors, setIsErrors] = useState({});
 
   const [projectSettings, setProjectSettings] = useState({
     askSettings: {},
@@ -96,16 +92,36 @@ const ProjectSettingsForm = () => {
     } else {
       enabledSettingKey.forEach((serviceKey) => {
         const settingRowErrors = {};
-        if (!projectSettings[serviceKey].amount) {
+        const settingRow = projectSettings[serviceKey];
+        const isValidAmount = !!settingRow.amount;
+        if (!isValidAmount) {
           settingRowErrors['amount'] = {
             message: t('requiredAmount'),
           };
         }
-        if (!projectSettings[serviceKey].frequency) {
+        const isValidFrequency = !!settingRow.frequency;
+        if (!isValidFrequency) {
           settingRowErrors['frequency'] = {
             message: t('requiredFrequency'),
           };
         }
+        const isValidStartDate =
+          !!settingRow.startDate && moment(settingRow.startDate).isValid();
+        if (!isValidStartDate) {
+          settingRowErrors['startDate'] = {
+            message: t('requiredStartDate'),
+          };
+        }
+        const isValidEndDate =
+          !!settingRow.endDate &&
+          moment(settingRow.endDate).isValid() &&
+          moment(settingRow.endDate).isAfter(moment(settingRow.startDate));
+        if (!isValidEndDate) {
+          settingRowErrors['endDate'] = {
+            message: t('requiredEndDate'),
+          };
+        }
+
         newErrors[serviceKey] = settingRowErrors;
       });
     }
@@ -118,7 +134,9 @@ const ProjectSettingsForm = () => {
   };
 
   const handleProjectServiceForm = () => {
-    if (!!validate()) {
+    const isValidated = validate();
+
+    if (!!isValidated) {
       submitProjectSettings({ ...projectSettings, projectId: projectId })
         .then(() => {
           showSuccessMessage(t('serviceSaveSuccessfully'));
@@ -301,11 +319,11 @@ const SettingRow = ({
             }}
             error={errors?.startDate}
           />
+          <ErrorMessage
+            className={classes.errorMessage}
+            errorField={errors?.startDate}
+          />
         </GridItem>
-        <ErrorMessage
-          className={classes.errorMessage}
-          errorField={errors?.startDate}
-        />
 
         <GridItem xs={12} sm={2}>
           <KeyboardDatePicker
@@ -323,11 +341,11 @@ const SettingRow = ({
               'aria-label': 'change date',
             }}
           />
+          <ErrorMessage
+            className={classes.errorMessage}
+            errorField={errors?.endDate}
+          />
         </GridItem>
-        <ErrorMessage
-          className={classes.errorMessage}
-          errorField={errors?.endDate}
-        />
       </MuiPickersUtilsProvider>
     </GridContainer>
   );
