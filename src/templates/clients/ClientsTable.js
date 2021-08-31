@@ -4,10 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import { useStyles } from 'styles/Admin/questionTableStyles';
 import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
-import { Chip } from '@material-ui/core';
 import LinkText from 'components/typography/LinkText';
 import { getClientDetailsView, getSubAccounts } from 'services/navigation';
 import { getUserCountryLabel } from 'core/user';
+import { renderIndustriesOfExperience } from 'core/industriesOfExp';
 import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 
 const getColumnsOptions = (classes, t) => {
@@ -17,7 +17,27 @@ const getColumnsOptions = (classes, t) => {
     ),
   };
 
+
+
+  const generateLinkText = (clientId, value, cb) => {
+    return <LinkText to={cb(clientId || value)}>
+      {value}
+    </LinkText>;
+  };
+
+  const getClientId = (tableMeta) => {
+    return tableMeta.rowData[0];
+  };
+
+
   const columns = [
+    {
+      name: 'clientId',
+      options: {
+        ...defaultColumnOption,
+        display: false
+      }
+    },
     {
       name: 'id',
       label: t('id'),
@@ -26,6 +46,10 @@ const getColumnsOptions = (classes, t) => {
         display: true,
         filter: false,
         sort: false,
+        customBodyRender: (value, tableMeta) => {
+          const clientId = getClientId(tableMeta);
+          return generateLinkText(clientId, value, getClientDetailsView);
+        },
       },
     },
     {
@@ -87,6 +111,10 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: true,
         sort: true,
+        customBodyRender: (value, tableMeta) => {
+          const clientId = getClientId(tableMeta);
+          return generateLinkText(clientId, value, getSubAccounts);
+        },
       },
     },
     {
@@ -115,24 +143,15 @@ const getColumnsOptions = (classes, t) => {
 const parseClientsTableData = (clients) => {
   return clients?.map((client) => ({
     ...client,
-    industriesOfExperience: client.industriesOfExperience?.map((industry) => (
-      <div key={industry.value}>
-        <Chip label={industry.label} key={industry.value} />
-      </div>
-    )),
-    id: (
-      <LinkText to={getClientDetailsView(client.id)}>
-        {client.referenceNumber}
-      </LinkText>
-    ),
+    id: client.referenceNumber,
+    clientId: client.id,
+    industriesOfExperience: renderIndustriesOfExperience(client.industriesOfExperience),
     country: getUserCountryLabel(client.country),
     createdAt: formattedDateMonthAndDay(new Date(client.createdAt)),
     organizationName: !client.organizationName
       ? 'No Organization'
       : client.organizationName,
-    accountsCount: (
-      <LinkText to={getSubAccounts(client.id)}>{client.accountsCount}</LinkText>
-    ),
+    accountsCount: client.accountsCount
   }));
 };
 

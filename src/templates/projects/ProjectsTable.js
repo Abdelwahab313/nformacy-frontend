@@ -14,6 +14,7 @@ import {
 import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
 import { formatDate } from 'services/dateTimeParser';
 import CheckBox from 'components/inputs/CheckBox';
+import { renderCountries } from 'core/countries';
 
 const checked = 'yes';
 const notChecked = 'no';
@@ -162,15 +163,6 @@ const getColumnsOptions = (classes, t) => {
 
 const ProjectSettingEnabledCheck = ({ checked }) => {
   return <CheckBox checked={checked} disabled />;
-};
-
-
-const renderCountries = (countries) => {
-  if (!countries) return '-';
-  if (countries.length <= 1) return countries[0].label;
-  let countriesInSingleString = '';
-  countries.forEach((country) => countriesInSingleString += `${country.label}, `);
-  return countriesInSingleString;
 };
 
 
