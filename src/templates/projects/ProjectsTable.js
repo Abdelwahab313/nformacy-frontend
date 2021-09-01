@@ -16,8 +16,8 @@ import { formatDate } from 'services/dateTimeParser';
 import CheckBox from 'components/inputs/CheckBox';
 import { renderCountries } from 'core/countries';
 
-const checked = 'yes';
-const notChecked = 'no';
+const CHECKED = 'yes';
+const NOT_CHECKED = 'no';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -119,7 +119,7 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: true,
         customBodyRender: (value) => {
-          return <ProjectSettingEnabledCheck checked={value === checked} />;
+          return <ProjectSettingEnabledCheck checked={value === CHECKED} />;
         }
       },
     },
@@ -130,7 +130,7 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: true,
         customBodyRender: (value) => {
-          return <ProjectSettingEnabledCheck checked={value === checked} />;
+          return <ProjectSettingEnabledCheck checked={value === CHECKED} />;
         }
       },
     },
@@ -141,7 +141,7 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: true,
         customBodyRender: (value) => {
-          return <ProjectSettingEnabledCheck checked={value === checked} />;
+          return <ProjectSettingEnabledCheck checked={value === CHECKED} />;
         }
       },
     },
@@ -152,7 +152,7 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: true,
         customBodyRender: (value) => {
-          return <ProjectSettingEnabledCheck checked={value === checked} />;
+          return <ProjectSettingEnabledCheck checked={value === CHECKED} />;
         }
       },
     },
@@ -190,7 +190,7 @@ const parseProjectsTableData = (projects) => {
 const ProjectsTable = ({ projects }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const columns = getColumnsOptions(classes, t, projects);
+  const columns = getColumnsOptions(classes, t);
   const projectsRows = parseProjectsTableData(projects);
   const tableOptions = {
     filterType: 'checkbox',
