@@ -178,10 +178,10 @@ const parseProjectsTableData = (projects) => {
     countries: renderCountries(project.countries),
     consultantsCount: project.consultantsCount,
     beneficiariesCount: project.beneficiariesCount,
-    askEnabled: project?.askSettings?.isEnabled ? checked : notChecked,
-    mentoringEnabled: project?.mentorSettings?.isEnabled ? checked : notChecked,
-    assignEnabled: project?.assignSettings?.isEnabled ? checked : notChecked,
-    callEnabled: project?.callSettings?.isEnabled ? checked : notChecked
+    askEnabled: project?.askSettings?.isEnabled ? CHECKED : NOT_CHECKED,
+    mentoringEnabled: project?.mentorSettings?.isEnabled ? CHECKED : NOT_CHECKED,
+    assignEnabled: project?.assignSettings?.isEnabled ? CHECKED : NOT_CHECKED,
+    callEnabled: project?.callSettings?.isEnabled ? CHECKED : NOT_CHECKED,
   }));
 };
 
