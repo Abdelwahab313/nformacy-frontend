@@ -10,7 +10,7 @@ import { createOrUpdateProject, fetchProjectDetails } from 'apis/projectsAPI';
 import { useSnackBar } from 'context/SnackBarContext';
 import useLocationState from 'hooks/useLocationState';
 import LoadingCircle from 'components/progress/LoadingCircle';
-import { getProjectSettingsWizard } from 'services/navigation';
+import { RoutesPaths } from 'constants/routesPath';
 
 const AddProject = () => {
   const [project, setProject] = useState({});
@@ -52,7 +52,7 @@ const AddProject = () => {
       createOrUpdateProject({ ...project })
         .then(() => {
           showSuccessMessage(t('projectAdded'));
-          history.push(getProjectSettingsWizard(projectId));
+          history.push(RoutesPaths.Admin.Projects);
         })
         .catch(() => {});
     }
