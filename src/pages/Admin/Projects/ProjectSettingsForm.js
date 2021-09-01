@@ -10,9 +10,7 @@ import {
   Checkbox,
   FormControlLabel,
   Grid,
-  Typography,
 } from '@material-ui/core';
-import CardHeader from 'components/card/CardHeader';
 import { useTranslation } from 'react-i18next';
 import FormControl from '@material-ui/core/FormControl';
 import ReactSelectMaterialUi from 'react-select-material-ui';
@@ -152,17 +150,6 @@ const ProjectSettingsForm = () => {
 
   return (
     <Fragment>
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={12}>
-          <CardHeader color='primary'>
-            <Grid container>
-              <Grid item md={6} xs={6}>
-                <Typography component={'h4'}>{t('solutions')}</Typography>
-              </Grid>
-            </Grid>
-          </CardHeader>
-        </GridItem>
-      </GridContainer>
       <CardBody>
         <SettingRow
           serviceKey={'askSettings'}
@@ -277,6 +264,7 @@ const SettingRow = ({
           value={serviceSetting.amount}
           onChange={(e) => onChangeField('amount', e.target.value)}
           error={errors?.amount}
+          inputProps={{ min: '1' }}
         />
         <ErrorMessage
           className={classes.errorMessage}
