@@ -7,7 +7,7 @@ export const MEETING_TYPES = {
   CallService: 'call_service',
   QuestionService: 'question_service',
   ConsultantScreening: 'consultant_screening'
-}
+};
 
 export const getMeetingStateKey = (meetingState, hasEvaluationSubmitted) => {
   let meetingStateKey = '';
