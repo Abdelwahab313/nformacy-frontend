@@ -138,15 +138,6 @@ const appRoutes = [
     hasDashboardLink: true,
   },
   {
-    path: RoutesPaths.App.ContactUs,
-    name: 'Connect',
-    icon: DashboardIcon,
-    Component: ContactUsPage,
-    includeLayout: true,
-    isPublic: true,
-    hasDashboardLink: true,
-  },
-  {
     path: RoutesPaths.App.TermsAndConditions,
     name: 'Terms And Conditions',
     icon: DashboardIcon,
@@ -172,6 +163,15 @@ const appRoutes = [
     includeLayout: true,
     isPublic: true,
     hasDashboardLink: false,
+  },
+  {
+    path: RoutesPaths.App.ContactUs,
+    name: 'Connect',
+    icon: DashboardIcon,
+    Component: ContactUsPage,
+    includeLayout: true,
+    isPublic: true,
+    hasDashboardLink: true,
   },
   {
     path: RoutesPaths.App.Login,
