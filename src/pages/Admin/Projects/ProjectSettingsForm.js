@@ -242,7 +242,7 @@ const SettingRow = ({
           value='start'
           control={
             <Checkbox
-              checked={!!serviceSetting.isEnabled}
+              checked={!!serviceSetting?.isEnabled}
               color='primary'
               onChange={(e) => onChangeField('isEnabled', e.target.checked)}
             />
@@ -261,7 +261,7 @@ const SettingRow = ({
             shrink: true,
           }}
           variant='outlined'
-          value={serviceSetting.amount}
+          value={serviceSetting?.amount}
           onChange={(e) => onChangeField('amount', e.target.value)}
           error={errors?.amount}
           inputProps={{ min: '1' }}
@@ -279,7 +279,7 @@ const SettingRow = ({
             SelectProps={{
               styles: selectStyle,
             }}
-            value={serviceSetting.frequency}
+            value={serviceSetting?.frequency}
             options={frequency}
             onChange={(value) => onChangeField('frequency', value)}
             error={errors?.frequency}
@@ -300,7 +300,7 @@ const SettingRow = ({
             margin='normal'
             id='start-date-range-picker'
             label={t['startDate']}
-            value={serviceSetting.startDate}
+            value={serviceSetting?.startDate}
             onChange={(date) => onChangeField('startDate', date)}
             KeyboardButtonProps={{
               'aria-label': 'change date',
@@ -322,9 +322,9 @@ const SettingRow = ({
             margin='normal'
             id='end-date-range-picker'
             label={t['endDate']}
-            value={serviceSetting.endDate}
+            value={serviceSetting?.endDate}
             onChange={(date) => onChangeField('endDate', date)}
-            minDate={serviceSetting.endDate}
+            minDate={serviceSetting?.endDate}
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}

@@ -10,7 +10,7 @@ import { createOrUpdateProject, fetchProjectDetails } from 'apis/projectsAPI';
 import { useSnackBar } from 'context/SnackBarContext';
 import useLocationState from 'hooks/useLocationState';
 import LoadingCircle from 'components/progress/LoadingCircle';
-import { RoutesPaths } from 'constants/routesPath';
+import { getProjectSettingsWizard } from 'services/navigation';
 
 const AddProject = () => {
   const [project, setProject] = useState({});
@@ -50,9 +50,10 @@ const AddProject = () => {
     // @TODO needs to handle validation for the project fields
     if (!!validate(project)) {
       createOrUpdateProject({ ...project })
-        .then(() => {
+        .then((response) => {
+          const responseResult = response.data;
           showSuccessMessage(t('projectAdded'));
-          history.push(RoutesPaths.Admin.Projects);
+          history.push(getProjectSettingsWizard(responseResult.id));
         })
         .catch(() => {});
     }
