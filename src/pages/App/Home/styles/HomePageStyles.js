@@ -52,8 +52,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 60,
     marginBottom: 40,
     [theme.breakpoints.down('sm')]: {
-      display: 'block'
-    }
+      display: 'block',
+    },
   },
   media: {
     height: 160,
@@ -111,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.down('md')]: {
       margin: '0 auto',
-      width: '100%'
+      width: '100%',
     },
   },
   askQuestionBox: {
@@ -232,6 +232,9 @@ const useStyles = makeStyles((theme) => ({
       color: black,
       transform: 'scale(1.2)',
     },
+    '&:hover $clientImg': {
+      filter: 'invert(100%)',
+    },
     [theme.breakpoints.down('md')]: {
       padding: '10px',
       fontSize: 'smaller',
@@ -257,11 +260,12 @@ const useStyles = makeStyles((theme) => ({
     margin: '0px auto',
     marginTop: 50,
     [theme.breakpoints.down('md')]: {
-      backgroundColor: 'transparent !important',
       border: 'none',
       boxShadow: 'none !important',
       whiteSpace: 'nowrap',
       marginTop: 0,
+      width: '60%',
+      minHeight: 30,
     },
   },
   startProcessBtnPrimaryColor: {
