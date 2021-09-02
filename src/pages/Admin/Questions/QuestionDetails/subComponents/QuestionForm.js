@@ -184,6 +184,7 @@ const QuestionForm = ({ isNewQuestion }) => {
                 onChange: (e) => {
                   onChangeQuestionField('hoursToCloseAnswers', e.target.value);
                 },
+                inputProps: { min: 1 },
                 style: { paddingBottom: 12 },
               }}
             />
@@ -209,6 +210,7 @@ const QuestionForm = ({ isNewQuestion }) => {
                 onChange: (e) => {
                   onChangeQuestionField('hoursToReviewAndEdit', e.target.value);
                 },
+                inputProps: { min: 1 },
                 style: { paddingBottom: 12 },
               }}
             />

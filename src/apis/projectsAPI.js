@@ -64,7 +64,7 @@ export const fetchProjectMentors = (projectId) => {
 export const fetchProjectSettings = (projectId) => {
   return axios({
     method: 'get',
-    url: `${API_BASE_URL}/project_settings/${projectId}`,
+    url: `${API_BASE_URL}/projects/${projectId}/settings`,
   }).then((response) => camelizeKeys(response));
 };
 

@@ -110,6 +110,7 @@ const ExtendTimeDialog = ({ isDialogOpend, closeDialog, questionId }) => {
               onChange: (e) => {
                 setIsExtendedTime(e.target.value);
               },
+              inputProps: { min: 1 },
             }}
           />
         </Grid>
