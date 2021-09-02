@@ -157,7 +157,7 @@ const appRoutes = [
   },
   {
     path: RoutesPaths.App.KnowHub,
-    name: 'Knowledge Hub',
+    name: 'KnowHub',
     icon: DashboardIcon,
     Component: KnowHubPage,
     includeLayout: true,
