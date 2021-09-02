@@ -495,7 +495,7 @@ const appRoutes = [
     Component: Logout,
     includeLayout: false,
     isPublic: true,
-    hasDashboardLink: true,
+    hasDashboardLink: false,
   },
 ];
 
