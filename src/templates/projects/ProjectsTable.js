@@ -180,7 +180,7 @@ const parseProjectsTableData = (projects) => {
     beneficiariesCount: project.beneficiariesCount,
     askEnabled: project?.askSettings?.isEnabled ? CHECKED : NOT_CHECKED,
     mentoringEnabled: project?.mentorSettings?.isEnabled ? CHECKED : NOT_CHECKED,
-    assignEnabled: project?.assignSettings?.isEnabled ? CHECKED : NOT_CHECKED,
+    assignEnabled: project?.hireSettings?.isEnabled ? CHECKED : NOT_CHECKED,
     callEnabled: project?.callSettings?.isEnabled ? CHECKED : NOT_CHECKED,
   }));
 };
