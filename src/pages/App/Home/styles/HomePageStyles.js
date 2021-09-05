@@ -232,12 +232,12 @@ const useStyles = makeStyles((theme) => ({
       color: black,
       transform: 'scale(1.2)',
     },
-    '&:hover $clientImg': {
-      filter: 'invert(100%)',
-    },
     [theme.breakpoints.down('md')]: {
       padding: '10px',
       fontSize: 'smaller',
+      '&:hover $clientImg': {
+        filter: 'invert(100%)',
+      },
     },
   },
   threeBtnsContainer: {

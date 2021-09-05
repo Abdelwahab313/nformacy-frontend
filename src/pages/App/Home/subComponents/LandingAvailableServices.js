@@ -26,7 +26,7 @@ const services = (t) => [
     btnTxt: t('callServiceButton'),
   },
   {
-    name: 'question',
+    name: 'assign',
     title: t('assignExpertServiceTitle'),
     description: t('assignExpertServiceDescription'),
     icon: require('../../../../assets/consultant.png'),
@@ -55,8 +55,7 @@ const LandingAvailableServices = () => {
       history.push(RoutesPaths.App.NewQuestion, {
         service: { assignmentType: type },
       });
-    }
-    else {
+    } else {
       history.push(RoutesPaths.App.EditServiceRequest, {
         service: { assignmentType: type },
       });
