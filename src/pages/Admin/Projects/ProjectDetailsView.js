@@ -15,6 +15,7 @@ import useLocationState from 'hooks/useLocationState';
 import EditIcon from '@material-ui/icons/Edit';
 import { Box, IconButton } from '@material-ui/core';
 import { getEditProjectPath, history } from 'services/navigation';
+import { renderCountries } from 'core/countries';
 
 const ProjectDetailsView = () => {
   const { t } = useTranslation();
@@ -70,10 +71,7 @@ const ProjectDetailsView = () => {
                 </CustomTypography>
               </Grid>
               <Grid item xs={8}>
-                <CustomTypography
-                  variant={'body1'}
-                  id='projectId'
-                  gutterBottom>
+                <CustomTypography variant={'body1'} id='projectId' gutterBottom>
                   {project?.id}
                 </CustomTypography>
               </Grid>
@@ -111,7 +109,8 @@ const ProjectDetailsView = () => {
                   variant={'body1'}
                   id='projectDetails'
                   gutterBottom>
-                  <div className={classes.detailsText}
+                  <div
+                    className={classes.detailsText}
                     dangerouslySetInnerHTML={createMarkup(project?.details)}
                   />
                 </CustomTypography>
@@ -150,7 +149,7 @@ const ProjectDetailsView = () => {
                   id='projectLocation'
                   gutterBottom
                   className={classes.fieldValueStyles}>
-                  {project?.countries?.map((country) => country.label)}
+                  {renderCountries(project.countries)}
                 </CustomTypography>
               </Grid>
             </Grid>
