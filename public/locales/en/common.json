@@ -593,7 +593,7 @@
   "beneficiaries": "Beneficiaries",
   "createNewProject": "Create New Project",
   "addNewProject": "Add New Project",
-  "selectProjectManager": "Select Project Manager",
+  "selectProjectManager": "Select Project Manager *",
   "selectFrequency": "Select Frequency",
   "services": "Services",
   "nextStep": "Next Step",
