@@ -13,6 +13,7 @@ import AddBeneficiariesTable from './AddBeneficiariesTable';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import useLocationState from 'hooks/useLocationState';
 import { fetchClients } from 'apis/clientsAPI';
+import { getProjectDetails } from 'services/navigation';
 
 const AddBeneficiariesToProject = () => {
   const classes = useStyles();
@@ -48,7 +49,7 @@ const AddBeneficiariesToProject = () => {
 
   const onAddBeneficiaries = () => {
     addBeneficiaries(projectId, beneficiaryIds).then(() => {
-      history.push(RoutesPaths.Admin.Projects);
+      history.push(getProjectDetails(projectId));
     });
   };
 

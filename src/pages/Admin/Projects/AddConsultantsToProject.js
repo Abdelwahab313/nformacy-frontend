@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import useLocationState from 'hooks/useLocationState';
 import { fetchConsultants } from 'apis/consultantsAPI';
-import { history } from 'services/navigation';
+import { getProjectDetails, history } from 'services/navigation';
 
 const AddConsultantsToProject = () => {
   const classes = useStyles();
@@ -47,7 +47,7 @@ const AddConsultantsToProject = () => {
 
   const onAddConsultant = () => {
     addConsultants(projectId, consultantIds).then(() => {
-      history.push(RoutesPaths.Admin.Projects);
+      history.push(getProjectDetails(projectId));
     });
   };
 
