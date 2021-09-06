@@ -16,7 +16,7 @@ const LANGUAGES_LOCALES_MAPPER = {
 
 const QuestionDetailedView = ({ questionDetails }) => {
   const classes = useStyles();
-  const questionLocale = LANGUAGES_LOCALES_MAPPER[questionDetails.language];
+  const questionLocale = LANGUAGES_LOCALES_MAPPER[questionDetails?.language];
 
   return (
     <Grid

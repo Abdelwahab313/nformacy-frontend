@@ -40,9 +40,9 @@ const ClientServiceDetails = ({ serviceDetails }) => {
             )}
 
           {serviceDetails.assignmentType === 'question' &&
-            !!serviceDetails?.question.answers && (
+            !!serviceDetails?.answers && (
               <AnswersSection
-                answers={serviceDetails?.question.answers}
+                answers={serviceDetails?.answers}
                 meetingsUsersIds={meetingsUsersIds}
               />
             )}
