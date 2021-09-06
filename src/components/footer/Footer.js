@@ -1,7 +1,6 @@
 import { Box, Divider, Grid } from '@material-ui/core';
 import CustomTypography from 'components/typography/Typography';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import CopyrightIcon from '@material-ui/icons/Copyright';
 import { greyDividerStyle } from 'styles/formsStyles';
 import useStyles from './styles/FooterStyles';
@@ -42,15 +41,15 @@ const Footer = () => {
           <CustomTypography variant={'body1'} fontWeight={'bold'} gutterBottom>
             {t('socialMedia')}
           </CustomTypography>
-          <Link href={'#'} className={classes.socialMediaIcon}>
+          <a href={'#'} className={classes.socialMediaIcon}>
             <img src={require('../../assets/landing/Facebook.svg')} />
-          </Link>
-          <Link href={'#'} className={classes.socialMediaIcon}>
+          </a>
+          <a href={'#'} className={classes.socialMediaIcon}>
             <img src={require('../../assets/landing/Instagram.svg')} />
-          </Link>
-          <Link href={'#'} className={classes.socialMediaIcon}>
+          </a>
+          <a href={'#'} className={classes.socialMediaIcon}>
             <img src={require('../../assets/landing/Twitter.svg')} />
-          </Link>
+          </a>
         </Box>
       </Grid>
       <Grid item xs={6} md={3}>
@@ -71,7 +70,7 @@ const Footer = () => {
         className={classes.footerSectionDivider}
       />
       <Box>
-        <Link href={'#'}>
+        <a href={'#'}>
           <img
             src={require('../../assets/desktop_nformacy_logo.svg')}
             className={classes.desktopVisible}
@@ -80,8 +79,11 @@ const Footer = () => {
             src={require('../../assets/mobile_nformacy_logo.svg')}
             className={classes.mobileVisible}
           />
-        </Link>
-        <CustomTypography align={'center'} variant='body1' className={classes.flexClass}>
+        </a>
+        <CustomTypography
+          align={'center'}
+          variant='body1'
+          className={classes.flexClass}>
           <CopyrightIcon />
           {t('allRightsReserved')}
         </CustomTypography>

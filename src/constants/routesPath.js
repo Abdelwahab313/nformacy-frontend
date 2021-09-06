@@ -52,6 +52,7 @@ export const RoutesPaths = {
     Consultants: '/consultants',
     TermsAndConditions: '/terms',
     KnowHub: '/knowHub',
+    Nformacy360: '/nformacy360',
     About: '/about',
     Dashboard: '/dashboard',
     Questions: '/questions',

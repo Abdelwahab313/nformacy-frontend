@@ -45,6 +45,7 @@ export default function MainHeader() {
     location.pathname === RoutesPaths.App.Solutions ||
     location.pathname === RoutesPaths.App.About ||
     location.pathname === RoutesPaths.App.Consultants ||
+    location.pathname === RoutesPaths.App.Nformacy360 ||
     location.pathname === RoutesPaths.App.TermsAndConditions ||
     location.pathname === RoutesPaths.App.KnowHub;
   return (
@@ -118,6 +119,12 @@ export default function MainHeader() {
                 {t('knowledgeHub')}
               </NavLink>
               <NavLink
+                to={RoutesPaths.App.Nformacy360}
+                className={classes.menuItemText}
+                activeClassName={classes.active}>
+                {t('nformacy360Title')}
+              </NavLink>
+              <NavLink
                 to={RoutesPaths.App.ContactUs}
                 className={classes.menuItemText}
                 activeClassName={classes.active}>
@@ -129,11 +136,8 @@ export default function MainHeader() {
           <div className={classes.sectionDesktop}>
             {authToken ? (
               <Box>
-                <IconButton
-                  aria-label='show 17 new notifications'
-                  color='inherit'>
-                  <Notifications />
-                </IconButton>
+               
+                <Notifications />
 
                 <IconButton
                   edge='end'

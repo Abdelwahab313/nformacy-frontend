@@ -77,6 +77,9 @@ const CorporateAccountDetails = React.lazy(() =>
 const ForgetPassword = React.lazy(() => import('pages/ForgetPassword'));
 const ResetPassword = React.lazy(() => import('pages/ResetPassword'));
 const KnowHubPage = React.lazy(() => import('pages/App/LandingPage/KnowHub'));
+const Nformacy360 = React.lazy(() =>
+  import('pages/App/LandingPage/Nformacy360'),
+);
 const ChangePasswordPage = React.lazy(() => import('pages/ChangePassword'));
 const AddAccount = React.lazy(() =>
   import('pages/App/Accounts/add/AddAccount'),
@@ -157,6 +160,15 @@ const appRoutes = [
     includeLayout: true,
     isPublic: true,
     hasDashboardLink: true,
+  },
+  {
+    path: RoutesPaths.App.Nformacy360,
+    name: 'KnowHub',
+    icon: DashboardIcon,
+    Component: Nformacy360,
+    includeLayout: true,
+    isPublic: true,
+    hasDashboardLink: false,
   },
   {
     path: RoutesPaths.App.Login,

@@ -113,13 +113,13 @@ const useStyles = makeStyles((theme) => ({
   },
   dashboardServicesMobile: {
     color: darkBlue,
-    textDecoration: 'underline'
+    textDecoration: 'underline',
   },
   mobileServicesPadding: {
-    padding: '0 16px'
+    padding: '0 16px',
   },
   serviceStepsContainerMargin: {
-    margin: '20px 0'
+    margin: '20px 0',
   },
   whiteCtaBtn: {
     background: `${white} !important`,
@@ -278,7 +278,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       display: 'flex',
       alignItems: 'center',
-      textAlign: 'center'
+      textAlign: 'center',
     },
   },
   mobileServicesVisible: {
@@ -286,7 +286,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       display: 'flex',
       alignItems: 'center',
-      textAlign: 'center'
+      textAlign: 'center',
     },
   },
   mobileSolutionServicesVisible: {
@@ -294,7 +294,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       display: 'flex',
       alignItems: 'center',
-      textAlign: 'center'
+      textAlign: 'center',
     },
   },
   headerCommunitySectionOrder: {
@@ -370,6 +370,9 @@ const useStyles = makeStyles((theme) => ({
   },
   darkOrangeBG: {
     background: darkOrange,
+  },
+  nformacy360LogoSize: {
+    width: '20rem',
   },
   ourValueItem: {
     border: '1px solid #ecedf0',
