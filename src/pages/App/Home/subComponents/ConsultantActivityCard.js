@@ -11,7 +11,7 @@ const ConsultantActivityCard = () => {
     <HomePageCard
       title={t('myActivityTableTitle')}
       viewMoreText={t('viewAll')}
-      viewMoreUrl={RoutesPaths.App.ConsultantActivitiesList}>
+      viewMoreUrl={RoutesPaths.App.ActivitiesList}>
       <ConsultantActivityTable />
     </HomePageCard>
   );

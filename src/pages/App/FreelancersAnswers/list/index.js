@@ -9,17 +9,19 @@ import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import AnswersTable from 'templates/answers/AnswersTable';
 import useFetchFreelancerActivities from 'hooks/useFetchFreelancerActivities';
+import { useStyles } from 'styles/Admin/questionTableStyles';
 
 const FreelancersActivitiesPage = () => {
   const { t } = useTranslation();
   const { activities, isLoading } = useFetchFreelancerActivities();
+  const classes = useStyles();
 
   if (isLoading) {
     return <LoadingCircle />;
   }
 
   return (
-    <Box mx='auto'>
+    <Box mx='auto' className={classes.boxContainer}>
       <GridItem xs={12} sm={12} md={12}>
         <BreadcrumbsCustomSeparator pageName={t('answersList')} />
         <Card plain>

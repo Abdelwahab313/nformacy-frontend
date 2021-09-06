@@ -271,6 +271,7 @@ const useStyles = makeStyles((theme) => ({
   startProcessBtnPrimaryColor: {
     [theme.breakpoints.down('md')]: {
       color: 'rgb(18 87 115) !important',
+      backgroundColor: 'transparent !important',
     },
   },
   largeProfilePic: {

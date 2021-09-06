@@ -20,7 +20,7 @@ export const useStyles = makeStyles((theme) => ({
     alignContent: 'center',
   },
   boxContainer: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       width: '100%'
     }
   }
