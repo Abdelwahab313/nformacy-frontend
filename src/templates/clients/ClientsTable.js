@@ -175,7 +175,7 @@ const ClientsTable = ({ clients }) => {
   };
   return (
     <MUIDataTable
-      title={t('clientsList')}
+      title={t('beneficiariesList')}
       data={!!clientsRows ? clientsRows : []}
       columns={columns}
       options={tableOptions}

@@ -113,16 +113,14 @@ const parseClientsTableData = (clients) => {
       </div>
     )),
     fields: <FieldsChips fields={client.fields} />,
-    id:
-      <LinkText to={getClientProfileDetails(client.id)}>
-        {client.id}
-      </LinkText>,
-    createdAt:
+    id: (
+      <LinkText to={getClientProfileDetails(client.id)}>{client.id}</LinkText>
+    ),
+    createdAt: (
       <Fragment>
-        {formattedDateMonthAndDay(
-          new Date(client.createdAt),
-        )}
+        {formattedDateMonthAndDay(new Date(client.createdAt))}
       </Fragment>
+    ),
   }));
 };
 
@@ -146,7 +144,7 @@ const ClientDetails = ({ clients }) => {
   };
   return (
     <MUIDataTable
-      title={t('clientDetails')}
+      title={t('beneficiariesDetails')}
       data={!!clientsRows ? clientsRows : []}
       columns={columns}
       options={tableOptions}

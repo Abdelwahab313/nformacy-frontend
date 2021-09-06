@@ -482,6 +482,7 @@
   "goSignupBtn": "Sign up",
   "socialLoginTitle": "Or Join with",
   "clientInfo": "Client Info",
+  "beneficiaryInfo": "Beneficiary Info",
   "calendar": "Calendar",
   "consultantInfo": "Consultant Info",
   "adminInfo": "Admin Info",
@@ -639,5 +640,6 @@
   "settingsRequired": "You should choose at least one service!",
   "requiredProjectManager": "Project Manager is Required!",
   "assignProjectManager": "Assign Project Manager *",
-  "serviceSaveSuccessfully": "Service Saved Successfully!"
+  "serviceSaveSuccessfully": "Service Saved Successfully!",
+  "beneficiariesDetails": "Beneficiaries Details"
 }

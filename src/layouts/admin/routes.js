@@ -152,14 +152,14 @@ const adminRoutes = [
   },
   {
     path: RoutesPaths.Admin.ClientProfileDetails,
-    name: 'Client Details',
+    name: 'Beneficiary Details',
     icon: BusinessCenterIcon,
     component: ClientsDetailsInfo,
     hasDashboardLink: false,
   },
   {
     path: RoutesPaths.Admin.ClientDetailsView,
-    name: 'Client View',
+    name: 'Beneficiary View',
     icon: BusinessCenterIcon,
     component: ClientsServicesList,
     hasDashboardLink: false,
@@ -194,7 +194,7 @@ const adminRoutes = [
   },
   {
     path: RoutesPaths.Admin.ClientDetails,
-    name: 'Client Details',
+    name: 'Beneficiaries Details',
     icon: BusinessCenterIcon,
     component: ClientDetailsList,
     hasDashboardLink: false,

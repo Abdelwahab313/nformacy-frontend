@@ -9,7 +9,7 @@ import ClientInfo from './ClientInfo';
 
 const ClientsDetailsInfo = () => {
   const { t } = useTranslation();
-  
+
   return (
     <GridContainer justifyContent={'center'}>
       <GridItem xs={12} sm={12} md={12}>
@@ -18,7 +18,7 @@ const ClientsDetailsInfo = () => {
             <Grid container>
               <Grid item md={12} xs={12}>
                 <Typography component={'h4'} id={'post-service-page-header'}>
-                  {t('clientInfo')}
+                  {t('beneficiaryInfo')}
                 </Typography>
               </Grid>
             </Grid>
