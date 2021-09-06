@@ -160,6 +160,9 @@ export const useStyles = makeStyles((theme) => ({
   answerButtons: {
     padding: '1.4vw',
     maxHeight: '2.500vw',
+    [theme.breakpoints.down('md')]: {
+      fontSize: 11,
+    },
     [theme.breakpoints.down('xs')]: {
       maxHeight: '9.600vw',
       padding: '10vw',
