@@ -132,9 +132,9 @@ export const useStyles = makeStyles((theme) => ({
   },
   signupButton: {
     marginTop: theme.spacing(2),
-    backgroundColor: lightOrange,
+    backgroundColor: '#ED7D31 !important',
     '&:hover': {
-      backgroundColor: darkOrange,
+      backgroundColor: '#E7923D !important',
     },
   },
   progressContainer: {
