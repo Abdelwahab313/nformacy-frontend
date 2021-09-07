@@ -5,7 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useStyles from './styles/LandingPageStyles';
 
-const nformacy360Logo = require('../../../assets/nformacy360.png');
+const nformacy360Logo = require('../../../assets/nformacy_360.png');
 
 const Nformacy360 = () => {
   const classes = useStyles();
@@ -24,10 +24,7 @@ const Nformacy360 = () => {
       <CustomTypography variant={'h2'} fontWeight={'bold'}>
         {t('comingSoon')}
       </CustomTypography>
-      <img
-        className={classes.nformacy360LogoSize}
-        src={nformacy360Logo}
-      />
+      <img className={classes.nformacy360LogoSize} src={nformacy360Logo} />
     </Grid>
   );
 };

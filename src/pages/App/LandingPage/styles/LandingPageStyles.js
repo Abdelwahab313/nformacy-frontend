@@ -373,6 +373,7 @@ const useStyles = makeStyles((theme) => ({
   },
   nformacy360LogoSize: {
     width: '20rem',
+    marginLeft: '4rem',
   },
   ourValueItem: {
     border: '1px solid #ecedf0',
