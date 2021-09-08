@@ -591,6 +591,7 @@
   "projectNumber": "Project Number",
   "details": "Details",
   "duration": "Duration",
+  "requiredDuration": "Duration *",
   "beneficiaries": "Beneficiaries",
   "createNewProject": "Create New Project",
   "addNewProject": "Add New Project",

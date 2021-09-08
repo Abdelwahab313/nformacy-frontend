@@ -40,6 +40,14 @@ const AddProject = () => {
       showErrorMessage(t('requiredTitle'));
       return false;
     }
+    if (!project.startDate) {
+      showErrorMessage(t('requiredStartDate'));
+      return false;
+    }
+    if (!project.endDate) {
+      showErrorMessage(t('requiredEndDate'));
+      return false;
+    }
     if (project.projectManagerId === undefined) {
       showErrorMessage(t('requiredProjectManager'));
       return false;

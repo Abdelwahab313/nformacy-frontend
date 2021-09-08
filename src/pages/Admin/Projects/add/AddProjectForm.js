@@ -57,7 +57,7 @@ const AddProjectForm = ({
           <GridItem xs={12} md={6}>
             <GridContainer>
               <GridItem className={classes.durationLabel} xs={3}>
-                {t('duration')}
+                {t('requiredDuration')}
               </GridItem>
               <GridItem xs={9} className={classes.projectFormFields}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
