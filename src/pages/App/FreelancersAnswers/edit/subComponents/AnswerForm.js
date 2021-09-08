@@ -14,6 +14,7 @@ import { ANSWER_STATUS } from 'constants/questionStatus';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import CardFooter from 'components/card/CardFooter';
 import Card from 'components/card/Card';
+import { IS_Nformacy_APP } from 'settings';
 
 const AnswerForm = ({ questionId, savedAnswer }) => {
   const classes = useStyles();
@@ -53,12 +54,13 @@ const AnswerForm = ({ questionId, savedAnswer }) => {
 
   const onSubmitAnswer = () => {
     if (!!validate()) {
-      submitAnswer({ ...answerDetails, state: ANSWER_STATUS.pending }).then(
-        () => {
-          showSuccessMessage(t('answerSubmitted'));
-          history.push(RoutesPaths.App.Questions);
-        },
-      );
+      const initialAnswerState = IS_Nformacy_APP
+        ? ANSWER_STATUS.pending
+        : ANSWER_STATUS.accepted;
+      submitAnswer({ ...answerDetails, state: initialAnswerState }).then(() => {
+        showSuccessMessage(t('answerSubmitted'));
+        history.push(RoutesPaths.App.Questions);
+      });
     }
   };
 
