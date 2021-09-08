@@ -23,7 +23,6 @@ const AddConsultant = () => {
     history.goBack();
   };
 
-
   const validate = () => {
     const emailValidation = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
@@ -74,7 +73,7 @@ const AddConsultant = () => {
         <Card>
           <CardHeader color='primary'>
             <Grid container>
-              <Grid item md={12} xs={12}>
+              <Grid item xs={12}>
                 <Typography component={'h4'} id={'post-service-page-header'}>
                   {t('addConsultant')}
                 </Typography>
