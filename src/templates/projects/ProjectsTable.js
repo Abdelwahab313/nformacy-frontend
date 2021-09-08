@@ -75,7 +75,7 @@ const getColumnsOptions = (classes, t) => {
       label: t('fieldsAssigned'),
       options: {
         ...defaultColumnOption,
-        filter: true,
+        filter: false,
         sort: false
       },
     },
