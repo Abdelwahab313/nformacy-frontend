@@ -43,7 +43,7 @@ const Profile = () => {
         alignContent={'center'}
         className={classes.profileContainer}
         spacing={5}>
-        <Grid item xs={12} sm={8}>
+        <Grid item xs={12} sm={8} lg={10}>
           <BreadcrumbsCustomSeparator pageName={t('profile')} />
           {PersonalInfo()}
           {!isClient && (
@@ -60,7 +60,7 @@ const Profile = () => {
           )}
         </Grid>
         {!isClient && (
-          <Grid item xs={12} sm={2}>
+          <Grid item xs={12} sm={4} lg={2}>
             <CVSection />
           </Grid>
         )}
