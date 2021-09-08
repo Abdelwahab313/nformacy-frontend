@@ -5,7 +5,7 @@ import { updateProfile, updateProfilePicture } from '../../../apis/userAPI';
 import { saveButtonStyle, useStyles } from '../../../styles/formsStyles';
 import { updateUser } from '../../../pages/auth/context/authActions';
 import { useAuth } from '../../../pages/auth/context/auth';
-import CorporatePersonalInfoDialog from '../ClientPersonalInfoDialog';
+import ClientPersonalInfoDialog from '../ClientPersonalInfoDialog';
 
 const ClientProfilePersonalInfoForm = ({ user, closeDialog }) => {
   const formMethod = useForm({
@@ -44,7 +44,7 @@ const ClientProfilePersonalInfoForm = ({ user, closeDialog }) => {
         className={classes.nestedForm}
         noValidate
         onSubmit={formMethod.handleSubmit(onSubmitBasicInfo)}>
-        <CorporatePersonalInfoDialog />
+        <ClientPersonalInfoDialog />
         <Button
           id='saveBasicInfo'
           type='submit'

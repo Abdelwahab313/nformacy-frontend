@@ -5,9 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import ErrorMessage from '../errors/ErrorMessage';
 import React, { useState } from 'react';
-import {
-  useStyles, selectStyle
-} from '../../styles/formsStyles';
+import { useStyles, selectStyle } from '../../styles/formsStyles';
 import { useFormContext } from 'react-hook-form';
 import t from '../../locales/en/freelancerProfile.json';
 import countryList from 'react-select-country-list';
@@ -75,6 +73,7 @@ const ClientPersonalInfoDialog = () => {
           fullWidth
           id='email'
           name='email'
+          disabled={true}
           defaultValue={!user.current.email && ''}
           inputRef={register({ required: 'This field is required' })}
           autoComplete='name'
