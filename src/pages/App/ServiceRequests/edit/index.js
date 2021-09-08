@@ -10,7 +10,7 @@ import ServiceRequestForm from 'templates/services/ServiceRequestForm';
 import {
   fetchServiceDetails,
   createOrUpdateService,
-  generateQuestion,
+  addQuestionToRoaster,
 } from 'apis/servicesAPI';
 import Direction from 'components/grid/Direction';
 import LoadingCircle from 'components/progress/LoadingCircle';
@@ -90,20 +90,17 @@ const EditServiceRequest = () => {
 
   const handleSubmit = () => {
     if (!!validate(serviceRequest)) {
-      createOrUpdateService({ ...serviceRequest, state: 'pending' })
-        .then((response) => {
-          const submittedServiceRequest = response.data;
-          if (
-            ServiceManager.shouldDeployQuestionDirectly(submittedServiceRequest)
-          ) {
-            generateQuestion(submittedServiceRequest.id).then(() => {
-              afterSaveCallback();
-            });
-          } else {
+      if (ServiceManager.shouldDeployQuestionDirectly(serviceRequest)) {
+        return addQuestionToRoaster(serviceRequest).then(() => {
+          afterSaveCallback();
+        });
+      } else {
+        return createOrUpdateService({ ...serviceRequest, state: 'pending' })
+          .then(() => {
             afterSaveCallback();
-          }
-        })
-        .catch(() => {});
+          })
+          .catch(() => {});
+      }
     }
   };
   const handleSaveForLater = () => {

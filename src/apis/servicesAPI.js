@@ -25,6 +25,14 @@ export const createService = (service) => {
   }).then((response) => camelizeKeys(response));
 };
 
+export const addQuestionToRoaster = (service) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/services/add_question_to_roaster`,
+    data: decamelizeKeys({ ...service }),
+  }).then((response) => camelizeKeys(response));
+};
+
 export const updateService = (service) => {
   return axios({
     method: 'put',
@@ -36,8 +44,7 @@ export const updateService = (service) => {
 export const createOrUpdateService = (service) => {
   if (!!service.id) {
     return updateService(service);
-  }
-  else {
+  } else {
     return createService(service);
   }
 };
