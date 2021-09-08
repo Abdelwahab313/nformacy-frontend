@@ -76,7 +76,7 @@ const ProjectDetails = () => {
           <Tab label='Activities' {...a11yProps(0)} />
           <Tab label='Consultants' {...a11yProps(1)} />
           <Tab label='Beneficiaries' {...a11yProps(2)} />
-          <Tab label='Settings' {...a11yProps(3)} />
+          <Tab label='Solutions' {...a11yProps(3)} />
           <Tab label='Mentoring' {...a11yProps(4)} />
         </Tabs>
       </AppBar>
