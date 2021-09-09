@@ -36,7 +36,7 @@ import useLocationState from 'hooks/useLocationState';
 import { getConsultantsProjectWizard } from 'services/navigation';
 import ErrorMessage from 'components/errors/ErrorMessage';
 import _ from 'lodash';
-import moment from 'moment';
+import Validator from 'services/validator';
 
 const ProjectSettingsForm = () => {
   const classes = useStyles();
@@ -99,20 +99,21 @@ const ProjectSettingsForm = () => {
             message: t('requiredFrequency'),
           };
         }
-        const isValidStartDate =
-          !!settingRow.startDate && moment(settingRow.startDate).isValid();
-        if (!isValidStartDate) {
+        const validStartDateMessage = Validator.validateStartDate(
+          settingRow.startDate,
+        );
+        if (!!validStartDateMessage) {
           settingRowErrors['startDate'] = {
-            message: t('requiredStartDate'),
+            message: t(validStartDateMessage),
           };
         }
-        const isValidEndDate =
-          !!settingRow.endDate &&
-          moment(settingRow.endDate).isValid() &&
-          moment(settingRow.endDate).isAfter(moment(settingRow.startDate));
-        if (!isValidEndDate) {
+        const validEndDateMessage = Validator.validateEndDate(
+          settingRow.startDate,
+          settingRow.endDate,
+        );
+        if (!!validEndDateMessage) {
           settingRowErrors['endDate'] = {
-            message: t('requiredEndDate'),
+            message: t(validEndDateMessage),
           };
         }
 
@@ -302,9 +303,10 @@ const SettingRow = ({
             variant='inline'
             format='dd/MM/yyyy'
             margin='normal'
+            placeholder='-select start date-'
             id='start-date-range-picker'
             label={t['startDate']}
-            value={serviceSetting?.startDate}
+            value={serviceSetting?.startDate || null}
             onChange={(date) => onChangeField('startDate', date)}
             KeyboardButtonProps={{
               'aria-label': 'change date',
@@ -325,8 +327,9 @@ const SettingRow = ({
             format='dd/MM/yyyy'
             margin='normal'
             id='end-date-range-picker'
+            placeholder='-select end date-'
             label={t['endDate']}
-            value={serviceSetting?.endDate}
+            value={serviceSetting?.endDate || null}
             onChange={(date) => onChangeField('endDate', date)}
             minDate={serviceSetting?.endDate}
             KeyboardButtonProps={{
