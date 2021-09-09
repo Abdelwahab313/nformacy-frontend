@@ -6,14 +6,14 @@ import SubmitButton from 'components/buttons/SubmitButton';
 const ActionButtonsContainer = ({ primaryButton, secondaryButton = {} }) => {
   const classes = useStyles();
   return (
-    <Grid item xs={6} className={[classes.buttonsContainer]}>
+    <Grid item xs={6} className={classes.buttonsContainer}>
       {!!secondaryButton?.buttonText && (
         <SubmitButton
           id={secondaryButton.id}
           onClick={secondaryButton.onClick}
           color={'secondary'}
           buttonText={secondaryButton.buttonText}
-          className={[classes.buttonMargin]}
+          className={classes.buttonMargin}
         />
       )}
       {!!primaryButton?.buttonText && (
@@ -21,7 +21,7 @@ const ActionButtonsContainer = ({ primaryButton, secondaryButton = {} }) => {
           id={primaryButton.id}
           onClick={primaryButton.onClick}
           buttonText={primaryButton.buttonText}
-          className={[classes.buttonMargin]}
+          className={classes.buttonMargin}
         />
       )}
     </Grid>

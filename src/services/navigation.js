@@ -259,6 +259,7 @@ export const getProjectSettingsWizard = (projectId) => {
     pathname: RoutesPaths.Admin.AddProjectSettings,
     state: {
       projectId,
+      isWizardEnabled: true,
     },
   };
 };

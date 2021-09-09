@@ -43,6 +43,7 @@ const ProjectSettingsForm = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const projectId = useLocationState((state) => state?.projectId);
+  const isWizardEnabled = useLocationState((state) => state?.isWizardEnabled);
   const { showSuccessMessage, showErrorMessage } = useSnackBar();
 
   const [isErrors, setIsErrors] = useState({});
@@ -135,7 +136,9 @@ const ProjectSettingsForm = () => {
       submitProjectSettings({ ...projectSettings, projectId: projectId })
         .then(() => {
           showSuccessMessage(t('serviceSaveSuccessfully'));
-          history.push(getConsultantsProjectWizard(projectId));
+          if (!!isWizardEnabled) {
+            history.push(getConsultantsProjectWizard(projectId));
+          }
         })
         .catch(() => {});
     }
