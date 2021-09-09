@@ -95,6 +95,13 @@ const adminRoutes = [
     hasDashboardLink: true,
   },
   {
+    path: RoutesPaths.Admin.Clients,
+    name: 'Beneficiaries',
+    icon: Person,
+    component: ClientsList,
+    hasDashboardLink: AdminGuardian.showClientsPanel(),
+  },
+  {
     path: RoutesPaths.Admin.AddConsultant,
     name: 'Add Consultants',
     icon: BusinessCenterIcon,
@@ -142,13 +149,6 @@ const adminRoutes = [
     icon: Person,
     component: ProjectBeneficiariesList,
     hasDashboardLink: false,
-  },
-  {
-    path: RoutesPaths.Admin.Clients,
-    name: 'Beneficiaries',
-    icon: Person,
-    component: ClientsList,
-    hasDashboardLink: AdminGuardian.showClientsPanel(),
   },
   {
     path: RoutesPaths.Admin.ClientProfileDetails,

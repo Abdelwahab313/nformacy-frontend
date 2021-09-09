@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 // @material-ui/core components
@@ -20,15 +20,13 @@ const useStyles = makeStyles(styles);
 
 const Header = (props) => {
   const classes = useStyles();
-  const makeBrand = useCallback(() => {
-    let namesMatching = [];
-    const windowUrl = window.location.href;
-    props.routes.forEach((route) => {
-      if (windowUrl.indexOf(route.path) !== -1)
-        namesMatching.push(route.name);
+  const breadCrumbsRoutes = useMemo(() => {
+    const routesMatching = props.routes.filter((route) => {
+      const windowUrl = window.location.href;
+      return windowUrl.indexOf(route.path) !== -1;
     });
-    return namesMatching;
-  }, []);
+    return routesMatching;
+  }, [window.location.href]);
 
   const { color } = useMemo(() => props, [props]);
   const appBarClasses = useMemo(
@@ -44,7 +42,9 @@ const Header = (props) => {
         <div className={classes.flex}>
           {/* Here we create navbar brand, based on route name */}
           <Grid className={classes.title}>
-            <AdminBreadcrumbsCustomSeparator pageRoutes={makeBrand()} />
+            <AdminBreadcrumbsCustomSeparator
+              breadCrumbsRoutes={breadCrumbsRoutes}
+            />
           </Grid>
         </div>
         <Hidden smDown implementation='css'>
