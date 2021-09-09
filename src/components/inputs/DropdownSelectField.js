@@ -21,7 +21,12 @@ const DropdownSelectField = ({
       onChange={(e, option) => { !!option && onFieldChange(option); }}
       blurOnSelect
       renderInput={(params) => (
-        <TextField {...params} variant='outlined' label={fieldLabel} />
+        <TextField
+          {...params}
+          variant='outlined'
+          label={fieldLabel}
+          error={props?.error}
+        />
       )}
       {...props}
     />

@@ -9,6 +9,7 @@ import LoadingCircle from 'components/progress/LoadingCircle';
 const ProjectManagerSelect = ({
   selectedProjectMangerId,
   onChangeProjectManagerId,
+  ...props
 }) => {
   const { t } = useTranslation();
 
@@ -43,6 +44,7 @@ const ProjectManagerSelect = ({
         onChangeProjectManagerId(option.value);
       }}
       fieldLabel={t('selectProjectManager')}
+      {...props}
     />
   );
 };

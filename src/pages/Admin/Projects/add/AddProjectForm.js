@@ -18,11 +18,13 @@ import {
 import DateFnsUtils from '@date-io/date-fns';
 import CountrySelectField from 'components/inputs/CountrySelectField';
 import ProjectManagerSelect from './ProjectManagerSelect';
+import ErrorMessage from 'components/errors/ErrorMessage';
 
 const AddProjectForm = ({
   primaryButton,
   project,
   setProject,
+  errors,
   richTextRef,
 }) => {
   const classes = useStyles();
@@ -46,12 +48,17 @@ const AddProjectForm = ({
               label={t('title')}
               id='title'
               name='title'
+              error={!!errors?.title}
               fullWidth
               value={project.title}
               onChange={(e) => {
                 onChangeField('title', e.target.value);
               }}
               variant='outlined'
+            />
+            <ErrorMessage
+              className={classes.errorMessage}
+              errorField={{ message: errors?.title }}
             />
           </GridItem>
           <GridItem xs={12} md={6}>
@@ -65,34 +72,48 @@ const AddProjectForm = ({
                     <GridItem xs={12} sm={6}>
                       <KeyboardDatePicker
                         disableToolbar
+                        fullWidth
                         autoOk
                         variant='inline'
                         format='dd/MM/yyyy'
                         margin='normal'
                         id='start-date-range-picker'
+                        placeholder='-select start date-'
                         label={t['startDate']}
-                        value={project.startDate}
+                        value={project.startDate || null}
+                        error={!!errors?.startDate}
                         onChange={(date) => onChangeField('startDate', date)}
                         KeyboardButtonProps={{
                           'aria-label': 'change date',
                         }}
                       />
+                      <ErrorMessage
+                        className={classes.errorMessage}
+                        errorField={{ message: errors?.startDate }}
+                      />
                     </GridItem>
                     <GridItem xs={12} sm={6}>
                       <KeyboardDatePicker
                         disableToolbar
+                        fullWidth
                         autoOk
                         variant='inline'
                         format='dd/MM/yyyy'
                         margin='normal'
                         id='end-date-range-picker'
+                        placeholder='-select end date-'
                         label={t['endDate']}
-                        value={project.endDate}
+                        value={project.endDate || null}
                         onChange={(date) => onChangeField('endDate', date)}
+                        error={!!errors?.endDate}
                         minDate={project.startDate}
                         KeyboardButtonProps={{
                           'aria-label': 'change date',
                         }}
+                      />
+                      <ErrorMessage
+                        className={classes.errorMessage}
+                        errorField={{ message: errors?.endDate }}
                       />
                     </GridItem>
                   </GridContainer>
@@ -126,6 +147,11 @@ const AddProjectForm = ({
                 onChangeProjectManagerId={(projectManagerId) =>
                   onChangeField('projectManagerId', projectManagerId)
                 }
+                error={!!errors?.projectManagerId}
+              />
+              <ErrorMessage
+                className={classes.errorMessage}
+                errorField={{ message: errors?.projectManagerId }}
               />
             </FormControl>
           </GridItem>

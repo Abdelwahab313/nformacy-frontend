@@ -12,18 +12,22 @@ import { useSnackBar } from 'context/SnackBarContext';
 import useLocationState from 'hooks/useLocationState';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { getProjectSettingsWizard } from 'services/navigation';
+import Validator from 'services/validator';
 
 const AddProject = () => {
   const [project, setProject] = useState({});
   const history = useHistory();
   const { t } = useTranslation();
   const richTextRef = useRef(null);
-  const { showSuccessMessage, showErrorMessage } = useSnackBar();
+  const { showSuccessMessage } = useSnackBar();
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+
   const projectId = useLocationState((state) => state?.projectId);
 
+  // const isNewForm
   useEffect(() => {
-    if (projectId) {
+    if (!!projectId) {
       setIsLoading(true);
       fetchProjectDetails(projectId)
         .then((response) => {
@@ -36,27 +40,39 @@ const AddProject = () => {
   }, []);
 
   const validate = (project) => {
+    const validatedErrors = {};
+
+    const validStartDateMessage = Validator.validateStartDate(
+      project?.startDate,
+    );
+    const validEndDateMessage = Validator.validateEndDate(
+      project?.startDate,
+      project?.endDate,
+    );
+
     if (!project.title) {
-      showErrorMessage(t('requiredTitle'));
-      return false;
+      validatedErrors['title'] = t('requiredTitle');
     }
-    if (!project.startDate) {
-      showErrorMessage(t('requiredStartDate'));
-      return false;
+    if (!!validStartDateMessage) {
+      validatedErrors['startDate'] = t(validStartDateMessage);
     }
-    if (!project.endDate) {
-      showErrorMessage(t('requiredEndDate'));
-      return false;
+    if (!!validEndDateMessage) {
+      validatedErrors['endDate'] = t(validEndDateMessage);
     }
     if (project.projectManagerId === undefined) {
-      showErrorMessage(t('requiredProjectManager'));
-      return false;
+      validatedErrors['projectManagerId'] = t('requiredProjectManager');
     }
-    return true;
+
+    if (Object.keys(validatedErrors).length > 0) {
+      setErrors({ ...validatedErrors });
+      return false;
+    } else {
+      return true;
+    }
   };
 
   const handleCreateProject = () => {
-    // @TODO needs to handle validation for the project fields
+    // @TODO: needs to handle validation for the project fields
     if (!!validate(project)) {
       createOrUpdateProject({ ...project })
         .then((response) => {
@@ -87,6 +103,7 @@ const AddProject = () => {
             project={project}
             richTextRef={richTextRef}
             setProject={setProject}
+            errors={errors}
             viewOnly
             primaryButton={{
               id: 'createAdviserButton',
