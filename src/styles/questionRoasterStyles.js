@@ -27,7 +27,7 @@ const filterStyle = (theme) => ({
     fontSize: '1.367vw',
   },
   [theme.breakpoints.down('md')]: {
-    fontSize: '1.142vw',
+    fontSize: '2.142vw',
   },
   [theme.breakpoints.down('sm')]: {
     fontSize: '3.125vw',

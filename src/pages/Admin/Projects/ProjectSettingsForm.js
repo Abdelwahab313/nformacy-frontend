@@ -14,10 +14,7 @@ import { selectStyle } from 'styles/formsStyles';
 import { frequency } from 'constants/dropDownOptions';
 import SubmitButton from 'components/buttons/SubmitButton';
 import { useHistory } from 'react-router';
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
+import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import CustomTypography from 'components/typography/Typography';
 import { Dialog } from '@material-ui/core';
@@ -300,7 +297,7 @@ const SettingRow = ({
       </GridItem>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <GridItem xs={12} sm={2}>
-          <KeyboardDatePicker
+          <DatePicker
             disableToolbar
             autoOk
             variant='inline'
@@ -323,7 +320,7 @@ const SettingRow = ({
         </GridItem>
 
         <GridItem xs={12} sm={2}>
-          <KeyboardDatePicker
+          <DatePicker
             disableToolbar
             autoOk
             variant='inline'

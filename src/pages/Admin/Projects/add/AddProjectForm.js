@@ -12,7 +12,7 @@ import { InputLabel } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import RichTextEditorForm from 'components/forms/RichTextEditorForm';
 import {
-  KeyboardDatePicker,
+  DatePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
@@ -70,7 +70,7 @@ const AddProjectForm = ({
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <GridContainer>
                     <GridItem xs={12} sm={6}>
-                      <KeyboardDatePicker
+                      <DatePicker
                         disableToolbar
                         fullWidth
                         autoOk
@@ -93,7 +93,7 @@ const AddProjectForm = ({
                       />
                     </GridItem>
                     <GridItem xs={12} sm={6}>
-                      <KeyboardDatePicker
+                      <DatePicker
                         disableToolbar
                         fullWidth
                         autoOk
