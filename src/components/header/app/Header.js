@@ -167,16 +167,18 @@ export default function MainHeader() {
               {t('language')}
             </Button>
           </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label='show more'
-              aria-controls={menuId}
-              aria-haspopup='true'
-              onClick={handleProfileMenuOpen}
-              color='inherit'>
-              <MoreIcon />
-            </IconButton>
-          </div>
+          {authToken && (
+            <div className={classes.sectionMobile}>
+              <IconButton
+                aria-label='show more'
+                aria-controls={menuId}
+                aria-haspopup='true'
+                onClick={handleProfileMenuOpen}
+                color='inherit'>
+                <MoreIcon />
+              </IconButton>
+            </div>
+          )}
         </Toolbar>
       </AppBar>
       <ProfilePictureMenu
