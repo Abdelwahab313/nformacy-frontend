@@ -9,9 +9,9 @@ import Box from '@material-ui/core/Box';
 import ProjectConsultantsList from './list/ProjectConsultantsList';
 import ProjectBeneficiariesList from './list/ProjectBeneficiariesList';
 import ProjectDetailsView from './ProjectDetailsView';
-import ProjectSettingsForm from './ProjectSettingsForm';
 import MentoringList from './MentoringList';
 import ProjectServicesList from './ProjectServicesList';
+import ProjectSettingsCardBody from './ProjectSettingsCardBody';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -91,7 +91,7 @@ const ProjectDetails = () => {
         <ProjectBeneficiariesList />
       </TabPanel>
       <TabPanel value={selectedTab} index={3}>
-        <ProjectSettingsForm />
+        <ProjectSettingsCardBody />
       </TabPanel>
       <TabPanel value={selectedTab} index={4}>
         <MentoringList />
