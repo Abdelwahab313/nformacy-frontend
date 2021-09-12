@@ -81,7 +81,7 @@ const getColumnsOptions = (classes, t) => {
       label: t('dateJoined'),
       options: {
         ...defaultColumnOption,
-        filter: true,
+        filter: false,
       },
     },
     {

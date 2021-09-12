@@ -17,26 +17,22 @@ const getColumnsOptions = (classes, t) => {
     ),
   };
 
-
-
   const generateLinkText = (clientId, value, cb) => {
-    return <LinkText to={cb(clientId || value)}>
-      {value}
-    </LinkText>;
+    return <LinkText to={cb(clientId || value)}>{value}</LinkText>;
   };
 
   const getClientId = (tableMeta) => {
     return tableMeta.rowData[0];
   };
 
-
   const columns = [
     {
       name: 'clientId',
       options: {
         ...defaultColumnOption,
-        display: false
-      }
+        display: false,
+        filter: false,
+      },
     },
     {
       name: 'id',
@@ -145,13 +141,15 @@ const parseClientsTableData = (clients) => {
     ...client,
     id: client.referenceNumber,
     clientId: client.id,
-    industriesOfExperience: renderIndustriesOfExperience(client.industriesOfExperience),
+    industriesOfExperience: renderIndustriesOfExperience(
+      client.industriesOfExperience,
+    ),
     country: getUserCountryLabel(client.country),
     createdAt: formattedDateMonthAndDay(new Date(client.createdAt)),
     organizationName: !client.organizationName
       ? 'No Organization'
       : client.organizationName,
-    accountsCount: client.accountsCount
+    accountsCount: client.accountsCount,
   }));
 };
 
