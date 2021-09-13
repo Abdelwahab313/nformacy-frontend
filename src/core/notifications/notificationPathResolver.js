@@ -1,6 +1,7 @@
 import authManager from 'services/authManager';
 import {
   getEditServiceDetailsLink,
+  getMeetingDetailsPage,
   getQuestionDetails,
   getServiceDetailsLink,
 } from 'services/navigation';
@@ -9,6 +10,7 @@ const NOTIFICATIONS_TYPES = {
   Question: 'QuestionNotification',
   Answers: 'AnswerNotification',
   ServiceRequest: 'ServiceRequestNotification',
+  Meeting: 'MeetingNotification'
 };
 
 const MESSAGE_KEYS = {
@@ -43,7 +45,10 @@ const getPathForNotification = (notification) => {
     return getQuestionDetails(targetId);
   } else if (notificationType === NOTIFICATIONS_TYPES.ServiceRequest) {
     return getServiceDetailsLink(targetId);
-  } else if (notificationType === NOTIFICATIONS_TYPES.Answers) {
+  } else if (notificationType === NOTIFICATIONS_TYPES.Meeting) {
+    return getMeetingDetailsPage(targetId);
+  }
+  else if (notificationType === NOTIFICATIONS_TYPES.Answers) {
     if (authManager.isNormalUser()) {
       return getQuestionDetails(targetId);
     } else {
