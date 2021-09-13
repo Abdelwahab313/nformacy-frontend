@@ -43,7 +43,7 @@ import ConsultantEvaluation from 'pages/Admin/ConsultantVerifications/evaluation
 import ConsultantMeetingDetails from 'pages/Admin/ConsultantVerifications/details/ConsultantMeetingDetails';
 import ProjectsList from 'pages/Admin/Projects/list';
 import AddProject from 'pages/Admin/Projects/add/AddProject';
-import ProjectSettingsForm from 'pages/Admin/Projects/ProjectSettingsForm';
+import ProjectSettingsPage from 'pages/Admin/Projects/ProjectSettingsPage';
 import ProjectConsultantsList from 'pages/Admin/Projects/list/ProjectConsultantsList';
 import ProjectDetails from 'pages/Admin/Projects/ProjectDetails';
 import AddConsultantsToProject from 'pages/Admin/Projects/AddConsultantsToProject';
@@ -267,7 +267,7 @@ const adminRoutes = [
     path: RoutesPaths.Admin.AddProjectSettings,
     name: 'Add Project Details',
     icon: QuestionAnswerIcon,
-    component: ProjectSettingsForm,
+    component: ProjectSettingsPage,
     hasDashboardLink: false,
   },
   {

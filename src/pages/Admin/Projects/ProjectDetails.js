@@ -11,7 +11,7 @@ import ProjectBeneficiariesList from './list/ProjectBeneficiariesList';
 import ProjectDetailsView from './ProjectDetailsView';
 import MentoringList from './MentoringList';
 import ProjectServicesList from './ProjectServicesList';
-import ProjectSettingsCardBody from './ProjectSettingsCardBody';
+import ProjectSettingsForm from './ProjectSettingsForm';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -91,7 +91,7 @@ const ProjectDetails = () => {
         <ProjectBeneficiariesList />
       </TabPanel>
       <TabPanel value={selectedTab} index={3}>
-        <ProjectSettingsCardBody />
+        <ProjectSettingsForm />
       </TabPanel>
       <TabPanel value={selectedTab} index={4}>
         <MentoringList />
