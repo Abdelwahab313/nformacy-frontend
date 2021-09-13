@@ -258,7 +258,15 @@ const SettingRow = ({
           }}
           variant='outlined'
           value={serviceSetting?.amount}
-          onChange={(e) => onChangeField('amount', e.target.value)}
+          onChange={(e) => {
+            let input = e.target.value;
+            if (
+              !input ||
+              (input[input.length - 1].match('[0-9]') &&
+                input[0].match('[1-9]'))
+            )
+              onChangeField('amount', e.target.value);
+          }}
           error={errors?.amount}
           inputProps={{ min: '1' }}
         />

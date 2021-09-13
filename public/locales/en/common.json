@@ -633,7 +633,7 @@
   "mentoringWithTheExpertTitle": "Mentoring with the Expert",
   "projectAdded": "Project added successfully.",
   "requiredTitle": "Title is Required!",
-  "requiredAmount": "Amount is Required!",
+  "requiredAmount": "Valid Amount is Required!",
   "requiredFrequency": "Frequency is Required!",
   "requiredStartDate": "Please select valid Start Date!",
   "requiredEndDate": "Please select valid End Date!",
