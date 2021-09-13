@@ -72,6 +72,7 @@ const ProjectSettingsForm = () => {
   }, []);
 
   const validate = () => {
+    setIsErrors({})
     const newErrors = {};
     const enabledSettingKey = Object.keys(projectSettings).filter(
       (serviceKey) => {
