@@ -22,7 +22,9 @@ const projectManagers = [
 const frequency = [
   { value: 'day', label: 'Day' },
   { value: 'week', label: 'Week' },
+  { value: 'biweekly', label: 'Bi-Weekly' },
   { value: 'month', label: 'Month' },
+  { value: 'quarterly', label: 'Quarterly' },
   { value: 'year', label: 'Year' },
 ];
 
