@@ -74,7 +74,7 @@ const getColumnsOptions = (classes, t) => {
       label: t('actionNeeded'),
       options: {
         ...defaultColumnOption,
-        filter: true,
+        filter: false,
         sort: false,
       },
     },
