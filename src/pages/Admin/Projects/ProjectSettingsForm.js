@@ -72,7 +72,7 @@ const ProjectSettingsForm = () => {
   }, []);
 
   const validate = () => {
-    setIsErrors({})
+    setIsErrors({});
     const newErrors = {};
     const enabledSettingKey = Object.keys(projectSettings).filter(
       (serviceKey) => {
@@ -127,11 +127,11 @@ const ProjectSettingsForm = () => {
     }
   };
 
-  const handleProjectServiceForm = () => {
+  const handleProjectServiceForm = async () => {
     const isValidated = validate();
 
     if (!!isValidated) {
-      submitProjectSettings({ ...projectSettings, projectId: projectId })
+      return submitProjectSettings({ ...projectSettings, projectId: projectId })
         .then(() => {
           showSuccessMessage(t('serviceSaveSuccessfully'));
           if (!!isWizardEnabled) {
@@ -201,9 +201,7 @@ const ProjectSettingsForm = () => {
       </CardBody>
       <CardFooter className={classes.nextStepBtn}>
         <SubmitButton
-          onClick={() => {
-            handleProjectServiceForm();
-          }}
+          onClick={handleProjectServiceForm}
           buttonText={t('save')}
         />
       </CardFooter>

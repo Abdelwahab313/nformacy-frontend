@@ -45,8 +45,8 @@ const AddConsutlantsToProjectWizard = () => {
     }
   }, []);
 
-  const onAddConsultant = () => {
-    addConsultants(projectId, consultantIds).then(() => {
+  const onAddConsultant = async () => {
+    return addConsultants(projectId, consultantIds).then(() => {
       history.push(getBeneficiariesProjectWizard(projectId));
     });
   };
@@ -83,16 +83,12 @@ const AddConsutlantsToProjectWizard = () => {
       <ActionButtonsContainer
         primaryButton={{
           id: 'addConsultants',
-          onClick: () => {
-            onAddConsultant();
-          },
+          onClick: onAddConsultant,
           buttonText: t('addConsultants'),
         }}
         secondaryButton={{
           id: 'createConsultants',
-          onClick: () => {
-            onCreateConsultants();
-          },
+          onClick: onCreateConsultants,
           buttonText: t('createConsultants'),
         }}
       />

@@ -71,16 +71,14 @@ const AddProject = () => {
     }
   };
 
-  const handleCreateProject = () => {
+  const handleCreateProject = async () => {
     // @TODO: needs to handle validation for the project fields
     if (!!validate(project)) {
-      createOrUpdateProject({ ...project })
-        .then((response) => {
-          const responseResult = response.data;
-          showSuccessMessage(t('projectAdded'));
-          history.push(getProjectSettingsWizard(responseResult.id));
-        })
-        .catch(() => {});
+      return createOrUpdateProject({ ...project }).then((response) => {
+        const responseResult = response.data;
+        showSuccessMessage(t('projectAdded'));
+        history.push(getProjectSettingsWizard(responseResult.id));
+      });
     }
   };
 
@@ -107,9 +105,7 @@ const AddProject = () => {
             viewOnly
             primaryButton={{
               id: 'createAdviserButton',
-              onClick: () => {
-                handleCreateProject();
-              },
+              onClick: handleCreateProject,
               buttonText: 'Next Step',
             }}
           />

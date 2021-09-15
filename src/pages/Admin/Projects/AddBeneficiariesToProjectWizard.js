@@ -29,7 +29,6 @@ const AddBeneficiariesToProjectWizard = () => {
     return fetchClients();
   });
 
-
   useEffect(() => {
     if (!!projectId) {
       setIsLoading(true);
@@ -48,8 +47,8 @@ const AddBeneficiariesToProjectWizard = () => {
     }
   }, []);
 
-  const onAddBeneficiaries = () => {
-    addBeneficiaries(projectId, beneficiaryIds).then(() => {
+  const onAddBeneficiaries = async () => {
+    return addBeneficiaries(projectId, beneficiaryIds).then(() => {
       history.push(RoutesPaths.Admin.Projects);
     });
   };
@@ -89,16 +88,12 @@ const AddBeneficiariesToProjectWizard = () => {
       <ActionButtonsContainer
         primaryButton={{
           id: 'addBenefeciaries',
-          onClick: () => {
-            onAddBeneficiaries();
-          },
+          onClick: onAddBeneficiaries,
           buttonText: t('addBeneficiaries'),
         }}
         secondaryButton={{
           id: 'createBeneficiaries',
-          onClick: () => {
-            onCreateBeneficiaries();
-          },
+          onClick: onCreateBeneficiaries,
           buttonText: t('createBeneficiaries'),
         }}
       />

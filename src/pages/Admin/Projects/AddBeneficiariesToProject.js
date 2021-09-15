@@ -47,8 +47,8 @@ const AddBeneficiariesToProject = () => {
     }
   }, []);
 
-  const onAddBeneficiaries = () => {
-    addBeneficiaries(projectId, beneficiaryIds).then(() => {
+  const onAddBeneficiaries = async () => {
+    return addBeneficiaries(projectId, beneficiaryIds).then(() => {
       history.push(getProjectDetails(projectId));
     });
   };
@@ -76,16 +76,12 @@ const AddBeneficiariesToProject = () => {
       <ActionButtonsContainer
         primaryButton={{
           id: 'addConsultants',
-          onClick: () => {
-            onAddBeneficiaries();
-          },
+          onClick: onAddBeneficiaries,
           buttonText: t('addBeneficiaries'),
         }}
         secondaryButton={{
           id: 'createBeneficiaries',
-          onClick: () => {
-            onCreateBeneficiaries();
-          },
+          onClick: onCreateBeneficiaries,
           buttonText: t('createBeneficiaries'),
         }}
       />
