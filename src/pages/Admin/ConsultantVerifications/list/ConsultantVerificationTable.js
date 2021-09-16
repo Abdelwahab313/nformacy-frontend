@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
 
 import RefIDLink from 'components/dataTableElements/RefIDLink';
-import { getConsultantDetails, getConsultantEvaluationFormPage, getMeetingDetailsPage } from 'services/navigation';
+import { getConsultantDetails, getConsultantEvaluationFormPage, getConsultantVerificationMeetingDetails } from 'services/navigation';
 import QuestionCountDown from 'components/counters/QuestionCountDown';
 import LinkText from 'components/typography/LinkText';
 
@@ -78,7 +78,7 @@ const getColumnsOptions = (classes, t) => {
         sort: true,
         customBodyRender: (meetingId) => {
           return (
-            <RefIDLink refID={meetingId} onClickLink={() => getMeetingDetailsPage(meetingId)} />
+            <RefIDLink refID={meetingId} onClickLink={() => getConsultantVerificationMeetingDetails(meetingId)} />
           );
         },
       },

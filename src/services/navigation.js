@@ -129,7 +129,7 @@ export const getQuestionDetailsLinkForAdmin = (questionId) => {
   };
 };
 
-export const getMeetingDetailsPage = (meetingId) => {
+export const getConsultantVerificationMeetingDetails = (meetingId) => {
   return {
     pathname: RoutesPaths.Admin.ConsultantVerificationDetails,
     state: { meetingId },

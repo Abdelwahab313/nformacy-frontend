@@ -1,7 +1,7 @@
 import authManager from 'services/authManager';
 import {
   getEditServiceDetailsLink,
-  getMeetingDetailsPage,
+  getConsultantVerificationMeetingDetails,
   getQuestionDetails,
   getServiceDetailsLink,
 } from 'services/navigation';
@@ -35,7 +35,8 @@ const NotificationsPathCallback = {
 };
 
 const getPathForNotification = (notification) => {
-  const { type: notificationType, messageKey, targetId } = notification;
+  const { type: notificationType, messageKey, targetId, payload } = notification;
+  const serviceId = payload?.serviceId;
   const redirectCallback = NotificationsPathCallback[messageKey];
   if (!!redirectCallback) {
     return redirectCallback(targetId);
@@ -46,7 +47,10 @@ const getPathForNotification = (notification) => {
   } else if (notificationType === NOTIFICATIONS_TYPES.ServiceRequest) {
     return getServiceDetailsLink(targetId);
   } else if (notificationType === NOTIFICATIONS_TYPES.Meeting) {
-    return getMeetingDetailsPage(targetId);
+    if (!!serviceId) {
+      return getServiceDetailsLink(serviceId);
+    }
+    return getConsultantVerificationMeetingDetails(targetId);
   }
   else if (notificationType === NOTIFICATIONS_TYPES.Answers) {
     if (authManager.isNormalUser()) {
