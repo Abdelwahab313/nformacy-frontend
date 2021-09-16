@@ -121,6 +121,9 @@ const useStyles = makeStyles((theme) => ({
   active: {
     color: darkOrange,
   },
+  notificationMobile: {
+    width: 50,
+  },
 }));
 
 export default useStyles;

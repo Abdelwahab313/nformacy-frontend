@@ -96,6 +96,7 @@ const BasicInfo = () => {
           defaultValue={!user.current.email && ''}
           autoComplete='email'
           error={!!errors.email}
+          disabled={true}
         />
         <ErrorMessage errorField={errors.email} />
       </Container>

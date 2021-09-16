@@ -6,8 +6,10 @@ import LoadingCircle from '../../../components/progress/LoadingCircle';
 import NotificationCard from '../../../components/notificationCard/NotificationCard';
 import authManager from 'services/authManager';
 import { NotificationsProvider } from 'hooks/notifications/context';
+import { makeStyles } from '@material-ui/styles';
 
 const AllNotifications = () => {
+  const classes = useStyles();
   const { isLoading, data } = useQuery(
     'allNotifications',
     fetchAllNotifications,
@@ -16,7 +18,7 @@ const AllNotifications = () => {
     return <LoadingCircle />;
   }
   return (
-    <Grid container id='allNotifications'>
+    <Grid container id='allNotifications' className={classes.allNotifications}>
       {data?.notifications?.map((notification) => (
         <NotificationCard
           notification={notification}
@@ -38,4 +40,7 @@ const WithNotification = (props) => {
   );
 };
 
+const useStyles = makeStyles({
+  allNotifications: { margin: 50 },
+});
 export default WithNotification;

@@ -133,7 +133,6 @@ const dropdownStyle = (theme) => ({
     backgroundColor: 'rgba(' + hexToRgb(overlayColor) + ', 0.50)',
     fontSize: '13px',
     padding: '10px 20px',
-    margin: '0 5px',
     borderRadius: '2px',
     WebkitTransition: 'all 150ms linear',
     MozTransition: 'all 150ms linear',
@@ -153,6 +152,11 @@ const dropdownStyle = (theme) => ({
       '& $unread': {
         color: 'rgba(' + hexToRgb(theme.palette.primary.main) + ', 0.80)',
       },
+    },
+  },
+  notificationsItemsMobile: {
+    [theme.breakpoints.down('md')]: {
+      overflowX: 'scroll',
     },
   },
   noHoverMenuItem: {

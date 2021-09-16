@@ -17,9 +17,9 @@ const NotificationsIcon = ({ menuOpened, toggleMenu, closeMenu }) => {
   return (
     <Button
       id='notificationsButton'
-      color={window.innerWidth > 959 ? 'transparent' : 'white'}
-      justIcon={window.innerWidth > 959}
-      simple={!(window.innerWidth > 959)}
+      color={window.innerWidth > 319 ? 'transparent' : 'white'}
+      justIcon={window.innerWidth > 319}
+      simple={!(window.innerWidth > 319)}
       aria-owns={menuOpened ? notificationsListId : null}
       aria-haspopup='true'
       onClick={toggleMenu}
@@ -30,7 +30,7 @@ const NotificationsIcon = ({ menuOpened, toggleMenu, closeMenu }) => {
           {unreadCount}
         </span>
       )}
-      <Hidden mdUp implementation='css'>
+      <Hidden lgDown implementation='css'>
         <p onClick={closeMenu} className={classes.linkText}>
           Notification
         </p>

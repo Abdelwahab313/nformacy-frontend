@@ -41,7 +41,7 @@ const NotificationsBody = ({ closeMenu }) => {
       className={
         notification.readAt ? classes.dropdownItem : classes.unreadItem
       }>
-      <Grid container>
+      <Grid container className={classes.notificationsItemsMobile}>
         <Typography className={notificationCardStyle.notificationTextStyle}>
           <img
             src={QuestionIcon}

@@ -1,17 +1,17 @@
 import {
   defaultFont,
   dangerColor,
-  whiteColor
+  whiteColor,
 } from 'assets/jss/material-dashboard-react.js';
 
 import dropdownStyle from 'assets/jss/material-dashboard-react/dropdownStyle.js';
 import { darkBlue } from 'styles/colors';
 
-const headerLinksStyle = theme => ({
+const headerLinksStyle = (theme) => ({
   ...dropdownStyle(theme),
   search: {
     '& > div': {
-      marginTop: '0'
+      marginTop: '0',
     },
     [theme.breakpoints.down('sm')]: {
       margin: '10px 15px !important',
@@ -22,26 +22,25 @@ const headerLinksStyle = theme => ({
       width: '60%',
       marginTop: '40px',
       '& input': {
-        color: whiteColor
-      }
-    }
+        color: whiteColor,
+      },
+    },
   },
   linkText: {
     zIndex: '4',
     ...defaultFont,
     fontSize: '14px',
-    margin: '0px'
+    margin: '0px',
   },
   buttonLink: {
     [theme.breakpoints.down('sm')]: {
       display: 'flex',
-      margin: '10px 15px 0',
       width: '-webkit-fill-available',
       '& svg': {
         width: '24px',
         height: '30px',
         marginRight: '15px',
-        marginLeft: '-15px'
+        marginLeft: '-15px',
       },
       '& .fab,& .fas,& .far,& .fal,& .material-icons': {
         fontSize: '24px',
@@ -49,28 +48,27 @@ const headerLinksStyle = theme => ({
         width: '24px',
         height: '30px',
         marginRight: '15px',
-        marginLeft: '-15px'
+        marginLeft: '-15px',
       },
       '& > span': {
         justifyContent: 'flex-start',
-        width: '100%'
-      }
-    }
+        width: '100%',
+      },
+    },
   },
   searchButton: {
     [theme.breakpoints.down('sm')]: {
       top: '-50px !important',
       marginRight: '22px',
-      float: 'right'
-    }
+      float: 'right',
+    },
   },
   margin: {
-    zIndex: '4',
-    margin: '0'
+    margin: '0',
   },
   searchIcon: {
     width: '17px',
-    zIndex: '4'
+    zIndex: '4',
   },
   notifications: {
     zIndex: '4',
@@ -88,33 +86,33 @@ const headerLinksStyle = theme => ({
       textAlign: 'center',
       lineHeight: '16px',
       verticalAlign: 'middle',
-      display: 'block'
+      display: 'block',
     },
     [theme.breakpoints.down('sm')]: {
       ...defaultFont,
       fontSize: '14px',
-      marginRight: '8px'
-    }
+      marginRight: '8px',
+    },
   },
   manager: {
     [theme.breakpoints.down('sm')]: {
-      width: '100%'
+      width: '100%',
     },
-    display: 'inline-block'
+    display: 'inline-block',
   },
   searchWrapper: {
     [theme.breakpoints.down('sm')]: {
       width: '-webkit-fill-available',
-      margin: '10px 15px 0'
+      margin: '10px 15px 0',
     },
-    display: 'inline-block'
+    display: 'inline-block',
   },
   username: {
     display: 'inline-block',
     color: darkBlue,
     fontWeight: 'bold',
     [theme.breakpoints.down('sm')]: {
-      display: 'none'
+      display: 'none',
     },
   },
 });

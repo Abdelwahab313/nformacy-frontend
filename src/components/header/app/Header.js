@@ -150,15 +150,15 @@ export default function MainHeader() {
                 </IconButton>
               </Box>
             ) : (
-                <Box>
-                  <SubmitButton
-                    id={'LoginBtn'}
-                    onClick={() => history.push(RoutesPaths.App.Login)}
-                    className={classes.orangeCtaBtn}
-                    buttonText={'login'}
-                  />
-                </Box>
-              )}
+              <Box>
+                <SubmitButton
+                  id={'LoginBtn'}
+                  onClick={() => history.push(RoutesPaths.App.Login)}
+                  className={classes.orangeCtaBtn}
+                  buttonText={'login'}
+                />
+              </Box>
+            )}
             <Button
               id={'switchLang'}
               color={'primary'}
@@ -169,6 +169,13 @@ export default function MainHeader() {
           </div>
           {authToken && (
             <div className={classes.sectionMobile}>
+              <IconButton
+                aria-label='show 17 new notifications'
+                className= {classes.notificationMobile}
+                color='inherit'>
+                <Notifications />
+              </IconButton>
+
               <IconButton
                 aria-label='show more'
                 aria-controls={menuId}

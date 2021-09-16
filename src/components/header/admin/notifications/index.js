@@ -48,7 +48,7 @@ const Notifications = () => {
         disablePortal
         className={classNames({
           [classes.popperClose]: !menuOpened,
-          [classes.popperNav]: true,
+          [classes.popperNav]: false,
           [headerClasses.notificationMenu]: true,
         })}>
         {({ TransitionProps, placement }) => {
