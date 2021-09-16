@@ -68,17 +68,8 @@ const getColumnsOptions = (classes, t) => {
       label: t('fieldsAssigned'),
       options: {
         ...defaultColumnOption,
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: 'subFields',
-      label: t('subFields'),
-      options: {
-        ...defaultColumnOption,
-        filter: true,
-        sort: true,
+        filter: false,
+        sort: false,
       },
     },
     {

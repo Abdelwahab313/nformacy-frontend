@@ -36,7 +36,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
 
   const questionLocale = LANGUAGES_LOCALES_MAPPER[questionDetails.language];
   const fixedTranslation = i18n.getFixedT(questionLocale);
-
+  const hasSubmittedAnswer = questionDetails?.answersCount > 0;
   function handleEditClick() {
     history.push(RoutesPaths.App.AnswerQuestion, { questionDetails });
   }
@@ -163,13 +163,24 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
                 md={2}
                 xs={2}
                 className={classes.answerButtonContainer}>
-                <SubmitButton
-                  className={classes.submitButton}
-                  id={`question-${questionDetails.referenceNumber}-submit`}
-                  onClick={() => handleEditClick()}
-                  buttonText={fixedTranslation('questionRoaster:answer')}
-                  disabled={false}
-                />
+                {hasSubmittedAnswer ? (
+                  <SubmitButton
+                    className={classes.submitButton}
+                    id={`question-${questionDetails.referenceNumber}-view-answer`}
+                    onClick={() => handleEditClick()}
+                    color={'secondary'}
+                    buttonText={fixedTranslation('questionRoaster:viewAnswer')}
+                    disabled={false}
+                  />
+                ) : (
+                  <SubmitButton
+                    className={classes.submitButton}
+                    id={`question-${questionDetails.referenceNumber}-submit`}
+                    onClick={() => handleEditClick()}
+                    buttonText={fixedTranslation('questionRoaster:answer')}
+                    disabled={false}
+                  />
+                )}
               </Grid>
             )}
           </Grid>
