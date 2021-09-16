@@ -17,6 +17,7 @@ class Notification {
       messageKey: notification.message_key,
       messageParameters: camelizeKeys(notification.message_parameters),
       createdAt: notification.created_at,
+      payload: notification.payload,
       type: notification.type,
       readAt: notification.read_at || null,
     };
