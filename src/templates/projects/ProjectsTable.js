@@ -26,13 +26,9 @@ const getColumnsOptions = (classes, t) => {
     ),
   };
 
-
   const generateLinkText = (projectId, value, cb) => {
-    return <LinkText to={cb(projectId || value)}>
-      {value}
-    </LinkText>;
+    return <LinkText to={cb(projectId || value)}>{value}</LinkText>;
   };
-
 
   const getProjectId = (tableMeta) => {
     return tableMeta.rowData[0];
@@ -76,7 +72,7 @@ const getColumnsOptions = (classes, t) => {
       options: {
         ...defaultColumnOption,
         filter: false,
-        sort: false
+        sort: false,
       },
     },
     {
@@ -108,8 +104,12 @@ const getColumnsOptions = (classes, t) => {
         sort: true,
         customBodyRender: (value, tableMeta) => {
           const projectId = getProjectId(tableMeta);
-          return generateLinkText(projectId, value, getProjectBeneficiariesList);
-        }
+          return generateLinkText(
+            projectId,
+            value,
+            getProjectBeneficiariesList,
+          );
+        },
       },
     },
     {
@@ -120,7 +120,7 @@ const getColumnsOptions = (classes, t) => {
         filter: true,
         customBodyRender: (value) => {
           return <ProjectSettingEnabledCheck checked={value === CHECKED} />;
-        }
+        },
       },
     },
     {
@@ -131,7 +131,7 @@ const getColumnsOptions = (classes, t) => {
         filter: true,
         customBodyRender: (value) => {
           return <ProjectSettingEnabledCheck checked={value === CHECKED} />;
-        }
+        },
       },
     },
     {
@@ -142,7 +142,7 @@ const getColumnsOptions = (classes, t) => {
         filter: true,
         customBodyRender: (value) => {
           return <ProjectSettingEnabledCheck checked={value === CHECKED} />;
-        }
+        },
       },
     },
     {
@@ -153,7 +153,7 @@ const getColumnsOptions = (classes, t) => {
         filter: true,
         customBodyRender: (value) => {
           return <ProjectSettingEnabledCheck checked={value === CHECKED} />;
-        }
+        },
       },
     },
   ];
@@ -164,8 +164,6 @@ const getColumnsOptions = (classes, t) => {
 const ProjectSettingEnabledCheck = ({ checked }) => {
   return <CheckBox checked={checked} disabled />;
 };
-
-
 
 const parseProjectsTableData = (projects) => {
   return projects?.map((project) => ({
@@ -179,13 +177,13 @@ const parseProjectsTableData = (projects) => {
     consultantsCount: project.consultantsCount,
     beneficiariesCount: project.beneficiariesCount,
     askEnabled: project?.askSettings?.isEnabled ? CHECKED : NOT_CHECKED,
-    mentoringEnabled: project?.mentorSettings?.isEnabled ? CHECKED : NOT_CHECKED,
+    mentoringEnabled: project?.mentorSettings?.isEnabled
+      ? CHECKED
+      : NOT_CHECKED,
     assignEnabled: project?.hireSettings?.isEnabled ? CHECKED : NOT_CHECKED,
     callEnabled: project?.callSettings?.isEnabled ? CHECKED : NOT_CHECKED,
   }));
 };
-
-
 
 const ProjectsTable = ({ projects }) => {
   const classes = useStyles();
