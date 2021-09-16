@@ -12,5 +12,9 @@
   "answer_rejected": "Answer #{{referenceNumber}} Rejected",
   "submitted_to_admin": "Service submitted to admin",
   "returned_back_to_client": "Service returned back to client",
-  "question_started": "Question Started"
+  "question_started": "Question Started",
+  "meeting_reminder": "Meeting Reminder",
+  "meeting_scheduled": "Meeting Scheduled",
+  "consultant_verification_meeting_scheduled": "Consultant Verification Meeting Scheduled",
+  "consultant_verification_meeting_reminder": "Consultant Verification Meeting Reminder"
 }
