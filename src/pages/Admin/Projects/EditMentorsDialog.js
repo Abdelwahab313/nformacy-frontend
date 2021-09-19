@@ -1,5 +1,11 @@
-import React from 'react';
-import { Paper } from '@material-ui/core';
+import React, { useState } from 'react';
+import {
+  Dialog,
+  Grid,
+  Paper,
+  DialogContent,
+  DialogActions,
+} from '@material-ui/core';
 import { TableContainer } from '@material-ui/core';
 import { TableHead } from '@material-ui/core';
 import { TableRow } from '@material-ui/core';
@@ -15,11 +21,15 @@ import ReactSelectMaterialUi from 'react-select-material-ui';
 import { selectStyle } from 'styles/formsStyles';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import useFetchData from 'hooks/useFetchData';
+import Transition from 'components/animations/Transition';
 import {
+  addMentors,
   fetchProjectBeneficiaries,
   fetchProjectConsultants,
 } from 'apis/projectsAPI';
 import useLocationState from 'hooks/useLocationState';
+import { useSnackBar } from 'context/SnackBarContext';
+import SubmitButton from 'components/buttons/SubmitButton';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -44,7 +54,10 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-const EditMentorsDialog = ({ onSelectConsultant }) => {
+const EditMentorsDialog = ({ handleClose, isOpened }) => {
+  const [mentors, setMentors] = useState([]);
+  const { showSuccessMessage } = useSnackBar();
+
   const { t } = useTranslation();
   const classes = useStyles();
   const projectId = useLocationState((state) => state?.projectId);
@@ -56,6 +69,22 @@ const EditMentorsDialog = ({ onSelectConsultant }) => {
   const { fetchedData: consultants } = useFetchData(() => {
     return fetchProjectConsultants(projectId);
   });
+
+  const handleSubmit = () => {
+    addMentors(projectId, mentors).then(() => {
+      showSuccessMessage(t('Mentors Added Successfully!'));
+      handleClose();
+    });
+  };
+
+  const onSelectConsultant = (beneficiaryId, consultantId) => {
+    setMentors((prevMentors) => [
+      ...prevMentors.filter(
+        (beneficiaryId) => mentors.beneficiaryId !== beneficiaryId,
+      ),
+      { beneficiaryId, consultantId },
+    ]);
+  };
 
   const parseClientsToTableRows = (clients) => {
     return clients?.map((client) => ({
@@ -82,58 +111,90 @@ const EditMentorsDialog = ({ onSelectConsultant }) => {
   }
 
   return (
-    <TableContainer component={Paper} className={classes.tableContainer}>
-      <Table stickyHeader aria-label='My Activity Table'>
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>{t('beneficiaryFirstName')}</StyledTableCell>
-            <StyledTableCell>{t('beneficiaryLastName')}</StyledTableCell>
-            <StyledTableCell>{t('organizationName')}</StyledTableCell>
-            <StyledTableCell className={classes.desktopVisible}>
-              {t('consultantName')}
-            </StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {servicesRows.length === 0 ? (
-            <TableCell colspan='8' className={classes.noRecords}>
-              Sorry, no matching records found
-            </TableCell>
-          ) : (
-            servicesRows.map((client) => (
-              <StyledTableRow
-                reference-number={client.RefNumber}
-                key={client.id}>
-                <StyledTableCell scope='row'>
-                  {client.firstName}
-                </StyledTableCell>
-                <StyledTableCell scope='row'>{client.lastName}</StyledTableCell>
-                <StyledTableCell>{client.organizationName}</StyledTableCell>
-                <StyledTableCell className={classes.desktopVisible}>
-                  <FormControl fullWidth id='project-manager-select'>
-                    <ReactSelectMaterialUi
-                      fullWidth={true}
-                      placeholder={'Select Mentor'}
-                      SelectProps={{
-                        styles: selectStyle,
-                      }}
-                      options={consultants.map((consultant) => {
-                        var consultantName = {
-                          value: consultant.id,
-                          label: `${consultant.firstName} ${consultant.lastName}`,
-                        };
-                        return consultantName;
-                      })}
-                      onChange={(value) => onSelectConsultant(client.id, value)}
-                    />
-                  </FormControl>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))
-          )}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Dialog
+      TransitionComponent={Transition}
+      maxWidth='lg'
+      PaperProps={{ id: 'fieldsOfSpecializationDialog' }}
+      onClose={handleClose}
+      open={isOpened}>
+      <DialogContent className={classes.mentorsDialogContainer}>
+        <Grid container>
+          <Grid item md={12} className={classes.activityTable}>
+            <TableContainer
+              component={Paper}
+              className={classes.tableContainer}>
+              <Table stickyHeader aria-label='My Activity Table'>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>
+                      {t('beneficiaryFirstName')}
+                    </StyledTableCell>
+                    <StyledTableCell>
+                      {t('beneficiaryLastName')}
+                    </StyledTableCell>
+                    <StyledTableCell>{t('organizationName')}</StyledTableCell>
+                    <StyledTableCell className={classes.desktopVisible}>
+                      {t('consultantName')}
+                    </StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {servicesRows.length === 0 ? (
+                    <TableCell colspan='8' className={classes.noRecords}>
+                      Sorry, no matching records found
+                    </TableCell>
+                  ) : (
+                    servicesRows.map((client) => (
+                      <StyledTableRow
+                        reference-number={client.RefNumber}
+                        key={client.id}>
+                        <StyledTableCell scope='row'>
+                          {client.firstName}
+                        </StyledTableCell>
+                        <StyledTableCell scope='row'>
+                          {client.lastName}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {client.organizationName}
+                        </StyledTableCell>
+                        <StyledTableCell className={classes.desktopVisible}>
+                          <FormControl fullWidth id='project-manager-select'>
+                            <ReactSelectMaterialUi
+                              fullWidth={true}
+                              placeholder={'Select Mentor'}
+                              SelectProps={{
+                                styles: selectStyle,
+                              }}
+                              options={consultants.map((consultant) => {
+                                var consultantName = {
+                                  value: consultant.id,
+                                  label: `${consultant.firstName} ${consultant.lastName}`,
+                                };
+                                return consultantName;
+                              })}
+                              onChange={(value) =>
+                                onSelectConsultant(client.id, value)
+                              }
+                            />
+                          </FormControl>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Grid>
+        </Grid>
+      </DialogContent>
+      <DialogActions>
+        <SubmitButton
+          onClick={handleSubmit}
+          color='primary'
+          buttonText={'Submit'}
+        />
+      </DialogActions>
+    </Dialog>
   );
 };
 

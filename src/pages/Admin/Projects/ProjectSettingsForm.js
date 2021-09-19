@@ -6,7 +6,7 @@ import CardBody from 'components/card/CardBody';
 import { useStyles } from 'styles/Admin/questionFormStyles';
 import TextField from '@material-ui/core/TextField';
 import CardFooter from 'components/card/CardFooter';
-import { Checkbox, FormControlLabel, Grid } from '@material-ui/core';
+import { Checkbox, FormControlLabel } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import FormControl from '@material-ui/core/FormControl';
 import ReactSelectMaterialUi from 'react-select-material-ui';
@@ -17,16 +17,8 @@ import { useHistory } from 'react-router';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import CustomTypography from 'components/typography/Typography';
-import { Dialog } from '@material-ui/core';
-import { DialogContent } from '@material-ui/core';
-import Transition from 'components/animations/Transition';
-import { DialogActions } from '@material-ui/core';
 import EditMentorsDialog from './EditMentorsDialog';
-import {
-  addMentors,
-  fetchProjectSettings,
-  submitProjectSettings,
-} from 'apis/projectsAPI';
+import { fetchProjectSettings, submitProjectSettings } from 'apis/projectsAPI';
 import { useSnackBar } from 'context/SnackBarContext';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import useLocationState from 'hooks/useLocationState';
@@ -79,7 +71,7 @@ const ProjectSettingsForm = () => {
         return projectSettings[serviceKey]?.isEnabled;
       },
     );
-    if (!Object.values(projectSettings).some((val) => val.isEnabled === true)) {
+    if (!Object.values(projectSettings).some((val) => !!val?.isEnabled)) {
       showErrorMessage(t('settingsRequired'));
       return false;
     } else {
@@ -345,12 +337,10 @@ const SettingRow = ({
   );
 };
 
-const MentorsSetting = ({ projectId }) => {
+const MentorsSetting = ({}) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const [mentors, setMentors] = useState([]);
-  const { showSuccessMessage } = useSnackBar();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -359,45 +349,9 @@ const MentorsSetting = ({ projectId }) => {
     setOpen(false);
   };
 
-  const onSelectConsultant = (beneficiaryId, consultantId) => {
-    setMentors((prevMentors) => [
-      ...prevMentors.filter(
-        (beneficiaryId) => mentors.beneficiaryId !== beneficiaryId,
-      ),
-      { beneficiaryId, consultantId },
-    ]);
-  };
-
-  const handleSubmit = () => {
-    addMentors(projectId, mentors).then(() => {
-      showSuccessMessage(t('Mentors Added Successfully!'));
-      handleClose();
-    });
-  };
-
   return (
     <>
-      <Dialog
-        TransitionComponent={Transition}
-        maxWidth='lg'
-        PaperProps={{ id: 'fieldsOfSpecializationDialog' }}
-        onClose={handleClose}
-        open={open}>
-        <DialogContent className={classes.mentorsDialogContainer}>
-          <Grid container>
-            <Grid item md={12} className={classes.activityTable}>
-              <EditMentorsDialog onSelectConsultant={onSelectConsultant} />
-            </Grid>
-          </Grid>
-        </DialogContent>
-        <DialogActions>
-          <SubmitButton
-            onClick={handleSubmit}
-            color='primary'
-            buttonText={'Submit'}
-          />
-        </DialogActions>
-      </Dialog>
+      <EditMentorsDialog isOpened={open} handleClose={handleClose} />
 
       <CustomTypography
         color='primary'

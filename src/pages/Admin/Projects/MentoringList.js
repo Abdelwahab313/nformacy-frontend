@@ -4,9 +4,6 @@ import { Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import SubmitButton from 'components/buttons/SubmitButton';
 import CustomTypography from 'components/typography/Typography';
-import { Dialog } from '@material-ui/core';
-import { DialogContent } from '@material-ui/core';
-import Transition from 'components/animations/Transition';
 import { Paper } from '@material-ui/core';
 import { TableContainer } from '@material-ui/core';
 import { TableHead } from '@material-ui/core';
@@ -15,7 +12,6 @@ import { withStyles } from '@material-ui/core';
 import { TableCell } from '@material-ui/core';
 import { TableBody } from '@material-ui/core';
 import { Table } from '@material-ui/core';
-import { DialogActions } from '@material-ui/core';
 import EditMentorsDialog from './EditMentorsDialog';
 import useLocationState from 'hooks/useLocationState';
 import useFetchData from 'hooks/useFetchData';
@@ -95,27 +91,8 @@ const MentoringList = () => {
 
   return (
     <>
-      <Dialog
-        TransitionComponent={Transition}
-        maxWidth='lg'
-        PaperProps={{ id: 'fieldsOfSpecializationDialog' }}
-        onClose={handleClose}
-        open={open}>
-        <DialogContent className={classes.mentorsDialogContainer}>
-          <Grid container>
-            <Grid item md={12} className={classes.activityTable}>
-              <EditMentorsDialog />
-            </Grid>
-          </Grid>
-        </DialogContent>
-        <DialogActions>
-          <SubmitButton
-            onClick={handleClose}
-            color='primary'
-            buttonText={'Submit'}
-          />
-        </DialogActions>
-      </Dialog>
+      <EditMentorsDialog isOpened={open} handleClose={handleClose} />
+
       <Grid container>
         <Grid item md={12} className={classes.activityTable}>
           <TableContainer component={Paper} className={classes.tableContainer}>
