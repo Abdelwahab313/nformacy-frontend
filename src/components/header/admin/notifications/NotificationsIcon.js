@@ -30,7 +30,7 @@ const NotificationsIcon = ({ menuOpened, toggleMenu, closeMenu }) => {
           {unreadCount}
         </span>
       )}
-      <Hidden lgDown implementation='css'>
+      <Hidden lgDown lgUp implementation='css'>
         <p onClick={closeMenu} className={classes.linkText}>
           Notification
         </p>
