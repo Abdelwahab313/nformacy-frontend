@@ -7,7 +7,10 @@ import authManager from 'services/authManager';
 import { Chip } from '@material-ui/core';
 import FieldsChips from 'components/chips/FieldsChips';
 import LinkText from 'components/typography/LinkText';
-import { getClientDetails, getEditServiceDetailsLink } from 'services/navigation';
+import {
+  getClientProfileDetails,
+  getEditServiceDetailsLink,
+} from 'services/navigation';
 import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 
 const getColumnsOptions = (classes, t) => {
@@ -113,20 +116,21 @@ const parseClientsTableData = (services) => {
       </div>
     )),
     fields: <FieldsChips fields={client.fields} />,
-    userId:
-      <LinkText to={getClientDetails(client.userId)}>
+    userId: (
+      <LinkText to={getClientProfileDetails(client.userId)}>
         {client.userId}
-      </LinkText>,
-    createdAt:
+      </LinkText>
+    ),
+    createdAt: (
       <Fragment>
-        {formattedDateMonthAndDay(
-          new Date(client.createdAt),
-        )}
-      </Fragment>,
-    serviceRef:
+        {formattedDateMonthAndDay(new Date(client.createdAt))}
+      </Fragment>
+    ),
+    serviceRef: (
       <LinkText to={getEditServiceDetailsLink(client.serviceId)}>
         {client.serviceRef}
-      </LinkText>,
+      </LinkText>
+    ),
   }));
 };
 
