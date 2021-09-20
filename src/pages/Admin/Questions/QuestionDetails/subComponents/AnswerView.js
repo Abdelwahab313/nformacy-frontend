@@ -1,5 +1,4 @@
 import Typography from '@material-ui/core/Typography';
-import Chip from '@material-ui/core/Chip';
 import React, { Fragment } from 'react';
 import GridContainer from 'components/grid/GridContainer';
 import GridItem from 'components/grid/GridItem';
@@ -30,6 +29,7 @@ import { getConsultantDetails } from 'services/navigation';
 import LinkText from 'components/typography/LinkText';
 import AnswerGuardian from 'core/guardians/AnswerGuardian';
 import { IS_Nformacy_APP } from 'settings';
+import AttachmentsChips from 'components/chips/AttachmentsChips';
 
 const AnswerView = ({
   answer,
@@ -134,16 +134,7 @@ const AnswerView = ({
             </Grid>
           </GridItem>
           <GridItem xs={12} className={classes.answerRowStyles}>
-            {answer.attachments?.map((attachment) => (
-              <Chip
-                className={classes.answerAttachment}
-                size='small'
-                label={attachment.filename}
-                onClick={() => {
-                  window.open(attachment.url, '_blank');
-                }}
-              />
-            ))}
+            <AttachmentsChips attachments={answer.attachments} />
           </GridItem>
           {answerState == 'accepted' && !!answer.rating && showShortListOption && (
             <GridItem xs={12} className={classes.answerRowStyles}>

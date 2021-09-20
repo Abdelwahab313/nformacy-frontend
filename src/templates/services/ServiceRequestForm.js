@@ -25,6 +25,7 @@ import authManager from 'services/authManager';
 import AttachmentUploader from 'components/forms/AttachmentUploader';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import ErrorMessage from 'components/errors/ErrorMessage';
+import AttachmentsChips from 'components/chips/AttachmentsChips';
 
 const useSelectStyles = makeStyles(() => ({
   disabledStyle: {
@@ -249,24 +250,27 @@ const ServiceRequestForm = ({
         </GridContainer>
       </CardBody>
       <CardFooter className={classes.footerButtons}>
-        {serviceRequest.assignmentType === 'call' &&
-          authManager.isClient() &&
-          !noActionForm && (
-            <Grid item xs={6}>
-              <AttachmentUploader
-                attachments={serviceRequest.attachments}
-                attachmentsGroupsId={serviceRequest.attachmentsGroupsId}
-                setAttachmentsGroupsId={(attachmentsGroupsId) => {
-                  onChangeField('attachmentsGroupsId', attachmentsGroupsId);
-                }}
-              />
-            </Grid>
-          )}
+        {authManager.isClient() && !noActionForm && (
+          <Grid item xs={6}>
+            <AttachmentUploader
+              attachments={serviceRequest.attachments}
+              attachmentsGroupsId={serviceRequest.attachmentsGroupsId}
+              setAttachmentsGroupsId={(attachmentsGroupsId) => {
+                onChangeField('attachmentsGroupsId', attachmentsGroupsId);
+              }}
+            />
+          </Grid>
+        )}
         {!noActionForm && (
           <ActionButtonsContainer
             primaryButton={primaryButton}
             secondaryButton={secondaryButton}
           />
+        )}
+        {noActionForm && (
+          <Grid item xs={12}>
+            <AttachmentsChips attachments={serviceRequest.attachments} />
+          </Grid>
         )}
       </CardFooter>
     </Fragment>
