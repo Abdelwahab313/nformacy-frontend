@@ -20,14 +20,12 @@ const SERVICE_STATUS = {
   pendingMentorAvailability: 'consultant_update_time',
   callScheduled: 'call_scheduled',
   callFinished: 'call_finished',
-  callRemembered: 'call_remembered',
   closed: 'closed',
 };
 
 const MEETING_STATUS = {
   callScheduled: 'call_scheduled',
   callFinished: 'call_finished',
-  callRemembered: 'call_remembered'
 };
 
 const EDITABLE_SERVICE_STATUS = [
@@ -189,17 +187,6 @@ const meetingStatusActions = {
     action: {
       client: 'client_callScheduled_action',
       freelancer: 'client_callScheduled_action',
-    },
-  },
-  [MEETING_STATUS.callRemembered]: {
-    status: {
-      client: 'client_callRemembered_status',
-      freelancer: 'client_callRemembered_status',
-      admin: 'admin_callFinished_status',
-    },
-    action: {
-      client: 'client_callRemembered_action',
-      freelancer: 'client_callRemembered_action',
     },
   },
   [MEETING_STATUS.callFinished]: {
