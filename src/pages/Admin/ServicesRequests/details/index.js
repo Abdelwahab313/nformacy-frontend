@@ -34,8 +34,8 @@ const ServiceDetails = () => {
   const location = useLocation();
 
   let history = useHistory();
-  const navigatToDashboard = () => {
-    history.push(RoutesPaths.Admin.Services);
+  const navigatToBeneficiaryView = () => {
+    history.goBack();
   };
 
   const navigateToQuestionDetails = (questionId) => {
@@ -43,6 +43,7 @@ const ServiceDetails = () => {
   };
 
   const serviceId = location?.state?.service?.serviceId;
+
   const [isLoading, setIsLoading] = useState(false);
   const isNewService = !serviceId;
   const { t } = useTranslation();
@@ -71,7 +72,7 @@ const ServiceDetails = () => {
       returnToClient(serviceId, serviceRequest.comment)
         .then(() => {
           showSuccessMessage(t('commentSubmitted'));
-          navigatToDashboard();
+          navigatToBeneficiaryView();
         })
         .catch(() => {});
     }
