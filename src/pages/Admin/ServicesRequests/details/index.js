@@ -34,7 +34,7 @@ const ServiceDetails = () => {
   const location = useLocation();
 
   let history = useHistory();
-  const navigatToBeneficiaryView = () => {
+  const navigateBack = () => {
     history.goBack();
   };
 
@@ -72,7 +72,7 @@ const ServiceDetails = () => {
       returnToClient(serviceId, serviceRequest.comment)
         .then(() => {
           showSuccessMessage(t('commentSubmitted'));
-          navigatToBeneficiaryView();
+          navigateBack();
         })
         .catch(() => {});
     }
