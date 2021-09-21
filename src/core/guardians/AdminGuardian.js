@@ -22,6 +22,14 @@ class AdminGuardianClass extends GuardianBase {
     );
   }
 
+  showProjectsPanel() {
+    return this.isSuperAdmin();
+  }
+
+  showProjectManagersPanel() {
+    return this.isSuperAdmin();
+  }
+
   showClientsPanel() {
     return this.isSuperAdmin() || this.hasClientsManagementsRole();
   }
@@ -32,7 +40,7 @@ class AdminGuardianClass extends GuardianBase {
 
   showAdvisersPanel() {
     // TODO return this temporariy after show how will the product will be
-    return false
+    return false;
     // return this.isSuperAdmin() || this.hasAdvisorsManagementsRole();
   }
 }

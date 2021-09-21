@@ -92,7 +92,7 @@ const adminRoutes = [
     name: 'Projects',
     icon: BubbleChart,
     component: ProjectsList,
-    hasDashboardLink: true,
+    hasDashboardLink: AdminGuardian.showProjectsPanel(),
   },
   {
     path: RoutesPaths.Admin.Clients,
@@ -232,7 +232,7 @@ const adminRoutes = [
     name: 'Project Managers',
     icon: PeopleIcon,
     component: ProjectManagersList,
-    hasDashboardLink: true,
+    hasDashboardLink: AdminGuardian.showProjectManagersPanel(),
   },
   {
     path: RoutesPaths.Admin.AddProjectManager,
