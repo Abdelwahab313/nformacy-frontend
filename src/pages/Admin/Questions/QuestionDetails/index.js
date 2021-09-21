@@ -8,13 +8,13 @@ import { fetchQuestionDetails } from 'apis/questionsAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import QuestionForm from './subComponents/QuestionForm';
 import { useStyles } from 'styles/Admin/questionFormStyles';
-import authManager from 'services/authManager';
 import { QuestionProvider, useQuestionContext } from './context';
 import { Typography, Grid } from '@material-ui/core';
 import { updateQuestionDetails } from './context/questionAction';
 import AnswersContainer from './subComponents/AnswersContainer';
 import { getServiceDetailsLink } from 'services/navigation';
 import LinkText from 'components/typography/LinkText';
+import QuestionGuardian from 'core/guardians/QuestionGuardian';
 
 const QuestionDetailsPage = () => {
   const classes = useStyles();
@@ -52,15 +52,18 @@ const QuestionDetailsPage = () => {
                 </Typography>
               </Grid>
               <Grid item md={6}>
-                {!!questionDetails.serviceId && (
-                  <Typography component={'h4'} id={'post-question-page-header'}>
+                {!!questionDetails.serviceId &&
+                  QuestionGuardian.canAccessRelatedService() && (
                     <LinkText
                       to={getServiceDetailsLink(questionDetails.serviceId)}
                       className={classes.relatedService}>
-                      {authManager.isAdmin() && 'Related Service'}
+                      <Typography
+                        component={'h4'}
+                        id={'post-question-page-header'}>
+                        {'Related Service'}
+                      </Typography>
                     </LinkText>
-                  </Typography>
-                )}
+                  )}
               </Grid>
             </Grid>
           </CardHeader>

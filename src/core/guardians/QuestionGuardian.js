@@ -37,13 +37,19 @@ class QuestionGuardianClass extends GuardianBase {
   }
 
   canUploadAttachment(questionDetails) {
-    if (this.isEditiableQuestion(questionDetails) || questionDetails.state === QUESTION_STATUS.pendingDeploymentToRoaster) {
+    if (
+      this.isEditiableQuestion(questionDetails) ||
+      questionDetails.state === QUESTION_STATUS.pendingDeploymentToRoaster
+    ) {
       return this.canManageQuestion();
     }
   }
 
   canUploadThumbnail(questionDetails) {
-    if (this.isEditiableQuestion(questionDetails) || questionDetails.state === QUESTION_STATUS.pendingDeploymentToRoaster) {
+    if (
+      this.isEditiableQuestion(questionDetails) ||
+      questionDetails.state === QUESTION_STATUS.pendingDeploymentToRoaster
+    ) {
       return this.canManageQuestion();
     }
   }
@@ -56,6 +62,10 @@ class QuestionGuardianClass extends GuardianBase {
 
   canCreateNewQuestion() {
     return this.canManageQuestion() && !this.isAdviser();
+  }
+
+  canAccessRelatedService() {
+    return this.isSuperAdmin() || this.hasRequestsManagementsRole();
   }
 
   showApplyChangesButton(questionDetails) {
