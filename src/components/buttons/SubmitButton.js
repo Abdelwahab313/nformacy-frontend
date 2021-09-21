@@ -25,12 +25,9 @@ const SubmitButton = ({
   const [isLoadingSubmitData, setIsLoadingSubmitData] = useState(false);
 
   const wrappedOnClick = () => {
-    if (isPromise(onClick)) {
-      setIsLoadingSubmitData(true);
-      onClick().finally(() => setIsLoadingSubmitData(false));
-    } else {
-      onClick();
-    }
+    setIsLoadingSubmitData(true);
+
+    Promise.resolve(onClick()).then(() => setIsLoadingSubmitData(false));
   };
 
   return (
@@ -46,19 +43,5 @@ const SubmitButton = ({
     </Button>
   );
 };
-
-/**
- * Determine whether the given `promise` is a Promise.
- *
- * @param {*} promise
- *
- * @returns {Boolean}
- */
-function isPromise(promise) {
-  return (
-    (!!promise && typeof promise.then === 'function') ||
-    promise?.constructor?.name === 'AsyncFunction'
-  );
-}
 
 export default SubmitButton;
