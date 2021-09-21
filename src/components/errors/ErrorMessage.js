@@ -1,9 +1,13 @@
+import { makeStyles } from '@material-ui/core';
+import clsx from 'clsx';
 import React from 'react';
 
 const ErrorMessage = ({ errorField, className }) => {
+  const classes = useStyles();
+
   if (!!errorField) {
     return (
-      <span style={{ color: 'red' }} className={className}>
+      <span className={clsx(classes.errorSpan, className)}>
         {errorField.message}
       </span>
     );
@@ -11,5 +15,12 @@ const ErrorMessage = ({ errorField, className }) => {
     return null;
   }
 };
+
+const useStyles = makeStyles(() => ({
+  errorSpan: {
+    color: 'red',
+    display: 'inline-block',
+  },
+}));
 
 export default ErrorMessage;
