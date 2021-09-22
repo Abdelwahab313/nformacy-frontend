@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { FormContext, useForm } from 'react-hook-form';
 import { saveButtonStyle, useStyles } from 'styles/formsStyles';
-import { updateUser } from 'pages/auth/context/authActions';
-import { useAuth } from 'pages/auth/context/auth';
 import { updateProfile, updateProfilePicture } from 'apis/userAPI';
 import BeneficiaryBasicInfo from './BeneficiaryBasicInfo';
 
@@ -11,21 +9,22 @@ const BeneficiaryProfileDetailsForm = ({
   client,
   closeDialog,
   setProfilePic,
+  setClient,
 }) => {
   const formMethod = useForm({
     defaultValues: { ...client },
   });
   const [avatar, setAvatar] = useState([]);
-  const [, dispatch] = useAuth();
 
   const classes = useStyles();
+
   const onSubmitBasicInfo = (userData) => {
     const userToBeSubmitted = {
       ...userData,
       id: client.id,
     };
     updateProfile(userToBeSubmitted, client.id).then((response) => {
-      updateUser(dispatch, response.data);
+      setClient(response.data);
     });
     if (avatar.length > 0) {
       const file = new Blob(avatar);
@@ -33,7 +32,7 @@ const BeneficiaryProfileDetailsForm = ({
       formData.append('avatar', file, avatar[0].name);
 
       updateProfilePicture(formData, client.id).then((response) => {
-        updateUser(dispatch, response.data);
+        setClient(response.data);
         if (response.data.avatar) {
           setProfilePic(response.data.avatar);
         }

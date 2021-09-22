@@ -59,6 +59,7 @@ const ClientInfo = () => {
           <Grid container>
             <BeneficiaryProfileDetailsForm
               client={client}
+              setClient={setClient}
               closeDialog={handleClose}
             />
           </Grid>
