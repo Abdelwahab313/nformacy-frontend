@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dialog,
   Grid,
@@ -26,6 +26,7 @@ import {
   addMentors,
   fetchProjectBeneficiaries,
   fetchProjectConsultants,
+  fetchProjectMentors,
 } from 'apis/projectsAPI';
 import useLocationState from 'hooks/useLocationState';
 import { useSnackBar } from 'context/SnackBarContext';
@@ -54,13 +55,21 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-const EditMentorsDialog = ({ handleClose, isOpened }) => {
+const EditMentorsDialog = ({ handleClose, isOpened, setProjectMentors }) => {
   const [mentors, setMentors] = useState([]);
   const { showSuccessMessage } = useSnackBar();
 
   const { t } = useTranslation();
   const classes = useStyles();
   const projectId = useLocationState((state) => state?.projectId);
+
+  useEffect(() => {
+    if (!!projectId) {
+      fetchProjectMentors(projectId).then((response) => {
+        setMentors(response.data);
+      });
+    }
+  }, [isOpened]);
 
   const { fetchedData: clients, isLoading } = useFetchData(() => {
     return fetchProjectBeneficiaries(projectId);
@@ -71,22 +80,28 @@ const EditMentorsDialog = ({ handleClose, isOpened }) => {
   });
 
   const handleSubmit = () => {
-    addMentors(projectId, mentors).then(() => {
+    addMentors(projectId, mentors).then((response) => {
       showSuccessMessage(t('Mentors Added Successfully!'));
+      !!setProjectMentors && setProjectMentors(response.data);
       handleClose();
     });
   };
 
   const onSelectConsultant = (beneficiaryId, consultantId) => {
-    setMentors((prevMentors) => [
-      ...prevMentors.filter(
-        (beneficiaryId) => mentors.beneficiaryId !== beneficiaryId,
-      ),
-      { beneficiaryId, consultantId },
-    ]);
+    setMentors((prevMentors) => {
+      const existingMentorIndex = prevMentors.findIndex(
+        (mentor) => mentor.beneficiaryId === beneficiaryId,
+      );
+      if (existingMentorIndex < 0) {
+        return [...prevMentors, { beneficiaryId, consultantId }];
+      } else {
+        prevMentors[existingMentorIndex]['consultantId'] = consultantId;
+        return [...prevMentors];
+      }
+    });
   };
 
-  const parseClientsToTableRows = (clients) => {
+  const parseBeneficiariesToTableRows = (clients) => {
     return clients?.map((client) => ({
       ...client,
       firstName: (
@@ -104,7 +119,7 @@ const EditMentorsDialog = ({ handleClose, isOpened }) => {
       ),
     }));
   };
-  const servicesRows = parseClientsToTableRows(clients, t);
+  const availableBeneficiaries = parseBeneficiariesToTableRows(clients, t);
 
   if (isLoading) {
     return <LoadingCircle />;
@@ -134,17 +149,17 @@ const EditMentorsDialog = ({ handleClose, isOpened }) => {
                     </StyledTableCell>
                     <StyledTableCell>{t('organizationName')}</StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
-                      {t('consultantName')}
+                      {t('consultantEmail')}
                     </StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {servicesRows.length === 0 ? (
+                  {availableBeneficiaries.length === 0 ? (
                     <TableCell colspan='8' className={classes.noRecords}>
                       Sorry, no matching records found
                     </TableCell>
                   ) : (
-                    servicesRows.map((client) => (
+                    availableBeneficiaries.map((client) => (
                       <StyledTableRow
                         reference-number={client.RefNumber}
                         key={client.id}>
@@ -165,12 +180,18 @@ const EditMentorsDialog = ({ handleClose, isOpened }) => {
                               SelectProps={{
                                 styles: selectStyle,
                               }}
+                              value={
+                                mentors.find(
+                                  (mentor) =>
+                                    mentor?.beneficiaryId === client?.id,
+                                )?.consultantId || ''
+                              }
                               options={consultants.map((consultant) => {
-                                var consultantName = {
+                                var consultantOption = {
                                   value: consultant.id,
-                                  label: `${consultant.firstName} ${consultant.lastName}`,
+                                  label: consultant.email,
                                 };
-                                return consultantName;
+                                return consultantOption;
                               })}
                               onChange={(value) =>
                                 onSelectConsultant(client.id, value)

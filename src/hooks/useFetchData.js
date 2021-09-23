@@ -40,6 +40,7 @@ const useFetchData = (fetchApi) => {
   return {
     isLoading,
     fetchedData,
+    setFetchedData,
     errorMessage,
   };
 };

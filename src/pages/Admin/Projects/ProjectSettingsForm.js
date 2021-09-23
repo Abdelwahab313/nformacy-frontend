@@ -249,7 +249,7 @@ const SettingRow = ({
             shrink: true,
           }}
           variant='outlined'
-          value={serviceSetting?.amount}
+          value={serviceKey === 'mentorSettings' ? 1 : serviceSetting?.amount}
           onChange={(e) => {
             let input = e.target.value;
             if (
@@ -260,6 +260,7 @@ const SettingRow = ({
               onChangeField('amount', e.target.value);
           }}
           error={errors?.amount}
+          disabled={serviceKey === 'mentorSettings'}
           inputProps={{ min: '1' }}
         />
         <ErrorMessage

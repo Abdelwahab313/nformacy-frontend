@@ -47,7 +47,7 @@ const MentoringList = () => {
   const [open, setOpen] = useState(false);
   const projectId = useLocationState((state) => state?.projectId);
 
-  const { fetchedData: projectMentors, isLoading } = useFetchData(() =>
+  const { fetchedData: projectMentors, setFetchedData: setProjectMentors, isLoading } = useFetchData(() =>
     fetchProjectMentors(projectId),
   );
 
@@ -91,7 +91,7 @@ const MentoringList = () => {
 
   return (
     <>
-      <EditMentorsDialog isOpened={open} handleClose={handleClose} />
+      <EditMentorsDialog isOpened={open} handleClose={handleClose} setProjectMentors={setProjectMentors} />
 
       <Grid container>
         <Grid item md={12} className={classes.activityTable}>
@@ -103,7 +103,7 @@ const MentoringList = () => {
                   <StyledTableCell>{t('beneficiaryLastName')}</StyledTableCell>
                   <StyledTableCell>{t('organizationName')}</StyledTableCell>
                   <StyledTableCell className={classes.desktopVisible}>
-                    {t('consultantName')}
+                    {t('consultantEmail')}
                   </StyledTableCell>
                 </TableRow>
               </TableHead>
