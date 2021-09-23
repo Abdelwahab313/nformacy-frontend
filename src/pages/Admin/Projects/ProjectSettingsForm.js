@@ -78,7 +78,8 @@ const ProjectSettingsForm = () => {
       enabledSettingKey.forEach((serviceKey) => {
         const settingRowErrors = {};
         const settingRow = projectSettings[serviceKey];
-        const isValidAmount = !!settingRow.amount;
+        const isValidAmount =
+          !!settingRow.amount || serviceKey === 'mentorSettings';
         if (!isValidAmount) {
           settingRowErrors['amount'] = {
             message: t('requiredAmount'),
@@ -300,6 +301,7 @@ const SettingRow = ({
             label={t['startDate']}
             value={serviceSetting?.startDate || null}
             onChange={(date) => onChangeField('startDate', date)}
+            minDate={new Date()}
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}
@@ -323,7 +325,7 @@ const SettingRow = ({
             label={t['endDate']}
             value={serviceSetting?.endDate || null}
             onChange={(date) => onChangeField('endDate', date)}
-            minDate={serviceSetting?.endDate}
+            minDate={serviceSetting?.startDate}
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}
