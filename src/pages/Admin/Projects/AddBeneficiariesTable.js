@@ -5,34 +5,64 @@ import Grid from '@material-ui/core/Grid';
 import { useStyles } from 'styles/Admin/questionTableStyles';
 import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
-import { getConsultantLevel, getUserCountryLabel } from 'core/user';
+import { getUserCountryLabel } from 'core/user';
 import Checkbox from '@material-ui/core/Checkbox';
 import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
 
-export const getBeneficiaryState = (user) => {
-  const stateStrings = {
-    1: 'Registration',
-    2: 'full profile',
-    3: 'interview',
-  };
-  const level = getConsultantLevel(user);
-  return stateStrings[level] || 'Active';
-};
+const CHECKED = 'yes';
+const NOT_CHECKED = 'no';
 
-const getColumnsOptions = (classes, t) => {
+const getColumnsOptions = (classes, t, setBeneficiaryIds) => {
   const defaultColumnOption = {
     customHeadLabelRender: ({ label }) => (
       <Grid className={classes.columnHeader}>{label}</Grid>
     ),
   };
 
+  const getId = (tableMeta) => {
+    return tableMeta.rowData[0];
+  };
+
   const columns = [
+    {
+      name: 'id',
+      label: t('projectNumber'),
+      options: {
+        ...defaultColumnOption,
+        display: false,
+        filter: false,
+      },
+    },
     {
       name: 'checked',
       label: t('checked'),
       options: {
         ...defaultColumnOption,
         filter: true,
+        customBodyRender: (value, tableMeta) => {
+          const currentBeneficiaryId = getId(tableMeta);
+          return (
+            <Checkbox
+              color='primary'
+              checked={value === CHECKED}
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setBeneficiaryIds((prevBeneficiaryIds) => [
+                    ...prevBeneficiaryIds,
+                    currentBeneficiaryId,
+                  ]);
+                } else {
+                  setBeneficiaryIds((prevBeneficiaryIds) => [
+                    ...prevBeneficiaryIds.filter(
+                      (beneficiaryId) => beneficiaryId !== currentBeneficiaryId,
+                    ),
+                  ]);
+                }
+              }}
+              inputProps={{ 'aria-label': 'secondary checkbox' }}
+            />
+          );
+        },
       },
     },
     {
@@ -67,7 +97,7 @@ const getColumnsOptions = (classes, t) => {
       label: t('fieldsAssigned'),
       options: {
         ...defaultColumnOption,
-        filter: true,
+        filter: false,
       },
     },
     {
@@ -83,38 +113,12 @@ const getColumnsOptions = (classes, t) => {
   return columns;
 };
 
-const parseBeneficiariesTableData = (
-  beneficiaries,
-  beneficiaryIds,
-  setBeneficiaryIds,
-) => {
+const parseBeneficiariesTableData = (beneficiaries, beneficiaryIds) => {
   return beneficiaries?.map((beneficiary) => ({
     ...beneficiary,
-    state: getBeneficiaryState(beneficiary),
     country: getUserCountryLabel(beneficiary.country),
     fields: <ColoredFieldsChips fields={beneficiary.fields} />,
-    // TODO: handle onChange in checkbox
-    checked: (
-      <Checkbox
-        color='primary'
-        checked={beneficiaryIds?.includes(beneficiary.id)}
-        onChange={(e) => {
-          if (e.target.checked) {
-            setBeneficiaryIds((prevBeneficiaryId) => [
-              ...prevBeneficiaryId,
-              beneficiary.id,
-            ]);
-          } else {
-            setBeneficiaryIds((prevBeneficiaryId) => [
-              ...prevBeneficiaryId.filter(
-                (beneficiaryId) => beneficiaryId !== beneficiary.id,
-              ),
-            ]);
-          }
-        }}
-        inputProps={{ 'aria-label': 'secondary checkbox' }}
-      />
-    ),
+    checked: beneficiaryIds?.includes(beneficiary.id) ? CHECKED : NOT_CHECKED,
   }));
 };
 
@@ -125,11 +129,10 @@ const AddBeneficiariesTable = ({
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const columns = getColumnsOptions(classes, t);
+  const columns = getColumnsOptions(classes, t, setBeneficiaryIds);
   const beneficiariesRows = parseBeneficiariesTableData(
     beneficiaries,
     beneficiaryIds,
-    setBeneficiaryIds,
   );
   const tableOptions = {
     filterType: 'checkbox',
