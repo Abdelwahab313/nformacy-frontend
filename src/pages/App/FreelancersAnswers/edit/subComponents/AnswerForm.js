@@ -45,22 +45,26 @@ const AnswerForm = ({ questionId, savedAnswer }) => {
     return true;
   };
 
-  const saveAndCompleteLater = () => {
-    submitAnswer({ ...answerDetails, state: ANSWER_STATUS.draft }).then(() => {
-      showSuccessMessage(t('answerSaved'));
-      history.push(RoutesPaths.App.Questions);
-    });
+  const saveAndCompleteLater = async () => {
+    return submitAnswer({ ...answerDetails, state: ANSWER_STATUS.draft }).then(
+      () => {
+        showSuccessMessage(t('answerSaved'));
+        history.push(RoutesPaths.App.Questions);
+      },
+    );
   };
 
-  const onSubmitAnswer = () => {
+  const onSubmitAnswer = async () => {
     if (!!validate()) {
       const initialAnswerState = IS_Nformacy_APP
         ? ANSWER_STATUS.pending
         : ANSWER_STATUS.accepted;
-      submitAnswer({ ...answerDetails, state: initialAnswerState }).then(() => {
-        showSuccessMessage(t('answerSubmitted'));
-        history.push(RoutesPaths.App.Questions);
-      });
+      return submitAnswer({ ...answerDetails, state: initialAnswerState }).then(
+        () => {
+          showSuccessMessage(t('answerSubmitted'));
+          history.push(RoutesPaths.App.Questions);
+        },
+      );
     }
   };
 
@@ -91,16 +95,12 @@ const AnswerForm = ({ questionId, savedAnswer }) => {
           <ActionButtonsContainer
             primaryButton={{
               id: 'submitAnswer',
-              onClick: () => {
-                onSubmitAnswer();
-              },
+              onClick: onSubmitAnswer,
               buttonText: t('submit'),
             }}
             secondaryButton={{
               id: 'saveAndCompleteLaterButton',
-              onClick: () => {
-                saveAndCompleteLater();
-              },
+              onClick: saveAndCompleteLater,
               buttonText: t('saveAndCompleteLater'),
             }}
           />
