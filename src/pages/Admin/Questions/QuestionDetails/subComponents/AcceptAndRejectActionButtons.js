@@ -4,17 +4,23 @@ import RegularButton from 'components/buttons/RegularButton';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles((theme) => ({
   rejectButton: {
     fontSize: '0.972vw',
     height: '40px',
     borderRadius: '9px',
+    [theme.breakpoints.down('md')]: {
+      fontSize: 10,
+    },
   },
   acceptButton: {
     marginLeft: '10px',
     fontSize: '0.972vw',
     height: '40px',
     borderRadius: '9px',
+    [theme.breakpoints.down('md')]: {
+      fontSize: 10,
+    },
   },
 }));
 
