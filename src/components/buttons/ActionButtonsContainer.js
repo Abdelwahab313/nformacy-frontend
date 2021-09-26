@@ -28,14 +28,20 @@ const ActionButtonsContainer = ({ primaryButton, secondaryButton = {} }) => {
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   buttonsContainer: {
     flexBasis: '100%',
     textAlign: 'right',
     maxWidth: '100%',
+    [theme.breakpoints.down('xs')]: {
+      display: 'inline-flex',
+    },
   },
   buttonMargin: {
     marginRight: '10px',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: 9,
+    },
   },
 }));
 
