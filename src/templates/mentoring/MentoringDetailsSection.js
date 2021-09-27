@@ -11,6 +11,8 @@ import { useHistory } from 'react-router';
 import { scheduleMeetingWithFreelancer } from 'apis/meetingsAPI';
 import Card from 'components/card/Card';
 import CardHeader from 'components/card/CardHeader';
+import authManager from 'services/authManager';
+import AvailableTimesCalendarDialog from 'components/calendarDialogs/AvailableTimes/AvailableTimesCalendarDialog';
 
 const MentoringDetailsSection = ({ serviceDetails }) => {
   const classes = useStyles();
@@ -21,18 +23,22 @@ const MentoringDetailsSection = ({ serviceDetails }) => {
   const history = useHistory();
   const serviceId = serviceDetails?.id;
   const consultant = serviceDetails?.mentoring?.consultant;
-  // const beneficiary = serviceDetails?.mentoring?.consultant;
+  const beneficiary = serviceDetails?.mentoring?.beneficiary;
   const closeCalendar = () => {
     setShowCalendar(false);
   };
 
   const onSubmitDate = (selectedTime) => {
-    scheduleMeetingWithFreelancer(serviceId, selectedTime, consultant.id).then(() => {
-      showSuccessMessage(
-        `Meeting has been scheduled successfully with ${getUserName(consultant)}`,
-      );
-      history.push(RoutesPaths.App.Dashboard);
-    });
+    scheduleMeetingWithFreelancer(serviceId, selectedTime, consultant.id).then(
+      () => {
+        showSuccessMessage(
+          `Meeting has been scheduled successfully with ${getUserName(
+            consultant,
+          )}`,
+        );
+        history.push(RoutesPaths.App.Dashboard);
+      },
+    );
     closeCalendar();
   };
 
@@ -54,25 +60,45 @@ const MentoringDetailsSection = ({ serviceDetails }) => {
           <Grid container alignItems='center' justify='center'>
             <Grid item xs={12} md={3}>
               <Box className={'shortlistedConsultants'}>
-                <CandidateItem
-                  bgcolor={lighterPink}
-                  candidate={consultant}
-                  isFocused={true}
-                  setFocusedCandidate={() => {}}
-                  onCandidateClick={() => {
-                    setShowCalendar(true);
-                  }}
-                  buttonText={t('bookAMeeting')}
-                />
+                {authManager.isNormalUser() ? (
+                  <CandidateItem
+                    bgcolor={lighterPink}
+                    candidate={beneficiary}
+                    isFocused={true}
+                    setFocusedCandidate={() => {}}
+                    onCandidateClick={() => {
+                      setShowCalendar(true);
+                    }}
+                    buttonText={t('update availability')}
+                  />
+                ) : (
+                  <CandidateItem
+                    bgcolor={lighterPink}
+                    candidate={consultant}
+                    isFocused={true}
+                    setFocusedCandidate={() => {}}
+                    onCandidateClick={() => {
+                      setShowCalendar(true);
+                    }}
+                    buttonText={t('bookAMeeting')}
+                  />
+                )}
               </Box>
             </Grid>
           </Grid>
-          <MeetingTimeSelectorCalendarDialog
-            open={showCalendar}
-            onClose={closeCalendar}
-            onSubmitDate={onSubmitDate}
-            candidate={consultant}
-          />
+          {authManager.isNormalUser() ? (
+            <AvailableTimesCalendarDialog
+              open={showCalendar}
+              closeDialog={closeCalendar}
+            />
+          ) : (
+            <MeetingTimeSelectorCalendarDialog
+              open={showCalendar}
+              onClose={closeCalendar}
+              onSubmitDate={onSubmitDate}
+              candidate={consultant}
+            />
+          )}
         </Grid>
       </Card>
     </Fragment>
