@@ -176,7 +176,7 @@ const adminRoutes = [
     name: 'Consultant Verification',
     icon: BusinessCenterIcon,
     component: ConsultantVerificationsList,
-    hasDashboardLink: IS_Nformacy_APP,
+    hasDashboardLink: AdminGuardian.showConsultantsVerificationsPanel(),
   },
   {
     path: RoutesPaths.Admin.ConsultantVerificationForm,

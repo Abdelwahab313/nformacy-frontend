@@ -67,6 +67,15 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
+      name: 'email',
+      label: t('email'),
+      options: {
+        ...defaultColumnOption,
+        filter: false,
+        sort: true,
+      },
+    },
+    {
       name: 'organizationName',
       label: t('organization'),
       options: {

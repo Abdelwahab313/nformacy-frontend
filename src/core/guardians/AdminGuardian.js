@@ -1,4 +1,5 @@
 import authManager from 'services/authManager';
+import { IS_Nformacy_APP } from 'settings';
 import GuardianBase from './GuardianBase';
 
 class AdminGuardianClass extends GuardianBase {
@@ -36,6 +37,13 @@ class AdminGuardianClass extends GuardianBase {
 
   showConsultantsPanel() {
     return this.isSuperAdmin() || this.hasConsultantsManagementsRole();
+  }
+
+  showConsultantsVerificationsPanel() {
+    return (
+      IS_Nformacy_APP &&
+      (this.isSuperAdmin() || this.hasConsultantsManagementsRole())
+    );
   }
 
   showAdvisersPanel() {
