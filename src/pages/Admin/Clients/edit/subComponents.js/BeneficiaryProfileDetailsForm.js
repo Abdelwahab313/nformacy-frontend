@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { FormContext, useForm } from 'react-hook-form';
 import { saveButtonStyle, useStyles } from 'styles/formsStyles';
-import { updateProfile } from 'apis/userAPI';
+import { updateClient } from 'apis/clientsAPI';
 import BeneficiaryBasicInfo from './BeneficiaryBasicInfo';
 
 const BeneficiaryProfileDetailsForm = ({ client, closeDialog, setClient }) => {
@@ -17,7 +17,7 @@ const BeneficiaryProfileDetailsForm = ({ client, closeDialog, setClient }) => {
       ...userData,
       id: client.id,
     };
-    updateProfile(userToBeSubmitted, client.id).then((response) => {
+    updateClient(userToBeSubmitted).then((response) => {
       setClient(response.data);
     });
     client = { ...client, ...userData };
