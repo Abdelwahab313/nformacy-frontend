@@ -5,6 +5,7 @@ export const useHeaderStyles = makeStyles((theme) => ({
     zIndex: '1',
     height: '100vh',
     overflowY: 'auto',
+    transform: 'translate3d(-186px, 60px, 0px) !important',
     [theme.breakpoints.down('md')]: {
       maxWidth: 275,
     },
