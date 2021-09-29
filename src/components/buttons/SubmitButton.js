@@ -27,7 +27,7 @@ const SubmitButton = ({
   const wrappedOnClick = () => {
     setIsLoadingSubmitData(true);
 
-    Promise.resolve(onClick()).then(() => setIsLoadingSubmitData(false));
+    Promise.resolve(onClick?.()).then(() => setIsLoadingSubmitData(false));
   };
 
   return (
