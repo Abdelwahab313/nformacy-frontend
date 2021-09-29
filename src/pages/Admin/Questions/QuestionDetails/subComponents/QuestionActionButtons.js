@@ -40,7 +40,7 @@ const QuestionActionButtons = ({
   const onAcceptAssignment = () => {
     acceptAssignment(questionDetails.id).then((response) => {
       updateQuestionDetails(dispatch, {
-        ...questionDetails,
+        ...response.data,
         state: response.data?.state,
         createdAt: humanizedTimeSpan(questionDetails.createdAt),
       });
@@ -50,7 +50,7 @@ const QuestionActionButtons = ({
 
   const onRejectAssignment = () => {
     rejectAssignment(questionDetails.id).then((response) => {
-      updateQuestionDetails(dispatch, response.data);
+      updateQuestionDetails(dispatch, { ...response.data });
       navigatToDashboard();
     });
   };
@@ -159,7 +159,7 @@ const QuestionActionButtons = ({
     questionDetails?.state === QUESTION_STATUS.pendingAdviserAcceptance
   ) {
     return (
-      <Grid item xs={6} >
+      <Grid item xs={6}>
         <AcceptAndRejectActionButtons
           acceptButtonProps={{
             id: 'acceptButton',
