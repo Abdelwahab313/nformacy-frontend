@@ -11,7 +11,7 @@ const RollbackQuestionButton = ({ serviceId }) => {
   const classes = useStyles();
   const { showSuccessMessage, showErrorMessage } = useSnackBar();
 
-  const onConfirmAction = () => {
+  const onConfirmAction = async () => {
     return rollbackQuestion(serviceId)
       .then(() => {
         showSuccessMessage(t('questionDeleted'));

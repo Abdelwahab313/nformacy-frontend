@@ -20,8 +20,8 @@ const ConfirmActionButton = ({
     setIsConfirmDialogOpened(false);
   };
 
-  const onAgree = () => {
-    onConfirmAction().then(() => {
+  const onAgree = async () => {
+    return onConfirmAction().then(() => {
       closeDialog();
     });
   };
@@ -30,9 +30,8 @@ const ConfirmActionButton = ({
     <>
       <SubmitButton
         id={buttonId}
-        onClick={() => onButtonClicked()}
+        onClick={onButtonClicked}
         color='secondary'
-        
         className={buttonClassName}
         buttonText={buttonText}
       />

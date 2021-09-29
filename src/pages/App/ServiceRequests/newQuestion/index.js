@@ -84,9 +84,7 @@ const NewQuestion = () => {
               errors={errors}
               primaryButton={{
                 id: 'submitQuestionButtonButton',
-                onClick: () => {
-                  handleSubmit();
-                },
+                onClick: handleSubmit,
                 buttonText: t('submitQuestionButton'),
               }}
             />

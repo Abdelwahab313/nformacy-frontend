@@ -15,7 +15,7 @@ const ProjectSettingsPage = () => {
             <GridContainer>
               <GridItem md={6} xs={6}>
                 <CustomTypography component={'h4'}>
-                  {'solutions'}
+                  {'Solutions'}
                 </CustomTypography>
               </GridItem>
             </GridContainer>

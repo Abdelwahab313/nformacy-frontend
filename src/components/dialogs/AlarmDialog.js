@@ -8,6 +8,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@material-ui/core';
+import SubmitButton from 'components/buttons/SubmitButton';
 
 const AlarmDialog = ({
   open,
@@ -32,9 +33,12 @@ const AlarmDialog = ({
         <Button onClick={onCancel} id='cancelBack' color='primary'>
           {t('cancel')}
         </Button>
-        <Button onClick={onAccept} color='primary' id='confirmBack'>
-          {t('confirm')}
-        </Button>
+        <SubmitButton
+          onClick={onAccept}
+          color='primary'
+          id='confirmBack'
+          buttonText={t('confirm')}
+        />
       </DialogActions>
     </Dialog>
   );

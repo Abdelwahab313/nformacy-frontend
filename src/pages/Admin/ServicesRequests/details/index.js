@@ -57,8 +57,8 @@ const ServiceDetails = () => {
     return true;
   };
 
-  const handleGenerateQuestion = () => {
-    generateQuestion(serviceId)
+  const handleGenerateQuestion = async () => {
+    return generateQuestion(serviceId)
       .then((response) => {
         const createdQuestionId = response.data.id;
         navigateToQuestionDetails(createdQuestionId);
@@ -67,9 +67,9 @@ const ServiceDetails = () => {
       .catch(() => {});
   };
 
-  const handleReturnToClient = () => {
+  const handleReturnToClient = async () => {
     if (!!validate(serviceRequest)) {
-      returnToClient(serviceId, serviceRequest.comment)
+      return returnToClient(serviceId, serviceRequest.comment)
         .then(() => {
           showSuccessMessage(t('commentSubmitted'));
           navigateBack();
@@ -140,17 +140,13 @@ const ServiceDetails = () => {
             viewOnly
             primaryButton={{
               id: 'generateQuestionButton',
-              onClick: () => {
-                handleGenerateQuestion();
-              },
+              onClick: handleGenerateQuestion,
               buttonText: 'Generate Question',
             }}
             secondaryButton={{
               id: 'returnToClientButton',
               buttonText: 'Return to Client',
-              onClick: () => {
-                handleReturnToClient();
-              },
+              onClick: handleReturnToClient,
             }}
           />
         </Card>

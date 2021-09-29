@@ -88,7 +88,7 @@ const EditServiceRequest = () => {
     navigatToDashboard();
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!!validate(serviceRequest)) {
       if (ServiceManager.shouldDeployQuestionDirectly(serviceRequest)) {
         return addQuestionToRoaster(serviceRequest).then(() => {
@@ -103,8 +103,8 @@ const EditServiceRequest = () => {
       }
     }
   };
-  const handleSaveForLater = () => {
-    createOrUpdateService({ ...serviceRequest, state: 'draft' })
+  const handleSaveForLater = async () => {
+    return createOrUpdateService({ ...serviceRequest, state: 'draft' })
       .then(() => {
         afterSaveCallback();
       })
@@ -132,9 +132,7 @@ const EditServiceRequest = () => {
                 ServiceGuardian.showApplyChangesButton(serviceRequest)
                   ? {
                       id: 'submitQuestionButtonButton',
-                      onClick: () => {
-                        handleSubmit();
-                      },
+                      onClick: handleSubmit,
                       buttonText: showDrafButtons
                         ? t('submitQuestionButton')
                         : t('applyChange'),
@@ -145,9 +143,7 @@ const EditServiceRequest = () => {
                 showDrafButtons
                   ? {
                       id: 'saveAndCompleteLaterButton',
-                      onClick: () => {
-                        handleSaveForLater();
-                      },
+                      onClick: handleSaveForLater,
                       buttonText: t('saveAndCompleteLater'),
                     }
                   : {}
