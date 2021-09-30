@@ -48,7 +48,7 @@ const BasicInfoSection = () => {
       </Dialog>
       <Paper className={classes.paperSection} elevation={3}>
         <Grid container justify={'space-between'}>
-          <Grid item xs={1} className={classes.paperSectionHeaderStyles}/>
+          <Grid item xs={1} className={classes.paperSectionHeaderStyles} />
           <Grid item xs={10} className={classes.paperSectionHeaderStyles}>
             <Typography gutterBottom className={classes.sectionHeaderStyles}>
               {t['basicInformation']}
@@ -59,11 +59,11 @@ const BasicInfoSection = () => {
               aria-label='edit'
               id='editBasicInfo'
               onClick={handleClickOpen}>
-              <EditIcon color={'primary'}/>
+              <EditIcon color={'primary'} />
             </IconButton>
           </Grid>
         </Grid>
-        <Divider variant='middle' style={dividerStyle}/>
+        <Divider variant='middle' style={dividerStyle} />
         <Grid
           container
           spacing={5}
@@ -128,7 +128,11 @@ const BasicInfoSection = () => {
                   id='shortNameValue'
                   gutterBottom
                   className={classes.fieldValueStyles}>
-                  {user.current.firstName ? user.current.firstName.split('')[0] + ' ' + user.current.lastName : ''}
+                  {user.current.firstName
+                    ? user.current.firstName.split('')[0] +
+                      ' ' +
+                      user.current.lastName
+                    : ''}
                 </Typography>
               </Grid>
             </Grid>

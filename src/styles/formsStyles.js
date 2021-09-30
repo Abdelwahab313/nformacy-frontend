@@ -516,6 +516,8 @@ export const useStyles = makeStyles((theme) => ({
   centeredText: {
     [theme.breakpoints.down('md')]: {
       margin: '0 auto',
+      float: 'right',
+      overflowX: 'scroll',
     },
   },
   profileURLMobile: {

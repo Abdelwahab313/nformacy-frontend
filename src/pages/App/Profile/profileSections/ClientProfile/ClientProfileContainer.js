@@ -15,7 +15,12 @@ const ClientProfileContainer = () => {
       <Paper className={classes.paperSection} elevation={3}>
         <Grid container justify={'space-between'}>
           <Grid item xs={12} className={classes.paperSectionHeaderStyles}>
-            <Typography gutterBottom className={[classes.sectionHeaderStyles, classes.personalInfoHeader]} >
+            <Typography
+              gutterBottom
+              className={[
+                classes.sectionHeaderStyles,
+                classes.personalInfoHeader,
+              ]}>
               {t['basicInformation']}
             </Typography>
           </Grid>

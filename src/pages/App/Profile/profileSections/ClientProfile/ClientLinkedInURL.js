@@ -1,5 +1,12 @@
 import React, { Fragment, useState, useRef } from 'react';
-import { Box, Grid, Typography, IconButton, Dialog, DialogContent } from '@material-ui/core';
+import {
+  Box,
+  Grid,
+  Typography,
+  IconButton,
+  Dialog,
+  DialogContent,
+} from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import { useStyles } from '../../../../../styles/formsStyles';
 import Transition from 'components/animations/Transition';
@@ -27,10 +34,7 @@ const ClientLinkedInURL = () => {
         open={open}>
         <DialogContent>
           <Grid container>
-            <ClientProfileDetailsForm
-              user={user}
-              closeDialog={handleClose}
-            />
+            <ClientProfileDetailsForm user={user} closeDialog={handleClose} />
           </Grid>
         </DialogContent>
       </Dialog>
@@ -43,7 +47,8 @@ const ClientLinkedInURL = () => {
               {t['linkedInProfileUrl']}
             </Typography>
           </Grid>
-          <Grid item xs={6} md={8} className={classes.linkedLinkMobile}>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={6} className={classes.linkedLinkMobile}>
             <Typography
               id='linkedInProfileUrlValue'
               gutterBottom
@@ -57,6 +62,7 @@ const ClientLinkedInURL = () => {
               )}
             </Typography>
           </Grid>
+          <Grid item xs={1}></Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
             <IconButton
               aria-label='edit'
@@ -67,7 +73,7 @@ const ClientLinkedInURL = () => {
           </Grid>
         </Grid>
       </Box>
-    </Fragment >
+    </Fragment>
   );
 };
 
