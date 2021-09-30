@@ -72,7 +72,9 @@ const ProjectDetails = () => {
         <Tabs
           value={selectedTab}
           onChange={handleChange}
-          aria-label='simple tabs example'>
+          variant='scrollable'
+          scrollButtons='auto'
+          aria-label='Projects Details Tabs'>
           <Tab label='Activities' {...a11yProps(0)} />
           <Tab label='Consultants' {...a11yProps(1)} />
           <Tab label='Beneficiaries' {...a11yProps(2)} />
