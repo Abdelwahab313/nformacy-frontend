@@ -33,7 +33,7 @@ const AnswerQuestion = () => {
       alignItems={'center'}
       justify={'center'}
       id={'answer-question-page'}>
-      <GridItem xs={12} sm={12} md={8}>
+      <GridItem xs={12} sm={10}>
         <BreadcrumbsCustomSeparator pageName={t('answersCount')} />
         <QuestionDetailedView questionDetails={questionDetails} />
         {isEditableanswer ? (
