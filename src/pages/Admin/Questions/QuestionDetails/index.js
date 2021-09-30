@@ -46,18 +46,19 @@ const QuestionDetailsPage = () => {
         <Card>
           <CardHeader color='primary'>
             <Grid container>
-              <Grid item md={6}>
-                <Typography component={'h4'} id={'post-question-page-header'}>
+              <Grid item xs={6}>
+                <Typography className={classes.relatedServiceHeaderText} component={'h4'} id={'post-question-page-header'}>
                   {isNewQuestion ? 'Add Question' : 'Edit Question'}
                 </Typography>
               </Grid>
-              <Grid item md={6}>
+              <Grid item xs={6}>
                 {!!questionDetails.serviceId &&
                   QuestionGuardian.canAccessRelatedService() && (
                     <LinkText
                       to={getServiceDetailsLink(questionDetails.serviceId)}
                       className={classes.relatedService}>
                       <Typography
+                        className={classes.relatedQuestioneHeaderText}
                         component={'h4'}
                         id={'post-question-page-header'}>
                         {'Related Service'}

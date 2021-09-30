@@ -104,13 +104,18 @@ const ServiceDetails = () => {
           <CardHeader color='primary'>
             <Grid container>
               <Grid item md={6} xs={6}>
-                <Typography component={'h4'} id={'post-service-page-header'}>
+                <Typography
+                  className={classes.relatedServiceHeaderText}
+                  component={'h4'}
+                  id={'post-service-page-header'}>
                   {isNewService ? 'Add Service' : 'Edit Service'}
                 </Typography>
               </Grid>
               <Grid item md={6} xs={6}>
                 {!!hasRelatedQuestion && (
-                  <Typography component={'h4'}>
+                  <Typography
+                    className={classes.relatedQuestioneHeaderText}
+                    component={'h4'}>
                     <LinkText
                       to={getQuestionDetailsLinkForAdmin(
                         serviceRequest.question.id,

@@ -206,4 +206,16 @@ export const useStyles = makeStyles((theme) => ({
   clickableTextButton: {
     cursor: 'pointer',
   },
+  relatedQuestioneHeaderText: {
+    [theme.breakpoints.down('sm')]: {
+      textAlign: 'right',
+      whiteSpace: 'nowrap',
+      fontSize: 14,
+    },
+  },
+  relatedServiceHeaderText: {
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 14,
+    },
+  },
 }));
