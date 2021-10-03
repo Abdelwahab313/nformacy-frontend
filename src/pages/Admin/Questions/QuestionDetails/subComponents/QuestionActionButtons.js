@@ -22,7 +22,6 @@ import {
   setSuccessMessage,
   updateQuestionDetails,
 } from '../context/questionAction';
-import humanizedTimeSpan from 'services/humanizedTimeSpan';
 import AcceptAndRejectActionButtons from './AcceptAndRejectActionButtons';
 import { navigatToDashboard } from 'services/navigation';
 import QuestionGuardian from 'core/guardians/QuestionGuardian';
@@ -42,7 +41,6 @@ const QuestionActionButtons = ({
       updateQuestionDetails(dispatch, {
         ...response.data,
         state: response.data?.state,
-        createdAt: humanizedTimeSpan(questionDetails.createdAt),
       });
       setSuccessMessage(dispatch, 'Question has been accepted successfully');
     });
