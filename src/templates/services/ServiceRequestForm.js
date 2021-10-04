@@ -26,6 +26,7 @@ import AttachmentUploader from 'components/forms/AttachmentUploader';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import ErrorMessage from 'components/errors/ErrorMessage';
 import AttachmentsChips from 'components/chips/AttachmentsChips';
+import ServiceManager from 'core/serviceManager';
 
 const useSelectStyles = makeStyles(() => ({
   disabledStyle: {
@@ -261,7 +262,7 @@ const ServiceRequestForm = ({
             />
           </Grid>
         )}
-        {!noActionForm && (
+        {(!noActionForm && !ServiceManager.isMentoringService(serviceRequest)) && (
           <ActionButtonsContainer
             primaryButton={primaryButton}
             secondaryButton={secondaryButton}

@@ -67,7 +67,7 @@ const JitsiCall = () => {
   };
 
   useEffect(() => {
-    importJitsiApi()
+    return importJitsiApi()
       .then((jitsiApi) => {
         setLoading(false);
         startConference(jitsiApi);
