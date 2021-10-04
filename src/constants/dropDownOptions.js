@@ -399,6 +399,7 @@ const questionTypesOfAssignmentTranslated = (t) => {
     { value: 'question', label: t('question') },
     { value: 'call', label: t('call') },
     { value: 'project', label: t('project') },
+    { value: 'mentoring', label: t('mentoring') },
   ];
 };
 

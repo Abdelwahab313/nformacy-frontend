@@ -17,7 +17,8 @@ const SERVICE_STATUS = {
   questionStarted: 'question_started',
   clientSelection: 'client_selection',
   answersCollected: 'answers_collected',
-  pendingMentorAvailability: 'consultant_update_time',
+  pendingMentorAvailability: 'pending_consultant_availability',
+  pendingCallScheduling: 'pending_call_scheduling',
   callScheduled: 'call_scheduled',
   callFinished: 'call_finished',
   closed: 'closed',
@@ -158,13 +159,6 @@ const serviceActions = {
       client: 'client_answersCollected_action',
     },
   },
-  [SERVICE_STATUS.callScheduled]: {
-    status: {
-      client: 'client_callScheduled_status',
-      admin: 'admin_callScheduled_status',
-    },
-    action: {},
-  },
   [SERVICE_STATUS.pendingMentorAvailability]: {
     status: {
       freelancer: 'client_pendingAvailability_status',
@@ -172,8 +166,26 @@ const serviceActions = {
       admin: 'client_pendingAvailability_status',
     },
     action: {
-      freelancer: 'client_pendingAvailability_status',
+      freelancer: 'client_pendingAvailability_action',
     },
+  },
+  [SERVICE_STATUS.pendingCallScheduling]: {
+    status: {
+      freelancer: 'client_pendingCallScheduling_status',
+      client: 'client_pendingCallScheduling_status',
+      admin: 'client_pendingCallScheduling_status',
+    },
+    action: {
+      client: 'client_pendingCallScheduling_action',
+    },
+  },
+  [SERVICE_STATUS.callScheduled]: {
+    status: {
+      freelancer: 'client_callScheduled_status',
+      client: 'client_callScheduled_status',
+      admin: 'admin_callScheduled_status',
+    },
+    action: {},
   },
 };
 
