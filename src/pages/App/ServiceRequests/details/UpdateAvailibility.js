@@ -4,11 +4,9 @@ import Chip from '@material-ui/core/Chip';
 import { withStyles } from '@material-ui/core/styles';
 import SubmitCalendarAvailabilityForMeetingDialog from 'components/calendarDialogs/AvailableTimes/SubmitCalendarAvailabilityForMeetingDialog';
 
-const UpdateAvailability = ({ status, actionNeeded }) => {
+const UpdateAvailability = ({ status, serviceId, actionNeeded }) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const { t } = useTranslation();
-
-  const serviceId = 1;
 
   const openCalendar = () => {
     setShowCalendar(true);

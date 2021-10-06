@@ -251,9 +251,12 @@ const AvailableTimesCalendarDialog = ({
                 cancelDateForm={cancelDateForm}
               />
             )}
+          </Grid>
+          <Grid container>
             {!IS_Nformacy_APP && !!showSubmitButton && (
               <Grid item xs={12}>
                 <SubmitButton
+                  className={classes.submitAvailabilityBtn}
                   onClick={() => onSubmitCallback()}
                   color='primary'
                   buttonText={'confirm availability'}
@@ -293,6 +296,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       float: 'right',
     },
+  },
+  submitAvailabilityBtn: {
+    float: 'right',
   },
 }));
 
