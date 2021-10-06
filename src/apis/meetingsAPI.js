@@ -29,6 +29,19 @@ const scheduleMeetingForCallService = (serviceId, callTime, freelancerId) => {
   }).then((response) => camelizeKeys(response));
 };
 
+const scheduleMeetingForMentoringService = (serviceId, callTime, freelancerId) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/meetings/book_call`,
+    data: decamelizeKeys({
+      callType: 'mentoring_service',
+      serviceId,
+      callTime,
+      freelancerId,
+    }),
+  }).then((response) => camelizeKeys(response));
+};
+
 const scheduleMeetingWithFreelancer = (serviceId, callTime, freelancerId) => {
   return axios({
     method: 'post',
@@ -77,6 +90,7 @@ export {
   fetchScheduledMeetings,
   fetchAdminMeetings,
   scheduleMeetingForCallService,
+  scheduleMeetingForMentoringService,
   scheduleMeetingWithFreelancer,
   scheduleMeetingWithConsultantManager,
 };
