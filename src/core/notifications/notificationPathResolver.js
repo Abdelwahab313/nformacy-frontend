@@ -10,6 +10,7 @@ const NOTIFICATIONS_TYPES = {
   Question: 'QuestionNotification',
   Answers: 'AnswerNotification',
   ServiceRequest: 'ServiceRequestNotification',
+  MentorshipServiceRequest: 'MentorshipServiceNotification',
   Meeting: 'MeetingNotification'
 };
 
@@ -37,6 +38,7 @@ const NotificationsPathCallback = {
 const getPathForNotification = (notification) => {
   const { type: notificationType, messageKey, targetId, payload } = notification;
   const serviceId = payload?.serviceId;
+
   const redirectCallback = NotificationsPathCallback[messageKey];
   if (!!redirectCallback) {
     return redirectCallback(targetId);
@@ -44,7 +46,7 @@ const getPathForNotification = (notification) => {
 
   if (notificationType === NOTIFICATIONS_TYPES.Question) {
     return getQuestionDetails(targetId);
-  } else if (notificationType === NOTIFICATIONS_TYPES.ServiceRequest) {
+  } else if (notificationType === NOTIFICATIONS_TYPES.ServiceRequest || notificationType === NOTIFICATIONS_TYPES.MentorshipServiceRequest) {
     return getServiceDetailsLink(targetId);
   } else if (notificationType === NOTIFICATIONS_TYPES.Meeting) {
     if (!!serviceId) {
