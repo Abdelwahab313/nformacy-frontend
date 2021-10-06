@@ -159,19 +159,13 @@ const ServiceDetails = () => {
             </GridItem>
 
             <GridItem xs={12}>
-              {meeting.state === MEETING_STATUS.callFinished ? (
+              {meeting.state === MEETING_STATUS.callFinished && (
                 <SubmitButton
                   className={classes.viewEvaluations}
                   onClick={() => {
                     handleClick();
                   }}
                   buttonText={t('viewEvaluations')}
-                />
-              ) : (
-                <SubmitButton
-                  className={classes.viewEvaluations}
-                  onClick={() => {}}
-                  buttonText={t('joinMeetingBtn')}
                 />
               )}
             </GridItem>
