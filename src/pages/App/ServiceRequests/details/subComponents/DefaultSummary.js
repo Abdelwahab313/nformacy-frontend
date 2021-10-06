@@ -11,7 +11,7 @@ const DefaultSummary = ({ candidate }) => {
 
   return (
     <Box className={classes.summaryPopupContainer}>
-      {candidate.summary.length === 0 ? (
+      {!candidate?.summary || candidate?.summary?.length === 0 ? (
         <CustomTypography variant={'body1'}>
           {getUserName(candidate) +
             t('defaultSummary') +
