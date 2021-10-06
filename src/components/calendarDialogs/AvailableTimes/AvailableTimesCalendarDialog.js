@@ -33,8 +33,15 @@ import {
   addSelectedRangeToAvailableDays,
 } from 'core/userAvailableDays';
 import CalendarLegend from '../CalendarLegend';
+import { IS_Nformacy_APP } from 'settings';
+import SubmitButton from 'components/buttons/SubmitButton';
 
-const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
+const AvailableTimesCalendarDialog = ({
+  open,
+  closeDialog,
+  onSubmitCallback,
+  showSubmitButton,
+}) => {
   const classes = useStyles();
   const [{ currentUser }, dispatch] = useAuth();
 
@@ -228,7 +235,12 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
             </Box>
           </Grid>
 
-          <Grid container direction={'column'} alignItems={'center'} sm={5} xs={12}>
+          <Grid
+            container
+            direction={'column'}
+            alignItems={'center'}
+            sm={5}
+            xs={12}>
             {!!isLoading && (
               <CircularProgress variant='indeterminate' size={50} />
             )}
@@ -238,6 +250,15 @@ const AvailableTimesCalendarDialog = ({ open, closeDialog }) => {
                 onAvailableRangeAdded={onAvailableRangeAdded}
                 cancelDateForm={cancelDateForm}
               />
+            )}
+            {!IS_Nformacy_APP && !!showSubmitButton && (
+              <Grid item xs={12}>
+                <SubmitButton
+                  onClick={() => onSubmitCallback()}
+                  color='primary'
+                  buttonText={'confirm availability'}
+                />
+              </Grid>
             )}
           </Grid>
         </Grid>
@@ -270,9 +291,9 @@ const useStyles = makeStyles((theme) => ({
   },
   closeBtnCalendar: {
     [theme.breakpoints.up('sm')]: {
-      float: 'right'
-    }
-  }
+      float: 'right',
+    },
+  },
 }));
 
 export default AvailableTimesCalendarDialog;

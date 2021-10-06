@@ -12,7 +12,7 @@ import { scheduleMeetingWithFreelancer } from 'apis/meetingsAPI';
 import Card from 'components/card/Card';
 import CardHeader from 'components/card/CardHeader';
 import authManager from 'services/authManager';
-import AvailableTimesCalendarDialog from 'components/calendarDialogs/AvailableTimes/AvailableTimesCalendarDialog';
+import SubmitCalendarAvailabilityForMeetingDialog from 'components/calendarDialogs/AvailableTimes/SubmitCalendarAvailabilityForMeetingDialog';
 
 const MentoringDetailsSection = ({ serviceDetails }) => {
   const classes = useStyles();
@@ -87,9 +87,10 @@ const MentoringDetailsSection = ({ serviceDetails }) => {
             </Grid>
           </Grid>
           {authManager.isNormalUser() ? (
-            <AvailableTimesCalendarDialog
+            <SubmitCalendarAvailabilityForMeetingDialog
               open={showCalendar}
               closeDialog={closeCalendar}
+              serviceId={serviceId}
             />
           ) : (
             <MeetingTimeSelectorCalendarDialog

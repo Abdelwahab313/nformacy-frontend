@@ -641,10 +641,12 @@
   "requiredValidEndDate": "End Date is Required!",
   "settingsRequired": "You should choose at least one service!",
   "requiredProjectManager": "Project Manager is Required!",
-  "invalidStartDate":"Invalid Start Date!",
-  "invalidEndDate":"Invalid End Date!",
-  "endDateShouldBeAfterStartDate":"End Date should be after Start Date!",
+  "invalidStartDate": "Invalid Start Date!",
+  "invalidEndDate": "Invalid End Date!",
+  "endDateShouldBeAfterStartDate": "End Date should be after Start Date!",
   "assignProjectManager": "Assign Project Manager *",
   "serviceSaveSuccessfully": "Service Saved Successfully!",
-  "beneficiariesDetails": "Beneficiaries Details"
+  "beneficiariesDetails": "Beneficiaries Details",
+  "failedSubmitAvailability": "Failed to confirm available time!",
+  "successConfirmAvailability": "Successfully confirm available time!"
 }

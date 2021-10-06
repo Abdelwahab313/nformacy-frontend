@@ -2,11 +2,14 @@ import React, { useState, Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import Chip from '@material-ui/core/Chip';
 import { withStyles } from '@material-ui/core/styles';
-import AvailableTimesCalendarDialog from 'components/calendarDialogs/AvailableTimes/AvailableTimesCalendarDialog';
+import SubmitCalendarAvailabilityForMeetingDialog from 'components/calendarDialogs/AvailableTimes/SubmitCalendarAvailabilityForMeetingDialog';
 
-const UpdateAvailability = ({ status, serviceId, actionNeeded }) => {
+const UpdateAvailability = ({ status, actionNeeded }) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const { t } = useTranslation();
+
+  const serviceId = 1;
+
   const openCalendar = () => {
     setShowCalendar(true);
   };
@@ -23,9 +26,10 @@ const UpdateAvailability = ({ status, serviceId, actionNeeded }) => {
         data-reference={serviceId}
         label={t(`serviceStatus:${actionNeeded}`)}
       />
-      <AvailableTimesCalendarDialog
+      <SubmitCalendarAvailabilityForMeetingDialog
         open={showCalendar}
         closeDialog={closeCalendar}
+        serviceId={serviceId}
       />
     </Fragment>
   );

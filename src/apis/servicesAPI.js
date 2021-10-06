@@ -77,3 +77,10 @@ export const returnToClient = (serviceId, comment) => {
     data: decamelizeKeys({ comment }),
   }).then((response) => camelizeKeys(response));
 };
+
+export const updateMentoringAvailability = (serviceId) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/services/${serviceId}/submit_availability`,
+  }).then((response) => camelizeKeys(response));
+};
