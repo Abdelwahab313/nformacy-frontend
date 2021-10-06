@@ -16,5 +16,6 @@
   "meeting_reminder": "Meeting Reminder",
   "meeting_scheduled": "Meeting Scheduled",
   "consultant_verification_meeting_scheduled": "Consultant Verification Meeting Scheduled",
-  "consultant_verification_meeting_reminder": "Consultant Verification Meeting Reminder"
+  "consultant_verification_meeting_reminder": "Consultant Verification Meeting Reminder",
+  "mentorship_session_scheduled": "Mentorship Meeting Scheduled"
 }
