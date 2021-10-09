@@ -21,14 +21,11 @@ import { useHistory } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import t from 'locales/en/freelancerProfile.json';
 import ClientStepOne from 'components/forms/ClientStepOne';
-import ClientStepTwo from 'components/forms/ClientStepTwo';
 import authManager from 'services/authManager';
 import SubmitButton from 'components/buttons/SubmitButton';
 import { getDashboardLinkAfterSignup } from 'services/navigation';
 import { useAuth } from 'pages/auth/context/auth';
 import { updateUser } from 'pages/auth/context/authActions';
-import CorporateStepOne from 'pages/CorporateRegister/CorporateStepOne';
-import CorporateStepTwo from 'pages/CorporateRegister/CorporateStepTwo';
 import TermsAndConditionsCheckbox from './subComponents/TermsAndConditionsCheckbox';
 import BackButton from './subComponents/BackButton';
 import { submitQuestionAfterRegister } from './submitServiceRequestAfterSignup';
@@ -67,30 +64,19 @@ const UserRegistrationForm = () => {
   ];
 
   const clientStepFields = [
-    ['accountType'],
     ['country', 'organizationLevel', 'organizationName', 'jobTitle'],
   ];
 
-  const corporateStepFields = [
-    ['accountType'],
-    ['organizationName', 'industriesOfExperience', 'country'],
-    ['organizationLevel', 'jobTitle'],
-  ];
-
   const isClientEmployed = watch('isEmployed');
-  const isCorporateUser = authManager.isCorporate();
+
 
   const currentStepFields = useMemo(() => {
     if (authManager.isClient()) {
-      if (!!isCorporateUser) {
-        return corporateStepFields[activeStep];
-      } else {
-        return clientStepFields[activeStep];
-      }
+      return clientStepFields[activeStep];
     } else {
       return consultantStepsFields[activeStep];
     }
-  }, [activeStep, isCorporateUser]);
+  }, [activeStep]);
 
   const isCurrentstepInvalid = useCallback(() => {
     const hasAnyInvalidField = Object.keys(errors).some((error) =>
@@ -99,19 +85,21 @@ const UserRegistrationForm = () => {
     const anyFieldUninitialized = currentStepFields?.some(
       (field) => !getValues(field) || getValues(field)?.length === 0,
     );
-
     return hasAnyInvalidField || anyFieldUninitialized;
   }, [errors, activeStep]);
+
+  const isAccountBelongsToClient = user.current.roles.findIndex(r => r.name === 'client') >= 0 || user.current.accountType === 'client';
 
   const isFinalStep = useMemo(() => {
     return (
       activeStep === 2 ||
       (authManager.isClient() &&
-        user.current.accountType === 'client' &&
-        activeStep === 1) ||
+        isAccountBelongsToClient &&
+        activeStep === 0) ||
       (authManager.isNormalUser() && activeStep === 1)
     );
   }, [activeStep, isClientEmployed]);
+
 
   const onSubmit = (userDate) => {
     if (authManager.isNormalUser()) {
@@ -193,6 +181,8 @@ const UserRegistrationForm = () => {
   const isGoNextDisabled = isCurrentstepInvalid() || loading;
   const isSubmitDisabled = !isTermsChecked || isCurrentstepInvalid() || loading;
 
+
+
   return (
     <div className={classes.freelancerProfileContainer}>
       <Hidden smDown>
@@ -218,9 +208,7 @@ const UserRegistrationForm = () => {
 
           {activeStep === 0 && authManager.isClient() && <ClientStepOne />}
           {activeStep === 1 &&
-            authManager.isClient() &&
-            (isCorporateUser ? <CorporateStepOne /> : <ClientStepTwo />)}
-          {activeStep === 2 && authManager.isClient() && <CorporateStepTwo />}
+            authManager.isClient() && <ClientStepOne />}
         </FormContext>
         {!!isFinalStep && (
           <Grid
@@ -260,16 +248,16 @@ const UserRegistrationForm = () => {
               endIcon={<DoneIcon />}
             />
           ) : (
-              <SubmitButton
-                buttonText={t['next']}
-                id='nextButton'
-                disabled={isGoNextDisabled}
-                onClick={proceedToNextStep}
-                variant='contained'
-                style={nextButtonStyles(isGoNextDisabled)}
-                endIcon={<ArrowForwardIosIcon />}
-              />
-            )}
+            <SubmitButton
+              buttonText={t['next']}
+              id='nextButton'
+              disabled={isGoNextDisabled}
+              onClick={proceedToNextStep}
+              variant='contained'
+              style={nextButtonStyles(isGoNextDisabled)}
+              endIcon={<ArrowForwardIosIcon />}
+            />
+          )}
         </Grid>
       </form>
     </div>

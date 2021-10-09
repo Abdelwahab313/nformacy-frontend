@@ -4,56 +4,50 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ErrorMessage from '../errors/ErrorMessage';
-import React, { useEffect } from 'react';
-import { useFormContext } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
 import {
-  radioStyle,
+  dividerStyle,
   sectionContainerStyles,
+  selectStyle,
   useStyles,
-  greyDividerStyle,
 } from '../../styles/formsStyles';
 import FormControl from '@material-ui/core/FormControl';
+import ReactSelectMaterialUi from 'react-select-material-ui';
+import HelpIcon from '@material-ui/icons/Help';
 import 'react-phone-input-2/lib/bootstrap.css';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ReactTooltip from 'react-tooltip';
-import { Grow } from '@material-ui/core';
+import { Grow, TextField } from '@material-ui/core';
+import { organizationalLevel } from '../../constants/dropDownOptions';
 import { useTranslation } from 'react-i18next';
-import CustomTypography from 'components/typography/Typography';
+import countryList from 'react-select-country-list';
 import { addUserRole } from 'apis/userAPI';
-import { useSnackBar } from 'context/SnackBarContext';
 import authManager from 'services/authManager';
+import { useSnackBar } from 'context/SnackBarContext';
+
 
 const ClientStepOne = () => {
-  const { errors, setValue, register, watch } = useFormContext();
+  const { errors, control, register, user } = useFormContext();
   const classes = useStyles();
   const { t } = useTranslation();
-  const radiosStyles = radioStyle();
+  const [countries] = useState(countryList().getData());
+
   const { showErrorMessage } = useSnackBar();
-  const accountType = watch('accountType');
 
   useEffect(() => {
-    register({ name: 'accountType' });
-  }, [register]);
-
-  const handleChange = (event) => {
-    setValue('accountType', event.target.value);
-    addUserRole(event.target.value)
-      .then((response) => {
-        authManager.updateUser(response.data);
-      })
+    addUserRole('client').then((response) => {
+      authManager.updateUser(response.data);
+    })
       .catch((reason) => {
         if (reason.response) {
           showErrorMessage(reason.response.errors);
         }
       });
-  };
-
+  }, []);
 
   return (
     <Grid
-      id='stepOneForm'
+      id='stepTwoForm'
       container
       direction='row'
       justify='center'
@@ -68,67 +62,121 @@ const ClientStepOne = () => {
                   <Typography
                     gutterBottom
                     className={classes.sectionHeaderStyles}>
-                    {t('personalInfo')}
+                    {t('workExperience')}
                   </Typography>
                 </Grid>
               </Grid>
-              <Divider variant='middle' style={greyDividerStyle} />
+              <Divider variant='middle' style={dividerStyle} />
 
               <Container maxWidth={false} className={classes.formControl}>
-                <FormControl fullWidth className={classes.formControl}>
+                <div className={classes.formHeader}>
                   <Typography
                     gutterBottom
                     className={classes.fieldLabelStylesDesktop}>
-                    {t('accountType')}
+                    {t('country')}
                   </Typography>
+                  <HelpIcon
+                    className={classes.formHeaderIcon}
+                    data-tip={t('selectCountryOfResidenceMessage')}
+                    color='primary'
+                    fontSize='small'
+                  />
+                </div>
+                <FormControl fullWidth id='country-select'>
+                  <Controller
+                    name='country'
+                    rules={{ required: t('requiredMessage') }}
+                    control={control}
+                    defaultValue={!user.current.country && 0}
+                    as={
+                      <ReactSelectMaterialUi
+                        fullWidth={true}
+                        placeholder={t('selectCountryMessage')}
+                        SelectProps={{
+                          styles: selectStyle,
+                        }}
+                        options={countries}
+                      />
+                    }
+                  />
+                </FormControl>
 
-                  <RadioGroup row
-                    value={accountType}
-                    name={'accountType'}
-                    onChange={handleChange}>
-                    <Grid container>
-                      <Grid item md={6}>
-                        <FormControlLabel
-                          value='corporate'
-                          control={
-                            <Radio
-                              id='corporateAccount'
-                              className={radiosStyles.root}
-                              color='default'
-                              checkedIcon={
-                                <span className={radiosStyles.checkedIcon} />
-                              }
-                              icon={<span className={radiosStyles.icon} />}
-                            />
-                          }
-                          label={t('corporateAccount')}
-                        />
-                        <CustomTypography variant="subtitle2" className={classes.corporateDesc}>I'm representing an organization/team</CustomTypography>
-                      </Grid>
-                      <Grid item md={6}>
-                        <FormControlLabel
-                          value='client'
-                          control={
-                            <Radio
-                              id='individualAccount'
-                              className={radiosStyles.root}
-                              color='default'
-                              checkedIcon={
-                                <span className={radiosStyles.checkedIcon} />
-                              }
-                              icon={<span className={radiosStyles.icon} />}
-                            />
-                          }
-                          label={t('individualAccount')}
-                        />
-                        <CustomTypography variant="subtitle2" className={classes.corporateDesc}>{t('iamRepresentingMyself')}</CustomTypography>
-                      </Grid>
-                    </Grid>
-                  </RadioGroup>
-                  <ErrorMessage errorField={errors.accountType} />
+                <ErrorMessage errorField={errors.country} />
+              </Container>
+
+              <Container maxWidth={false} className={classes.formControl}>
+                <div className={classes.formHeader}>
+                  <Typography
+                    gutterBottom
+                    className={classes.fieldLabelStylesDesktop}>
+                    {t('myCurrentJobLevel')}
+                  </Typography>
+                  <HelpIcon
+                    className={classes.formHeaderIcon}
+                    data-tip={t('selectYourLevel')}
+                    color='primary'
+                    fontSize='small'
+                  />
+                </div>
+                <FormControl fullWidth id='organizational-select'>
+                  <Controller
+                    name='organizationLevel'
+                    rules={{ required: false }}
+                    control={control}
+                    defaultValue={!user.current.organizationLevel && ''}
+                    as={
+                      <ReactSelectMaterialUi
+                        fullWidth={true}
+                        name='organizationLevel'
+                        placeholder={t('selectYourLevel')}
+                        SelectProps={{
+                          styles: selectStyle,
+                        }}
+                        options={organizationalLevel}
+                      />
+                    }
+                  />
                 </FormControl>
               </Container>
 
+            </Container>
+
+            <Container maxWidth={false} className={classes.formControl}>
+              <TextField
+                fullWidth
+                label={t('myOrganizationName')}
+                variant='outlined'
+                name={'organizationName'}
+                id={'organizationName'}
+                InputProps={{
+                  classes: {
+                    notchedOutline: classes.registerTextField,
+                  },
+                }}
+                inputRef={register({ required: t('requiredMessage') })}
+              />
+              <ErrorMessage
+                errorField={errors.experiences && errors.experiences[0]?.title}
+              />
+            </Container>
+
+            <Container maxWidth={false} className={classes.formControl}>
+              <TextField
+                fullWidth
+                label={t('myCurrentJobTitle')}
+                name={'jobTitle'}
+                variant='outlined'
+                id={'jobTitle-field'}
+                InputProps={{
+                  classes: {
+                    notchedOutline: classes.registerTextField,
+                  },
+                }}
+                inputRef={register({ required: t('requiredMessage') })}
+              />
+              <ErrorMessage
+                errorField={errors.experiences && errors.experiences[0]?.title}
+              />
             </Container>
           </Paper>
         </Grid>

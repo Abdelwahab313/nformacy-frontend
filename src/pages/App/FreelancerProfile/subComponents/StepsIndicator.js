@@ -92,13 +92,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function getSteps(t, isCorporateUser) {
+function getSteps(t) {
   if (authManager.isClient()) {
-    if (!!isCorporateUser) {
-      return [t('personalInfo'), t('workInformation'), t('contactInfo')];
-    } else {
-      return [t('personalInfo'), t('workInformation')];
-    }
+    return [t('workInformation')];
   }
   if (!IS_Nformacy_APP) {
     return [
