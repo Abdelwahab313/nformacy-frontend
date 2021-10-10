@@ -1,11 +1,11 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './i18n';
 import './index.css';
 import Main from 'layouts/Main';
 import * as serviceWorker from './serviceWorker';
 import ReactGA from 'react-ga';
-import { Router } from 'react-router';
+import { Router, useLocation } from 'react-router';
 import WebFont from 'webfontloader';
 import { history } from './services/navigation';
 import { LocaleProvider } from './hooks/localization/context';
@@ -16,12 +16,26 @@ import 'moment/locale/ar';
 import { SnackBarProvider } from 'context/SnackBarContext';
 import ErrorBoundary from 'components/errors/ErrorBoundary';
 import { GOOGLE_ANALYTICS_TRACKING_ID } from 'settings';
+import useQueryParams from 'hooks/useQueryParams';
+import { RoutesPaths } from 'constants/routesPath';
 
 const Loader = () => <LoadingCircle color='primary' />;
 
 const App = () => {
   const user = authManager.retrieveCurrentUser();
+  const location = useLocation();
+  const urlParams = useQueryParams();
+  const redirectLink = `${location.pathname}${location.search}`;
+
   ReactGA.initialize(GOOGLE_ANALYTICS_TRACKING_ID);
+
+
+  useEffect(() => {
+    const isShouldDestroyCurrentSession = !!urlParams.get('token') && !!user;
+    if (isShouldDestroyCurrentSession) {
+      history.push(`${RoutesPaths.App.Logout}?redirectLink=${redirectLink || ''}`);
+    }
+  }, []);
 
   return (
     <ErrorBoundary>
