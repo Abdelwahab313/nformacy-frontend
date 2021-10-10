@@ -165,7 +165,7 @@ const QuestionView = ({ questionDetails, isSubmitVisible }) => {
                 className={classes.answerButtonContainer}>
                 {hasSubmittedAnswer ? (
                   <SubmitButton
-                    className={classes.submitButton}
+                    className={[classes.submitButton, classes.viewAnswerBtn]}
                     id={`question-${questionDetails.referenceNumber}-view-answer`}
                     onClick={() => handleEditClick()}
                     color={'secondary'}

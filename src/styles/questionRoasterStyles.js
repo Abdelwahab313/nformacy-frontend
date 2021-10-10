@@ -437,6 +437,11 @@ export const useStyles = makeStyles((theme) => ({
   answerSaveButton: {
     marginRight: '10px',
   },
+  viewAnswerBtn: {
+    [theme.breakpoints.down('xs')]: {
+      lineHeight: 'normal',
+    },
+  },
 }));
 
 export const attachContainerStyle = () => {

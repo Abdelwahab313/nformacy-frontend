@@ -25,7 +25,7 @@ const QuestionRoasterView = () => {
   if (loading) {
     return (
       <div id='progressBar' className={classes.progressContainer}>
-        <CircularProgress/>
+        <CircularProgress />
       </div>
     );
   }
@@ -48,20 +48,23 @@ const QuestionRoasterView = () => {
             <InputBase
               className={classes.searchInput}
               placeholder={t('common:enterKeyword')}
-              inputProps={{ 'aria-label': t('common:searchKeyword'), id: 'search' }}
+              inputProps={{
+                'aria-label': t('common:searchKeyword'),
+                id: 'search',
+              }}
             />
             <IconButton
               type='submit'
               className={classes.iconButton}
-              aria-label={t("common:search")}>
-              <SearchIcon color={'secondary'}/>
+              aria-label={t('common:search')}>
+              <SearchIcon color={'secondary'} />
             </IconButton>
           </Paper>
         </Grid>
       </Grid>
       <Grid container justify={'center'}>
         <Grid item xs={10}>
-          <BreadcrumbsCustomSeparator pageName={t('questionRoaster:title')}/>
+          <BreadcrumbsCustomSeparator pageName={t('questionRoaster:title')} />
         </Grid>
       </Grid>
       <Grid
