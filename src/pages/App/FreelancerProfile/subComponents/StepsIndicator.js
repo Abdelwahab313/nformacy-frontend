@@ -111,8 +111,7 @@ function getSteps(t) {
 const StepsIndicator = (props) => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const isCorporateUser = props.user.current.accountType === 'corporate';
-  const steps = getSteps(t, isCorporateUser);
+  const steps = getSteps(t);
 
   return (
     <div className={classes.root}>

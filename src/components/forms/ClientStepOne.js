@@ -47,7 +47,7 @@ const ClientStepOne = () => {
 
   return (
     <Grid
-      id='stepTwoForm'
+      id='stepOneForm'
       container
       direction='row'
       justify='center'
