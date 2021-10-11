@@ -24,7 +24,7 @@ const USER_STEPS = [
   {
     label: 'Register',
     icon: <PersonIcon fontSize='small' />,
-    onClickNextAction: () => { },
+    onClickNextAction: () => {},
   },
   {
     label: 'Fill basic Information',
@@ -121,7 +121,6 @@ const UserLevelCard = () => {
       className={[
         homePageClasses.askQuestionBox,
         homePageClasses.marginBottom,
-        homePageClasses.displayDesktop,
       ]}>
       <Grid
         container
@@ -184,8 +183,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   youAreHereBtnContainer: {
-    width: 140
-  }
+    width: 140,
+  },
 }));
 
 export default UserLevelCard;
