@@ -27,10 +27,6 @@ const App = () => {
 
   useEmailResetCurrentSession();
 
-
-
-
-
   return (
     <ErrorBoundary>
       <AuthProvider initialValue={{ currentUser: user }}>
