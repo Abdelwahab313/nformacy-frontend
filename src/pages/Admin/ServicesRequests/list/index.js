@@ -7,7 +7,7 @@ import GridContainer from '../../../../components/grid/GridContainer';
 import useFetchData from 'hooks/useFetchData';
 import { fetchServices } from 'apis/servicesAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
-import AdminServicesTable from 'templates/services/AdminServicesTable';
+import ServicesTable from 'templates/services/ServicesTable';
 
 const ServicesList = () => {
   const { fetchedData: services, isLoading } = useFetchData(fetchServices);
@@ -21,7 +21,7 @@ const ServicesList = () => {
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
           <CardBody id='questionsList'>
-            <AdminServicesTable services={services} />
+            <ServicesTable services={services} />
           </CardBody>
         </Card>
       </GridItem>

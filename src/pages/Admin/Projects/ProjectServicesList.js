@@ -2,7 +2,7 @@ import React from 'react';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import useFetchData from 'hooks/useFetchData';
 import { fetchProjectServices } from 'apis/projectsAPI';
-import AdminServicesTable from 'templates/services/AdminServicesTable';
+import ServicesTable from 'templates/services/ServicesTable';
 import useLocationState from 'hooks/useLocationState';
 
 const ProjectServicesList = () => {
@@ -16,7 +16,7 @@ const ProjectServicesList = () => {
     return <LoadingCircle />;
   }
 
-  return <AdminServicesTable services={services} />;
+  return <ServicesTable services={services} />;
 };
 
 export default ProjectServicesList;

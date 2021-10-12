@@ -153,7 +153,7 @@ export default function AdminNavbarLinks() {
       </div>
 
       <div className={classes.username}>
-        {currentUser.firstName + ' ' + currentUser.lastName}
+        {currentUser?.firstName + ' ' + currentUser?.lastName}
       </div>
     </div>
   );

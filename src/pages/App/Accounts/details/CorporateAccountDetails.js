@@ -1,16 +1,5 @@
 import React, { useMemo } from 'react';
-import {
-  Grid,
-  TableHead,
-  TableCell,
-  TableRow,
-  TableContainer,
-  Paper,
-  Table,
-  TableBody,
-  makeStyles,
-} from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { Grid, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import parseServicesToTableRows from 'templates/services/parseServicesToTableRows';
 import LoadingCircle from 'components/progress/LoadingCircle';
@@ -24,29 +13,7 @@ import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 import DeactivateAccountButton from './DeactivateAccountButton';
 import ReactivateAccountButton from './ReactivateAccountButton';
 import clsx from 'clsx';
-
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: '#3a3b4b',
-    color: theme.palette.common.white,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    whiteSpace: 'nowrap',
-  },
-  body: {
-    fontSize: 14,
-    textAlign: 'center',
-  },
-}))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-    height: '75px',
-  },
-}))(TableRow);
+import ServicesStyledTable from 'templates/services/ServicesStyledTable';
 
 const CorporateAccountDetails = () => {
   const classes = useStyles();
@@ -100,84 +67,14 @@ const CorporateAccountDetails = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid container>
-        <Grid item md={12} className={classes.activityTable}>
-          <TableContainer component={Paper} className={classes.tableContainer}>
-            <Table stickyHeader aria-label='My Activity Table'>
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell>{t('date')}</StyledTableCell>
-                  <StyledTableCell>{t('assignmentId')}</StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>
-                    {t('type')}
-                  </StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>
-                    {t('fields')}
-                  </StyledTableCell>
-                  <StyledTableCell>{t('results')}</StyledTableCell>
-                  <StyledTableCell className={classes.desktopVisible}>
-                    {t('review')}
-                  </StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {servicesRows.length === 0 ? (
-                  <TableCell colspan='8' className={classes.noRecords}>
-                    Sorry, no matching records found
-                  </TableCell>
-                ) : (
-                  servicesRows.map((service) => (
-                    <StyledTableRow
-                      reference-number={service.RefNumber}
-                      key={service.id}>
-                      <StyledTableCell scope='row'>
-                        {service.createdAt}
-                      </StyledTableCell>
-                      <StyledTableCell>{service.serviceRef}</StyledTableCell>
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {service.requestType}
-                      </StyledTableCell>
-                      <StyledTableCell className={classes.desktopVisible}>
-                        {/* <ColoredFieldsChips fields={service?.fields} /> */}
-                      </StyledTableCell>
-                      <StyledTableCell>
-                        {/* {service.status} */}
-                      </StyledTableCell>
-                      <StyledTableCell
-                        className={[classes.desktopVisible, 'action']}>
-                        {/* {service.action} */}
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
-      </Grid>
+      <ServicesStyledTable services={servicesRows} isMultiUser={true} />
     </PageContainer>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  tableContainer: {
-    maxHeight: '350px',
-  },
-  desktopVisible: {
-    display: 'table-cell',
-    [theme.breakpoints.down('xs')]: {
-      display: 'none',
-    },
-  },
-  activityTable: {
-    width: '100%',
-  },
   accountDetailsWrapper: {
     margin: [theme.spacing(2), theme.spacing(1)],
-  },
-  noRecords: {
-    textAlign: 'center',
-    fontWeight: 'bold',
   },
 }));
 

@@ -55,9 +55,9 @@ const AddProjectManger = () => {
     return true;
   };
 
-  const handleCreateProjectManager = () => {
+  const handleCreateProjectManager = async () => {
     if (!!validate(user)) {
-      createOrUpdateProjectManager({
+      return createOrUpdateProjectManager({
         ...user,
       })
         .then(() => {
@@ -96,9 +96,7 @@ const AddProjectManger = () => {
           viewOnly
           primaryButton={{
             id: 'createProjectManagerButton',
-            onClick: () => {
-              handleCreateProjectManager();
-            },
+            onClick: handleCreateProjectManager,
             buttonText: 'Create Project Manager',
           }}
         />
