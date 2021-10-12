@@ -366,6 +366,8 @@ export const useStyles = makeStyles((theme) => ({
   },
   loginPageTitle: {
     textAlign: 'center !important',
+    fontWeight: 'bold !important',
+    fontSize: '2.024vw !important',
   },
   pageHeaderStyle: {
     fontSize: '2.024vw',
