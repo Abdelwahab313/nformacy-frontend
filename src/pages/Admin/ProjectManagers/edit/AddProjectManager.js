@@ -11,9 +11,11 @@ import { createOrUpdateProjectManager } from 'apis/projectMangersAPI';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { getUser } from 'apis/userAPI';
 import { useLocation } from 'react-router';
+import { useStyles } from 'styles/Admin/questionFormStyles';
 
 const AddProjectManger = () => {
   const history = useHistory();
+  const classes = useStyles();
   const { t } = useTranslation();
   const location = useLocation();
   const projectManagerId = location?.state?.projectManagerId;
@@ -79,7 +81,7 @@ const AddProjectManger = () => {
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
-        <CardHeader color='primary'>
+        <CardHeader className={classes.projectManagerHeader} color='primary'>
           <Grid container>
             <Grid item md={6} xs={6}>
               <Typography component={'h4'}>

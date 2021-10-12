@@ -66,8 +66,12 @@ const AddBeneficiaryForm = ({
             </GridItem>
           )}
         </GridContainer>
-        <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={12} md={4}>
+        <GridContainer>
+          <GridItem
+            className={classes.projectManagerField}
+            xs={12}
+            sm={12}
+            md={4}>
             <TextField
               required
               label={t('firstName')}
@@ -84,7 +88,11 @@ const AddBeneficiaryForm = ({
             <ErrorMessage errorField={errors?.firstName} />
           </GridItem>
 
-          <GridItem xs={12} sm={12} md={4}>
+          <GridItem
+            className={classes.projectManagerField}
+            xs={12}
+            sm={12}
+            md={4}>
             <TextField
               required
               label={t('lastName')}
@@ -101,7 +109,11 @@ const AddBeneficiaryForm = ({
             <ErrorMessage errorField={errors?.lastName} />
           </GridItem>
 
-          <GridItem xs={12} sm={12} md={4}>
+          <GridItem
+            className={classes.projectManagerField}
+            xs={12}
+            sm={12}
+            md={4}>
             <TextField
               required
               label={t('email')}
@@ -120,8 +132,12 @@ const AddBeneficiaryForm = ({
         </GridContainer>
 
         {!canEditPassword && (
-          <GridContainer className={classes.inputsRow}>
-            <GridItem xs={12} sm={12} md={6}>
+          <GridContainer>
+            <GridItem
+              className={classes.projectManagerField}
+              xs={12}
+              sm={12}
+              md={6}>
               <TextField
                 required
                 label={t('password')}
@@ -136,7 +152,11 @@ const AddBeneficiaryForm = ({
                 variant='outlined'
               />
             </GridItem>
-            <GridItem xs={12} sm={12} md={6}>
+            <GridItem
+              className={classes.projectManagerField}
+              xs={12}
+              sm={12}
+              md={6}>
               <TextField
                 required
                 label={t('confirmPassword')}
@@ -159,14 +179,26 @@ const AddBeneficiaryForm = ({
             onChangeField('fields', newOptions);
           }}>
           {({ MajorField, Field }) => (
-            <GridContainer className={classes.inputsRow}>
-              <GridItem xs={12} sm={12} md={4}>
+            <GridContainer>
+              <GridItem
+                className={classes.projectManagerField}
+                xs={12}
+                sm={12}
+                md={4}>
                 <MajorField />
               </GridItem>
-              <GridItem xs={12} sm={12} md={4}>
+              <GridItem
+                className={classes.projectManagerField}
+                xs={12}
+                sm={12}
+                md={4}>
                 <Field />
               </GridItem>
-              <GridItem xs={12} sm={12} md={4}>
+              <GridItem
+                className={classes.projectManagerField}
+                xs={12}
+                sm={12}
+                md={4}>
                 <DropdownSelectField
                   multiple
                   fieldId='industriesOfExperience'

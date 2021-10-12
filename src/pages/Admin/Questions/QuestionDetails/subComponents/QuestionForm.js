@@ -52,7 +52,11 @@ const QuestionForm = ({ isNewQuestion }) => {
     <CardBody>
       <GridContainer>
         {!isNewQuestion && (
-          <GridItem xs={12} sm={12} md={2}>
+          <GridItem
+            className={classes.projectManagerField}
+            xs={12}
+            sm={12}
+            md={2}>
             <CustomInput
               labelText='Reference ID'
               id='reference-id'
@@ -107,14 +111,26 @@ const QuestionForm = ({ isNewQuestion }) => {
           onChangeQuestionField('fields', newOptions);
         }}>
         {({ MajorField, Field }) => (
-          <GridContainer className={classes.inputsRow}>
-            <GridItem xs={12} sm={12} md={3}>
+          <GridContainer>
+            <GridItem
+              className={classes.projectManagerField}
+              xs={12}
+              sm={12}
+              md={3}>
               <MajorField />
             </GridItem>
-            <GridItem xs={12} sm={12} md={3}>
+            <GridItem
+              className={classes.projectManagerField}
+              xs={12}
+              sm={12}
+              md={3}>
               <Field />
             </GridItem>
-            <GridItem xs={12} sm={12} md={3}>
+            <GridItem
+              className={classes.projectManagerField}
+              xs={12}
+              sm={12}
+              md={3}>
               <DropdownSelectField
                 fieldId='industry'
                 fieldName='industry'
@@ -126,7 +142,11 @@ const QuestionForm = ({ isNewQuestion }) => {
                 fieldLabel='Industry'
               />
             </GridItem>
-            <GridItem xs={12} sm={12} md={3}>
+            <GridItem
+              className={classes.projectManagerField}
+              xs={12}
+              sm={12}
+              md={3}>
               <DropdownSelectField
                 fieldId='questionLanguage'
                 fieldName='QuestionLanguage'
@@ -146,8 +166,12 @@ const QuestionForm = ({ isNewQuestion }) => {
         )}
       </FieldsSelect>
       {!authManager.isAdviser() && (
-        <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={12} md={3}>
+        <GridContainer>
+          <GridItem
+            className={classes.projectManagerField}
+            xs={12}
+            sm={12}
+            md={3}>
             <DropdownSelectField
               fieldId='assignmentType'
               fieldName='AssignmentType'
@@ -167,7 +191,7 @@ const QuestionForm = ({ isNewQuestion }) => {
             xs={12}
             sm={12}
             md={3}
-            className={classes.countDownContainer}>
+            className={[classes.countDownContainer]}>
             <CustomInput
               labelText='Time for Freelancers to Answer (In Hours)'
               id='hoursToCloseAnswers'
@@ -193,7 +217,7 @@ const QuestionForm = ({ isNewQuestion }) => {
             xs={12}
             sm={12}
             md={3}
-            className={classes.countDownContainer}>
+            className={[classes.countDownContainer]}>
             <CustomInput
               labelText='Time for Adviser to Review (In Hours)'
               id='hoursToReviewAndEdit'
@@ -215,7 +239,11 @@ const QuestionForm = ({ isNewQuestion }) => {
               }}
             />
           </GridItem>
-          <GridItem xs={12} sm={12} md={3}>
+          <GridItem
+            className={classes.projectManagerField}
+            xs={12}
+            sm={12}
+            md={3}>
             <AssignedAdvisersSelect
               questionDetails={questionDetails}
               onChangeQuestionField={onChangeQuestionField}
@@ -225,14 +253,18 @@ const QuestionForm = ({ isNewQuestion }) => {
       )}
       {authManager.isAdviser() &&
         questionDetails.state === QUESTION_STATUS.reviewAndEdit && (
-          <GridContainer className={classes.inputsRow} alignItems={'center'}>
+          <GridContainer alignItems={'center'}>
             <InputLabel
               className={classes.countDown}
               color={'primary'}
               htmlFor={'reviewAndEditTime'}>
               Remaining time to review and Edit:
             </InputLabel>
-            <GridItem xs={12} sm={12} md={3}>
+            <GridItem
+              className={classes.projectManagerField}
+              xs={12}
+              sm={12}
+              md={3}>
               <Typography
                 noWrap
                 className={classes.currentActionTime}></Typography>
@@ -244,8 +276,12 @@ const QuestionForm = ({ isNewQuestion }) => {
             </GridItem>
           </GridContainer>
         )}
-      <GridContainer className={classes.inputsRow}>
-        <GridItem xs={12} sm={12} md={12}>
+      <GridContainer>
+        <GridItem
+          className={classes.projectManagerField}
+          xs={12}
+          sm={12}
+          md={12}>
           <InputLabel className={classes.contentTitle}>
             Question Content
           </InputLabel>
@@ -263,7 +299,11 @@ const QuestionForm = ({ isNewQuestion }) => {
               />
             </Grid>
             {QuestionGuardian.canUploadThumbnail(questionDetails) && (
-              <GridItem xs={12} sm={12} md={12}>
+              <GridItem
+                className={classes.projectManagerField}
+                xs={12}
+                sm={12}
+                md={12}>
                 <ImageUploadWithPreview
                   buttonClassName={'thumbnail-uploader'}
                   withPreview={true}
@@ -281,8 +321,8 @@ const QuestionForm = ({ isNewQuestion }) => {
                 />
               </GridItem>
             )}
-            <Grid
-              item
+            <GridItem
+              className={classes.projectManagerField}
               xs={6}
               className={`${questionRoasterClasses.answerButtonsContainer} ${classes.attachmentContainer}`}>
               {QuestionGuardian.canUploadAttachment(questionDetails) && (
@@ -300,7 +340,7 @@ const QuestionForm = ({ isNewQuestion }) => {
                   }}
                 />
               )}
-            </Grid>
+            </GridItem>
 
             <QuestionActionButtons
               isNewQuestion={isNewQuestion}

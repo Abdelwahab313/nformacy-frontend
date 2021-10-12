@@ -67,8 +67,12 @@ const AddConsultantForm = ({
             </GridItem>
           )}
         </GridContainer>
-        <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={12} md={4}>
+        <GridContainer>
+          <GridItem
+            className={classes.projectManagerField}
+            xs={12}
+            sm={12}
+            md={4}>
             <TextField
               required
               label={t('firstName')}
@@ -85,7 +89,11 @@ const AddConsultantForm = ({
             <ErrorMessage errorField={errors?.firstName} />
           </GridItem>
 
-          <GridItem xs={12} sm={12} md={4}>
+          <GridItem
+            className={classes.projectManagerField}
+            xs={12}
+            sm={12}
+            md={4}>
             <TextField
               required
               label={t('lastName')}
@@ -102,7 +110,11 @@ const AddConsultantForm = ({
             <ErrorMessage errorField={errors?.lastName} />
           </GridItem>
 
-          <GridItem xs={12} sm={12} md={4}>
+          <GridItem
+            className={classes.projectManagerField}
+            xs={12}
+            sm={12}
+            md={4}>
             <TextField
               required
               label={t('email')}
@@ -122,8 +134,12 @@ const AddConsultantForm = ({
         </GridContainer>
 
         {!canEditPassword && (
-          <GridContainer className={classes.inputsRow}>
-            <GridItem xs={12} sm={12} md={6}>
+          <GridContainer>
+            <GridItem
+              className={classes.projectManagerField}
+              xs={12}
+              sm={12}
+              md={6}>
               <TextField
                 required
                 label={t('password')}
@@ -138,7 +154,11 @@ const AddConsultantForm = ({
                 variant='outlined'
               />
             </GridItem>
-            <GridItem xs={12} sm={12} md={6}>
+            <GridItem
+              className={classes.projectManagerField}
+              xs={12}
+              sm={12}
+              md={6}>
               <TextField
                 required
                 label={t('confirmPassword')}
@@ -161,14 +181,26 @@ const AddConsultantForm = ({
             onChangeField('fields', newOptions);
           }}>
           {({ MajorField, Field }) => (
-            <GridContainer className={classes.inputsRow}>
-              <GridItem xs={12} sm={12} md={4}>
+            <GridContainer>
+              <GridItem
+                className={classes.projectManagerField}
+                xs={12}
+                sm={12}
+                md={4}>
                 <MajorField />
               </GridItem>
-              <GridItem xs={12} sm={12} md={4}>
+              <GridItem
+                className={classes.projectManagerField}
+                xs={12}
+                sm={12}
+                md={4}>
                 <Field />
               </GridItem>
-              <GridItem xs={12} sm={12} md={4}>
+              <GridItem
+                className={classes.projectManagerField}
+                xs={12}
+                sm={12}
+                md={4}>
                 <DropdownSelectField
                   fieldId='country'
                   fieldName='country'

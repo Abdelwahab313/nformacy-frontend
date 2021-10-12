@@ -9,7 +9,7 @@ exports[`Question Form should match snapshot 1`] = `
       class="MuiGrid-root grid MuiGrid-container"
     >
       <div
-        class="MuiGrid-root grid MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-2"
+        class="MuiGrid-root grid projectManagerField MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-2"
       >
         <div
           class="MuiFormControl-root undefined formControl MuiFormControl-fullWidth"
@@ -93,10 +93,10 @@ exports[`Question Form should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="MuiGrid-root grid inputsRow MuiGrid-container"
+      class="MuiGrid-root grid MuiGrid-container"
     >
       <div
-        class="MuiGrid-root grid MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
+        class="MuiGrid-root grid projectManagerField MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
       >
         <div
           aria-expanded="false"
@@ -200,7 +200,7 @@ exports[`Question Form should match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="MuiGrid-root grid MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
+        class="MuiGrid-root grid projectManagerField MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
       >
         <div
           aria-expanded="false"
@@ -303,7 +303,7 @@ exports[`Question Form should match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="MuiGrid-root grid MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
+        class="MuiGrid-root grid projectManagerField MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
       >
         <div
           aria-expanded="false"
@@ -407,7 +407,7 @@ exports[`Question Form should match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="MuiGrid-root grid MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
+        class="MuiGrid-root grid projectManagerField MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
       >
         <div
           aria-expanded="false"
@@ -512,10 +512,10 @@ exports[`Question Form should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="MuiGrid-root grid inputsRow MuiGrid-container"
+      class="MuiGrid-root grid MuiGrid-container"
     >
       <div
-        class="MuiGrid-root grid MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
+        class="MuiGrid-root grid projectManagerField MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
       >
         <div
           aria-expanded="false"
@@ -679,7 +679,7 @@ exports[`Question Form should match snapshot 1`] = `
         </div>
       </div>
       <div
-        class="MuiGrid-root grid MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
+        class="MuiGrid-root grid projectManagerField MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-3"
       >
         <div
           aria-expanded="false"
@@ -784,10 +784,10 @@ exports[`Question Form should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="MuiGrid-root grid inputsRow MuiGrid-container"
+      class="MuiGrid-root grid MuiGrid-container"
     >
       <div
-        class="MuiGrid-root grid MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-12"
+        class="MuiGrid-root grid projectManagerField MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-12"
       >
         <label
           class="MuiFormLabel-root MuiInputLabel-root contentTitle MuiInputLabel-animated"
@@ -806,7 +806,7 @@ exports[`Question Form should match snapshot 1`] = `
             />
           </div>
           <div
-            class="MuiGrid-root undefined attachmentContainer MuiGrid-item MuiGrid-grid-xs-6"
+            class="MuiGrid-root grid undefined attachmentContainer MuiGrid-item MuiGrid-grid-xs-6"
           />
           <div
             class="MuiGrid-root answerButtonContainer MuiGrid-item MuiGrid-grid-xs-6"

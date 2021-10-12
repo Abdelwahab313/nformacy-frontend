@@ -27,6 +27,7 @@ export const useStyles = makeStyles((theme) => ({
   inputsRow: {
     marginTop: theme.spacing(4),
   },
+  projectManagerField: { marginTop: 20 },
   countDown: {
     marginLeft: theme.spacing(2),
   },
@@ -57,6 +58,7 @@ export const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     alignItems: 'center',
     display: 'flex',
+    marginTop: 20,
   },
   fieldLabelStyles: {
     fontSize: '1.190vw',
@@ -216,6 +218,11 @@ export const useStyles = makeStyles((theme) => ({
   relatedServiceHeaderText: {
     [theme.breakpoints.down('sm')]: {
       fontSize: 14,
+    },
+  },
+  projectManagerHeader: {
+    [theme.breakpoints.down('md')]: {
+      marginTop: '0 !important',
     },
   },
 }));

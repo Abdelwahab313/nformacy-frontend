@@ -13,11 +13,7 @@ import { useTranslation } from 'react-i18next';
 import CardFooter from 'components/card/CardFooter';
 import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 
-const AddProjectManagerForm = ({
-  primaryButton,
-  user,
-  setUser,
-}) => {
+const AddProjectManagerForm = ({ primaryButton, user, setUser }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const isNewForm = !user.id;
@@ -63,8 +59,12 @@ const AddProjectManagerForm = ({
             </GridItem>
           )}
         </GridContainer>
-        <GridContainer className={classes.inputsRow}>
-          <GridItem xs={12} sm={12} md={4}>
+        <GridContainer>
+          <GridItem
+            className={classes.projectManagerField}
+            xs={12}
+            sm={12}
+            md={4}>
             <TextField
               required
               label={t('firstName')}
@@ -78,7 +78,11 @@ const AddProjectManagerForm = ({
               variant='outlined'
             />
           </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
+          <GridItem
+            className={classes.projectManagerField}
+            xs={12}
+            sm={12}
+            md={4}>
             <TextField
               required
               label={t('lastName')}
@@ -92,7 +96,11 @@ const AddProjectManagerForm = ({
               variant='outlined'
             />
           </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
+          <GridItem
+            className={classes.projectManagerField}
+            xs={12}
+            sm={12}
+            md={4}>
             <TextField
               required
               label={t('email')}
@@ -113,14 +121,26 @@ const AddProjectManagerForm = ({
             onChangeField('fields', newOptions);
           }}>
           {({ MajorField, Field }) => (
-            <GridContainer className={classes.inputsRow}>
-              <GridItem xs={12} sm={12} md={4}>
+            <GridContainer>
+              <GridItem
+                className={classes.projectManagerField}
+                xs={12}
+                sm={12}
+                md={4}>
                 <MajorField />
               </GridItem>
-              <GridItem xs={12} sm={12} md={4}>
+              <GridItem
+                className={classes.projectManagerField}
+                xs={12}
+                sm={12}
+                md={4}>
                 <Field />
               </GridItem>
-              <GridItem xs={12} sm={12} md={4}>
+              <GridItem
+                className={classes.projectManagerField}
+                xs={12}
+                sm={12}
+                md={4}>
                 <DropdownSelectField
                   multiple
                   fieldId='industriesOfExperience'
