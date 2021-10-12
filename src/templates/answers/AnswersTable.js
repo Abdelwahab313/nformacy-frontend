@@ -8,6 +8,11 @@ import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
 
 import parseActivitiesToTableRow from 'templates/activities/parseActivitiesToTable';
+import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
+import CustomTypography from 'components/typography/Typography';
+import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
+import ActivityRefLink from 'templates/services/ActivityRefLink';
+import FreelancerAnswerTime from './FreelancerAnswerTime';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -16,20 +21,22 @@ const getColumnsOptions = (classes, t) => {
     ),
   };
 
+  const getServiceId = (tableMeta) => {
+    return tableMeta.rowData[0];
+  };
+
+  const getQuestionId = (tableMeta) => {
+    return tableMeta.rowData[1];
+  };
+
+  const getActivityType = (tableMeta) => {
+    return tableMeta.rowData[2];
+  };
+
   const columns = [
     // data for refernce
     {
-      name: 'id',
-      label: t('id'),
-      options: {
-        display: false,
-        filter: false,
-        sort: false,
-      },
-    },
-    {
-      name: 'questionId',
-      label: t('serviceQuestionId'),
+      name: 'servcieId',
       options: {
         ...defaultColumnOption,
         filter: false,
@@ -37,22 +44,40 @@ const getColumnsOptions = (classes, t) => {
       },
     },
     {
-      name: 'questionState',
-      label: t('Question State'),
+      name: 'questionId',
       options: {
-        display: false,
+        ...defaultColumnOption,
         filter: false,
-        sort: false,
+        display: false,
       },
     },
+    {
+      name: 'activityType',
+      options: {
+        ...defaultColumnOption,
+        filter: false,
+        display: false,
+      },
+    },
+
     // display data
     {
-      name: 'activityId',
+      name: 'activityRef',
       label: t('serviceReferenceNumber'),
       options: {
         ...defaultColumnOption,
         filter: false,
         sort: true,
+        customBodyRender: (serviceRef, tableMeta) => {
+          return (
+            <ActivityRefLink
+              activityType={getActivityType(tableMeta)}
+              serviceId={getServiceId(tableMeta)}
+              questionId={getQuestionId(tableMeta)}
+              referenceId={serviceRef}
+            />
+          );
+        },
       },
     },
     {
@@ -71,6 +96,9 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: false,
         sort: true,
+        customBodyRender: (title) => {
+          return <TextCroppedWithTooltip text={title} maxChar={15} />;
+        },
       },
     },
     {
@@ -80,6 +108,13 @@ const getColumnsOptions = (classes, t) => {
         ...defaultColumnOption,
         filter: false,
         sort: true,
+        customBodyRender: (createdAt) => {
+          return (
+            <CustomTypography variant='body2' gutterBottom>
+              {formattedDateTimeNoSeconds(createdAt)}
+            </CustomTypography>
+          );
+        },
       },
     },
     {
@@ -117,6 +152,9 @@ const getColumnsOptions = (classes, t) => {
         customHeadLabelRender: () => (
           <Grid className={classes.currentActionTimeContainer}>By Time</Grid>
         ),
+        customBodyRender: (actionTime) => {
+          return <FreelancerAnswerTime currentActionTime={actionTime} />;
+        },
       },
     },
     {

@@ -12,6 +12,11 @@ import LoadingCircle from 'components/progress/LoadingCircle';
 import useFetchFreelancerActivities from 'hooks/useFetchFreelancerActivities';
 import parseActivitiesToTableRow from 'templates/activities/parseActivitiesToTable';
 import { useTranslation } from 'react-i18next';
+import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
+import CustomTypography from 'components/typography/Typography';
+import ActivityRefLink from 'templates/services/ActivityRefLink';
+import { formattedDateTimeNoSeconds } from 'services/dateTimeParser';
+import FreelancerAnswerTime from 'templates/answers/FreelancerAnswerTime';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -89,15 +94,28 @@ const ConsultantActivityTable = () => {
               ) : (
                 parsedActivitiesToTable.map((dataRow) => (
                   <StyledTableRow
-                    reference-number={dataRow.activityId}
-                    key={dataRow.id}>
-                    <StyledTableCell>{dataRow.activityId}</StyledTableCell>
+                    reference-number={dataRow.servcieId}
+                    key={dataRow.servcieId}>
+                    <StyledTableCell>
+                      <ActivityRefLink
+                        activityType={dataRow.activityType}
+                        serviceId={dataRow.serviceId}
+                        questionId={dataRow.questionId}
+                        referenceId={dataRow.activityRef}
+                      />
+                      {dataRow.activityId}
+                    </StyledTableCell>
                     <StyledTableCell>{dataRow.requestType}</StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
-                      {dataRow.title}
+                      <TextCroppedWithTooltip
+                        text={dataRow.title}
+                        maxChar={15}
+                      />
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
-                      {dataRow.date}
+                      <CustomTypography variant='body2' gutterBottom>
+                        {formattedDateTimeNoSeconds(dataRow.date)}
+                      </CustomTypography>
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
                       {dataRow.fields}
@@ -111,7 +129,7 @@ const ConsultantActivityTable = () => {
                       {dataRow.action}
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
-                      {dataRow.time}
+                      <FreelancerAnswerTime currentActionTime={dataRow.time} />
                     </StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>
                       {dataRow.timeAlarm}

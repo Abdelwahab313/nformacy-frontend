@@ -13,6 +13,7 @@ import ServiceRefLink from 'templates/services/ServiceRefLink';
 import TextCroppedWithTooltip from 'components/typography/TextCroppedWithTooltip';
 import CustomTypography from 'components/typography/Typography';
 import { formattedDateMonthAndDay } from 'services/dateTimeParser';
+import QuestionCountDown from 'components/counters/QuestionCountDown';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -118,7 +119,12 @@ const ServicesStyledTable = ({ services, isMultiUser }) => {
                     {!isMultiUser && (
                       <>
                         <StyledTableCell className={classes.desktopVisible}>
-                          {service.actionTime}
+                          <QuestionCountDown
+                            date={service.actionTime}
+                            data-date={service.actionTime}
+                            showIcon={false}
+                            className={'currentActionTime'}
+                          />
                         </StyledTableCell>
                         <StyledTableCell className={classes.desktopVisible}>
                           {service.alarm}
