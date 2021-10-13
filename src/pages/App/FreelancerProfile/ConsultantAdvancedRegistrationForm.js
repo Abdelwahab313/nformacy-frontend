@@ -27,6 +27,7 @@ import BackButton from './subComponents/BackButton';
 
 const ConsultantAdvancedRegistrationForm = () => {
   const currentUser = authManager.retrieveCurrentUser();
+  delete currentUser.avatar;
   const user = useRef(currentUser);
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
