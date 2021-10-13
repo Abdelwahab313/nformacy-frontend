@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { useStyles } from 'styles/Admin/postProjectStyles';
 import { useHistory } from 'react-router';
 import { getEditProjectPath } from 'services/navigation';
+import ProjectGuardian from 'core/guardians/ProjectGuardian';
 
 const ProjectsList = () => {
   const { t } = useTranslation();
@@ -33,13 +34,15 @@ const ProjectsList = () => {
   return (
     <GridContainer>
       <GridItem xs={12}>
-        <SubmitButton
-          id='postProjectButton'
-          className={classes.postProjectButton}
-          buttonText={t('createNewProject')}
-          startIcon={<AddIcon />}
-          onClick={navigateToPostProject}
-        />
+        {ProjectGuardian.canAddProject() && (
+          <SubmitButton
+            id='postProjectButton'
+            className={classes.postProjectButton}
+            buttonText={t('createNewProject')}
+            startIcon={<AddIcon />}
+            onClick={navigateToPostProject}
+          />
+        )}
         <Card plain>
           <CardBody id='projectsList'>
             <ProjectsTable projects={projects} />

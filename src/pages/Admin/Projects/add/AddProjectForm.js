@@ -11,14 +11,12 @@ import ActionButtonsContainer from 'components/buttons/ActionButtonsContainer';
 import { InputLabel } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import RichTextEditorForm from 'components/forms/RichTextEditorForm';
-import {
-  DatePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
+import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import CountrySelectField from 'components/inputs/CountrySelectField';
 import ProjectManagerSelect from './ProjectManagerSelect';
 import ErrorMessage from 'components/errors/ErrorMessage';
+import ProjectGuardian from 'core/guardians/ProjectGuardian';
 
 const AddProjectForm = ({
   primaryButton,
@@ -142,13 +140,15 @@ const AddProjectForm = ({
             md={6}
             className={classes.projectFormFields}>
             <FormControl fullWidth id='project-manager-select'>
-              <ProjectManagerSelect
-                selectedProjectMangerId={project.projectManagerId}
-                onChangeProjectManagerId={(projectManagerId) =>
-                  onChangeField('projectManagerId', projectManagerId)
-                }
-                error={!!errors?.projectManagerId}
-              />
+              {ProjectGuardian.canChangeProjectManager() && (
+                <ProjectManagerSelect
+                  selectedProjectMangerId={project.projectManagerId}
+                  onChangeProjectManagerId={(projectManagerId) =>
+                    onChangeField('projectManagerId', projectManagerId)
+                  }
+                  error={!!errors?.projectManagerId}
+                />
+              )}
               <ErrorMessage
                 className={classes.errorMessage}
                 errorField={{ message: errors?.projectManagerId }}
