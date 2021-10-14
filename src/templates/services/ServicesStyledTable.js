@@ -95,8 +95,8 @@ const ServicesStyledTable = ({ services, isMultiUser }) => {
                     </StyledTableCell>
                     <StyledTableCell>
                       <ServiceRefLink
-                        serviceId={service.serviceId}
-                        serviceState={service.serviceId}
+                        serviceId={service.rowServiceId}
+                        serviceState={service.rowServiceState}
                         referenceId={service.serviceRef}
                       />
                     </StyledTableCell>
