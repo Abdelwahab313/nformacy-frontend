@@ -33,7 +33,7 @@ const getColumnsOptions = (classes, t) => {
   const columns = [
     {
       name: 'consultantRef',
-      label: t('consultantRef'),
+      label: t('consultantId'),
       options: {
         ...defaultColumnOption,
         display: true,

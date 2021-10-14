@@ -9,6 +9,7 @@ import { getClientDetailsView, getSubAccounts } from 'services/navigation';
 import { getUserCountryLabel } from 'core/user';
 import { renderIndustriesOfExperience } from 'core/industriesOfExp';
 import { formattedDateMonthAndDay } from 'services/dateTimeParser';
+import { IS_Nformacy_APP } from 'settings';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -36,7 +37,7 @@ const getColumnsOptions = (classes, t) => {
     },
     {
       name: 'id',
-      label: t('id'),
+      label: IS_Nformacy_APP ? t('clientId') : t('beneficiaryId'),
       options: {
         ...defaultColumnOption,
         display: true,

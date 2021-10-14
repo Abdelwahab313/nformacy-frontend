@@ -37,7 +37,7 @@ const getColumnsOptions = (classes, t) => {
   const columns = [
     {
       name: 'id',
-      label: t('projectNumber'),
+      label: t('projectId'),
       options: {
         ...defaultColumnOption,
         display: true,
