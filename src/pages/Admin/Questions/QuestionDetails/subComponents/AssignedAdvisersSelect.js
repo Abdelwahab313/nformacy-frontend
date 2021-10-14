@@ -3,7 +3,7 @@ import { fetchAdvisersList } from '../../../../../apis/userAPI';
 
 import DropdownSelectField from 'components/inputs/DropdownSelectField';
 
-const AssignedAdvisersSelect = ({ questionDetails, onChangeQuestionField }) => {
+const AssignedAdvisersSelect = ({ questionDetails, onChangeQuestionField, ...props }) => {
   const [fetchedAdvisersList, setFetchedAdvisersList] = useState([]);
   useEffect(() => {
     fetchAdvisersList().then((response) => {
@@ -34,6 +34,7 @@ const AssignedAdvisersSelect = ({ questionDetails, onChangeQuestionField }) => {
         onChangeQuestionField('assignedAdviserId', option.value);
       }}
       fieldLabel='Assign Adviser'
+      {...props}
     />
   );
 };

@@ -185,6 +185,7 @@ const QuestionForm = ({ isNewQuestion }) => {
                 onChangeQuestionField('assignmentType', option.value)
               }
               fieldLabel='Type of Assignment'
+              disabled
             />
           </GridItem>
           <GridItem
@@ -205,6 +206,9 @@ const QuestionForm = ({ isNewQuestion }) => {
                 value: questionDetails.hoursToCloseAnswers,
                 name: 'hoursToCloseAnswers',
                 type: 'number',
+                disabled: !QuestionGuardian.canChangeTimeForQuestion(
+                  questionDetails,
+                ),
                 onChange: (e) => {
                   onChangeQuestionField('hoursToCloseAnswers', e.target.value);
                 },
@@ -231,6 +235,9 @@ const QuestionForm = ({ isNewQuestion }) => {
                 value: questionDetails.hoursToReviewAndEdit,
                 name: 'hoursToReviewAndEdit',
                 type: 'number',
+                disabled: !QuestionGuardian.canChangeTimeForQuestion(
+                  questionDetails,
+                ),
                 onChange: (e) => {
                   onChangeQuestionField('hoursToReviewAndEdit', e.target.value);
                 },
@@ -247,6 +254,9 @@ const QuestionForm = ({ isNewQuestion }) => {
             <AssignedAdvisersSelect
               questionDetails={questionDetails}
               onChangeQuestionField={onChangeQuestionField}
+              disabled={!QuestionGuardian.canChangeAdviserDropDown(
+                questionDetails,
+              )}
             />
           </GridItem>
         </GridContainer>

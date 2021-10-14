@@ -16,6 +16,11 @@ const adviserEditQuestionStates = [
   QUESTION_STATUS.reviewAndEdit,
 ];
 
+const changeAdviserStates = [
+  QUESTION_STATUS.draft,
+  QUESTION_STATUS.pendingAssignment,
+];
+
 class QuestionGuardianClass extends GuardianBase {
   constructor(user) {
     super(user);
@@ -27,6 +32,21 @@ class QuestionGuardianClass extends GuardianBase {
       this.hasRequestsManagementsRole() ||
       this.isAdviser() ||
       this.hasQuestionsManagementsRole()
+    );
+  }
+
+  canChangeAdviserDropDown(questionDetails) {
+    return (
+      !authManager.isAdviser() &&
+      changeAdviserStates.includes(questionDetails.state)
+    );
+  }
+
+
+  canChangeTimeForQuestion(questionDetails) {
+    return (
+      !authManager.isAdviser() &&
+      changeAdviserStates.includes(questionDetails.state)
     );
   }
 

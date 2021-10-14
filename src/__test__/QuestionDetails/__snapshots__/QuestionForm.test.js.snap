@@ -519,7 +519,7 @@ exports[`Question Form should match snapshot 1`] = `
       >
         <div
           aria-expanded="false"
-          class="MuiAutocomplete-root MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon"
+          class="MuiAutocomplete-root MuiAutocomplete-hasPopupIcon"
           name="AssignmentType"
           role="combobox"
         >
@@ -527,7 +527,7 @@ exports[`Question Form should match snapshot 1`] = `
             class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
           >
             <label
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined Mui-disabled Mui-disabled"
               data-shrink="false"
               for="assignmentType"
               id="assignmentType-label"
@@ -535,14 +535,15 @@ exports[`Question Form should match snapshot 1`] = `
               Type of Assignment
             </label>
             <div
-              class="MuiInputBase-root MuiOutlinedInput-root MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd"
+              class="MuiInputBase-root MuiOutlinedInput-root MuiAutocomplete-inputRoot Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd"
             >
               <input
                 aria-autocomplete="list"
                 aria-invalid="false"
                 autocapitalize="none"
                 autocomplete="off"
-                class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
+                class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused Mui-disabled Mui-disabled MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
+                disabled=""
                 id="assignmentType"
                 spellcheck="false"
                 type="text"
@@ -552,33 +553,9 @@ exports[`Question Form should match snapshot 1`] = `
                 class="MuiAutocomplete-endAdornment"
               >
                 <button
-                  aria-label="Clear"
-                  class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator"
-                  tabindex="-1"
-                  title="Clear"
-                  type="button"
-                >
-                  <span
-                    class="MuiIconButton-label"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
-                      focusable="false"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="MuiTouchRipple-root"
-                  />
-                </button>
-                <button
                   aria-label="Open"
-                  class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-popupIndicator"
+                  class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-popupIndicator Mui-disabled Mui-disabled"
+                  disabled=""
                   tabindex="-1"
                   title="Open"
                   type="button"
@@ -597,9 +574,6 @@ exports[`Question Form should match snapshot 1`] = `
                       />
                     </svg>
                   </span>
-                  <span
-                    class="MuiTouchRipple-root"
-                  />
                 </button>
               </div>
               <fieldset
@@ -633,12 +607,13 @@ exports[`Question Form should match snapshot 1`] = `
             Time for Freelancers to Answer (In Hours)
           </label>
           <div
-            class="MuiInputBase-root MuiInput-root MuiInput-underline underline MuiInputBase-formControl MuiInput-formControl"
+            class="MuiInputBase-root MuiInput-root MuiInput-underline underline Mui-disabled Mui-disabled disabled MuiInputBase-formControl MuiInput-formControl"
             style="padding-bottom: 12px;"
           >
             <input
               aria-invalid="false"
-              class="MuiInputBase-input MuiInput-input"
+              class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled disabled"
+              disabled=""
               id="hoursToCloseAnswers"
               min="1"
               name="hoursToCloseAnswers"
@@ -663,12 +638,13 @@ exports[`Question Form should match snapshot 1`] = `
             Time for Adviser to Review (In Hours)
           </label>
           <div
-            class="MuiInputBase-root MuiInput-root MuiInput-underline underline MuiInputBase-formControl MuiInput-formControl"
+            class="MuiInputBase-root MuiInput-root MuiInput-underline underline Mui-disabled Mui-disabled disabled MuiInputBase-formControl MuiInput-formControl"
             style="padding-bottom: 12px;"
           >
             <input
               aria-invalid="false"
-              class="MuiInputBase-input MuiInput-input"
+              class="MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled disabled"
+              disabled=""
               id="hoursToReviewAndEdit"
               min="1"
               name="hoursToReviewAndEdit"
@@ -683,7 +659,7 @@ exports[`Question Form should match snapshot 1`] = `
       >
         <div
           aria-expanded="false"
-          class="MuiAutocomplete-root MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon"
+          class="MuiAutocomplete-root MuiAutocomplete-hasPopupIcon"
           name="AssignAdviser"
           role="combobox"
         >
@@ -691,7 +667,7 @@ exports[`Question Form should match snapshot 1`] = `
             class="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
           >
             <label
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined Mui-disabled Mui-disabled"
               data-shrink="false"
               for="assignAdviser"
               id="assignAdviser-label"
@@ -699,14 +675,15 @@ exports[`Question Form should match snapshot 1`] = `
               Assign Adviser
             </label>
             <div
-              class="MuiInputBase-root MuiOutlinedInput-root MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd"
+              class="MuiInputBase-root MuiOutlinedInput-root MuiAutocomplete-inputRoot Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd"
             >
               <input
                 aria-autocomplete="list"
                 aria-invalid="false"
                 autocapitalize="none"
                 autocomplete="off"
-                class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
+                class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused Mui-disabled Mui-disabled MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
+                disabled=""
                 id="assignAdviser"
                 spellcheck="false"
                 type="text"
@@ -716,33 +693,9 @@ exports[`Question Form should match snapshot 1`] = `
                 class="MuiAutocomplete-endAdornment"
               >
                 <button
-                  aria-label="Clear"
-                  class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator MuiAutocomplete-clearIndicatorDirty"
-                  tabindex="-1"
-                  title="Clear"
-                  type="button"
-                >
-                  <span
-                    class="MuiIconButton-label"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
-                      focusable="false"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="MuiTouchRipple-root"
-                  />
-                </button>
-                <button
                   aria-label="Open"
-                  class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-popupIndicator"
+                  class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-popupIndicator Mui-disabled Mui-disabled"
+                  disabled=""
                   tabindex="-1"
                   title="Open"
                   type="button"
@@ -761,9 +714,6 @@ exports[`Question Form should match snapshot 1`] = `
                       />
                     </svg>
                   </span>
-                  <span
-                    class="MuiTouchRipple-root"
-                  />
                 </button>
               </div>
               <fieldset
