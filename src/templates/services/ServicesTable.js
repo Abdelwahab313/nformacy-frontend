@@ -146,7 +146,7 @@ const getColumnsOptions = (classes, t) => {
       label: t('fields'),
       options: {
         ...defaultColumnOption,
-        filter: true,
+        filter: false,
         display: authManager.isAdmin(),
         filterType: 'multiselect',
         customBodyRender: (fields) => {
