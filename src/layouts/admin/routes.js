@@ -103,7 +103,7 @@ const adminRoutes = [
   },
   {
     path: RoutesPaths.Admin.AddConsultant,
-    name: 'Add Consultants',
+    name: 'Add Consultant',
     icon: BusinessCenterIcon,
     component: AddConsultant,
     hasDashboardLink: false,
@@ -236,7 +236,7 @@ const adminRoutes = [
   },
   {
     path: RoutesPaths.Admin.AddProjectManager,
-    name: 'Add Project Managers',
+    name: 'Add Project Manager',
     icon: BusinessCenterIcon,
     component: AddProjectManger,
     hasDashboardLink: false,
