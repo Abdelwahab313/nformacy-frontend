@@ -137,6 +137,15 @@ const deactivateUser = (userId) => {
   }).then((response) => camelizeKeys(response));
 };
 
+
+const resendInvitationMail = (userId) => {
+  return axios({
+    method: 'post',
+    url: `${API_BASE_URL}/users/resend_welcome_mail`,
+    data: decamelizeKeys({ userId })
+  }).then((response) => camelizeKeys(response));
+};
+
 const verifyEmail = (token) => {
   return axios({
     method: 'get',
@@ -163,4 +172,5 @@ export {
   fetchPointsList,
   submitFullProfile,
   getUser,
+  resendInvitationMail,
 };
