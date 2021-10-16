@@ -224,11 +224,12 @@ export const getClientDetailsView = (clientId) => {
   };
 };
 
-export const getConsultantDetailsView = (consultantId) => {
+export const getConsultantDetailsView = (consultantId, consultantEmailStatus) => {
   return {
     pathname: RoutesPaths.Admin.ConsultantDetailsView,
     state: {
       consultantId,
+      consultantEmailStatus
     },
   };
 };

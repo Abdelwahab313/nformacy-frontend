@@ -171,7 +171,7 @@ const parseConsultantsTableData = (consultants) => {
     dateJoined: formattedDateTimeNoSeconds(new Date(consultant.createdAt)),
     state: getConsultantState(consultant),
     consultantRef: (
-      <LinkText to={getConsultantDetailsView(consultant.id)}>
+      <LinkText to={getConsultantDetailsView(consultant.id, consultant?.isEmailVerified)}>
         {consultant.referenceNumber}
       </LinkText>
     ),
