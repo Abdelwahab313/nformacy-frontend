@@ -22,6 +22,8 @@ const WelcomeAccountFormPage = () => {
   const query = useQueryParams();
   const resetPasswordToken = query.get('token');
   const emailToken = query.get('email');
+  const firstNameToken = query.get('firstName');
+  const lastNameToken = query.get('lastName');
   const history = useHistory();
   const { showSuccessMessage } = useSnackBar();
   const [responseMessage, setResponseMessage] = useState('');
@@ -72,6 +74,7 @@ const WelcomeAccountFormPage = () => {
               id='firstName'
               onChange={handleChange}
               autoComplete='on'
+              defaultValue={firstNameToken}
               autoFocus
             />
             {errors.firstName && (
@@ -86,6 +89,7 @@ const WelcomeAccountFormPage = () => {
               type='text'
               id='lastName'
               onChange={handleChange}
+              defaultValue={lastNameToken}
               autoComplete='off'
             />
             {errors.lastName && (
