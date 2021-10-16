@@ -44,7 +44,7 @@ export const RoutesPaths = {
     AddProjectManager: '/admin/projectManagers/add',
     ServiceDetails: '/admin/services/edit',
     Logout: '/admin/logout',
-    PostQuestion: '/admin/postQuestion',
+    PostQuestion: '/admin/questions/postQuestion',
     Evaluations: '/admin/viewEvaluations',
     ChangePassword: '/admin/changePassword',
     SubAccount: '/admin/subAccount',
