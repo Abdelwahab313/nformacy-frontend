@@ -433,6 +433,7 @@
   "addAdminBtn": "Add New Admin",
   "addClientBtn": "Add New Client",
   "addConsultantBtn": "Add New Consultant",
+  "resendInvitationMailBtn": "Resend Invitation Email",
   "addAdvisorBtn": "Add New Advisor",
   "addProjectManagerBtn": "Add Project Manager",
   "emailEmptyError": "Email can't be Empty!",
@@ -649,5 +650,7 @@
   "serviceSaveSuccessfully": "Service Saved Successfully!",
   "beneficiariesDetails": "Beneficiaries Details",
   "failedSubmitAvailability": "Failed to confirm available time!",
-  "successConfirmAvailability": "Successfully confirm available time!"
+  "successConfirmAvailability": "Successfully confirm available time!",
+  "successResendInvitationMail": "Successfully Invitation Email Resent",
+  "failedResendInvitationMail": "Failed To resend Invitation Email !"
 }

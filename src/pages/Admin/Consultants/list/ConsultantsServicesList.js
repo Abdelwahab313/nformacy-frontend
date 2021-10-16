@@ -5,15 +5,23 @@ import CardBody from '../../../../components/card/CardBody';
 import GridContainer from '../../../../components/grid/GridContainer';
 import LoadingCircle from 'components/progress/LoadingCircle';
 import { useLocation } from 'react-router';
-import { getUser } from 'apis/userAPI';
+import { getUser, resendInvitationMail } from 'apis/userAPI';
 import useFetchData from 'hooks/useFetchData';
 import CustomTypography from 'components/typography/Typography';
 import ConsultantDetailsView from 'templates/consultants/ConsultantDetailsView';
 import { fetchFreelancerAnswers } from 'apis/answersAPI';
+import SubmitButton from 'components/buttons/SubmitButton';
+import { useTranslation } from 'react-i18next';
+import { useSnackBar } from 'context/SnackBarContext';
+
 
 const ConsultantsServicesList = () => {
   const location = useLocation();
-  const consultantId = location?.state?.consultantId;
+  const { t } = useTranslation();
+
+  const { consultantId, consultantEmailStatus } = location?.state;
+  const { showSuccessMessage, showErrorMessage } = useSnackBar();
+
 
   const { fetchedData: activities, isLoading } = useFetchData(() => fetchFreelancerAnswers(consultantId));
 
@@ -25,12 +33,32 @@ const ConsultantsServicesList = () => {
     return <LoadingCircle />;
   }
 
+  const handleResendInvitationMail = () => {
+    resendInvitationMail(consultantId).then(() => {
+      showSuccessMessage(t('successResendInvitationMail'));
+    }).catch(() => {
+      showErrorMessage(t('failedResendInvitationMail'));
+    });
+  };
+
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
-        <CustomTypography fontWeight='bold'>
-          {users.firstName + ' ' + users.lastName}
-        </CustomTypography>
+        <GridContainer alignItems="center" justify="space-between">
+          <CustomTypography fontWeight='bold'>
+            {users.firstName + ' ' + users.lastName}
+          </CustomTypography>
+          {!consultantEmailStatus && <SubmitButton
+
+            id={'resendInvitationMailBtn'}
+            onClick={handleResendInvitationMail}
+            buttonText={
+              <CustomTypography variant="body1">
+                {t('resendInvitationMailBtn')}
+              </CustomTypography>
+            }
+          />}
+        </GridContainer>
       </GridItem>
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
