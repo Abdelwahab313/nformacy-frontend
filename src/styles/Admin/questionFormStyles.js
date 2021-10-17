@@ -170,6 +170,9 @@ export const useStyles = makeStyles((theme) => ({
       padding: '10vw',
     },
   },
+  mentoringActivityTable: {
+    width: '100%',
+  },
   addAccountDate: {
     width: '100%',
   },

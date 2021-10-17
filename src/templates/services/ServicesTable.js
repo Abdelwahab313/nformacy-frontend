@@ -18,6 +18,7 @@ import { formattedDateMonthAndDay } from 'services/dateTimeParser';
 import LinkText from 'components/typography/LinkText';
 import QuestionCountDown from 'components/counters/QuestionCountDown';
 import { IS_Nformacy_APP } from 'settings';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -252,6 +253,16 @@ const ServicesTable = ({ services }) => {
   const columns = getColumnsOptions(classes, t);
   const servicesRows = parseServicesToTableRows(services, t);
 
+  const muiTheme = createMuiTheme({
+    overrides: {
+      MUIDataTablePagination: {
+        tableCellContainer: {
+          padding: '0px !important',
+        },
+      },
+    },
+  });
+
   const tableOptions = {
     filterType: 'checkbox',
     selectableRows: 'none',
@@ -266,12 +277,14 @@ const ServicesTable = ({ services }) => {
     }),
   };
   return (
-    <MUIDataTable
-      title={t('serviceRequestList')}
-      data={servicesRows}
-      columns={columns}
-      options={tableOptions}
-    />
+    <MuiThemeProvider theme={muiTheme}>
+      <MUIDataTable
+        title={t('serviceRequestList')}
+        data={servicesRows}
+        columns={columns}
+        options={tableOptions}
+      />
+    </MuiThemeProvider>
   );
 };
 

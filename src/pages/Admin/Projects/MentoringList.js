@@ -47,9 +47,11 @@ const MentoringList = () => {
   const [open, setOpen] = useState(false);
   const projectId = useLocationState((state) => state?.projectId);
 
-  const { fetchedData: projectMentors, setFetchedData: setProjectMentors, isLoading } = useFetchData(() =>
-    fetchProjectMentors(projectId),
-  );
+  const {
+    fetchedData: projectMentors,
+    setFetchedData: setProjectMentors,
+    isLoading,
+  } = useFetchData(() => fetchProjectMentors(projectId));
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -91,10 +93,17 @@ const MentoringList = () => {
 
   return (
     <>
-      <EditMentorsDialog isOpened={open} handleClose={handleClose} setProjectMentors={setProjectMentors} />
+      <EditMentorsDialog
+        isOpened={open}
+        handleClose={handleClose}
+        setProjectMentors={setProjectMentors}
+      />
 
       <Grid container>
-        <Grid item md={12} className={classes.activityTable}>
+        <Grid
+          item
+          md={12}
+          className={[classes.activityTable, classes.mentoringActivityTable]}>
           <TableContainer component={Paper} className={classes.tableContainer}>
             <Table stickyHeader aria-label='My Activity Table'>
               <TableHead>
