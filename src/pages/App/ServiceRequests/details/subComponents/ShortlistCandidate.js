@@ -64,6 +64,7 @@ const ShortlistCandidate = ({ candidates, serviceId }) => {
                 onCandidateClick={() => {
                   setSelectedCandidate(candidate);
                 }}
+                buttonText={t('bookCandidate')}
               />
             </Box>
           </Grid>

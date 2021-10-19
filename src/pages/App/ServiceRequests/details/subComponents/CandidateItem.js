@@ -90,26 +90,26 @@ const CandidateItem = ({
                 className={classes.candidateDesc}></CustomTypography>
             </Grid>
             <Grid container justify='center' xs={12}>
-              {isFocused && !isAdmin && (
+              {isFocused && !isAdmin && !!buttonText && (
                 <SubmitButton
                   id={'proceedBtn'}
                   className={classes.desktopVisible}
                   onClick={() => onCandidateClick()}
                   buttonText={
                     <CustomTypography variant='body1'>
-                      {buttonText ? buttonText : t('bookCandidate')}
+                      {buttonText}
                     </CustomTypography>
                   }
                 />
               )}
-              {!isAdmin && (
+              {!isAdmin && !!buttonText && (
                 <SubmitButton
                   id={'proceedBtn'}
                   className={classes.mobileVisible}
                   onClick={() => onCandidateClick()}
                   buttonText={
                     <CustomTypography variant='body1'>
-                      {buttonText ? buttonText : t('bookCandidate')}
+                      {buttonText}
                     </CustomTypography>
                   }
                 />

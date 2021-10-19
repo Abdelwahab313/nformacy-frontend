@@ -26,7 +26,7 @@ const ClientServiceDetails = ({ serviceDetails }) => {
           <ServiceView serviceDetails={serviceDetails} />
           <GridContainer>
             {serviceDetails?.meetings?.map((meeting) => (
-              <GridItem xs={6}>
+              <GridItem md={6} xs={12}>
                 <MeetingDetailsSection meeting={meeting} />
               </GridItem>
             ))}

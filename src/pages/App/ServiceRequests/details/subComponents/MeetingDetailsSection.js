@@ -28,8 +28,6 @@ const MeetingDetailsSection = ({ meeting }) => {
   const handleClick = () => {
     if (!!isMeetingFinished) {
       return history.push(getCallEvaluationLink(meetingId, serviceId));
-    } else {
-      return (window.location.href = meeting.link);
     }
   };
 
@@ -57,8 +55,6 @@ const MeetingDetailsSection = ({ meeting }) => {
       } else {
         return 'Rate the Call';
       }
-    } else {
-      return 'join meeting';
     }
   };
   const handleFreelancerMeetingBtn = () => {
@@ -68,8 +64,6 @@ const MeetingDetailsSection = ({ meeting }) => {
       } else {
         return 'Rate the Call';
       }
-    } else {
-      return 'join meeting';
     }
   };
   return (
