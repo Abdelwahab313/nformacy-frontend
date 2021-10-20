@@ -94,8 +94,8 @@ const ConsultantActivityTable = () => {
               ) : (
                 parsedActivitiesToTable.map((dataRow) => (
                   <StyledTableRow
-                    reference-number={dataRow.servcieId}
-                    key={dataRow.servcieId}>
+                    reference-number={dataRow.serviceId}
+                    key={dataRow.serviceId}>
                     <StyledTableCell>
                       <ActivityRefLink
                         activityType={dataRow.activityType}
@@ -103,7 +103,6 @@ const ConsultantActivityTable = () => {
                         questionId={dataRow.questionId}
                         referenceId={dataRow.activityRef}
                       />
-                      {dataRow.activityId}
                     </StyledTableCell>
                     <StyledTableCell>{dataRow.requestType}</StyledTableCell>
                     <StyledTableCell className={classes.desktopVisible}>

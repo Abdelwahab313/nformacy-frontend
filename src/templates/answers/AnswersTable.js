@@ -36,7 +36,7 @@ const getColumnsOptions = (classes, t) => {
   const columns = [
     // data for refernce
     {
-      name: 'servcieId',
+      name: 'serviceId',
       options: {
         ...defaultColumnOption,
         filter: false,

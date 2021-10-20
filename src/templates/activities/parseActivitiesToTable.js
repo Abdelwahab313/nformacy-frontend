@@ -12,7 +12,7 @@ import MeetingAlarm from 'components/feedback/MeetingAlarm';
 const parseActivitiesToTableRow = (activities, t) => {
   return activities?.map((activity) => ({
     questionId: activity.questionId,
-    servcieId: activity.serviceId,
+    serviceId: activity.serviceId,
     activityType: activity.activityType,
 
     activityRef:
