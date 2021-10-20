@@ -17,6 +17,8 @@ const MenteeCard = ({ serviceDetails }) => {
   const history = useHistory();
   const serviceId = serviceDetails?.id;
   const consultant = serviceDetails?.mentoring?.consultant;
+  const showActionButton =
+    serviceDetails.state === SERVICE_STATUS.pendingCallScheduling;
 
   const closeCalendar = () => {
     setShowCalendar(false);
@@ -43,12 +45,12 @@ const MenteeCard = ({ serviceDetails }) => {
       <CandidateItem
         bgcolor={lighterPink}
         candidate={consultant}
-        isFocused={serviceDetails.state === SERVICE_STATUS.pendingCallScheduling}
+        isFocused={true}
         setFocusedCandidate={() => {}}
         onCandidateClick={() => {
           setShowCalendar(true);
         }}
-        buttonText={t('bookAMeeting')}
+        buttonText={showActionButton && t('bookAMeeting')}
       />
       <MeetingTimeSelectorCalendarDialog
         open={showCalendar}

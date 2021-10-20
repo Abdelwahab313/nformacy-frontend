@@ -10,6 +10,8 @@ const MentorCard = ({ serviceDetails }) => {
   const { t } = useTranslation();
   const beneficiary = serviceDetails?.mentoring?.beneficiary;
 
+  const showActionButton =
+    serviceDetails.state === SERVICE_STATUS.pendingMentorAvailability;
   const closeCalendar = () => {
     setShowCalendar(false);
   };
@@ -19,12 +21,12 @@ const MentorCard = ({ serviceDetails }) => {
       <CandidateItem
         bgcolor={lighterPink}
         candidate={beneficiary}
-        isFocused={serviceDetails.state === SERVICE_STATUS.pendingMentorAvailability}
+        isFocused={true}
         setFocusedCandidate={() => {}}
         onCandidateClick={() => {
           setShowCalendar(true);
         }}
-        buttonText={t('update availability')}
+        buttonText={showActionButton && t('update availability')}
       />
       <SubmitCalendarAvailabilityForMeetingDialog
         open={showCalendar}
