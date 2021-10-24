@@ -7,7 +7,7 @@ import authManager from 'services/authManager';
 import { useTranslation } from 'react-i18next';
 import LinkText from 'components/typography/LinkText';
 import ColoredFieldsChips from 'components/chips/ColoredFieldsChips';
-import { getClientDetails } from 'services/navigation';
+import { getClientProfileDetails } from 'services/navigation';
 
 const getColumnsOptions = (classes, t) => {
   const defaultColumnOption = {
@@ -72,10 +72,7 @@ const parseBeneficiariesTableData = (beneficiaries) => {
   return beneficiaries?.map((beneficiary) => ({
     ...beneficiary,
     beneficiaryRef: (
-      <LinkText
-        to={() => {
-          getClientDetails(beneficiary.id);
-        }}>
+      <LinkText to={getClientProfileDetails(beneficiary.id)}>
         {beneficiary.referenceNumber}
       </LinkText>
     ),

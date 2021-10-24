@@ -81,10 +81,7 @@ const parseConsultantsTableData = (consultants) => {
   return consultants?.map((consultant) => ({
     ...consultant,
     consultantRef: (
-      <LinkText
-        to={() => {
-          getConsultantDetails(consultant.id);
-        }}>
+      <LinkText to={getConsultantDetails(consultant.id)}>
         {consultant.referenceNumber}
       </LinkText>
     ),
