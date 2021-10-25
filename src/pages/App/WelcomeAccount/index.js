@@ -12,6 +12,7 @@ import { useHistory } from 'react-router';
 import useQueryParams from 'hooks/useQueryParams';
 import { useSnackBar } from 'context/SnackBarContext';
 import { RoutesPaths } from 'constants/routesPath';
+import useEmailResetCurrentSession from 'hooks/useEmailResetCurrentSession';
 
 const WelcomeAccountFormPage = () => {
   const classes = useStyles();
@@ -28,10 +29,12 @@ const WelcomeAccountFormPage = () => {
   const { showSuccessMessage } = useSnackBar();
   const [responseMessage, setResponseMessage] = useState('');
 
+  useEmailResetCurrentSession();
+
   const onSubmit = (e) => {
     setResponseMessage('');
     handleSubmit(e, () => {
-      confirmAccount(resetPasswordToken, values)
+      confirmAccount(resetPasswordToken, { ...values, email: emailToken })
         .then((response) => {
           showSuccessMessage(response?.message);
           //@TODO need to change this to habdle other accounts created

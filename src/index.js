@@ -16,7 +16,6 @@ import 'moment/locale/ar';
 import { SnackBarProvider } from 'context/SnackBarContext';
 import ErrorBoundary from 'components/errors/ErrorBoundary';
 import { GOOGLE_ANALYTICS_TRACKING_ID } from 'settings';
-import useEmailResetCurrentSession from 'hooks/useEmailResetCurrentSession';
 
 const Loader = () => <LoadingCircle color='primary' />;
 
@@ -24,8 +23,6 @@ const App = () => {
   const user = authManager.retrieveCurrentUser();
 
   ReactGA.initialize(GOOGLE_ANALYTICS_TRACKING_ID);
-
-  useEmailResetCurrentSession();
 
   return (
     <ErrorBoundary>
