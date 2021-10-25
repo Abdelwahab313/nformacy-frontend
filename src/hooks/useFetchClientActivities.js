@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { fetchClientActivities } from 'apis/homeAPI';
 import useFetchData from './useFetchData';
 import { MEETING_STATUS } from 'constants/questionStatus';
+import { IS_Nformacy_APP } from 'settings';
 
 const useFetchClientActivities = () => {
   const { fetchedData, isLoading } = useFetchData(fetchClientActivities);
@@ -69,7 +70,9 @@ const formatMeetingsToActivity = (meetings) => {
     serviceState: meeting.service?.state,
     currentActionTime: meeting.service?.question?.currentActionTime,
     meetingRef: meeting.referenceNumber,
-    meetingTime: (meeting.state === MEETING_STATUS.callScheduled) && meeting.callTime,
+    meetingTime:
+      meeting.state === MEETING_STATUS.callScheduled && meeting.callTime,
+    meetingId: IS_Nformacy_APP && meeting.id,
     hasEvaluationSubmitted: !!meeting.clientEvaluationId,
   }));
 };
