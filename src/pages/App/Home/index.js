@@ -10,9 +10,7 @@ import LoadingCircle from 'components/progress/LoadingCircle';
 import { useHistory, useLocation } from 'react-router';
 import SaasClientHomePage from './SaasClientHomePage';
 import SaasConsultantHomePage from './SaasConsultantHomePage';
-import SaasCorporateHomePage from './SaasCorporateHomePage';
 import ClientHomePage from './ClientHomePage';
-import CorporateHomePage from './CorporateHomePage';
 import ConsultantHomePage from './ConsultantHomePage';
 
 const HomePage = () => {
@@ -29,13 +27,7 @@ const HomePage = () => {
   const handleHomePage = () => {
     if (!!authManager.isOnlyClient()) {
       return IS_Nformacy_APP ? <ClientHomePage /> : <SaasClientHomePage />;
-    } else if (!!authManager.isCorporate()) {
-      return IS_Nformacy_APP ? (
-        <CorporateHomePage />
-      ) : (
-        <SaasCorporateHomePage />
-      );
-    } else {
+    }  else {
       return IS_Nformacy_APP ? (
         <ConsultantHomePage />
       ) : (
