@@ -13,6 +13,7 @@ import { history } from 'services/navigation';
 import { RoutesPaths } from 'constants/routesPath';
 import CustomTypography from 'components/typography/Typography';
 import { useTranslation } from 'react-i18next';
+import { IS_Nformacy_APP } from 'settings';
 
 const ClientsList = () => {
   const { t } = useTranslation();
@@ -32,7 +33,9 @@ const ClientsList = () => {
           onClick={() => history.push(RoutesPaths.Admin.AddBeneficiary)}
           buttonText={
             <CustomTypography variant='body1'>
-              {t('createNewBeneficiary')}
+              {IS_Nformacy_APP
+                ? t('createNewClient')
+                : t('createNewBeneficiary')}
             </CustomTypography>
           }
         />

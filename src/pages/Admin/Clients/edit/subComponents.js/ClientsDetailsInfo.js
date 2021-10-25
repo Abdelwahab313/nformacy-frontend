@@ -6,6 +6,7 @@ import CardHeader from 'components/card/CardHeader.js';
 import { Typography, Grid } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import ClientInfo from './ClientInfo';
+import { IS_Nformacy_APP } from 'settings';
 
 const ClientsDetailsInfo = () => {
   const { t } = useTranslation();
@@ -18,7 +19,7 @@ const ClientsDetailsInfo = () => {
             <Grid container>
               <Grid item md={12} xs={12}>
                 <Typography component={'h4'} id={'post-service-page-header'}>
-                  {t('beneficiaryInfo')}
+                  {IS_Nformacy_APP ? t('clientInfo') : t('beneficiaryInfo')}
                 </Typography>
               </Grid>
             </Grid>

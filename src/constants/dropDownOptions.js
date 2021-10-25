@@ -14,11 +14,6 @@ const employmentStatus = [
   },
 ];
 
-const projectManagers = [
-  { value: 1, label: 'Aml Moustafa' },
-  { value: 2, label: 'Abdelwahab Mahmoud' },
-  { value: 3, label: 'Ahmed Ali' },
-];
 const frequency = [
   { value: 'day', label: 'Day' },
   { value: 'week', label: 'Week' },
@@ -420,6 +415,5 @@ export {
   questionLanguages,
   questionTypesOfAssignmentTranslated,
   companySizeOptions,
-  projectManagers,
   frequency,
 };

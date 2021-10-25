@@ -152,14 +152,14 @@ const adminRoutes = [
   },
   {
     path: RoutesPaths.Admin.ClientProfileDetails,
-    name: 'Beneficiary Details',
+    name: IS_Nformacy_APP ? 'Cleint Details' : 'Beneficiary Details',
     icon: BusinessCenterIcon,
     component: ClientsDetailsInfo,
     hasDashboardLink: false,
   },
   {
     path: RoutesPaths.Admin.ClientDetailsView,
-    name: 'Beneficiary View',
+    name: IS_Nformacy_APP ? 'Cleint View' : 'Beneficiary View',
     icon: BusinessCenterIcon,
     component: ClientsServicesList,
     hasDashboardLink: false,

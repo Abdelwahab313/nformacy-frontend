@@ -14,7 +14,6 @@ import ConsultantPointsBox from './subComponents/ConsultantPointsBox';
 import ConsultantActivityCard from './subComponents/ConsultantActivityCard';
 import UserLevelCard from './subComponents/UserLevelCard';
 import CalendarCardForTablet from './subComponents/CalendarCardForTablet';
-import ProjectsSections from './subComponents/ProjectsSections';
 
 const ConsultantHomePage = () => {
   const classes = useStyles();
@@ -49,9 +48,6 @@ const ConsultantHomePage = () => {
             </Grid>
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
               <CalendarLibraryForMobile />
-            </Grid>
-            <Grid item xs={12} md={12} className={classes.sectionContainer}>
-              <ProjectsSections />
             </Grid>
             <Grid item xs={12} md={12} className={classes.sectionContainer}>
               <FeedsTimeline />
