@@ -111,7 +111,7 @@ const formatMentoringToActivity = (mentorServices) => {
     meetingState: mentorService.state,
     meetingRef: mentorService.referenceNumber,
     meetingTime:
-      mentorService.state === MEETING_STATUS.callScheduled && mentorService.callTime,
+      mentorService.state === MEETING_STATUS.callScheduled && mentorService?.meetings?.[0]?.callTime,
     hasEvaluationSubmitted: !!mentorService.freelancerEvaluationId,
   }));
 };
