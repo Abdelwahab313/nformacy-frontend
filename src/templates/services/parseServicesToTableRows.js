@@ -13,7 +13,7 @@ const parseServicesToTableRows = (services, t) => {
     rowQuestionId: service.questionId,
 
     serviceRef:
-      service.activityType === 'meeting'
+      (service.activityType === 'meeting' && service.assignmentType !== 'mentoring')
         ? service.meetingRef
         : service.serviceRef,
     serviceOwner: service?.serviceOwner,

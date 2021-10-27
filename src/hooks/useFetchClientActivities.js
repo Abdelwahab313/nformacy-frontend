@@ -4,6 +4,17 @@ import useFetchData from './useFetchData';
 import { MEETING_STATUS } from 'constants/questionStatus';
 import { IS_Nformacy_APP } from 'settings';
 
+const sortByRecentlyUpdated = (arr) => {
+  return arr.sort((a, b) => {
+    var keyA = new Date(a.updatedAt),
+      keyB = new Date(b.updatedAt);
+    // Compare the 2 dates
+    if (keyA > keyB) return -1;
+    if (keyA < keyB) return 1;
+    return 0;
+  });
+};
+
 const useFetchClientActivities = () => {
   const { fetchedData, isLoading } = useFetchData(fetchClientActivities);
 
@@ -11,7 +22,10 @@ const useFetchClientActivities = () => {
     if (!isLoading) {
       const formattedServices = formatServicesToActivity(fetchedData.services);
       const formattedMeetings = formatMeetingsToActivity(fetchedData.meetings);
-      return [...formattedServices, ...formattedMeetings];
+      return sortByRecentlyUpdated([
+        ...formattedServices,
+        ...formattedMeetings,
+      ]);
     }
   }, [fetchedData, isLoading]);
 
@@ -32,6 +46,7 @@ const formatServicesToActivity = (services) => {
     userId: service.userId,
     assignmentType: service.assignmentType,
     createdAt: service.createdAt,
+    updatedAt: service.updatedAt,
     title: service.title,
     fields: service.fields,
     language: service.language,
@@ -60,6 +75,7 @@ const formatMeetingsToActivity = (meetings) => {
     userId: meeting.clientId,
     assignmentType: meeting.service?.assignmentType,
     createdAt: meeting.createdAt,
+    updatedAt: meeting.updatedAt,
     title: meeting.service?.title,
     fields: meeting.service?.question?.fields,
     language: '',
