@@ -36,4 +36,4 @@ export const immortalQueryConfig = {
 
 export const is_E2E_Running = process.env.REACT_APP_ENV === 'e2e';
 
-export const IS_Nformacy_APP = false;
+export const IS_Nformacy_APP = true;
