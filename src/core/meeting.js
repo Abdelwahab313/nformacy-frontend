@@ -25,7 +25,7 @@ export const getMeetingState = (meetingState, hasEvaluationSubmitted) => {
     hasEvaluationSubmitted,
   );
   const currentUserRole = authManager.getUserRole();
-  return meetingStatusActions[meetingStateKey].status[currentUserRole];
+  return meetingStatusActions[meetingStateKey]?.status[currentUserRole];
 };
 
 export const getMeetingAction = (meetingState, hasEvaluationSubmitted) => {
@@ -34,7 +34,7 @@ export const getMeetingAction = (meetingState, hasEvaluationSubmitted) => {
     hasEvaluationSubmitted,
   );
   const currentUserRole = authManager.getUserRole();
-  return meetingStatusActions[meetingStateKey].action[currentUserRole];
+  return meetingStatusActions[meetingStateKey]?.action[currentUserRole];
 };
 
 export const endCallTime = (callTime) => {

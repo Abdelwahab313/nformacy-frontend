@@ -1,8 +1,14 @@
+const IS_Whitelabel = process.env.REACT_APP_IS_SAAS === 'true';
+export const IS_Nformacy_APP = !IS_Whitelabel;
 const DEV_URL = 'http://127.0.0.1:3000';
 const DEV_CHANNEL_URL = 'ws://127.0.0.1:3000/cable';
+
 const E2E_URL = 'http://127.0.0.1:3001';
 const E2E_CHANNEL_URL = 'ws://127.0.0.1:3001/cable';
-const STAGING_DOMAIN = 'api.nformacy.com';
+
+const STAGING_DOMAIN = IS_Nformacy_APP
+  ? 'api.nformacy.com'
+  : 'api-360.nformacy.com';
 const STAGING_SERVER_URL = `https://${STAGING_DOMAIN}`;
 const STAGING_CHANNEL_URL = `wss://${STAGING_DOMAIN}`;
 
@@ -35,5 +41,3 @@ export const immortalQueryConfig = {
 };
 
 export const is_E2E_Running = process.env.REACT_APP_ENV === 'e2e';
-
-export const IS_Nformacy_APP = true;
