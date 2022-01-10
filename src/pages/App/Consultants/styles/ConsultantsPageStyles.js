@@ -3,10 +3,10 @@ import { lightOrange, white, whiteLilac, darkBlue } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
   bannerImageStyles: {
-    width: '60%',
+    width: 'auto',
     height: 460,
     [theme.breakpoints.down('md')]: {
-      width: '100%',
+      width: 'auto',
       height: 210,
     },
   },
@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       padding: [theme.spacing(6), theme.spacing(2)],
     },
+    background: whiteLilac,
   },
   lighterGrayContainer: {
     background: whiteLilac,

@@ -23,17 +23,7 @@ const Footer = () => {
           <CustomTypography variant={'body1'} fontWeight={'bold'} gutterBottom>
             {t('contactUs')}
           </CustomTypography>
-          <CustomTypography variant={'body1'}>Rada@Rada.life</CustomTypography>
-          <CustomTypography variant={'body1'}>+962-778002882</CustomTypography>
-        </Box>
-      </Grid>
-      <Grid item xs={6} md={3}>
-        <Box textAlign={'center'} mb={5}>
-          <CustomTypography variant={'body1'} fontWeight={'bold'} gutterBottom>
-            {t('visitUs')}
-          </CustomTypography>
-          <CustomTypography variant={'body1'}>Address here</CustomTypography>
-          <CustomTypography variant={'body1'}>Amman / Jordan</CustomTypography>
+          <CustomTypography variant={'body1'}>info@nformacy.com</CustomTypography>
         </Box>
       </Grid>
       <Grid item xs={6} md={3}>
@@ -85,7 +75,8 @@ const Footer = () => {
           variant='body1'
           className={classes.flexClass}>
           <CopyrightIcon />
-          {t('allRightsReserved')}
+          <div className={classes.dateClass}> {(new Date().getFullYear())}</div>
+           {t('allRightsReserved')}
         </CustomTypography>
       </Box>
     </Grid>

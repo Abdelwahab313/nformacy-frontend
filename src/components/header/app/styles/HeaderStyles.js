@@ -23,14 +23,16 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
   },
   search: {
-    backgroundColor: 'rgb(174 174 174 / 38%)',
-    borderRadius: 3,
-    marginLeft: 10,
+    backgroundColor: 'rgb(174 174 174 / 20%)',
+    borderRadius: 5,
+    marginRight: 10,
     position: 'relative',
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       width: 'auto',
     },
+    height: 39,
+    marginTop: 6,
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -43,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     color: black,
   },
   inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
+    padding: '9px 9px 9px 0px',
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
@@ -54,6 +56,8 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionDesktop: {
     display: 'flex',
+    marginLeft: '15px',
+    alignItems: 'center',
     [theme.breakpoints.down('md')]: {
       display: 'none',
     },

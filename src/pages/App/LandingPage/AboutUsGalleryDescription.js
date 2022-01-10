@@ -17,7 +17,7 @@ const AboutUsGalleryDescription = () => {
                 variant='h5'
                 fontWeight='bold'
                 className={classes.workMainTextPadding}>
-                Aliquam at iaculis odio
+                Why nformacy
               </CustomTypography>
               <CustomTypography variant='body1' fontWeight='light'>
                 Consulting and advisory solutions should not be limited to big
@@ -62,7 +62,7 @@ const AboutUsGalleryDescription = () => {
                 variant='h5'
                 fontWeight='bold'
                 className={classes.workMainTextPadding}>
-                Etiam mollis ornare scelerisque
+                With nformacy
               </CustomTypography>
               <CustomTypography variant='body1' fontWeight='light'>
                 You can interact, engage with these experts to get your

@@ -3,10 +3,10 @@ import { lightGrey } from 'styles/colors';
 
 const useStyles = makeStyles((theme) => ({
   bannerImageStyles: {
-    width: '70%',
-    height: 370,
+    width: 'auto',
+    height: 300,
     [theme.breakpoints.down('md')]: {
-      width: '100%',
+      width: '450px',
       height: '100%'
     },
     [theme.breakpoints.down('xs')]: {

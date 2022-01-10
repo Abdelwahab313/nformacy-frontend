@@ -5,12 +5,12 @@ const useStyles = makeStyles((theme) => ({
     margin: [theme.spacing(13), 0],
     paddingTop: theme.spacing(4),
     [theme.breakpoints.down('md')]: {
-      margin: [theme.spacing(6), 0],
+      margin: [theme.spacing(1), 0],
     },
   },
   solutionsImageBanner: {
     height: 500,
-    width: '93%',
+    width: 'auto',
     [theme.breakpoints.down('md')]: {
       height: 180,
       width: '90%',

@@ -1,5 +1,6 @@
 import { Box, Card, CardMedia, Grid } from '@material-ui/core';
 import CustomTypography from 'components/typography/Typography';
+import LandingPageContainer from 'components/grid/LandingPageContainer';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import AboutUsGalleryDescription from '../LandingPage/AboutUsGalleryDescription';
@@ -13,6 +14,7 @@ const AboutPage = () => {
   const { t } = useTranslation();
 
   return (
+    <LandingPageContainer className={classes.landingContainer}>
     <Grid container justify='center'>
       <Card className={classes.headerCard}>
         <CardMedia
@@ -51,6 +53,8 @@ const AboutPage = () => {
       <OurPromiseSection />
       <ServeYouBtnSection />
     </Grid>
+    </LandingPageContainer>
+
   );
 };
 

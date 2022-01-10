@@ -7,14 +7,13 @@ import ServeYouBtnSection from '../LandingPage/ServeYouBtnSection';
 import useStyles from './styles/ConsultantsPageStyles';
 import ConsultantsPageStatistics from '../LandingPage/ConsultantsPageStatistics';
 import FrontBanner from '../LandingPage/subComponents/FrontBanner';
-import LandingPageContainer from 'components/grid/LandingPageContainer';
+// import LandingPageContainer from 'components/grid/LandingPageContainer';
 
 const ConsultantsPage = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
   return (
-    <LandingPageContainer>
       <Grid container justify='center'>
         <FrontBanner
           imageClassName={classes.bannerImageStyles}
@@ -39,7 +38,7 @@ const ConsultantsPage = () => {
             <ConsultantsJoinReasons />
           </Grid>
         </Grid>
-        <Grid
+        {/* <Grid
           container
           direction='row'
           justify='center'
@@ -137,11 +136,10 @@ const ConsultantsPage = () => {
               </Box>
             </Grid>
           </Grid>
-        </Grid>
+        </Grid> */}
         <ConsultantsPageStatistics />
         <ServeYouBtnSection />
       </Grid>
-    </LandingPageContainer>
   );
 };
 

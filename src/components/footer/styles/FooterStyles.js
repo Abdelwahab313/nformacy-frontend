@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     color: grey,
   },
+  dateClass: {
+   marginRight: '7px',
+  },
   desktopVisible: {
     display: 'block',
     margin: 'auto',

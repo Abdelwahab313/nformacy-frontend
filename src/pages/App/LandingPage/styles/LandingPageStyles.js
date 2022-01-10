@@ -77,13 +77,12 @@ const useStyles = makeStyles((theme) => ({
     order: 3,
   },
   submitBtnContainer: {
-    textAlign: 'right',
+    textAlign: 'left',
     [theme.breakpoints.down('md')]: {
       textAlign: 'center',
     },
   },
   mainCtaBtn: {
-    marginTop: '12px',
     padding: `${theme.spacing(2)}px ${theme.spacing(5)}px`,
     textTransform: 'capitalize',
     borderRadius: '11px',
@@ -104,7 +103,6 @@ const useStyles = makeStyles((theme) => ({
   platformBrief: {
     marginTop: theme.spacing(6),
     textAlign: 'center',
-    padding: theme.spacing(2),
     order: 4,
     [theme.breakpoints.down('md')]: {
       marginTop: theme.spacing(5),
@@ -171,13 +169,13 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 30,
     background: lighterGrey,
     padding: [theme.spacing(1), theme.spacing(2)],
-    width: 185,
+    width: 260,
     marginBottom: theme.spacing(2),
     textAlign: 'left',
+    justifyContent: 'center',
   },
   specialityFieldPadding: {
     paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(2),
   },
   relativeBox: {
     position: 'relative',
@@ -227,7 +225,7 @@ const useStyles = makeStyles((theme) => ({
   promiseFieldDescTxt: {
     textAlign: 'justify',
     padding: [theme.spacing(1), theme.spacing(2)],
-    fontWeight: 300,
+    fontWeight: 400,
     lineHeight: 1.7,
   },
   itemBullet: {
@@ -245,12 +243,12 @@ const useStyles = makeStyles((theme) => ({
   },
   orangeMainText: {
     color: lightOrange,
-    padding: [0, theme.spacing(2)],
+    padding: [10, theme.spacing(2)],
     textAlign: 'center',
   },
   fitContent: {
     height: 'fit-content',
-    minHeight: 230,
+    minHeight: 250,
     position: 'relative',
     [theme.breakpoints.down('md')]: {
       minHeight: 'initial',

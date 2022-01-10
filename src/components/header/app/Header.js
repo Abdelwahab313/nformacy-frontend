@@ -21,6 +21,7 @@ import SubmitButton from 'components/buttons/SubmitButton';
 import { useHistory } from 'react-router';
 import AppMenu from './AppMenu';
 import appRoutes from 'layouts/app/routes';
+import LanguageIcon from '@material-ui/icons/Language';
 
 export default function MainHeader() {
   const menuList = appRoutes.filter((route) => !!route.hasDashboardLink);
@@ -45,9 +46,7 @@ export default function MainHeader() {
     location.pathname === RoutesPaths.App.Solutions ||
     location.pathname === RoutesPaths.App.About ||
     location.pathname === RoutesPaths.App.Consultants ||
-    location.pathname === RoutesPaths.App.Nformacy360 ||
-    location.pathname === RoutesPaths.App.TermsAndConditions ||
-    location.pathname === RoutesPaths.App.KnowHub;
+    location.pathname === RoutesPaths.App.TermsAndConditions;
   return (
     <div className={classes.grow} dir={DIRECTION[locale]}>
       <AppBar
@@ -71,20 +70,7 @@ export default function MainHeader() {
               />
             </Link>
           </Box>
-          <Box className={classes.sectionSmallView}>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder='Search…'
-                classes={{
-                  input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </div>
-          </Box>
+
           {showHeaderNav && (
             <Box className={classes.sectionDesktop}>
               <NavLink
@@ -113,18 +99,6 @@ export default function MainHeader() {
                 {t('experts')}
               </NavLink>
               <NavLink
-                to={RoutesPaths.App.KnowHub}
-                className={classes.menuItemText}
-                activeClassName={classes.active}>
-                {t('knowledgeHub')}
-              </NavLink>
-              <NavLink
-                to={RoutesPaths.App.Nformacy360}
-                className={classes.menuItemText}
-                activeClassName={classes.active}>
-                {t('nformacy360Title')}
-              </NavLink>
-              <NavLink
                 to={RoutesPaths.App.ContactUs}
                 className={classes.menuItemText}
                 activeClassName={classes.active}>
@@ -132,13 +106,26 @@ export default function MainHeader() {
               </NavLink>
             </Box>
           )}
+
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+            <Box className={classes.sectionSmallView}>
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <InputBase
+                  placeholder='Search…'
+                  classes={{
+                    input: classes.inputInput,
+                  }}
+                  inputProps={{ 'aria-label': 'search' }}
+                />
+              </div>
+            </Box>
             {authToken ? (
               <Box>
-               
                 <Notifications />
-
                 <IconButton
                   edge='end'
                   aria-label='account of current user'
@@ -167,15 +154,24 @@ export default function MainHeader() {
               {t('language')}
             </Button>
           </div>
+          {!authToken && (
+            <Box className={classes.mobileVisible}>
+              <SubmitButton
+                id={'mobileLoginBtn'}
+                onClick={() => history.push(RoutesPaths.App.Login)}
+                className={[classes.orangeCtaBtn, classes.mobileVisible]}
+                buttonText={'login'}
+              />
+            </Box>
+          )}
           {authToken && (
             <div className={classes.sectionMobile}>
               <IconButton
                 aria-label='show 17 new notifications'
-                className= {classes.notificationMobile}
+                className={classes.notificationMobile}
                 color='inherit'>
                 <Notifications />
               </IconButton>
-
               <IconButton
                 aria-label='show more'
                 aria-controls={menuId}
@@ -184,6 +180,10 @@ export default function MainHeader() {
                 color='inherit'>
                 <MoreIcon />
               </IconButton>
+              <LanguageIcon
+                className={classes.languageIcon}
+                onClick={toggleLocale}
+              />
             </div>
           )}
         </Toolbar>

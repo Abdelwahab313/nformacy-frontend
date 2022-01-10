@@ -12,7 +12,7 @@ const ShowLessComponent = ({ withTxt }) => {
 
   return (
     <Box>
-      {withTxt ? <LessTxt /> : <ArrowUpward className={classes.noTxtIcon} />}
+      {withTxt ? <LessTxt /> : <div> learn more<ArrowUpward className={classes.noTxtIcon} /></div>}
     </Box>
   );
 };
@@ -21,7 +21,7 @@ const ShowMoreComponent = ({ withTxt }) => {
   const classes = useStyles();
   return (
     <Box>
-      {withTxt ? <MoreTxt /> : <ArrowForward className={classes.noTxtIcon} />}
+      {withTxt ? <MoreTxt /> : <Box className={classes.learnMore}> learn more<ArrowForward className={classes.noTxtIcon} /></Box>}
     </Box>
   );
 };

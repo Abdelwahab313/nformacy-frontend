@@ -7,7 +7,7 @@ import OurSolutionsSection from './OurSolutionsSection';
 import useStyles from './styles/LandingPageStyles';
 import OurPromiseSection from './OurPromiseSection';
 import GlobalCommunitySection from './GlobalCommunitySection';
-import AdvisoryBoardSection from './AdvisoryBoardSection';
+// import AdvisoryBoardSection from './AdvisoryBoardSection';
 import MobileHowWeWorkSection from './MobileHowWeWorkSection';
 import ServeYouBtnSection from './ServeYouBtnSection';
 
@@ -23,7 +23,7 @@ const LandingPage = () => {
       <AreasOfSpeciality />
       <GlobalCommunitySection />
       <OurPromiseSection />
-      <AdvisoryBoardSection />
+      {/* <AdvisoryBoardSection /> */}
       <ServeYouBtnSection />
     </Grid>
   );

@@ -15,9 +15,15 @@ const useStyles = makeStyles((theme) => ({
   },
   noTxtIcon: {
     position: 'absolute',
-    bottom: 1,
-    right: -18,
+    bottom: 8,
+    right: -8,
     padding: 20,
+  },
+  learnMore: {
+    display: 'flex',
+    alignItems: 'end',
+    justifyContent: 'flex-end',
+    margin: '20px 25px',
   },
 }));
 
