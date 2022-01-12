@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { darkBlue, darkGrey, grey, white } from './colors';
 import bannerBackground from '../assets/banner2X.png';
-import fontNames from '../constants/fonts';
+import { fontNames, fontWieghts } from '../constants/fonts';
 import { hexToRgb } from '../assets/jss/material-dashboard-react';
 
 const ITEM_HEIGHT = 48;
@@ -9,7 +9,7 @@ const ITEM_HEIGHT = 48;
 const filterStyle = (theme) => ({
   cursor: 'default',
   [theme.breakpoints.down('sm')]: {
-    margin: `0 8vw`,
+    margin: '0 8vw',
   },
   padding: `${theme.spacing(1.5)}px ${theme.spacing(2)}px`,
   [theme.breakpoints.up('sm')]: {
@@ -83,7 +83,7 @@ export const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   searchInput: {
-    fontFamily: fontNames.SF_COMPACT_TEXT_REGULAR,
+    fontFamily: fontNames.Roboto,
     marginLeft: theme.spacing(1),
     flex: 1,
     [theme.breakpoints.down('xs')]: {
@@ -153,7 +153,8 @@ export const useStyles = makeStyles((theme) => ({
   bannerFontStyles: {
     fontSize: '3.125vw',
     color: white,
-    fontFamily: fontNames.APERCU_PRO_MEDUIUM,
+    fontFamily: fontNames.Roboto,
+    fontWeight: fontWieghts.MEDIUM,
     marginBottom: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
       fontSize: '5.600vw',
@@ -163,11 +164,13 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: darkBlue,
     color: white,
     borderRadius: '9px',
-    fontFamily: fontNames.SF_UI_BOLD,
+    fontFamily: fontNames.Roboto,
+    fontWieght: fontWieghts.BOLD,
     ...filterStyle(theme),
   },
   inactiveFilterStyle: {
-    fontFamily: fontNames.SF_UI_LIGHT,
+    fontFamily: fontNames.Roboto,
+    fontWieght: fontWieghts.LIGHT,
     color: 'rgba(' + hexToRgb(darkGrey) + ', 0.7)',
     ...filterStyle(theme),
   },
@@ -196,7 +199,8 @@ export const useStyles = makeStyles((theme) => ({
     },
     height: '4.097vw',
     width: '14.236vw',
-    fontFamily: fontNames.SF_UI_REGULAR,
+    fontFamily: fontNames.Roboto,
+    fontWieght: fontWieghts.REGULAR,
     padding: theme.spacing(2),
     alignItems: 'center',
     display: 'flex',
@@ -211,7 +215,7 @@ export const useStyles = makeStyles((theme) => ({
     border: 'solid rgba(0,0,0,0.1)',
     borderWidth: '1px',
     borderRadius: '5px',
-    fontFamily: `${fontNames.SF_UI_REGULAR} ${fontNames.TAJAWAL_BOLD}`,
+    fontFamily: `${fontNames.Roboto} ${fontNames.TAJAWAL_BOLD}`,
     maxWidth: '55px',
     [theme.breakpoints.up('md')]: {
       display: 'none',
@@ -234,7 +238,8 @@ export const useStyles = makeStyles((theme) => ({
   },
   menuItem: {
     height: '4.167vw',
-    fontFamily: fontNames.SF_UI_REGULAR,
+    fontFamily: fontNames.Roboto,
+    fontWeight: fontWieghts.REGULAR,
     letterSpacing: theme.spacing(0.065),
     fontSize: '1.042vw',
     [theme.breakpoints.up('xl')]: {
@@ -252,13 +257,13 @@ export const useStyles = makeStyles((theme) => ({
     color: darkGrey,
     '&:hover': {
       color: darkBlue,
-      borderLeft: `solid 0.486vw` + darkBlue,
+      borderLeft: 'solid 0.486vw' + darkBlue,
     },
   },
   selectedMenuItem: {
     color: darkBlue,
     background: 'rgba(0,0,0,0.03)',
-    borderLeft: `solid 0.486vw` + darkBlue,
+    borderLeft: 'solid 0.486vw' + darkBlue,
   },
   filterWrapper: {
     [theme.breakpoints.down('sm')]: {
@@ -296,14 +301,15 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: '8px',
   },
   questionTextWrapper: {
-    fontFamily: 'SF UI Display',
+    fontFamily: fontNames.Roboto,
     padding: '0 2.083vw',
     [theme.breakpoints.down('xs')]: {
       paddingTop: '4vw',
     },
   },
   referenceNumberStyle: {
-    fontFamily: fontNames.APERCU_PRO_MEDUIUM,
+    fontFamily: fontNames.Roboto,
+    fontWeight: fontWieghts.MEDIUM,
     color: darkBlue,
     [theme.breakpoints.down('xs')]: {
       fontSize: '4vw',
@@ -313,10 +319,10 @@ export const useStyles = makeStyles((theme) => ({
   },
   postDateStyle: {
     color: grey,
-    fontFamily: 'Apercu Pro',
+    fontFamily: fontNames.Roboto,
     fontSize: '1.042vw',
     [theme.breakpoints.down('xs')]: {
-      fontFamily: 'Apercu Pro',
+      fontFamily: fontNames.Roboto,
       fontSize: '3.200vw',
       paddingLeft: '5vw',
     },
@@ -327,15 +333,16 @@ export const useStyles = makeStyles((theme) => ({
     color: 'black',
   },
   questionTitle: {
-    fontFamily: fontNames.APERCU_PRO_MEDUIUM,
+    fontFamily: fontNames.Roboto,
+    fontWeight: fontWieghts.MEDIUM,
     fontSize: '1.528vw',
     fontWeight: 'bold',
     lineHeight: '2.222vw',
     paddingTop: '1.111vw',
     [theme.breakpoints.down('xs')]: {
-      fontFamily: 'Apercu Pro',
+      fontFamily: fontNames.Roboto,
       fontSize: '3.733vw',
-      fontWeight: 'bold',
+      fontWeight: fontWieghts.BOLD,
       lineHeight: '6.400vw',
     },
   },
@@ -355,14 +362,14 @@ export const useStyles = makeStyles((theme) => ({
   questionContentField: {
     color: grey,
     paddingTop: '1.111vw',
-    fontFamily: 'SF UI Display',
+    fontFamily: fontNames.Roboto,
     fontSize: '1.181vw',
-    fontWeight: '300',
+    fontWeight: fontWieghts.LIGHT,
     letterSpacing: '0.014vw',
     lineHeight: '2.083vw',
     [theme.breakpoints.down('xs')]: {
       fontSize: '3.467vw',
-      fontWeight: '300',
+      fontWeight: fontWieghts.LIGHT,
       letterSpacing: '0.15px',
       lineHeight: '6.133vw',
     },
@@ -401,7 +408,8 @@ export const useStyles = makeStyles((theme) => ({
     height: '4vw',
     width: '9vw',
     borderRadius: '0.625vw',
-    fontFamily: fontNames.SF_UI_REGULAR,
+    fontFamily: fontNames.Roboto,
+    fontWeight: fontWieghts.REGULAR,
     fontSize: '1vw',
     lineHeight: '1.111vw',
     [theme.breakpoints.down('xs')]: {
@@ -420,7 +428,8 @@ export const useStyles = makeStyles((theme) => ({
   closedQuestion: {
     margin: 'auto',
     fontSize: '1.15vw',
-    fontFamily: fontNames.APERCU_PRO_MEDUIUM,
+    fontFamily: fontNames.Roboto,
+    fontWeight: fontWieghts.MEDIUM,
     [theme.breakpoints.down('xs')]: {
       fontSize: '3vw',
     },

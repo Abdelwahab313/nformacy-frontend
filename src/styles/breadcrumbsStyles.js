@@ -1,10 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { darkBlue, darkGrey } from './colors';
-import fontNames from '../constants/fonts';
+import { fontNames, fontWieghts } from '../constants/fonts';
 import { hexToRgb } from '../assets/jss/material-dashboard-react';
 
 const fontStyle = (theme) => ({
-  fontFamily: fontNames.SF_UI_LIGHT,
+  fontFamily: fontNames.Roboto,
+  fontWeight: fontWieghts.LIGHT,
   fontSize: '1.042vw',
   [theme.breakpoints.up('xl')]: {
     fontSize: '0.980vw',

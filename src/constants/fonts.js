@@ -1,4 +1,5 @@
-const fontNames = {
+export const fontNames = {
+  Roboto: 'Roboto',
   SF_UI_REGULAR: 'SF UI Display Regular',
   SF_UI_LIGHT: 'SF UI Display Light',
   SF_UI_BOLD: 'SF UI Display Bold',
@@ -9,4 +10,9 @@ const fontNames = {
   TAJAWAL_BOLD: 'Tajawal Bold',
 };
 
-export default fontNames;
+export const fontWieghts = {
+  REGULAR: 400,
+  MEDIUM: 500,
+  BOLD: 700,
+  LIGHT: 300,
+};

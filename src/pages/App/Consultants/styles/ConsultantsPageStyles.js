@@ -60,6 +60,10 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
     },
   },
+  landingContainer: {
+    maxWidth: 1440,
+    margin: 'auto',
+  },
 }));
 
 export default useStyles;

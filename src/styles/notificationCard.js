@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { blackColor, hexToRgb } from '../assets/jss/material-dashboard-react';
-import fontNames from '../constants/fonts';
+import { fontNames, fontWieghts } from '../constants/fonts';
 
 export const useStyles = makeStyles((theme) => ({
   notificationCard: {
@@ -119,7 +119,8 @@ export const useMenuStyles = makeStyles((theme) => ({
   },
   notificationTextStyle: {
     display: 'inline-flex',
-    fontFamily: fontNames.SF_UI_REGULAR,
+    fontFamily: fontNames.Roboto,
+    fontWeight: fontWieghts.REGULAR,
     alignItems: 'center',
   },
   circle: {
