@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-serverIp="35.87.89.7"
+serverIp="100.20.65.60"
 sshKey="~/.ssh_keys/nformacy-staging-ui.pem"
 
 
