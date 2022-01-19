@@ -1,0 +1,13 @@
+{
+    "answer_draft_status": "مسودة",
+    "answer_pending_status": "تم تعليق الإجابة",
+    "answer_accepted_status": "تم قبول الإجابة",
+    "answer_rejected_status": "تم رفض الإجابة",
+    "answer_rated_status": "تم تقييم الإجابة",
+    "answer_shortlisted_status": "القائمة المختصرة",
+    "answer_client_selected_status": "تم تحديد العميل",
+    "answer_draft_action": "أكمل إجابتك",
+    "answer_rated_action": "مشاهدة التقييم",
+    "answer_shortlisted_action": "تحديث الوقت المتاح الخاص بك في التقويم",
+    "answer_clientSelected_action": "استعد للمكالمة"
+}

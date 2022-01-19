@@ -78,7 +78,7 @@ export default function MainHeader() {
                 to={RoutesPaths.App.LandingPage}
                 className={classes.menuItemText}
                 activeClassName={classes.active}>
-                {t('Home')}
+                {t('home')}
               </NavLink>
               <NavLink
                 to={RoutesPaths.App.About}
@@ -115,11 +115,11 @@ export default function MainHeader() {
                   <SearchIcon />
                 </div>
                 <InputBase
-                  placeholder='Search…'
+                  placeholder={t('search…')}
                   classes={{
                     input: classes.inputInput,
                   }}
-                  inputProps={{ 'aria-label': 'search' }}
+                  inputProps={{ 'aria-label': t('search…')}}
                 />
               </div>
             </Box>
@@ -142,7 +142,7 @@ export default function MainHeader() {
                   id={'LoginBtn'}
                   onClick={() => history.push(RoutesPaths.App.Login)}
                   className={classes.orangeCtaBtn}
-                  buttonText={'login'}
+                  buttonText={t('Login')} 
                 />
               </Box>
             )}
@@ -160,7 +160,7 @@ export default function MainHeader() {
                 id={'mobileLoginBtn'}
                 onClick={() => history.push(RoutesPaths.App.Login)}
                 className={[classes.orangeCtaBtn, classes.mobileVisible]}
-                buttonText={'login'}
+                buttonText={t('Login')}
               />
             </Box>
           )}

@@ -7,21 +7,27 @@ import { useTranslation } from 'react-i18next';
 import CustomTypography from './Typography';
 import { Box } from '@material-ui/core';
 
+
+
 const ShowLessComponent = ({ withTxt }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
+
 
   return (
     <Box>
-      {withTxt ? <LessTxt /> : <div> learn more<ArrowUpward className={classes.noTxtIcon} /></div>}
+      {withTxt ? <LessTxt /> : <div> {t('showMore')}<ArrowUpward className={classes.noTxtIcon} /></div>}
     </Box>
   );
 };
 
 const ShowMoreComponent = ({ withTxt }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
+
   return (
     <Box>
-      {withTxt ? <MoreTxt /> : <Box className={classes.learnMore}> learn more<ArrowForward className={classes.noTxtIcon} /></Box>}
+      {withTxt ? <MoreTxt /> : <Box className={classes.learnMore}> {t('showMore')}<ArrowForward className={classes.noTxtIcon} /></Box>}
     </Box>
   );
 };

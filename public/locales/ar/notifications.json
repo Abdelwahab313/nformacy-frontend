@@ -1,8 +1,22 @@
 {
-  "pending_adviser_acceptance": "تمت تعيين سؤال #{{referenceNumber}} لك",
-  "answer_accepted": "الإجابة #{{referenceNumber}} جاهزة للتقييم",
-  "admin_deployed_question": "السؤال #{{referenceNumber}} تمت إضافته للأسئلة.",
-  "question_closed": "السؤال #{{referenceNumber}} أغلق",
-  "noNotifications": "لا يوجد إشعارات",
-  "seeMore": "إعرض المزيد..."
+  "pending_adviser_acceptance": "تم تعيين سؤال جديد لك {{الرقم المرجعي}}",
+  "answer_accepted": "الإجابة # {{الرقم المرجعي}} جاهزة للتقييم",
+  "admin_deployed_question": "السؤال # {{الرقم المرجعي}} منشور على المكان النخصص للأسئلة",
+  "question_closed": "السؤال # {{الرقم المرجعي}} مغلق",
+  "noNotifications": "لا توجد اشعارات ليتم عرضها",
+  "seeMore": "شاهد المزيد...",
+  "adviser_rejected": "رفض الاستشاري",
+  "answer_submitted": "تم إرسال الإجابة {{الرقم المرجعي}}",
+  "answer_shortlisted": "الإجابة {{الرقم المرجعي}} فتم وضعها في القائمة المختصرة",
+  "answer_rated": "الإجابة # {{الرقم المرجعي}} تم تقييمها بالفعل",
+  "answer_rejected": "الإجابة # {{الرقم المرجعي}} تم رفضها",
+  "submitted_to_admin": "الخدمة تم إرسالها للمشرف",
+  "returned_back_to_client": "تم معاودة إرسال الخدمة إلى العميل",
+  "question_started": "تم بدأ السؤال",
+  "meeting_reminder": "تذكير الاجتماع",
+  "meeting_scheduled": "تم تحديد موعد الاجتماع",
+  "consultant_verification_meeting_scheduled": "تم تحديد موعد اجتماع التحقق من المستشار",
+  "consultant_verification_meeting_reminder": "تذكير اجتماع التحقق من المستشار",
+  "mentorship_session_scheduled": "تحديد موعد اجتماع الإرشاد",
+  "mentor_update_availability": "مرشدك قام بتحديث وقته/ا المتاح"
 }

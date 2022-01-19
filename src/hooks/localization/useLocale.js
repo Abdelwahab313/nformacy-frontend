@@ -16,7 +16,7 @@ const useLocale = () => {
       type: CHANGE_LOCALE,
       payload: { locale: newLocale },
     });
-    changeLocaleAPI(currentUser.id, newLocale).then(() => {
+    changeLocaleAPI(currentUser?.id, newLocale).then(() => {
       dispatchUserAction({
         type: CHANGE_LOCALE,
         payload: { locale: newLocale },
