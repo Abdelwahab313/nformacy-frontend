@@ -1,4 +1,5 @@
 import Grid from '@material-ui/core/Grid';
+import classNames from 'clsx';
 import { ExpandLess, ExpandMore, ArrowForward, ArrowUpward } from '@material-ui/icons';
 import ShowMoreText from 'react-show-more-text';
 import React from 'react';
@@ -12,11 +13,16 @@ import { Box } from '@material-ui/core';
 const ShowLessComponent = ({ withTxt }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
 
 
   return (
-    <Box>
-      {withTxt ? <LessTxt /> : <div> {t('showMore')}<ArrowUpward className={classes.noTxtIcon} /></div>}
+    <Box> 
+      {withTxt ? <LessTxt /> : <div> {t('showLess')}<ArrowUpward className={classNames(classes.noTxtIcon, {
+      [classes.noTxtIconAr]: isArlang,
+    })} /></div>}
     </Box>
   );
 };
@@ -24,10 +30,17 @@ const ShowLessComponent = ({ withTxt }) => {
 const ShowMoreComponent = ({ withTxt }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
+
+
 
   return (
     <Box>
-      {withTxt ? <MoreTxt /> : <Box className={classes.learnMore}> {t('showMore')}<ArrowForward className={classes.noTxtIcon} /></Box>}
+      {withTxt ? <MoreTxt /> : <Box className={classes.learnMore}> {t('showMore')}<ArrowForward className={classNames(classes.noTxtIcon, {
+      [classes.noTxtIconAr]: isArlang,
+    })} /></Box>}
     </Box>
   );
 };

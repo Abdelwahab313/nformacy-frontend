@@ -54,6 +54,25 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(8),
     },
   },
+  sliderItemText: {
+    textAlign: 'initial',
+    [theme.breakpoints.down('md')]: {
+      textAlign: 'center',
+    },
+    [theme.breakpoints.down('sm')]: {
+      textAlign: 'center',
+    },
+  },
+  sliderItemTextAr: {
+    textAlign: 'end',
+    direction: 'rtl',
+    [theme.breakpoints.down('md')]: {
+      textAlign: 'center',
+    },
+    [theme.breakpoints.down('sm')]: {
+      textAlign: 'center',
+    },
+  },
   serveYouPadding: {
     padding: theme.spacing(6),
     [theme.breakpoints.down('md')]: {
@@ -99,6 +118,16 @@ const useStyles = makeStyles((theme) => ({
   subTextMargin: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
+  },
+  subTextMarginAr: {
+    [theme.breakpoints.down('md')]: {
+      textAlign: 'center',
+    },
+    [theme.breakpoints.down('sm')]: {
+      textAlign: 'center',
+    },
+    textAlign: 'initial',
+    direction: 'ltr',
   },
   platformBrief: {
     marginTop: theme.spacing(6),

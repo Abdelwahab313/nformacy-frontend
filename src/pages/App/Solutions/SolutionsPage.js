@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Grid } from '@material-ui/core';
+import classNames from 'clsx';
 import LandingPageContainer from 'components/grid/LandingPageContainer';
 import CustomTypography from 'components/typography/Typography';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +15,9 @@ import useStyles from './styles/SolutionsPageStyles';
 const SolutionsPage = () => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
 
   return (
     <LandingPageContainer className={classes.landingContainer}>
@@ -26,7 +30,9 @@ const SolutionsPage = () => {
           buttonText={t('letusServeYou')}
         />
         <Grid item xs={10} md={10}>
-          <Box textAlign={'center'} className={classes.solutionDescContainer}>
+          <Box textAlign={'center'}className={classNames(classes.solutionDescContainer, {
+                      [classes.solutionDescContainerAr]: isArlang,
+                    })}>
             <CustomTypography variant='h5'>
               {t('solutionsPageDesc')}
             </CustomTypography>

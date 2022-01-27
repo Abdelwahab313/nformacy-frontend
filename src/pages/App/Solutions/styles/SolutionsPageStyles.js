@@ -8,6 +8,10 @@ const useStyles = makeStyles((theme) => ({
       margin: [theme.spacing(1), 0],
     },
   },
+  solutionDescContainerAr: {
+    direction: 'ltr',
+  },
+
   solutionsImageBanner: {
     height: 500,
     width: 'auto',
