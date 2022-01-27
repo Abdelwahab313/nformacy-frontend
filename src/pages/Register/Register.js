@@ -35,7 +35,7 @@ const Register = () => {
   const history = useHistory();
 
   const repeatVal = (passwordRepeat) =>
-    passwordRepeat === getValues().password || 'Passwords do not match';
+    passwordRepeat === getValues().password || t('passwordsNotMatching');
   const onSubmit = (data) => {
     signup(data)
       .then((result) => {
@@ -45,13 +45,13 @@ const Register = () => {
         window.location.replace(RoutesPaths.App.UserTypeSelection);
         return result;
       })
-      .catch(({ response }) => {
+      .catch(({ response }) => { response  && data &&
         response.data.errors.forEach((error) => {
           if (error.includes('Email')) {
             setError(
               'email',
               'Already exists',
-              'This email address already exists',
+              (t('emailIsExist')),
             );
           }
         });
@@ -112,7 +112,7 @@ const Register = () => {
             <TextField
               variant='outlined'
               margin='normal'
-              inputRef={register({ required: 'This field is required' })}
+              inputRef={register({ required: t('requiredMessage') })}
               fullWidth
               id='firstName'
               label={t('firstName')}
@@ -132,7 +132,7 @@ const Register = () => {
             <TextField
               variant='outlined'
               margin='normal'
-              inputRef={register({ required: 'This field is required' })}
+              inputRef={register({ required: t('requiredMessage') })}
               fullWidth
               id='lastName'
               label={t('lastName')}
@@ -152,10 +152,10 @@ const Register = () => {
               variant='outlined'
               margin='normal'
               inputRef={register({
-                required: 'This field is required',
+                required: t('requiredMessage') ,
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                  message: 'invalid email address',
+                  message: t('invalidEmail'),
                 },
               })}
               fullWidth
@@ -177,10 +177,10 @@ const Register = () => {
               variant='outlined'
               margin='normal'
               inputRef={register({
-                required: 'This field is required',
+                required: t('requiredMessage') ,
                 minLength: {
                   value: 6,
-                  message: 'Password must be at least 6 characters long',
+                  message: t('invalidPasswordError'),
                 },
               })}
               fullWidth
@@ -199,7 +199,7 @@ const Register = () => {
               variant='outlined'
               margin='normal'
               inputRef={register({
-                required: 'This field is required',
+                required: t('requiredMessage') ,
                 validate: repeatVal,
               })}
               fullWidth
