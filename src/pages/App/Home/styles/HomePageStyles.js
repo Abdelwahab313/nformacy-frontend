@@ -83,6 +83,17 @@ const useStyles = makeStyles((theme) => ({
   darkBlueText: {
     color: darkBlue,
   },
+  darkBlueTextAr: {
+    textAlign: 'end',
+  },
+  sectionSubTitle: {
+    textAlign: 'initial',
+
+  },
+  sectionSubTitleAr: {
+    textAlign: 'end',
+
+  },
   darkBackground: {
     backgroundColor: theme.palette.secondary.dark,
     color: theme.palette.common.white,
@@ -489,6 +500,13 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: 10,
       minHeight: 'initial',
     },
+  },
+  BoxContainer: {
+    display: 'flex',
+    alignItems: 'baseline',
+  },
+  BoxContainerAr: {
+direction: 'ltr'
   },
   flexDirectionBox: {
     flexDirection: 'row-reverse',

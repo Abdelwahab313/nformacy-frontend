@@ -1,5 +1,6 @@
 import { Box, Grid, ListItemIcon, ListItemText } from '@material-ui/core';
 import List from '@material-ui/core/List';
+import classNames from 'clsx';
 import ListItem from '@material-ui/core/ListItem';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import CustomTypography from 'components/typography/Typography';
@@ -10,6 +11,9 @@ import useStyles from './styles/LandingPageStyles';
 const AreasOfSpeciality = () => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
 
   return (
     <Grid
@@ -49,10 +53,13 @@ const AreasOfSpeciality = () => {
                   {t('strategicManagement')}
                 </CustomTypography>
                 <Box
-                  className={[
-                    classes.workSubTextPadding,
+                  className={classNames(
                     classes.desktopVisible,
-                  ]}>
+                    {
+                      [classes.desktopVisibleAr]: isArlang,
+                    },
+                    classes.workSubTextPadding,
+                  )}>
                   <List>
                     <ListItem
                       dense={true}
@@ -189,10 +196,13 @@ const AreasOfSpeciality = () => {
                   {t('financialManagement')}
                 </CustomTypography>
                 <Box
-                  className={[
-                    classes.workSubTextPadding,
+                  className={classNames(
                     classes.desktopVisible,
-                  ]}>
+                    {
+                      [classes.desktopVisibleAr]: isArlang,
+                    },
+                    classes.workSubTextPadding,
+                  )}>
                   <List>
                     <ListItem
                       dense={true}
@@ -345,10 +355,13 @@ const AreasOfSpeciality = () => {
                   {t('organizationAndHumanResourcesManagement')}
                 </CustomTypography>
                 <Box
-                  className={[
-                    classes.workSubTextPadding,
+                  className={classNames(
                     classes.desktopVisible,
-                  ]}>
+                    {
+                      [classes.desktopVisibleAr]: isArlang,
+                    },
+                    classes.workSubTextPadding,
+                  )}>
                   <List>
                     <ListItem
                       dense={true}
@@ -517,10 +530,13 @@ const AreasOfSpeciality = () => {
                   {t('digitization')}
                 </CustomTypography>
                 <Box
-                  className={[
-                    classes.workSubTextPadding,
+                  className={classNames(
                     classes.desktopVisible,
-                  ]}>
+                    {
+                      [classes.desktopVisibleAr]: isArlang,
+                    },
+                    classes.workSubTextPadding,
+                  )}>
                   <List>
                     <ListItem
                       dense={true}
@@ -641,10 +657,13 @@ const AreasOfSpeciality = () => {
                   {t('startupsAndEntrepreneurship')}
                 </CustomTypography>
                 <Box
-                  className={[
-                    classes.workSubTextPadding,
+                  className={classNames(
                     classes.desktopVisible,
-                  ]}>
+                    {
+                      [classes.desktopVisibleAr]: isArlang,
+                    },
+                    classes.workSubTextPadding,
+                  )}>
                   <List>
                     <ListItem
                       dense={true}
@@ -797,10 +816,13 @@ const AreasOfSpeciality = () => {
                   {t('marketingAndCustomerJourney')}
                 </CustomTypography>
                 <Box
-                  className={[
-                    classes.workSubTextPadding,
+                  className={classNames(
                     classes.desktopVisible,
-                  ]}>
+                    {
+                      [classes.desktopVisibleAr]: isArlang,
+                    },
+                    classes.workSubTextPadding,
+                  )}>
                   <List>
                     <ListItem
                       dense={true}

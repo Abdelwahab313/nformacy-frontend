@@ -168,6 +168,15 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
   },
+  workMainTextPaddinAr: {
+    textAlign:'end',
+  },
+  WhyNformacydescription: {
+    textAlign:'initial', 
+  },
+  WhyNformacydescriptionAr: {
+    textAlign:'end', 
+  },
   MobileWorkMainTextPadding: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
@@ -294,6 +303,14 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  desktopVisibleAr: {
+    display: 'flex',
+    direction: 'ltr',
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
+  },
+
   mobileVisible: {
     display: 'none',
     [theme.breakpoints.down('md')]: {

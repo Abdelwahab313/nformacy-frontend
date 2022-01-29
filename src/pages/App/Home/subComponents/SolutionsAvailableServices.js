@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'clsx';
 import { ArrowForward } from '@material-ui/icons';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { Box, Grid } from '@material-ui/core';
@@ -93,6 +94,9 @@ const SolutionsAvailableServices = () => {
 
 const MobileServiceItem = ({ service, onServiceClick }) => {
   const classes = useStyles();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   return (
     <Grid
       container
@@ -103,10 +107,16 @@ const MobileServiceItem = ({ service, onServiceClick }) => {
             variant='body1'
             fontWeight='bold'
             gutterBottom
-            className={classes.darkBlueText}>
+            className={classNames(classes.darkBlueText, {
+              [classes.darkBlueTextAr]: isArlang,
+            })}>
             {service.title}
           </CustomTypography>
-          <CustomTypography variant='body1'>
+          <CustomTypography
+            variant='body1'
+            className={classNames(classes.sectionSubTitle, {
+              [classes.sectionSubTitleAr]: isArlang,
+            })}>
             {service.subTitle}
           </CustomTypography>
         </Box>
@@ -114,7 +124,7 @@ const MobileServiceItem = ({ service, onServiceClick }) => {
       <Grid item xs={3} className={classes.flexClass}>
         <img src={service.icon} className={classes.solutionsPageServiceIcon} />
       </Grid>
-      <Grid container justify="center" direction={'row-reverse'}>
+      <Grid container justify='center' direction={'row-reverse'}>
         <SubmitButton
           id={'proceedBtn'}
           onClick={() => onServiceClick()}
@@ -131,6 +141,9 @@ const MobileServiceItem = ({ service, onServiceClick }) => {
 };
 
 const ServiceItem = ({ service, index, onServiceClick }) => {
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   const classes = useStyles();
   return (
     <Grid
@@ -159,13 +172,24 @@ const ServiceItem = ({ service, index, onServiceClick }) => {
             variant='h5'
             fontWeight='bold'
             gutterBottom
-            className={classes.darkBlueText}>
+            className={classNames(classes.darkBlueText, {
+              [classes.darkBlueTextAr]: isArlang,
+            })}>
             {service.title}
           </CustomTypography>
-          <CustomTypography variant='h6' fontWeight='bold'>
+          <CustomTypography
+            variant='h6'
+            fontWeight='bold'
+            className={classNames(classes.sectionSubTitle, {
+              [classes.sectionSubTitleAr]: isArlang,
+            })}>
             {service.subTitle}
           </CustomTypography>
-          <Box display={'flex'} alignItems={'baseline'}>
+
+          <Box
+            className={classNames(classes.BoxContainer, {
+              [classes.BoxContainerAr]: isArlang,
+            })}>
             {service.point_1 && (
               <FiberManualRecordIcon className={classes.pointBullet} />
             )}
@@ -176,7 +200,11 @@ const ServiceItem = ({ service, index, onServiceClick }) => {
               {service.point_1}
             </CustomTypography>
           </Box>
-          <Box display={'flex'} alignItems={'baseline'}>
+
+          <Box
+            className={classNames(classes.BoxContainer, {
+              [classes.BoxContainerAr]: isArlang,
+            })}>
             {service.point_2 && (
               <FiberManualRecordIcon className={classes.pointBullet} />
             )}
@@ -187,7 +215,11 @@ const ServiceItem = ({ service, index, onServiceClick }) => {
               {service.point_2}
             </CustomTypography>
           </Box>
-          <Box display={'flex'} alignItems={'baseline'}>
+
+          <Box
+            className={classNames(classes.BoxContainer, {
+              [classes.BoxContainerAr]: isArlang,
+            })}>
             {service.point_3 && (
               <FiberManualRecordIcon className={classes.pointBullet} />
             )}
@@ -198,6 +230,7 @@ const ServiceItem = ({ service, index, onServiceClick }) => {
               {service.point_3}
             </CustomTypography>
           </Box>
+
           <Grid container direction={'row-reverse'}>
             <SubmitButton
               id={'proceedBtn'}

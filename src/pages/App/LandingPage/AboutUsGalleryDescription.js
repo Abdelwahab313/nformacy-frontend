@@ -1,14 +1,16 @@
 import { Box, Grid } from '@material-ui/core';
 import CustomTypography from 'components/typography/Typography';
 import React from 'react';
+import classNames from 'clsx';
 import useStyles from './styles/LandingPageStyles';
 import { useTranslation } from 'react-i18next';
-
 
 const AboutUsGalleryDescription = () => {
   const classes = useStyles();
   const { t } = useTranslation();
-
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
 
   return (
     <Grid container direction='row' justify='center'>
@@ -20,11 +22,17 @@ const AboutUsGalleryDescription = () => {
               <CustomTypography
                 variant='h5'
                 fontWeight='bold'
-                className={classes.workMainTextPadding}>
+                className={classNames(classes.workMainTextPadding, {
+                  [classes.workMainTextPaddinAr]: isArlang,
+                })}>
                 {t('WhyNformacy')}
               </CustomTypography>
-              <CustomTypography variant='body1' fontWeight='light'>
-              {t('WhyNformacydescription')}
+              <CustomTypography variant='body1' fontWeight='light'
+                 className={classNames(classes.WhyNformacydescription, {
+                  [classes.WhyNformacydescriptionAr]: isArlang,
+                })}
+              >
+                {t('WhyNformacydescription')}
               </CustomTypography>
             </Box>
           </Grid>
@@ -55,11 +63,17 @@ const AboutUsGalleryDescription = () => {
               <CustomTypography
                 variant='h5'
                 fontWeight='bold'
-                className={classes.workMainTextPadding}>
-                  {t('WhyNformacy')}
+                className={classNames(classes.workMainTextPadding, {
+                  [classes.workMainTextPaddinAr]: isArlang,
+                })}>
+                {t('WhyNformacy')}
               </CustomTypography>
-              <CustomTypography variant='body1' fontWeight='light'>
-              {t('WhyNformacydescription')}
+              <CustomTypography variant='body1' fontWeight='light'
+                 className={classNames(classes.WhyNformacydescription, {
+                  [classes.WhyNformacydescriptionAr]: isArlang,
+                })}
+              >
+                {t('WhyNformacydescription')}
               </CustomTypography>
             </Box>
           </Grid>
