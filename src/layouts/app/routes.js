@@ -102,7 +102,7 @@ const JitsiCall = React.lazy(() => import('pages/App/Calls/JitsiCall'));
 const appRoutes = [
   {
     path: RoutesPaths.App.LandingPage,
-    name: 'Home',
+    name: 'home',
     icon: DashboardIcon,
     Component: LandingPage,
     includeLayout: true,
@@ -111,7 +111,7 @@ const appRoutes = [
   },
   {
     path: RoutesPaths.App.About,
-    name: 'About',
+    name: 'about',
     icon: DashboardIcon,
     Component: AboutPage,
     includeLayout: true,
@@ -120,7 +120,7 @@ const appRoutes = [
   },
   {
     path: RoutesPaths.App.Solutions,
-    name: 'Solutions',
+    name: 'solutions',
     icon: DashboardIcon,
     Component: SolutionsPage,
     includeLayout: true,
@@ -129,7 +129,7 @@ const appRoutes = [
   },
   {
     path: RoutesPaths.App.Consultants,
-    name: 'Experts',
+    name: 'experts',
     icon: DashboardIcon,
     Component: ConsultantsPage,
     includeLayout: true,
@@ -138,7 +138,7 @@ const appRoutes = [
   },
   {
     path: RoutesPaths.App.TermsAndConditions,
-    name: 'Terms And Conditions',
+    name: 'termsAndConditions',
     icon: DashboardIcon,
     Component: TermsAndConditionsPage,
     includeLayout: true,
@@ -156,7 +156,7 @@ const appRoutes = [
   },
   {
     path: RoutesPaths.App.ContactUs,
-    name: 'Connect',
+    name: 'connect',
     icon: DashboardIcon,
     Component: ContactUsPage,
     includeLayout: true,
@@ -165,7 +165,7 @@ const appRoutes = [
   },
   {
     path: RoutesPaths.App.Login,
-    name: 'Login',
+    name: 'login',
     icon: DashboardIcon,
     Component: Login,
     includeLayout: true,
@@ -174,7 +174,7 @@ const appRoutes = [
   },
   {
     path: RoutesPaths.App.Signup,
-    name: 'Sign up',
+    name: 'signUp',
     icon: DashboardIcon,
     Component: Register,
     includeLayout: true,
@@ -183,7 +183,7 @@ const appRoutes = [
   },
   {
     path: RoutesPaths.App.ForgetPassword,
-    name: 'Forget password',
+    name: 'forgetPassword',
     icon: DashboardIcon,
     Component: ForgetPassword,
     includeLayout: true,
@@ -192,7 +192,7 @@ const appRoutes = [
   },
   {
     path: RoutesPaths.App.ResetPassword,
-    name: 'Reset password',
+    name: 'resetPassword',
     icon: DashboardIcon,
     Component: ResetPassword,
     includeLayout: true,
@@ -201,7 +201,7 @@ const appRoutes = [
   },
   {
     path: RoutesPaths.App.ChangePassword,
-    name: 'Change Password',
+    name: 'changePassword',
     icon: VpnKey,
     Component: ChangePasswordPage,
     includeLayout: true,
@@ -210,7 +210,7 @@ const appRoutes = [
   },
   {
     path: RoutesPaths.App.WelcomeAccount,
-    name: 'Welcome',
+    name: 'welcome',
     icon: DashboardIcon,
     Component: WelcomeAccountFormPage,
     includeLayout: true,
@@ -228,7 +228,7 @@ const appRoutes = [
   },
   {
     path: RoutesPaths.App.UserRegistrationForm,
-    name: 'Profile',
+    name: 'profile',
     icon: DashboardIcon,
     Component: UserRegistrationForm,
     includeLayout: true,
@@ -237,7 +237,7 @@ const appRoutes = [
   },
   {
     path: RoutesPaths.App.ConsultantAdvancedRegistrationForm,
-    name: 'Profile',
+    name: 'profile',
     icon: DashboardIcon,
     Component: ConsultantAdvancedRegistrationForm,
     includeLayout: true,
@@ -265,7 +265,7 @@ const appRoutes = [
 
   {
     path: RoutesPaths.App.Questions,
-    name: 'Questions',
+    name: 'questions',
     icon: DashboardIcon,
     Component: QuestionRoaster,
     includeLayout: true,
@@ -275,7 +275,7 @@ const appRoutes = [
 
   {
     path: RoutesPaths.App.ServiceDetails,
-    name: 'Service Details',
+    name: 'serviceDetails',
     icon: DashboardIcon,
     Component: ServiceDetails,
     includeLayout: true,
@@ -285,7 +285,7 @@ const appRoutes = [
 
   {
     path: RoutesPaths.App.CallEvaluation,
-    name: 'Call Evaluation',
+    name: 'callEvaluation',
     icon: DashboardIcon,
     Component: CallEvaluationPage,
     includeLayout: true,
@@ -294,7 +294,7 @@ const appRoutes = [
   },
   {
     path: RoutesPaths.App.MeetingWithAdmin,
-    name: 'Meeting with Admin',
+    name: 'meetingWithAdmin',
     icon: DashboardIcon,
     Component: MeetingWithAdminScheduler,
     includeLayout: true,
@@ -304,7 +304,7 @@ const appRoutes = [
 
   {
     path: RoutesPaths.App.AnswerQuestion,
-    name: 'Answer Question',
+    name: 'answerQuestion',
     icon: DashboardIcon,
     Component: AnswerQuestion,
     includeLayout: true,
@@ -333,7 +333,7 @@ const appRoutes = [
 
   {
     path: RoutesPaths.App.Services,
-    name: 'Services',
+    name: 'services',
     icon: DashboardIcon,
     Component: ServicesPage,
     includeLayout: true,
@@ -343,7 +343,7 @@ const appRoutes = [
 
   {
     path: RoutesPaths.App.ProjectDetails,
-    name: 'Project Details',
+    name: 'projectDetails',
     icon: DashboardIcon,
     Component: ProjectDetails,
     includeLayout: true,
@@ -353,7 +353,7 @@ const appRoutes = [
 
   {
     path: RoutesPaths.App.Accounts,
-    name: 'Accounts',
+    name: 'accountsList',
     icon: DashboardIcon,
     Component: CorporateAccountsList,
     includeLayout: true,
@@ -362,7 +362,7 @@ const appRoutes = [
   },
   {
     path: RoutesPaths.App.AccountDetails,
-    name: 'Account Details',
+    name: 'accountDetails',
     icon: DashboardIcon,
     Component: CorporateAccountDetails,
     includeLayout: true,
@@ -371,7 +371,7 @@ const appRoutes = [
   },
   {
     path: RoutesPaths.App.AddAccount,
-    name: 'Add Account',
+    name: 'addAccount',
     icon: DashboardIcon,
     Component: AddAccount,
     includeLayout: true,
@@ -389,7 +389,7 @@ const appRoutes = [
   },
   {
     path: RoutesPaths.App.ActivitiesList,
-    name: 'Activities List',
+    name: 'activitiesList',
     icon: DashboardIcon,
     Component: FreelancersActivitiesPage,
     includeLayout: true,

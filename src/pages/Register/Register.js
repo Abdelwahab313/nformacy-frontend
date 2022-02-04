@@ -171,7 +171,7 @@ const Register = () => {
               }}
             />
             {errors.email && (
-              <span className={classes.error}>{errors.email.message}</span>
+              <span className={classes.error}>{t(errors.email.message)}</span>
             )}
             <TextField
               variant='outlined'
@@ -192,7 +192,7 @@ const Register = () => {
               onChange={validateRepeat}
             />
             {errors.password && (
-              <span className={classes.error}>{errors.password.message}</span>
+              <span className={classes.error}>{t(errors.password.message)}</span>
             )}
 
             <TextField
@@ -211,7 +211,7 @@ const Register = () => {
             />
             {errors.confirmPassword && (
               <span className={classes.error}>
-                {errors.confirmPassword.message}
+                {t(errors.confirmPassword.message)}
               </span>
             )}
             <div className={classes.signUpButtonContainer}>

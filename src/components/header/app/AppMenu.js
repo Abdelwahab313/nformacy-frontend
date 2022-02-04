@@ -8,6 +8,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import useStyles from 'components/header/app/styles/HeaderStyles';
 
 export default function AppMenuDrawer({ menuList }) {
@@ -26,6 +27,7 @@ export default function AppMenuDrawer({ menuList }) {
 
     setState({ ...state, [anchor]: open });
   };
+  const { t } = useTranslation();
 
   const list = (anchor) => (
     <div
@@ -45,7 +47,7 @@ export default function AppMenuDrawer({ menuList }) {
               <ListItemIcon>
                 <prop.icon />
               </ListItemIcon>
-              <ListItemText primary={prop.name} />
+              <ListItemText primary={t(prop.name)} />
             </ListItem>
           </NavLink>
         ))}

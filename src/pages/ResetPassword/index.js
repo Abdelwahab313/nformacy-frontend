@@ -73,7 +73,7 @@ const ResetPassword = () => {
               value={values.password}
             />
             {errors.password && (
-              <span className={classes.error}>{errors.password}</span>
+              <span className={classes.error}>{t(errors.password)}</span>
             )}
             <TextField
               variant='outlined'
@@ -88,7 +88,7 @@ const ResetPassword = () => {
               value={values.confirmPassword}
             />
             {errors.confirmPassword && (
-              <span className={classes.error}>{errors.confirmPassword}</span>
+              <span className={classes.error}>{t(errors.confirmPassword)}</span>
             )}
             {responseMessage && (
               <span className={classes.error}>{responseMessage}</span>

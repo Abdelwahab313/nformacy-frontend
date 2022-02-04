@@ -48,17 +48,17 @@ const AboutUsGalleryDescription = () => {
           </Grid>
           {/* end Aliquam img */}
           {/* Aliquam img */}
-          <Grid item md={6}>
+          {/* <Grid item md={6}>
             <Box textAlign='center'>
               <img
                 className={classes.firstSectionImg}
                 src={require('../../../assets/about/business-aboutPage.jpg')}
               />
             </Box>
-          </Grid>
+          </Grid> */}
           {/* end Aliquam img */}
           {/* Etiam desc */}
-          <Grid item md={6} className={classes.landingSectionsContainerPadding}>
+          {/* <Grid item md={6} className={classes.landingSectionsContainerPadding}>
             <Box>
               <CustomTypography
                 variant='h5'
@@ -76,7 +76,7 @@ const AboutUsGalleryDescription = () => {
                 {t('WhyNformacydescription')}
               </CustomTypography>
             </Box>
-          </Grid>
+          </Grid> */}
           {/* end Etiam desc */}
         </Grid>
       </Grid>

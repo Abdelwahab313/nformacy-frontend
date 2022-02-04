@@ -95,7 +95,7 @@ const ChangePasswordPage = () => {
               onChange={handleChange}
             />
             {errors.confirmPassword && (
-              <span className={classes.error}>{errors.confirmPassword}</span>
+              <span className={classes.error}>{t(errors.confirmPassword)}</span>
             )}
             {responseMessage && (
               <span className={classes.error}>{responseMessage}</span>

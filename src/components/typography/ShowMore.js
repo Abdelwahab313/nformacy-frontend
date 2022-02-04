@@ -20,9 +20,9 @@ const ShowLessComponent = ({ withTxt }) => {
 
   return (
     <Box> 
-      {withTxt ? <LessTxt /> : <div> {t('showLess')}<ArrowUpward className={classNames(classes.noTxtIcon, {
-      [classes.noTxtIconAr]: isArlang,
-    })} /></div>}
+      {withTxt ? <LessTxt /> : <div className={classNames(classes.showLessText, {
+      [classes.showLessTextAr]: isArlang,
+    })}> {t('showLess')}<ArrowUpward className={classes.ArrowUpward} /></div>}
     </Box>
   );
 };

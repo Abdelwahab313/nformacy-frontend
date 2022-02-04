@@ -69,7 +69,7 @@ const ForgetPassword = () => {
               onChange={handleChange}
             />
             {errors.email && (
-              <span className={classes.error}>{errors.email}</span>
+              <span className={classes.error}>{t(errors.email)}</span>
             )}
             {responseMessage && (
               <span className={classes.error}>{responseMessage}</span>
@@ -98,12 +98,12 @@ const ForgetPassword = () => {
         >
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              E-mail sent with password reset instructions.
+            {t('checkEmailForReset')}
           </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary" autoFocus>
-              ok
+              {t('okClosePopup')}
           </Button>
           </DialogActions>
         </Dialog>

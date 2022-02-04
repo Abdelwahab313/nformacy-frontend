@@ -3,15 +3,15 @@ const validateResetPasswordForm = (values) => {
   let errors = {};
 
   if (!values.password) {
-    errors.password = 'Password is Required!';
+    errors.password = 'requiredPassword';
   } else if (values.password.length < 6) {
-    errors.password = 'Password need to be 6 characers or more!';
+    errors.password = 'invalidPasswordError';
   }
 
   if (!values.confirmPassword) {
-    errors.confirmPassword = 'Password is Required!';
+    errors.confirmPassword = 'requiredPassword';
   } else if (values.confirmPassword !== values.password) {
-    errors.confirmPassword = 'Passwords don\'t match!';
+    errors.confirmPassword = 'passwordsNotMatching';
   }
 
   return errors;
@@ -21,9 +21,9 @@ const validateForgetPasswordForm = (values) => {
   let errors = {};
 
   if (!values.email) {
-    errors.email = 'Email is Required!';
+    errors.email = 'requiredEmail';
   } else if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(values.email)) {
-    errors.email = 'Invalid Email!';
+    errors.email = 'invalidEmail';
   }
   return errors;
 };
@@ -31,18 +31,18 @@ const validateForgetPasswordForm = (values) => {
 const validateChangePasswordForm = (values) => {
   let errors = {};
   if (!values.currentPassword) {
-    errors.currentPassword = 'Current Password is Required!';
+    errors.currentPassword = 'currentPasswordRequired';
   }
   if (!values.newPassword) {
-    errors.newPassword = 'New Password is Required!';
+    errors.newPassword = 'newPasswordRequired';
   }
   if (values.currentPassword === values.newPassword) {
-    errors.newPassword = 'Old Password and New Password can\'t be same!';
+    errors.newPassword = 'newAndOldPassword';
   }
   if (!values.confirmPassword) {
-    errors.confirmPassword = 'Confirm Password is Required!';
+    errors.confirmPassword = 'confirmPasswordRequired';
   } else if (values.confirmPassword !== values.newPassword) {
-    errors.confirmPassword = 'Passwords don\'t match!';
+    errors.confirmPassword = 'passwordsNotMatching';
   }
   return errors;
 };

@@ -23,6 +23,19 @@ const useStyles = makeStyles((theme) => ({
     left: '-8px !important',
     right: 'auto',
   },
+  showLessText: {
+    paddingLeft: 27,
+  },
+  showLessTextAr: {
+    display: 'flex',
+    direction: 'ltr',
+  },
+  ArrowUpward: {
+    position: 'absolute',
+    bottom: -9,
+    left: -7,
+    padding: 20,
+  },
   learnMore: {
     display: 'flex',
     alignItems: 'end',

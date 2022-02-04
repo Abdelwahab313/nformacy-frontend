@@ -58,11 +58,11 @@ const Login = () => {
       .catch((reason) => {
         let error = '';
         if (reason?.response?.status === 401) {
-          error = t('Invalid Email or password');
+          error = t('invalidEmailOrPassword');
         } else if (reason?.response?.status === 429) {
           error =
             reason?.response?.data?.message ||
-            t("You've performed this action many times.");
+            t('performedActionMulitTimes');
         }
         setLoginErrorMessage(error);
       })

@@ -16,12 +16,15 @@ import BreadcrumbsCustomSeparator from 'components/breadcrumbs/Breadcrumbs';
 const NewQuestion = () => {
   const location = useLocation();
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   const { assignmentType, content } = location?.state?.service;
   const richTextRef = useRef(null);
   const [isLoading] = useState(false);
   const [serviceRequest, setServiceRequest] = useState({
     fields: [],
-    content: assignmentType === 'call' ? CONTENT_FOR_CALL : content,
+    content: assignmentType === 'call' ? CONTENT_FOR_CALL(t, isArlang) : content,
     assignmentType: assignmentType,
   });
   const [errors, setErrors] = useState({});
@@ -94,8 +97,10 @@ const NewQuestion = () => {
     </Grid>
   );
 };
-
-const CONTENT_FOR_CALL =
-  '<p><span style="font-weight: 500; background-color: #ffffff; color: #125773;">Please answer below questions:-</span></p><ul><li style="font-weight: 500;"><span style="font-weight: 500; background-color: #ffffff; color: #125773;">What is the purpose of call?</span></li></ul><p>&nbsp;</p><ul><li style="font-weight: 500;"><span style="font-weight: 500; background-color: #ffffff; color: #125773;">What do you want to achieve at the end of the call?</span></li></ul><p>&nbsp;</p><ul><li style="font-weight: 500;"><span style="font-weight: 500; background-color: #ffffff; color: #125773;">Is there any specific information we need to know before the call?</span></li></ul><p>&nbsp;</p><ul><li style="font-weight: 500;"><span style="font-weight: 500; background-color: #ffffff; color: #125773;">Is there any specific requirements in the expert you want to talk?</span></li></ul><p>&nbsp;</p>';
-
+const CONTENT_FOR_CALL= (t,isArlang) =>
+`<p><span style="font-weight: 500; display: flex; direction: ${isArlang ? 'rtl' : 'ltr'}; background-color: #ffffff; color: #125773;">${t('submitQuestionButton')}</span></p><ul style="direction: ${isArlang ? 'rtl' : 'ltr'};"><li style="font-weight: 500;">
+  <span style="font-weight: 500; background-color: #ffffff; color: #125773;">${t('purposeOfCall')}</span></li></ul><p>&nbsp;</p><ul style="direction: ${isArlang ? 'rtl' : 'ltr'};"><li style="font-weight: 500;">
+  <span style="font-weight: 500; background-color: #ffffff; color: #125773;">${t('callAchievements')}</span></li></ul><p>&nbsp;</p><ul style="direction: ${isArlang ? 'rtl' : 'ltr'};"><li style="font-weight: 500;">
+  <span style="font-weight: 500; background-color: #ffffff; color: #125773;">${t('specificInformationBeforeCall')}</span></li></ul><p>&nbsp;</p><ul style="direction: ${isArlang ? 'rtl' : 'ltr'};"><li style="font-weight: 500;">
+  <span style="font-weight: 500; background-color: #ffffff; color: #125773;">${t('specificRequirements')}</span></li></ul><p>&nbsp;</p>`;
 export default NewQuestion;
