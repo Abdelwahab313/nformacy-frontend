@@ -1,10 +1,11 @@
 import React, { Fragment, useState, useRef } from 'react';
 import { Box, Grid, Typography, IconButton, Dialog, DialogContent } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
+import classNames from 'clsx';
 import { useStyles } from '../../../../../styles/formsStyles';
 import Transition from 'components/animations/Transition';
 import ClientProfilePersonalInfoForm from 'components/forms/ClientProfileForms/ClientProfilePersonalInfoForm';
-import t from '../../../../../locales/en/freelancerProfile.json';
+import { useTranslation } from 'react-i18next';
 import countryList from 'react-select-country-list';
 
 const ClientPersonalInfo = () => {
@@ -15,6 +16,10 @@ const ClientPersonalInfo = () => {
   const handleClickOpen = () => {
     setOpen(true);
   };
+  const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   const handleClose = () => {
     setOpen(false);
   };
@@ -35,11 +40,13 @@ const ClientPersonalInfo = () => {
           </Grid>
         </DialogContent>
       </Dialog>
-      <Box elevation={3} className={classes.personalInfoSections}>
+      <Box elevation={3} className={classNames(classes.personalInfoSections, {
+          [classes.personalInfoSectionsAr]: isArlang,
+        })}>
         <Grid container>
           <Grid item xs={11} className={classes.personalInfoHeaderContainer}>
             <Typography className={classes.personalInfoHeader}>
-              {t['personalInfo']}
+              {t('personalInfo')}
             </Typography>
           </Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
@@ -56,7 +63,7 @@ const ClientPersonalInfo = () => {
             <Typography
               gutterBottom
               className={classes.fieldLabelStylesDesktop}>
-              {t['countryOfResidence']}
+              {t('countryOfResidence')}
             </Typography>
           </Grid>
           <Grid item xs={8}>
@@ -76,7 +83,7 @@ const ClientPersonalInfo = () => {
             <Typography
               gutterBottom
               className={classes.fieldLabelStylesDesktop}>
-              {t['email']}
+              {t('email')}
             </Typography>
           </Grid>
           <Grid item xs={8} className={classes.profileEmailMobile}>

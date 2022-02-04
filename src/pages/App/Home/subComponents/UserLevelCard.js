@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { Grid, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -22,36 +23,36 @@ import { history } from 'services/navigation';
 
 const USER_STEPS = [
   {
-    label: 'Register',
+    label: 'register',
     icon: <PersonIcon fontSize='small' />,
     onClickNextAction: () => {},
   },
   {
-    label: 'Fill basic Information',
+    label: 'FillBasicInformation',
     icon: <VerifiedUserIcon fontSize='small' />,
     onClickNextAction: () => history.push(RoutesPaths.App.UserRegistrationForm),
   },
   {
-    label: 'Fill full profile data',
+    label: 'FillFullProfileData',
     icon: <WorkIcon fontSize='small' />,
     onClickNextAction: () =>
       history.push(RoutesPaths.App.ConsultantAdvancedRegistrationForm),
   },
   {
-    label: 'Meet the Consultant Manager',
+    label: 'MeetTheConsultantManager',
     icon: <SupervisorAccountIcon fontSize='small' />,
     onClickNextAction: () => history.push(RoutesPaths.App.MeetingWithAdmin),
   },
   {
-    label: 'Level 1',
+    label: 'level1',
     icon: <StarIcon fontSize='large' />,
   },
   {
-    label: 'Level 2',
+    label: 'level2',
     icon: <StarIcon fontSize='large' />,
   },
   {
-    label: 'Level 3',
+    label: 'level3',
     icon: <StarIcon fontSize='large' />,
   },
 ];
@@ -115,6 +116,7 @@ const UserLevelCard = () => {
   const currentUser = authManager.retrieveCurrentUser();
 
   const activeStep = getConsultantLevel(currentUser);
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -137,7 +139,7 @@ const UserLevelCard = () => {
               <Step key={userStep.label}>
                 <StepLabel StepIconComponent={ColorlibStepIcon}>
                   <CustomTypography variant={'body1'}>
-                    {userStep.label}
+                  {t(userStep.label)}
                   </CustomTypography>
                 </StepLabel>
                 <StepContent>
@@ -151,7 +153,7 @@ const UserLevelCard = () => {
                             userStep.onClickNextAction();
                         }}
                         className={classes.button}>
-                        {'You are here'}
+                        {t('YouAreHere')}
                       </Button>
                     </div>
                   </div>

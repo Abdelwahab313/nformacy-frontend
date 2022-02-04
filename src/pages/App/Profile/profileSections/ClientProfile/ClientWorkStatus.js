@@ -1,9 +1,10 @@
 import React, { Fragment, useState, useRef } from 'react';
+import classNames from 'clsx';
 import { Box, Grid, Typography, IconButton, Dialog, DialogContent } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import { useStyles } from '../../../../../styles/formsStyles';
 import Transition from 'components/animations/Transition';
-import t from '../../../../../locales/en/freelancerProfile.json';
+import { useTranslation } from 'react-i18next';
 import { organizationalLevel } from 'constants/dropDownOptions';
 import ClientProfileWorkStatusForm from 'components/forms/ClientProfileWorkStatusForm';
 import FieldsView from '../FieldsView';
@@ -27,6 +28,10 @@ const ClientWorkStatus = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   return (
     <Fragment>
       <Dialog
@@ -44,7 +49,10 @@ const ClientWorkStatus = () => {
           </Grid>
         </DialogContent>
       </Dialog>
-      <Box elevation={3} className={classes.personalInfoSections}>
+     
+      <Box elevation={3}  className={classNames(classes.personalInfoSections, {
+          [classes.personalInfoSectionsAr]: isArlang,
+        })}>
         <Grid container>
           <Grid item xs={11}></Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
@@ -61,7 +69,7 @@ const ClientWorkStatus = () => {
             <Typography
               gutterBottom
               className={classes.fieldLabelStylesDesktop}>
-              {t['jobTitle']}
+              {t('jobTitle')}
             </Typography>
           </Grid>
           <Grid item xs={8}>
@@ -78,7 +86,7 @@ const ClientWorkStatus = () => {
             <Typography
               gutterBottom
               className={classes.fieldLabelStylesDesktop}>
-              {t['organizationalLevel']}
+              {t('organizationalLevel')}
             </Typography>
           </Grid>
           <Grid item xs={8}>
@@ -100,7 +108,7 @@ const ClientWorkStatus = () => {
             <Typography
               gutterBottom
               className={classes.fieldLabelStylesDesktop}>
-              {t['organizationName']}
+              {t('organizationName')}
             </Typography>
           </Grid>
           <Grid item xs={8}>
@@ -117,7 +125,7 @@ const ClientWorkStatus = () => {
             <Typography
               gutterBottom
               className={classes.fieldLabelStylesDesktop}>
-              {t['fieldsOfSpecialization']}
+              {t('fieldsOfSpecialization')}
             </Typography>
           </Grid>
           <Grid item xs={8}>

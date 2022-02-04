@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import Countdown from 'react-countdown';
 import Typography from '@material-ui/core/Typography';
 import AlarmIcon from '@material-ui/icons/Alarm';
@@ -9,7 +10,7 @@ export const useStyles = makeStyles(() => ({
   countDownText: {
     display: 'flex',
     alignItems: 'center',
-    fontFamily: "'Orbitron', sans-serif",
+    fontFamily: '\'Orbitron\', sans-serif',
     fontWeight: 'bold',
     whiteSpace: 'nowrap',
   },
@@ -26,6 +27,7 @@ const QuestionCountDown = ({
   ...props
 }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
   if (!date) {
     return '';
   }
@@ -47,7 +49,7 @@ const QuestionCountDown = ({
               className={classes.alarmIcon}
             />
           )}
-          {completed ? 'Closed' : remainingTimeFormatted}
+          {completed ? t('closed') : remainingTimeFormatted}
         </Typography>
       );
     };

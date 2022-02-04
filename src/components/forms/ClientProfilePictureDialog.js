@@ -6,9 +6,9 @@ import ImageUploader from 'react-images-upload';
 import TextField from '@material-ui/core/TextField';
 import ErrorMessage from '../errors/ErrorMessage';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useStyles } from '../../styles/formsStyles';
 import { useFormContext } from 'react-hook-form';
-import t from '../../locales/en/freelancerProfile.json';
 
 const ClientProfilePictureDialog = () => {
   const classes = useStyles();
@@ -17,26 +17,27 @@ const ClientProfilePictureDialog = () => {
   const uploadPhoto = (picture) => {
     setAvatar(picture);
   };
+  const { t } = useTranslation();
   return (
     <Container>
       <Grid container alignItems='center'>
         <Grid item xs>
           <Typography gutterBottom variant='h4'>
-            Basic Info
+           {t('basicInfo')}
           </Typography>
         </Grid>
       </Grid>
       <Divider variant='middle' />
       <Container maxWidth={false} className={classes.formControl}>
         <Typography gutterBottom variant='subtitle2'>
-          Profile Picture
+         {t('profilePicture')}
         </Typography>
         <ImageUploader
           withPreview={true}
           singleImage={true}
-          label={'Max file size: 1mb, accepted: jpg, gif, png'}
+          label={t('maxFileSize')}
           withIcon={true}
-          buttonText='Choose images'
+          buttonText= {t('chooseImages')}
           imgExtension={['.jpg', '.gif', '.png', 'jpeg']}
           maxFileSize={1048576}
           onChange={uploadPhoto}
@@ -44,7 +45,7 @@ const ClientProfilePictureDialog = () => {
       </Container>
       <Container maxWidth={false} className={classes.formControl}>
         <Typography gutterBottom variant='subtitle2'>
-          {t['firstName']}
+          {t('firstName')}
         </Typography>
         <TextField
           variant='outlined'
@@ -53,7 +54,7 @@ const ClientProfilePictureDialog = () => {
           id='firstName'
           name='firstName'
           defaultValue={!user.current.firstName && ''}
-          inputRef={register({ required: 'This field is required' })}
+          inputRef={register({ required: t('requiredMessage') })}
           autoComplete='name'
           error={!!errors.firstName}
         />
@@ -61,7 +62,7 @@ const ClientProfilePictureDialog = () => {
       </Container>
       <Container maxWidth={false} className={classes.formControl}>
         <Typography gutterBottom variant='subtitle2'>
-          {t['lastName']}
+          {t('lastName')}
         </Typography>
         <TextField
           variant='outlined'
@@ -70,7 +71,7 @@ const ClientProfilePictureDialog = () => {
           id='lastName'
           name='lastName'
           defaultValue={!user.current.lastName && ''}
-          inputRef={register({ required: 'This field is required' })}
+          inputRef={register({ required:  t('requiredMessage')  })}
           autoComplete='name'
           error={!!errors.lastName}
         />

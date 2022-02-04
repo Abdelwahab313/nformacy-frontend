@@ -1,5 +1,6 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
+import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -7,7 +8,6 @@ import {
   useStyles, selectStyle, sectionContainerStyles
 } from '../../styles/formsStyles';
 import { useFormContext } from 'react-hook-form';
-import t from '../../locales/en/freelancerProfile.json';
 import HelpIcon from '@material-ui/icons/Help';
 import FormControl from '@material-ui/core/FormControl';
 import { Controller } from 'react-hook-form';
@@ -18,14 +18,14 @@ import ReactTooltip from 'react-tooltip';
 const ClientWorkStatusDialog = () => {
   const classes = useStyles();
   const { control, user } = useFormContext();
-
+  const { t } = useTranslation();
   return (
     <Container style={sectionContainerStyles}>
       <ReactTooltip globalEventOff={'click'} />
       <Grid container alignItems='center'>
         <Grid item xs>
           <Typography gutterBottom variant='h4'>
-            {t['workExperienceHeader']}
+            {t('workExperienceHeader')}
           </Typography>
         </Grid>
       </Grid>
@@ -33,7 +33,7 @@ const ClientWorkStatusDialog = () => {
       <Container maxWidth={false} className={classes.formControl}>
         <div className={classes.formHeader}>
           <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-            {t['organizationalLevel']}
+            {t('organizationalLevel')}
           </Typography>
           <HelpIcon
             className={classes.formHeaderIcon}
@@ -51,7 +51,7 @@ const ClientWorkStatusDialog = () => {
               <ReactSelectMaterialUi
                 fullWidth={true}
                 name='organizationLevel'
-                placeholder={t['selectYourOrganizationalLevel']}
+                placeholder={t('selectYourOrganizationalLevel')}
                 SelectProps={{
                   styles: selectStyle,
                 }}

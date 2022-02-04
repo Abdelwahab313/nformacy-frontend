@@ -77,6 +77,9 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     marginTop: theme.spacing(1),
   },
+  nestedFormAr: {
+direction: 'ltr',
+  },
   formControl: {
     marginTop: theme.spacing(3),
   },
@@ -419,6 +422,11 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: 10,
     padding: '0 20px',
     margin: '15px 0',
+  },
+  personalInfoSectionsAr: {
+display: 'flex',
+flexDirection: 'column',
+direction: 'ltr',
   },
   personalInfoHeaderContainer: {
     margin: '15px 0',

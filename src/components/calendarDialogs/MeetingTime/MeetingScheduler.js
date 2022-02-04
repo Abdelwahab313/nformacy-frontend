@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 import { Box, Button, Grid, Typography } from '@material-ui/core';
 import CalendarView from '../../calendar/CalendarView';
 import MeetingTimePicker from './MeetingTimePicker';
@@ -10,6 +11,7 @@ import CalendarLegend from '../CalendarLegend';
 
 const MeetingScheduler = ({ user, onSubmitDate, onCancel }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   const [localState, setLocalState] = useState({
     selectedDay: '',
@@ -93,7 +95,7 @@ const MeetingScheduler = ({ user, onSubmitDate, onCancel }) => {
             size='large'
             className={classes.margin}
             onClick={() => onCancel()}>
-            Cancel
+            {t('cancel')}
           </Button>
           <SubmitButton
             id={'confirmBtnCalendar'}
@@ -103,7 +105,7 @@ const MeetingScheduler = ({ user, onSubmitDate, onCancel }) => {
             size='large'
             className={classes.margin}
             autoFocus
-            buttonText={'Confirm'}
+            buttonText={t('confirm')}
           />
         </Grid>
       </Grid>

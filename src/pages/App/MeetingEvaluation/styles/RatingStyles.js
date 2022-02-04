@@ -55,6 +55,10 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     width: '80%',
   },
+  callEvaluationContainerAr: {
+  display: 'flex',
+  direction: 'ltr'
+  },
   submitEvaluationBtnContainer: {
     float: 'right',
     marginTop: '30px'

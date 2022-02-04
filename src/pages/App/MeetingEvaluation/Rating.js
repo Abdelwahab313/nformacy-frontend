@@ -34,9 +34,9 @@ const Rating = ({ evaluationKey, rating, updateRatingValue }) => {
             const ratingValue = i + 1;
             const ratingStarsValue = () => {
               if (ratingValue === 1) {
-                return 'I Will Not';
+                return t('willNot');
               } else if (ratingValue === 5) {
-                return 'Definitely I Will';
+                return t('definitelyWill');
               }
               return null;
             };

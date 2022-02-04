@@ -51,18 +51,18 @@ const MeetingDetailsSection = ({ meeting }) => {
   const handleClientMeetingBtn = () => {
     if (!!isMeetingFinished) {
       if (!!meeting.freelancerEvaluationId) {
-        return 'View Evaluation';
+        return t('viewEvaluations');
       } else {
-        return 'Rate the Call';
+        return t('rateTheCall');
       }
     }
   };
   const handleFreelancerMeetingBtn = () => {
     if (!!isMeetingFinished) {
       if (!!meeting.clientEvaluationId) {
-        return 'View Evaluation';
+        return t('viewEvaluations');
       } else {
-        return 'Rate the Call';
+        return t('rateTheCall');
       }
     }
   };

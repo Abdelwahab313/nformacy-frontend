@@ -1,7 +1,8 @@
 import React, { Fragment, useMemo } from 'react';
 import { Grid, Button } from '@material-ui/core';
+import classNames from 'clsx';
 import CustomTypography from 'components/typography/Typography';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import useStyles from './styles/RatingStyles';
 import { CallEvaluationProvider, useCallEvaluationContext } from './context';
 import authManager from 'services/authManager';
@@ -24,6 +25,9 @@ import { fetchMeetingDetails } from 'apis/meetingsAPI';
 
 const CallEvaluation = () => {
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   const classes = useStyles();
   const [{ ratingEvaluations, comment }, dispatch] = useCallEvaluationContext();
   const history = useHistory();
@@ -41,24 +45,18 @@ const CallEvaluation = () => {
   const { fetchedData: meeting, isLoading } = useFetchData(() =>
     fetchMeetingDetails(meetingId),
   );
-  const isEvaluationSumbitted = useMemo(
-    () => {
-      if (authManager.isClient()) {
-        return !!meeting.clientEvaluation;
-      }
-      else {
-        return !!meeting.freelancerEvaluation;
-      }
-    },
-    [meeting],
-  );
+  const isEvaluationSumbitted = useMemo(() => {
+    if (authManager.isClient()) {
+      return !!meeting.clientEvaluation;
+    } else {
+      return !!meeting.freelancerEvaluation;
+    }
+  }, [meeting]);
 
   if (isLoading) {
     return <LoadingCircle />;
   }
-  const meetingDate = formattedDateTimeNoSeconds(
-    new Date(meeting.callTime),
-  );
+  const meetingDate = formattedDateTimeNoSeconds(new Date(meeting.callTime));
 
   const userName = authManager.isClient()
     ? getUserName(meeting.freelancer)
@@ -80,7 +78,11 @@ const CallEvaluation = () => {
   };
 
   return (
-    <Grid container className={classes.callEvaluationContainer}>
+    <Grid
+      container
+      className={classNames(classes.callEvaluationContainer, {
+        [classes.callEvaluationContainerAr]: isArlang,
+      })}>
       <BreadcrumbsCustomSeparator pageName={t('callEvaluation')} />
 
       <Grid item={12}>
@@ -88,19 +90,19 @@ const CallEvaluation = () => {
           className={classes.callEvaluationHeader}
           fontWeight='bold'
           variant='h5'>
-          How did your call on {meetingDate} with {userName} go?
+          <Trans i18nKey='how_did_your_call_go' t={t}>
+            {t('howDidYourCall')} {meetingDate} {t('with')} {userName} {t('go')}?
+          </Trans>
         </CustomTypography>
       </Grid>
 
       {isEvaluationSumbitted ? (
         <Fragment>
-          <ViewEvaluations
-            ratingEvaluations={evaluationRatings}
-          />
+          <ViewEvaluations ratingEvaluations={evaluationRatings} />
           <CommentBox comment={evaluationComment} disabled />
         </Fragment>
-      ) :
-        (<Fragment>
+      ) : (
+        <Fragment>
           <ViewEvaluations
             ratingEvaluations={ratingEvaluations}
             setRatingEvaluations={setRatingEvaluations}
@@ -108,7 +110,7 @@ const CallEvaluation = () => {
 
           <Grid item xs={12} className={classes.evaluationComment}>
             <CustomTypography fontWeight='bold' variant='body1'>
-              Comments:
+              {t('comments')}:
             </CustomTypography>
             <div className={classes.form}>
               <CommentBox comment={comment} setComment={setComment} />
@@ -125,9 +127,8 @@ const CallEvaluation = () => {
               </div>
             </div>
           </Grid>
-        </Fragment>)
-      }
-
+        </Fragment>
+      )}
     </Grid>
   );
 };

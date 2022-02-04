@@ -7,12 +7,13 @@ import {
   Dialog,
   DialogContent,
 } from '@material-ui/core';
+import classNames from 'clsx';
 import EditIcon from '@material-ui/icons/Edit';
+import { useTranslation } from 'react-i18next';
 import { useStyles } from '../../../../../styles/formsStyles';
 import Transition from 'components/animations/Transition';
 import ClientProfileDetailsForm from 'components/forms/ClientProfileForms/ClientProfileDetailsForm';
 import Link from '@material-ui/core/Link';
-import t from '../../../../../locales/en/freelancerProfile.json';
 
 const ClientLinkedInURL = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
@@ -24,6 +25,10 @@ const ClientLinkedInURL = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   return (
     <Fragment>
       <Dialog
@@ -38,13 +43,15 @@ const ClientLinkedInURL = () => {
           </Grid>
         </DialogContent>
       </Dialog>
-      <Box elevation={3} className={classes.personalInfoSections}>
+      <Box elevation={3} className={classNames(classes.personalInfoSections, {
+          [classes.personalInfoSectionsAr]: isArlang,
+        })}>
         <Grid container className={classes.sectionRowStyles}>
           <Grid item xs={3}>
             <Typography
               gutterBottom
               className={classes.fieldLabelStylesDesktop}>
-              {t['linkedInProfileUrl']}
+              {t('linkedInProfile')}
             </Typography>
           </Grid>
           <Grid item xs={1}></Grid>

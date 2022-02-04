@@ -1,6 +1,7 @@
 import React from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { TINY_MCE_API_KEY } from 'settings';
+import { useTranslation } from 'react-i18next';
 
 // TODO needs to handle loading for fetching user data
 const RichTextEditor = ({
@@ -13,6 +14,9 @@ const RichTextEditor = ({
   const handleEditorChange = (content) => {
     !!onContentChange && onContentChange(content);
   };
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
 
   //TODO Handle remove image
   return (
@@ -24,6 +28,8 @@ const RichTextEditor = ({
       initialValue={initialContent}
       disabled={disabled}
       init={{
+        selector: 'textarea',  
+        language : isArlang ? 'ar' : 'en',
         height: 500,
         file_picker_types: 'image',
         plugins: [
@@ -31,6 +37,7 @@ const RichTextEditor = ({
           'searchreplace visualblocks fullscreen',
           'insertdatetime media table paste wordcount',
         ],
+   
         toolbar:
           'undo redo link image | formatselect | bold italic backcolor forecolor | \
         alignleft aligncenter alignright alignjustify | \
@@ -75,6 +82,7 @@ const RichTextEditor = ({
 
           input.click();
         },
+   
       }}
     />
   );

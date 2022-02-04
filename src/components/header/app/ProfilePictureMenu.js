@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -45,6 +46,8 @@ const StyledListText = withStyles((theme) => ({
 }))(ListItemText);
 
 const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
+  const { t } = useTranslation();
+
   return (
     <StyledMenu
       id={menuId}
@@ -61,7 +64,7 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
         <ListItemIcon>
           <HomeIcon color={'secondary'} />
         </ListItemIcon>
-        <StyledListText primary={'Home'} />
+        <StyledListText primary={t('home')} />
       </MenuItem>
 
       <MenuItem
@@ -73,7 +76,7 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
         <ListItemIcon>
           <AccountBoxIcon color={'secondary'} />
         </ListItemIcon>
-        <StyledListText primary={'Profile'} />
+        <StyledListText primary={t('profile')} />
       </MenuItem>
 
       {!authManager.isClient() && (
@@ -86,7 +89,7 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
           <ListItemIcon>
             <HelpIcon color={'secondary'} />
           </ListItemIcon>
-          <StyledListText primary={'Question Roaster'} />
+          <StyledListText primary={t('questionRoaster')} />
         </MenuItem>
       )}
 
@@ -100,7 +103,7 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
           <ListItemIcon>
             <BusinessCenterIcon color={'secondary'} />
           </ListItemIcon>
-          <StyledListText primary={'Services'} />
+          <StyledListText primary={t('services')} />
         </MenuItem>
       )}
 
@@ -114,7 +117,7 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
           <ListItemIcon>
             <BusinessCenterIcon color={'secondary'} />
           </ListItemIcon>
-          <StyledListText primary={'Answers'} />
+          <StyledListText primary={t('answers')} />
         </MenuItem>
       )}
 
@@ -141,7 +144,7 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
         <ListItemIcon>
           <VpnKeyIcon color={'secondary'} />
         </ListItemIcon>
-        <StyledListText primary={'Change Password'} />
+        <StyledListText primary={t('changePassword')} />
       </MenuItem>
 
       <MenuItem
@@ -153,7 +156,7 @@ const ProfilePictureMenu = ({ menuId, anchorEl, handleClose }) => {
         <ListItemIcon>
           <ExitToAppIcon color={'secondary'} />
         </ListItemIcon>
-        <StyledListText primary={'logout'} />
+        <StyledListText primary={t('logout')} />
       </MenuItem>
     </StyledMenu>
   );

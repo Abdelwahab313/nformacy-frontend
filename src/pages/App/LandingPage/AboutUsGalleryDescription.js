@@ -5,6 +5,7 @@ import classNames from 'clsx';
 import useStyles from './styles/LandingPageStyles';
 import { useTranslation } from 'react-i18next';
 
+
 const AboutUsGalleryDescription = () => {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -74,6 +75,7 @@ const AboutUsGalleryDescription = () => {
                 })}
               >
                 {t('WhyNformacydescription')}
+
               </CustomTypography>
             </Box>
           </Grid> */}

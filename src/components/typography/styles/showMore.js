@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     right: -8,
     padding: 20,
   },
+
   noTxtIconAr: {
     left: '-8px !important',
     right: 'auto',

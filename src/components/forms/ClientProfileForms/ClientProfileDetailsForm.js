@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
+import classNames from 'clsx';
+import { useTranslation } from 'react-i18next';
 import { FormContext, useForm } from 'react-hook-form';
 import { updateProfile, updateProfilePicture } from '../../../apis/userAPI';
 import { saveButtonStyle, useStyles } from '../../../styles/formsStyles';
@@ -37,11 +39,16 @@ const ClientProfileDetailsForm = ({ user, closeDialog }) => {
     user.current = { ...user.current, ...userData };
     closeDialog();
   };
-  return (
+  const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';  return (
     <FormContext user={user} setAvatar={setAvatar} {...formMethod}>
       <form
         id='editBasicInfoForm'
-        className={classes.nestedForm}
+        className={classNames(classes.nestedForm, {
+          [classes.nestedFormAr]: isArlang,
+        })}
         noValidate
         onSubmit={formMethod.handleSubmit(onSubmitBasicInfo)}>
         <ClientProfileDetailsDialog />
@@ -51,7 +58,7 @@ const ClientProfileDetailsForm = ({ user, closeDialog }) => {
           variant='contained'
           color='primary'
           style={saveButtonStyle()}>
-          Save
+          {t('save')}
         </Button>
       </form>
     </FormContext>

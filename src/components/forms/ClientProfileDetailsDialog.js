@@ -5,12 +5,13 @@ import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import ErrorMessage from '../errors/ErrorMessage';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useStyles } from '../../styles/formsStyles';
 import { useFormContext } from 'react-hook-form';
-import t from '../../locales/en/freelancerProfile.json';
 
 const ClientProfileDetailsDialog = () => {
   const classes = useStyles();
+  const { t } = useTranslation();
   const { errors, register, user } = useFormContext();
 
   return (
@@ -18,14 +19,14 @@ const ClientProfileDetailsDialog = () => {
       <Grid container alignItems='center'>
         <Grid item xs>
           <Typography gutterBottom variant='h4'>
-            LinkedIn Profile
+            {t('linkedInProfile')}
           </Typography>
         </Grid>
       </Grid>
       <Divider variant='middle' />
       <Container maxWidth={false} className={classes.formControl}>
         <Typography gutterBottom variant='subtitle2'>
-          {t['linkedInProfileUrl']}
+          {t('linkedInProfileUrl')}
         </Typography>
         <TextField
           variant='outlined'
@@ -34,7 +35,7 @@ const ClientProfileDetailsDialog = () => {
           id='linkedInProfileUrl'
           name='linkedInProfileUrl'
           defaultValue={!user.current.linkedInProfileUrl && ''}
-          inputRef={register({ required: 'This field is required' })}
+          inputRef={register({ required: t('requiredMessage') })}
           autoComplete='name'
           error={!!errors.linkedInProfileUrl}
         />

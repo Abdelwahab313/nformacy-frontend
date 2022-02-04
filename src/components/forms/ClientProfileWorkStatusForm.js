@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classNames from 'clsx';
 import Button from '@material-ui/core/Button';
 import { FormContext, useForm } from 'react-hook-form';
 import { updateProfile, updateProfilePicture } from '../../apis/userAPI';
@@ -7,7 +8,7 @@ import { updateUser } from '../../pages/auth/context/authActions';
 import { useAuth } from '../../pages/auth/context/auth';
 import ClientWorkStatusDialog from './ClientWorkStatusDialog';
 import { TextField, Container, FormControl } from '@material-ui/core';
-import t from '../../locales/en/freelancerProfile.json';
+import { useTranslation } from 'react-i18next';
 import FieldsOfExperience from './FieldsOfExpereience';
 
 const ClientProfileWorkStatusForm = ({ user, closeDialog }) => {
@@ -40,11 +41,17 @@ const ClientProfileWorkStatusForm = ({ user, closeDialog }) => {
     user.current = { ...user.current, ...userData };
     closeDialog();
   };
+  const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   return (
     <FormContext user={user} setAvatar={setAvatar} {...formMethod}>
       <form
         id='editBasicInfoForm'
-        className={classes.nestedForm}
+        className={classNames(classes.nestedForm, {
+          [classes.nestedFormAr]: isArlang,
+        })}
         noValidate
         onSubmit={formMethod.handleSubmit(onSubmitBasicInfo)}>
         <ClientWorkStatusDialog />
@@ -53,7 +60,7 @@ const ClientProfileWorkStatusForm = ({ user, closeDialog }) => {
             <TextField
               variant='outlined'
               margin='normal'
-              label={t['jobTitle']}
+              label={t('jobTitle')}
               fullWidth
               id='jobTitleField'
               name='jobTitle'
@@ -64,7 +71,7 @@ const ClientProfileWorkStatusForm = ({ user, closeDialog }) => {
             <TextField
               variant='outlined'
               margin='normal'
-              label={t['company']}
+              label={t('company')}
               fullWidth
               id='organizationName'
               name='organizationName'
@@ -81,7 +88,7 @@ const ClientProfileWorkStatusForm = ({ user, closeDialog }) => {
           variant='contained'
           color='primary'
           style={saveButtonStyle()}>
-          Save
+          {t('save')}
         </Button>
       </form>
     </FormContext>

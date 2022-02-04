@@ -2,6 +2,7 @@ import React from 'react';
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 import Transition from 'components/animations/Transition';
 import MeetingScheduler from './MeetingScheduler';
+import { useTranslation } from 'react-i18next';
 
 const MeetingTimeSelectorCalendarDialog = ({
   open,
@@ -9,6 +10,7 @@ const MeetingTimeSelectorCalendarDialog = ({
   onSubmitDate,
   candidate,
 }) => {
+  const { t } = useTranslation();
   return (
     <Dialog
       open={open}
@@ -16,7 +18,7 @@ const MeetingTimeSelectorCalendarDialog = ({
       maxWidth={'lg'}
       id={'calendar-dialog'}>
       <DialogTitle id='dialog-title'>
-        {'Please Pick a time to Schedule the Call'}
+        {t('pickYourCall')}
       </DialogTitle>
       <DialogContent>
         <MeetingScheduler
