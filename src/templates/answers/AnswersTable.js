@@ -150,7 +150,7 @@ const getColumnsOptions = (classes, t) => {
         filter: false,
         sort: true,
         customHeadLabelRender: () => (
-          <Grid className={classes.currentActionTimeContainer}>By Time</Grid>
+          <Grid className={classes.currentActionTimeContainer}>{t('byTime')}</Grid>
         ),
         customBodyRender: (actionTime) => {
           return <FreelancerAnswerTime currentActionTime={actionTime} />;

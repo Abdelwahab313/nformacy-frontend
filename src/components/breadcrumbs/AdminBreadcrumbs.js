@@ -9,15 +9,19 @@ import { useStyles } from 'styles/breadcrumbsStyles';
 import useLocale from 'hooks/localization/useLocale';
 import DIRECTIONS from 'constants/direction';
 import Direction from 'components/grid/Direction';
+import { useTranslation } from 'react-i18next';
+
 
 const AdminBreadcrumbsCustomSeparator = ({ breadCrumbsRoutes }) => {
   const classes = useStyles();
   const { locale } = useLocale();
+  const { t } = useTranslation();
+
 
   const renderPageRoutes = () => {
     return breadCrumbsRoutes.map((route) => (
       <Link color='inherit' href={route?.path}>
-        <Typography color={'primary'}>{route?.name}</Typography>
+        <Typography color={'primary'}>{t(route?.name)}</Typography>
       </Link>
     ));
   };

@@ -219,7 +219,7 @@ const getColumnsOptions = (classes, t) => {
         filter: false,
         sort: true,
         customHeadLabelRender: () => (
-          <Grid className={classes.currentActionTimeContainer}>By Time</Grid>
+          <Grid className={classes.currentActionTimeContainer}>{t('byTime')}</Grid>
         ),
         customBodyRender: (actionTime) => {
           return (
@@ -250,6 +250,9 @@ const getColumnsOptions = (classes, t) => {
 const ServicesTable = ({ services }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   const columns = getColumnsOptions(classes, t);
   const servicesRows = parseServicesToTableRows(services, t);
 
@@ -260,6 +263,34 @@ const ServicesTable = ({ services }) => {
           padding: '0px !important',
         },
       },
+      MuiTablePagination: {
+        actions: {
+          direction: isArlang ? 'ltr !important' : 'initial',
+        },
+      },
+      MUIDataTableToolbar: {
+        actions: {
+          textAlign: 'end !important',
+        },
+        filterCloseIcon: {
+          right: isArlang ? 'initial !important' : '4px',
+
+        },
+      },
+
+      MUIDataTable: {
+        responsiveBase: {
+          position: 'initial !important',
+        },
+      },
+      MUIDataTableFilter:{
+        root:{
+          direction: isArlang ? 'rtl !important' : 'initial',
+        },
+        checkboxListTitle: {
+          textAlign: 'initial !important'
+        }
+      }
     },
   });
 
@@ -270,6 +301,25 @@ const ServicesTable = ({ services }) => {
     fixedHeader: true,
     download: false,
     print: false,
+    textLabels: 
+    {
+      pagination: {
+        rowsPerPage: t('rowsPerPage'),
+        displayRows: t('of'),
+      },
+      toolbar: {
+        search: t('search'),
+        filterTable: t('filterTable')
+      },
+      filter: {
+        title: t('filter'),
+        reset: t('reset'),
+      },
+      body: {
+        noMatch: t('noMatchFound'),
+        toolTip: t('sort'),
+      },
+    },
     viewColumns: authManager.isAdmin(),
     rowsPerPage: process.env.REACT_APP_ENV === 'e2e' ? 300 : 10,
     setRowProps: (row) => ({

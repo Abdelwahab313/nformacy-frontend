@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import CustomTypography from 'components/typography/Typography';
 import { useHistory } from 'react-router';
 import authManager from 'services/authManager';
+import classNames from 'clsx';
 
 const services = (t) => [
   {
@@ -125,10 +126,15 @@ const ServiceItem = ({
   onServiceClick,
 }) => {
   const classes = useStyles();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   return (
     <Grid
       container
-      className={classes.flexDesktopVisible}
+      className={classNames(classes.flexDesktopVisible, {
+        [classes.flexDesktopVisibleAr]: isArlang,
+      })}
       onMouseEnter={() => setFocusedItem(service.name)}
       onMouseLeave={() => setFocusedItem('')}>
       <Grid item xs={8} md={9}>

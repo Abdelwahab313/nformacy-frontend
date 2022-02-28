@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import classNames from 'clsx';
 import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
@@ -32,6 +33,9 @@ const Login = () => {
   const location = useLocation();
   const { setLocale } = useLocale();
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   const history = useHistory();
   const { executeRecaptcha } = useGoogleReCaptcha();
 
@@ -121,7 +125,9 @@ const Login = () => {
           className={[classes.paper, classes.loginMobile]}>
           <form
             id='loginUserForm'
-            className={classes.form}
+            className={classNames(classes.form, {
+              [classes.formAr]: isArlang,
+            })}
             noValidate
             onSubmit={handleSubmit(onSubmit)}>
             <TextField

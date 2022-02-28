@@ -1,5 +1,6 @@
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
@@ -12,7 +13,6 @@ import CardContent from '@material-ui/core/CardContent';
 import { Input, FormControl, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import t from '../../locales/en/freelancerProfile.json';
 import Link from '@material-ui/core/Link';
 import ErrorMessage from '../errors/ErrorMessage';
 
@@ -32,6 +32,7 @@ const WorkExperience = () => {
     name: 'experiences',
     toDate: false,
   });
+  const { t } = useTranslation();
   const getFormattedDateForPicker = (index) => {
     const endDate = watchExperiences[index].endDate || new Date().toISOString();
     const formattedDate = endDate?.includes('/')
@@ -44,7 +45,7 @@ const WorkExperience = () => {
       <Grid container alignItems='center'>
         <Grid item xs>
           <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-            {t['workExperience']}
+            {t('workExperience')}
           </Typography>
         </Grid>
       </Grid>
@@ -67,7 +68,7 @@ const WorkExperience = () => {
                 <TextField
                   fullWidth
                   autoFocus={index === 0}
-                  label={t['jobTitle']}
+                  label={t('jobTitle')}
                   variant='outlined'
                   name={`experiences[${index}][title]`}
                   id={`work-experience-title-${index}`}
@@ -77,7 +78,7 @@ const WorkExperience = () => {
                       notchedOutline: classes.textField,
                     },
                   }}
-                  inputRef={register({ required: t['requiredMessage'] })}
+                  inputRef={register({ required: t('requiredMessage') })}
                 />
                 <ErrorMessage
                   errorField={
@@ -88,7 +89,7 @@ const WorkExperience = () => {
               <Container maxWidth={false} className={classes.formControl}>
                 <TextField
                   fullWidth
-                  label={t['company']}
+                  label={t('company')}
                   variant='outlined'
                   name={`experiences[${index}][company]`}
                   id={`work-experience-company-${index}`}
@@ -98,7 +99,7 @@ const WorkExperience = () => {
                       notchedOutline: classes.textField,
                     },
                   }}
-                  inputRef={register({ required: t['requiredMessage'] })}
+                  inputRef={register({ required: t('requiredMessage') })}
                 />
                 <ErrorMessage
                   errorField={
@@ -114,7 +115,7 @@ const WorkExperience = () => {
                     <Controller
                       name={`experiences[${index}][startDate]`}
                       control={control}
-                      rules={{ required: t['requiredMessage'] }}
+                      rules={{ required: t('requiredMessage') }}
                       as={
                         <DatePicker
                           id={`work-experience-startDate-${index}`}
@@ -128,7 +129,7 @@ const WorkExperience = () => {
                               ? getFormattedDateForPicker(index)
                               : Date.now()
                           }
-                          label={t['startDate']}
+                          label={t('startDate')}
                           InputProps={{
                             classes: {
                               notchedOutline: classes.textField,
@@ -163,7 +164,7 @@ const WorkExperience = () => {
                                 (watchExperiences[index] &&
                                   watchExperiences[index].toDate) ||
                                 endDate ||
-                                t['requiredMessage'],
+                                t('requiredMessage'),
                             }}
                             name={`experiences[${index}][endDate]`}
                             control={control}
@@ -174,7 +175,7 @@ const WorkExperience = () => {
                                 autoOk
                                 inputVariant='outlined'
                                 margin='normal'
-                                label={t['endDate']}
+                                label={t('endDate')}
                                 minDate={
                                   new Date(watchExperiences[index].startDate)
                                 }
@@ -206,7 +207,7 @@ const WorkExperience = () => {
                       <FormControl
                         component='fieldset'
                         className={classes.formControl}
-                        data-tip={t['presentHint']}>
+                        data-tip={t('presentHint')}>
                         <FormGroup>
                           <Controller
                             name={`experiences[${index}][toDate]`}
@@ -224,7 +225,7 @@ const WorkExperience = () => {
                                     style={checkboxStyle}
                                   />
                                 }
-                                label={t['present?']}
+                                label={t('present?')}
                               />
                             }
                           />
@@ -252,7 +253,7 @@ const WorkExperience = () => {
                     }
                     experienceForm.remove(index);
                   }}>
-                  {t['removeWorkExperience']}
+                  {t('removeWorkExperience')}
                 </Link>
               </Container>
             </CardContent>
@@ -266,7 +267,7 @@ const WorkExperience = () => {
             component='button'
             variant='body2'
             onClick={() => experienceForm.append({})}>
-            {t['addWorkExperience']}
+            {t('addWorkExperience')}
           </Link>
         </section>
       </Fragment>

@@ -17,6 +17,11 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
     },
   },
+  mobileVisibleAr:{
+    [theme.breakpoints.down('md')]: {
+      direction: 'ltr',
+    },
+  },
   desktopVisible: {
     display: 'block',
     [theme.breakpoints.down('md')]: {
@@ -27,7 +32,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     [theme.breakpoints.down('md')]: {
       display: 'none',
-    },
+    },  
+  },
+  flexDesktopVisibleAr: {
+    direction: 'ltr',
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },  
   },
   card: {
     maxWidth: 345,
@@ -528,9 +539,11 @@ direction: 'ltr'
     border: '1px solid #ecedf0',
     minHeight: 300,
     overflow: 'hidden',
+    paddingRight: '25px',
     margin: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
       margin: '10px 0',
+      paddingRight: '0px',
       borderRadius: 10,
       minHeight: 'initial',
     },

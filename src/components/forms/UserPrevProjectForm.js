@@ -1,6 +1,8 @@
 import Button from '@material-ui/core/Button';
 import { FormContext, useForm } from 'react-hook-form';
 import React, { useState } from 'react';
+import classNames from 'clsx';
+import { useTranslation } from 'react-i18next';
 import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
 import { updateProfile } from '../../apis/userAPI';
 import { updateUser } from '../../pages/auth/context/authActions';
@@ -36,6 +38,10 @@ const UserPrevProjectForm = ({ user, closeDialog }) => {
     };
     closeDialog();
   };
+  const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
 
   return (
     <FormContext
@@ -44,7 +50,9 @@ const UserPrevProjectForm = ({ user, closeDialog }) => {
       setDeletedProjects={setDeletedProjects}>
       <form
         id='editProfileForm'
-        className={classes.nestedForm}
+        className={classNames(classes.nestedForm, {
+          [classes.nestedFormAr]: isArlang,
+        })}
         noValidate
         onSubmit={formMethods.handleSubmit(onSubmitResume)}>
         <UserPrevProject />
@@ -54,7 +62,7 @@ const UserPrevProjectForm = ({ user, closeDialog }) => {
           variant='contained'
           color='primary'
           style={saveButtonStyle()}>
-          Save
+          {t('save')}
         </Button>
       </form>
     </FormContext>

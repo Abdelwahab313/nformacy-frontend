@@ -12,7 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import { Input } from '@material-ui/core';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import t from '../../locales/en/freelancerProfile.json';
+import { useTranslation } from 'react-i18next';
 import Link from '@material-ui/core/Link';
 import ErrorMessage from '../errors/ErrorMessage';
 
@@ -29,13 +29,13 @@ const Education = () => {
     control,
     name: 'educations',
   });
-
+  const { t } = useTranslation();
   return (
     <Container className={classes.nestedContainer}>
       <Grid container alignItems='center'>
         <Grid item xs>
           <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-            {t['education']}
+            {t('education')}
           </Typography>
         </Grid>
       </Grid>
@@ -58,7 +58,7 @@ const Education = () => {
                 <TextField
                   fullWidth
                   id={`educations-degree-${index}`}
-                  label={t['degree']}
+                  label={t('degree')}
                   variant='outlined'
                   name={`educations[${index}].degree`}
                   defaultValue={item.degree}
@@ -67,7 +67,7 @@ const Education = () => {
                       notchedOutline: classes.textField,
                     },
                   }}
-                  inputRef={register({ required: t['requiredMessage'] })}
+                  inputRef={register({ required: t('requiredMessage') })}
                 />
                 <ErrorMessage
                   errorField={
@@ -79,7 +79,7 @@ const Education = () => {
                 <TextField
                   fullWidth
                   id={`educations-fieldOfStudy-${index}`}
-                  label={t['fieldOfStudy']}
+                  label={t('fieldOfStudy')}
                   variant='outlined'
                   name={`educations[${index}].fieldOfStudy`}
                   InputProps={{
@@ -88,7 +88,7 @@ const Education = () => {
                     },
                   }}
                   defaultValue={item.fieldOfStudy}
-                  inputRef={register({ required: t['requiredMessage'] })}
+                  inputRef={register({ required: t('requiredMessage') })}
                 />
                 <ErrorMessage
                   errorField={
@@ -99,7 +99,7 @@ const Education = () => {
               <Container maxWidth={false} className={classes.formControl}>
                 <TextField
                   fullWidth
-                  label={t['university']}
+                  label={t('university')}
                   variant='outlined'
                   name={`educations[${index}].school`}
                   id={`educations-school-${index}`}
@@ -109,7 +109,7 @@ const Education = () => {
                       notchedOutline: classes.textField,
                     },
                   }}
-                  inputRef={register({ required: t['requiredMessage'] })}
+                  inputRef={register({ required: t('requiredMessage') })}
                 />
                 <ErrorMessage
                   errorField={
@@ -121,7 +121,7 @@ const Education = () => {
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <Container maxWidth={false} className={classes.formControl}>
                     <Controller
-                      rules={{ required: t['requiredMessage'] }}
+                      rules={{ required: t('requiredMessage') }}
                       name={`educations[${index}].endYear`}
                       control={control}
                       as={
@@ -132,7 +132,7 @@ const Education = () => {
                           views={['year', 'month']}
                           format='MM/yyyy'
                           margin='normal'
-                          label={t['completedBy']}
+                          label={t('completedBy')}
                           maxDate={Date.now()}
                           onChange={(value) => value[0]}
                           InputProps={{
@@ -171,7 +171,7 @@ const Education = () => {
                     }
                     educationForm.remove(index);
                   }}>
-                  {t['removeEducation']}
+                  {t('removeEducation')}
                 </Link>
               </Container>
             </CardContent>
@@ -185,7 +185,7 @@ const Education = () => {
             component='button'
             variant='body2'
             onClick={() => educationForm.append({})}>
-            {t['addEducation']}
+            {t('addEducation')}
           </Link>
         </section>
       </Fragment>

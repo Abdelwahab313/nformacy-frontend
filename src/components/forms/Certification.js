@@ -1,5 +1,6 @@
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
@@ -15,7 +16,6 @@ import {
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import t from '../../locales/en/freelancerProfile.json';
 import Link from '@material-ui/core/Link';
 
 const Certification = () => {
@@ -30,13 +30,13 @@ const Certification = () => {
     control,
     name: 'certifications',
   });
-
+  const { t } = useTranslation();
   return (
     <Container className={classes.nestedContainer}>
       <Grid container alignItems='center'>
         <Grid item xs>
           <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-            {t['certifications']}
+            {t('certifications')}
           </Typography>
         </Grid>
       </Grid>
@@ -59,7 +59,7 @@ const Certification = () => {
                 <TextField
                   id={`certification-name-${index}`}
                   fullWidth
-                  label={t['name']}
+                  label={t('name')}
                   variant='outlined'
                   name={`certifications[${index}].name`}
                   defaultValue={item.name}
@@ -74,7 +74,7 @@ const Certification = () => {
               <Container maxWidth={false} className={classes.formControl}>
                 <TextField
                   fullWidth
-                  label={'Issuing organization'}
+                  label={t('issuingOrganization')}
                   variant='outlined'
                   name={`certifications[${index}].issuingOrganization`}
                   defaultValue={item.issuingOrganization}
@@ -89,7 +89,7 @@ const Certification = () => {
               <Container maxWidth={false} className={classes.formControl}>
                 <TextField
                   fullWidth
-                  label={t['credential']}
+                  label={t('credential')}
                   variant='outlined'
                   name={`certifications[${index}].credential`}
                   defaultValue={item.credential}
@@ -104,7 +104,7 @@ const Certification = () => {
               <Container maxWidth={false} className={classes.formControl}>
                 <TextField
                   fullWidth
-                  label={t['credentialURL']}
+                  label={t('credentialURL')}
                   variant='outlined'
                   name={`certifications[${index}].credentialUrl`}
                   defaultValue={item.credentialUrl}
@@ -129,7 +129,7 @@ const Certification = () => {
                           views={['year', 'month']}
                           format='MM/yyyy'
                           margin='normal'
-                          label={t['completedBy']}
+                          label={t('completedBy')}
                           maxDate={Date.now()}
                           onChange={(value) => value[0]}
                           InputProps={{
@@ -161,7 +161,7 @@ const Certification = () => {
                     }
                     certificationForm.remove(index);
                   }}>
-                  {t['removeCertification']}
+                  {t('removeCertification')}
                 </Link>
               </Container>
             </CardContent>
@@ -177,7 +177,7 @@ const Certification = () => {
               e.preventDefault();
               certificationForm.append({ startDate: Date.now() });
             }}>
-            {t['addCertification']}
+            {t('addCertification')}
           </Link>
         </section>
       </Fragment>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classNames from 'clsx';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -17,6 +18,9 @@ const ChangePasswordPage = () => {
   );
   const classes = useStyles();
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   const [responseMessage, setResponseMessage] = useState('');
   const { showSuccessMessage } = useSnackBar();
 
@@ -65,7 +69,9 @@ const ChangePasswordPage = () => {
               onChange={handleChange}
             />
             {errors.currentPassword && (
-              <span className={classes.error}>{errors.currentPassword}</span>
+              <span className={classNames(classes.error, {
+                [classes.errorAr]: isArlang,
+              })}>{t(errors.currentPassword)}</span>
             )}
             <TextField
               variant='outlined'
@@ -80,7 +86,9 @@ const ChangePasswordPage = () => {
               onChange={handleChange}
             />
             {errors.newPassword && (
-              <span className={classes.error}>{errors.newPassword}</span>
+              <span className={classNames(classes.error, {
+                [classes.errorAr]: isArlang,
+              })}>{t(errors.newPassword)}</span>
             )}
             <TextField
               variant='outlined'
@@ -95,7 +103,9 @@ const ChangePasswordPage = () => {
               onChange={handleChange}
             />
             {errors.confirmPassword && (
-              <span className={classes.error}>{t(errors.confirmPassword)}</span>
+              <span className={classNames(classes.error, {
+                [classes.errorAr]: isArlang,
+              })}>{t(errors.confirmPassword)}</span>
             )}
             {responseMessage && (
               <span className={classes.error}>{responseMessage}</span>

@@ -2,6 +2,8 @@ import FieldsOfSpecialization from './FieldsOfSpecialization';
 import Button from '@material-ui/core/Button';
 import { FormContext, useForm } from 'react-hook-form';
 import React from 'react';
+import classNames from 'clsx';
+import { useTranslation } from 'react-i18next';
 import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
 import { updateProfile } from '../../apis/userAPI';
 import { updateUser } from '../../pages/auth/context/authActions';
@@ -31,12 +33,18 @@ const FieldsOfSpecializationForm = ({
     updateFields();
     closeDialog();
   };
+  const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
 
   return (
     <FormContext user={user} {...formMethods}>
       <form
         id='editProfileForm'
-        className={classes.nestedForm}
+        className={classNames(classes.nestedForm, {
+          [classes.nestedFormAr]: isArlang,
+        })}
         noValidate
         onSubmit={formMethods.handleSubmit(onSubmitFieldsOfSpecialization)}>
         <FieldsOfSpecialization />
@@ -46,7 +54,7 @@ const FieldsOfSpecializationForm = ({
           variant='contained'
           color='primary'
           style={saveButtonStyle()}>
-          Save
+          {t('save')}
         </Button>
       </form>
     </FormContext>

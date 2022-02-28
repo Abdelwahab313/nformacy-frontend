@@ -2,6 +2,7 @@ import { Box, Divider, Grid } from '@material-ui/core';
 import ShowMore from 'components/typography/ShowMore';
 import CustomTypography from 'components/typography/Typography';
 import React from 'react';
+import classNames from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { greyDividerStyle } from 'styles/formsStyles';
 import useStyles from './styles/LandingPageStyles';
@@ -9,6 +10,9 @@ import useStyles from './styles/LandingPageStyles';
 const OurPromiseSection = () => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
 
   return (
     <Grid
@@ -47,10 +51,13 @@ const OurPromiseSection = () => {
                 className={classes.desktopVisible}
               />
               <Box
-                className={[
+                className={classNames(
                   classes.promiseFieldDescTxt,
+                  {
+                    [classes.promiseFieldDescTxtAr]: isArlang,
+                  },
                   classes.desktopVisible,
-                ]}>
+                )}>
                 <ShowMore withTxt={false} numberOfLines={5}>
                   {t('theBestAmongGreatConsultantsDesc')}
                 </ShowMore>
@@ -77,10 +84,13 @@ const OurPromiseSection = () => {
                 className={classes.desktopVisible}
               />
               <Box
-                className={[
+                className={classNames(
                   classes.promiseFieldDescTxt,
+                  {
+                    [classes.promiseFieldDescTxtAr]: isArlang,
+                  },
                   classes.desktopVisible,
-                ]}>
+                )}>
                 <ShowMore withTxt={false} numberOfLines={5}>
                   {t('qualityIsAssuredDesc')}
                 </ShowMore>
@@ -107,10 +117,13 @@ const OurPromiseSection = () => {
                 className={classes.desktopVisible}
               />
               <Box
-                className={[
+                className={classNames(
                   classes.promiseFieldDescTxt,
+                  {
+                    [classes.promiseFieldDescTxtAr]: isArlang,
+                  },
                   classes.desktopVisible,
-                ]}>
+                )}>
                 <ShowMore withTxt={false} numberOfLines={5}>
                   {t('weUnderstandYourNeedsDesc')}
                 </ShowMore>

@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  DialogActionsButtonAr: {
+    justifyContent: 'start',
+  },
   candidateImg: {
     height: 150,
     opacity: '0.8',
@@ -53,7 +56,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: lightGrey,
     color: white,
   },
-  summaryPopupContainer: { padding: '80px 20px' },
+  summaryPopupContainer: {
+     padding: '80px 20px' 
+    },
+    summaryPopupContainerAr:{
+      display: 'flex',
+      direction: 'ltr',
+    }
 }));
 
 export default useStyles;

@@ -1,5 +1,6 @@
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import { useTranslation } from 'react-i18next';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
@@ -10,7 +11,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import BasicInfoForm from '../../../../components/forms/BasicInfoForm';
 import Transition from '../../../../components/animations/Transition';
-import t from '../../../../locales/en/freelancerProfile.json';
 import Link from '@material-ui/core/Link';
 
 const BasicInfoSection = () => {
@@ -26,6 +26,7 @@ const BasicInfoSection = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const { t } = useTranslation();
 
   const classes = useStyles();
   return (
@@ -51,7 +52,7 @@ const BasicInfoSection = () => {
           <Grid item xs={1} className={classes.paperSectionHeaderStyles} />
           <Grid item xs={10} className={classes.paperSectionHeaderStyles}>
             <Typography gutterBottom className={classes.sectionHeaderStyles}>
-              {t['basicInformation']}
+              {t('basicInformation')}
             </Typography>
           </Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
@@ -86,7 +87,7 @@ const BasicInfoSection = () => {
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  {t['firstName']}
+                  {t('firstName')}
                 </Typography>
               </Grid>
               <Grid item xs={8}>
@@ -103,7 +104,7 @@ const BasicInfoSection = () => {
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  {t['lastName']}
+                  {t('lastName')}
                 </Typography>
               </Grid>
               <Grid item xs={8}>
@@ -120,7 +121,7 @@ const BasicInfoSection = () => {
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  {t['shortName']}
+                  {t('shortName')}
                 </Typography>
               </Grid>
               <Grid item xs={8}>
@@ -141,7 +142,7 @@ const BasicInfoSection = () => {
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  {t['referenceNumber']}
+                  {t('referenceNumber')}
                 </Typography>
               </Grid>
               <Grid item xs={8}>
@@ -158,7 +159,7 @@ const BasicInfoSection = () => {
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  {t['email']}
+                  {t('email')}
                 </Typography>
               </Grid>
               <Grid item xs={8}>
@@ -175,7 +176,7 @@ const BasicInfoSection = () => {
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  {t['linkedInProfileUrl']}
+                  {t('linkedInProfileUrl')}
                 </Typography>
               </Grid>
               <Grid item xs={8}>

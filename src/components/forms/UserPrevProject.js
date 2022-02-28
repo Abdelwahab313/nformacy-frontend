@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { useTranslation } from 'react-i18next';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -10,7 +11,6 @@ import ReactTooltip from 'react-tooltip';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Input } from '@material-ui/core';
-import t from 'locales/en/freelancerProfile.json';
 import Link from '@material-ui/core/Link';
 import ErrorMessage from '../errors/ErrorMessage';
 import CustomTypography from 'components/typography/Typography';
@@ -33,12 +33,13 @@ const UserPrevProject = () => {
     control,
     name: 'prevProjects',
   });
+  const { t } = useTranslation();
   return (
     <Container className={classes.nestedContainer}>
       <Grid container alignItems='center'>
         <Grid item xs>
           <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-            {t['majorAchievedProjects']}
+            {t('majorAchievedProjects')}
           </Typography>
         </Grid>
       </Grid>
@@ -100,7 +101,7 @@ const UserPrevProject = () => {
                         </Typography>
                         <HelpIcon
                           className={classes.formHeaderIcon}
-                          data-tip={t['experiencedInHint']}
+                          data-tip={t('experiencedInHint')}
                           color='primary'
                           fontSize='small'
                         />
@@ -110,7 +111,7 @@ const UserPrevProject = () => {
                         fontWeight='light'
                         className={classes.removeNestedText}
                         gutterBottom>
-                        {t['experiencedInHint']}
+                        {t('experiencedInHint')}
                       </CustomTypography>
                       <Controller
                         as={({ field }) => (
@@ -133,11 +134,11 @@ const UserPrevProject = () => {
                         <Typography
                           gutterBottom
                           className={classes.fieldLabelStylesDesktop}>
-                          {t['specificallyIn']}
+                          {t('specificallyIn')}
                         </Typography>
                         <HelpIcon
                           className={classes.formHeaderIcon}
-                          data-tip={t['specificallyInHint']}
+                          data-tip={t('specificallyInHint')}
                           color='primary'
                           fontSize='small'
                         />
@@ -147,7 +148,7 @@ const UserPrevProject = () => {
                         fontWeight='light'
                         className={classes.removeNestedText}
                         gutterBottom>
-                        {t['specificallyInHint']}
+                        {t('specificallyInHint')}
                       </CustomTypography>
                       <Controller
                         as={({ field }) => (
@@ -171,7 +172,7 @@ const UserPrevProject = () => {
                 <TextField
                   fullWidth
                   id={`projects-role-${index}`}
-                  label={t['jobRole']}
+                  label={t('jobRole')}
                   variant='outlined'
                   name={`prevProjects[${index}].jobRole`}
                   defaultValue={item.jobRole}
@@ -180,7 +181,7 @@ const UserPrevProject = () => {
                       notchedOutline: classes.textField,
                     },
                   }}
-                  inputRef={register({ required: t['requiredMessage'] })}
+                  inputRef={register({ required: t('requiredMessage') })}
                 />
                 <ErrorMessage
                   errorField={
@@ -192,7 +193,7 @@ const UserPrevProject = () => {
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <Container maxWidth={false} className={classes.formControl}>
                     <Controller
-                      rules={{ required: t['requiredMessage'] }}
+                      rules={{ required: t('requiredMessage') }}
                       name={`prevProjects[${index}].completedAt`}
                       control={control}
                       as={
@@ -203,7 +204,7 @@ const UserPrevProject = () => {
                           views={['year', 'month']}
                           format='MM/yyyy'
                           margin='normal'
-                          label={t['completedBy']}
+                          label={t('completedBy')}
                           maxDate={Date.now()}
                           onChange={(value) => value[0]}
                           InputProps={{
@@ -243,7 +244,7 @@ const UserPrevProject = () => {
                     }
                     projectForm.remove(index);
                   }}>
-                  {t['removeProject']}
+                  {t('removeProject')}
                 </Link>
               </Container>
             </CardContent>
@@ -257,7 +258,7 @@ const UserPrevProject = () => {
             component='button'
             variant='body2'
             onClick={() => projectForm.append({})}>
-            {t['addProject']}
+            {t('addProject')}
           </Link>
         </section>
       </Fragment>

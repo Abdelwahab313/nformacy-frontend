@@ -1,6 +1,7 @@
 import { Box, Divider, Grid } from '@material-ui/core';
 import CustomTypography from 'components/typography/Typography';
 import React from 'react';
+import classNames from 'clsx';
 import CopyrightIcon from '@material-ui/icons/Copyright';
 import { greyDividerStyle } from 'styles/formsStyles';
 import useStyles from './styles/FooterStyles';
@@ -11,6 +12,9 @@ import { useTranslation } from 'react-i18next';
 const Footer = () => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
 
   return (
     <Grid
@@ -73,7 +77,9 @@ const Footer = () => {
         <CustomTypography
           align={'center'}
           variant='body1'
-          className={classes.flexClass}>
+          className={classNames(classes.flexClass, {
+            [classes.flexClassAr]: isArlang,
+          })}>
           <CopyrightIcon />
           <div className={classes.dateClass}> {(new Date().getFullYear())}</div>
            {t('allRightsReserved')}

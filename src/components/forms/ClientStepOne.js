@@ -4,12 +4,13 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ErrorMessage from '../errors/ErrorMessage';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import {
   dividerStyle,
   sectionContainerStyles,
   selectStyle,
+  selectStyleAr,
   useStyles,
 } from '../../styles/formsStyles';
 import FormControl from '@material-ui/core/FormControl';
@@ -20,17 +21,21 @@ import ReactTooltip from 'react-tooltip';
 import { Grow, TextField } from '@material-ui/core';
 import { organizationalLevel } from '../../constants/dropDownOptions';
 import { useTranslation } from 'react-i18next';
-import countryList from 'react-select-country-list';
 import { addUserRole } from 'apis/userAPI';
 import authManager from 'services/authManager';
 import { useSnackBar } from 'context/SnackBarContext';
+import { getCountriesOptions } from 'constants/countries';
 
 
 const ClientStepOne = () => {
   const { errors, control, register, user } = useFormContext();
   const classes = useStyles();
   const { t } = useTranslation();
-  const [countries] = useState(countryList().getData());
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
+
+  const countries = getCountriesOptions(isArlang);
 
   const { showErrorMessage } = useSnackBar();
 
@@ -93,7 +98,7 @@ const ClientStepOne = () => {
                         fullWidth={true}
                         placeholder={t('selectCountryMessage')}
                         SelectProps={{
-                          styles: selectStyle,
+                          styles: isArlang ? selectStyleAr : selectStyle ,
                         }}
                         options={countries}
                       />
@@ -130,7 +135,7 @@ const ClientStepOne = () => {
                         name='organizationLevel'
                         placeholder={t('selectYourLevel')}
                         SelectProps={{
-                          styles: selectStyle,
+                          styles: isArlang ? selectStyleAr : selectStyle ,
                         }}
                         options={organizationalLevel}
                       />

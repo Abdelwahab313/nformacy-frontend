@@ -156,7 +156,7 @@ const AddAdminForm = ({ primaryButton, user, setUser, canEditPassword }) => {
                   multiple
                   fieldId='industriesOfExperience'
                   fieldName='industriesOfExperience'
-                  fieldOptions={industries}
+                  fieldOptions={industries(t)}
                   fieldValue={
                     !!user.industriesOfExperience
                       ? user.industriesOfExperience

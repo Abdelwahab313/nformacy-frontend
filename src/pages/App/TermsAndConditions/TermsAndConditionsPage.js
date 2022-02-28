@@ -17,7 +17,7 @@ const TermsAndConditionsPage = () => {
           alt='Header'
           className={classes.headerCardImg}
           image={require('../../../assets/BG1@1x.png')}
-          title='Header'
+          title=''
         />
         <CustomTypography
           variant='h3'

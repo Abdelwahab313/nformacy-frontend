@@ -76,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
   },
   languageButton: {
     margin: `0 ${theme.spacing(1)}px`,
+    textTransform: 'none',
   },
   desktopVisible: {
     display: 'block',

@@ -7,6 +7,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
+
 // @material-ui/icons
 import Menu from '@material-ui/icons/Menu';
 // core components
@@ -17,6 +18,7 @@ import Grid from '@material-ui/core/Grid';
 import AdminBreadcrumbsCustomSeparator from 'components/breadcrumbs/AdminBreadcrumbs';
 
 const useStyles = makeStyles(styles);
+
 
 const Header = (props) => {
   const classes = useStyles();
@@ -41,11 +43,7 @@ const Header = (props) => {
       <Toolbar className={classes.container}>
         <div className={classes.flex}>
           {/* Here we create navbar brand, based on route name */}
-          <Grid className={classes.title}>
-            <AdminBreadcrumbsCustomSeparator
-              breadCrumbsRoutes={breadCrumbsRoutes}
-            />
-          </Grid>
+     
         </div>
         <Hidden smDown implementation='css'>
           <AdminNavbarLinks />
@@ -59,6 +57,13 @@ const Header = (props) => {
           </IconButton>
         </Hidden>
       </Toolbar>
+      <div className={classes.adminBreadcrumbsContainer}>
+      <Grid className={classes.title}>
+            <AdminBreadcrumbsCustomSeparator
+              breadCrumbsRoutes={breadCrumbsRoutes}
+            />
+          </Grid>
+          </div>
     </AppBar>
   );
 };

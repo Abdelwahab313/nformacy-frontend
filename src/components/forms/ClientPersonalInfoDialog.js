@@ -4,21 +4,24 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import ErrorMessage from '../errors/ErrorMessage';
-import React, { useState } from 'react';
-import { useStyles, selectStyle } from '../../styles/formsStyles';
+import React from 'react';
+import { useStyles, selectStyle , selectStyleAr} from '../../styles/formsStyles';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import countryList from 'react-select-country-list';
 import HelpIcon from '@material-ui/icons/Help';
 import FormControl from '@material-ui/core/FormControl';
 import { Controller } from 'react-hook-form';
 import ReactSelectMaterialUi from 'react-select-material-ui';
+import { getCountriesOptions } from '../../constants/countries';
 
 const ClientPersonalInfoDialog = () => {
   const classes = useStyles();
   const { errors, control, register, user } = useFormContext();
-  const [countries] = useState(countryList().getData());
+ 
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
 
   return (
     <Container>
@@ -53,9 +56,9 @@ const ClientPersonalInfoDialog = () => {
                 fullWidth={true}
                 placeholder={t('selectCountryMessage')}
                 SelectProps={{
-                  styles: selectStyle,
+                  styles: isArlang ? selectStyleAr : selectStyle ,
                 }}
-                options={countries}
+                options= {getCountriesOptions(isArlang)}
               />
             }
           />

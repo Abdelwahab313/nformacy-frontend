@@ -6,12 +6,11 @@ import { useStyles } from '../../../../../styles/formsStyles';
 import Transition from 'components/animations/Transition';
 import ClientProfilePersonalInfoForm from 'components/forms/ClientProfileForms/ClientProfilePersonalInfoForm';
 import { useTranslation } from 'react-i18next';
-import countryList from 'react-select-country-list';
+ import { getCountriesOptions } from 'constants/countries';
 
 const ClientPersonalInfo = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
   const classes = useStyles();
-  const [countries] = useState(countryList().getData());
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -20,6 +19,7 @@ const ClientPersonalInfo = () => {
   const { i18n } = useTranslation('system');
   const lang = i18n.language;
   const isArlang = lang === 'ar';
+ 
   const handleClose = () => {
     setOpen(false);
   };
@@ -71,10 +71,10 @@ const ClientPersonalInfo = () => {
               id='countryOfResidence'
               gutterBottom
               className={[classes.fieldValueStyles, classes.centeredText]}>
-              {user.current.country &&
-                countries?.find(
-                  (country) => country.value === user.current.country,
-                ).label}
+           {user?.current?.country &&
+                getCountriesOptions(isArlang)?.find(
+                  (country) =>  country.value === user.current.country,
+                )?.label}
             </Typography>
           </Grid>
         </Grid>

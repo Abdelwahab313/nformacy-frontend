@@ -176,9 +176,9 @@ const ServiceRequestForm = ({
             <DropdownSelectField
               fieldId='questionLanguage'
               fieldName='QuestionLanguage'
-              fieldOptions={questionLanguages}
+              fieldOptions={questionLanguages(t)}
               fieldValue={
-                questionLanguages.filter(
+                questionLanguages(t).filter(
                   (option) => serviceRequest.language === option.value,
                 )[0]
               }

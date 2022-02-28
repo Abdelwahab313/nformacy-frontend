@@ -4,9 +4,9 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
+import { useTranslation } from 'react-i18next';
 import DateFnsUtils from '@date-io/date-fns';
 import { Button, Grid } from '@material-ui/core';
-import t from '../../../locales/en/freelancerProfile.json';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
@@ -37,6 +37,7 @@ const AvailableTimeRangeForm = ({
       [name]: date,
     }));
   };
+  const { t } = useTranslation();
 
   const handleEndTime = (newEndDate) => {
     setErrors({ endTime: '' });
@@ -46,7 +47,7 @@ const AvailableTimeRangeForm = ({
     if (isValidEndTime) {
       updateTime('endTime', newEndDate);
     } else {
-      setErrors({ endTime: 'End time should be after start time' });
+      setErrors({ endTime: t('endTimeShouldBeBeforeStart') });
     }
   };
   return (
@@ -62,7 +63,7 @@ const AvailableTimeRangeForm = ({
                 format='dd/MM/yyyy'
                 margin='normal'
                 id='start-date-range-picker'
-                label={t['startDate']}
+                label={t('startDate')}
                 value={selectedRange.startDate}
                 onChange={(date) => updateTime('startDate', date)}
                 KeyboardButtonProps={{
@@ -78,7 +79,7 @@ const AvailableTimeRangeForm = ({
                 format='dd/MM/yyyy'
                 margin='normal'
                 id='end-date-range-picker'
-                label={t['endDate']}
+                label={t('endDate')}
                 value={selectedRange.endDate}
                 onChange={(date) => updateTime('endDate', date)}
                 minDate={selectedRange.startDate}
@@ -93,7 +94,7 @@ const AvailableTimeRangeForm = ({
               <form className={classes.container}>
                 <TextField
                   id='start-time-range-picker'
-                  label='Start time'
+                  label={t('StartTime')}
                   type='time'
                   value={moment(selectedRange?.startTime).format('HH:mm')}
                   className={classes.textField}
@@ -114,7 +115,7 @@ const AvailableTimeRangeForm = ({
               <form className={classes.container}>
                 <TextField
                   id='end-time-range-picker'
-                  label='End time'
+                  label={t('EndTime')}
                   type='time'
                   value={moment(selectedRange?.endTime).format('HH:mm')}
                   className={classes.textField}
@@ -146,14 +147,14 @@ const AvailableTimeRangeForm = ({
           size='large'
           className={classes.margin}
           onClick={cancelDateForm}>
-          Cancel
+          {t('cancel')}
         </Button>
         <SubmitButton
           id={'confirm'}
           onClick={() => onAvailableRangeAdded(selectedRange)}
           size='large'
           className={classes.margin}
-          buttonText={t['confirm']}
+          buttonText={t('confirm')}
         />
       </Grid>
     </Fragment>

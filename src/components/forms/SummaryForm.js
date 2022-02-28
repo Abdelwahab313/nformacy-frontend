@@ -2,12 +2,12 @@ import { FormContext, useForm } from 'react-hook-form';
 import { dividerStyle, saveButtonStyle, sectionContainerStyles, useStyles } from '../../styles/formsStyles';
 import { updateProfile } from '../../apis/userAPI';
 import Button from '@material-ui/core/Button';
+import { useTranslation } from 'react-i18next';
 import React from 'react';
 import Container from '@material-ui/core/Container';
 import ReactTooltip from 'react-tooltip';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import t from '../../locales/en/freelancerProfile.json';
 import Divider from '@material-ui/core/Divider';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
@@ -35,6 +35,7 @@ const SummaryForm = ({ user, closeDialog }) => {
     user.current = { ...user.current, ...userData };
     closeDialog();
   };
+  const { t } = useTranslation();
   return (
     <FormContext user={user} {...formMethods}>
       <form
@@ -47,7 +48,7 @@ const SummaryForm = ({ user, closeDialog }) => {
           <Grid container alignItems='center'>
             <Grid item xs>
               <Typography gutterBottom className={classes.sectionHeaderStyles}>
-                {t['summary']}
+                {t('summary')}
               </Typography>
             </Grid>
           </Grid>
@@ -75,7 +76,7 @@ const SummaryForm = ({ user, closeDialog }) => {
           variant='contained'
           style={saveButtonStyle()}
           color='primary'>
-          Save
+          {t('save')}
         </Button>
       </form>
     </FormContext>

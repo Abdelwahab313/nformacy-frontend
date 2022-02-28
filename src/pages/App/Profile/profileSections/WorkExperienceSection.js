@@ -5,8 +5,8 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
-import t from '../../../../locales/en/freelancerProfile.json';
 import Divider from '@material-ui/core/Divider';
+import { useTranslation } from 'react-i18next';
 import { dividerStyle, useStyles } from '../../../../styles/formsStyles';
 import React, { useEffect, useRef, useState } from 'react';
 import Timeline from '@material-ui/lab/Timeline';
@@ -27,7 +27,7 @@ const WorkExperienceSection = () => {
   const [open, setOpen] = useState(false);
 
   const classes = useStyles();
-
+  const { t } = useTranslation();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -75,7 +75,7 @@ const WorkExperienceSection = () => {
             <Typography
               className={classes.sectionHeaderStyles}
               color={'primary'}>
-              {t['workExperienceHeader']}
+              {t('workExperienceHeader')}
             </Typography>
             <Typography className={classes.fieldLabelStylesDesktop}>
               {experience.title}
@@ -108,7 +108,7 @@ const WorkExperienceSection = () => {
             <Grid item xs={1} className={classes.paperSectionHeaderStyles} />
             <Grid item xs={10} className={classes.paperSectionHeaderStyles}>
               <Typography gutterBottom className={classes.sectionHeaderStyles}>
-                {t['workExperienceHeader']}
+                {t('workExperienceHeader')}
               </Typography>
             </Grid>
             <Grid item xs={1} className={classes.paperSectionHeaderStyles}>

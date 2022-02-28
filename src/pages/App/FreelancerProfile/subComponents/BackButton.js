@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useStyles } from 'styles/formsStyles';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import BackDialog from './BackDialog';
-import t from 'locales/en/freelancerProfile.json';
+import { useTranslation } from 'react-i18next';
 import SubmitButton from 'components/buttons/SubmitButton';
 
 const BackButton = ({ onClickGoBack, isLoading }) => {
@@ -21,11 +21,12 @@ const BackButton = ({ onClickGoBack, isLoading }) => {
   const onClickCancel = () => {
     setIsDialogueOpen(false);
   };
+  const { t } = useTranslation();
 
   return (
     <>
       <SubmitButton
-        buttonText={t['back']}
+        buttonText={t('back')}
         onClick={getBackToPreviousStep}
         id='backButton'
         disabled={isLoading}

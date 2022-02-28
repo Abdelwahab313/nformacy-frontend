@@ -1,4 +1,6 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import classNames from 'clsx';
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core';
 import Transition from 'components/animations/Transition';
 import MeetingScheduler from './MeetingScheduler';
@@ -11,8 +13,15 @@ const MeetingTimeSelectorCalendarDialog = ({
   candidate,
 }) => {
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
+  const classes = useStyles();
   return (
     <Dialog
+    className={classNames(classes.updateCalendarContainer, {
+      [classes.updateCalendarContainerAr]: isArlang,
+    })}
       open={open}
       TransitionComponent={Transition}
       maxWidth={'lg'}
@@ -30,5 +39,14 @@ const MeetingTimeSelectorCalendarDialog = ({
     </Dialog>
   );
 };
+const useStyles = makeStyles(() => ({
+  updateCalendarContainer: {
+    display: 'flex',
+  },
+  updateCalendarContainerAr: {
+   direction: 'ltr',
+  },
+}));
+
 
 export default MeetingTimeSelectorCalendarDialog;

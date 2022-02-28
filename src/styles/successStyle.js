@@ -24,6 +24,9 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '1.00vw',
     },
   },
+  successTextAr: {
+direction: 'ltr'
+  },
   postSubmissionContainer: {
     height: '100vh',
   },

@@ -52,6 +52,9 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     flexGrow: 1,
   },
+  freelancerProfileContainerAr: {
+direction: 'ltr'
+  },
   detailsContainer: {
     alignItems: 'center',
   },
@@ -70,6 +73,9 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     marginTop: theme.spacing(1),
   },
+  formAr: {
+   direction: 'ltr',
+  },
   nestedForm: {
     display: 'flex',
     width: '100vw',
@@ -84,6 +90,7 @@ direction: 'ltr',
     marginTop: theme.spacing(3),
   },
   profileContainer: {
+    direction: 'ltr',
     marginBottom: theme.spacing(3),
   },
   dateController: {
@@ -96,6 +103,8 @@ direction: 'ltr',
     marginLeft: theme.spacing(1),
     justifyContent: 'center',
   },
+
+
   selectControl: {
     minWidth: 120,
   },
@@ -149,6 +158,11 @@ direction: 'ltr',
   error: {
     color: 'red',
     margin: theme.spacing(1),
+    textAlign: 'center'
+  },
+  errorAr: {
+    Display: 'flex',
+    direction: 'ltr',
   },
   signupLink: {
     color: white,
@@ -504,6 +518,13 @@ direction: 'ltr',
       fontSize: 13,
     },
   },
+  testingClassAr: {
+    indicatorsContainer: ()=>({  
+      left: '-45px',
+   
+    }),
+  },
+
   continueLaterBtn: {
     margin: `0 ${theme.spacing(2)}px`,
     alignSelf: 'flex-start',
@@ -547,7 +568,12 @@ direction: 'ltr',
   },
 }));
 
-export const selectStyle = {
+export const selectStyleAr = {
+
+  indicatorsContainer: () => ({
+    right: 'auto',
+    left: 0,
+  }),
   menu: (provided) => ({
     ...provided,
     zIndex: 9999,
@@ -559,7 +585,53 @@ export const selectStyle = {
     borderWidth: 1,
     borderColor: lightGrey,
     '&:hover': { color: darkBlue },
+    marginRight: 0,
   }),
+ 
+  indicatorSeparator: () => ({
+    borderLeft: 0,
+  }),
+  dropdownIndicator: () => ({
+    color: darkBlue,
+    '&:hover': { color: darkBlue },
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    marginRight: 14,
+  }),
+  placeholder: (provided) => ({
+    ...provided,
+    marginLeft: 10,
+  }),
+  input: (provided) => ({
+    ...provided,
+    height: 51,
+    display: 'flex',
+    alignItems: 'center',
+  }),
+
+
+};
+
+export const selectStyle = {
+  menu: (provided) => ({
+    ...provided,
+    zIndex: 9999,
+  }),
+  indicatorsContainer: () => ({
+    left: 'auto',
+    right: 30,
+  }),
+  control: (provided) => ({
+    ...provided,
+    borderRadius: 5,
+    borderBottom: `solid 1px ${lightGrey}`,
+    borderWidth: 1,
+    borderColor: lightGrey,
+    '&:hover': { color: darkBlue },
+    marginRight: 0,
+  }),
+ 
   indicatorSeparator: () => ({
     borderLeft: 0,
   }),

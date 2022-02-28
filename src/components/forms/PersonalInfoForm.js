@@ -1,4 +1,6 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import classNames from 'clsx';
 import PersonalInfo from './PersonalInfo';
 import Button from '@material-ui/core/Button';
 import { FormContext, useForm } from 'react-hook-form';
@@ -27,12 +29,18 @@ const PersonalInfoForm = ({ user, closeDialog }) => {
     user.current = { ...user.current, ...userData };
     closeDialog();
   };
+  const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
 
   return (
     <FormContext user={user} {...formMethods}>
       <form
         id='personalInfoForm'
-        className={classes.nestedForm}
+        className={classNames(classes.nestedForm, {
+          [classes.nestedFormAr]: isArlang,
+        })}
         noValidate
         onSubmit={formMethods.handleSubmit(onSubmitPersonalInfo)}>
         <PersonalInfo />
@@ -42,7 +50,7 @@ const PersonalInfoForm = ({ user, closeDialog }) => {
           variant='contained'
           style={saveButtonStyle()}
           color='primary'>
-          Save
+           {t('save')}
         </Button>
       </form>
     </FormContext>

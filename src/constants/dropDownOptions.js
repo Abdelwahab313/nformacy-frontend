@@ -1,18 +1,18 @@
+
 const gender = [
   { value: 'F', label: 'Female' },
   { value: 'M', label: 'Male' },
 ];
 
-const employmentStatus = [
-  { value: 'businessOwner', label: 'Business Owner' },
-  { value: 'freelancer', label: 'Freelancer' },
-  { value: 'employedByGovernment', label: 'Employed by Government' },
-  { value: 'employedByNGO', label: 'Employed by NGO' },
-  {
-    value: 'employedByPrivateOrganization',
-    label: 'Employed by Private Organisation',
+const employmentStatusTranslated = (t) => {
+  return [
+  { value: 'businessOwner', label: t('businessOwner') },
+  { value: 'freelancer', label: t('freelancer') },
+  { value: 'employedByGovernment', label: t('employedByGovernment') },
+  { value: 'employedByNGO', label: t('employedByNGO')},
+  { value: 'employedByPrivateOrganization',label: t('employedByPrivateOrganization'),
   },
-];
+];};
 
 const frequency = [
   { value: 'day', label: 'Day' },
@@ -24,16 +24,16 @@ const frequency = [
 ];
 
 const organizationalLevel = [
-  { value: 'selfEmployed', label: 'Self Employed' },
-  { value: 'notCurrentlyEmployed', label: 'Not Currently Employed' },
-  { value: 'staffMember', label: 'Staff Member' },
-  { value: 'teamLeaderSupervisor', label: 'Team Leader/Supervisor' },
-  { value: 'sectionHead', label: 'Section Head' },
-  { value: 'headOfDepartment', label: 'Head of Department' },
-  { value: 'exComMember', label: 'ExCom Member' },
-  { value: 'CEOHeadOfCompany', label: 'CEO/Head of Company' },
-  { value: 'businessOwner', label: 'Business Owner' },
-  { value: 'boardMember', label: 'Board Member' },
+  { value: 'selfEmployed', label: 'selfEmployed' },
+  { value: 'notCurrentlyEmployed', label: 'notCurrentlyEmployed' },
+  { value: 'staffMember', label: 'staffMember' },
+  { value: 'teamLeaderSupervisor', label: 'teamLeaderSupervisor' },
+  { value: 'sectionHead', label: 'sectionHead' },
+  { value: 'headOfDepartment', label: 'headOfDepartment' },
+  { value: 'exComMember', label: 'exComMember' },
+  { value: 'CEOHeadOfCompany', label: 'CEOHeadOfCompany' },
+  { value: 'businessOwner', label: 'businessOwner' },
+  { value: 'boardMember', label: 'boardMember' },
 ];
 
 const corporateOrganizationalLevel = [
@@ -236,14 +236,15 @@ const assignmentLanguage = [
   { value: 'yo', label: 'Yoruba' },
   { value: 'za', label: 'Zhuang, Chuang' },
 ];
-const assignmentTypes = [
-  { value: 'lessThanOneMonth', label: 'Less than 1 month duration' },
-  { value: 'moreThanOneMonth', label: 'More than 1 month duration' },
-  { value: 'countryOfResidence', label: 'Country of Residence' },
-  { value: 'virtualAssignments', label: 'Virtual Assignments' },
-  { value: 'openForTravel', label: 'Open for Travel' },
-  { value: 'noPreference', label: 'No Preference' },
-];
+const assignmentTypesTranslated = (t) => {
+  return [
+  { value: 'lessThanOneMonth', label: t('lessThanOneMonth') },
+  { value: 'moreThanOneMonth', label: t('moreThanOneMonth') },
+  { value: 'countryOfResidence', label: t('countryOfResidence') },
+  { value: 'virtualAssignments', label: t('virtualAssignments') },
+  { value: 'openForTravel', label: t('openForTravel')},
+  { value: 'noPreference', label: t('noPreference') },
+];};
 
 const companySizeOptions = [
   { value: 'fromOneToTen', label: '1-10 Employees' },
@@ -256,132 +257,133 @@ const companySizeOptions = [
   { value: 'moreThanTenThousands', label: '10,001+ employees' },
 ];
 
-const industries = [
+const industries = (t) => {
+  return [
   {
     value: 'artsEntertainmentRecreation',
-    label: 'Arts, Entertainment, and Recreation',
+    label: t('artsEntertainmentRecreation'),
   },
   {
     value: 'broadcasting',
-    label: 'Broadcasting',
+    label: t('broadcasting'),
   },
   {
     value: 'banking',
-    label: 'Banking',
+    label: t('banking'),
   },
   {
     value: 'collegeUniversityAdultEducation',
-    label: 'College, University, and Adult Education',
+    label: t('collegeUniversityAdultEducation'),
   },
   {
     value: 'computerElectronicsManufacturing',
-    label: 'Computer and Electronics Manufacturing',
+    label: t('computerElectronicsManufacturing'),
   },
   {
     value: 'construction',
-    label: 'Construction',
+    label: t('construction'),
   },
   {
     value: 'consulting',
-    label: 'Consulting',
+    label: t('consulting'),
   },
   {
     value: 'financeInsurance',
-    label: 'Finance and Insurance',
+    label: t('financeInsurance'),
   },
   {
     value: 'governmentPublicAdministration',
-    label: 'Government and Public Administration',
+    label: t('governmentPublicAdministration'),
   },
   {
     value: 'healthCareSocialAssistance',
-    label: 'Health Care and Social Assistance',
+    label: t('healthCareSocialAssistance'),
   },
   {
     value: 'homemaker',
-    label: 'Homemaker',
+    label: t('homemaker'),
   },
   {
     value: 'hotelFoodServices',
-    label: 'Hotel and Food Services',
+    label: t('hotelFoodServices'),
   },
   {
     value: 'informationServicesDataProcessing',
-    label: 'Information Services and Data Processing',
+    label: t('informationServicesDataProcessing'),
   },
   {
     value: 'legalServices',
-    label: 'Legal Services',
+    label: t('legalServices'),
   },
   {
     value: 'mediaCommunications',
-    label: 'Media and Communications',
+    label: t('mediaCommunications'),
   },
   {
     value: 'military',
-    label: 'Military',
+    label: t('military'),
   },
   {
     value: 'mining',
-    label: 'Mining',
+    label: t('mining'),
   },
   {
     value: 'learningDevelopmentSolutions',
-    label: 'Learning and Development Solutions',
+    label: t('learningDevelopmentSolutions'),
   },
   {
     value: 'manufacturing',
-    label: 'Manufacturing',
+    label: t('manufacturing'),
   },
   {
     value: 'primarySecondaryKEducation',
-    label: 'Primary/Secondary (K-12) Education',
+    label: t('primarySecondaryKEducation'),
   },
   {
     value: 'publishing',
-    label: 'Publishing',
+    label: t('publishing'),
   },
   {
     value: 'RealEstateRentalLeasing',
-    label: 'Real Estate, Rental and Leasing',
+    label: t('RealEstateRentalLeasing'),
   },
   {
     value: 'research',
-    label: 'Research',
+    label: t('research'),
   },
   {
     value: 'religious',
-    label: 'Religious',
+    label: t('religious'),
   },
   {
     value: 'retail',
-    label: 'Retail',
+    label: t('retail'),
   },
   {
     value: 'scientificTechnicalServices',
-    label: 'Scientific or Technical Services',
+    label: t('scientificTechnicalServices'),
   },
   {
     value: 'software',
-    label: 'Software',
+    label: t('software'),
   },
   {
     value: 'telecommunications',
-    label: 'Telecommunications',
+    label: t('telecommunications'),
   },
   {
     value: 'transportationWarehousing',
-    label: 'Transportation and Warehousing',
+    label: t(''),
   },
   {
     value: 'utilities',
-    label: 'Utilities',
+    label: t('utilities'),
   },
   {
     value: 'wholesale',
-    label: 'Wholesale',
+    label: t('wholesale'),
   },
-];
+];};
 
 const questionTypesOfAssignment = [
   { value: 'question', label: 'Question' },
@@ -398,18 +400,20 @@ const questionTypesOfAssignmentTranslated = (t) => {
   ];
 };
 
-const questionLanguages = [
-  { value: 'en', label: 'English' },
-  { value: 'ar', label: 'Arabic' },
+const questionLanguages = (t) => {
+  return [
+  { value: 'en', label: t('english') },
+  { value: 'ar', label: t('arabic')},
 ];
+};
 
 export {
   gender,
-  employmentStatus,
+  employmentStatusTranslated,
   organizationalLevel,
   corporateOrganizationalLevel,
   assignmentLanguage,
-  assignmentTypes,
+  assignmentTypesTranslated,
   questionTypesOfAssignment,
   industries,
   questionLanguages,

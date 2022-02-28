@@ -1,5 +1,7 @@
 import Education from './Education';
 import Certification from './Certification';
+import classNames from 'clsx';
+import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import { FormContext, useForm } from 'react-hook-form';
 import React, { useState } from 'react';
@@ -42,6 +44,10 @@ const EducationAndCertificationForm = ({ user, closeDialog }) => {
     };
     closeDialog();
   };
+  const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
 
   return (
     <FormContext
@@ -51,7 +57,9 @@ const EducationAndCertificationForm = ({ user, closeDialog }) => {
       setDeletedCertifications={setDeletedCertifications}>
       <form
         id='editProfileForm'
-        className={classes.nestedForm}
+        className={classNames(classes.nestedForm, {
+          [classes.nestedFormAr]: isArlang,
+        })}
         noValidate
         onSubmit={formMethods.handleSubmit(onSubmitResume)}>
         <Education/>
@@ -62,7 +70,7 @@ const EducationAndCertificationForm = ({ user, closeDialog }) => {
           variant='contained'
           color='primary'
           style={saveButtonStyle()}>
-          Save
+          {t('save')}
         </Button>
       </form>
     </FormContext>

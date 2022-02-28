@@ -1,5 +1,5 @@
 import Grid from '@material-ui/core/Grid';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import DialogContent from '@material-ui/core/DialogContent';
 import { FormContext, useForm } from 'react-hook-form';
 import Dialog from '@material-ui/core/Dialog';
@@ -8,21 +8,20 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
-import t from '../../../../locales/en/freelancerProfile.json';
 import Divider from '@material-ui/core/Divider';
-import countryList from 'react-select-country-list';
 import PersonalInfoForm from '../../../../components/forms/PersonalInfoForm';
 import Transition from '../../../../components/animations/Transition';
-import { employmentStatus } from '../../../../constants/dropDownOptions';
+import { employmentStatusTranslated } from '../../../../constants/dropDownOptions';
+import { getCountriesOptions } from '../../../../constants/countries';
 import clsx from 'clsx';
 import authManager from 'services/authManager';
 import FieldsView from './FieldsView';
 import useUserFieldsFetcher from 'hooks/useUserFieldsFetcher';
 import useFieldsFetcher from 'hooks/useFieldsFetcher';
+import { useTranslation } from 'react-i18next';
 
 const PersonalInfoSection = () => {
   const user = useRef(JSON.parse(localStorage.getItem('user')));
-  const [countries] = useState(countryList().getData());
   const [open, setOpen] = React.useState(false);
   const formMethod = useForm({
     defaultValues: { ...user.current },
@@ -43,6 +42,13 @@ const PersonalInfoSection = () => {
   };
 
   const classes = useStyles();
+  const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
+
+  const employmentStatus = employmentStatusTranslated(t);
+
   return (
     <Grid item id='personalInfo'>
       <Dialog
@@ -90,7 +96,7 @@ const PersonalInfoSection = () => {
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  {t['gender']}
+                  {t('gender')}
                 </Typography>
               </Grid>
               <Grid item xs={6}>
@@ -98,7 +104,8 @@ const PersonalInfoSection = () => {
                   id='genderValue'
                   gutterBottom
                   className={classes.fieldValueStyles}>
-                  {user.current.gender === 'M' ? 'Male' : 'Female'}
+                  {user.current.gender &&
+                    (user.current.gender === 'M' ? t('male') : t('female'))}
                 </Typography>
               </Grid>
             </Grid>
@@ -108,7 +115,7 @@ const PersonalInfoSection = () => {
                   <Typography
                     gutterBottom
                     className={classes.fieldLabelStylesDesktop}>
-                    {t['country']}
+                    {t('country')}
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>
@@ -117,7 +124,7 @@ const PersonalInfoSection = () => {
                     gutterBottom
                     className={classes.fieldValueStyles}>
                     {user.current.country &&
-                      countries?.find(
+                      getCountriesOptions(isArlang)?.find(
                         (country) => country.value === user.current.country,
                       ).label}
                   </Typography>
@@ -130,7 +137,7 @@ const PersonalInfoSection = () => {
                   <Typography
                     gutterBottom
                     className={classes.fieldLabelStylesDesktop}>
-                    {t['mobileNumber']}
+                    {t('mobileNumber')}
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>
@@ -149,7 +156,7 @@ const PersonalInfoSection = () => {
                   <Typography
                     gutterBottom
                     className={classes.fieldLabelStylesDesktop}>
-                    {t['experiencedIn']}
+                    {t('experiencedIn')}
                   </Typography>
                 </Grid>
                 <FieldsView
@@ -165,7 +172,7 @@ const PersonalInfoSection = () => {
                   <Typography
                     gutterBottom
                     className={classes.fieldLabelStylesDesktop}>
-                    {t['currentEmploymentStatus']}
+                    {t('currentEmploymentStatus')}
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>

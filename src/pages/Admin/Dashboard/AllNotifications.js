@@ -1,4 +1,6 @@
 import React from 'react';
+import classNames from 'clsx';
+import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import { useQuery } from 'react-query';
 import { fetchAllNotifications } from '../../../apis/notifications';
@@ -10,6 +12,9 @@ import { makeStyles } from '@material-ui/styles';
 
 const AllNotifications = () => {
   const classes = useStyles();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   const { isLoading, data } = useQuery(
     'allNotifications',
     fetchAllNotifications,
@@ -18,7 +23,12 @@ const AllNotifications = () => {
     return <LoadingCircle />;
   }
   return (
-    <Grid container id='allNotifications' className={classes.allNotifications}>
+    <Grid
+      container
+      id='allNotifications'
+      className={classNames(classes.allNotifications, {
+        [classes.allNotificationsAr]: isArlang,
+      })}>
       {data?.notifications?.map((notification) => (
         <NotificationCard
           notification={notification}
@@ -41,6 +51,11 @@ const WithNotification = (props) => {
 };
 
 const useStyles = makeStyles({
-  allNotifications: { margin: 50 },
+  allNotifications: {
+    margin: 50,
+  },
+  allNotificationsAr: {
+    direction: 'ltr',
+  },
 });
 export default WithNotification;

@@ -3,6 +3,8 @@ import Button from '@material-ui/core/Button';
 import { saveButtonStyle, useStyles } from '../../styles/formsStyles';
 import React, { useState } from 'react';
 import CV from './CV';
+import classNames from 'clsx';
+import { useTranslation } from 'react-i18next';
 import { updateProfile, uploadCV } from '../../apis/userAPI';
 import { useAuth } from '../../pages/auth/context/auth';
 import { updateUser } from '../../pages/auth/context/authActions';
@@ -52,12 +54,18 @@ const CVForm = ({ user, setCVLink, closeDialog }) => {
       return cvFileName;
     }
   };
+  const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   
   return (
     <FormContext setCV={setCV} {...formMethod}>
       <form
         id='editCVForm'
-        className={classes.nestedForm}
+        className={classNames(classes.nestedForm, {
+          [classes.nestedFormAr]: isArlang,
+        })}
         noValidate
         onSubmit={formMethod.handleSubmit(onSubmitCV)}>
         <CV />
@@ -68,7 +76,7 @@ const CVForm = ({ user, setCVLink, closeDialog }) => {
           variant='contained'
           color='primary'
           style={saveButtonStyle()}>
-          Save
+          {t('save')}
         </Button>
       </form>
     </FormContext>

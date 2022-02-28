@@ -126,7 +126,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       textAlign: 'center',
     },
-    textAlign: 'initial',
     direction: 'ltr',
   },
   platformBrief: {
@@ -164,6 +163,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(2),
   },
+  stepsContainerMarginAr: {
+    direction: 'ltr',
+  },
   workMainTextPadding: {
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
@@ -175,7 +177,8 @@ const useStyles = makeStyles((theme) => ({
     textAlign:'initial', 
   },
   WhyNformacydescriptionAr: {
-    textAlign:'end', 
+    display: 'flex',
+    direction: 'ltr',
   },
   MobileWorkMainTextPadding: {
     paddingTop: theme.spacing(1),
@@ -265,6 +268,9 @@ const useStyles = makeStyles((theme) => ({
     padding: [theme.spacing(1), theme.spacing(2)],
     fontWeight: 400,
     lineHeight: 1.7,
+  },
+  promiseFieldDescTxtAr: {
+  direction: 'ltr',
   },
   itemBullet: {
     minWidth: 20,

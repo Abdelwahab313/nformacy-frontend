@@ -4,8 +4,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import t from '../../../../locales/en/freelancerProfile.json';
 import Divider from '@material-ui/core/Divider';
 import { dividerStyle, useStyles } from '../../../../styles/formsStyles';
 import React, { useEffect, useRef, useState } from 'react';
@@ -62,6 +62,7 @@ const EducationAndCertificationSection = () => {
     const mergedHistory = mergeHistory();
     setResume(mergedHistory);
   }, [user.current]);
+  const { t } = useTranslation();
 
   const renderEducationItem = (education, key) => {
     return (
@@ -84,7 +85,7 @@ const EducationAndCertificationSection = () => {
             <Typography
               className={classes.sectionHeaderStyles}
               color={'primary'}>
-              {t['educationHeader']}
+              {t('educationHeader')}
             </Typography>
             <Typography className={classes.fieldLabelStylesDesktop}>
               {education.degree}
@@ -121,7 +122,7 @@ const EducationAndCertificationSection = () => {
             <Typography
               className={classes.sectionHeaderStyles}
               color={'primary'}>
-              {t['certificationHeader']}
+              {t('certificationHeader')}
             </Typography>
             <Typography className={classes.fieldLabelStylesDesktop}>
               {certification.name}
@@ -157,7 +158,7 @@ const EducationAndCertificationSection = () => {
             <Grid item xs={1} className={classes.paperSectionHeaderStyles} />
             <Grid item xs={10} className={classes.paperSectionHeaderStyles}>
               <Typography gutterBottom className={classes.sectionHeaderStyles}>
-                {t['educationAndCertificationHeader']}
+                {t('educationAndCertificationHeader')}
               </Typography>
             </Grid>
             <Grid item xs={1} className={classes.paperSectionHeaderStyles}>

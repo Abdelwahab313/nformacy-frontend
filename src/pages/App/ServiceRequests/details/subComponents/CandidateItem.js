@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'clsx';
 import SubmitButton from 'components/buttons/SubmitButton';
 import Collapse from '@material-ui/core/Collapse';
 import CustomTypography from 'components/typography/Typography';
@@ -28,6 +29,9 @@ const CandidateItem = ({
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   const isAdmin = authManager.isAdmin();
   const defaultImage = require('../../../../../assets/emptyavatar.jpg');
   const [open, setOpen] = React.useState(false);
@@ -51,7 +55,10 @@ const CandidateItem = ({
             <DefaultSummary candidate={candidate} />
           </Grid>
         </DialogContent>
-        <DialogActions>
+      
+        <DialogActions   className={classNames(classes.DialogActionsButton, {
+      [classes.DialogActionsButtonAr]: isArlang,
+    })}>
           <Button onClick={handleClose} color='primary' autoFocus>
             {t('cancel')}
           </Button>

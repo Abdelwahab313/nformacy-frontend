@@ -1,14 +1,14 @@
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import HelpIcon from '@material-ui/icons/Help';
+import { useTranslation } from 'react-i18next';
 import { Controller, useFormContext } from 'react-hook-form';
-import { assignmentLanguage, assignmentTypes } from '../../constants/dropDownOptions';
+import { assignmentLanguage, assignmentTypesTranslated } from '../../constants/dropDownOptions';
 import ErrorMessage from '../errors/ErrorMessage';
 import ReactSelect from 'react-select';
 import React, { Fragment, useEffect } from 'react';
 import { sectionContainerStyles, selectStyle, useStyles } from '../../styles/formsStyles';
 import ReactTooltip from 'react-tooltip';
-import t from '../../locales/en/freelancerProfile.json';
 import { FormGroup } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -18,9 +18,10 @@ const AssignmentPreferences = () => {
   useEffect(() => {
     register({ name: 'typesOfAssignments' });
   }, [register]);
+  const { t } = useTranslation();
+  const assignmentTypes = assignmentTypesTranslated(t);
   const assignmentTypesValue = watch('typesOfAssignments') || [];
   const classes = useStyles();
-
   function handleAssignmentTypesChange(assignmentType) {
     let updatedTypesOfAssignment;
     if (!assignmentTypesValue.includes(assignmentType)) {
@@ -50,11 +51,11 @@ const AssignmentPreferences = () => {
         <Container maxWidth={false} className={classes.formControl}>
           <div className={classes.formHeader}>
             <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-              {t['assignmentLanguage']}
+              {t('assignmentLanguage')}
             </Typography>
             <HelpIcon
               className={classes.formHeaderIcon}
-              data-tip={t['assignmentLanguageHint']}
+              data-tip={t('assignmentLanguageHint')}
               data-multiline={true}
               color='primary'
               fontSize='small'
@@ -63,7 +64,7 @@ const AssignmentPreferences = () => {
           <Controller
             name='languageOfAssignments'
             id='assignmentLanguage'
-            rules={{ required: t['requiredMessage'] }}
+            rules={{ required: t('requiredMessage') }}
             control={control}
             as={
               <ReactSelect
@@ -91,11 +92,11 @@ const AssignmentPreferences = () => {
         <Container maxWidth={false} className={classes.formControl}>
           <div className={classes.formHeader}>
             <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-              {t['typesOfAssignments']}
+              {t('typesOfAssignments')}
             </Typography>
             <HelpIcon
               className={classes.formHeaderIcon}
-              data-tip={t['typesOfAssignmentsHint']}
+              data-tip={t('typesOfAssignmentsHint')}
               color='primary'
               fontSize='small'
             />

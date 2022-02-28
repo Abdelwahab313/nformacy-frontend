@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     color: grey,
   },
+  flexClassAr: {
+    direction: 'ltr',
+  },
   dateClass: {
    marginRight: '7px',
   },

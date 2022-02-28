@@ -38,12 +38,13 @@ const Profile = () => {
       <ReactTooltip globalEventOff={'click'} />
       <CssBaseline />
       <Grid
+      
         container
         justify={'center'}
         alignContent={'center'}
         className={classes.profileContainer}
         spacing={5}>
-        <Grid item xs={12} sm={8} lg={8}>
+        <Grid  item xs={12} sm={8} lg={8}>
           <BreadcrumbsCustomSeparator pageName={t('profile')} />
           {PersonalInfo()}
           {!isClient && (

@@ -43,6 +43,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
     margin: '20px 25px',
   },
+  learnMoreAr: {
+
+    justifyContent: 'initial',
+  
+  },
 }));
 
 export default useStyles;

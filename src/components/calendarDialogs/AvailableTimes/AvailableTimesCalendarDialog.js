@@ -7,13 +7,14 @@ import {
   Grid,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import classNames from 'clsx';
 import CalendarView from '../../calendar/CalendarView';
 import Transition from '../../animations/Transition';
 import SelectTimeZone from '../../inputs/SelectTimeZone';
 import Box from '@material-ui/core/Box';
+import { useTranslation } from 'react-i18next';
 import AvailableTimeRangeForm from './AvailableTimesRangeForm';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
-import t from '../../../locales/en/freelancerProfile.json';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -172,17 +173,24 @@ const AvailableTimesCalendarDialog = ({
   const handleOnBookNowClicked = () => {
     setBookFormVisible(true);
   };
+  const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
 
   return (
     <Dialog
       open={open}
       TransitionComponent={Transition}
       maxWidth={'lg'}
+      className={classNames(classes.updateCalendarContainer, {
+        [classes.updateCalendarContainerAr]: isArlang,
+      })}
       id={'update-calendar-dialog'}>
       <DialogTitle id='dialog-title'>
         <Grid container justify={'space-between'}>
           <Grid item xs={11}>
-            <Typography variant={'h6'}>{t['updateCalendarTitle']}</Typography>
+            <Typography variant={'h6'}>{t('updateCalendarTitle')}</Typography>
             <Button
               id={'addAvailableTime'}
               variant='contained'
@@ -190,15 +198,15 @@ const AvailableTimesCalendarDialog = ({
               onClick={handleOnBookNowClicked}
               className={classes.timeOption}
               startIcon={<AccessAlarmIcon />}>
-              Add available time
+                {t('AddAvailableTime')}
             </Button>
             {timeSlotVisible && (
               <Button
                 variant='contained'
                 color='primary'
                 className={classes.timeOption}
-                startIcon={<Icon>add</Icon>}>
-                Add time slot
+                startIcon={<Icon>{t('add')}</Icon>}>
+              {t('addTimeSLot')}
               </Button>
             )}
           </Grid>
@@ -259,7 +267,7 @@ const AvailableTimesCalendarDialog = ({
                   className={classes.submitAvailabilityBtn}
                   onClick={() => onSubmitCallback()}
                   color='primary'
-                  buttonText={'confirm availability'}
+                  buttonText={t('confirmAvailability')}
                 />
               </Grid>
             )}
@@ -282,6 +290,12 @@ const useStyles = makeStyles((theme) => ({
   timeOption: {
     marginTop: theme.spacing(1),
     marginRight: theme.spacing(1),
+  },
+  updateCalendarContainer: {
+    display: 'flex',
+  },
+  updateCalendarContainerAr: {
+   direction: 'ltr',
   },
   margin: {
     margin: theme.spacing(1),

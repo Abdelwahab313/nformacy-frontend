@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Box, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +18,9 @@ import JoinJitsiMeetingButton from 'components/buttons/JoinJitsiMeetingButton';
 const MeetingDetailsSection = ({ meeting }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   const location = useLocation();
   const serviceId = location?.state?.serviceId;
   const meetingId = meeting.id;
@@ -67,8 +71,12 @@ const MeetingDetailsSection = ({ meeting }) => {
     }
   };
   return (
-    <Card className={classes.noShadow}>
-      <CardHeader color='primary'>
+    <Card>
+      <CardHeader
+        className={classNames(classes.container, {
+          [classes.containerAr]: isArlang,
+        })}
+        color='primary'>
         <Typography component={'h4'} id={'confirmedCandidate'}>
           {handleMeetingHeader()}
         </Typography>
@@ -137,8 +145,23 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(2),
     },
   },
-  joinButtonContainer: {
-    padding: 16,
+  container: {
+    display: 'flex',
+  },
+  containerAr: {
+    direction: 'ltr',
+  },
+  joinJitsiMeetingButton: {
+    width: '10rem',
+    height: '3rem',
+    marginBottom: theme.spacing(1),
+  },
+  joinZoomMeetingButton: {
+    width: '10rem',
+    height: '3rem',
+  },
+  joinButtonsContainer: {
+    padding: theme.spacing(3),
   },
 }));
 

@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { useForm } from 'react-hook-form';
+import classNames from 'clsx';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStyles } from '../../styles/formsStyles';
 import { signup } from '../../apis/userAPI';
@@ -31,6 +32,9 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [registerSucceeded, setRegisterSucceeded] = useState(false);
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   const classes = useStyles();
   const history = useHistory();
 
@@ -192,7 +196,7 @@ const Register = () => {
               onChange={validateRepeat}
             />
             {errors.password && (
-              <span className={classes.error}>{t(errors.password.message)}</span>
+              <span  className={classes.error}>{t(errors.password.message)}</span>
             )}
 
             <TextField
@@ -210,7 +214,9 @@ const Register = () => {
               error={!!errors.confirmPassword}
             />
             {errors.confirmPassword && (
-              <span className={classes.error}>
+              <span className={classNames(classes.error, {
+                [classes.errorAr]: isArlang,
+              })}>
                 {t(errors.confirmPassword.message)}
               </span>
             )}

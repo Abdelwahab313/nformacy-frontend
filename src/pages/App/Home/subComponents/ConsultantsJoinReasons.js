@@ -2,11 +2,16 @@ import React from 'react';
 import { Box, Grid } from '@material-ui/core';
 import useStyles from '../styles/HomePageStyles';
 import { useTranslation } from 'react-i18next';
+import classNames from 'clsx';
+
 import CustomTypography from 'components/typography/Typography';
 
 const ConsultantsJoinReasons = () => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   const Reasons = (t) => [
     {
       title: t('reasonOne'),
@@ -31,10 +36,11 @@ const ConsultantsJoinReasons = () => {
   ];
 
   return (
-    <Grid container justify='space-between'>
+    <Grid container direction={ isArlang? 'row-reverse':'initial'} justify='space-between' >
       {Reasons(t).map((reason) => (
         <Grid item xs={12} md={6}>
-          <Box className={classes.reasonDetailsBox}>
+                 <Box className={classes.reasonDetailsBox}>
+
             <MobileReasonItem reason={reason} />
             <ReasonItem reason={reason} />
           </Box>
@@ -46,10 +52,16 @@ const ConsultantsJoinReasons = () => {
 
 const MobileReasonItem = ({ reason }) => {
   const classes = useStyles();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   return (
     <Grid
       container
-      className={[classes.mobileServicePadding, classes.mobileVisible]}>
+      className={classNames(classes.mobileVisible, {
+        [classes.mobileVisibleAr]: isArlang,
+      },[classes.mobileServicePadding])}
+     >
       <Grid item xs={8}>
         <Box padding={2}>
           <CustomTypography
@@ -73,8 +85,15 @@ const MobileReasonItem = ({ reason }) => {
 
 const ReasonItem = ({ reason }) => {
   const classes = useStyles();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
   return (
-    <Grid container className={classes.flexDesktopVisible}>
+    <Grid container 
+     className={classNames(classes.flexDesktopVisible, {
+      [classes.flexDesktopVisibleAr]: isArlang,
+    })}
+    >
       <Grid item xs={8} md={9}>
         <Box padding={5}>
           <CustomTypography

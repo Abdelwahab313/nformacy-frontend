@@ -173,7 +173,7 @@ const adminRoutes = [
   },
   {
     path: RoutesPaths.Admin.ConsultantVerificationsList,
-    name: 'Consultant Verification',
+    name: 'ConsultantVerification',
     icon: BusinessCenterIcon,
     component: ConsultantVerificationsList,
     hasDashboardLink: AdminGuardian.showConsultantsVerificationsPanel(),
@@ -187,7 +187,7 @@ const adminRoutes = [
   },
   {
     path: RoutesPaths.Admin.ConsultantVerificationDetails,
-    name: 'Consultant View',
+    name: 'ConsultantView',
     icon: BusinessCenterIcon,
     component: ConsultantMeetingDetails,
     hasDashboardLink: false,

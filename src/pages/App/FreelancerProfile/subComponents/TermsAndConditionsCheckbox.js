@@ -7,6 +7,7 @@ import {
   DialogContent,
   Button,
 } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import SubmitButton from 'components/buttons/SubmitButton';
 import Transition from 'components/animations/Transition';
@@ -25,6 +26,7 @@ const TermsAndConditionsCheckbox = ({ isTermsChecked, setIsTermsChecked }) => {
   const onTermsChecked = () => {
     setIsTermsChecked(!isTermsChecked);
   };
+  const { t } = useTranslation();
 
   return (
     <>
@@ -41,7 +43,7 @@ const TermsAndConditionsCheckbox = ({ isTermsChecked, setIsTermsChecked }) => {
           <CustomTypography
             className={classes.termsLinkColor}
             onClick={handleClickOpen}>
-            I agree with the terms and conditions
+           {t('agreeToTermsAndConditions')}
           </CustomTypography>
         }
       />
@@ -55,11 +57,11 @@ const TermsAndConditionsCheckbox = ({ isTermsChecked, setIsTermsChecked }) => {
           <Grid container>
             <Grid item md={12}>
               <CustomTypography fontWeight='fontWeightBold' variant='h5'>
-                Terms and Conditions
+                {t('termsAndConditions')}
               </CustomTypography>
             </Grid>
             <Grid item md={12} className={classes.comingSoon}>
-              Coming Soon!
+              {t('comingSoon')}
             </Grid>
             <Grid item md={6}>
               <SubmitButton onClick={handleClose} buttonText='Agree' />
@@ -69,7 +71,7 @@ const TermsAndConditionsCheckbox = ({ isTermsChecked, setIsTermsChecked }) => {
                 onClick={handleClose}
                 variant='contained'
                 className={classes.cancelConditionsBtn}>
-                Cancel
+                {t('cancel')}
               </Button>
             </Grid>
           </Grid>

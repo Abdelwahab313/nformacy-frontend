@@ -1,12 +1,16 @@
 import { Box, Grid } from '@material-ui/core';
 import CustomTypography from 'components/typography/Typography';
 import React from 'react';
+import classNames from 'clsx';
 import { useTranslation } from 'react-i18next';
 import useStyles from './styles/LandingPageStyles';
 
 const HowWeWorkSection = () => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
 
   return (
     <Grid
@@ -26,8 +30,10 @@ const HowWeWorkSection = () => {
             {t('howWeWorkDesc')}
           </CustomTypography>
         </Box>
-      </Grid>
-      <Grid item xs={12} className={classes.stepsContainerMargin}>
+      </Grid> 
+      <Grid item xs={12}className={classNames(classes.stepsContainerMargin, {
+            [classes.stepsContainerMarginAr]: isArlang,
+          })}>
         <Grid container direction='row' justify='space-between'>
           {/* sign_up */}
           <Grid item md={2}>

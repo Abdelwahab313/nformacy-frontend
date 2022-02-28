@@ -39,7 +39,11 @@ const ShowMoreComponent = ({ withTxt }) => {
 
   return (
     <Box>
-      {withTxt ? <MoreTxt /> : <Box className={classes.learnMore}> {t('showMore')}<ArrowForward className={classNames(classes.noTxtIcon, {
+      {withTxt ? <MoreTxt /> : <Box 
+       className={classNames(classes.learnMore, {
+        [classes.learnMoreAr]: isArlang,
+      })}
+     > {t('showMore')}<ArrowForward className={classNames(classes.noTxtIcon, {
       [classes.noTxtIconAr]: isArlang,
     })} /></Box>}
 

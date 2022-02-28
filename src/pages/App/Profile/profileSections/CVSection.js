@@ -1,11 +1,11 @@
 import { dividerStyle, useStyles } from '../../../../styles/formsStyles';
 import Grid from '@material-ui/core/Grid';
+import { useTranslation } from 'react-i18next';
 import Dialog from '@material-ui/core/Dialog';
 import Transition from '../../../../components/animations/Transition';
 import DialogContent from '@material-ui/core/DialogContent';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import t from '../../../../locales/en/freelancerProfile.json';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Divider from '@material-ui/core/Divider';
@@ -25,7 +25,7 @@ const CVSection = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
+  const { t } = useTranslation();
   const classes = useStyles();
   return (
     <Grid item id='cvSection'>
@@ -50,7 +50,7 @@ const CVSection = () => {
           <Grid item xs={1} className={classes.paperSectionHeaderStyles} />
           <Grid item xs={10} className={classes.paperSectionHeaderStyles}>
             <Typography gutterBottom className={classes.sectionHeaderStyles}>
-              {t['CV']}
+              {t('CV')}
             </Typography>
           </Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
@@ -68,10 +68,10 @@ const CVSection = () => {
           <Grid item>
             {!!cvLink ? (
               <Link id='cvLink' target='_blank' href={cvLink}>
-                {t['viewCV']}
+                {t('viewCV')}
               </Link>
             ) : (
-              <CustomTypography variant={'body1'}>{t['noCv']}</CustomTypography>
+              <CustomTypography variant={'body1'}>{t('noCv')}</CustomTypography>
             )}
           </Grid>
         </Grid>

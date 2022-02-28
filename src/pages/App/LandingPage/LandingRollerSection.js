@@ -101,7 +101,9 @@ const LandingRollerSection = () => {
         <CustomTypography
           variant='h4'
           fontWeight='bold'
-          className={classes.subTextMargin}>
+          className={classNames(classes.subTextMargin, {
+            [classes.subTextMarginAr]: isArlang,
+          })}>
           {t('landingPlatformBrief')}
         </CustomTypography>
         <SubmitButton

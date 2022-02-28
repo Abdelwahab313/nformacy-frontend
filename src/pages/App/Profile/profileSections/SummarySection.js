@@ -1,10 +1,10 @@
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
+import { useTranslation } from 'react-i18next';
 import Transition from '../../../../components/animations/Transition';
 import DialogContent from '@material-ui/core/DialogContent';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import t from '../../../../locales/en/freelancerProfile.json';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Divider from '@material-ui/core/Divider';
@@ -23,6 +23,7 @@ const SummarySection = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const { t } = useTranslation();
 
   const classes = useStyles();
   return (
@@ -44,7 +45,7 @@ const SummarySection = () => {
           <Grid item xs={1} className={classes.paperSectionHeaderStyles} />
           <Grid item xs={10} className={classes.paperSectionHeaderStyles}>
             <Typography gutterBottom className={classes.sectionHeaderStyles}>
-              {t['summary']}
+              {t('summary')}
             </Typography>
           </Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
@@ -64,7 +65,7 @@ const SummarySection = () => {
           <Grid item xs={12}>
             <Grid id='summaryValue' className={classes.summaryValueStyles}>
               <ShowMore>
-                {user.current.summary || 'No summary to display'}
+                {user.current.summary || t('noSummaryToDisplay')}
               </ShowMore>
             </Grid>
           </Grid>

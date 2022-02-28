@@ -7,9 +7,11 @@ import React from 'react';
 import {
   useStyles,
   selectStyle,
+  selectStyleAr,
   sectionContainerStyles,
   dividerStyle,
 } from '../../styles/formsStyles';
+import { useTranslation } from 'react-i18next';
 import ReactTooltip from 'react-tooltip';
 import t from '../../locales/en/freelancerProfile.json';
 import { FormControl } from '@material-ui/core';
@@ -20,6 +22,9 @@ import HelpIcon from '@material-ui/icons/Help';
 const ClientWorkExperience = () => {
   const classes = useStyles();
   const { control, user } = useFormContext();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
 
   return (
     <Container style={sectionContainerStyles}>
@@ -55,7 +60,7 @@ const ClientWorkExperience = () => {
                 name='organizationLevel'
                 placeholder={t['selectYourOrganizationalLevel']}
                 SelectProps={{
-                  styles: selectStyle,
+                  styles: isArlang ? selectStyleAr : selectStyle ,
                 }}
                 options={organizationalLevel}
               />

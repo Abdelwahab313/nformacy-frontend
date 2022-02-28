@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import {
-  useStyles, selectStyle, sectionContainerStyles
+  useStyles, selectStyle, sectionContainerStyles, selectStyleAr
 } from '../../styles/formsStyles';
 import { useFormContext } from 'react-hook-form';
 import HelpIcon from '@material-ui/icons/Help';
@@ -19,6 +19,16 @@ const ClientWorkStatusDialog = () => {
   const classes = useStyles();
   const { control, user } = useFormContext();
   const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
+  const organizationalLevelOptions = organizationalLevel.map(organizationalLevel => {
+    const translatedValue = t(organizationalLevel.label);
+    return {
+      label: translatedValue,
+      value: organizationalLevel.value
+    };
+  });
   return (
     <Container style={sectionContainerStyles}>
       <ReactTooltip globalEventOff={'click'} />
@@ -53,9 +63,10 @@ const ClientWorkStatusDialog = () => {
                 name='organizationLevel'
                 placeholder={t('selectYourOrganizationalLevel')}
                 SelectProps={{
-                  styles: selectStyle,
+                  styles: isArlang ? selectStyleAr : selectStyle ,
                 }}
-                options={organizationalLevel}
+
+                options={organizationalLevelOptions} 
               />
             }
           />

@@ -1,5 +1,6 @@
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
+import { useTranslation } from 'react-i18next';
 import DialogContent from '@material-ui/core/DialogContent';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
@@ -8,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { dividerStyle, useStyles } from 'styles/formsStyles';
 import React, { useRef } from 'react';
-import t from 'locales/en/freelancerProfile.json';
 import FieldsOfSpecializationForm from 'components/forms/FieldsOfSpecializationForm';
 import Transition from 'components/animations/Transition';
 import useFieldsFetcher from 'hooks/useFieldsFetcher';
@@ -33,6 +33,7 @@ const FieldsOfSpecializationSection = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const { t } = useTranslation();
 
   return (
     <Grid item id='fieldsOfSpecialization'>
@@ -58,7 +59,7 @@ const FieldsOfSpecializationSection = () => {
           <Grid item xs={1} className={classes.paperSectionHeaderStyles} />
           <Grid item xs={10} className={classes.paperSectionHeaderStyles}>
             <Typography gutterBottom className={classes.sectionHeaderStyles}>
-              {t['fieldsOfSpecialization']}
+              {t('fieldsOfSpecialization')}
             </Typography>
           </Grid>
           <Grid item xs={1} className={classes.paperSectionHeaderStyles}>
@@ -87,7 +88,7 @@ const FieldsOfSpecializationSection = () => {
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  {t['industryOfExperience']}
+                  {t('industryOfExperience')}
                 </Typography>
               </Grid>
               <Grid item xs={6}>
@@ -107,7 +108,7 @@ const FieldsOfSpecializationSection = () => {
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  {t['experiencedIn']}
+                  {t('experiencedIn')}
                 </Typography>
               </Grid>
               <FieldsView
@@ -121,7 +122,7 @@ const FieldsOfSpecializationSection = () => {
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  {t['assignmentLanguage']}
+                  {t('assignmentLanguage')}
                 </Typography>
               </Grid>
               <Grid item xs={6}>
@@ -141,7 +142,7 @@ const FieldsOfSpecializationSection = () => {
                 <Typography
                   gutterBottom
                   className={classes.fieldLabelStylesDesktop}>
-                  {t['typesOfAssignments']}
+                  {t('typesOfAssignments')}
                 </Typography>
               </Grid>
               <Grid item xs={6}>

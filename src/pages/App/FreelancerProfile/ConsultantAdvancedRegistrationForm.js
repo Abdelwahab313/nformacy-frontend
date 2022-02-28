@@ -6,13 +6,14 @@ import {
   nextButtonStyles,
 } from '../../../styles/formsStyles';
 import Hidden from '@material-ui/core/Hidden';
+import { useTranslation } from 'react-i18next';
+import classNames from 'clsx';
 import StepsIndicator from './subComponents/StepsIndicator';
 import ConsultantPartTwoStepOne from './subComponents/ConsultantPartTwoStepOne';
 import { FormContext, useForm } from 'react-hook-form';
 import authManager from 'services/authManager';
 import DoneIcon from '@material-ui/icons/Done';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import t from 'locales/en/freelancerProfile.json';
 
 import { submitFullProfile, uploadCV, updateProfile } from 'apis/userAPI';
 import { updateUser } from 'pages/auth/context/authActions';
@@ -40,6 +41,10 @@ const ConsultantAdvancedRegistrationForm = () => {
   const [cv, setCV] = useState();
   const history = useHistory();
   const [isTermsChecked, setIsTermsChecked] = useState(false);
+  const { t } = useTranslation();
+  const { i18n } = useTranslation('system');
+  const lang = i18n.language;
+  const isArlang = lang === 'ar';
 
   const consultantStepsFields = [
     [],
@@ -213,7 +218,11 @@ const ConsultantAdvancedRegistrationForm = () => {
   }
 
   return (
-    <div className={classes.freelancerProfileContainer}>
+    <div 
+    className={classNames(classes.freelancerProfileContainer, {
+      [classes.freelancerProfileContainerAr]: isArlang,
+    })}
+    >
       <Hidden smDown>
         <div style={stepIndicatorStyles.container}>
           <StepsIndicator user={user} activeStep={activeStep} />
@@ -261,7 +270,7 @@ const ConsultantAdvancedRegistrationForm = () => {
           )}
           <SubmitButton
             id='continueLater'
-            buttonText='complete later'
+            buttonText={t('completeLater')}
             color='secondary'
             onClick={onClickSaveLater}
             className={classes.continueLaterBtn}
@@ -269,7 +278,7 @@ const ConsultantAdvancedRegistrationForm = () => {
 
           {!!isFinalStep ? (
             <SubmitButton
-              buttonText={t['submit']}
+              buttonText={t('submit')}
               id='submitButton'
               type='submit'
               disabled={isSubmitDisabled}
@@ -280,7 +289,7 @@ const ConsultantAdvancedRegistrationForm = () => {
             />
           ) : (
             <SubmitButton
-              buttonText={t['next']}
+              buttonText={t('next')}
               id='nextButton'
               disabled={isGoNextDisabled}
               onClick={proceedToNextStep}

@@ -26,7 +26,7 @@ const MentorCard = ({ serviceDetails }) => {
         onCandidateClick={() => {
           setShowCalendar(true);
         }}
-        buttonText={showActionButton && t('update availability')}
+        buttonText={showActionButton && t('updateAvailability')}
       />
       <SubmitCalendarAvailabilityForMeetingDialog
         open={showCalendar}

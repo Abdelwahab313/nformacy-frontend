@@ -82,7 +82,7 @@ export const Pointing = () => {
               <TableBody>
                 {points.length === 0 ? (
                   <TableCell colspan='8' className={classes.noRecords}>
-                    Sorry, no matching records found
+                     {t('noMatchingRecord')}
                   </TableCell>
                 ) : (
                     points.map((dataRow) => (

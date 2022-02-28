@@ -36,6 +36,9 @@ const headerStyle = () => ({
   flex: {
     flex: 1
   },
+  adminBreadcrumbsContainer: {
+    margin: '-10px 45px'
+  },
   title: {
     ...defaultFont,
     letterSpacing: "unset",

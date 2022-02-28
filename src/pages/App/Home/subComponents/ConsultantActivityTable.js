@@ -89,7 +89,7 @@ const ConsultantActivityTable = () => {
             <TableBody>
               {parsedActivitiesToTable.length === 0 ? (
                 <TableCell colspan='8' className={classes.noRecords}>
-                  Sorry, no matching records found
+                   {t('noMatchingRecord')}
                 </TableCell>
               ) : (
                 parsedActivitiesToTable.map((dataRow) => (

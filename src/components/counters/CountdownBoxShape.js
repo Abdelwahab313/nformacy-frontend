@@ -1,15 +1,18 @@
 import { Grid, Typography } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import React, { Fragment } from 'react';
 import TimerBoxSection from './TimerBoxSection';
 import { useStyles } from 'styles/TimerBoxSectionStyles';
 
 function CountdownBoxShape({ days, hours, minutes, completed, translation }) {
   const classes = useStyles();
+  const { t } = useTranslation();
+
 
   return (
     <Fragment>
       {completed ? (
-        <Typography className={classes.closedQuestion}>Closed</Typography>
+        <Typography className={classes.closedQuestion}>{t('closed')}</Typography>
       ) : (
         <Grid container>
           <TimerBoxSection

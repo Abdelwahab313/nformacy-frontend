@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
   option: {
@@ -44,6 +45,7 @@ const SelectTimeZone = ({ onChange, defaultTimezoneName, ...rest }) => {
   }, [options, defaultTimezoneName]);
 
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Autocomplete
@@ -60,7 +62,7 @@ const SelectTimeZone = ({ onChange, defaultTimezoneName, ...rest }) => {
       renderInput={(params) => (
         <TextField
           {...params}
-          label='TimeZone'
+          label={t('TimeZone')}
           variant='outlined'
           inputProps={{
             ...params.inputProps,

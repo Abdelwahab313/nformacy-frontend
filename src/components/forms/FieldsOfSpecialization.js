@@ -1,6 +1,7 @@
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import { useTranslation } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
 import FieldsOfExperience from './FieldsOfExpereience';
 import HelpIcon from '@material-ui/icons/Help';
@@ -16,11 +17,11 @@ import {
   useStyles,
 } from '../../styles/formsStyles';
 import ReactTooltip from 'react-tooltip';
-import t from '../../locales/en/freelancerProfile.json';
 
 function FieldsOfSpecialization() {
   const { errors, control, user } = useFormContext();
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Container style={sectionContainerStyles}>
@@ -30,7 +31,7 @@ function FieldsOfSpecialization() {
             id={'fieldsOfSpecializationTitle'}
             gutterBottom
             className={classes.sectionHeaderStyles}>
-            {t['fieldsOfSpecialization']}
+            {t('fieldsOfSpecialization')}
           </Typography>
         </Grid>
       </Grid>
@@ -40,11 +41,11 @@ function FieldsOfSpecialization() {
       <Container maxWidth={false} className={classes.formControl}>
         <div className={classes.formHeader}>
           <Typography gutterBottom className={classes.fieldLabelStylesDesktop}>
-            {t['industryOfExperience']}
+            {t('industryOfExperience')}
           </Typography>
           <HelpIcon
             className={classes.formHeaderIcon}
-            data-tip={t['industryOfExperienceHint']}
+            data-tip={t('industryOfExperienceHint')}
             color='primary'
             fontSize='small'
           />
@@ -52,14 +53,14 @@ function FieldsOfSpecialization() {
         <Controller
           name='industriesOfExperience'
           id='industriesOfExperience'
-          rules={{ required: t['requiredMessage'] }}
+          rules={{ required: t('requiredMessage') }}
           control={control}
           as={
             <CreatableSelect
               defaultValue={
                 !!user.current.industriesOfExperience
                   ? user.current.industriesOfExperience.map((userIndustry) => {
-                      return industries.find(
+                      return industries(t).find(
                         (industry) => userIndustry === industry.value,
                       );
                     })
@@ -67,7 +68,7 @@ function FieldsOfSpecialization() {
               }
               styles={selectStyle}
               isMulti
-              options={industries}
+              options={industries(t)}
             />
           }
         />
