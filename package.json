@@ -24,7 +24,7 @@
     "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\"",
     "format:nosave": "prettier \"**/*.+(js|jsx|json|css|md)\"",
     "eject": "react-scripts eject",
-    "vercel-build": "REACT_APP_ENV=staging react-scripts build"
+    "vercel-build": "NODE_OPTIONS='--openssl-legacy-provider' REACT_APP_ENV=staging react-scripts build"
   },
   "dependencies": {
     "@babel/runtime": "^7.7.2",
